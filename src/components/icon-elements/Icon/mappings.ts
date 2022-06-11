@@ -25,6 +25,11 @@ export const proportinsMapping: {[size: string]: IconElementProporions} = {
         paddingY: 'py-2',
         iconSize: 'w-7 h-7',
     },
+    xl: {
+        paddingX: 'px-2.5',
+        paddingY: 'py-2.5',
+        iconSize: 'w-9 h-9',
+    },
 };
 
 export type IconElementShapeTypes = {
