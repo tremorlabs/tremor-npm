@@ -16,8 +16,8 @@ const AccordionList = ({
                     return (
                         <>
                             { React.cloneElement(child, {
-                                borderClassNames: `border-t-2 border-l-2 border-r-2 border-b border-gray-300
-                                                   rounded-t-md`
+                                borderClassNames: `border-t border-l border-r border-b
+                                                   rounded-t-lg`
                             }) }
                         </>
                     );
@@ -25,15 +25,14 @@ const AccordionList = ({
                 if (idx === numChildren - 1) {
                     return (
                         <>
-                            { React.cloneElement(child, { borderClassNames: `border-b-2 border-l-2 border-r-2 border-t
-                                                                             border-gray-300 rounded-b-md` }) }
+                            { React.cloneElement(child, { borderClassNames: `border-b border-l border-r 
+                                                                             rounded-b-lg` }) }
                         </>
                     );
                 }
                 return (
                     <>
-                        { React.cloneElement(child, { borderClassNames: `border-b border-l-2 border-r-2 border-t
-                                                                         border-gray-300` }) }
+                        { React.cloneElement(child, { borderClassNames: `border-b border-l border-r` }) }
                     </>
                 );
             })}

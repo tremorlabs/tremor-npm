@@ -12,7 +12,7 @@ export interface AccordionProps extends BaseComponentProps {
 
 const Accordion = ({
     expanded = false,
-    borderClassNames = 'border-2 border-gray-300 rounded-md',
+    borderClassNames = 'border rounded-lg',
     marginTop,
     children
 }: AccordionProps) => {
