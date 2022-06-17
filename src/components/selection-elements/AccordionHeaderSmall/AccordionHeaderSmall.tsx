@@ -9,13 +9,13 @@ export interface AccordionHeaderProps {
     children: React.ReactNode;
 }
 
-const AccordionHeader = ({
+const AccordionHeaderSmall = ({
     isExpanded,
     setExpanded,
     children
 }: AccordionHeaderProps) => {
     return(
-        <div className="w-full flex items-center justify-between px-4 py-3">
+        <div className="w-full flex items-center justify-between text-sm px-3 py-2">
             <div className="w-[95%]">
                 { children }
             </div>
@@ -23,11 +23,11 @@ const AccordionHeader = ({
                 className="w-10 flex justify-end"
                 onClick={ () => setExpanded!(!isExpanded) }>
                 { isExpanded
-                    ? <ArrowUpSLineIcon className="text-gray-400 h-6 w-6"/>
-                    : <ArrowDownSLineIcon className="text-gray-400 h-6 w-6"/> }
+                    ? <ArrowUpSLineIcon className="text-gray-400 h-5 w-5"/>
+                    : <ArrowDownSLineIcon className="text-gray-400 h-5 w-5"/> }
             </button>
         </div>
     );
 };
 
-export default AccordionHeader;
+export default AccordionHeaderSmall;

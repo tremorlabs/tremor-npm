@@ -2,49 +2,62 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import Accordion from 'components/selection-elements/Accordion/Accordion';
-import AccordionBody from 'components/selection-elements/AccordionBody/AccordionBody';
-import AccordionHeader from 'components/selection-elements/AccordionHeader/AccordionHeader';
-import AccordionList from 'components/selection-elements/AccordionList/AccordionList';
+import AccordionSmall from 'components/selection-elements/AccordionSmall/AccordionSmall';
+import AccordionBodySmall from 'components/selection-elements/AccordionBodySmall/AccordionBodySmall';
+import AccordionHeaderSmall from 'components/selection-elements/AccordionHeaderSmall/AccordionHeaderSmall';
+import AccordionListSmall from 'components/selection-elements/AccordionListSmall/AccordionListSmall';
 import Text from 'components/text-elements/Text';
 import Metric from 'components/text-elements/Metric';
 import Card from 'components/layout-elements/Card/Card';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-    title: 'Tremor/SelectionElements/AccordionList',
-    component: AccordionList,
-} as ComponentMeta<typeof AccordionList>;
+    title: 'Tremor/SelectionElements/AccordionListSmall',
+    component: AccordionListSmall,
+} as ComponentMeta<typeof AccordionListSmall>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof AccordionList> = (args) => (
+const Template: ComponentStory<typeof AccordionListSmall> = (args) => (
     <Card maxWidth='max-w-md'>
         <Metric value='$ 45.345' name='Sales'/>
+        
         <div className='mt-5' />
-        <AccordionList>
-            <Accordion>
-                <AccordionHeader>
+        <AccordionListSmall>
+            <AccordionSmall>
+                <AccordionHeaderSmall>
                         What's the best thing about Alchy?
-                </AccordionHeader>
-                <AccordionBody>
+                </AccordionHeaderSmall>
+                <AccordionBodySmall>
                     <Text>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore
                     fuga aliquam nostrum quod porro. Delectus quia facere id sequi expedita natus.
                     </Text>
-                </AccordionBody>
-            </Accordion>
-            <Accordion>
-                <AccordionHeader>
+                </AccordionBodySmall>
+            </AccordionSmall>
+            <AccordionSmall>
+                <AccordionHeaderSmall>
                     What's the best thing about Vienna?
-                </AccordionHeader>
-                <AccordionBody>
+                </AccordionHeaderSmall>
+                <AccordionBodySmall>
                     <Text>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore
                     fuga aliquam nostrum quod porro. Delectus quia facere id sequi expedita natus.
                     </Text>
-                </AccordionBody>
-            </Accordion>
-        </AccordionList>
+                </AccordionBodySmall>
+            </AccordionSmall>
+            <AccordionSmall>
+                <AccordionHeaderSmall>
+                    What's the best thing about Lena?
+                </AccordionHeaderSmall>
+                <AccordionBodySmall>
+                    <Text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore
+                    fuga aliquam nostrum quod porro. Delectus quia facere id sequi expedita natus.
+                    </Text>
+                </AccordionBodySmall>
+            </AccordionSmall>
+        </AccordionListSmall>
+
     </Card>
 );
   
