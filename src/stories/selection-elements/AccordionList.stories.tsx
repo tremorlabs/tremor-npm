@@ -7,6 +7,7 @@ import AccordionBody from 'components/selection-elements/AccordionBody/Accordion
 import AccordionHeader from 'components/selection-elements/AccordionHeader/AccordionHeader';
 import AccordionList from 'components/selection-elements/AccordionList/AccordionList';
 import Text from 'components/text-elements/Text';
+import CallOut from 'components/text-elements/CallOut/CallOut';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -44,10 +45,16 @@ const Template: ComponentStory<typeof AccordionList> = (args) => (
                     What's the best thing about Lena?
             </AccordionHeader>
             <AccordionBody>
-                <Text>
+                <CallOut title='Information displayed in a CallOut' text='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum.'/>
+                {/* <Text>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore
                 fuga aliquam nostrum quod porro. Delectus quia facere id sequi expedita natus.
-                </Text>
+                </Text> */}
             </AccordionBody>
         </Accordion>
     </AccordionList>

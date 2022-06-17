@@ -8,7 +8,7 @@ const AccordionBody = ({
     children
 }: AccordionBodyProps) => {
     return(
-        <div className="w-full pl-3 pr-14 pb-4">
+        <div className="w-full px-4 pb-4">
             { children }
         </div>
     );

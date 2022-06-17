@@ -14,7 +14,7 @@ const AccordionHeader = ({
     children
 }: AccordionHeaderProps) => {
     return(
-        <div className="w-full flex items-center justify-between px-3 py-3">
+        <div className="w-full flex items-center justify-between px-4 py-3">
             <div className="w-[95%]">
                 { children }
             </div>
@@ -22,8 +22,8 @@ const AccordionHeader = ({
                 className="w-10 flex justify-end"
                 onClick={ () => setExpanded!(!isExpanded) }>
                 { isExpanded
-                    ? <ArrowDownSLineIcon className="text-gray-400 h-6 w-6" />
-                    : <ArrowRightSLineIcon className="text-gray-400 h-6 w-6" /> }
+                    ? <ArrowDownSLineIcon className="text-gray-400 h-6 w-6"/>
+                    : <ArrowRightSLineIcon className="text-gray-400 h-6 w-6"/> }
             </button>
         </div>
     );
