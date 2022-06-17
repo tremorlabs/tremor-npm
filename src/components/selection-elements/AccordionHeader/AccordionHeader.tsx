@@ -1,6 +1,5 @@
 import React from 'react';
 import ArrowDownSLineIcon from 'remixicon-react/ArrowDownSLineIcon';
-import ArrowRightSLineIcon from 'remixicon-react/ArrowRightSLineIcon';
 import ArrowUpSLineIcon from 'remixicon-react/ArrowUpSLineIcon';
 
 export interface AccordionHeaderProps {
