@@ -104,7 +104,7 @@ const Datepicker = ({
                     bg-white">
                     <button
                         onClick={ () => setShowDatePickerModal(true) }
-                        className="flex whitespace-nowrap items-center pl-2 pr-2 py-2  rounded-l-md border
+                        className="flex whitespace-nowrap items-center pl-2 pr-2 py-2 rounded-l-md border
                           border-gray-300 border-r-0 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-opacity-100
                             focus:outline-none focus:ring-blue-300"
                     >
