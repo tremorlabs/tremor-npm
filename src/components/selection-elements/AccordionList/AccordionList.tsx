@@ -9,7 +9,7 @@ const AccordionList = ({
 }: AccordionListProps) => {
     const numChildren = React.Children.count(children);
     return (
-        <>
+        <div className="shadow rounded-lg">
             { React.Children.map(children, (child, idx) => {
                 console.log(child.props.className);
                 if (idx === 0) {
@@ -36,7 +36,7 @@ const AccordionList = ({
                     </>
                 );
             })}
-        </>
+        </div>
     );
 };
 

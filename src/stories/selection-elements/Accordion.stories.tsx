@@ -5,6 +5,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Accordion from 'components/selection-elements/Accordion/Accordion';
 import AccordionBody from 'components/selection-elements/AccordionBody/AccordionBody';
 import AccordionHeader from 'components/selection-elements/AccordionHeader/AccordionHeader';
+import Text from 'components/text-elements/Text';
+import Badge from 'components/icon-elements/Badge';
+import Flex from 'components/layout-elements/Flex/Flex';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -15,7 +18,14 @@ export default {
 
 const Template: ComponentStory<typeof Accordion> = (args) => (
     <Accordion>
-        <AccordionHeader>Hello</AccordionHeader>
+        <AccordionHeader>
+            <Flex justifyContent="justify-between">
+                <div>
+                Hello
+                </div>
+                <Badge text="live"/>
+            </Flex>
+        </AccordionHeader>
         <AccordionBody>Whats'up</AccordionBody>
     </Accordion>
 );
