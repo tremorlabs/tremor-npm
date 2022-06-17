@@ -51,7 +51,7 @@ export const nextMonth = (
 
 export const displaySelected = (selectedStartDay: Date|null, selectedEndDay: Date|null) => {
     if (!selectedStartDay && !selectedEndDay) {
-        return 'dd/mm/yyyy - dd/mm/yyyy';
+        return '';
     } else if (selectedStartDay && !selectedEndDay) {
         const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
         return selectedStartDay.toLocaleDateString('en-US', options);
@@ -79,13 +79,13 @@ export const getDayBgColorClassName = (
         return 'bg-blue-500';
     }
     if (selectedStartDay && !selectedEndDay && hoveredDay && (day > selectedStartDay && day < hoveredDay)) {
-        return 'bg-gray-200';
+        return 'bg-gray-100';
     }
     if (selectedEndDay && isEqual(day, selectedEndDay)) {
         return 'bg-blue-500';
     }
     if (selectedStartDay && selectedEndDay && (day > selectedStartDay && day < selectedEndDay)) {
-        return 'bg-gray-200';
+        return 'bg-gray-100';
     }
     return 'bg-transparent';
     
@@ -102,7 +102,7 @@ export const getDayTextColorClassName = (
             || (selectedEndDay && isEqual(day, selectedEndDay))) {
             return 'text-white';
         }
-        return 'text-blue-500';
+        return 'text-blue-500 font-semibold';
     }
     if (selectedStartDay && isEqual(day, selectedStartDay)) {
         return 'text-white';
