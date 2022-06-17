@@ -218,7 +218,7 @@ const Datepicker = ({
                 { showDropdownModal ? (
                     <div
                         ref={ dropDownRef }
-                        className="absolute min-w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
+                        className="absolute min-w-full text-left rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
                             divide-y divide-gray-100 py-1 focus:outline-none right-0 -bottom-1 translate-y-full"
                     >
                         { relativeFilterOptions.map((filterOption) => (
@@ -227,7 +227,7 @@ const Datepicker = ({
                                     selectedRelativeFilterOption === filterOption.value
                                         ? 'bg-gray-100 text-gray-900'
                                         : 'text-gray-700',
-                                    `group flex items-center justify-between px-4 py-2.5 text-sm w-full
+                                    `group flex items-center justify-between space-x-10 px-4 py-2.5 text-sm w-full
                                     group-hover:text-gray-500 hover:bg-gray-50`
                                 ) }
                                 value={ filterOption.value }
@@ -237,10 +237,10 @@ const Datepicker = ({
                                     setShowDropdownModal(false);
                                 } }
                             >
-                                <div className="flex font-medium">
+                                <div className="flex font-medium whitespace-nowrap">
                                     { filterOption.name }
                                 </div>
-                                <span className="font-normal text-gray-400">{ filterOption.shortcut }</span>
+                                <span className="font-normal text-gray-400 whitespace-nowrap">{ filterOption.shortcut }</span>
                             </button>
                         ))}                    
                     </div>

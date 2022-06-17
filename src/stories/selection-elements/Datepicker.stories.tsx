@@ -12,7 +12,9 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const Template: ComponentStory<typeof Datepicker> = (args) => (
-    <Datepicker />
+    <div className="flex justify-center">
+        <Datepicker />
+    </div>
 );
   
 export const Default = Template.bind({});
