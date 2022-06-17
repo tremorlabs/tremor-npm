@@ -130,7 +130,7 @@ const Datepicker = ({
                     <div
                         ref={ datePickerRef }
                         className="absolute w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-3
-                            px-3 -bottom-1 left-0 translate-y-full mx-auto"
+                            px-3 -bottom-2 left-0 translate-y-full mx-auto"
                     >
                         {/* Bug border here */}
                         <div className="flex justify-between items-center py-2 px-1">
@@ -219,7 +219,7 @@ const Datepicker = ({
                     <div
                         ref={ dropDownRef }
                         className="absolute min-w-full text-left rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
-                            divide-y divide-gray-100 py-1 focus:outline-none right-0 -bottom-1 translate-y-full"
+                            divide-y divide-gray-100 py-1 focus:outline-none right-0 -bottom-2 translate-y-full"
                     >
                         { relativeFilterOptions.map((filterOption) => (
                             <button

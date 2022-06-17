@@ -75,8 +75,8 @@ const Dropwdown = ({
         <>
             <button
                 className="relative inline-flex rounded-md border border-gray-300 px-4 py-2 bg-white text-sm
-                           font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-opacity-100
-                           focus:outline-none focus:ring-blue-300 button-dropdown"
+                            font-medium shadow-sm text-gray-700 hover:bg-gray-50 focus:ring-2
+                            focus:ring-opacity-100 focus:outline-none focus:ring-blue-300 button-dropdown"
                 onClick={ () => setShowModal(true) }
             >
                 { selectedItem ? valueToNameMapping[selectedItem] : placeholder }
@@ -84,8 +84,9 @@ const Dropwdown = ({
                 { showModal ? (
                     <div
                         ref={ ref }
-                        className="absolute rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y
-                            divide-gray-100 focus:outline-none -bottom-1 left-0 translate-y-full min-w-full"
+                        className="absolute py-1 rounded-md shadow-lg bg-white ring-1 
+                        divide-y divide-gray-100 ring-black ring-opacity-5 focus:outline-none
+                        -bottom-2 left-0 translate-y-full min-w-full"
                     >
                         { React.Children.map(children, (child: React.ReactElement) => (
                             <>
