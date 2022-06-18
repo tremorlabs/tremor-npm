@@ -75,7 +75,7 @@ const MultiSelectBox = ({
                     focus:ring-opacity-100 focus:outline-none focus:ring-blue-300"
                 onClick={ () => {setShowModal(true); console.log('clicked');} }
             >
-                <div className="flex items-center pr-6">
+                <div className="flex items-center space-x-1 pr-6">
                     {
                         selectedItemsValues.length !== 0 ? selectedItemsValues.map((itemValue) => (
                             <SelectedItemBadge
@@ -114,7 +114,7 @@ const MultiSelectBox = ({
                                 focus:ring-transparent focus:border-transparent border-transparent bg-transparent w-full sm:text-sm"
                             />
                         </div>
-                        <div className="py-1">
+                        <div className="pt-1 pb-2">
                         { React.Children.map(children, (child) => (
                             <>
                                 { React.cloneElement(child, {
