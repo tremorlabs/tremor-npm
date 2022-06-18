@@ -66,7 +66,7 @@ const SelectBox = ({
                     <input
                         key={ selectedSelectBoxItemValue ? valueToNameMapping[selectedSelectBoxItemValue] : null }
                         className="w-full inline-flex rounded-md border border-gray-300 pl-4 pr-6 py-2 bg-white text-sm
-                                font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-opacity-100
+                                font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-opacity-100
                                 focus:outline-none focus:ring-blue-300"
                         type="input"
                         defaultValue={
@@ -84,8 +84,8 @@ const SelectBox = ({
                     <div
                         ref={ ref }
                         className="absolute min-w-full rounded-md shadow-lg bg-white ring-1 
-                            ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none -bottom-1 left-0
-                            translate-y-full min-w-full"
+                            ring-black ring-opacity-5 py-1 divide-y divide-gray-100 focus:outline-none -bottom-2 left-0
+                            translate-y-full"
                     >
                         { React.Children.map(children, (child) => {
                             if (filteredOptionNames.has(String(child.props.name))) {

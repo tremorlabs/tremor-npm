@@ -16,7 +16,7 @@ export default {
 
 const Template: ComponentStory<typeof Dropdown> = (args) => (
         <Dropdown defaultValue={ 3 } handleSelect={ (value) => console.log('The selected value is', value) }>
-            <DropdownItem value={ 5 } name={ 'Five' } Icon={ CalendarIcon } shortcut={ 'F' } />
+            <DropdownItem value={ 5 } name={ 'This is an edge case' } Icon={ CalendarIcon } shortcut={ 'F' } />
             <DropdownItem value={ 3 } name={ 'Three' } Icon={ CalendarIcon } shortcut={ 'T' } />
             <DropdownItem value={ 1 } name={ 'One' } Icon={ CalendarIcon } shortcut={ 'O' } />
         </Dropdown>    
