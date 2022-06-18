@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/tremorlabs/tremor#readme",
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.2",
     "@tippyjs/react": "^4.2.6",
     "date-fns": "^2.28.0",
     "recharts": "^2.1.10"

@@ -65,13 +65,17 @@ const SelectBox = ({
                 <form>
                     <input
                         key={ selectedSelectBoxItemValue ? valueToNameMapping[selectedSelectBoxItemValue] : null }
-                        className="w-full inline-flex rounded-md border border-gray-300 pl-4 pr-6 py-2 bg-white text-sm
+                        className="w-full inline-flex rounded-md border border-gray-300 pl-4 pr-10 py-2 bg-white text-sm
                                 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-opacity-100
                                 focus:outline-none focus:ring-blue-300"
                         type="input"
-                        defaultValue={
-                            selectedSelectBoxItemValue ? valueToNameMapping[selectedSelectBoxItemValue] : placeholder
-                        }
+
+                        // @Achi: would use HTML's placeholder function
+                        placeholder= { placeholder }
+
+                        // defaultValue={
+                        //     selectedSelectBoxItemValue ? valueToNameMapping[selectedSelectBoxItemValue] : placeholder
+                        // }
                         onChange={ (e) => setSearchQuery(e.target.value) }
                         onClick={ () => setShowModal(true) }
                     />

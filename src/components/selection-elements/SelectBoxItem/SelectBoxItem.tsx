@@ -35,7 +35,7 @@ const SelectBoxItem = ({
             { Icon ? (
                         <Icon className={ classNames(
                             'h-5 w-5 mr-3 text-gray-400 flex-none'
-                        ) }/>
+                        ) } aria-hidden="true"/>
                     ) : null }
             { name }
         </div>

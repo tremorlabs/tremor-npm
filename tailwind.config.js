@@ -8,5 +8,7 @@ module.exports = {
         'hover-blue': '#005CC6',
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/forms'),
+    ],
 };
