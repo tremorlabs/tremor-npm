@@ -36,7 +36,6 @@ const TabList = ({
             name="tabs" 
             className="block w-full focus:border-transparent focus:ring-2
                      focus:ring-opacity-100 focus:outline-none focus:ring-blue-300 border-gray-300 rounded-md"
-                // className="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                 // defaultValue={tabs.find((tab) => tab.current).name}
             >
             { React.Children.map(children, (child) => (

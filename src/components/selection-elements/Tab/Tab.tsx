@@ -30,17 +30,17 @@ const Tab = ({
                     ) : (
                         `border-transparent font-medium hover:border-gray-300 ${parseTextColorClassNames(textColor)} hover:${activeTextColor}`
                     ),
-                    'flex whitespace-nowrap py-4 px-1 border-b-2 -mb-px text-sm truncate group'
+                    'flex whitespace-nowrap py-4 px-1 border-b-2 -mb-px text-sm group max-w-xs'
                 ) }
                 value={ value }
                 onClick={ () => setSelectedTab!(value) }
             >
                 { Icon ? (
                     <Icon className={ classNames(
-                        'h-5 w-5 mr-3 text-gray-400 flex-none'
+                        'h-5 w-5 mr-2 text-gray-400 flex-none'
                     ) } aria-hidden="true"/>
                 ) : null }
-                { name }
+                <span className="truncate"> { name } </span>
             </button>
         </li>
     );
