@@ -2,6 +2,7 @@ import React from 'react';
 
 import { classNames, parseTextColorClassNames } from '@utils/classname-utils';
 
+
 export interface BreadcrumbsProps {
     maxItems?: number,
     separator?: string,
@@ -24,7 +25,10 @@ const Breadcrumbs = ({
             {
                 childrenCount > maxItems ? (
                     <>
-                        <div className={ classNames(parseTextColorClassNames(textColor)) }>
+                        <div className={ classNames(
+                                parseTextColorClassNames(textColor), 
+                                'hover:underline hover:underline-offset-2'
+                            ) }>
                             { FirstChild }
                         </div>
                         <div className={ classNames(
@@ -35,7 +39,10 @@ const Breadcrumbs = ({
                             { separator }
                         </div>
                         <button
-                            className={ classNames(parseTextColorClassNames(textColor)) }
+                            className={ classNames(
+                                parseTextColorClassNames(textColor),
+                                'hover:underline hover:underline-offset-2'
+                            ) }
                         >
                             ...
                         </button>
@@ -54,7 +61,10 @@ const Breadcrumbs = ({
                     <>
                         { React.Children.map(children, (child, i) => (
                             <>
-                                <div className={ classNames(parseTextColorClassNames(textColor)) }>
+                                <div className={ classNames(
+                                    parseTextColorClassNames(textColor), 
+                                    'hover:underline hover:underline-offset-2'
+                                ) }>
                                     { child }
                                 </div>
                                 {

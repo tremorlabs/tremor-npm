@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { HomeIcon } from '@heroicons/react/solid';
 import BreadcrumbItem from 'components/selection-elements/BreadcrumbItem/BreadcrumbItem';
 import Breadcrumbs from 'components/selection-elements/Breadcrumbs/Breadcrumbs';
 
@@ -13,9 +14,8 @@ export default {
 
 const Template: ComponentStory<typeof Breadcrumbs> = (args) => (
     <Breadcrumbs>
-        <BreadcrumbItem>
-            <span>❤️</span>
-            <span>Hello</span>
+        <BreadcrumbItem Icon = { HomeIcon }>
+            Home
         </BreadcrumbItem>
         <BreadcrumbItem>
             World
