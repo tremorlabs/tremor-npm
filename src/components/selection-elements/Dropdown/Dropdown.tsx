@@ -85,7 +85,7 @@ const Dropwdown = ({
                     <div
                         ref={ ref }
                         className="absolute py-1 rounded-md shadow-lg bg-white ring-1 
-                        divide-y divide-gray-100 ring-black ring-opacity-5 focus:outline-none
+                        divide-y divide-gray-100 ring-black ring-opacity-5 max-h-72 overflow-auto focus:outline-none
                         -bottom-2 left-0 translate-y-full min-w-full"
                     >
                         { React.Children.map(children, (child: React.ReactElement) => (

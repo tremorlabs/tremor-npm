@@ -89,8 +89,8 @@ const SelectBox = ({
                     <div
                         ref={ ref }
                         className="absolute min-w-full rounded-md shadow-lg bg-white ring-1 
-                            ring-black ring-opacity-5 py-1 divide-y divide-gray-100 focus:outline-none -bottom-2 left-0
-                            translate-y-full"
+                            ring-black ring-opacity-5 py-1 divide-y divide-gray-100 max-h-72 overflow-auto
+                            focus:outline-none -bottom-2 left-0 translate-y-full"
                     >
                         { React.Children.map(children, (child) => {
                             if (filteredOptionNames.has(String(child.props.name))) {
