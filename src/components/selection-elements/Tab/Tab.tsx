@@ -26,9 +26,9 @@ const Tab = ({
             <button
                 className={ classNames(
                     isActive ? (
-                        `border-gray-500 font-medium ${parseTextColorClassNames(activeTextColor)}`
+                        `border-gray-500 text-gray-700 font-medium ${parseTextColorClassNames(activeTextColor)}`
                     ) : (
-                        `border-transparent font-medium hover:border-gray-300 ${parseTextColorClassNames(textColor)} hover:${activeTextColor}`
+                        `border-transparent font-normal hover:border-gray-300 ${parseTextColorClassNames(textColor)} hover:${activeTextColor}`
                     ),
                     'flex whitespace-nowrap py-4 px-1 border-b-2 -mb-px text-sm group max-w-xs'
                 ) }
