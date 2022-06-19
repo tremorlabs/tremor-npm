@@ -21,7 +21,7 @@ const SelectBoxItem = ({
     <button
         className={ classNames(
             isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-            `group flex items-center justify-between px-4 py-2.5 text-sm w-full
+            `group flex items-center justify-between px-4 py-2.5 sm:text-sm w-full
             group-hover:text-gray-500 hover:bg-gray-100 text-left`
         ) }
         // className="group flex items-center justify-between px-4 py-2.5 text-sm border-gray-100 w-full
@@ -31,7 +31,7 @@ const SelectBoxItem = ({
             setSelectedSelectBoxItemValue!(value);
         } }
     >
-        <div className="flex group-hover:text-gray-900 whitespace-nowrap text-sm">
+        <div className="flex group-hover:text-gray-900 whitespace-nowrap">
             { Icon ? (
                         <Icon className={ classNames(
                             'h-5 w-5 mr-3 text-gray-400 flex-none'

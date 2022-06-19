@@ -25,7 +25,7 @@ const Template: ComponentStory<typeof MultiSelectBox> = (args) => (
             <MultiSelectBoxItem name="Option 4" value={ 4 } />
             <MultiSelectBoxItem name="Option 5" value={ 5 } />
             <MultiSelectBoxItem name="Option 6" value={ 6 } />
-            <MultiSelectBoxItem name="Option 6" value={ 7 } />
+            <MultiSelectBoxItem name="Option 6 This is an edge case. This is an edge case." value={ 7 } />
         </MultiSelectBox>
         <SelectBox handleSelect={ (value) => console.log('the new value is', value) }>
             <SelectBoxItem  value={1} name="Option One with icon" Icon={ CalendarIcon } />
