@@ -1,6 +1,5 @@
 import React from 'react';
-import ArrowDownSLineIcon from 'remixicon-react/ArrowDownSLineIcon';
-import ArrowUpSLineIcon from 'remixicon-react/ArrowUpSLineIcon';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 
 export interface AccordionHeaderProps {
     isExpanded?: boolean,
@@ -22,8 +21,8 @@ const AccordionHeaderSmall = ({
                 className="w-10 flex justify-end"
                 onClick={ () => setExpanded!(!isExpanded) }>
                 { isExpanded
-                    ? <ArrowUpSLineIcon className="text-gray-400 h-5 w-5"/>
-                    : <ArrowDownSLineIcon className="text-gray-400 h-5 w-5"/> }
+                    ? <ChevronUpIcon className="text-gray-400 h-5 w-5" aria-hidden="true" />
+                    : <ChevronDownIcon className="text-gray-400 h-5 w-5" aria-hidden="true" /> }
             </button>
         </div>
     );
