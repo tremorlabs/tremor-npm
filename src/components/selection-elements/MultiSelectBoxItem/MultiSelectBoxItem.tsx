@@ -32,7 +32,7 @@ const MultiSelectBoxItem = ({
                 setSelectedItemsValues!([...selectedItemsValues!]);
             }
         } }>
-        <div className="flex items-center space-x-3 h-5">
+        <div className="flex items-center space-x-3 h-4">
           <input
             id="options"
             aria-describedby="options-description"
