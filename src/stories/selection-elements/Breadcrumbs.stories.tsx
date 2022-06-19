@@ -13,9 +13,12 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const Template: ComponentStory<typeof Breadcrumbs> = (args) => (
-    <Breadcrumbs>
+    <Breadcrumbs maxItems="3">
         <BreadcrumbItem Icon = { HomeIcon }>
-            Home
+            This is an edge case. This is an edge case
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+            World
         </BreadcrumbItem>
         <BreadcrumbItem>
             World

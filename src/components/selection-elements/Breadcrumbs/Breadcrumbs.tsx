@@ -53,7 +53,7 @@ const Breadcrumbs = ({
                         >
                             { separator }
                         </div>
-                        <div className={ classNames(parseTextColorClassNames(textColor)) }>
+                        <div className='text-gray-400'>
                             { LastChild }
                         </div>
                     </>

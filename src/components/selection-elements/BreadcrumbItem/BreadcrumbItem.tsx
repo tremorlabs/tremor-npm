@@ -14,7 +14,7 @@ const BreadcrumbItem = ({
 }: BreadcrumbItemProps) => (
     <a
         className={ classNames(
-            'flex justify-between items-center max-w-sm w-full text-base font-medium space-x-4',
+            'flex justify-between items-center text-sm',
         ) }
         href={ href }
     >
@@ -23,7 +23,7 @@ const BreadcrumbItem = ({
                 'h-5 w-5 mr-2 text-gray-400 flex-none'
             ) } aria-hidden="true"/>
         ) : null }
-        { children }
+            <span className="max-w-[7rem] truncate"> { children } </span>
     </a>
 );
 
