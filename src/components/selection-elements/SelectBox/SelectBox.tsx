@@ -62,7 +62,7 @@ const SelectBox = ({
     return (
         <>
             <div className="relative">
-                <form>
+                <form className="text-gray-700">
                     <input
                         key={ selectedSelectBoxItemValue ? valueToNameMapping[selectedSelectBoxItemValue] : null }
                         className="w-full inline-flex rounded-md border border-gray-300 pl-4 pr-10 py-2 bg-white sm:text-sm
@@ -88,7 +88,7 @@ const SelectBox = ({
                 { showModal ? (
                     <div
                         ref={ ref }
-                        className="absolute min-w-full rounded-md shadow-lg bg-white ring-1 
+                        className="absolute min-w-full rounded-md shadow-lg text-gray-700 bg-white ring-1 
                             ring-black ring-opacity-5 py-1 divide-y divide-gray-100 max-h-72 overflow-auto
                             focus:outline-none -bottom-2 left-0 translate-y-full"
                     >
