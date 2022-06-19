@@ -8,6 +8,7 @@ export interface TabProps {
     isActive?: boolean,
     textColor?: string,
     activeTextColor?: string,
+    Icon?: React.ElementType,
     setSelectedTab?: React.Dispatch<React.SetStateAction<string>>,
 }
 
@@ -15,6 +16,7 @@ const Tab = ({
     name,
     value,
     isActive,
+    Icon,
     textColor = 'text-gray-400',
     activeTextColor = 'text-gray-500',
     setSelectedTab,
@@ -24,15 +26,20 @@ const Tab = ({
             <button
                 className={ classNames(
                     isActive ? (
-                        `border-gray-500 font-normal ${parseTextColorClassNames(activeTextColor)}`
+                        `border-gray-500 font-medium ${parseTextColorClassNames(activeTextColor)}`
                     ) : (
-                        `border-transparent font-normal ${parseTextColorClassNames(textColor)} hover:${activeTextColor}`
+                        `border-transparent font-medium hover:border-gray-300 ${parseTextColorClassNames(textColor)} hover:${activeTextColor}`
                     ),
-                    'whitespace-nowrap py-2 px-1 border-b-2 text-sm truncate group'
+                    'flex whitespace-nowrap py-4 px-1 border-b-2 -mb-px text-sm truncate group'
                 ) }
                 value={ value }
                 onClick={ () => setSelectedTab!(value) }
             >
+                { Icon ? (
+                    <Icon className={ classNames(
+                        'h-5 w-5 mr-3 text-gray-400 flex-none'
+                    ) } aria-hidden="true"/>
+                ) : null }
                 { name }
             </button>
         </li>

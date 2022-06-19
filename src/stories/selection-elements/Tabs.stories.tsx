@@ -14,9 +14,9 @@ export default {
 
 const Template: ComponentStory<typeof TabList> = (args) => (
     <TabList defaultValue={ 1 } handleSelect={ (value) => console.log(value) }>
-        <Tab value={ 1 } name="tremor.so" />
-        <Tab value={ 2 } name="thealchly.com" />
-        <Tab value={ 3 } name="nac.coom" />
+        <Tab value={ 1 } name="Location A" />
+        <Tab value={ 2 } name="Location B" />
+        <Tab value={ 3 } name="Location C" />
     </TabList>
 );
   
