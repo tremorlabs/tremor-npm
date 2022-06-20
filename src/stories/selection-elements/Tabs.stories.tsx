@@ -15,9 +15,10 @@ export default {
 
 const Template: ComponentStory<typeof TabList> = (args) => (
     <TabList defaultValue={ 1 } handleSelect={ (value) => console.log(value) }>
-        <Tab value={ 1 } name="Location A" Icon = { LocationMarkerIcon } />
+        <Tab value={ 1 } name="Location A" />
         <Tab value={ 2 } name="This is an edge case. This is an edge case. This is an edge case." />
         <Tab value={ 3 } name="Location C" />
+        <Tab value={ 4 } name="Location D" />
     </TabList>
 );
   
