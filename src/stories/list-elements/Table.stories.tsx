@@ -22,17 +22,21 @@ const Template: ComponentStory<typeof Table> = (args) => (
                         Name
                     </TableHeaderCell>
                     <TableHeaderCell>
-                        Sales
+                        Sales ($)
                     </TableHeaderCell>
                     <TableHeaderCell>
-                        Region
+                        Region 
+                    </TableHeaderCell>
+                    <TableHeaderCell textAlignment='text-right'>
+                        Working Hours (h) 
                     </TableHeaderCell>
                 </TableRow>
             </TableHead>
+
             <TableBody>
                 <TableRow>
                     <TableCell>
-                        Achilleas Georgios Mitrotasios
+                        Peter Doe
                     </TableCell>
                     <TableCell>
                         1.000.000
@@ -40,16 +44,8 @@ const Template: ComponentStory<typeof Table> = (args) => (
                     <TableCell>
                         Region A
                     </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        Jon Doe
-                    </TableCell>
-                    <TableCell>
-                        2.202.000
-                    </TableCell>
-                    <TableCell>
-                        Region B
+                    <TableCell textAlignment='text-right'>
+                        211
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -62,16 +58,8 @@ const Template: ComponentStory<typeof Table> = (args) => (
                     <TableCell>
                         Region B
                     </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        Jon Doe
-                    </TableCell>
-                    <TableCell>
-                        2.202.000
-                    </TableCell>
-                    <TableCell>
-                        Region B
+                    <TableCell textAlignment='text-right'>
+                        320
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -84,16 +72,8 @@ const Template: ComponentStory<typeof Table> = (args) => (
                     <TableCell>
                         Region B
                     </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        Jon Doe
-                    </TableCell>
-                    <TableCell>
-                        2.202.000
-                    </TableCell>
-                    <TableCell>
-                        Region B
+                    <TableCell textAlignment='text-right'>
+                        290
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -106,16 +86,8 @@ const Template: ComponentStory<typeof Table> = (args) => (
                     <TableCell>
                         Region B
                     </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        Jon Doe
-                    </TableCell>
-                    <TableCell>
-                        2.202.000
-                    </TableCell>
-                    <TableCell>
-                        Region B
+                    <TableCell textAlignment='text-right'>
+                        340
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -128,16 +100,78 @@ const Template: ComponentStory<typeof Table> = (args) => (
                     <TableCell>
                         Region B
                     </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        430
+                    </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>
-                        Achilleas Georgios Mitrotasios
+                        Jon Doe
+                    </TableCell>
+                    <TableCell>
+                        2.202.000
+                    </TableCell>
+                    <TableCell>
+                        Region B
+                    </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        190
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        Jon Doe
+                    </TableCell>
+                    <TableCell>
+                        2.202.000
+                    </TableCell>
+                    <TableCell>
+                        Region B
+                    </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        3100
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        Jon Doe
+                    </TableCell>
+                    <TableCell>
+                        2.202.000
+                    </TableCell>
+                    <TableCell>
+                        Region B
+                    </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        340
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        Jon Doe
+                    </TableCell>
+                    <TableCell>
+                        2.202.000
+                    </TableCell>
+                    <TableCell>
+                        Region B
+                    </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        170
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        Max Doe
                     </TableCell>
                     <TableCell>
                         1.000.000
                     </TableCell>
                     <TableCell>
                         Region A
+                    </TableCell>
+                    <TableCell textAlignment='text-right'>
+                        340
                     </TableCell>
                 </TableRow>
             </TableBody>
