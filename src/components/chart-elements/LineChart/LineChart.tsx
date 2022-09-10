@@ -34,6 +34,7 @@ const LineChart = ({
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 'w-14',
+    showAnimation = true,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -123,7 +124,7 @@ const LineChart = ({
                             stroke={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
                             strokeWidth={ 2 }
                             dot={ false }
-                            isAnimationActive={ false }
+                            isAnimationActive={ showAnimation }
                         />
                     )) }
                 </ReChartsLineChart>

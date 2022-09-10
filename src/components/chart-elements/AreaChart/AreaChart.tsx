@@ -28,6 +28,7 @@ const AreaChart = ({
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 'w-14',
+    showAnimation = true,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -133,7 +134,7 @@ const AreaChart = ({
                         fill={ `url(#${colors[idx]})` }
                         strokeWidth={2}
                         dot={false}
-                        isAnimationActive={false}
+                        isAnimationActive={ showAnimation }
                     />
                 ))}
             </ReChartsAreaChart>

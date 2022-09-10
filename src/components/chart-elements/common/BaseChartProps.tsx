@@ -20,6 +20,7 @@ interface BaseChartProps {
     showXAxis?: boolean,
     showYAxis?: boolean,
     yAxisWidth?: Width,
+    showAnimation: boolean,
     showTooltip?: boolean,
     showLegend?: boolean,
     showGridLines?: boolean,
