@@ -34,7 +34,7 @@ const MarkerBar = ({
                         'absolute right-1/2 -translate-x-1/2',
                         sizing.lg.width, // wide transparant wrapper for tooltip activation
                     ) }
-                    style={ { 'left': `${percentageValue}%` } }
+                    style={ { 'left': `${percentageValue}%`, 'transition': 'all 2s'} }
                 >
                     <div
                         className={ classNames(

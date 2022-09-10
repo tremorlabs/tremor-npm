@@ -32,7 +32,7 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
                     <div
                         key={ `item-${idx}` }
                         className="flex items-center justify-end"
-                        style={ { 'width': `${widthPercentage}%` } }
+                        style={ { 'width': `${widthPercentage}%`, 'transition': 'all 2s' } }
                     >
                         <span className={
                             classNames(idx === 0 && widthPercentage <= 10 ? 'hidden sm:inline-block' : '')
@@ -112,7 +112,7 @@ const CategoryBar = ({
                                 'absolute right-1/2 -translate-x-1/2',
                                 sizing.lg.width, // wide transparant wrapper for tooltip activation
                             ) }
-                            style={ { 'left': `${percentageValue}%` } }
+                            style={ { 'left': `${percentageValue}%`, 'transition': 'all 2s' } }
                         >
                             <div
                                 className={ classNames(

@@ -51,7 +51,7 @@ const ProgressBar = ({
                             primaryBgColor,
                             'flex-col h-full rounded-lg'
                         ) }
-                        style={ {'width': `${percentageValue}%`} }
+                        style={ {'width': `${percentageValue}%`, 'transition': 'all 2s'} }
                     />
                 </Tooltip>
             </div>

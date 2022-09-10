@@ -49,7 +49,7 @@ const DeltaBar = ({
                                         isIncreasePositive
                                     )].bgColor,
                                 ) } 
-                                style={ {'width': `${Math.abs(percentageValue)}%`} } 
+                                style={ {'width': `${Math.abs(percentageValue)}%`, 'transition': 'all 2s'} } 
                             />
                         </Tooltip>
                     ) : null}
@@ -73,7 +73,7 @@ const DeltaBar = ({
                                         isIncreasePositive
                                     )].bgColor,
                                 ) } 
-                                style={ {'width': `${Math.abs(percentageValue)}%`} } 
+                                style={ {'width': `${Math.abs(percentageValue)}%`, 'transition': 'all 2s'} } 
                             />
                         </Tooltip>
                     ) : null}
