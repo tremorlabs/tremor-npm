@@ -34,6 +34,7 @@ export interface TextBarProps {
     data: TextBarData[],
     valueFormater?: ValueFormater,
     color?: Color,
+    showAnimation?: boolean,
     marginTop?: MarginTop,
 }
 
@@ -41,6 +42,7 @@ const TextBar = ({
     data = [],
     color = BaseColors.Blue,
     valueFormater = defaultValueFormater,
+    showAnimation = true,
     marginTop = 'mt-0',
 }: TextBarProps) => {
     const widths = getWidthsFromValues(data);
@@ -63,7 +65,7 @@ const TextBar = ({
                             getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
                             idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
                         ) }
-                        style={ { 'width': `${widths[idx]}%`, 'transition': 'all 2s' } }
+                        style={ { 'width': `${widths[idx]}%`, 'transition': showAnimation ? 'all 2s' : '' } }
                     >
                         <p className={ classNames(
                             'absolute max-w-full whitespace-nowrap truncate',

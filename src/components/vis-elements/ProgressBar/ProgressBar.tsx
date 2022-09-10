@@ -21,6 +21,7 @@ export interface ProgressBarProps {
     label?: string,
     tooltip?: string,
     color?: Color,
+    showAnimation?: boolean,
     marginTop?: MarginTop,
 }
 
@@ -28,6 +29,7 @@ const ProgressBar = ({
     percentageValue,
     label,
     tooltip,
+    showAnimation = true,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
 }: ProgressBarProps) => {
@@ -51,7 +53,7 @@ const ProgressBar = ({
                             primaryBgColor,
                             'flex-col h-full rounded-lg'
                         ) }
-                        style={ {'width': `${percentageValue}%`, 'transition': 'all 2s'} }
+                        style={ {'width': `${percentageValue}%`, 'transition': showAnimation ? 'all 2s' : ''} }
                     />
                 </Tooltip>
             </div>

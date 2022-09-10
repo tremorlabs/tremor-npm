@@ -32,7 +32,7 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
                     <div
                         key={ `item-${idx}` }
                         className="flex items-center justify-end"
-                        style={ { 'width': `${widthPercentage}%`, 'transition': 'all 2s' } }
+                        style={ { 'width': `${widthPercentage}%` } }
                     >
                         <span className={
                             classNames(idx === 0 && widthPercentage <= 10 ? 'hidden sm:inline-block' : '')
@@ -56,6 +56,7 @@ export interface CategoryBarProps {
     percentageValue?: number,
     showLabels?: boolean,
     tooltip?: string,
+    showAnimation?: boolean,
     marginTop?: MarginTop,
 }
 
@@ -65,6 +66,7 @@ const CategoryBar = ({
     percentageValue,
     showLabels = true,
     tooltip,
+    showAnimation = true,
     marginTop = 'mt-0',
 }: CategoryBarProps) => {
 
@@ -112,7 +114,7 @@ const CategoryBar = ({
                                 'absolute right-1/2 -translate-x-1/2',
                                 sizing.lg.width, // wide transparant wrapper for tooltip activation
                             ) }
-                            style={ { 'left': `${percentageValue}%`, 'transition': 'all 2s' } }
+                            style={ { 'left': `${percentageValue}%`, 'transition': showAnimation ? 'all 2s' : '' } }
                         >
                             <div
                                 className={ classNames(

@@ -10,6 +10,7 @@ export interface MarkerBarProps {
     percentageValue: number,
     color?: Color,
     tooltip?: string,
+    showAnimation?: boolean,
     marginTop?: MarginTop,
 }
 
@@ -17,6 +18,7 @@ const MarkerBar = ({
     percentageValue,
     color = BaseColors.Blue,
     tooltip,
+    showAnimation = true,
     marginTop = 'mt-0',
 }: MarkerBarProps) => {
     const primaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor;
@@ -34,7 +36,7 @@ const MarkerBar = ({
                         'absolute right-1/2 -translate-x-1/2',
                         sizing.lg.width, // wide transparant wrapper for tooltip activation
                     ) }
-                    style={ { 'left': `${percentageValue}%`, 'transition': 'all 2s'} }
+                    style={ { 'left': `${percentageValue}%`, 'transition': showAnimation ? 'all 2s' : ''} }
                 >
                     <div
                         className={ classNames(
