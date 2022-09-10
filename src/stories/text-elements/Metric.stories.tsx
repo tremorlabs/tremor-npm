@@ -3,6 +3,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BaseColors } from 'lib/primitives';
 import Metric from '../../components/text-elements/Metric/Metric';
+import Card from '../../components/layout-elements/Card/Card';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,11 +14,9 @@ export default {
 
 const Template: ComponentStory<typeof Metric> = () => (
     <>
-        { Object.values(BaseColors).map(color => (
-            <Metric color={ color }>
-                USD 70,000.00
-            </Metric>
-        ))}
+       <Card maxWidth='max-w-md'>
+            <Metric number={70000} prefix='CHF '/>
+        </Card>
     </>
 );
   

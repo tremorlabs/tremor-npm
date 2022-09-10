@@ -1,4 +1,5 @@
 import React from 'react';
+import CountUp from 'react-countup';
 
 import {
     BaseColors,
@@ -15,14 +16,20 @@ export interface MetricProps {
     color?: Color,
     truncate?: boolean,
     marginTop?: MarginTop,
-    children: React.ReactNode,
+    prefix?: string,
+    suffix?: string,
+    number: number,
+    duration?: number
 }
 
 const Metric = ({
     color = BaseColors.Gray,
     truncate = false,
     marginTop = 'mt-0',
-    children,
+    number,
+    prefix = '',
+    suffix = '',
+    duration = 0.5
 }: MetricProps) => {
     return(
         <div className={ classNames(marginTop) }>
@@ -34,7 +41,13 @@ const Metric = ({
                 fontWeight.lg,
             ) }
             >
-                { children }
+                <CountUp 
+                    separator=','
+                    prefix={ prefix }
+                    end={ number }
+                    suffix={ suffix }
+                    duration={ duration }
+                />
             </p>
         </div>
     );
