@@ -19,6 +19,7 @@ export interface MetricProps {
     prefix?: string,
     suffix?: string,
     number: number,
+    separator?: string,
     duration?: number
 }
 
@@ -29,6 +30,7 @@ const Metric = ({
     number,
     prefix = '',
     suffix = '',
+    separator = ',',
     duration = 0.5
 }: MetricProps) => {
     return(
@@ -42,12 +44,13 @@ const Metric = ({
             ) }
             >
                 <CountUp 
-                    separator=','
+                    separator={ separator }
                     prefix={ prefix }
                     end={ number }
                     suffix={ suffix }
                     duration={ duration }
                 />
+
             </p>
         </div>
     );

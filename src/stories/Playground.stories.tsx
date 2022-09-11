@@ -26,40 +26,30 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const Template: ComponentStory<typeof Card> = () => (
-    <div className="grid grid-cols-3 gap-x-3">
-        <Card>
+    <div className="mx-auto">
+        <Card maxWidth='max-w-md'>
             <Flex>
                 <Title>
                     Ticket Sales
                 </Title>
-                <BadgeDelta text="20.1%" deltaType="decrease" isIncreasePositive={ false } />
+                <BadgeDelta text="20.1%" deltaType="increase" isIncreasePositive={ true } />
             </Flex>
             <Subtitle>
                 April 2021
             </Subtitle>
-            <div style={{'marginTop': '10px'}}>
-                <Metric>
-                    21.345
-                </Metric>
-            </div>
-            <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged.
+            <Metric marginTop='mt-2' prefix='$ ' number={250000}/>
+            <Text marginTop='mt-4'>
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. 
             </Text>
-            <div style={{'marginTop': '20px'}}>
-                <Flex>
-                    <Flex justifyContent="justify-start" alignItems="items-baseline" spaceX="space-x-2">
-                        <Text>12.3%</Text>
-                        <Text>E 20.000</Text>
-                    </Flex>
-                    <Text truncate={ true }>$ 20.000 USD</Text>
+            <Flex marginTop='mt-4'>
+                <Flex justifyContent="justify-start" alignItems="items-baseline" spaceX="space-x-2">
+                    <Text>25%</Text>
+                    <Text>($ 250,000)</Text>
                 </Flex>
-            </div>
-            <div style={{'marginTop': '5px'}}>
-                <ProgressBar percentageValue={50} />
-            </div>
+                <Text>$ 1,000,000</Text>
+            </Flex>
+            <ProgressBar marginTop="mt-2" percentageValue={50} showAnimation={true} />
             <Footer>
                 <Flex justifyContent="justify-end" spaceX="space-x-2">
                     <Button text="Button Text" handleClick={handleClick} size="xs" importance="secondary" />
@@ -67,75 +57,38 @@ const Template: ComponentStory<typeof Card> = () => (
                 </Flex>
             </Footer>
         </Card>
-        <Card>
+        {/* <Card>
             <Flex>
                 <Title>
                     Ticket Sales
                 </Title>
-                <BadgeDelta text="20.1%" deltaType="decrease" isIncreasePositive={ false } />
+                <BadgeDelta text="8.1%" deltaType="moderateIncrease" isIncreasePositive={ true } />
             </Flex>
             <Subtitle>
                 April 2021
             </Subtitle>
-            <div style={{'marginTop': '10px'}}>
-                <Metric>
-                    21.345
-                </Metric>
-            </div>
-            <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
+            <Metric marginTop='mt-2' prefix='$ ' number={3500} separator="," />
+            <Text marginTop='mt-4'>
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. 
             </Text>
-            <div style={{'marginTop': '20px'}}>
-                <Flex>
-                    <Flex justifyContent="justify-start" alignItems="items-baseline" spaceX="space-x-2">
-                        <Text>20.000</Text>
-                    </Flex>
-                    <Text>20.000</Text>
+            <Flex marginTop='mt-4'>
+                <Flex justifyContent="justify-start" alignItems="items-baseline" spaceX="space-x-2">
+                    <Text>12.3%</Text>
+                    <Text>($ 200)</Text>
                 </Flex>
-                <div style={{'marginTop': '5px'}}>
-                    <ProgressBar percentageValue={50} />
-                </div>
-            </div>
-            <Footer>
-                <Button text="Button Text" handleClick={handleClick} size="xs" />
-            </Footer>
-        </Card>
-        <Card>
-            <Flex>
-                <Title>
-                    Ticket Sales
-                </Title>
-                <BadgeDelta text="20.1%" deltaType="decrease" isIncreasePositive={ false } />
+                <Text>$ 20,000</Text>
             </Flex>
-            <Subtitle>
-                April 2021
-            </Subtitle>
-            <div style={{'marginTop': '10px'}}>
-                <Metric>
-                    21.345
-                </Metric>
-            </div>
-            <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged.
-            </Text>
-            <div style={{'marginTop': '20px'}}>
-                <Flex>
-                    <Flex justifyContent="justify-start" alignItems="items-baseline" spaceX="space-x-2">
-                        <Text>20.000</Text>
-                    </Flex>
-                    <Text>20.000</Text>
-                </Flex>
-                <div style={{'marginTop': '5px'}}>
-                    <DeltaBar percentageValue={75} />
-                </div>
+            <div style={{'marginTop': '5px'}}>
+                <DeltaBar percentageValue={75} />
             </div>
             <Footer>
-                <Button text="Button Text" handleClick={handleClick} size="xs" />
+                <Flex justifyContent="justify-end" spaceX="space-x-2">
+                    <Button text="Button Text" handleClick={handleClick} size="xs" importance="secondary" />
+                    <Button text="Button Text" handleClick={handleClick} size="xs" />
+                </Flex>
             </Footer>
-        </Card>
+        </Card> */}
     </div>
 );
   
