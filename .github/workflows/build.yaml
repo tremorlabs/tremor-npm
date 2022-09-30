@@ -2,8 +2,12 @@ name: "Build"
 
 on:
   push:
-    branches-ignore:
-      - 'main'
+    branches:
+      - 'cicd-test'
+      - 'release-patch'
+      - 'release-minor'
+      - 'release-major'
+      - '!cicd-updates'
 
 jobs:
   build:
@@ -27,3 +31,6 @@ jobs:
         run: npm run tests
       - name: build
         run: npm run rollup
+      - name: bump patch
+        if: github.ref == 'refs/heads/cicd-test' || github.event.pull_request.base.ref == 'cicd-test'
+        run: echo "Hello cicd-test"
