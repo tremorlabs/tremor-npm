@@ -3,11 +3,12 @@ name: "Release"
 on:
   push:
     branches:
-      - 'main'
+      # - cicd-test
+      - master
 
 jobs:
   release:
-    name: release
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -17,11 +18,12 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org
-      - name: install npm dependencies
-        run: npm install
+      - name: install dependencies
+        run: npm ci
       - name: build
         run: npm run rollup
-      - name: publish
-        run: npm publish --access public
+      - name: release
+        run: npx semantic-release |
+          echo "run semantic release"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
