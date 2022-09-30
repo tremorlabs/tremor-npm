@@ -1,0 +1,23 @@
+name: "Lint PR"
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  lint-pr:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint PR
+        uses: amannn/action-semantic-pull-request@v4.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
