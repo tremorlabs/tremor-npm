@@ -2,11 +2,12 @@ name: "Build"
 
 on:
   push:
-    - 'cicd-test'
-    - 'release-patch'
-    - 'release-minor'
-    - 'release-major'
-    - '!cicd-updates'
+    branches:
+      - 'cicd-test'
+      - 'release-patch'
+      - 'release-minor'
+      - 'release-major'
+      - '!cicd-updates'
 
 jobs:
   build:
