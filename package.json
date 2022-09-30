@@ -1,6 +1,6 @@
 {
   "name": "@tremor/react",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "The React library to build dashboards faster.",
   "scripts": {
     "rollup": "rollup -c",
@@ -11,11 +11,12 @@
     "lint": "eslint . --ext .ts --ext .tsx",
     "fix-lint": "eslint . --ext .ts --ext .tsx --fix",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tremorlabs/tremor.git"
+    "url": "https://github.com/tremorlabs/tremor.git"
   },
   "author": "tremor",
   "license": "Apache 2.0",
@@ -79,5 +80,8 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "release": {
+    "branches": ["main"]
+  }
 }

@@ -15,14 +15,14 @@ jobs:
       - name: node
         uses: actions/setup-node@v3.4.1
         with:
-          node-version: 12
+          node-version: 16
           registry-url: https://registry.npmjs.org
       - name: install dependencies
         run: npm ci
       - name: build
         run: npm run rollup
       - name: release
-        run: npx semantic-release |
-          echo "run semantic release"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
