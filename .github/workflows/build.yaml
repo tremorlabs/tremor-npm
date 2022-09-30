@@ -3,7 +3,6 @@ name: "Build"
 on:
   push:
     branches:
-      - '**'
       - '!cicd-updates'
 
 jobs:
