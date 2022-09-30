@@ -10,7 +10,7 @@ on:
       - '**'
 
 jobs:
-  main:
+  lint-pr:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
