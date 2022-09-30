@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '**'
-      - '!cicd-updates'
+      - '!main'
 
 jobs:
   build:
