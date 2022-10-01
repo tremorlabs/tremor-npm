@@ -5,7 +5,11 @@ import {
     endOfMonth,
     format,
     getDay,
+    isSaturday,
+    isSunday,
+    nextSaturday,
     parse,
+    previousSunday,
     startOfDay,
     startOfMonth,
     startOfToday,
@@ -64,20 +68,17 @@ const Datepicker = ({
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
 }: DatepickerProps) => {
-    const [showDatePickerModal, setShowDatePickerModal] = useState(false);
-    const [showDropdownModal, setShowDropdownModal] = useState(false);
+    const today = startOfToday();
 
-    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<string | null>(null);
+    const hasDefaultDateRange = (defaultStartDate !== null) && (defaultEndDate !== null);
 
     const datePickerRef = useRef(null);
     const dropdownRef = useRef(null);
 
-    const today = startOfToday();
-    
-    const hasDefaultDateRange = (defaultStartDate !== null) && (defaultEndDate !== null);
-    const isDayDisabled = (day: Date): boolean => {
-        return (minDate !== null && day < minDate) || (maxDate !== null && day > maxDate);
-    };
+    const [showDatePickerModal, setShowDatePickerModal] = useState(false);
+    const [showDropdownModal, setShowDropdownModal] = useState(false);
+
+    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<string | null>(null);
 
     const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
     const [selectedStartDay, setSelectedStartDay] = useState<Date | null>(
@@ -86,12 +87,27 @@ const Datepicker = ({
         hasDefaultDateRange ? startOfDay(defaultEndDate) : null);
     const [currentMonth, setCurrentMonth] = useState(
         hasDefaultDateRange ? format(startOfDay(defaultEndDate)!, 'MMM-yyyy') : format(today, 'MMM-yyyy'));
+    
     const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
+    const lastDayCurrentMonth = endOfMonth(firstDayCurrentMonth);
 
     const days = eachDayOfInterval({
-        start: firstDayCurrentMonth,
-        end: endOfMonth(firstDayCurrentMonth),
+        start: isSunday(firstDayCurrentMonth)
+            ? firstDayCurrentMonth
+            : previousSunday(firstDayCurrentMonth),
+        end: isSaturday(lastDayCurrentMonth)
+            ? lastDayCurrentMonth
+            : nextSaturday(lastDayCurrentMonth),
     });
+
+    const isDayInCurrentMonth = (day: Date) => day >= firstDayCurrentMonth
+        && day <= lastDayCurrentMonth;
+    
+    const isDayDisabled = (day: Date): boolean => {
+        return (minDate !== null && day < minDate)
+            || (maxDate !== null && day > maxDate)
+            || !isDayInCurrentMonth(day);
+    };
 
     const handleDayClick = (day: Date) => {
         if (!selectedStartDay) {
