@@ -7,6 +7,7 @@ import {
     getDay,
     isSaturday,
     isSunday,
+    nextSaturday,
     parse,
     previousSunday,
     startOfDay,
@@ -40,7 +41,6 @@ import {
     relativeFilterOptions
 } from './utils';
 import Modal from 'components/layout-elements/Modal';
-import { nextSaturday } from 'date-fns/esm';
 
 export interface DatepickerProps {
     handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
