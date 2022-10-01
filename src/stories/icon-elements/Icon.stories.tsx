@@ -3,8 +3,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ArrowUpIcon } from 'assets';
 
-import { BaseColors, Sizes } from 'lib/primitives';
-import { Title } from 'components';
+import { BaseColors, Sizes as InputSizes } from 'lib/primitives';
+import { Block, Card, ColGrid, Flex, Title } from 'components';
 
 import { IconVariants } from 'components/icon-elements/Icon/Icon';
 
@@ -17,149 +17,78 @@ export default {
 } as ComponentMeta<typeof Icon>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const MyIcon = ArrowUpIcon;
+const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
+    <Card>
+        <ColGrid numCols={ 5 }>
+            { Object.values(IconVariants).map(variant => (
+                <Block>
+                    <Title>{ variant }</Title>
+                    { Object.values(InputSizes).map((size) => (
+                        <Block marginTop="mt-2">
+                            <Icon Icon={ args.Icon } variant={ variant } size={ size } />
+                        </Block>
+                    )) }
+                </Block>
+            )) }
+        </ColGrid>
+    </Card>
+);
 
-const Template: ComponentStory<never> = () => (
+const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
+    <ColGrid numColsLg={ 2 } gapX="gap-x-2" gapY="gap-y-2">
+        { Object.values(IconVariants).map(variant => (
+            <Card maxWidth="max-w-lg">
+                <Title>{ variant }</Title>
+                <ColGrid numCols={ 5 }>
+                    { Object.values(BaseColors).map((color) => (
+                        <Block marginTop="mt-2">
+                            <Icon Icon={ args.Icon } variant={ variant } color={ color } />
+                        </Block>
+                    )) }
+                </ColGrid>
+            </Card>
+        )) }
+    </ColGrid>
+);
+
+const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
     <>
-        <div className="tr-mb-5">
-            <Title>
-                Icon Simple
-            </Title>
-            <p>Sizes</p>
-            <div className="tr-grid tr-grid-cols-8 tr-justify-start tr-gap-y-2">
-                {Object.keys(Sizes).map(key => {
-                    return(
-                        <Icon
-                            Icon={ MyIcon }
-                            variant={ IconVariants.Simple }
-                            size={ Sizes[key] }
-                            tooltip="Icon Info"
-                        />
-                    );
-                })}
-            </div>
-            <p>Colors</p>
-            <div className="tr-grid tr-grid-cols-8">
-                {Object.keys(BaseColors).map(key => {
-                    console.log(BaseColors[key]);
-                    return(
-                        <Icon Icon={ MyIcon } variant={ IconVariants.Simple } color={ BaseColors[key] } />
-                    );
-                })}
-            </div>
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
+            <Card>
+                <Block spaceY="space-y-2">
+                    { Object.values(IconVariants).map(variant => (
+                        <Flex>
+                            <Icon { ...args } variant={ variant } />
+                            <Icon { ...args } variant={ variant } />
+                        </Flex>
+                    )) }
+                </Block>
+            </Card>
         </div>
-        <div className="tr-mb-5">
-            <Title>
-                Icon Light
-            </Title>
-            <p>Sizes</p>
-            <div className="tr-grid tr-grid-cols-8 tr-justify-start tr-gap-y-2">
-                {Object.keys(Sizes).map(key => {
-                    return(
-                        <Icon
-                            Icon={ MyIcon }
-                            variant={ IconVariants.Light }
-                            size={ Sizes[key] }
-                            tooltip="Icon Info"
-                        />
-                    );
-                })}
-            </div>
-            <p>Colors</p>
-            <div className="tr-grid tr-grid-cols-8 tr-items-center tr-justify-start tr-gap-y-2">
-                {Object.keys(BaseColors).map(key => {
-                    console.log(BaseColors[key]);
-                    return(
-                        <Icon Icon={ MyIcon } variant={ IconVariants.Light } color={ BaseColors[key] } />
-                    );
-                })}
-            </div>
-        </div>
-        <div className="tr-mb-5">
-            <Title>
-                Icon Shadow
-            </Title>
-            <p>Sizes</p>
-            <div className="tr-grid tr-grid-cols-8 tr-justify-start tr-gap-y-2">
-                {Object.keys(Sizes).map(key => {
-                    return(
-                        <Icon
-                            Icon={ MyIcon }
-                            variant={ IconVariants.Shadow }
-                            size={ Sizes[key] }
-                            tooltip="Icon Info"
-                        />
-                    );
-                })}
-            </div>
-            <p>Colors</p>
-            <div className="tr-grid tr-grid-cols-8 tr-items-center tr-justify-start tr-gap-y-2">
-                {Object.keys(BaseColors).map(key => {
-                    console.log(BaseColors[key]);
-                    return(
-                        <Icon Icon={ MyIcon } variant={ IconVariants.Shadow } color={ BaseColors[key] } />
-                    );
-                })}
-            </div>
-        </div>
-        <div className="mb-5">
-            <Title>
-                Icon Solid
-            </Title>
-            <p>Sizes</p>
-            <div className="tr-grid tr-grid-cols-8 tr-justify-start tr-gap-y-2">
-                {Object.keys(Sizes).map(key => {
-                    return(
-                        <Icon
-                            Icon={ MyIcon }
-                            variant={ IconVariants.Solid }
-                            size={ Sizes[key] }
-                            tooltip="Icon Info"
-                        />
-                    );
-                })}
-            </div>
-            <p>Colors</p>
-            <div className="tr-grid tr-grid-cols-8 tr-items-center tr-justify-start tr-gap-y-2">
-                {Object.keys(BaseColors).map(key => {
-                    console.log(BaseColors[key]);
-                    return(
-                        <Icon Icon={ MyIcon } variant={ IconVariants.Solid } color={ BaseColors[key] } />
-                    );
-                })}
-            </div>
-        </div>
-        <div className="tr-mb-5">
-            <Title>
-                Icon Outlined
-            </Title>
-            <p>Sizes</p>
-            <div className="tr-grid tr-grid-cols-8 tr-justify-start tr-gap-y-2">
-                {Object.keys(Sizes).map(key => {
-                    return(
-                        <Icon
-                            Icon={ MyIcon }
-                            variant={ IconVariants.Outlined }
-                            size={ Sizes[key] }
-                            tooltip="Icon Info"
-                        />
-                    );
-                })}
-            </div>
-            <p>Colors</p>
-            <div className="tr-grid tr-grid-cols-8 tr-items-center tr-justify-start tr-gap-y-2">
-                {Object.keys(BaseColors).map(key => {
-                    console.log(BaseColors[key]);
-                    return(
-                        <Icon Icon={ MyIcon } variant={ IconVariants.Outlined } color={ BaseColors[key] } />
-                    );
-                })}
-            </div>
-        </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <Block spaceY="space-y-2">
+                { Object.values(IconVariants).map(variant => (
+                    <Flex>
+                        <Icon { ...args } variant={ variant } />
+                        <Icon { ...args } variant={ variant } />
+                    </Flex>
+                )) }
+            </Block>
+        </Card>
     </>
 );
-  
 
 
-export const Default = Template.bind({});
+
+export const Sizes = SizesTemplate.bind({});
+Sizes.args = { Icon: ArrowUpIcon };
+
+export const Colors = ColorsTemplate.bind({});
+Colors.args = { Icon: ArrowUpIcon };
+
+export const WithFlexParent = ResponsiveFlexTemplate.bind({});
+WithFlexParent.args = { Icon: ArrowUpIcon };
+
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
