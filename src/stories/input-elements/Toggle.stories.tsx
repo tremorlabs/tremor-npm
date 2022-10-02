@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Toggle from 'components/input-elements/Toggle/Toggle';
-import { ToggleItem } from 'components';
 
-import { BaseColors } from 'lib/primitives';
-import { CalendarIcon } from 'assets';
+import { Block, Card, Flex, Text, Title, Toggle, ToggleItem } from 'components';
+import { BaseColors } from 'lib';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -14,35 +12,83 @@ export default {
 } as ComponentMeta<typeof Toggle>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof Toggle> = () => (
-    <div>
-        <Toggle defaultValue={ 1 } handleSelect={ (value) => console.log(value) }>
-            <ToggleItem
-                value={ 1 } text="Option 1" Icon={ CalendarIcon } />
-            <ToggleItem
-                value={ 2 } text="Option 2" Icon={ CalendarIcon } />
-            <ToggleItem
-                value={ 3 } text="Option 3" Icon={ CalendarIcon } />
-        </Toggle>
-        <div className="tr-mt-5">
-            { Object.values(BaseColors).map(color => (
-                <div className="tr-mb-2">
-                    <Toggle
-                        defaultValue={ 1 } handleSelect={ (value) => console.log(value) } color={ color }>
-                        <ToggleItem
-                            value={ 1 } text="Option 1" Icon={ CalendarIcon } />
-                        <ToggleItem
-                            value={ 2 } text="Option 2" Icon={ CalendarIcon } />
-                        <ToggleItem
-                            value={ 3 } text="Option 3" Icon={ CalendarIcon } />
-                    </Toggle>
-                </div>
-            ))}
+const SimpleToggle = (args: any) => (
+    <Toggle { ...args }>
+        <ToggleItem
+            value={ 5 }
+            text={ 'This is a very Long Toggle Value that is used as an edge case' }
+        />
+        <ToggleItem value={ 3 } text={ 'Three' } />
+        <ToggleItem value={ 1 } text={ 'One' } />
+    </Toggle>
+);
+
+const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
+    <>
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
+            <Card>
+                <SimpleToggle { ...args } />
+            </Card>
         </div>
-    </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <SimpleToggle { ...args } />
+        </Card>
+    </>
+);
+
+const FlexTemplate: ComponentStory<typeof Toggle> = (args) => (
+    <>
+        <Card>
+            <Text marginTop="mt-2">Justify Start</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <SimpleToggle { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <SimpleToggle { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End with inner div</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <div>
+                    <SimpleToggle { ...args } />
+                </div>
+            </Flex>
+            <Text marginTop="mt-2">Justify Start with inner div</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <div>
+                    <SimpleToggle { ...args } />
+                </div>
+            </Flex> 
+        </Card>
+    </>
+);
+
+const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
+    <>
+        <Card>
+            <Block spaceY="space-y-2">
+                { Object.values(BaseColors).map(color => (
+                    <div>
+                        <SimpleToggle { ...args } color={ color } />
+                    </div>
+                ))}
+            </Block>
+        </Card>
+    </>
 );
   
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const DefaultResponsive = ResponsiveTemplate.bind({});
+
+export const WithFlexParent = FlexTemplate.bind({});
+
+export const WithDefaultValue = ResponsiveTemplate.bind({});
+WithDefaultValue.args = {
+    defaultValue: 5
+};
+
+export const Colors = ColorsTemplate.bind({});
+Colors.args = {
+    defaultValue: 5
 };

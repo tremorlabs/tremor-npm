@@ -2,11 +2,8 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import Tab from 'components/input-elements/Tab/Tab';
-import TabList from 'components/input-elements/Tab/TabList';
-
-import { BaseColors } from 'lib/primitives';
-import { Card } from 'components';
+import { Block, Card, Flex, Tab, TabList, Text, Title } from 'components';
+import { BaseColors } from 'lib';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -15,21 +12,81 @@ export default {
 } as ComponentMeta<typeof TabList>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof TabList> = () => (
+const SimpleTabList = (args: any) => (
+    <TabList { ...args }>
+        <Tab
+            value={ 5 }
+            text={ 'This is a very Long Tab Value that is used as an edge case' }
+        />
+        <Tab value={ 3 } text={ 'Three' } />
+        <Tab value={ 1 } text={ 'One' } />
+    </TabList>
+);
+
+const ResponsiveTemplate: ComponentStory<typeof TabList> = (args) => (
     <>
-        { Object.values(BaseColors).map(color => (
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
             <Card>
-                <TabList defaultValue={ 1 } handleSelect={ (value) => console.log(value) } color={ color }>
-                    <Tab value={ 1 } text="tremor.so this is an extremely long edge case for testing purposes" />
-                    <Tab value={ 2 } text="thealchly.com" />
-                    <Tab value={ 3 } text="nac.coom" />
-                </TabList>
+                <SimpleTabList { ...args } />
             </Card>
-        ))}
+        </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <SimpleTabList { ...args } />
+        </Card>
+    </>
+);
+
+const FlexTemplate: ComponentStory<typeof TabList> = (args) => (
+    <>
+        <Card>
+            <Text marginTop="mt-2">Justify Start</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <SimpleTabList { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <SimpleTabList { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End with inner div</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <div>
+                    <SimpleTabList { ...args } />
+                </div>
+            </Flex>
+            <Text marginTop="mt-2">Justify Start with inner div</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <div>
+                    <SimpleTabList { ...args } />
+                </div>
+            </Flex> 
+        </Card>
+    </>
+);
+
+const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
+    <>
+        <Card>
+            <Block spaceY="space-y-2">
+                { Object.values(BaseColors).map(color => (
+                    <SimpleTabList { ...args } color={ color } /> 
+                ))}
+            </Block>
+        </Card>
     </>
 );
   
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const DefaultResponsive = ResponsiveTemplate.bind({});
+
+export const WithFlexParent = FlexTemplate.bind({});
+
+export const WithDefaultValue = ResponsiveTemplate.bind({});
+WithDefaultValue.args = {
+    defaultValue: 5
+};
+
+export const Colors = ColorsTemplate.bind({});
+Colors.args = {
+    defaultValue: 5
 };
