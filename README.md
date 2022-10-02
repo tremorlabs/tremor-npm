@@ -9,10 +9,7 @@
 
   <div align="center">
     <a href="https://www.npmjs.com/package/@tremor/react">
-        <img alt="npm package" src="https://img.shields.io/badge/-npm-0f172a?logo=npm&logoColor=red&style=flat" height="20" width="auto">
-    </a>
-    <a href="https://www.npmjs.com/package/@tremor/react">
-      <img alt="npm" src="https://img.shields.io/npm/dm/@tremor/react?label=npm%20downloads">
+      <img alt="npm" src="https://img.shields.io/npm/dm/@tremor/react?color=5C9BA1&label=npm&logo=npm">
     </a>
     <a href="https://twitter.com/tremorlabs">
       <img alt="Follow on twitter" src="https://img.shields.io/twitter/follow/tremorlabs?style=flat&color=5C9BA1" height="20" width="auto">
@@ -25,8 +22,8 @@
     </a>
   </div>
   <h5 align="center">
-    <a href="https://www.tremor.so/docs/getting-started/introduction">Documentation</a> |
-    <a href="https://demo.tremor.so/">Demo Dashboard</a> |
+    <a href="https://www.tremor.so/docs/getting-started/introduction">Documentation</a> &bull;
+    <a href="https://demo.tremor.so/">Demo Dashboard</a> &bull;
     <a href="https://www.tremor.so">Website</a>
   </h5>
 
