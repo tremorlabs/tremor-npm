@@ -1,10 +1,10 @@
-/* eslint-disable max-len */
 import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, SelectBoxItem } from 'components';
-import SelectBox from 'components/input-elements/SelectBox/SelectBox';
+import { Card, Flex, SelectBox, Text, Title } from 'components';
+import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
+import { SimpleSelectBox } from './helpers/SimpleSelectBox';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,26 +13,58 @@ export default {
 } as ComponentMeta<typeof SelectBox>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof SelectBox> = () => (
-    <Card>
-        <SelectBox
-            handleSelect={ (value) => console.log('the new value is', value) }
-            defaultValue={ 1 }
-            maxWidth="max-w-sm"
-        >
-            <SelectBoxItem  value={1} text="Option One ABCSASDASDASDASASDASDASDSASDASABCSASDASDASDASASDASDASDSASDAS" />
-            <SelectBoxItem  value={2} text="Option Two" />
-            <SelectBoxItem  value={3} text="Option Three" />
-        </SelectBox>
-        <SelectBox handleSelect={ (value) => console.log('the new value is', value) } marginTop="mt-1">
-            <SelectBoxItem  value={1} text="Option One ABCSASDASDASDASASDASDASDSASDASABCSASDASDASDASASDASDASDSASDAS" />
-            <SelectBoxItem  value={2} text="Option Two" />
-            <SelectBoxItem  value={3} text="Option Three" />
-        </SelectBox>
-    </Card>
+const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
+    <>
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
+            <Card>
+                <SimpleSelectBox { ...args } />
+            </Card>
+        </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <SimpleSelectBox { ...args } />
+        </Card>
+    </>
+);
+
+const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
+    <>
+        <Card>
+            <Text marginTop="mt-2">Justify Start</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <SimpleSelectBox { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <SimpleSelectBox { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End with inner div</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <div>
+                    <SimpleSelectBox { ...args } />
+                </div>
+            </Flex>
+            <Text marginTop="mt-2">Justify Start with inner div</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <div>
+                    <SimpleSelectBox { ...args } />
+                </div>
+            </Flex> 
+        </Card>
+    </>
 );
   
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const DefaultResponsive = ResponsiveTemplate.bind({});
+
+export const WithFlexParent = FlexTemplate.bind({});
+WithFlexParent.args = {
+    maxWidth: 'max-w-xs'
 };
+
+export const WithDefaultValue = ResponsiveTemplate.bind({});
+WithDefaultValue.args = {
+    defaultValue: 5
+};
+
+export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});

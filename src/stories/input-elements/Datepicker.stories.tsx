@@ -31,38 +31,38 @@ const FlexTemplate: ComponentStory<typeof Datepicker> = (args) => (
         <Card>
             <Text marginTop="mt-2">Justify Start</Text>
             <Flex justifyContent="justify-start" marginTop="mt-2">
-                <Datepicker { ...args } maxWidth="max-w-xs" />
+                <Datepicker { ...args } />
             </Flex>
             <Flex justifyContent="justify-start" marginTop="mt-2">
-                <Datepicker { ...args } maxWidth="max-w-xs" enableRelativeDates={ false } />
+                <Datepicker { ...args } enableRelativeDates={ false } />
             </Flex>
             <Text marginTop="mt-2">Justify End</Text>
             <Flex justifyContent="justify-end" marginTop="mt-2">
-                <Datepicker { ...args } maxWidth="max-w-xs" />
+                <Datepicker { ...args } />
             </Flex>
             <Flex justifyContent="justify-end" marginTop="mt-2">
-                <Datepicker { ...args } maxWidth="max-w-xs" enableRelativeDates={ false } />
+                <Datepicker { ...args } enableRelativeDates={ false } />
             </Flex>
             <Text marginTop="mt-2">Justify End with inner div</Text>
             <Flex justifyContent="justify-end" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } maxWidth="max-w-xs" />
+                    <Datepicker { ...args } />
                 </div>
             </Flex>
             <Flex justifyContent="justify-end" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } maxWidth="max-w-xs" enableRelativeDates={ false } />
+                    <Datepicker { ...args } enableRelativeDates={ false } />
                 </div>
             </Flex>
             <Text marginTop="mt-2">Justify Start with inner div</Text>
             <Flex justifyContent="justify-start" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } maxWidth="max-w-xs" />
+                    <Datepicker { ...args } />
                 </div>
             </Flex>
             <Flex justifyContent="justify-start" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } maxWidth="max-w-xs" enableRelativeDates={ false } />
+                    <Datepicker { ...args } enableRelativeDates={ false } />
                 </div>
             </Flex>
         </Card>
@@ -72,6 +72,9 @@ const FlexTemplate: ComponentStory<typeof Datepicker> = (args) => (
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
+WithFlexParent.args = {
+    maxWidth: 'max-w-xs'
+};
 
 export const WithDefaultDates = ResponsiveTemplate.bind({});
 WithDefaultDates.args = {
