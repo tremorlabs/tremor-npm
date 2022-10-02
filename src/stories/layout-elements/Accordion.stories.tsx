@@ -2,9 +2,8 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import Accordion from 'components/layout-elements/Accordion/Accordion';
-import AccordionBody from 'components/layout-elements/Accordion/AccordionBody';
-import AccordionHeader from 'components/layout-elements/Accordion/AccordionHeader';
+import { Accordion, Card, Flex, Text, Title } from 'components';
+import { SimpleAccordion } from './helpers/SimpleAccordion';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,14 +12,58 @@ export default {
 } as ComponentMeta<typeof Accordion>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof Accordion> = () => (
-    <Accordion>
-        <AccordionHeader><div>Hello</div></AccordionHeader>
-        <AccordionBody><div>Whats'up</div></AccordionBody>
-    </Accordion>
+const ResponsiveTemplate: ComponentStory<typeof Accordion> = (args) => (
+    <>
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
+            <Card>
+                <SimpleAccordion { ...args } />
+            </Card>
+        </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <SimpleAccordion { ...args } />
+        </Card>
+    </>
+);
+
+const FlexTemplate: ComponentStory<typeof Accordion> = (args) => (
+    <>
+        <Card>
+            <Text marginTop="mt-2">Justify Start</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <SimpleAccordion { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <SimpleAccordion { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End with inner div</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <div>
+                    <SimpleAccordion { ...args } />
+                </div>
+            </Flex>
+            <Text marginTop="mt-2">Justify Start with inner div</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <div>
+                    <SimpleAccordion { ...args } />
+                </div>
+            </Flex> 
+        </Card>
+    </>
 );
   
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const DefaultResponsive = ResponsiveTemplate.bind({});
+
+export const WithFlexParent = FlexTemplate.bind({});
+
+export const WithExpanded = ResponsiveTemplate.bind({});
+WithExpanded.args = {
+    expanded: true,
+};
+
+export const WithShadow = ResponsiveTemplate.bind({});
+WithShadow.args = {
+    shadow: true,
 };
