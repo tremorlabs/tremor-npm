@@ -82,4 +82,9 @@ export const DecorationPositions = DecorationPositionsTemplate.bind({});
 
 export const DecorationColors = DecorationColorsTemplate.bind({});
 
+export const WithMaxWidth = FlexTemplate.bind({});
+WithMaxWidth.args = {
+    maxWidth: 'max-w-sm'
+};
+
 export const WithFlexItemsStretch = FlexTemplate.bind({});

@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
+import { Card, Metric } from 'components';
 import Flex from 'components/layout-elements/Flex/Flex';
+import { SimpleCard } from 'stories/layout-elements/helpers/SimpleCard';
+import { SimpleText } from 'stories/layout-elements/helpers/SimpleText';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -10,54 +14,62 @@ export default {
 } as ComponentMeta<typeof Flex>;
   
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Flex> = (args) => (
-    <div className="tr-h-screen">
-        <Flex {...args}>
-            <div className="tr-text-3xl">Hello</div>
-            <div>World</div>
-        </Flex>
-    </div>
+const TemplateMaxWidth: ComponentStory<typeof Flex> = (args) => (
+    <Flex {...args}>
+        <div>
+            <SimpleCard maxWidth="max-w-sm" />
+        </div>
+        <div>
+            <Card maxWidth="max-w-sm">
+                <Metric>$ 40,000</Metric>
+                <SimpleText />
+            </Card>
+        </div>
+    </Flex>
+);
+
+const TemplateWFull: ComponentStory<typeof Flex> = (args) => (
+    <Flex {...args}>
+        <SimpleCard />
+        <Card>
+            <Metric>$ 40,000</Metric>
+            <SimpleText />
+        </Card>
+    </Flex>
 );
   
-export const Default = Template.bind({});
+export const Default = TemplateMaxWidth.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-    children: null
-};
 
-export const JustifyEnd = Template.bind({});
+export const JustifyEnd = TemplateMaxWidth.bind({});
 JustifyEnd.args = {
     justifyContent: 'justify-end',
-    alignItems: 'items-center',
-    children: null
 };
 
-export const JustifyStart = Template.bind({});
+export const JustifyStart = TemplateMaxWidth.bind({});
 JustifyStart.args = {
     justifyContent: 'justify-start',
-    alignItems: 'items-center',
-    children: null
 };
 
 
-export const ItemsEnd = Template.bind({});
-ItemsEnd.args = {
-    justifyContent: 'justify-between',
-    alignItems: 'items-end',
-    children: null
-};
-
-export const ItemsStart = Template.bind({});
+export const ItemsStart = TemplateMaxWidth.bind({});
 ItemsStart.args = {
-    justifyContent: 'justify-between',
     alignItems: 'items-start',
-    children: null
 };
 
-export const SpaceX = Template.bind({});
+export const ItemsEnd = TemplateMaxWidth.bind({});
+ItemsEnd.args = {
+    alignItems: 'items-end',
+};
+
+export const ItemsStretch = TemplateWFull.bind({});
+ItemsStretch.args = {
+    alignItems: 'items-stretch',
+};
+
+export const SpaceX = TemplateMaxWidth.bind({});
 SpaceX.args = {
     justifyContent: 'justify-start',
     alignItems: 'items-baseline',
     spaceX: 'space-x-8',
-    children: null
 };
