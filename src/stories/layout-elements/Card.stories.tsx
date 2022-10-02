@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { BaseColors, HorizontalPosition, VerticalPosition } from 'lib';
-import { Block, Card, ColGrid, Flex, Metric, Text, Title } from 'components';
+import { Block, Card, ColGrid, Flex, Metric, Title } from 'components';
+import { SimpleCard } from './helpers/SimpleCard';
+
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -10,13 +12,6 @@ export default {
     component: Card,
 } as ComponentMeta<typeof Card>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const SimpleCard = (args: any) => (
-    <Card {...args}>
-        <Metric>23,000</Metric>
-        <Text>Sample Text</Text>
-    </Card>
-);
 
 const ResponsiveTemplate: ComponentStory<typeof Card> = (args) => (
     <>
