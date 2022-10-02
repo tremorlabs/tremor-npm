@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { AccordionList, Block, Card, ColGrid, Flex, Metric, Text, Title } from 'components';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { SimpleAccordion } from './helpers/SimpleAccordion';
 import { BaseColors, HorizontalPosition, VerticalPosition } from 'lib';
+import { Block, Card, ColGrid, Flex, Metric, Text, Title } from 'components';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
