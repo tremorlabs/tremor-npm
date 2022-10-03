@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     CartesianGrid,
@@ -43,6 +43,7 @@ const LineChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
 }: BaseChartProps) => {
+    const [legendHeight, setLegendHeight] = useState(60);
     return (
         <div className={ classNames('tr-w-full', parseHeight(height), parseMarginTop(marginTop)) }>
             <ResponsiveContainer width="100%" height="100%">
@@ -104,8 +105,8 @@ const LineChart = ({
                     { showLegend ? (
                         <Legend
                             verticalAlign="top"
-                            height={ 40 }
-                            content={ ({ payload }) => ChartLegend({ payload }, colors) }
+                            height={ legendHeight }
+                            content={ ({ payload }) => ChartLegend({ payload }, colors, setLegendHeight) }
                         />
                     ) : null }
                     { categories.map((category, idx) => (
