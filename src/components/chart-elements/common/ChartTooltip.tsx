@@ -26,6 +26,7 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
     <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
         <div className="tr-flex tr-items-center tr-space-x-2">
             <span className={ classNames(
+                'tr-shrink-0',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
                 sizing.sm.height,
@@ -36,12 +37,13 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
             ) } />
             <p className={ classNames(
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                'tr-font-medium tr-tabular-nums tr-text-right'
+                'tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap'
             ) }>
                 { value }
             </p>
         </div>
         <p className={ classNames(
+            'tr-text-right tr-whitespace-nowrap',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             fontWeight.sm,
         ) }>
