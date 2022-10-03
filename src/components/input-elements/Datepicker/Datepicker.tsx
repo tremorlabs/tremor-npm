@@ -209,7 +209,7 @@ const Datepicker = ({
                 >
                     <CalendarIcon
                         className={ classNames(
-                            'flex-none',
+                            'tr-flex-none',
                             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                             sizing.lg.height,
                             sizing.lg.width,
