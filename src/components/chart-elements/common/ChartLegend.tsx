@@ -16,6 +16,7 @@ const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
     const [height, setHeight] = useState(calculateHeight(undefined));
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // dummy windowsize listener to trigger useEffect on resize
     const [_windowSize, setWindowSize] = useState(window.innerWidth);
     useEffect(() => {
         const handleResize = () => setWindowSize(window.innerWidth);
@@ -24,7 +25,6 @@ const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
         setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
         setHeight(calculateHeight(height));
         
-        console.log(height);
         return () => window.removeEventListener('resize', handleResize);
     }, [_windowSize]);
     return (
