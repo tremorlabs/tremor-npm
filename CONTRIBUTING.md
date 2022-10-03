@@ -27,7 +27,7 @@ Strive towards keeping your commits small and isolated - this helps the reviewer
 
 ### Pull Requests
 
-Once your changes are ready you must submit your branch as a pull request. Your pull request should be opened against the `develop` branch in the main Medusa repo.
+Once your changes are ready you must submit your branch as a pull request. Your pull request should be opened against the `main` branch in the main tremor repo.
 
 In your PR's description you should follow the structure:
 
