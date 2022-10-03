@@ -2,8 +2,9 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import MultiSelectBox from 'components/input-elements/MultiSelectBox/MultiSelectBox';
-import MultiSelectBoxItem from 'components/input-elements/MultiSelectBox/MultiSelectBoxItem';
+import { Card, Flex, MultiSelectBox, Text, Title } from 'components';
+import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
+import { SimpleMultiSelectBox } from './helpers/SimpleMultiSelectBox';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -12,21 +13,58 @@ export default {
 } as ComponentMeta<typeof MultiSelectBox>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof MultiSelectBox> = () => (
-    <MultiSelectBox
-        defaultValues={[1, 2]}
-        handleSelect={ (selectedItems) => console.log(selectedItems) }
-        maxWidth="max-w-sm"
-    >
-        <MultiSelectBoxItem text="Option 1 ABCSASDASDASDASASDASDASDSASDASABCSASDASDASDASASDASDASDSASDAS" value={ 1 } />
-        <MultiSelectBoxItem text="Option 2" value={ 2 } />
-        <MultiSelectBoxItem text="Option 3" value={ 3 } />
-    </MultiSelectBox>
+const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
+    <>
+        <Title>Mobile</Title>
+        <div className="tr-w-64">
+            <Card>
+                <SimpleMultiSelectBox { ...args } />
+            </Card>
+        </div>
+        <Title marginTop="mt-5">Desktop</Title>
+        <Card>
+            <SimpleMultiSelectBox { ...args } />
+        </Card>
+    </>
+);
 
-
+const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
+    <>
+        <Card>
+            <Text marginTop="mt-2">Justify Start</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <SimpleMultiSelectBox { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <SimpleMultiSelectBox { ...args } />
+            </Flex>
+            <Text marginTop="mt-2">Justify End with inner div</Text>
+            <Flex justifyContent="justify-end" marginTop="mt-2">
+                <div>
+                    <SimpleMultiSelectBox { ...args } />
+                </div>
+            </Flex>
+            <Text marginTop="mt-2">Justify Start with inner div</Text>
+            <Flex justifyContent="justify-start" marginTop="mt-2">
+                <div>
+                    <SimpleMultiSelectBox { ...args } />
+                </div>
+            </Flex> 
+        </Card>
+    </>
 );
   
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const DefaultResponsive = ResponsiveTemplate.bind({});
+
+export const WithFlexParent = FlexTemplate.bind({});
+WithFlexParent.args = {
+    maxWidth: 'max-w-xs'
 };
+
+export const WithDefaultValues = ResponsiveTemplate.bind({});
+WithDefaultValues.args = {
+    defaultValues: [5, 1]
+};
+
+export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});

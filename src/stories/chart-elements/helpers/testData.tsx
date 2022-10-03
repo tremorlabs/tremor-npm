@@ -1,0 +1,51 @@
+export const data = [
+    {
+        month: 'Jan 21\'',
+        Sales: 4000,
+        'Successfull Payments': 3000,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'Feb 21\'',
+        Sales: 3000,
+        'Successfull Payments': 2000,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'Mar 21\'',
+        Sales: 2000,
+        'Successfull Payments': 1700,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'Apr 21\'',
+        Sales: 2780,
+        'Successfull Payments': 2500,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'May 21',
+        Sales: 1890,
+        'Successfull Payments': 1000,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'Jun 21\'',
+        Sales: 2390,
+        'Successfull Payments': 2000,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+    {
+        month: 'Jul 21\'',
+        Sales: 3490,
+        'Successfull Payments': 3000,
+        'This is an edge case': 100000000,
+        'Test': 5000,
+    },
+];
