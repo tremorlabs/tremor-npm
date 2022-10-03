@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { HorizontalPosition, Width } from '../../../lib/inputTypes';
 import {
     HorizontalPositions,
     border,
@@ -9,17 +10,17 @@ import {
     defaultColors,
     exceedsViewPort,
     getColorVariantsFromColorThemeValue,
+    parseWidth,
     spacing,
     useOnClickOutside,
     useWindowSize,
 } from 'lib';
-import { HorizontalPosition } from '../../../lib/inputTypes';
 
 export interface ModalProps {
     showModal: boolean,
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
     triggerRef: React.RefObject<HTMLElement>,
-    width?: string,
+    width?: Width,
     maxHeight?: string,
     anchor?: HorizontalPosition,
     children: React.ReactNode,
@@ -29,7 +30,7 @@ const Modal = ({
     showModal,
     setShowModal,
     triggerRef,
-    width = 'tr-w-full',
+    width,
     maxHeight = 'tr-max-h-72',
     anchor = HorizontalPositions.Left,
     children,
@@ -55,35 +56,36 @@ const Modal = ({
 
     return (
         <>
-            <div
-                ref={ modalRef }
-                className={ classNames(
-                    'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
-                    !showModal ? 'tr-hidden' : '',
-                    width,
-                    maxHeight,
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
-                    ((anchor === HorizontalPositions.Left) && !modalExceedsViewPort)
-                        ? spacing.none.left
-                        : spacing.none.right,
-                    spacing.twoXs.marginTop,
-                    spacing.twoXs.marginBottom,
-                    borderRadius.md.all,
-                    border.sm.all,
-                    boxShadow.lg,
-                ) }
-            >
-                { children }
-            </div>
+            { showModal ? (
+                <div
+                    ref={ modalRef }
+                    className={ classNames(
+                        'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
+                        width ? parseWidth(width) : 'tr-w-full',
+                        maxHeight,
+                        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
+                        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+                        ((anchor === HorizontalPositions.Left) && !modalExceedsViewPort)
+                            ? spacing.none.left
+                            : spacing.none.right,
+                        spacing.twoXs.marginTop,
+                        spacing.twoXs.marginBottom,
+                        borderRadius.md.all,
+                        border.sm.all,
+                        boxShadow.lg,
+                    ) }
+                >
+                    { children }
+                </div>
+            ) : null }
             {/* Invisible div to dedect if modal exceeds viewport. The purpose of this invisible div is that the
                 exceed-check can be made before the modal is being shown, hence no delay is being caused. */}
             <div
                 ref={ invisibleRef }
                 className={ classNames(
                     'tr-absolute',
-                    width,
+                    width ? parseWidth(width) : 'tr-w-full',
                     anchor === HorizontalPositions.Left ? spacing.none.left : spacing.none.right,
                 ) }
             />
