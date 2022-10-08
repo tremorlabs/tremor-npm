@@ -110,7 +110,7 @@ const Dropwdown = ({
             <Modal
                 showModal={ showModal }
                 setShowModal={ setShowModal }
-                triggerRef={ dropdownRef }
+                triggerButtonRef={ dropdownRef }
             >
                 { React.Children.map(children, (child: React.ReactElement) => (
                     <>

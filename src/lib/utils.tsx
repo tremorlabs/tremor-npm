@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { BaseColorTheme, colorTheme } from './colors';
-import { BaseColors, DeltaTypes, HorizontalPositions, Importances, Sizes } from './primitives';
-import { Color, DeltaType, HorizontalPosition, Importance, Size, ValueFormatter } from './inputTypes';
+import { BaseColors, DeltaTypes, Importances, Sizes } from './primitives';
+import { Color, DeltaType, Importance, Size, ValueFormatter } from './inputTypes';
 
 export const isBaseColor = (baseColor: Color): boolean => {
     return Object.values(BaseColors).includes(baseColor);
@@ -92,23 +92,6 @@ export const stringIsNumeric = (str: string|undefined): boolean => {
 
 export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
-};
-
-export const exceedsViewPort = (
-    ref: React.RefObject<HTMLDivElement>,
-    position: HorizontalPosition,
-) => {
-    if (!ref.current) return false;
-
-    let offset = 0;
-    if (position == HorizontalPositions.Right) {
-        console.log('yes');
-        offset = window.innerWidth - ref.current!.getBoundingClientRect().right;
-    }
-    if (position == HorizontalPositions.Left) {
-        offset = ref.current!.getBoundingClientRect().left;
-    }
-    return offset < 0;
 };
 
 export const useWindowSize = () => {

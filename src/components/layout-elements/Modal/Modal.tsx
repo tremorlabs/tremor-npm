@@ -8,8 +8,8 @@ import {
     boxShadow,
     classNames,
     defaultColors,
-    exceedsViewPort,
     getColorVariantsFromColorThemeValue,
+    getPixelsFromTwClassName,
     parseWidth,
     spacing,
     useOnClickOutside,
@@ -19,77 +19,111 @@ import {
 export interface ModalProps {
     showModal: boolean,
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    triggerRef: React.RefObject<HTMLElement>,
+    triggerButtonRef: React.RefObject<HTMLElement>,
     width?: Width,
     maxHeight?: string,
-    anchor?: HorizontalPosition,
+    anchorPosition?: HorizontalPosition,
     children: React.ReactNode,
 }
 
 const Modal = ({
     showModal,
     setShowModal,
-    triggerRef,
+    triggerButtonRef,
     width,
     maxHeight = 'tr-max-h-72',
-    anchor = HorizontalPositions.Left,
+    anchorPosition = HorizontalPositions.Left,
     children,
 }: ModalProps) => {
+    const checkModalExceedsWindow = (
+        modalWidth: number,
+    ): boolean => {
+        if (!triggerButtonRef.current) {
+            return false;
+        }
+        if (anchorPosition === HorizontalPositions.Left) {
+            const modalBoundingRight = triggerButtonRef
+                .current
+                .getBoundingClientRect()
+                .left + modalWidth;
+            console.log(modalBoundingRight);
+            const windowWidth = window.innerWidth;
+            return windowWidth - modalBoundingRight < 0;
+        }
+        if (anchorPosition === HorizontalPositions.Right) {
+            const modalBoundingLeft = triggerButtonRef
+                .current
+                .getBoundingClientRect()
+                .right - modalWidth;
+            return modalBoundingLeft < 0;
+        }
+        return false;
+    };
+
     const modalRef = useRef<HTMLDivElement>(null);
     useOnClickOutside(modalRef, (e) => {
-        const isTriggerElem = triggerRef ? triggerRef.current?.contains(e.target) : false;
+        // Exclude click on trigger button (e.g. Dropdown Button) from outside click handler
+        const isTriggerElem = triggerButtonRef ? triggerButtonRef.current?.contains(e.target) : false;
         if (!isTriggerElem) {
             setShowModal(false);
         }
     });
 
-    const invisibleRef = useRef<HTMLDivElement>(null);
-    const checkPositionExceeding: HorizontalPosition = anchor === HorizontalPositions.Left
-        ? HorizontalPositions.Right
-        : HorizontalPositions.Left;
-    const [modalExceedsViewPort, setModalExceedsViewport] = useState(false);
+    const [modalExceedsWindow, setModalExceedsWindow] = useState(
+        // Only conduct check if modal is of absolute width
+        width !== undefined ? checkModalExceedsWindow(getPixelsFromTwClassName(width)) : false
+    );
 
-    const windowSize = useWindowSize();
-    useEffect(() => {
-        setModalExceedsViewport(exceedsViewPort(invisibleRef, checkPositionExceeding));
-    }, [windowSize]);
+    // Only trigger if modal is of absolute width
+    if (width !== undefined) {
+        const windowSize = useWindowSize();
+        useEffect(() => {
+            setModalExceedsWindow(checkModalExceedsWindow(getPixelsFromTwClassName(width)));
+        }, [windowSize]);
+    }
+
+    console.log(modalExceedsWindow);
+
+    const getAbsoluteSpacing = () => {
+        if ((anchorPosition === HorizontalPositions.Left)) {
+            if (!modalExceedsWindow) {
+                return spacing.none.left;
+            } else {
+                return spacing.none.right;
+            }
+        }
+        if ((anchorPosition === HorizontalPositions.Right)) {
+            if (!modalExceedsWindow) {
+                return spacing.none.right;
+            } else {
+                return spacing.none.left;
+            }
+        }
+        return spacing.none.left;
+    };
 
     return (
-        <>
-            { showModal ? (
-                <div
-                    ref={ modalRef }
-                    className={ classNames(
-                        'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
-                        width ? parseWidth(width) : 'tr-w-full',
-                        maxHeight,
-                        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-                        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
-                        ((anchor === HorizontalPositions.Left) && !modalExceedsViewPort)
-                            ? spacing.none.left
-                            : spacing.none.right,
-                        spacing.twoXs.marginTop,
-                        spacing.twoXs.marginBottom,
-                        borderRadius.md.all,
-                        border.sm.all,
-                        boxShadow.lg,
-                    ) }
-                >
-                    { children }
-                </div>
-            ) : null }
-            {/* Invisible div to dedect if modal exceeds viewport. The purpose of this invisible div is that the
-                exceed-check can be made before the modal is being shown, hence no delay is being caused. */}
+        showModal ? (
             <div
-                ref={ invisibleRef }
+                ref={ modalRef }
                 className={ classNames(
-                    'tr-absolute',
+                    'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
                     width ? parseWidth(width) : 'tr-w-full',
-                    anchor === HorizontalPositions.Left ? spacing.none.left : spacing.none.right,
+                    getAbsoluteSpacing(),
+                    maxHeight,
+                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
+                    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+                    spacing.twoXs.marginTop,
+                    spacing.twoXs.marginBottom,
+                    borderRadius.md.all,
+                    border.sm.all,
+                    boxShadow.lg,
                 ) }
-            />
-        </>
+            >
+                { children }
+            </div>
+        ) : null
     );
 };
 

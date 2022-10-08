@@ -130,7 +130,7 @@ const SelectBox = ({
             <Modal
                 showModal={ filteredOptionNames.size === 0 ? false : showModal }
                 setShowModal={ setShowModal }
-                triggerRef={ dropdownRef }
+                triggerButtonRef={ dropdownRef }
             >
                 { React.Children.map(children, (child) => {
                     if (filteredOptionNames.has(String(child.props.text))) {

@@ -278,7 +278,7 @@ const Datepicker = ({
             <Modal
                 showModal={ showDatePickerModal }
                 setShowModal={ setShowDatePickerModal }
-                triggerRef={ datePickerRef }
+                triggerButtonRef={ datePickerRef }
                 width="w-72"
                 maxHeight="tr-max-h-fit"
             >
@@ -443,7 +443,7 @@ const Datepicker = ({
             <Modal
                 showModal={ showDropdownModal }
                 setShowModal={ setShowDropdownModal }
-                triggerRef={ dropdownRef }
+                triggerButtonRef={ dropdownRef }
             >
                 { relativeFilterOptions.map((filterOption) => (
                     <button
