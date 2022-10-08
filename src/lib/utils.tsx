@@ -94,14 +94,15 @@ export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
 };
 
-export const useWindowSize = () => {
+export const useWindowSize = (handler: {(): void}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     useEffect(() => {
-        const handleResize = () => setWindowSize(window.innerWidth);
+        const handleResize = () => {
+            setWindowSize(window.innerWidth);
+            handler();
+        };
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
     }, [windowSize]);
-    
-    return windowSize;
 };

@@ -69,20 +69,19 @@ const Modal = ({
         }
     });
 
-    const [modalExceedsWindow, setModalExceedsWindow] = useState(
-        // Only conduct check if modal is of absolute width
-        width !== undefined ? checkModalExceedsWindow(getPixelsFromTwClassName(width)) : false
-    );
+    const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
 
-    // Only trigger if modal is of absolute width
+    // Execute only when modal is of fixed size
     if (width !== undefined) {
-        const windowSize = useWindowSize();
+        const widthInPixel = getPixelsFromTwClassName(width);
         useEffect(() => {
-            setModalExceedsWindow(checkModalExceedsWindow(getPixelsFromTwClassName(width)));
-        }, [windowSize]);
-    }
+            setModalExceedsWindow(checkModalExceedsWindow(widthInPixel));
+        }, [triggerButtonRef]);
 
-    console.log(modalExceedsWindow);
+        useWindowSize(
+            () => setModalExceedsWindow(checkModalExceedsWindow(widthInPixel))
+        );
+    }
 
     const getAbsoluteSpacing = () => {
         if ((anchorPosition === HorizontalPositions.Left)) {
