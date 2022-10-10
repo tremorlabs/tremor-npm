@@ -45,13 +45,13 @@
 
 ## Getting Started
 
-### 1. Create a Next.js project
+### 1. Create a React project
 
-We start by creating a new Next.js project with
-[Create Next App](https://nextjs.org/docs/api-reference/create-next-app).
+We start by creating a new React project with
+[Create React App]([url](https://create-react-app.dev/docs/getting-started/)).
 
 ```bash
-npx create-next-app my-project
+npx create-react-app my-project
 cd my-project
 ```
 
@@ -63,7 +63,7 @@ Install tremor from your command line via npm.
 npm install @tremor/react
 ```
 
-Import our stylesheet into your `_app.tsx` file.
+Import our stylesheet into your `App.tsx` file.
 ```tsx
 import '@tremor/react/dist/esm/tremor.css';
 ```
