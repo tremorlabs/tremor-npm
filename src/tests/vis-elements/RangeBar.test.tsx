@@ -9,8 +9,8 @@ describe('RangeBar', () => {
         render(
             <RangeBar
                 percentageValue={50}
-                minRangeValue={25}
-                maxRangeValue={75}
+                minPercentageValue={25}
+                maxPercentageValue={75}
             />
         );
     });

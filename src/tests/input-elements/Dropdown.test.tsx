@@ -8,9 +8,9 @@ describe('Dropdown', () => {
     test('renders the Dropdown component with default props', () => {
         render(
             <Dropdown>
-                <DropdownItem value={ 5 } name={ 'Five' } />
-                <DropdownItem value={ 3 } name={ 'Three' } />
-                <DropdownItem value={ 1 } name={ 'One' } />
+                <DropdownItem value={5} text={'Five'} />
+                <DropdownItem value={3} text={'Three'} />
+                <DropdownItem value={1} text={'One'} />
             </Dropdown>
         );
     });
