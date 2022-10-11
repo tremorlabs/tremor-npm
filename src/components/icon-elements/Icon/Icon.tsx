@@ -7,7 +7,7 @@ import { BaseColors, Sizes, classNames, isBaseColor, isValidSize, parseMarginTop
 import { Color, IconVariant, MarginTop, Size } from '../../../lib';
 import { colors, iconSizes, shape, wrapperProportions } from './styles';
 
-export const IconVariants: {[key: string]: IconVariant} = {
+export const IconVariants: { [key: string]: IconVariant } = {
     Simple: 'simple',
     Light: 'light',
     Shadow: 'shadow',
@@ -20,7 +20,7 @@ const isValidIconVariant = (iconVariant: IconVariant): boolean => {
 };
 
 export interface IconProps {
-    Icon: React.ElementType,
+    icon: React.ElementType,
     variant?: IconVariant,
     tooltip?: string,
     size?: Size,
@@ -29,7 +29,7 @@ export interface IconProps {
 }
 
 const Icon = ({
-    Icon,
+    icon,
     variant = IconVariants.Simple,
     tooltip,
     size = Sizes.SM,
@@ -39,12 +39,12 @@ const Icon = ({
     const iconSize = isValidSize(size) ? size : Sizes.SM;
     const iconVariant = isValidIconVariant(variant) ? variant : IconVariants.Simple;
     const iconColors = isBaseColor(color) ? colors[iconVariant][color] : colors[iconVariant][BaseColors.Blue];
-
+    const Icon = icon;
     return (
-        <span className={ classNames(parseMarginTop(marginTop)) }>
-            <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
+        <span className={classNames(parseMarginTop(marginTop))}>
+            <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span
-                    className={ classNames(
+                    className={classNames(
                         'tr-inline-flex tr-flex-shrink-0 tr-items-center',
                         iconColors.bgColor,
                         iconColors.textColor,
@@ -58,12 +58,12 @@ const Icon = ({
                         wrapperProportions[iconSize].paddingRight,
                         wrapperProportions[iconSize].paddingTop,
                         wrapperProportions[iconSize].paddingBottom,
-                    ) }
+                    )}
                 >
-                    <Icon className={ classNames(
+                    <Icon className={classNames(
                         iconSizes[iconSize].height,
                         iconSizes[iconSize].width,
-                    ) } />
+                    )} />
                 </span>
             </Tooltip>
         </span>
