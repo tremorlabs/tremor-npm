@@ -16,7 +16,7 @@ import { Color } from '../../../lib';
 export interface ToggleItemProps {
     value: any,
     text: string,
-    Icon?: React.ElementType,
+    icon?: React.ElementType,
     privateProps?: {
         color: Color,
         setActiveToggleItem: React.Dispatch<React.SetStateAction<any>>,
@@ -27,7 +27,7 @@ export interface ToggleItemProps {
 const ToggleItem = ({
     value,
     text,
-    Icon,
+    icon,
     privateProps,
 }: ToggleItemProps) => {
     const activeClassNames = classNames(
@@ -42,6 +42,7 @@ const ToggleItem = ({
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         getColorVariantsFromColorThemeValue(defaultColors.transparent).ringRolor,
     );
+    const Icon = icon ? icon : null;
     return (
         <button
             className={classNames(
@@ -54,11 +55,11 @@ const ToggleItem = ({
                 borderRadius.md.all,
                 privateProps!.isActive ? activeClassNames : inActiveClassNames,
             )}
-            onClick={ () => { privateProps!.setActiveToggleItem!(value); }}
+            onClick={() => { privateProps!.setActiveToggleItem!(value); }}
         >
-            { Icon ? (
+            {Icon ? (
                 <Icon
-                    className={ classNames(
+                    className={classNames(
                         'tr-opacity-70',
                         spacing.xs.marginRight,
                         sizing.lg.height,
@@ -66,8 +67,8 @@ const ToggleItem = ({
                     )}
                     aria-hidden="true"
                 />
-            ) : null }
-            <span className="tr-whitespace-nowrap tr-truncate">{ text }</span>
+            ) : null}
+            <span className="tr-whitespace-nowrap tr-truncate">{text}</span>
         </button>
     );
 };
