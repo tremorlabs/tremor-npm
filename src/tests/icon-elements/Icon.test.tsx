@@ -9,7 +9,7 @@ import Icon from 'components/icon-elements/Icon';
 describe('Icon', () => {
     test('renders the Icon component with default props', () => {
         render(
-            <Icon Icon={ ArrowUpIcon } />
+            <Icon icon={ArrowUpIcon} />
         );
     });
 });
