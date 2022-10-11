@@ -18,25 +18,25 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
     <Card maxWidth="max-w-md">
-        <ColGrid numCols={ 4 } gapY="gap-y-2">
-            { Object.values(InputSizes).map(size => (
+        <ColGrid numCols={4} gapY="gap-y-2">
+            {Object.values(InputSizes).map(size => (
                 <>
-                    <Badge size={ size } text={ args.text } tooltip={ args.tooltip } />
-                    <Badge size={ size } text={ args.text } tooltip={ args.tooltip } Icon={ ArrowUpIcon } />
-                    <BadgeDelta size={ size } text={ args.text } deltaType="increase" />
-                    <BadgeDelta size={ size } deltaType="increase" />
+                    <Badge size={size} text={args.text} tooltip={args.tooltip} />
+                    <Badge size={size} text={args.text} tooltip={args.tooltip} icon={ArrowUpIcon} />
+                    <BadgeDelta size={size} text={args.text} deltaType="increase" />
+                    <BadgeDelta size={size} deltaType="increase" />
                 </>
-            )) }
+            ))}
         </ColGrid>
     </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
     <Card maxWidth="max-w-sm">
-        <ColGrid numCols={ 5 } gapY="gap-y-2">
-            { Object.values(BaseColors).map(color => (
-                <Badge color={ color } text={ args.text } Icon={ args.Icon } />
-            )) }
+        <ColGrid numCols={5} gapY="gap-y-2">
+            {Object.values(BaseColors).map(color => (
+                <Badge color={color} text={args.text} icon={args.icon} />
+            ))}
         </ColGrid>
     </Card>
 );
@@ -47,16 +47,16 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Badge> = (args) => (
         <div className="tr-w-64">
             <Card>
                 <Flex>
-                    <Badge { ...args } />
-                    <Badge { ...args } />
+                    <Badge {...args} />
+                    <Badge {...args} />
                 </Flex>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
             <Flex>
-                <Badge { ...args } />
-                <Badge { ...args } />
+                <Badge {...args} />
+                <Badge {...args} />
             </Flex>
         </Card>
     </>
@@ -74,12 +74,12 @@ export const Colors = ColorsTemplate.bind({});
 Colors.args = {
     text: 'Live',
     tooltip: 'Tooltip',
-    Icon: ArrowUpIcon,
+    icon: ArrowUpIcon,
 };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithFlexParent.args = {
     text: 'Live',
-    Icon: ArrowUpIcon,
+    icon: ArrowUpIcon,
 };

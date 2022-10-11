@@ -16,14 +16,14 @@ export default {
 
 const Template: ComponentStory<typeof Callout> = (args) => (
     <>
-        { Object.values(BaseColors).map(color => (
+        {Object.values(BaseColors).map(color => (
             <div className="tr-mb-5 tr-max-w-lg">
-                <Callout {...args} color={ color } />
+                <Callout {...args} color={color} />
             </div>
         ))}
     </>
 );
-  
+
 export const Default = Template.bind({});
 Default.args = {
     title: 'Performance Metric',
@@ -39,5 +39,5 @@ WithIcon.args = {
     text: 'You are outranking 83% of the sales representatives in your cohort. Sit repellendus qui ut at blanditis \
            et quo et molestiae. Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus \
            qui ut at blanditiis et quo et molestiae',
-    Icon: ArrowUpRightIcon
+    icon: ArrowUpRightIcon
 };

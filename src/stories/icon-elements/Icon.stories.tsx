@@ -19,35 +19,35 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
     <Card>
-        <ColGrid numCols={ 5 }>
-            { Object.values(IconVariants).map(variant => (
+        <ColGrid numCols={5}>
+            {Object.values(IconVariants).map(variant => (
                 <Block>
-                    <Title>{ variant }</Title>
-                    { Object.values(InputSizes).map((size) => (
+                    <Title>{variant}</Title>
+                    {Object.values(InputSizes).map((size) => (
                         <Block marginTop="mt-2">
-                            <Icon Icon={ args.Icon } variant={ variant } size={ size } />
+                            <Icon icon={args.icon} variant={variant} size={size} />
                         </Block>
-                    )) }
+                    ))}
                 </Block>
-            )) }
+            ))}
         </ColGrid>
     </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
-    <ColGrid numColsLg={ 2 } gapX="gap-x-2" gapY="gap-y-2">
-        { Object.values(IconVariants).map(variant => (
+    <ColGrid numColsLg={2} gapX="gap-x-2" gapY="gap-y-2">
+        {Object.values(IconVariants).map(variant => (
             <Card maxWidth="max-w-lg">
-                <Title>{ variant }</Title>
-                <ColGrid numCols={ 5 }>
-                    { Object.values(BaseColors).map((color) => (
+                <Title>{variant}</Title>
+                <ColGrid numCols={5}>
+                    {Object.values(BaseColors).map((color) => (
                         <Block marginTop="mt-2">
-                            <Icon Icon={ args.Icon } variant={ variant } color={ color } />
+                            <Icon icon={args.icon} variant={variant} color={color} />
                         </Block>
-                    )) }
+                    ))}
                 </ColGrid>
             </Card>
-        )) }
+        ))}
     </ColGrid>
 );
 
@@ -57,24 +57,24 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
         <div className="tr-w-64">
             <Card>
                 <Block spaceY="space-y-2">
-                    { Object.values(IconVariants).map(variant => (
+                    {Object.values(IconVariants).map(variant => (
                         <Flex>
-                            <Icon { ...args } variant={ variant } />
-                            <Icon { ...args } variant={ variant } />
+                            <Icon {...args} variant={variant} />
+                            <Icon {...args} variant={variant} />
                         </Flex>
-                    )) }
+                    ))}
                 </Block>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
             <Block spaceY="space-y-2">
-                { Object.values(IconVariants).map(variant => (
+                {Object.values(IconVariants).map(variant => (
                     <Flex>
-                        <Icon { ...args } variant={ variant } />
-                        <Icon { ...args } variant={ variant } />
+                        <Icon {...args} variant={variant} />
+                        <Icon {...args} variant={variant} />
                     </Flex>
-                )) }
+                ))}
             </Block>
         </Card>
     </>
@@ -83,12 +83,12 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
 
 
 export const Sizes = SizesTemplate.bind({});
-Sizes.args = { Icon: ArrowUpIcon };
+Sizes.args = { icon: ArrowUpIcon };
 
 export const Colors = ColorsTemplate.bind({});
-Colors.args = { Icon: ArrowUpIcon };
+Colors.args = { icon: ArrowUpIcon };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
-WithFlexParent.args = { Icon: ArrowUpIcon };
+WithFlexParent.args = { icon: ArrowUpIcon };
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
