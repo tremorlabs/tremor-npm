@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Color, MarginTop } from '../../../lib';
+import { Color, MarginTop, Size } from '../../../lib';
 import {
     classNames,
     defaultColors,
@@ -17,11 +17,15 @@ import {
 export interface LegendItemProps {
     name: string,
     color: Color,
+    labelSize: Size,
+    roundSize: Size,
 }
 
 const LegendItem = ({
     name,
     color,
+    labelSize,
+    roundSize,
 }: LegendItemProps) => (
     <li className={ classNames(
         'tr-inline-flex tr-items-center tr-truncate',
@@ -33,9 +37,9 @@ const LegendItem = ({
             className={ classNames(
                 'tr-flex-none',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-                sizing.xs.height,
-                sizing.xs.width,
-                spacing.xs.marginRight,
+                sizing[roundSize].height,
+                sizing[roundSize].width,
+                spacing[roundSize].marginRight,
             ) }
             fill="currentColor"
             viewBox="0 0 8 8"
@@ -44,7 +48,7 @@ const LegendItem = ({
         </svg>
         <p className={ classNames(
             'tr-whitespace-nowrap tr-truncate',
-            fontSize.sm,
+            fontSize[labelSize],
             fontWeight.sm,
         ) }>
             { name }
@@ -57,18 +61,28 @@ export interface LegendProps {
     categories: string[],
     colors?: Color[],
     marginTop?: MarginTop,
+    labelSize?: Size,
+    roundSize?: Size,
 }
 
 const Legend = ({
     categories,
     colors = themeColorRange,
     marginTop = 'mt-0',
+    labelSize = 'sm',
+    roundSize = 'xs',
 }: LegendProps) => {
     return(
         <div className={ classNames(parseMarginTop(marginTop)) }>
             <ol className="tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
                 { categories.map((category, idx) => (
-                    <LegendItem key={ `item-${idx}` } name={ category } color={ colors[idx] } />
+                    <LegendItem
+                        key={ `item-${idx}` }
+                        name={ category }
+                        color={ colors[idx] }
+                        labelSize={labelSize}
+                        roundSize={roundSize}
+                    />
                 )) }
             </ol>
         </div>
