@@ -2,9 +2,10 @@ name: "Build"
 
 on:
   pull_request:
-    - opened
-    - edited
-    - synchronize
+    types:
+      - opened
+      - edited
+      - synchronize
   push:
     branches:
       - '**'
