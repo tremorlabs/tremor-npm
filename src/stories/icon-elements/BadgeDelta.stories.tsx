@@ -22,7 +22,7 @@ const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
                 <>
                     <BadgeDelta size={ size } deltaType="increase" />
                     <BadgeDelta size={ size } text={ args.text } deltaType="increase" />
-                    <Badge size={ size } text={ args.text! } Icon={ ArrowUpIcon } />
+                    <Badge size={ size } text={ args.text! } icon={ ArrowUpIcon } />
                     <Badge size={ size } text={ args.text! } />
                 </>
             )) }
