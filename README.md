@@ -63,7 +63,7 @@ Install tremor from your command line via npm.
 npm install @tremor/react
 ```
 
-Import our stylesheet into your `App.tsx` file.
+Import our stylesheet into your `App.js` file.
 ```tsx
 import '@tremor/react/dist/esm/tremor.css';
 ```
