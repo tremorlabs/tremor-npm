@@ -164,7 +164,7 @@ const MultiSelectBox = ({
             <Modal
                 showModal={ showModal }
                 setShowModal={ setShowModal }
-                triggerButtonRef={ dropdownRef }
+                triggerRef={ dropdownRef }
             >
                 <div className={ classNames(
                     'tr-flex tr-items-center tr-w-full',

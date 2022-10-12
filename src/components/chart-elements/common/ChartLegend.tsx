@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { themeColorRange, useWindowSize } from 'lib';
 import { Color } from '../../../lib';
 import Legend from 'components/text-elements/Legend';
+import { themeColorRange } from 'lib';
 
-const ChartLegend = (
-    { payload }: any,
-    colors: Color[] = themeColorRange,
-    setLegendHeight: React.Dispatch<React.SetStateAction<number>>
-) => {
+const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
+    setLegendHeight: React.Dispatch<React.SetStateAction<number>>) => {
     const calculateHeight = (height: number|undefined) => (
         height
             ? Number(height) + 20 // 20px extra padding
@@ -16,20 +13,20 @@ const ChartLegend = (
     );
 
     const legendRef = useRef<HTMLDivElement>(null);
-    const [currentheight, setCurrentHeight] = useState(calculateHeight(undefined));
-
+    const [height, setHeight] = useState(calculateHeight(undefined));
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // dummy windowsize listener to trigger useEffect on resize
+    const [_windowSize, setWindowSize] = useState(window.innerWidth);
     useEffect(() => {
-        setCurrentHeight(calculateHeight(currentheight));
-        // setLegendHeight setState action from Chart parent
-        setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
-    }, []);
+        const handleResize = () => setWindowSize(window.innerWidth);
+        window.addEventListener('resize', handleResize);
 
-    useWindowSize(() => {
-        setCurrentHeight(calculateHeight(currentheight));
-        // setLegendHeight setState action from Chart parent
         setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
-    });
-
+        setHeight(calculateHeight(height));
+        
+        return () => window.removeEventListener('resize', handleResize);
+    }, [_windowSize]);
     return (
         <div ref={ legendRef } className="tr-flex tr-items-center tr-justify-end">
             <Legend

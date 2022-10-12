@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { BaseColorTheme, colorTheme } from './colors';
 import { BaseColors, DeltaTypes, Importances, Sizes } from './primitives';
@@ -92,17 +92,4 @@ export const stringIsNumeric = (str: string|undefined): boolean => {
 
 export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
-};
-
-export const useWindowSize = (handler: {(): void}) => {
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowSize(window.innerWidth);
-            handler();
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowSize]);
 };
