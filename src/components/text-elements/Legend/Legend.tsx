@@ -18,14 +18,14 @@ export interface LegendItemProps {
     name: string,
     color: Color,
     labelSize: Size,
-    roundSize: Size,
+    circleSize: Size,
 }
 
 const LegendItem = ({
     name,
     color,
     labelSize,
-    roundSize,
+    circleSize,
 }: LegendItemProps) => (
     <li className={ classNames(
         'tr-inline-flex tr-items-center tr-truncate',
@@ -37,9 +37,9 @@ const LegendItem = ({
             className={ classNames(
                 'tr-flex-none',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-                sizing[roundSize].height,
-                sizing[roundSize].width,
-                spacing[roundSize].marginRight,
+                sizing[circleSize].height,
+                sizing[circleSize].width,
+                spacing[circleSize].marginRight,
             ) }
             fill="currentColor"
             viewBox="0 0 8 8"
@@ -62,7 +62,7 @@ export interface LegendProps {
     colors?: Color[],
     marginTop?: MarginTop,
     labelSize?: Size,
-    roundSize?: Size,
+    circleSize?: Size,
 }
 
 const Legend = ({
@@ -70,7 +70,7 @@ const Legend = ({
     colors = themeColorRange,
     marginTop = 'mt-0',
     labelSize = 'sm',
-    roundSize = 'xs',
+    circleSize = 'xs',
 }: LegendProps) => {
     return(
         <div className={ classNames(parseMarginTop(marginTop)) }>
@@ -81,7 +81,7 @@ const Legend = ({
                         name={ category }
                         color={ colors[idx] }
                         labelSize={labelSize}
-                        roundSize={roundSize}
+                        circleSize={circleSize}
                     />
                 )) }
             </ol>
