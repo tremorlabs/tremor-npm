@@ -2,14 +2,14 @@
 <br>
 <br>
 <div align="center">
-  <img alt="Tremor Logo" src="images/tremor-light.svg" height="50"/>
+  <img alt="Tremor Logo" src="images/tremor-light-beta.svg" height="50"/>
 <br>
 <br>
 <br>
 
   <div align="center">
-    <a href="https://twitter.com/tremorlabs">
-      <img alt="Follow on twitter" src="https://img.shields.io/twitter/follow/tremorlabs?style=flat&color=5C9BA1" height="20" width="auto">
+    <a href="https://www.npmjs.com/package/@tremor/react">
+      <img alt="npm" src="https://img.shields.io/npm/dm/@tremor/react?color=5C9BA1&label=npm&logo=npm">
     </a>
     <a href="https://tremor.so/docs/getting-started/introduction">
       <img alt="Read the documentation" src="https://img.shields.io/badge/Docs-blue?style=flat&logo=readthedocs&labelColor=5c5c5c&color=5C9BA1" height="20" width="auto">
