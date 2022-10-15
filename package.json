@@ -82,6 +82,9 @@
   ],
   "types": "dist/index.d.ts",
   "release": {
-    "branches": ["main"]
+    "branches": [
+      "main",
+      { "name": "beta", "prerelease": true }
+    ]
   }
 }
