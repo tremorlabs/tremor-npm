@@ -21,7 +21,7 @@ export interface BadgeProps {
     text: string,
     color?: Color,
     size?: Size,
-    Icon?: React.ElementType,
+    icon?: React.ElementType,
     tooltip?: string,
     marginTop?: MarginTop,
 }
@@ -29,16 +29,17 @@ export interface BadgeProps {
 const Badge = ({
     text,
     color = BaseColors.Blue,
-    Icon,
+    icon,
     size = Sizes.SM,
     tooltip,
     marginTop = 'mt-0',
 }: BadgeProps) => {
     const badgeSize = isValidSize(size) ? size : Sizes.SM;
-    return(
-        <div className={ classNames( parseMarginTop(marginTop)) }>
-            <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
-                <span className={ classNames(
+    const Icon = icon ? icon : null;
+    return (
+        <div className={classNames(parseMarginTop(marginTop))}>
+            <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
+                <span className={classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
                     getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
@@ -48,17 +49,17 @@ const Badge = ({
                     badgeProportions[badgeSize].paddingTop,
                     badgeProportions[badgeSize].paddingBottom,
                     badgeProportions[badgeSize].fontSize,
-                ) }>
-                    { Icon ? (
-                        <Icon className={ classNames(
+                )}>
+                    {Icon ? (
+                        <Icon className={classNames(
                             spacing.twoXs.negativeMarginLeft,
                             spacing.xs.marginRight,
                             iconSizes[badgeSize].height,
                             iconSizes[badgeSize].width,
-                        ) }
+                        )}
                         />
-                    ) : null }
-                    <p className="tr-whitespace-nowrap">{ text }</p>
+                    ) : null}
+                    <p className="tr-whitespace-nowrap">{text}</p>
                 </span>
             </Tooltip>
         </div>

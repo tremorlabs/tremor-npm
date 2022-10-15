@@ -4,6 +4,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Block, Card, Flex, Text, Title, Toggle, ToggleItem } from 'components';
 import { BaseColors } from 'lib';
+import { CalendarIcon } from 'assets';
+
+const Icon = CalendarIcon;
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,9 +20,10 @@ const SimpleToggle = (args: any) => (
         <ToggleItem
             value={ 5 }
             text={ 'This is a very Long Toggle Value that is used as an edge case' }
+            icon={ Icon }
         />
-        <ToggleItem value={ 3 } text={ 'Three' } />
-        <ToggleItem value={ 1 } text={ 'One' } />
+        <ToggleItem value={ 3 } text={ 'Three' } icon={ Icon } />
+        <ToggleItem value={ 1 } text={ 'One' } icon={ Icon } />
     </Toggle>
 );
 
@@ -80,8 +84,15 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
 );
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
+DefaultResponsive.args = {
+    defaultValue: 5
+};
+
 
 export const WithFlexParent = FlexTemplate.bind({});
+WithFlexParent.args = {
+    defaultValue: 5
+};
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {

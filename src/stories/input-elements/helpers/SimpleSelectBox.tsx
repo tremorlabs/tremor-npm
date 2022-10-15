@@ -6,13 +6,13 @@ import { CalendarIcon } from 'assets';
 const MyIcon = CalendarIcon;
 
 export const SimpleSelectBox = (args: any) => (
-    <SelectBox { ...args }>
+    <SelectBox {...args}>
         <SelectBoxItem
-            value={ 5 }
-            text={ 'Very Long DropdownItem Value as an edge case' }
-            Icon={ MyIcon }
+            value={5}
+            text={'Very Long DropdownItem Value as an edge case'}
+            icon={MyIcon}
         />
-        <SelectBoxItem value={ 3 } text={ 'Three' } Icon={ MyIcon } />
-        <SelectBoxItem value={ 1 } text={ 'One' } Icon={ MyIcon } />
+        <SelectBoxItem value={3} text={'Three'} icon={MyIcon} />
+        <SelectBoxItem value={1} text={'One'} icon={MyIcon} />
     </SelectBox>
 );

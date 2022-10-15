@@ -20,29 +20,29 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = () => (
     <Card>
-        <ColGrid numCols={ 4 } gapY="gap-y-2">
-            { Object.values(InputSizes).map(size => (
+        <ColGrid numCols={4} gapY="gap-y-2">
+            {Object.values(InputSizes).map(size => (
                 <>
-                    <Button size={ size } text="Button" />
-                    <Button size={ size } text="Button" Icon={ MyIcon } />
-                    <Button size={ size } text="Button" Icon={ MyIcon } iconPosition="right" />
-                    <Button size={ size } text="Button" importance="secondary" />
+                    <Button size={size} text="Button" />
+                    <Button size={size} text="Button" icon={MyIcon} />
+                    <Button size={size} text="Button" icon={MyIcon} iconPosition="right" />
+                    <Button size={size} text="Button" importance="secondary" />
                 </>
-            )) }
+            ))}
         </ColGrid>
     </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Button> = () => (
     <Card>
-        <ColGrid numCols={ 3 } numColsLg={ 6 } gapY="gap-y-2">
-            { Object.values(BaseColors).map(color => (
+        <ColGrid numCols={3} numColsLg={6} gapY="gap-y-2">
+            {Object.values(BaseColors).map(color => (
                 <>
-                    <Button color={ color } text={ color } />
-                    <Button color={ color } text={ color } Icon={ MyIcon } />
-                    <Button color={ color } text={ color } importance="secondary" />
+                    <Button color={color} text={color} />
+                    <Button color={color} text={color} icon={MyIcon} />
+                    <Button color={color} text={color} importance="secondary" />
                 </>
-            )) }
+            ))}
         </ColGrid>
     </Card>
 );
@@ -53,16 +53,16 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = () => (
         <div className="tr-w-64">
             <Card>
                 <Flex>
-                    <Button text="Button" Icon={ MyIcon } />
-                    <Button text="Button" Icon={ MyIcon } />
+                    <Button text="Button" icon={MyIcon} />
+                    <Button text="Button" icon={MyIcon} />
                 </Flex>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
             <Flex>
-                <Button text="Very Long Button Text" Icon={ MyIcon } />
-                <Button text="Very Long Button Text" Icon={ MyIcon } />
+                <Button text="Very Long Button Text" icon={MyIcon} />
+                <Button text="Very Long Button Text" icon={MyIcon} />
             </Flex>
         </Card>
     </>

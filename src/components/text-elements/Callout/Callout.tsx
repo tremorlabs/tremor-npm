@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { 
+import {
     BaseColors,
     border,
     borderRadius,
@@ -19,7 +19,7 @@ import { Color, Height, MarginTop } from '../../../lib';
 export interface CalloutProps {
     title: string,
     text: string,
-    Icon?: React.ElementType,
+    icon?: React.ElementType,
     color?: Color,
     height?: Height | '',
     marginTop?: MarginTop,
@@ -28,13 +28,14 @@ export interface CalloutProps {
 const Callout = ({
     title,
     text,
-    Icon,
+    icon,
     color = BaseColors.Blue,
     height = '',
     marginTop = 'mt-0'
 }: CalloutProps) => {
-    return(
-        <div className={ classNames(
+    const Icon = icon ? icon : null;
+    return (
+        <div className={classNames(
             'tr-relative',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(getColorTheme(color).canvasBackground).bgColor,
@@ -46,38 +47,38 @@ const Callout = ({
             fontSize.sm,
             borderRadius.md.all,
             border.lg.left,
-        ) }
+        )}
         >
-            <div className={ classNames(
+            <div className={classNames(
                 'tr-overflow-hidden',
                 spacing.xs.marginLeft,
-            ) }>
-                <div className={ classNames(
+            )}>
+                <div className={classNames(
                     'tr-flex tr-items-start',
                     getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).textColor,
-                ) }
+                )}
                 >
-                    { Icon ? (
+                    {Icon ? (
                         <Icon
-                            className={ classNames(
+                            className={classNames(
                                 'tr-flex-none',
                                 sizing.lg.height,
                                 sizing.lg.width,
                                 spacing.xs.marginRight,
-                            ) }
+                            )}
                             aria-hidden="true"
                         />
-                    ) : null }
-                    <h4 className={ classNames(fontWeight.lg) }>{ title }</h4>
+                    ) : null}
+                    <h4 className={classNames(fontWeight.lg)}>{title}</h4>
                 </div>
-                <div className={ classNames(
+                <div className={classNames(
                     'tr-overflow-y-auto',
                     height ? parseHeight(height) : height,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).textColor,
                     spacing.sm.marginTop,
-                ) }
+                )}
                 >
-                    { text }
+                    {text}
                 </div>
             </div>
         </div>

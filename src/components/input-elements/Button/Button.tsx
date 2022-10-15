@@ -25,7 +25,7 @@ import {
 
 export interface ButtonProps {
     text: string,
-    Icon?: React.ElementType,
+    icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
     color?: Color,
@@ -36,7 +36,7 @@ export interface ButtonProps {
 
 const Button = ({
     text,
-    Icon,
+    icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
     size = Sizes.SM,
@@ -47,12 +47,13 @@ const Button = ({
     const buttonColors = isBaseColor(color) ? colors[color] : colors[BaseColors.Blue];
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
-    return(
-        <span className={ classNames(parseMarginTop(marginTop)) }>
+    const Icon = icon ? icon : null;
+    return (
+        <span className={classNames(parseMarginTop(marginTop))}>
             <button
                 type="button"
-                onClick={ handleClick }
-                className={ classNames(
+                onClick={handleClick}
+                className={classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
                     'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',
                     borderRadius.md.all,
@@ -70,9 +71,9 @@ const Button = ({
                     buttonColors[buttonImportance].hoverBgColor,
                     buttonColors[buttonImportance].hoverBorderColor,
                     buttonColors[buttonImportance].textColor,
-                ) }
+                )}
             >
-                { Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
+                {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon
                         className={classNames(
                             spacing.twoXs.negativeMarginLeft,
@@ -82,11 +83,11 @@ const Button = ({
                         )}
                         aria-hidden="true"
                     />
-                ) : null }
+                ) : null}
                 <p className="tr-whitespace-nowrap">
-                    { text }
+                    {text}
                 </p>
-                { Icon && (iconPosition === HorizontalPositions.Right) ? (
+                {Icon && (iconPosition === HorizontalPositions.Right) ? (
                     <Icon
                         className={classNames(
                             spacing.twoXs.negativeMarginRight,
@@ -96,7 +97,7 @@ const Button = ({
                         )}
                         aria-hidden="true"
                     />
-                ) : null }
+                ) : null}
             </button>
         </span>
     );

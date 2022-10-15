@@ -19,7 +19,7 @@ export const SimpleAccordion = (args: any) => (
                 title={ 'Performing as Average' }
                 text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod. Sit amet,
                     consetetur sadipscing elitr. Per aspera ad astra."
-                Icon={ ArrowRightIcon }
+                icon={ ArrowRightIcon }
                 color="gray"
                 marginTop="mt-2"
             />
