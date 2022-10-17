@@ -28,6 +28,18 @@ pre {
     margin: 0;
 }
 
+:is(
+    button,
+    input,
+    optgroup,
+    select,
+    textarea
+) {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: inherit; /* 1 */
+}
+
 .tremor-base :is(
     *,
     ::before,
@@ -37,8 +49,7 @@ pre {
     border-width: 0; /* 2 */
     border-style: solid; /* 2 */
     border-color: #e5e7eb; /* 2 */
-    font-family: inherit;
-    font-size: inherit;
+    line-height: inherit;
 }
 
 .tremor-base ::before,
@@ -68,19 +79,6 @@ pre {
     text-indent: 0; /* 1 */
     border-color: inherit; /* 2 */
     border-collapse: collapse; /* 3 */
-}
-
-.tremor-base :is(
-    button,
-    input,
-    optgroup,
-    select,
-    textarea
-) {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: inherit; /* 1 */
-  margin: 0; /* 2 */
 }
 
 .tremor-base button,
