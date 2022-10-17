@@ -37,13 +37,13 @@ const ButtonInline = ({
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base tremor-elem', parseMarginTop(marginTop))}>
             <button
                 type="button"
                 onClick={handleClick}
                 className={classNames(
-                    'tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',
-                    'focus:tr-outline-none focus:tr-ring-none',
+                    'tremor-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',
+                    'tremor-elem focus:tr-outline-none focus:tr-ring-none',
                     buttonProportions[buttonSize].fontSize,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).hoverTextColor,
@@ -54,6 +54,7 @@ const ButtonInline = ({
                 {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon
                         className={classNames(
+                            'tremor-elem',
                             spacing.twoXs.negativeMarginLeft,
                             spacing.xs.marginRight,
                             iconSizes[buttonSize].height,
@@ -62,10 +63,11 @@ const ButtonInline = ({
                         aria-hidden="true"
                     />
                 ) : null}
-                <p className="tr-whitespace-nowrap">{text}</p>
+                <p className="tremor-elem tr-whitespace-nowrap">{text}</p>
                 {Icon && (iconPosition === HorizontalPositions.Right) ? (
                     <Icon
                         className={classNames(
+                            'tremor-elem',
                             spacing.twoXs.negativeMarginRight,
                             spacing.xs.marginLeft,
                             iconSizes[buttonSize].height,
