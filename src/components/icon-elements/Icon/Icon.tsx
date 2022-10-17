@@ -41,7 +41,7 @@ const Icon = ({
     const iconColors = isBaseColor(color) ? colors[iconVariant][color] : colors[iconVariant][BaseColors.Blue];
     const Icon = icon;
     return (
-        <span className={classNames(parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span
                     className={classNames(

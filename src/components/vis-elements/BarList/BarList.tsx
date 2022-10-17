@@ -53,7 +53,7 @@ const BarList = ({
 
     return (
         <div className={ classNames(
-            'tr-flex tr-justify-between',
+            'tremor-base tr-flex tr-justify-between',
             parseMarginTop(marginTop),
             spacing.threeXl.spaceX,
         ) }>

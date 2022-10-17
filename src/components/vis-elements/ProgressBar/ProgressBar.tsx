@@ -40,7 +40,7 @@ const ProgressBar = ({
     return(
         <div className={
             classNames(
-                'tr-flex tr-items-center tr-w-full',
+                'tremor-base tr-flex tr-items-center tr-w-full',
                 parseMarginTop(marginTop),
             )
         }>

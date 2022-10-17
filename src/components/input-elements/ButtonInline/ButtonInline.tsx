@@ -37,7 +37,7 @@ const ButtonInline = ({
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames(parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <button
                 type="button"
                 onClick={handleClick}

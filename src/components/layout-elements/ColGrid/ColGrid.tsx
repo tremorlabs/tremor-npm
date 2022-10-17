@@ -45,7 +45,7 @@ const ColGrid = ({
 
     return (
         <div className={ classNames(
-            'tr-grid',
+            'tremor-base tr-grid',
             getColClassNames(),
             parseGapX(gapX),
             parseGapY(gapY),

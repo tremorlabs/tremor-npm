@@ -53,7 +53,7 @@ const Card = ({
 }: CardProps) => {
     return(
         <div className={ classNames(
-            'tr-relative tr-w-full tr-mx-auto tr-text-left tr-ring-1',
+            'tremor-base tr-relative tr-w-full tr-mx-auto tr-text-left tr-ring-1',
             parseMarginTop(marginTop),
             parseHFullOption(hFull),
             parseMaxWidth(maxWidth),

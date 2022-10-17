@@ -19,7 +19,7 @@ const List = ({
 }: ListProps) => {
     return(
         <ul className={ classNames(
-            'tr-w-full tr-overflow-hidden tr-divide-y',
+            'tremor-base tr-w-full tr-overflow-hidden tr-divide-y',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
             parseMarginTop(marginTop),

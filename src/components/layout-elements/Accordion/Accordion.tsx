@@ -35,7 +35,7 @@ const Accordion = ({
 
     return(
         <div className={ classNames(
-            'tr-overflow-hidden',
+            'tremor-base tr-overflow-hidden',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,

@@ -36,7 +36,7 @@ const Callout = ({
     const Icon = icon ? icon : null;
     return (
         <div className={classNames(
-            'tr-relative',
+            'tremor-base tr-relative',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(getColorTheme(color).canvasBackground).bgColor,
             getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder).borderColor,

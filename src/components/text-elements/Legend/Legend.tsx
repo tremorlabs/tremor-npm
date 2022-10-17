@@ -65,7 +65,7 @@ const Legend = ({
     marginTop = 'mt-0',
 }: LegendProps) => {
     return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
+        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <ol className="tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
                 { categories.map((category, idx) => (
                     <LegendItem key={ `item-${idx}` } name={ category } color={ colors[idx] } />

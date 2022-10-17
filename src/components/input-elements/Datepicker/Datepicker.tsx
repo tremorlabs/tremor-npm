@@ -152,7 +152,7 @@ const Datepicker = ({
 
     return (
         <div className={ classNames(
-            'tr-relative tr-w-full',
+            'tremor-base tr-relative tr-w-full',
             parseMarginTop(marginTop),
             parseMaxWidth(maxWidth),
         ) }>

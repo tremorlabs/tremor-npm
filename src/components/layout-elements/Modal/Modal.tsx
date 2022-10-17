@@ -39,7 +39,7 @@ const Modal = ({
             <div
                 ref={ modalRef }
                 className={ classNames(
-                    'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
+                    'tremor-base tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
                     width,
                     maxHeight,
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,

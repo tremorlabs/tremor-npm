@@ -30,7 +30,7 @@ const Block = ({
 }: BlockProps) => {
     return(
         <div className={ classNames(
-            'tr-w-full',
+            'tremor-base tr-w-full',
             parseMaxWidth(maxWidth),
             spaceY ? parseSpaceY(spaceY) : spaceY,
             parseTextAlignment(textAlignment),

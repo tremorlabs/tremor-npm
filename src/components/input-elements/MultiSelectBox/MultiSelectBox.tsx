@@ -94,7 +94,7 @@ const MultiSelectBox = ({
         <div
             ref={ dropdownRef }
             className={ classNames(
-                'tr-relative tr-w-full tr-min-w-[10rem]',
+                'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),

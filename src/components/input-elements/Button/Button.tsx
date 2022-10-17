@@ -49,7 +49,7 @@ const Button = ({
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames(parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <button
                 type="button"
                 onClick={handleClick}
