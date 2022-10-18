@@ -5,6 +5,7 @@
 html {
     font-family: var(--tr-font-family);
 }
+
 /*
 1. Making button's default color transparent
 2. Correct the inability to style clickable types in iOS and Safari.
