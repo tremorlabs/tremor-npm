@@ -2,6 +2,9 @@
     --tr-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
 }
 
+html {
+    font-family: var(--tr-font-family);
+}
 /*
 1. Making button's default color transparent
 2. Correct the inability to style clickable types in iOS and Safari.
@@ -28,7 +31,6 @@ button {
     -moz-tab-size: 4; /* 3 */
     -o-tab-size: 4;
        tab-size: 4; /* 3 */
-    font-family: var(--tr-font-family);
     border-width: 0; /* 2 */
     border-style: solid; /* 2 */
     border-color: #e5e7eb; /* 2 */
@@ -71,10 +73,6 @@ Remove default margins from all text elements
 /*
 Set tooltip font-family
 */
-
-.tippy-box > * {
-    font-family: var(--tr-font-family)
-}
 
 .tremor-base ::before,
 .tremor-base ::after,
