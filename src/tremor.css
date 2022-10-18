@@ -1,7 +1,3 @@
-:root {
-    --trm-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
 button {
     background-color: transparent;
 }
@@ -13,7 +9,10 @@ button {
     -moz-tab-size: 4; /* 3 */
     -o-tab-size: 4;
        tab-size: 4; /* 3 */
-    font-family: var(--trm-font-family)
+    font-family: inherit;
+    border-width: 0; /* 2 */
+    border-style: solid; /* 2 */
+    border-color: #e5e7eb; /* 2 */
 }
 
 .text-elem {
@@ -28,9 +27,9 @@ button {
     line-height: inherit; /* 1 */   
 }
 
-.tippy-box > * {
+/* .tippy-box > * {
     font-family: var(--trm-font-family)
-}
+} */
 
 .tremor-base :is(
     *,
@@ -45,30 +44,40 @@ button {
 }
 
 .tremor-base ::before,
-.tremor-base ::after {
+.tremor-base ::after,
+::after.tremor-base,
+::before.tremor-base {
   --tw-content: '';
 }
 
-.tremor-base abbr:where([title]) {
+.tremor-base abbr:where([title]),
+abbr:where([title]).tremor-base {
     -webkit-text-decoration: underline dotted;
             text-decoration: underline dotted;
 }
 
-.tremor-base table {
+.tremor-base table,
+table.tremor-base {
     text-indent: 0; /* 1 */
     border-color: inherit; /* 2 */
     border-collapse: collapse; /* 3 */
 }
 
 .tremor-base button,
-.tremor-base select {
+.tremor-base select,
+button.tremor-base,
+select.tremor-base {
   text-transform: none;
 }
 
 .tremor-base button,
 .tremor-base [type='button'],
 .tremor-base [type='reset'],
-.tremor-base [type='submit'] {
+.tremor-base [type='submit'],
+button.tremor-base,
+[type='button'].tremor-base,
+[type='reset'].tremor-base,
+[type='submit'].tremor-base {
   -webkit-appearance: button; /* 1 */
 }
 
@@ -76,7 +85,8 @@ button {
 Use the modern Firefox focus style for all focusable elements.
 */
 
-.tremor-base :-moz-focusring {
+.tremor-base :-moz-focusring,
+:-moz-focusring.tremor-base {
     outline: auto;
 }
   
@@ -84,25 +94,31 @@ Use the modern Firefox focus style for all focusable elements.
 Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
 */
 
-.tremor-base :-moz-ui-invalid {
+.tremor-base :-moz-ui-invalid,
+:-moz-ui-invalid.tremor-base {
     box-shadow: none;
 }
 
 .tremor-base ::-webkit-inner-spin-button,
-.tremor-base ::-webkit-outer-spin-button {
+.tremor-base ::-webkit-outer-spin-button,
+::-webkit-inner-spin-button.tremor-base,
+::-webkit-outer-spin-button.tremor-base {
     height: auto;
 }
 
-.tremor-base [type='search'] {
+.tremor-base [type='search'],
+[type='search'].tremor-base {
     -webkit-appearance: textfield; /* 1 */
     outline-offset: -2px; /* 2 */
 }
 
-.tremor-base ::-webkit-search-decoration {
+.tremor-base ::-webkit-search-decoration,
+::-webkit-search-decoration.tremor-base {
     -webkit-appearance: none;
 }  
 
-.tremor-base ::-webkit-file-upload-button {
+.tremor-base ::-webkit-file-upload-button,
+::-webkit-file-upload-button.tremor-base {
     -webkit-appearance: button; /* 1 */
     font: inherit; /* 2 */
 }
@@ -111,33 +127,45 @@ Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/
     ol,
     ul,
     menu
-) {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+),
+ul.tremor-base,
+ul.tremor-base,
+menu.tremor-base {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .tremor-base input::-moz-placeholder,
-.tremor-base textarea::-moz-placeholder {
+.tremor-base textarea::-moz-placeholder,
+input::-moz-placeholder.tremor-base,
+textarea::-moz-placeholder.tremor-base {
     opacity: 1; /* 1 */
-  }
+}
   
 .tremor-base input:-ms-input-placeholder,
-.tremor-base textarea:-ms-input-placeholder {
+.tremor-base textarea:-ms-input-placeholder,
+input:-ms-input-placeholder.tremor-base,
+textarea:-ms-input-placeholder.tremor-base {
     opacity: 1; /* 1 */
 }
 
 .tremor-base input::placeholder,
-.tremor-base textarea::placeholder {
+.tremor-base textarea::placeholder,
+input::placeholder.tremor-base,
+textarea::placeholder.tremor-base {
     opacity: 1; /* 1 */
 }
 
 .tremor-base button,
-.tremor-base [role="button"] {
+.tremor-base [role="button"],
+button.tremor-base,
+[role="button"].tremor-base {
     cursor: pointer;
 }
 
-.tremor-base :disabled {
+.tremor-base :disabled,
+:disabled.tremor-base {
     cursor: default;
 }
 
@@ -155,7 +183,8 @@ Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/
   vertical-align: middle; /* 2 */
 }
 
-.tremor-base [hidden] {
+.tremor-base [hidden],
+[hidden].tremor-base {
     display: none;
 }
 
