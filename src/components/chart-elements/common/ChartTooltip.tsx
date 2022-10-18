@@ -26,7 +26,7 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
     <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
         <div className="tr-flex tr-items-center tr-space-x-2">
             <span className={ classNames(
-                'text-elem tr-shrink-0',
+                'tr-shrink-0',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
                 sizing.sm.height,
@@ -81,7 +81,7 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
                     border.sm.bottom,
                 ) }>
                     <p className={ classNames(
-                        'tremor-elem',
+                        'text-elem',
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                         fontWeight.md,
                     ) }>
