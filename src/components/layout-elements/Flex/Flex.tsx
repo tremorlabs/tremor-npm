@@ -29,7 +29,7 @@ const Flex = ({
 }: FlexProps) => {
     return(
         <div className={ classNames(
-            'tr-flex tr-w-full',
+            'tremor-base tr-flex tr-w-full',
             parseTruncateOption(truncate),
             truncate ? 'tr-whitespace-nowrap' : '',
             parseJustifyContent(justifyContent),

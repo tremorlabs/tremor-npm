@@ -36,7 +36,7 @@ const DeltaBar = ({
     marginTop = 'mt-0',
 }: DeltaBarProps) => {
     return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
+        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <div className={ classNames(
                 'tr-relative tr-flex tr-items-center tr-w-full',
                 getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,

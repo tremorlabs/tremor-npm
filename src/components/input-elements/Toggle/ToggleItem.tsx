@@ -46,7 +46,7 @@ const ToggleItem = ({
     return (
         <button
             className={classNames(
-                'tr-flex tr-items-center tr-ring-1',
+                'input-elem tr-flex tr-items-center tr-ring-1',
                 spacing.lg.paddingLeft,
                 spacing.lg.paddingRight,
                 spacing.xs.paddingTop,

@@ -46,8 +46,8 @@ const BadgeDelta = ({
     const badgeSize = isValidSize(size) ? size : Sizes.SM;
 
     return(
-        <span className={ classNames(parseMarginTop(marginTop)) }>
-            <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
+        <span className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
+            <Tooltip content={ tooltip } className={ classNames( tooltip ? '' : 'tr-hidden') }>
                 <span className={ classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
                     borderRadius.full.all,
@@ -66,7 +66,7 @@ const BadgeDelta = ({
                         iconSizes[badgeSize].width,
                     ) }
                     />
-                    { text ? <p className="tr-whitespace-nowrap">{ text }</p> : null}
+                    { text ? <p className="text-elem tr-whitespace-nowrap">{ text }</p> : null}
                 </span>
             </Tooltip>
         </span>

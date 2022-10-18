@@ -49,12 +49,12 @@ const Button = ({
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames(parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <button
                 type="button"
                 onClick={handleClick}
                 className={classNames(
-                    'tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
+                    'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
                     'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',
                     borderRadius.md.all,
                     border.sm.all,
@@ -84,7 +84,7 @@ const Button = ({
                         aria-hidden="true"
                     />
                 ) : null}
-                <p className="tr-whitespace-nowrap">
+                <p className="text-elem tr-whitespace-nowrap">
                     {text}
                 </p>
                 {Icon && (iconPosition === HorizontalPositions.Right) ? (

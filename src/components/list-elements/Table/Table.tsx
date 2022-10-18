@@ -21,7 +21,7 @@ const Table = ({
 }: TableProps) => (
     <div className="tr-overflow-auto">
         <table className={ classNames(
-            'tr-w-full tr-tabular-nums',
+            'tremor-base tr-w-full tr-tabular-nums',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             fontSize.sm,

@@ -53,7 +53,7 @@ const BarList = ({
 
     return (
         <div className={ classNames(
-            'tr-flex tr-justify-between',
+            'tremor-base tr-flex tr-justify-between',
             parseMarginTop(marginTop),
             spacing.threeXl.spaceX,
         ) }>
@@ -71,7 +71,7 @@ const BarList = ({
                         style={ { 'width': `${widths[idx]}%`, 'transition': showAnimation ? 'all 2s' : '' } }
                     >
                         <p className={ classNames(
-                            'tr-absolute tr-max-w-full tr-whitespace-nowrap tr-truncate',
+                            'text-elem tr-absolute tr-max-w-full tr-whitespace-nowrap tr-truncate',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             spacing.sm.left,
                             fontSize.sm,
@@ -92,7 +92,7 @@ const BarList = ({
                         ) }
                     >
                         <p className={ classNames(
-                            'tr-whitespace-nowrap tr-truncate',
+                            'text-elem tr-whitespace-nowrap tr-truncate',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             fontSize.sm,
                         ) }>

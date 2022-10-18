@@ -54,7 +54,12 @@ const BarChart = ({
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     return (
-        <div className={ classNames('tr-w-full', parseHeight(height), parseMarginTop(marginTop)) }>
+        <div className={ classNames(
+            'tremor-base tr-w-full',
+            parseHeight(height),
+            parseMarginTop(marginTop)
+        ) }
+        >
             <ResponsiveContainer width="100%" height="100%">
                 <ReChartsBarChart
                     data={ data }

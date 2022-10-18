@@ -36,7 +36,7 @@ const Callout = ({
     const Icon = icon ? icon : null;
     return (
         <div className={classNames(
-            'tr-relative',
+            'tremor-base tr-relative',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(getColorTheme(color).canvasBackground).bgColor,
             getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder).borderColor,
@@ -69,7 +69,7 @@ const Callout = ({
                             aria-hidden="true"
                         />
                     ) : null}
-                    <h4 className={classNames(fontWeight.lg)}>{title}</h4>
+                    <h4 className={classNames('text-elem', fontWeight.lg)}>{title}</h4>
                 </div>
                 <div className={classNames(
                     'tr-overflow-y-auto',

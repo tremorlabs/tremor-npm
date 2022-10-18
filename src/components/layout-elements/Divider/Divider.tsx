@@ -11,7 +11,7 @@ import {
 
 const Divider = () => (
     <div className={ classNames(
-        'tr-w-full tr-mx-auto',
+        'tremor-base tr-w-full tr-mx-auto',
         getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
         sizing.threeXs.height,
         spacing.threeXl.marginTop,

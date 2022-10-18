@@ -43,7 +43,7 @@ const Tab = ({
         <li>
             <button
                 className={ classNames(
-                    'tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate',
+                    'input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate',
                     spacing.twoXs.paddingRight,
                     spacing.twoXs.paddingLeft,
                     spacing.sm.paddingTop,
@@ -56,7 +56,7 @@ const Tab = ({
                 value={ value }
                 onClick={ () => privateProps!.setSelectedTab!(value) }
             >
-                <p className="tr-whitespace-nowrap tr-truncate">{ text }</p>
+                <p className="text-elem tr-whitespace-nowrap tr-truncate">{ text }</p>
             </button>
         </li>
     );

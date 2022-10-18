@@ -36,14 +36,14 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
                 boxShadow.md,
             ) } />
             <p className={ classNames(
+                'text-elem tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap',
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                'tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap'
             ) }>
                 { value }
             </p>
         </div>
         <p className={ classNames(
-            'tr-text-right tr-whitespace-nowrap',
+            'text-elem tr-text-right tr-whitespace-nowrap',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             fontWeight.sm,
         ) }>
@@ -79,6 +79,7 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
                     border.sm.bottom,
                 ) }>
                     <p className={ classNames(
+                        'text-elem',
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                         fontWeight.md,
                     ) }>

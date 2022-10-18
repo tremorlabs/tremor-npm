@@ -38,7 +38,7 @@ const RangeBar = ({
 }: RangeBarProps) => {
     return(
         <div className={ classNames(
-            'tr-relative tr-flex tr-items-center tr-w-full',
+            'tremor-base tr-relative tr-flex tr-items-center tr-w-full',
             parseMarginTop(marginTop),
             getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
             sizing.xs.height,

@@ -18,6 +18,7 @@ const AccordionList = ({
 
     return (
         <div className={ classNames(
+            'tremor-base',
             parseMarginTop(marginTop),
             borderRadius.lg.all,
             shadow ? boxShadow.md : '',

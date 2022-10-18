@@ -24,14 +24,14 @@ const LegendItem = ({
     color,
 }: LegendItemProps) => (
     <li className={ classNames(
-        'tr-inline-flex tr-items-center tr-truncate',
+        'termor-elem tr-inline-flex tr-items-center tr-truncate',
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.md.marginRight,
     ) }
     >
         <svg
             className={ classNames(
-                'tr-flex-none',
+                'termor-elem tr-flex-none',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
                 sizing.xs.height,
                 sizing.xs.width,
@@ -43,7 +43,7 @@ const LegendItem = ({
             <circle cx={4} cy={4} r={4} />
         </svg>
         <p className={ classNames(
-            'tr-whitespace-nowrap tr-truncate',
+            'text-elem termor-elem tr-whitespace-nowrap tr-truncate',
             fontSize.sm,
             fontWeight.sm,
         ) }>
@@ -65,8 +65,8 @@ const Legend = ({
     marginTop = 'mt-0',
 }: LegendProps) => {
     return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
-            <ol className="tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
+        <div className={ classNames('tremor-base termor-elem', parseMarginTop(marginTop)) }>
+            <ol className="termor-elem tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
                 { categories.map((category, idx) => (
                     <LegendItem key={ `item-${idx}` } name={ category } color={ colors[idx] } />
                 )) }

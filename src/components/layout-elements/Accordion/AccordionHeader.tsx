@@ -18,7 +18,7 @@ const AccordionHeader = ({
     return(
         <button
             className={ classNames(
-                'tr-w-full tr-flex tr-items-center tr-justify-between',
+                'input-elem tr-w-full tr-flex tr-items-center tr-justify-between',
                 spacing.threeXl.paddingLeft,
                 spacing.threeXl.paddingRight,
                 spacing.lg.paddingTop,

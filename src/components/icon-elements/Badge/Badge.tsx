@@ -37,7 +37,7 @@ const Badge = ({
     const badgeSize = isValidSize(size) ? size : Sizes.SM;
     const Icon = icon ? icon : null;
     return (
-        <div className={classNames(parseMarginTop(marginTop))}>
+        <div className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span className={classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
@@ -59,7 +59,7 @@ const Badge = ({
                         )}
                         />
                     ) : null}
-                    <p className="tr-whitespace-nowrap">{text}</p>
+                    <p className="text-elem tr-whitespace-nowrap">{text}</p>
                 </span>
             </Tooltip>
         </div>
