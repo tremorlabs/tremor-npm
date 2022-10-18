@@ -29,7 +29,7 @@ const MultiSelectBoxItem = ({
     <button
         onClick={ () => privateProps!.handleMultiSelectBoxItemClick(value) }
         className={ classNames(
-            'tr-flex tr-items-center tr-justify-between tr-w-full',
+            'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
             spacing.twoXl.paddingLeft,
             spacing.twoXl.paddingRight,
             spacing.md.paddingTop,
@@ -43,7 +43,7 @@ const MultiSelectBoxItem = ({
             <input
                 type="checkbox"
                 className={ classNames(
-                    'tr-flex-none focus:tr-ring-none focus:tr-outline-none tr-cursor-pointer',
+                    'input-elem tr-flex-none focus:tr-ring-none focus:tr-outline-none tr-cursor-pointer',
                     getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
                     getColorVariantsFromColorThemeValue(getColorTheme(BaseColors.Blue).text).textColor,
                     getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -54,7 +54,7 @@ const MultiSelectBoxItem = ({
                 checked={ privateProps!.isActive }
                 readOnly={ true }
             />
-            <p className="tr-whitespace-nowrap tr-truncate">{ text }</p>
+            <p className="text-elem tr-whitespace-nowrap tr-truncate">{ text }</p>
         </div>
     </button>
 );

@@ -49,7 +49,7 @@ const BadgeDelta = ({
         <span className={ classNames('tremor-base tremor-elem', parseMarginTop(marginTop)) }>
             <Tooltip content={ tooltip } className={ classNames( 'tremor-elem', tooltip ? '' : 'tr-hidden') }>
                 <span className={ classNames(
-                    'tremor-elem tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
+                    'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
                     borderRadius.full.all,
                     colors[mappedDeltaType].bgColor,
                     colors[mappedDeltaType].textColor,
@@ -67,7 +67,7 @@ const BadgeDelta = ({
                         iconSizes[badgeSize].width,
                     ) }
                     />
-                    { text ? <p className="tremor-elem tr-whitespace-nowrap">{ text }</p> : null}
+                    { text ? <p className="text-elem tr-whitespace-nowrap">{ text }</p> : null}
                 </span>
             </Tooltip>
         </span>

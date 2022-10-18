@@ -23,10 +23,10 @@ export interface ChartTooltipRowProps {
 }
 
 const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
-    <div className="tremor-elem tr-flex tr-items-center tr-justify-between tr-space-x-8">
-        <div className="tremor-elem tr-flex tr-items-center tr-space-x-2">
+    <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
+        <div className="tr-flex tr-items-center tr-space-x-2">
             <span className={ classNames(
-                'tremor-elem tr-shrink-0',
+                'text-elem tr-shrink-0',
                 getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
                 sizing.sm.height,
@@ -36,14 +36,14 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
                 boxShadow.md,
             ) } />
             <p className={ classNames(
-                'tremor-elem tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap',
+                'text-elem tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap',
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             ) }>
                 { value }
             </p>
         </div>
         <p className={ classNames(
-            'tremor-elem tr-text-right tr-whitespace-nowrap',
+            'text-elem tr-text-right tr-whitespace-nowrap',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             fontWeight.sm,
         ) }>

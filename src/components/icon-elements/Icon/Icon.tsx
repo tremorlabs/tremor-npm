@@ -45,7 +45,7 @@ const Icon = ({
             <Tooltip content={tooltip} className={classNames('tremor-elem', tooltip ? '' : 'tr-hidden') }>
                 <span
                     className={classNames(
-                        'tremor-elem tr-inline-flex tr-flex-shrink-0 tr-items-center',
+                        'tr-inline-flex tr-flex-shrink-0 tr-items-center',
                         iconColors.bgColor,
                         iconColors.textColor,
                         iconColors.borderColor,

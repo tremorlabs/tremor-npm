@@ -54,7 +54,7 @@ const Button = ({
                 type="button"
                 onClick={handleClick}
                 className={classNames(
-                    'tremor-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
+                    'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
                     'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',
                     borderRadius.md.all,
                     border.sm.all,
@@ -85,7 +85,7 @@ const Button = ({
                         aria-hidden="true"
                     />
                 ) : null}
-                <p className="tremor-elem tr-whitespace-nowrap">
+                <p className="text-elem tr-whitespace-nowrap">
                     {text}
                 </p>
                 {Icon && (iconPosition === HorizontalPositions.Right) ? (

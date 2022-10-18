@@ -48,7 +48,7 @@ const AreaChart = ({
     return (
         <div
             className={ classNames(
-                'tremor-base tremor-elem tr-w-full',
+                'tremor-base tr-w-full',
                 parseHeight(height), parseMarginTop(marginTop)
             ) }
         >

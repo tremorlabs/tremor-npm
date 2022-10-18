@@ -1,3 +1,7 @@
+button {
+    background-color: transparent;
+}
+
 .tremor-base {
     box-sizing: border-box; /* 1 */
     line-height: 1.5; /* 1 */
@@ -8,36 +12,16 @@
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
 }
 
-button {
-    background-color: transparent;
-}
-
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
+.text-elem {
     margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
-:is(
-    button,
-    input,
-    optgroup,
-    select,
-    textarea
-) {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: inherit; /* 1 */
+.input-elem {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: inherit; /* 1 */   
 }
 
 .tremor-base :is(
@@ -61,19 +45,6 @@ pre {
     -webkit-text-decoration: underline dotted;
             text-decoration: underline dotted;
 }
-
-.tremor-base :is(
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6
-) {
-  font-size: inherit;
-  font-weight: inherit;
-}
-
 
 .tremor-base table {
     text-indent: 0; /* 1 */
@@ -141,19 +112,16 @@ Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/
 .tremor-base input::-moz-placeholder,
 .tremor-base textarea::-moz-placeholder {
     opacity: 1; /* 1 */
-    color: #9ca3af; /* 2 */
   }
   
 .tremor-base input:-ms-input-placeholder,
 .tremor-base textarea:-ms-input-placeholder {
     opacity: 1; /* 1 */
-    color: #9ca3af; /* 2 */
 }
 
 .tremor-base input::placeholder,
 .tremor-base textarea::placeholder {
     opacity: 1; /* 1 */
-    color: #9ca3af; /* 2 */
 }
 
 .tremor-base button,

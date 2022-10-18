@@ -105,7 +105,7 @@ const MultiSelectBox = ({
         >
             <button
                 className={ classNames(
-                    'tr-flex tr-justify-between tr-items-center tr-w-full',
+                    'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -119,7 +119,7 @@ const MultiSelectBox = ({
                 onClick={ () => setShowModal(!showModal) }
             >
                 <p className={ classNames(
-                    'tr-whitespace-nowrap tr-truncate',
+                    'text-elem tr-whitespace-nowrap tr-truncate',
                     fontSize.sm,
                     fontWeight.md,
                     selectedItems.length !==0
@@ -187,7 +187,7 @@ const MultiSelectBox = ({
                         type="input"
                         placeholder="Search"
                         className={ classNames(
-                            'tr-w-full focus:tr-outline-none focus:tr-ring-none',
+                            'input-elem tr-w-full focus:tr-outline-none focus:tr-ring-none',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
                             spacing.sm.paddingTop,

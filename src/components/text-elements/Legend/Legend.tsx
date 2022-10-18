@@ -43,7 +43,7 @@ const LegendItem = ({
             <circle cx={4} cy={4} r={4} />
         </svg>
         <p className={ classNames(
-            'termor-elem tr-whitespace-nowrap tr-truncate',
+            'text-elem termor-elem tr-whitespace-nowrap tr-truncate',
             fontSize.sm,
             fontWeight.sm,
         ) }>

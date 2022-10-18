@@ -73,7 +73,7 @@ const Dropwdown = ({
         >
             <button
                 className={ classNames(
-                    'tr-flex tr-justify-between tr-items-center tr-w-full',
+                    'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -87,7 +87,7 @@ const Dropwdown = ({
                 onClick={ () => setShowModal(!showModal) }
             >
                 <p className={ classNames(
-                    'tr-whitespace-nowrap tr-truncate',
+                    'text-elem tr-whitespace-nowrap tr-truncate',
                     fontSize.sm,
                     fontWeight.md,
                     selectedItem

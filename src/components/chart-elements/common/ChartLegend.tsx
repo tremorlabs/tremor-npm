@@ -28,7 +28,7 @@ const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
         return () => window.removeEventListener('resize', handleResize);
     }, [_windowSize]);
     return (
-        <div ref={ legendRef } className="tremor-elem tr-flex tr-items-center tr-justify-end">
+        <div ref={ legendRef } className="tr-flex tr-items-center tr-justify-end">
             <Legend
                 categories={payload.map((entry: any) => entry.value)}
                 colors={ colors }

@@ -27,7 +27,7 @@ const Subtitle = ({
 }: SubtitleProps) => {
     return(
         <p className={ classNames(
-            'tremor-base',
+            'text-elem tremor-base',
             truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
             parseTruncateOption(truncate),
             parseMarginTop(marginTop),

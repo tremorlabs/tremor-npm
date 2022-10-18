@@ -68,7 +68,7 @@ const ProgressBar = ({
                     spacing.sm.marginLeft,
                 ) }>
                     <p className={ classNames(
-                        'tr-shrink-0 tr-whitespace-nowrap tr-truncate',
+                        'text-elem tr-shrink-0 tr-whitespace-nowrap tr-truncate',
                         fontSize.sm,
                         fontWeight.sm,
                     ) }>

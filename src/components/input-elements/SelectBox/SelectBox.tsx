@@ -88,7 +88,7 @@ const SelectBox = ({
         ) }>
             <input
                 className={ classNames(
-                    'tr-w-full focus:tr-ring-2 focus:tr-outline-0',
+                    'input-elem tr-w-full focus:tr-ring-2 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -111,7 +111,7 @@ const SelectBox = ({
             />
             <button
                 className={ classNames(
-                    'tr-absolute tr-top-1/2 -tr-translate-y-1/2',
+                    'input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2',
                     spacing.twoXl.right,
                 ) }
                 onClick={ () => setShowModal(!showModal) }

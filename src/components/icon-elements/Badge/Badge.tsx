@@ -40,7 +40,7 @@ const Badge = ({
         <div className={classNames('tremor-base tremor-elem', parseMarginTop(marginTop))}>
             <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span className={classNames(
-                    'tremor-elem tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
+                    'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
                     getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
                     borderRadius.full.all,
@@ -59,7 +59,7 @@ const Badge = ({
                         )}
                         />
                     ) : null}
-                    <p className="tremor-elem tr-whitespace-nowrap">{text}</p>
+                    <p className="text-elem tr-whitespace-nowrap">{text}</p>
                 </span>
             </Tooltip>
         </div>
