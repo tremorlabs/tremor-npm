@@ -32,6 +32,7 @@ export interface ButtonProps {
     importance?: Importance,
     handleClick?: { (): void },
     marginTop?: MarginTop,
+    disabled: boolean
 }
 
 const Button = ({
@@ -43,6 +44,7 @@ const Button = ({
     color = BaseColors.Blue,
     importance = Importances.Primary,
     marginTop = 'mt-0',
+    disabled = false
 }: ButtonProps) => {
     const buttonColors = isBaseColor(color) ? colors[color] : colors[BaseColors.Blue];
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
@@ -72,6 +74,7 @@ const Button = ({
                     buttonColors[buttonImportance].hoverBorderColor,
                     buttonColors[buttonImportance].textColor,
                 )}
+                disabled
             >
                 {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon
