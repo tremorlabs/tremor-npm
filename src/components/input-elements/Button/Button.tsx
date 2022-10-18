@@ -49,7 +49,7 @@ const Button = ({
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames('tremor-base tremor-elem', parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <button
                 type="button"
                 onClick={handleClick}
@@ -76,7 +76,6 @@ const Button = ({
                 {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon
                         className={classNames(
-                            'tremor-elem',
                             spacing.twoXs.negativeMarginLeft,
                             spacing.xs.marginRight,
                             iconSizes[buttonSize].height,
@@ -91,7 +90,6 @@ const Button = ({
                 {Icon && (iconPosition === HorizontalPositions.Right) ? (
                     <Icon
                         className={classNames(
-                            'tremor-elem',
                             spacing.twoXs.negativeMarginRight,
                             spacing.xs.marginLeft,
                             iconSizes[buttonSize].height,

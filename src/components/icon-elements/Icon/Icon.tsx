@@ -41,8 +41,8 @@ const Icon = ({
     const iconColors = isBaseColor(color) ? colors[iconVariant][color] : colors[iconVariant][BaseColors.Blue];
     const Icon = icon;
     return (
-        <span className={classNames('tremor-base tremor-elem', parseMarginTop(marginTop))}>
-            <Tooltip content={tooltip} className={classNames('tremor-elem', tooltip ? '' : 'tr-hidden') }>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
+            <Tooltip content={tooltip} className={classNames(tooltip ? '' : 'tr-hidden') }>
                 <span
                     className={classNames(
                         'tr-inline-flex tr-flex-shrink-0 tr-items-center',
@@ -61,7 +61,6 @@ const Icon = ({
                     )}
                 >
                     <Icon className={classNames(
-                        'tremor-elem',
                         iconSizes[iconSize].height,
                         iconSizes[iconSize].width,
                     )} />

@@ -64,7 +64,6 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
     if (active && payload) {
         return (
             <div className={ classNames(
-                'tremor-elem',
                 getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                 fontSize.sm,
                 borderRadius.md.all,
@@ -72,7 +71,6 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
                 boxShadow.lg,
             ) }>
                 <div className={ classNames(
-                    'tremor-elem',
                     getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
@@ -90,7 +88,6 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
                 </div>
   
                 <div className={ classNames(
-                    'tremor-elem',
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
                     spacing.sm.paddingTop,
