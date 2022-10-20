@@ -45,6 +45,7 @@ import Modal from 'components/layout-elements/Modal';
 export interface DatepickerProps {
     handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
     enableRelativeDates?: boolean,
+    relativeFilterOption?: 'w' | 't' | 'm' | 'y' | null,
     defaultStartDate?: Date | null,
     defaultEndDate?: Date | null,
     minDate?: Date | null,
@@ -59,6 +60,7 @@ const Datepicker = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (selectedStartDay: Date, selectedEndDay: Date) => null,
     enableRelativeDates = true,
+    relativeFilterOption = null,
     defaultStartDate = null,
     defaultEndDate = null,
     minDate = null,
@@ -78,7 +80,8 @@ const Datepicker = ({
     const [showDatePickerModal, setShowDatePickerModal] = useState(false);
     const [showDropdownModal, setShowDropdownModal] = useState(false);
 
-    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<string | null>(null);
+    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<string | null>(
+        relativeFilterOption ? relativeFilterOption : null);
 
     const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
     const [selectedStartDay, setSelectedStartDay] = useState<Date | null>(
