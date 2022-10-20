@@ -30,6 +30,7 @@ export interface BarChartProps extends BaseChartProps {
     layout?: 'vertical' | 'horizontal',
     stack?: boolean,
     relative?: boolean,
+    barSize?: number
 }
 
 const BarChart = ({
@@ -51,6 +52,7 @@ const BarChart = ({
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    barSize
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     return (
@@ -178,6 +180,7 @@ const BarChart = ({
                                 dataKey={ category }
                                 fill={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
                                 isAnimationActive={ showAnimation }
+                                barSize={barSize}
                             />
 
                         ))

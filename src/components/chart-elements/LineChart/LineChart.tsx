@@ -26,6 +26,11 @@ import {
     themeColorRange,
 } from 'lib';
 
+export interface LineChartProps extends BaseChartProps {
+    strokeWidth?: number
+    strokeDash?: string
+}
+
 const LineChart = ({
     data = [],
     categories = [],
@@ -44,7 +49,7 @@ const LineChart = ({
     marginTop = 'mt-0',
     strokeWidth = 2,
     strokeDash,
-}: BaseChartProps) => {
+}: LineChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     return (
         <div

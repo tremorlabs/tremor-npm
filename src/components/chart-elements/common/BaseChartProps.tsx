@@ -17,8 +17,6 @@ interface BaseChartProps {
   showGridLines?: boolean
   height?: Height
   marginTop?: MarginTop
-  strokeWidth?: number
-  strokeDash?: string
 }
 
 export default BaseChartProps;

@@ -151,3 +151,10 @@ WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
 };
+
+export const WithCustomBarSize = DefaultTemplate.bind({});
+WithCustomBarSize.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    barSize: 4
+};
