@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
 
-import { Card, LineChart, Title } from 'components';
-import { data } from './helpers/testData';
+import {Card, LineChart, Title} from 'components';
+import {data} from './helpers/testData';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,19 +17,19 @@ const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
-                <LineChart { ...args } />
+                <LineChart {...args} />
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
-            <LineChart { ...args } />
+            <LineChart {...args} />
         </Card>
     </>
 );
 
-const DefaultTemplate: ComponentStory<typeof LineChart>= ({ ...args }) => (
+const DefaultTemplate: ComponentStory<typeof LineChart> = ({...args}) => (
     <Card>
-        <LineChart { ...args } />
+        <LineChart {...args} />
     </Card>
 );
 
@@ -41,7 +41,7 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
 };
 
@@ -49,66 +49,65 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
     valueFormatter: valueFormatter,
-    colors: ['blue', 'green']
+    colors: ['blue', 'green'],
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
-    colors: ['blue', 'green']
+    colors: ['blue', 'green'],
 };
 
 export const WithNoGradient = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoGradient.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
-    showGradient: false
+    showGradient: false,
 };
 
 export const WithChangedCategoriesOrder = DefaultTemplate.bind({});
 WithChangedCategoriesOrder.args = {
     data: data,
-    categories: [ 'Successfull Payments', 'Sales' ],
+    categories: ['Successfull Payments', 'Sales'],
     dataKey: 'month',
 };
 
 export const WithLessColorsThanCategories = DefaultTemplate.bind({});
 WithLessColorsThanCategories.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
-    colors: ['green']
+    colors: ['green'],
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
 WithLongValues.args = {
     data: data,
-    categories: [ 'This is an edge case' ],
+    categories: ['This is an edge case'],
     dataKey: 'month',
-    valueFormatter: valueFormatter, 
+    valueFormatter: valueFormatter,
 };
 
 export const WithMultipleCategories = ResponsiveTemplate.bind({});
 WithMultipleCategories.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments', 'This is an edge case', 'Test' ],
+    categories: ['Sales', 'Successfull Payments', 'This is an edge case', 'Test'],
     dataKey: 'month',
-    valueFormatter: valueFormatter, 
+    valueFormatter: valueFormatter,
 };
-
 
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
     dataKey: 'month',
 };
 
@@ -121,5 +120,19 @@ WithNoCategories.args = {
 export const WithNoDataKey = DefaultTemplate.bind({});
 WithNoDataKey.args = {
     data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
+    categories: ['Sales', 'Successfull Payments'],
+};
+
+export const WithDashedStroke = DefaultTemplate.bind({});
+WithDashedStroke.args = {
+    data: data,
+    categories: ['Sales', 'Successfull Payments'],
+    strokeDash: '5 5',
+};
+
+export const WithCustomStrokeWidth = DefaultTemplate.bind({});
+WithCustomStrokeWidth.args = {
+    data: data,
+    categories: ['Sales', 'Successfull Payments'],
+    strokeWidth: 5,
 };
