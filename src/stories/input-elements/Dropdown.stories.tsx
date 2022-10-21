@@ -14,7 +14,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
-    <>
+    <form>
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
@@ -25,7 +25,7 @@ const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
         <Card>
             <SimpleDropdown { ...args } />
         </Card>
-    </>
+    </form>
 );
 
 const FlexTemplate: ComponentStory<typeof Dropdown> = (args) => (
