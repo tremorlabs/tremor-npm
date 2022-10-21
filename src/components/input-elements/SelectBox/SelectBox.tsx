@@ -112,7 +112,8 @@ const SelectBox = ({
             <button
                 type="button"
                 className={ classNames(
-                    'input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2',
+                    'tr-absolute tr-top-1/2 -tr-translate-y-1/2',
+                    'tr-right-0 tr-m-0 tr-p-0',
                     spacing.twoXl.right,
                 ) }
                 onClick={ () => setShowModal(!showModal) }
