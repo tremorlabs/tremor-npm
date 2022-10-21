@@ -18,7 +18,9 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
-                <SimpleSelectBox { ...args } />
+                <form>
+                    <SimpleSelectBox { ...args } />
+                </form>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>

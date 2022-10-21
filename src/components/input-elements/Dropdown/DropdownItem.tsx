@@ -28,6 +28,7 @@ const DropdownItem = ({
     const Icon = icon ? icon : null;
     return (
         <button
+            type="button"
             onClick={() => privateProps!.handleDropdownItemClick(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',

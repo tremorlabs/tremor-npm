@@ -25,6 +25,7 @@ const SelectBoxItem = ({
     const Icon = icon ? icon : null;
     return (
         <button
+            type="button"
             onClick={() => privateProps!.handleSelectBoxItemClick(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
