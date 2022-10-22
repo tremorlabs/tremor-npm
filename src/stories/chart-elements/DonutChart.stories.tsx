@@ -42,7 +42,7 @@ export default {
 
 const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
     <>
-        <Title>Mobile</Title>
+        <Title>Base Layer (Beta)</Title>
         <div className="tr-w-full">
             <Card>
                 <Flex spaceX='space-x-4' justifyContent='justify-between'>

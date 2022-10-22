@@ -30,27 +30,28 @@ import {
 const data = [
     {
       "name": "Group A",
-      "value": 2400
+      "value": 2400,
+      "fill": "#2563eb",
     },
     {
       "name": "Group B",
-      "value": 4567
+      "value": 4567,
+      "fill": "#3b82f6",
     },
     {
       "name": "Group C",
-      "value": 1398
+      "value": 1398,
+      "fill": "#60a5fa",
     },
     {
       "name": "Group D",
-      "value": 9800
+      "value": 9800,
+      "fill": "#93c5fd",
     },
     {
       "name": "Group E",
-      "value": 3908
-    },
-    {
-      "name": "Group F",
-      "value": 4800
+      "value": 3908,
+      "fill": "#bfdbfe",
     }
   ];
 
@@ -86,7 +87,7 @@ const DonutChart = ({
                 <ReChartDonutChart>
                   {/* @Achi: Map Tailwind Colors here */}
                 <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#64748b">
-                    <p className="bg-blue-500">Total</p>
+                  Total
                 </text>
                 {/* <span x="50%" y="50%">
                   Donut
@@ -100,10 +101,11 @@ const DonutChart = ({
                         // label={renderCustomizedLabel}
                         // cx={120}
                         // cy={200}
-                        startAngle={0}
+                        startAngle={90}
+                        endAngle={-270}
                         innerRadius="80%"
                         outerRadius="100%"
-                        fill="#3b82f6"
+                        fill="fill"
                         paddingAngle={0}
                         dataKey="value"
                         >
