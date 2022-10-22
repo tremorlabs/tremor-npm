@@ -164,7 +164,6 @@ const AreaChart = ({
                             isAnimationActive={ showAnimation }
                         />
                     ))}
-                
                 </ReChartsAreaChart>
             </ResponsiveContainer>
         </div>
