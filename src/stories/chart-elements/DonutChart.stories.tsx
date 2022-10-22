@@ -50,8 +50,8 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
                     <List>
                         {stocks.map((item) => (
                             <ListItem>
-                            <span>{item.stock}</span>
-                            <span>{item.rating}</span>
+                                <span> {item.stock} </span>
+                                <span> {item.rating} </span>
                             </ListItem>
                         ))}
                     </List>

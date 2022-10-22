@@ -54,18 +54,6 @@ const data = [
     }
   ];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
 
 const DonutChart = ({
     categories = [],
@@ -92,12 +80,23 @@ const DonutChart = ({
         ) }
         >
             <ResponsiveContainer width="100%" height="100%">
+                {/* <text x={200} y={200} textAnchor="middle" dominantBaseline="middle">
+                  Donut
+                </text> */}
                 <ReChartDonutChart>
+                  {/* @Achi: Map Tailwind Colors here */}
+                <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#64748b">
+                    <p className="bg-blue-500">Total</p>
+                </text>
+                {/* <span x="50%" y="50%">
+                  Donut
+                </span> */}
                 {/* { categories.map((category, idx) => ( */}
                     <Pie
                         data={ data }
                         cx="50%"
                         cy="50%"
+                        isAnimationActive={false}
                         // label={renderCustomizedLabel}
                         // cx={120}
                         // cy={200}
