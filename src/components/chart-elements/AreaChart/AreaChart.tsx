@@ -14,6 +14,7 @@ import {
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from '../common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
+import { constructCategoryColors } from '../common/utils';
 
 import {
     classNames,
@@ -45,6 +46,8 @@ const AreaChart = ({
     marginTop = 'mt-0',
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
+    const categoryColors = constructCategoryColors(categories, colors);
+
     return (
         <div
             className={ classNames(
@@ -102,7 +105,7 @@ const AreaChart = ({
                                     payload={ payload }
                                     label={ label }
                                     valueFormatter={ valueFormatter }
-                                    colors={ colors }
+                                    categoryColors={ categoryColors }
                                 />
                             ) }
                             position={ { y: 0 } }
@@ -112,47 +115,50 @@ const AreaChart = ({
                         <Legend
                             verticalAlign="top"
                             height={ legendHeight }
-                            content={ ({ payload }) => ChartLegend({ payload }, colors, setLegendHeight) }
+                            content={ ({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight) }
                         />
                     ) : null }
 
-                
-                    { categories.map((category, idx) => (
+                    { categories.map((category) => (
                         <defs key={ category }>
                             { showGradient ? ( 
-                                <linearGradient id={ colors[idx] } x1="0" y1="0" x2="0" y2="1">
+                                <linearGradient id={ categoryColors.get(category) } x1="0" y1="0" x2="0" y2="1">
                                     <stop
                                         offset="5%"
-                                        stopColor={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
+                                        stopColor={ getHexFromColorThemeValue(
+                                            getColorTheme(categoryColors.get(category)).background
+                                        ) }
                                         stopOpacity={0.4}
                                     />
                                     <stop
                                         offset="95%"
-                                        stopColor={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
+                                        stopColor={ getHexFromColorThemeValue(
+                                            getColorTheme(categoryColors.get(category)).background
+                                        ) }
                                         stopOpacity={0}
                                     />
                                 </linearGradient>
                             ) : (
-                                <linearGradient id={ colors[idx] } x1="0" y1="0" x2="0" y2="1">
+                                <linearGradient id={ categoryColors.get(category) } x1="0" y1="0" x2="0" y2="1">
                                     <stop
-                                        stopColor={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
+                                        stopColor={ getHexFromColorThemeValue(
+                                            getColorTheme(categoryColors.get(category)).background
+                                        ) }
                                         stopOpacity={0.3}
                                     />
                                 </linearGradient>
                             )}
                         </defs>
                     )) }
-               
-               
-               
-                    { categories.map((category, idx) => (
+
+                    { categories.map((category) => (
                         <Area
                             key={ category }
                             name={ category }
                             type="linear"
                             dataKey={ category }
-                            stroke={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
-                            fill={ `url(#${colors[idx]})` }
+                            stroke={ getHexFromColorThemeValue(getColorTheme(categoryColors.get(category)).background) }
+                            fill={ `url(#${categoryColors.get(category)})` }
                             strokeWidth={2}
                             dot={false}
                             isAnimationActive={ showAnimation }

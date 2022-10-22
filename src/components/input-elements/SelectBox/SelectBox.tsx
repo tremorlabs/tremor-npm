@@ -39,13 +39,15 @@ const SelectBox = ({
 }: SelectBoxProps) => {
     const dropdownRef = useRef(null);
 
-    const valueToNameMapping: {[value: string]: string} = {};
-    const consturctValueToNameMapping = () => {
+    const constructValueToNameMapping = (): Map<string, string> => {
+        const valueToNameMapping = new Map<string, string>();
         React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
+            valueToNameMapping.set(child.props.value, child.props.text);
         });
+        return valueToNameMapping;
     };
-    consturctValueToNameMapping();
+
+    const valueToNameMapping = constructValueToNameMapping();
 
     const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
         React.Children.map(children, (child) => {
@@ -64,13 +66,13 @@ const SelectBox = ({
     const [showModal, setShowModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping[selectedItem] : '');
+    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping.get(selectedItem) : '');
 
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
     const handleSelectBoxItemClick = (value: any) => {
-        setInputText(valueToNameMapping[value]);
+        setInputText(valueToNameMapping.get(selectedItem));
         setSelectedItem(value);
         handleSelect(value);
         setShowModal(false);

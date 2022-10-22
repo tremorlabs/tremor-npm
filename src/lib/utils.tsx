@@ -9,10 +9,10 @@ export const isBaseColor = (baseColor: Color): boolean => {
 };
 
 export const getColorTheme = (
-    baseColor: Color,
+    baseColor: Color | null | undefined,
     defaultColor: Color = BaseColors.Blue
 ): BaseColorTheme => {
-    if (!isBaseColor(baseColor)) {
+    if (!baseColor || !isBaseColor(baseColor)) {
         return colorTheme[defaultColor];
     }
     return colorTheme[baseColor];
