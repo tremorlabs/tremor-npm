@@ -29,7 +29,6 @@ const ChartLegend = (
         return () => window.removeEventListener('resize', handleResize);
     }, [_windowSize]);
 
-    console.log(payload);
     return (
         <div ref={ legendRef } className="tr-flex tr-items-center tr-justify-end">
             <Legend
