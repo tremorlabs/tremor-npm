@@ -11,6 +11,8 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
+    getFilteredOptionNames,
+    getOptionNamesFromChildren,
     isValueInArray,
     parseMarginTop,
     parseMaxWidth,
@@ -39,20 +41,6 @@ const MultiSelectBox = ({
     children,
 }: MultiSelectBoxProps) => {
     const dropdownRef = useRef(null);
-
-    const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-        React.Children.map(children, (child) => {
-            return String(child.props.text);
-        })
-    );
-
-    const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-        return searchQuery === ''
-            ? allOptionNames
-            : allOptionNames.filter((optionName: string) => {
-                return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-    };
 
     const [showModal, setShowModal] = useState(false);
     const [selectedItems, setSelectedItems] = useState(defaultValues);
