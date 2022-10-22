@@ -27,8 +27,7 @@
   "dependencies": {
     "@tippyjs/react": "^4.2.6",
     "date-fns": "^2.28.0",
-    "recharts": "^2.1.13",
-    "resize-observer-polyfill": "^1.5.1"
+    "recharts": "^2.1.13"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -59,6 +58,7 @@
     "jest": "^27.5.1",
     "postcss": "^8.4.12",
     "react-dom": "^18.0.0",
+    "resize-observer-polyfill": "^1.5.1",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",

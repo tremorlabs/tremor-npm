@@ -42,6 +42,7 @@ const Tab = ({
     return(
         <li>
             <button
+                type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate',
                     spacing.twoXs.paddingRight,

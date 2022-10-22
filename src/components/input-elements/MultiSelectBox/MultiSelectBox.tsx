@@ -104,6 +104,7 @@ const MultiSelectBox = ({
             ) }
         >
             <button
+                type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
