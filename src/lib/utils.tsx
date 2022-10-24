@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BaseColorTheme, colorTheme } from './colors';
 import { BaseColors, DeltaTypes, Importances, Sizes } from './primitives';
@@ -116,4 +116,17 @@ export const getFilteredOptionNames = (searchQuery: string, allOptionNames: stri
         : allOptionNames.filter((optionName: string) => {
             return optionName.toLowerCase().includes(searchQuery.toLowerCase());
         });
+};
+
+export const useWindowSize = (handler: {(): void}, initialWindowSize?: number) => {
+    const [windowSize, setWindowSize] = useState<undefined | number>(initialWindowSize);
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize(window.innerWidth);
+            handler();
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowSize]);
 };
