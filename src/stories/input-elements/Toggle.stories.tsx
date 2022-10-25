@@ -87,13 +87,14 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
-    defaultValue: 5
+    defaultValue: 5,
+    handleSelect: (value) => console.log(value),
 };
 
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    defaultValue: 5
+    defaultValue: 5,
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});

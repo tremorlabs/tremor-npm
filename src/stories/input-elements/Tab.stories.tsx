@@ -78,12 +78,15 @@ const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
 );
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
+DefaultResponsive.args = {
+    handleSelect: (value) => console.log(value),
+};
 
 export const WithFlexParent = FlexTemplate.bind({});
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-    defaultValue: 5
+    defaultValue: 5,
 };
 
 export const Colors = ColorsTemplate.bind({});
