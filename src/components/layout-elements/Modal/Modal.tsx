@@ -36,8 +36,8 @@ const Modal = ({
     children,
 }: ModalProps) => {
     const checkModalExceedsWindow = (
-        windowWidth: number,
         modalWidth: number,
+        windowWidth: number,
     ): boolean => {
         if (!triggerRef.current) {
             return false;
@@ -47,7 +47,6 @@ const Modal = ({
                 .current
                 .getBoundingClientRect()
                 .left + modalWidth;
-            console.log(modalBoundingRight);
             return windowWidth - modalBoundingRight < 0;
         }
         if (anchorPosition === HorizontalPositions.Right) {
