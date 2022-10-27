@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { add, format, isEqual, isToday, } from 'date-fns';
+import { add, format, isEqual, isToday, startOfMonth, startOfToday, startOfYear, sub, } from 'date-fns';
 
 import {
     classNames,
@@ -30,6 +30,21 @@ export const relativeFilterOptions = [
         name: 'Year to Date',
     },
 ];
+
+export const getStartDateFromRelativeFilterOption = (selectedRelativeFilterOption: string): Date => {
+    const today = startOfToday();
+    switch(selectedRelativeFilterOption) {
+    case 'w':
+        return sub(today, { days: 7 });
+    case 't':
+        return sub(today, { days: 30 });
+    case 'm':
+        return startOfMonth(today);
+    case 'y':
+        return startOfYear(today);
+    }
+    return today;
+};
 
 export const colStartClasses = [
     '',
