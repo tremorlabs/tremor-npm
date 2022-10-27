@@ -11,10 +11,7 @@ import {
     parse,
     previousSunday,
     startOfDay,
-    startOfMonth,
     startOfToday,
-    startOfYear,
-    sub,
 } from 'date-fns';
 
 import { ArrowDownHeadIcon, ArrowLeftHeadIcon, ArrowRightHeadIcon, CalendarIcon } from 'assets';
@@ -36,6 +33,7 @@ import {
     getDayHoverBgColorClassName,
     getDayRoundedClassName,
     getDayTextClassNames,
+    getStartDateFromRelativeFilterOption,
     nextMonth,
     previousMonth,
     relativeFilterOptions
@@ -72,6 +70,12 @@ const Datepicker = ({
 }: DatepickerProps) => {
     const today = startOfToday();
 
+    defaultStartDate = defaultRelativeFilterOption
+        ? getStartDateFromRelativeFilterOption(defaultRelativeFilterOption)
+        : defaultStartDate;
+    
+    defaultEndDate = defaultRelativeFilterOption ? today : defaultEndDate;
+
     const hasDefaultDateRange = (defaultStartDate !== null) && (defaultEndDate !== null);
 
     const datePickerRef = useRef(null);
@@ -84,12 +88,13 @@ const Datepicker = ({
         enableRelativeDates && defaultRelativeFilterOption ? defaultRelativeFilterOption : null);
 
     const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
+
     const [selectedStartDay, setSelectedStartDay] = useState<Date | null>(
-        hasDefaultDateRange ? startOfDay(defaultStartDate) : null);
+        hasDefaultDateRange ? startOfDay(defaultStartDate!) : null);
     const [selectedEndDay, setSelectedEndDay] = useState<Date | null>(
-        hasDefaultDateRange ? startOfDay(defaultEndDate) : null);
+        hasDefaultDateRange ? startOfDay(defaultEndDate!) : null);
     const [currentMonth, setCurrentMonth] = useState(
-        hasDefaultDateRange ? format(startOfDay(defaultEndDate)!, 'MMM-yyyy') : format(today, 'MMM-yyyy'));
+        hasDefaultDateRange ? format(startOfDay(defaultEndDate!)!, 'MMM-yyyy') : format(today, 'MMM-yyyy'));
     
     const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
     const lastDayCurrentMonth = endOfMonth(firstDayCurrentMonth);
@@ -129,24 +134,9 @@ const Datepicker = ({
     };
 
     const handleRelativeFilterOptionClick = (selectedRelativeFilterOption: string) => {
-        switch(selectedRelativeFilterOption) {
-        case 'w':
-            setSelectedStartDay(sub(today, { days: 7 }));
-            setSelectedEndDay(today);
-            break;
-        case 't':
-            setSelectedStartDay(sub(today, { days: 30 }));
-            setSelectedEndDay(today);
-            break;
-        case 'm':
-            setSelectedStartDay(startOfMonth(today));
-            setSelectedEndDay(today);
-            break;
-        case 'y':
-            setSelectedStartDay(startOfYear(today));
-            setSelectedEndDay(today);
-            break;
-        }
+        const startDate = getStartDateFromRelativeFilterOption(selectedRelativeFilterOption);
+        setSelectedStartDay(startDate);
+        setSelectedEndDay(today);
     };
 
     useEffect(() => {
