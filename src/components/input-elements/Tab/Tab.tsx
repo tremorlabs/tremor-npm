@@ -18,7 +18,7 @@ export interface TabProps {
     privateProps?: {
         color: Color,
         isActive: boolean,
-        setSelectedTab: React.Dispatch<React.SetStateAction<string>>,
+        handleTabClick: (value: any) => null,
     },
 }
 
@@ -42,6 +42,7 @@ const Tab = ({
     return(
         <li>
             <button
+                type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate',
                     spacing.twoXs.paddingRight,
@@ -54,7 +55,7 @@ const Tab = ({
                     privateProps!.isActive ? activeClassNames : inActiveClassNames,
                 ) }
                 value={ value }
-                onClick={ () => privateProps!.setSelectedTab!(value) }
+                onClick={ () => privateProps!.handleTabClick!(value) }
             >
                 <p className="text-elem tr-whitespace-nowrap tr-truncate">{ text }</p>
             </button>

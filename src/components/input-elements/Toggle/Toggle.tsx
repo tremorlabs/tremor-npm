@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
     BaseColors,
@@ -29,9 +29,10 @@ const Toggle = ({
 }: ToggleProps) => {
     const [activeToggleItem, setActiveToggleItem] = useState<any|null>(defaultValue);
 
-    useEffect(() => {
-        handleSelect(activeToggleItem);
-    }, [activeToggleItem]);
+    const handleToggleItemClick = (value: any) => {
+        handleSelect(value);
+        setActiveToggleItem(value);
+    };
 
     return (
         <div className={ classNames(
@@ -48,9 +49,9 @@ const Toggle = ({
             { React.Children.map(children, (child) => (
                 React.cloneElement(child, {
                     privateProps: {
-                        setActiveToggleItem: setActiveToggleItem,
                         isActive: activeToggleItem === child.props.value,
-                        color: color,
+                        handleToggleItemClick,
+                        color,
                     }
                 })
             )) }

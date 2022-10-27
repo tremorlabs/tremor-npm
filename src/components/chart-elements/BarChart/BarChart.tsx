@@ -14,6 +14,7 @@ import {
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from '../common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
+import { constructCategoryColors } from '../common/utils';
 
 import {
     classNames,
@@ -53,6 +54,8 @@ const BarChart = ({
     marginTop = 'mt-0',
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
+    const categoryColors = constructCategoryColors(categories, colors);
+
     return (
         <div className={ classNames(
             'tremor-base tr-w-full',
@@ -153,7 +156,7 @@ const BarChart = ({
                                     payload={ payload }
                                     label={ label }
                                     valueFormatter={ valueFormatter }
-                                    colors={ colors }
+                                    categoryColors={ categoryColors }
                                 />
                             ) }
                             position={{ y: 0 }}
@@ -164,19 +167,21 @@ const BarChart = ({
                             <Legend
                                 verticalAlign="top"
                                 height={ legendHeight }
-                                content={ ({ payload }) => ChartLegend({ payload }, colors, setLegendHeight) }
+                                content={ ({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight) }
                             />
                         ) : null
                     }
                     {
-                        categories.map((category, idx) => (
+                        categories.map((category) => (
                             <Bar
                                 key={ category }
                                 name={ category }
                                 type="linear"
                                 stackId={ stack || relative ? 'a' : undefined }
                                 dataKey={ category }
-                                fill={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
+                                fill={ getHexFromColorThemeValue(getColorTheme(
+                                    categoryColors.get(category)
+                                ).background) }
                                 isAnimationActive={ showAnimation }
                             />
 

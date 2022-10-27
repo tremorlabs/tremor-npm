@@ -27,6 +27,7 @@ const MultiSelectBoxItem = ({
     privateProps,
 }: MultiSelectBoxItemProps) => (
     <button
+        type="button"
         onClick={ () => privateProps!.handleMultiSelectBoxItemClick(value) }
         className={ classNames(
             'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',

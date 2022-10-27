@@ -66,7 +66,7 @@ const Legend = ({
 }: LegendProps) => {
     return(
         <div className={ classNames('tremor-base termor-elem', parseMarginTop(marginTop)) }>
-            <ol className="termor-elem tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
+            <ol className="list-element tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
                 { categories.map((category, idx) => (
                     <LegendItem key={ `item-${idx}` } name={ category } color={ colors[idx] } />
                 )) }

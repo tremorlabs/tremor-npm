@@ -60,7 +60,7 @@ const BarList = ({
             <div className="tr-relative tr-w-full">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.value }
+                        key={ item.name }
                         className={ classNames(
                             'tr-flex tr-items-center',
                             rowHeight,
@@ -84,7 +84,7 @@ const BarList = ({
             <div className="tr-text-right tr-min-w-min">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.value }
+                        key={ item.name }
                         className={ classNames(
                             'tr-flex tr-justify-end tr-items-center',
                             rowHeight,

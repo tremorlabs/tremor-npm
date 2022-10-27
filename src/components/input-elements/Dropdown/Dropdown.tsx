@@ -38,16 +38,15 @@ const Dropwdown = ({
 }: DropdownProps) => {
     const dropdownRef = useRef(null);
 
-    type ValueToNameMapping = {
-        [value: string]: string
-    }
-    const valueToNameMapping: ValueToNameMapping = {};
-    const consturctValueToNameMapping = () => {
+    const constructValueToNameMapping = (): Map<string, string> => {
+        const valueToNameMapping = new Map<string, string>();
         React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
+            valueToNameMapping.set(child.props.value, child.props.text);
         });
+        return valueToNameMapping;
     };
-    consturctValueToNameMapping();
+
+    const valueToNameMapping = constructValueToNameMapping();
 
     const [selectedItem, setSelectedItem] = useState(defaultValue);
     const [showModal, setShowModal] = useState(false);
@@ -72,6 +71,7 @@ const Dropwdown = ({
             ) }
         >
             <button
+                type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
@@ -94,7 +94,7 @@ const Dropwdown = ({
                         ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                         : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                 ) }>
-                    { selectedItem ? valueToNameMapping[selectedItem] : placeholder }
+                    { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
                 </p>
                 <ArrowDownHeadIcon
                     className={ classNames(

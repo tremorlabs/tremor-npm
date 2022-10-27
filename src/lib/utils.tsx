@@ -9,10 +9,10 @@ export const isBaseColor = (baseColor: Color): boolean => {
 };
 
 export const getColorTheme = (
-    baseColor: Color,
+    baseColor: Color | null | undefined,
     defaultColor: Color = BaseColors.Blue
 ): BaseColorTheme => {
-    if (!isBaseColor(baseColor)) {
+    if (!baseColor || !isBaseColor(baseColor)) {
         return colorTheme[defaultColor];
     }
     return colorTheme[baseColor];
@@ -92,4 +92,28 @@ export const stringIsNumeric = (str: string|undefined): boolean => {
 
 export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
+};
+
+export const constructValueToNameMapping = (
+    children: React.ReactElement[] | React.ReactElement
+): Map<string, string> => {
+    const valueToNameMapping = new Map<string, string>();
+    React.Children.map(children, (child) => {
+        valueToNameMapping.set(child.props.value, child.props.text);
+    });
+    return valueToNameMapping;
+};
+
+export const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
+    React.Children.map(children, (child) => {
+        return String(child.props.text);
+    })
+);
+
+export const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
+    return searchQuery === ''
+        ? allOptionNames
+        : allOptionNames.filter((optionName: string) => {
+            return optionName.toLowerCase().includes(searchQuery.toLowerCase());
+        });
 };

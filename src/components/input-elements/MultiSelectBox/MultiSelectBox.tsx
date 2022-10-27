@@ -11,6 +11,8 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
+    getFilteredOptionNames,
+    getOptionNamesFromChildren,
     isValueInArray,
     parseMarginTop,
     parseMaxWidth,
@@ -39,28 +41,6 @@ const MultiSelectBox = ({
     children,
 }: MultiSelectBoxProps) => {
     const dropdownRef = useRef(null);
-
-    const valueToNameMapping: {[value: string]: string} = {};
-    const consturctValueToNameMapping = () => {
-        React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
-        });
-    };
-    consturctValueToNameMapping();
-
-    const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-        React.Children.map(children, (child) => {
-            return String(child.props.text);
-        })
-    );
-
-    const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-        return searchQuery === ''
-            ? allOptionNames
-            : allOptionNames.filter((optionName: string) => {
-                return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-    };
 
     const [showModal, setShowModal] = useState(false);
     const [selectedItems, setSelectedItems] = useState(defaultValues);
@@ -104,6 +84,7 @@ const MultiSelectBox = ({
             ) }
         >
             <button
+                type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',

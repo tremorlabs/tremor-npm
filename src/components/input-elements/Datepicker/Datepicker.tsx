@@ -168,6 +168,7 @@ const Datepicker = ({
             ) }
             >
                 <button
+                    type="button"
                     ref={ datePickerRef }
                     onClick={ () => setShowDatePickerModal(!showDatePickerModal) }
                     className={ classNames(
@@ -187,7 +188,7 @@ const Datepicker = ({
                 >
                     <CalendarIcon
                         className={ classNames(
-                            'flex-none',
+                            'tr-flex-none',
                             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                             sizing.lg.height,
                             sizing.lg.width,
@@ -209,6 +210,7 @@ const Datepicker = ({
                 </button>
                 { enableRelativeDates ? (
                     <button
+                        type="button"
                         ref={ dropdownRef }
                         onClick={ () => setShowDropdownModal(!showDropdownModal) }
                         className={ classNames(
@@ -427,6 +429,7 @@ const Datepicker = ({
                 { relativeFilterOptions.map((filterOption) => (
                     <button
                         key={ filterOption.value }
+                        type="button"
                         onClick={ () => {
                             setSelectedRelativeFilterOption(filterOption.value);
                             handleRelativeFilterOptionClick(filterOption.value);

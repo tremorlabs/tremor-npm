@@ -8,10 +8,13 @@ import {
     borderRadius,
     boxShadow,
     classNames,
+    constructValueToNameMapping,
     defaultColors,
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
+    getFilteredOptionNames,
+    getOptionNamesFromChildren,
     parseMarginTop,
     parseMaxWidth,
     sizing,
@@ -39,38 +42,18 @@ const SelectBox = ({
 }: SelectBoxProps) => {
     const dropdownRef = useRef(null);
 
-    const valueToNameMapping: {[value: string]: string} = {};
-    const consturctValueToNameMapping = () => {
-        React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
-        });
-    };
-    consturctValueToNameMapping();
-
-    const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-        React.Children.map(children, (child) => {
-            return String(child.props.text);
-        })
-    );
-
-    const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-        return searchQuery === ''
-            ? allOptionNames
-            : allOptionNames.filter((optionName: string) => {
-                return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-    };
+    const valueToNameMapping = constructValueToNameMapping(children);
 
     const [showModal, setShowModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping[selectedItem] : '');
+    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping.get(selectedItem) : '');
 
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
     const handleSelectBoxItemClick = (value: any) => {
-        setInputText(valueToNameMapping[value]);
+        setInputText(valueToNameMapping.get(value));
         setSelectedItem(value);
         handleSelect(value);
         setShowModal(false);
@@ -110,8 +93,10 @@ const SelectBox = ({
                 onClick={ () => setShowModal(!showModal) }
             />
             <button
+                type="button"
                 className={ classNames(
-                    'input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2',
+                    'tr-absolute tr-top-1/2 -tr-translate-y-1/2',
+                    'tr-m-0 tr-p-0',
                     spacing.twoXl.right,
                 ) }
                 onClick={ () => setShowModal(!showModal) }

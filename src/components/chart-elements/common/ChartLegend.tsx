@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { Color } from '../../../lib';
 import Legend from 'components/text-elements/Legend';
-import { themeColorRange } from 'lib';
 
-const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
+const ChartLegend = (
+    { payload }: any,
+    categoryColors: Map<string, Color>,
     setLegendHeight: React.Dispatch<React.SetStateAction<number>>) => {
     const calculateHeight = (height: number|undefined) => (
         height
@@ -27,11 +28,12 @@ const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
         
         return () => window.removeEventListener('resize', handleResize);
     }, [_windowSize]);
+
     return (
         <div ref={ legendRef } className="tr-flex tr-items-center tr-justify-end">
             <Legend
-                categories={payload.map((entry: any) => entry.value)}
-                colors={ colors }
+                categories={ payload.map((entry: any) => entry.value) }
+                colors={ payload.map((entry: any) => categoryColors.get(entry.value)) }
             />
         </div>
     );
