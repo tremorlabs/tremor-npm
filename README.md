@@ -42,12 +42,12 @@
 
 ## Getting Started
 
-You can use tremor either within a [React](https://reactjs.org/) or [Next](https://nextjs.org/) Project. For new React projects, we recommend using Next.js, as it also provides a simple deployment workflow through the [Vercel]([url](https://vercel.com/) platform.
+You can use tremor either within a [React](https://reactjs.org/) or [Next](https://nextjs.org/) Project. For new React projects, we recommend using Next.js, as it also provides a simple deployment workflow through the [Vercel](https://vercel.com/) platform.
 
 ### 1a. Install via a React.js Project
 
 We create a new React project with
-[Create React App]([url](https://create-react-app.dev/docs/getting-started/).
+[Create React App](https://create-react-app.dev/docs/getting-started/).
 
 ```bash
 npx create-react-app my-project
@@ -57,7 +57,7 @@ cd my-project
 ### 1b. Install via a Next.js Project
 
 We create a new Next project with
-[Create Next App]([url](https://nextjs.org/docs)).
+[Create Next App](https://nextjs.org/docs).
 
 ```bash
 npx create-next-app my-project --typescript
