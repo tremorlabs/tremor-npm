@@ -16,15 +16,17 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SimpleToggle = (args: any) => (
-    <Toggle { ...args }>
-        <ToggleItem
-            value={ 5 }
-            text={ 'This is a very Long Toggle Value that is used as an edge case' }
-            icon={ Icon }
-        />
-        <ToggleItem value={ 3 } text={ 'Three' } icon={ Icon } />
-        <ToggleItem value={ 1 } text={ 'One' } icon={ Icon } />
-    </Toggle>
+    <form>
+        <Toggle { ...args }>
+            <ToggleItem
+                value={ 5 }
+                text={ 'This is a very Long Toggle Value that is used as an edge case' }
+                icon={ Icon }
+            />
+            <ToggleItem value={ 3 } text={ 'Three' } icon={ Icon } />
+            <ToggleItem value={ 1 } text={ 'One' } icon={ Icon } />
+        </Toggle>
+    </form>
 );
 
 const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
@@ -85,13 +87,14 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
-    defaultValue: 5
+    defaultValue: 5,
+    handleSelect: (value) => console.log(value),
 };
 
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    defaultValue: 5
+    defaultValue: 5,
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});

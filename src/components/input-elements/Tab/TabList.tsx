@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
     BaseColors,
@@ -29,9 +29,10 @@ const TabList = ({
 }: TabListProps) => {
     const [selectedTab, setSelectedTab] = useState<any|null>(defaultValue);
 
-    useEffect(() => {
-        handleSelect(selectedTab);
-    }, [selectedTab]);
+    const handleTabClick = (value: any) => {
+        handleSelect(value);
+        setSelectedTab(value);
+    };
 
     return(
         <ol aria-label="Tabs" className={ classNames(
@@ -44,9 +45,9 @@ const TabList = ({
             { React.Children.map(children, (child) => (
                 React.cloneElement(child, {
                     privateProps: {
-                        setSelectedTab: setSelectedTab,
-                        color: color,
                         isActive: selectedTab === child.props.value,
+                        handleTabClick,
+                        color,
                     }
                 })
             )) }
