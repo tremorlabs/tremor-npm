@@ -10,7 +10,6 @@ import {
     nextSaturday,
     parse,
     previousSunday,
-    startOfDay,
     startOfToday,
 } from 'date-fns';
 
@@ -33,7 +32,10 @@ import {
     getDayHoverBgColorClassName,
     getDayRoundedClassName,
     getDayTextClassNames,
+    getInitialCurrentMonth,
+    getInitialDateRange,
     getStartDateFromRelativeFilterOption,
+    isDayDisabled,
     nextMonth,
     previousMonth,
     relativeFilterOptions
@@ -70,6 +72,9 @@ const Datepicker = ({
 }: DatepickerProps) => {
     const today = startOfToday();
 
+    const datePickerRef = useRef(null);
+    const dropdownRef = useRef(null);
+
     defaultStartDate = defaultRelativeFilterOption
         ? getStartDateFromRelativeFilterOption(defaultRelativeFilterOption)
         : defaultStartDate;
@@ -78,8 +83,13 @@ const Datepicker = ({
 
     const hasDefaultDateRange = (defaultStartDate !== null) && (defaultEndDate !== null);
 
-    const datePickerRef = useRef(null);
-    const dropdownRef = useRef(null);
+    const [initialStartDate, initialEndDate] = getInitialDateRange(
+        defaultStartDate,
+        defaultEndDate,
+        minDate,
+        maxDate,
+        hasDefaultDateRange,
+    );
 
     const [showDatePickerModal, setShowDatePickerModal] = useState(false);
     const [showDropdownModal, setShowDropdownModal] = useState(false);
@@ -89,18 +99,19 @@ const Datepicker = ({
 
     const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
 
-    const [selectedStartDay, setSelectedStartDay] = useState<Date | null>(
-        hasDefaultDateRange ? startOfDay(defaultStartDate!) : null);
-    const [selectedEndDay, setSelectedEndDay] = useState<Date | null>(
-        hasDefaultDateRange ? startOfDay(defaultEndDate!) : null);
+    const [selectedStartDay, setSelectedStartDay] = useState<Date | null>(initialStartDate);
+    const [selectedEndDay, setSelectedEndDay] = useState<Date | null>(initialEndDate);
+    
     // determines which month is shown when Datepicker modal is opened
-    const [currentMonth, setCurrentMonth] = useState(
-        hasDefaultDateRange ? format(startOfDay(defaultEndDate!)!, 'MMM-yyyy') : format(today, 'MMM-yyyy'));
+    const [currentMonth, setCurrentMonth] = useState(getInitialCurrentMonth(
+        initialEndDate,
+        maxDate,
+    ));
 
     const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
     const lastDayCurrentMonth = endOfMonth(firstDayCurrentMonth);
 
-    const days = eachDayOfInterval({
+    const daysInCurrentMonth = eachDayOfInterval({
         start: isSunday(firstDayCurrentMonth)
             ? firstDayCurrentMonth
             : previousSunday(firstDayCurrentMonth),
@@ -108,15 +119,6 @@ const Datepicker = ({
             ? lastDayCurrentMonth
             : nextSaturday(lastDayCurrentMonth),
     });
-
-    const isDayInCurrentMonth = (day: Date) => day >= firstDayCurrentMonth
-        && day <= lastDayCurrentMonth;
-    
-    const isDayDisabled = (day: Date): boolean => {
-        return (minDate !== null && day < minDate)
-            || (maxDate !== null && day > maxDate)
-            || !isDayInCurrentMonth(day);
-    };
 
     const handleDayClick = (day: Date) => {
         if (!selectedStartDay) {
@@ -363,55 +365,63 @@ const Datepicker = ({
                         )) }
                     </div>
                     <div className="tr-grid tr-grid-cols-7">
-                        {days.map((day) => (
-                            <div
-                                key={day.toString()}
-                                className={classNames(
-                                    colStartClasses[getDay(day)],
-                                    'tr-w-full'
-                                )}
-                            >
-                                <button
-                                    type="button"
-                                    onClick={() => handleDayClick(day)}
-                                    onPointerEnter={ () => setHoveredDay(day) }
-                                    onPointerLeave={ () => setHoveredDay(null) }
+                        {daysInCurrentMonth.map((day) => {
+                            const isCurrentDayDisabled = isDayDisabled(
+                                day,
+                                minDate,
+                                maxDate,
+                                firstDayCurrentMonth,
+                                lastDayCurrentMonth,
+                            );
+                            return (
+                                <div
+                                    key={day.toString()}
                                     className={classNames(
-                                        'input-elem tr-w-full tr-flex tr-items-center tr-justify-center',
-                                        getDayBgColorClassName(
-                                            day,
-                                            selectedStartDay,
-                                            selectedEndDay,
-                                            hoveredDay,
-                                            color,
-                                            isDayDisabled(day),
-                                        ),
-                                        getDayTextClassNames(
-                                            day,
-                                            selectedStartDay,
-                                            selectedEndDay,
-                                            hoveredDay,
-                                            color,
-                                            isDayDisabled(day),
-                                        ),
-                                        getDayHoverBgColorClassName(
-                                            day,
-                                            selectedStartDay,
-                                            selectedEndDay,
-                                            isDayDisabled(day),
-                                        ),
-                                        getDayRoundedClassName(day, selectedStartDay, selectedEndDay, hoveredDay),
-                                        sizing.threeXl.height,
-                                        fontSize.sm,
+                                        colStartClasses[getDay(day)],
+                                        'tr-w-full'
                                     )}
-                                    disabled={ isDayDisabled(day) }
                                 >
-                                    <time dateTime={format(day, 'yyyy-MM-dd')}>
-                                        {format(day, 'd')}
-                                    </time>
-                                </button>
-                            </div>
-                        ))}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDayClick(day)}
+                                        onPointerEnter={ () => setHoveredDay(day) }
+                                        onPointerLeave={ () => setHoveredDay(null) }
+                                        className={classNames(
+                                            'input-elem tr-w-full tr-flex tr-items-center tr-justify-center',
+                                            getDayBgColorClassName(
+                                                day,
+                                                selectedStartDay,
+                                                selectedEndDay,
+                                                hoveredDay,
+                                                color,
+                                                isCurrentDayDisabled,
+                                            ),
+                                            getDayTextClassNames(
+                                                day,
+                                                selectedStartDay,
+                                                selectedEndDay,
+                                                hoveredDay,
+                                                color,
+                                                isCurrentDayDisabled,
+                                            ),
+                                            getDayHoverBgColorClassName(
+                                                day,
+                                                selectedStartDay,
+                                                selectedEndDay,
+                                                isCurrentDayDisabled,
+                                            ),
+                                            getDayRoundedClassName(day, selectedStartDay, selectedEndDay, hoveredDay),
+                                            sizing.threeXl.height,
+                                            fontSize.sm,
+                                        )}
+                                        disabled={ isCurrentDayDisabled }
+                                    >
+                                        <time dateTime={format(day, 'yyyy-MM-dd')}>
+                                            {format(day, 'd')}
+                                        </time>
+                                    </button>
+                                </div>
+                            ); }) }
                     </div>
                 </div>
             </Modal>
