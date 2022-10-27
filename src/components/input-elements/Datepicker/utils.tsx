@@ -2,6 +2,7 @@ import React from 'react';
 
 import { add, format, isEqual, isToday, startOfMonth, startOfToday, startOfYear, sub, } from 'date-fns';
 
+import { Color, RelativeFilterOption } from '../../../lib';
 import {
     classNames,
     defaultColors,
@@ -9,10 +10,12 @@ import {
     getColorTheme,
     getColorVariantsFromColorThemeValue
 } from 'lib';
-import { Color } from '../../../lib';
 import { borderRadius } from 'lib/shape';
 
-export const relativeFilterOptions = [
+export const relativeFilterOptions: {
+    value: RelativeFilterOption,
+    name: string,
+}[] = [
     {
         value: 'w',
         name: 'Last 7 days',
@@ -31,7 +34,9 @@ export const relativeFilterOptions = [
     },
 ];
 
-export const getStartDateFromRelativeFilterOption = (selectedRelativeFilterOption: string): Date => {
+export const getStartDateFromRelativeFilterOption = (
+    selectedRelativeFilterOption: RelativeFilterOption,
+): Date => {
     const today = startOfToday();
     switch(selectedRelativeFilterOption) {
     case 'w':
@@ -42,8 +47,9 @@ export const getStartDateFromRelativeFilterOption = (selectedRelativeFilterOptio
         return startOfMonth(today);
     case 'y':
         return startOfYear(today);
+    default:
+        return today;
     }
-    return today;
 };
 
 export const colStartClasses = [

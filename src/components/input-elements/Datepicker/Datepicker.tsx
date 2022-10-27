@@ -24,7 +24,7 @@ import {
     parseMarginTop,
     parseMaxWidth
 } from 'lib';
-import { Color, MarginTop, MaxWidth } from '../../../lib/inputTypes';
+import { Color, MarginTop, MaxWidth, RelativeFilterOption } from '../../../lib/inputTypes';
 import { borderRadius, defaultColors, fontSize, fontWeight, sizing, spacing } from 'lib';
 import {
     colStartClasses,
@@ -43,7 +43,7 @@ import Modal from 'components/layout-elements/Modal';
 export interface DatepickerProps {
     handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
     enableRelativeDates?: boolean,
-    defaultRelativeFilterOption?: 'w' | 't' | 'm' | 'y' | null,
+    defaultRelativeFilterOption?: RelativeFilterOption,
     defaultStartDate?: Date | null,
     defaultEndDate?: Date | null,
     minDate?: Date | null,
@@ -73,7 +73,7 @@ const Datepicker = ({
     defaultStartDate = defaultRelativeFilterOption
         ? getStartDateFromRelativeFilterOption(defaultRelativeFilterOption)
         : defaultStartDate;
-    
+
     defaultEndDate = defaultRelativeFilterOption ? today : defaultEndDate;
 
     const hasDefaultDateRange = (defaultStartDate !== null) && (defaultEndDate !== null);
@@ -84,7 +84,7 @@ const Datepicker = ({
     const [showDatePickerModal, setShowDatePickerModal] = useState(false);
     const [showDropdownModal, setShowDropdownModal] = useState(false);
 
-    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<string | null>(
+    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState<RelativeFilterOption>(
         enableRelativeDates && defaultRelativeFilterOption ? defaultRelativeFilterOption : null);
 
     const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
@@ -93,9 +93,10 @@ const Datepicker = ({
         hasDefaultDateRange ? startOfDay(defaultStartDate!) : null);
     const [selectedEndDay, setSelectedEndDay] = useState<Date | null>(
         hasDefaultDateRange ? startOfDay(defaultEndDate!) : null);
+    // determines which month is shown when Datepicker modal is opened
     const [currentMonth, setCurrentMonth] = useState(
         hasDefaultDateRange ? format(startOfDay(defaultEndDate!)!, 'MMM-yyyy') : format(today, 'MMM-yyyy'));
-    
+
     const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
     const lastDayCurrentMonth = endOfMonth(firstDayCurrentMonth);
 
@@ -123,9 +124,11 @@ const Datepicker = ({
         } else if (selectedStartDay && !selectedEndDay) {
             if (day < selectedStartDay) {
                 setSelectedStartDay(day);
+            // Selection complete
             } else if (day > selectedStartDay) {
                 setSelectedEndDay(day);
                 setShowDatePickerModal(false);
+                setSelectedRelativeFilterOption(null); // Clear relative filter
             }
         } else if (selectedStartDay && selectedEndDay) {
             setSelectedStartDay(day);
@@ -133,10 +136,11 @@ const Datepicker = ({
         }
     };
 
-    const handleRelativeFilterOptionClick = (selectedRelativeFilterOption: string) => {
+    const handleRelativeFilterOptionClick = (selectedRelativeFilterOption: RelativeFilterOption) => {
         const startDate = getStartDateFromRelativeFilterOption(selectedRelativeFilterOption);
         setSelectedStartDay(startDate);
         setSelectedEndDay(today);
+        setCurrentMonth(format(today, 'MMM-yyyy'));
     };
 
     useEffect(() => {
@@ -416,13 +420,16 @@ const Datepicker = ({
                 setShowModal={ setShowDropdownModal }
                 triggerRef={ dropdownRef }
             >
-                { relativeFilterOptions.map((filterOption) => (
+                { relativeFilterOptions.map(({value, name}: {
+                    value: RelativeFilterOption,
+                    name: string,
+                }) => (
                     <button
-                        key={ filterOption.value }
+                        key={ value }
                         type="button"
                         onClick={ () => {
-                            setSelectedRelativeFilterOption(filterOption.value);
-                            handleRelativeFilterOptionClick(filterOption.value);
+                            setSelectedRelativeFilterOption(value);
+                            handleRelativeFilterOptionClick(value);
                             setShowDropdownModal(false);
                         } }
                         className={ classNames(
@@ -432,7 +439,7 @@ const Datepicker = ({
                             spacing.md.paddingTop,
                             spacing.md.paddingBottom,
                             fontSize.sm,
-                            selectedRelativeFilterOption === filterOption.value
+                            selectedRelativeFilterOption === value
                                 ? classNames(
                                     getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
                                     getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
@@ -444,7 +451,7 @@ const Datepicker = ({
                         ) }
                     >
                         <p className="text-elem tr-whitespace-nowrap tr-truncate">
-                            { filterOption.name }
+                            { name }
                         </p>
                     </button>
                 ))}      
