@@ -47,22 +47,22 @@ const ColorsTemplate: ComponentStory<typeof Button> = () => (
     </Card>
 );
 
-const ResponsiveFlexTemplate: ComponentStory<typeof Button> = () => (
+const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
     <>
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
                 <Flex>
-                    <Button text="Button" icon={MyIcon} />
-                    <Button text="Button" icon={MyIcon} />
+                    <Button { ...args } text="Button" icon={MyIcon} />
+                    <Button { ...args } text="Button" icon={MyIcon} importance={ 'secondary' } />
                 </Flex>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
             <Flex>
-                <Button text="Very Long Button Text" icon={MyIcon} />
-                <Button text="Very Long Button Text" icon={MyIcon} />
+                <Button { ...args } text="Very Long Button Text" icon={MyIcon} />
+                <Button { ...args } text="Very Long Button Text" icon={MyIcon} importance={ 'secondary' } />
             </Flex>
         </Card>
     </>
@@ -73,5 +73,10 @@ export const Sizes = SizesTemplate.bind({});
 export const Colors = ColorsTemplate.bind({});
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
+
+export const WithDisabled = ResponsiveFlexTemplate.bind({});
+WithDisabled.args = {
+    disabled: true,
+};
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

@@ -32,7 +32,7 @@ export interface ButtonProps {
     importance?: Importance,
     handleClick?: { (): void },
     marginTop?: MarginTop,
-    disabled: boolean
+    disabled?: boolean
 }
 
 const Button = ({
@@ -51,11 +51,11 @@ const Button = ({
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
     const Icon = icon ? icon : null;
     return (
-        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
+        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <button
                 type="button"
-                onClick={handleClick}
-                className={classNames(
+                onClick={ handleClick }
+                className={ classNames(
                     'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
                     'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',
                     borderRadius.md.all,
@@ -67,30 +67,32 @@ const Button = ({
                     buttonProportions[buttonSize].paddingTop,
                     buttonProportions[buttonSize].paddingBottom,
                     buttonProportions[buttonSize].fontSize,
+                    buttonColors[buttonImportance].textColor,
                     buttonColors[buttonImportance].bgColor,
                     buttonColors[buttonImportance].borderColor,
-                    buttonColors[buttonImportance].focusRingColor,
-                    buttonColors[buttonImportance].hoverBgColor,
-                    buttonColors[buttonImportance].hoverBorderColor,
-                    buttonColors[buttonImportance].textColor,
-                )}
-                disabled
+                    !disabled ? classNames(
+                        buttonColors[buttonImportance].focusRingColor,
+                        buttonColors[buttonImportance].hoverBgColor,
+                        buttonColors[buttonImportance].hoverBorderColor,
+                    ) : 'tr-opacity-50',
+                ) }
+                disabled={ disabled }
             >
-                {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
+                { Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon
-                        className={classNames(
+                        className={ classNames(
                             spacing.twoXs.negativeMarginLeft,
                             spacing.xs.marginRight,
                             iconSizes[buttonSize].height,
                             iconSizes[buttonSize].width,
-                        )}
+                        ) }
                         aria-hidden="true"
                     />
-                ) : null}
+                ) : null }
                 <p className="text-elem tr-whitespace-nowrap">
-                    {text}
+                    { text }
                 </p>
-                {Icon && (iconPosition === HorizontalPositions.Right) ? (
+                { Icon && (iconPosition === HorizontalPositions.Right) ? (
                     <Icon
                         className={classNames(
                             spacing.twoXs.negativeMarginRight,
@@ -100,9 +102,9 @@ const Button = ({
                         )}
                         aria-hidden="true"
                     />
-                ) : null}
+                ) : null }
             </button>
-        </span>
+        </div>
     );
 };
 
