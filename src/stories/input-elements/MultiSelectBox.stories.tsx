@@ -59,12 +59,13 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    maxWidth: 'max-w-xs'
+    maxWidth: 'max-w-xs',
+    handleSelect: (values) => console.log(values),
 };
 
 export const WithDefaultValues = ResponsiveTemplate.bind({});
 WithDefaultValues.args = {
-    defaultValues: [5, 1]
+    defaultValues: [5, 1],
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
