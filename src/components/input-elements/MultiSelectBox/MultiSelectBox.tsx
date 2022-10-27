@@ -25,6 +25,7 @@ import Modal from 'components/layout-elements/Modal';
 export interface MultiSelectBoxProps {
     defaultValues?: any[],
     handleSelect?: { (value: any): void },
+    selectedText?: { (values: any[] ): string}
     placeholder?: string,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
@@ -35,6 +36,7 @@ const MultiSelectBox = ({
     defaultValues = [],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (value) => null,
+    selectedText,
     placeholder = 'Select...',
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
@@ -107,7 +109,9 @@ const MultiSelectBox = ({
                         ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                         : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                 ) }>
-                    { selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder }
+                    { selectedItems.length !==0 ? 
+                        selectedText?.(selectedItems) ?? `${selectedItems.length} Selected` 
+                        : placeholder }
                 </p>
                 <div className="tr-flex tr-items-center">
                     { selectedItems.length !== 0 ? (
