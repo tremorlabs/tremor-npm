@@ -61,14 +61,9 @@ const DonutChart = ({
     dataKey,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
-    startEndOnly = false,
-    showXAxis = true,
-    showYAxis = true,
-    yAxisWidth = 'w-14',
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
-    showGridLines = true,
     height = 'h-44',
     marginTop = 'mt-0',
 }: BaseChartProps) => {
@@ -86,6 +81,7 @@ const DonutChart = ({
                 </text> */}
                 <ReChartDonutChart>
                   {/* @Achi: Map Tailwind Colors here */}
+                <p>Test</p>
                 <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#64748b">
                   Total
                 </text>
