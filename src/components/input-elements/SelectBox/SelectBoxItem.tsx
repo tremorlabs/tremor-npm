@@ -25,9 +25,10 @@ const SelectBoxItem = ({
     const Icon = icon ? icon : null;
     return (
         <button
+            type="button"
             onClick={() => privateProps!.handleSelectBoxItemClick(value)}
             className={classNames(
-                'tr-flex tr-items-center tr-justify-between tr-w-full',
+                'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
                 spacing.twoXl.paddingLeft,
                 spacing.twoXl.paddingRight,
                 spacing.md.paddingTop,
@@ -54,7 +55,7 @@ const SelectBoxItem = ({
                         getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                     )} aria-hidden="true" />
                 ) : null}
-                <p className="tr-whitespace-nowrap tr-truncate">
+                <p className="text-elem tr-whitespace-nowrap tr-truncate">
                     {text}
                 </p>
             </div>

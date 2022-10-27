@@ -27,6 +27,7 @@ const Title = ({
 }: TitleProps) => {
     return(
         <p className={ classNames(
+            'text-elem tremor-base',
             truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
             parseTruncateOption(truncate),
             parseMarginTop(marginTop),

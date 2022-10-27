@@ -18,9 +18,9 @@ export interface ToggleItemProps {
     text: string,
     icon?: React.ElementType,
     privateProps?: {
-        color: Color,
-        setActiveToggleItem: React.Dispatch<React.SetStateAction<any>>,
         isActive: boolean,
+        handleToggleItemClick: (value: any) => void,
+        color: Color,
     }
 }
 
@@ -45,8 +45,9 @@ const ToggleItem = ({
     const Icon = icon ? icon : null;
     return (
         <button
+            type="button"
             className={classNames(
-                'tr-flex tr-items-center tr-ring-1',
+                'input-elem tr-flex tr-items-center tr-ring-1',
                 spacing.lg.paddingLeft,
                 spacing.lg.paddingRight,
                 spacing.xs.paddingTop,
@@ -55,7 +56,7 @@ const ToggleItem = ({
                 borderRadius.md.all,
                 privateProps!.isActive ? activeClassNames : inActiveClassNames,
             )}
-            onClick={() => { privateProps!.setActiveToggleItem!(value); }}
+            onClick={() => { privateProps!.handleToggleItemClick!(value); }}
         >
             {Icon ? (
                 <Icon

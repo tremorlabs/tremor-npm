@@ -21,7 +21,7 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
     let prefixSum = 0;
     return (
         <div className={ classNames(
-            'tr-relative tr-flex tr-w-full',
+            'tremor-base tr-relative tr-flex tr-w-full',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             spacing.twoXs.spaceX,
             spacing.sm.marginBottom,

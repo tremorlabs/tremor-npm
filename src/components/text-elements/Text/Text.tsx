@@ -34,6 +34,7 @@ const Text = ({
 }: TextProps) => {
     return(
         <p className={classNames(
+            'text-elem tremor-base',
             parseTruncateOption(truncate),
             truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
             height ? parseHeight(height) : height,

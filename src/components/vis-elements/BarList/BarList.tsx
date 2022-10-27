@@ -53,14 +53,14 @@ const BarList = ({
 
     return (
         <div className={ classNames(
-            'tr-flex tr-justify-between',
+            'tremor-base tr-flex tr-justify-between',
             parseMarginTop(marginTop),
             spacing.threeXl.spaceX,
         ) }>
             <div className="tr-relative tr-w-full">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.value }
+                        key={ item.name }
                         className={ classNames(
                             'tr-flex tr-items-center',
                             rowHeight,
@@ -71,7 +71,7 @@ const BarList = ({
                         style={ { 'width': `${widths[idx]}%`, 'transition': showAnimation ? 'all 2s' : '' } }
                     >
                         <p className={ classNames(
-                            'tr-absolute tr-max-w-full tr-whitespace-nowrap tr-truncate',
+                            'text-elem tr-absolute tr-max-w-full tr-whitespace-nowrap tr-truncate',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             spacing.sm.left,
                             fontSize.sm,
@@ -84,7 +84,7 @@ const BarList = ({
             <div className="tr-text-right tr-min-w-min">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.value }
+                        key={ item.name }
                         className={ classNames(
                             'tr-flex tr-justify-end tr-items-center',
                             rowHeight,
@@ -92,7 +92,7 @@ const BarList = ({
                         ) }
                     >
                         <p className={ classNames(
-                            'tr-whitespace-nowrap tr-truncate',
+                            'text-elem tr-whitespace-nowrap tr-truncate',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             fontSize.sm,
                         ) }>

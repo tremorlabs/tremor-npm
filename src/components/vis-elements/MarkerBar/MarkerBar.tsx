@@ -34,7 +34,7 @@ const MarkerBar = ({
     const secondaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor;
     return(
         <div className={ classNames(
-            'tr-relative tr-flex tr-items-center tr-w-full',
+            'tremor-base tr-relative tr-flex tr-items-center tr-w-full',
             parseMarginTop(marginTop),
             secondaryBgColor,
             sizing.xs.height,

@@ -11,6 +11,8 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
+    getFilteredOptionNames,
+    getOptionNamesFromChildren,
     isValueInArray,
     parseMarginTop,
     parseMaxWidth,
@@ -39,28 +41,6 @@ const MultiSelectBox = ({
     children,
 }: MultiSelectBoxProps) => {
     const dropdownRef = useRef(null);
-
-    const valueToNameMapping: {[value: string]: string} = {};
-    const consturctValueToNameMapping = () => {
-        React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
-        });
-    };
-    consturctValueToNameMapping();
-
-    const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-        React.Children.map(children, (child) => {
-            return String(child.props.text);
-        })
-    );
-
-    const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-        return searchQuery === ''
-            ? allOptionNames
-            : allOptionNames.filter((optionName: string) => {
-                return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-    };
 
     const [showModal, setShowModal] = useState(false);
     const [selectedItems, setSelectedItems] = useState(defaultValues);
@@ -94,7 +74,7 @@ const MultiSelectBox = ({
         <div
             ref={ dropdownRef }
             className={ classNames(
-                'tr-relative tr-w-full tr-min-w-[10rem]',
+                'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
@@ -104,8 +84,9 @@ const MultiSelectBox = ({
             ) }
         >
             <button
+                type="button"
                 className={ classNames(
-                    'tr-flex tr-justify-between tr-items-center tr-w-full',
+                    'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -119,7 +100,7 @@ const MultiSelectBox = ({
                 onClick={ () => setShowModal(!showModal) }
             >
                 <p className={ classNames(
-                    'tr-whitespace-nowrap tr-truncate',
+                    'text-elem tr-whitespace-nowrap tr-truncate',
                     fontSize.sm,
                     fontWeight.md,
                     selectedItems.length !==0
@@ -187,7 +168,7 @@ const MultiSelectBox = ({
                         type="input"
                         placeholder="Search"
                         className={ classNames(
-                            'tr-w-full focus:tr-outline-none focus:tr-ring-none',
+                            'input-elem tr-w-full focus:tr-outline-none focus:tr-ring-none',
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
                             spacing.sm.paddingTop,

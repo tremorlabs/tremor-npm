@@ -40,7 +40,7 @@ const ProgressBar = ({
     return(
         <div className={
             classNames(
-                'tr-flex tr-items-center tr-w-full',
+                'tremor-base tr-flex tr-items-center tr-w-full',
                 parseMarginTop(marginTop),
             )
         }>
@@ -68,7 +68,7 @@ const ProgressBar = ({
                     spacing.sm.marginLeft,
                 ) }>
                     <p className={ classNames(
-                        'tr-shrink-0 tr-whitespace-nowrap tr-truncate',
+                        'text-elem tr-shrink-0 tr-whitespace-nowrap tr-truncate',
                         fontSize.sm,
                         fontWeight.sm,
                     ) }>

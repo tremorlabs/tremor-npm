@@ -14,6 +14,7 @@ import {
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from 'components/chart-elements/common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
+import { constructCategoryColors } from '../common/utils';
 
 import {
     classNames,
@@ -44,8 +45,15 @@ const LineChart = ({
     marginTop = 'mt-0',
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
+    const categoryColors = constructCategoryColors(categories, colors);
+
     return (
-        <div className={ classNames('tr-w-full', parseHeight(height), parseMarginTop(marginTop)) }>
+        <div className={ classNames(
+            'tremor-base tr-w-full',
+            parseHeight(height),
+            parseMarginTop(marginTop)
+        ) }
+        >
             <ResponsiveContainer width="100%" height="100%">
                 <ReChartsLineChart data={ data }>
                     { showGridLines ? (
@@ -96,7 +104,7 @@ const LineChart = ({
                                     payload={ payload }
                                     label={ label }
                                     valueFormatter={ valueFormatter }
-                                    colors={ colors }
+                                    categoryColors={ categoryColors }
                                 />
                             ) }
                             position={{ y: 0 }}
@@ -106,16 +114,18 @@ const LineChart = ({
                         <Legend
                             verticalAlign="top"
                             height={ legendHeight }
-                            content={ ({ payload }) => ChartLegend({ payload }, colors, setLegendHeight) }
+                            content={ ({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight) }
                         />
                     ) : null }
-                    { categories.map((category, idx) => (
+                    { categories.map((category) => (
                         <Line
                             key={ category }
                             name={ category }
                             type="linear"
                             dataKey={ category }
-                            stroke={ getHexFromColorThemeValue(getColorTheme(colors[idx]).background) }
+                            stroke={ getHexFromColorThemeValue(getColorTheme(
+                                categoryColors.get(category)
+                            ).background) }
                             strokeWidth={ 2 }
                             dot={ false }
                             isAnimationActive={ showAnimation }

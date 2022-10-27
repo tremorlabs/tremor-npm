@@ -38,16 +38,15 @@ const Dropwdown = ({
 }: DropdownProps) => {
     const dropdownRef = useRef(null);
 
-    type ValueToNameMapping = {
-        [value: string]: string
-    }
-    const valueToNameMapping: ValueToNameMapping = {};
-    const consturctValueToNameMapping = () => {
+    const constructValueToNameMapping = (): Map<string, string> => {
+        const valueToNameMapping = new Map<string, string>();
         React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
+            valueToNameMapping.set(child.props.value, child.props.text);
         });
+        return valueToNameMapping;
     };
-    consturctValueToNameMapping();
+
+    const valueToNameMapping = constructValueToNameMapping();
 
     const [selectedItem, setSelectedItem] = useState(defaultValue);
     const [showModal, setShowModal] = useState(false);
@@ -62,7 +61,7 @@ const Dropwdown = ({
         <div
             ref={ dropdownRef }
             className={ classNames(
-                'tr-relative tr-w-full tr-min-w-[10rem]',
+                'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
@@ -72,8 +71,9 @@ const Dropwdown = ({
             ) }
         >
             <button
+                type="button"
                 className={ classNames(
-                    'tr-flex tr-justify-between tr-items-center tr-w-full',
+                    'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -87,14 +87,14 @@ const Dropwdown = ({
                 onClick={ () => setShowModal(!showModal) }
             >
                 <p className={ classNames(
-                    'tr-whitespace-nowrap tr-truncate',
+                    'text-elem tr-whitespace-nowrap tr-truncate',
                     fontSize.sm,
                     fontWeight.md,
                     selectedItem
                         ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                         : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                 ) }>
-                    { selectedItem ? valueToNameMapping[selectedItem] : placeholder }
+                    { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
                 </p>
                 <ArrowDownHeadIcon
                     className={ classNames(

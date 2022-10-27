@@ -26,8 +26,9 @@ const Metric = ({
     children,
 }: MetricProps) => {
     return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
+        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <p className={ classNames(
+                'text-elem',
                 truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
                 parseTruncateOption(truncate),
                 getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).textColor,
