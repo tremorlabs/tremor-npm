@@ -256,7 +256,7 @@ const Datepicker = ({
                 showModal={ showDatePickerModal }
                 setShowModal={ setShowDatePickerModal }
                 triggerRef={ datePickerRef }
-                width="tr-w-72"
+                width="w-72"
                 maxHeight="tr-max-h-fit"
             >
                 <div
