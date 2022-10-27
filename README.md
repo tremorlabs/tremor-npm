@@ -47,43 +47,7 @@ For new projects, we recommend using Next.js, as it also provides a simple deplo
 
 <br>
 
-## Option A: Install via Next.js project 
-
-In your terminal, we create a new Next project:
-
-```bash
-npx create-next-app my-project --typescript
-cd my-project
-```
-*Installing TypeScript is optional here.*
-
-<br>
-
-Install tremor from your command line via npm.
-
-```bash
-npm install @tremor/react
-```
-
-<br>
-
-Import tremor stylesheet into `_app.js` / `_app.tsx`  file:
-
-```bash
-import '@tremor/react/dist/esm/tremor.css'
-```
-
-<br>
-
-Finally, run the dev server
-
-```bash
-npm start
-```
-<br>
-<br>
-
-## Option B: Install via React.js project 
+## Option A: Using Create React App
 
 In your terminal, we create a new React project:
 
@@ -91,7 +55,7 @@ In your terminal, we create a new React project:
 npx create-react-app my-project --template typescript
 cd my-project
 ```
-*Installing TypeScript is optional here.*
+*Using the `--template typescript` option is optional here.*
 
 <br>
 
@@ -103,7 +67,7 @@ npm install @tremor/react
 
 <br>
 
-Import tremor stylesheet into `App.js` / `App.tsx`  file:
+Import the tremor stylesheet into the `App.js` / `App.tsx`  file:
 ```tsx
 import '@tremor/react/dist/esm/tremor.css';
 ```
@@ -116,8 +80,43 @@ npm start
 ```
 
 <br>
+
+
+## Option B: Using NextJS 
+
+In your terminal, we create a new Next project:
+
+```bash
+npx create-next-app my-project --typescript
+cd my-project
+```
+*Using the `--typescript` option is optional here.*
+
 <br>
 
+Install tremor from your command line via npm.
+
+```bash
+npm install @tremor/react
+```
+
+<br>
+
+Import the tremor stylesheet into the `_app.js` / `_app.tsx`  file:
+
+```bash
+import '@tremor/react/dist/esm/tremor.css'
+```
+
+<br>
+
+Finally, run the dev server
+
+```bash
+npm run dev
+```
+<br>
+<br>
 
 **💡 Hint:** Since we are in beta, please be aware that there might be breaking changes in the future. If you want to see how you can build your first dashboard, have a look at our [documentation](https://tremor.so/docs/getting-started/demo-dashboard).
 
