@@ -43,7 +43,7 @@
 ## Getting Started
 
 You can use tremor either within a [React](https://reactjs.org/) or [Next.js](https://nextjs.org) Project.
-For new React projects, we recommend using Next.js, as it also provides a simple deployment workflow through the [Vercel](https://vercel.com/docs) platform.
+For new projects, we recommend using Next.js, as it also provides a simple deployment workflow through the [Vercel](https://vercel.com/docs) platform.
 
 ## Option A: Install via Next.js project 
 
