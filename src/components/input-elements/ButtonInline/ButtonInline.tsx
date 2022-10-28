@@ -23,6 +23,7 @@ export interface ButtonInlineProps {
     color?: Color,
     handleClick?: { (): void },
     marginTop?: MarginTop,
+    disabled: boolean
 }
 
 const ButtonInline = ({
@@ -33,6 +34,7 @@ const ButtonInline = ({
     size = Sizes.SM,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
+    disabled = false
 }: ButtonInlineProps) => {
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
     const Icon = icon ? icon : null;
@@ -50,6 +52,7 @@ const ButtonInline = ({
                     getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
                 )}
+                disabled
             >
                 {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
                     <Icon

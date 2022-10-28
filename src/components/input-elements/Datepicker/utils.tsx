@@ -1,7 +1,20 @@
 import React from 'react';
 
-import { add, format, isEqual, isToday, } from 'date-fns';
+import {
+    add,
+    format,
+    isEqual,
+    isToday,
+    max,
+    min,
+    startOfDay,
+    startOfMonth,
+    startOfToday,
+    startOfYear,
+    sub,
+} from 'date-fns';
 
+import { Color, RelativeFilterOption } from '../../../lib';
 import {
     classNames,
     defaultColors,
@@ -9,10 +22,71 @@ import {
     getColorTheme,
     getColorVariantsFromColorThemeValue
 } from 'lib';
-import { Color } from '../../../lib';
 import { borderRadius } from 'lib/shape';
 
-export const relativeFilterOptions = [
+export const getInitialDateRange = (
+    defaultStartDate: Date | null,
+    defaultEndDate: Date | null,
+    minDate: Date | null,
+    maxDate: Date | null,
+    hasDefaultDateRange: boolean
+): (Date | null)[] => {
+    if (hasDefaultDateRange) {
+        return [
+            // startDate
+            startOfDay(
+                minDate
+                    ? max([defaultStartDate!, minDate])
+                    : defaultStartDate!
+            ),
+            // endDate
+            startOfDay(
+                maxDate
+                    ? min([defaultEndDate!, maxDate])
+                    : defaultEndDate!
+            )
+        ];
+    }
+    return [null, null];
+};
+
+// Get month that will be displayed when opening the modal
+export const getInitialCurrentMonth = (
+    initialEndDate: Date | null,
+    maxDate: Date | null,
+) => {
+    if (maxDate !== null) {
+        return format(maxDate, 'MMM-yyyy');
+    } else if (initialEndDate !== null) {
+        return format(initialEndDate, 'MMM-yyyy');
+    } else {
+        const today = startOfToday();
+        return format(today, 'MMM-yyyy');
+    }
+};
+
+const isDayInCurrentMonth = (
+    day: Date,
+    firstDayCurrentMonth: Date,
+    lastDayCurrentMonth: Date,
+): boolean => day >= firstDayCurrentMonth && day <= lastDayCurrentMonth;
+
+export const isDayDisabled = (
+    day: Date,
+    minDate: Date | null,
+    maxDate: Date | null,
+    firstDayCurrentMonth: Date,
+    lastDayCurrentMonth: Date,
+): boolean => {
+    return (minDate !== null && day < minDate)
+        || (maxDate !== null && day > maxDate)
+        || !isDayInCurrentMonth(day, firstDayCurrentMonth, lastDayCurrentMonth);
+};
+
+export const relativeFilterOptions: {
+    value: RelativeFilterOption,
+    name: string,
+}[] = [
     {
         value: 'w',
         name: 'Last 7 days',
@@ -30,6 +104,24 @@ export const relativeFilterOptions = [
         name: 'Year to Date',
     },
 ];
+
+export const getStartDateFromRelativeFilterOption = (
+    selectedRelativeFilterOption: RelativeFilterOption,
+): Date => {
+    const today = startOfToday();
+    switch(selectedRelativeFilterOption) {
+    case 'w':
+        return sub(today, { days: 7 });
+    case 't':
+        return sub(today, { days: 30 });
+    case 'm':
+        return startOfMonth(today);
+    case 'y':
+        return startOfYear(today);
+    default:
+        return today;
+    }
+};
 
 export const colStartClasses = [
     '',

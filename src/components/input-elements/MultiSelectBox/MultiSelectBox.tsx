@@ -11,6 +11,8 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
+    getFilteredOptionNames,
+    getOptionNamesFromChildren,
     isValueInArray,
     parseMarginTop,
     parseMaxWidth,
@@ -22,7 +24,7 @@ import Modal from 'components/layout-elements/Modal';
 
 export interface MultiSelectBoxProps {
     defaultValues?: any[],
-    handleSelect?: { (value: any): void },
+    handleSelect?: { (values: any[]): void },
     placeholder?: string,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
@@ -32,35 +34,13 @@ export interface MultiSelectBoxProps {
 const MultiSelectBox = ({
     defaultValues = [],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
+    handleSelect = (values) => null,
     placeholder = 'Select...',
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
 }: MultiSelectBoxProps) => {
     const dropdownRef = useRef(null);
-
-    const valueToNameMapping: {[value: string]: string} = {};
-    const consturctValueToNameMapping = () => {
-        React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
-        });
-    };
-    consturctValueToNameMapping();
-
-    const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-        React.Children.map(children, (child) => {
-            return String(child.props.text);
-        })
-    );
-
-    const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-        return searchQuery === ''
-            ? allOptionNames
-            : allOptionNames.filter((optionName: string) => {
-                return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-    };
 
     const [showModal, setShowModal] = useState(false);
     const [selectedItems, setSelectedItems] = useState(defaultValues);
@@ -96,6 +76,7 @@ const MultiSelectBox = ({
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
+                getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,

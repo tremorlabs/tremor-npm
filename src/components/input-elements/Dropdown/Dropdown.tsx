@@ -38,16 +38,15 @@ const Dropwdown = ({
 }: DropdownProps) => {
     const dropdownRef = useRef(null);
 
-    type ValueToNameMapping = {
-        [value: string]: string
-    }
-    const valueToNameMapping: ValueToNameMapping = {};
-    const consturctValueToNameMapping = () => {
+    const constructValueToNameMapping = (): Map<string, string> => {
+        const valueToNameMapping = new Map<string, string>();
         React.Children.map(children, (child) => {
-            valueToNameMapping[child.props.value] = child.props.text;
+            valueToNameMapping.set(child.props.value, child.props.text);
         });
+        return valueToNameMapping;
     };
-    consturctValueToNameMapping();
+
+    const valueToNameMapping = constructValueToNameMapping();
 
     const [selectedItem, setSelectedItem] = useState(defaultValue);
     const [showModal, setShowModal] = useState(false);
@@ -64,6 +63,7 @@ const Dropwdown = ({
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
+                getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,
@@ -95,7 +95,7 @@ const Dropwdown = ({
                         ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                         : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                 ) }>
-                    { selectedItem ? valueToNameMapping[selectedItem] : placeholder }
+                    { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
                 </p>
                 <ArrowDownHeadIcon
                     className={ classNames(

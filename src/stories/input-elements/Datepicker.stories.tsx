@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, Datepicker, Flex, Text, Title } from 'components';
+import { Card, ColGrid, Datepicker, Flex, Text, Title } from 'components';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -22,6 +22,12 @@ const ResponsiveTemplate: ComponentStory<typeof Datepicker> = (args) => (
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
             <Datepicker { ...args } />
+        </Card>
+        <Title marginTop="mt-5">With Black Background</Title>
+        <Card>
+            <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+                <Datepicker { ...args } />
+            </div>
         </Card>
     </>
 );
@@ -68,6 +74,18 @@ const FlexTemplate: ComponentStory<typeof Datepicker> = (args) => (
         </Card>
     </>
 );
+
+const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> = () => (
+    <ColGrid numColsLg={ 6 }>
+        <div>emptyCol</div>
+        <div>emptyCol</div>
+        <div>emptyCol</div>
+        <div>emptyCol</div>
+        <div>emptyCol</div>
+        <Datepicker enableRelativeDates={ false } />
+    </ColGrid>
+);
+
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
@@ -129,4 +147,11 @@ WithDefaultStartDateOnly.args = {
 export const WithDefaultEndDateOnly = ResponsiveTemplate.bind({});
 WithDefaultEndDateOnly.args = {
     defaultEndDate: new Date(2022, 10, 1),
+};
+
+export const WithSelfDetectingModal = WithSelfDetectingModalTemplate.bind({});
+
+export const WithDefaultRelativeFilterOption = ResponsiveTemplate.bind({});
+WithDefaultRelativeFilterOption.args = {
+    defaultRelativeFilterOption: 'w',
 };

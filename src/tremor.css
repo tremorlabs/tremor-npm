@@ -72,6 +72,16 @@ Remove default margins from all text elements
 }
 
 /*
+Removes default list styles
+*/
+
+.list-element {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*
 Set tooltip font-family
 */
 
@@ -174,23 +184,6 @@ Remove the inner padding in Chrome and Safari on macOS.
 ::-webkit-file-upload-button.tremor-base {
     -webkit-appearance: button; /* 1 */
     font: inherit; /* 2 */
-}
-
-/*
-Removes the default spacing and border for appropriate elements.
-*/
-
-.tremor-base :is(
-    ol,
-    ul,
-    menu
-),
-ul.tremor-base,
-ul.tremor-base,
-menu.tremor-base {
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 /*

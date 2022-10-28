@@ -13,13 +13,12 @@ import {
     getColorVariantsFromColorThemeValue,
     sizing,
     spacing,
-    themeColorRange
 } from 'lib';
 
 export interface ChartTooltipRowProps {
     value: string,
     name: string,
-    color: Color,
+    color: Color | null | undefined,
 }
 
 const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
@@ -56,11 +55,17 @@ export interface ChartTooltipProps {
     active: boolean | undefined,
     payload: any,
     label: string,
-    colors?: Color[],
+    categoryColors: Map<string, Color>,
     valueFormatter: ValueFormatter,
 }
 
-const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueFormatter }: ChartTooltipProps) => {
+const ChartTooltip = ({
+    active,
+    payload,
+    label,
+    categoryColors,
+    valueFormatter,
+}: ChartTooltipProps) => {
     if (active && payload) {
         return (
             <div className={ classNames(
@@ -100,7 +105,7 @@ const ChartTooltip = ({ active, payload, label, colors = themeColorRange, valueF
                                 key={ `id-${idx}` }
                                 value={ valueFormatter(value) }
                                 name={ name }
-                                color={ colors[idx] }
+                                color={ categoryColors.get(name) }
                             />
                         ))
                     }

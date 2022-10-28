@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { Color } from '../../../lib';
 import Legend from 'components/text-elements/Legend';
-import { themeColorRange } from 'lib';
+import { useWindowSize } from 'lib';
 
-const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
+const ChartLegend = (
+    { payload }: any,
+    categoryColors: Map<string, Color>,
     setLegendHeight: React.Dispatch<React.SetStateAction<number>>) => {
     const calculateHeight = (height: number|undefined) => (
         height
@@ -13,25 +15,25 @@ const ChartLegend = ({ payload }: any, colors: Color[] = themeColorRange,
     );
 
     const legendRef = useRef<HTMLDivElement>(null);
-    const [height, setHeight] = useState(calculateHeight(undefined));
+    const [currentheight, setCurrentHeight] = useState(calculateHeight(undefined));
     
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // dummy windowsize listener to trigger useEffect on resize
-    const [_windowSize, setWindowSize] = useState(window.innerWidth);
     useEffect(() => {
-        const handleResize = () => setWindowSize(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-
+        setCurrentHeight(calculateHeight(currentheight));
+        // setLegendHeight setState action from Chart parent
         setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
-        setHeight(calculateHeight(height));
-        
-        return () => window.removeEventListener('resize', handleResize);
-    }, [_windowSize]);
+    }, []);
+
+    useWindowSize(() => {
+        setCurrentHeight(calculateHeight(currentheight));
+        // setLegendHeight setState action from Chart parent
+        setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
+    });
+
     return (
         <div ref={ legendRef } className="tr-flex tr-items-center tr-justify-end">
             <Legend
-                categories={payload.map((entry: any) => entry.value)}
-                colors={ colors }
+                categories={ payload.map((entry: any) => entry.value) }
+                colors={ payload.map((entry: any) => categoryColors.get(entry.value)) }
             />
         </div>
     );
