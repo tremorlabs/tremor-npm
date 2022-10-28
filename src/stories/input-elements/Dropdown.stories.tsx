@@ -25,6 +25,12 @@ const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
         <Card>
             <SimpleDropdown { ...args } />
         </Card>
+        <Title marginTop="mt-5">With Black Background</Title>
+        <Card>
+            <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+                <SimpleDropdown { ...args } />
+            </div>
+        </Card>
     </form>
 );
 

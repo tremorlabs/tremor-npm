@@ -27,6 +27,12 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
         <Card>
             <SimpleSelectBox { ...args } />
         </Card>
+        <Title marginTop="mt-5">With Black Background</Title>
+        <Card>
+            <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+                <SimpleSelectBox { ...args } />
+            </div>
+        </Card>
     </form>
 );
 

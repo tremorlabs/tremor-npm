@@ -23,6 +23,12 @@ const ResponsiveTemplate: ComponentStory<typeof Datepicker> = (args) => (
         <Card>
             <Datepicker { ...args } />
         </Card>
+        <Title marginTop="mt-5">With Black Background</Title>
+        <Card>
+            <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+                <Datepicker { ...args } />
+            </div>
+        </Card>
     </>
 );
 
