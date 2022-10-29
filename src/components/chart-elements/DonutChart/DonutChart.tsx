@@ -1,73 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
-    CartesianGrid,
-    Legend,
-    Line,
-    PieChart as ReChartDonutChart,
     Pie,
+    PieChart as ReChartsDonutChart,
     ResponsiveContainer,
     Tooltip,
-    XAxis,
-    YAxis,
 } from 'recharts';
 
-import BaseChartProps from '../common/BaseChartProps';
-import ChartLegend from 'components/chart-elements/common/ChartLegend';
-import ChartTooltip from '../common/ChartTooltip';
-
+import { Color, Height, MarginTop, ValueFormatter } from '../../../lib/inputTypes';
 import {
     classNames,
+    defaultColors,
     defaultValueFormatter,
-    getColorTheme,
     getHexFromColorThemeValue,
-    getPixelsFromTwClassName,
     parseHeight,
     parseMarginTop,
-    themeColorRange
 } from 'lib';
 
-const data = [
-    {
-      "name": "Group A",
-      "value": 2400,
-      "fill": "#2563eb",
-    },
-    {
-      "name": "Group B",
-      "value": 4567,
-      "fill": "#3b82f6",
-    },
-    {
-      "name": "Group C",
-      "value": 1398,
-      "fill": "#60a5fa",
-    },
-    {
-      "name": "Group D",
-      "value": 9800,
-      "fill": "#93c5fd",
-    },
-    {
-      "name": "Group E",
-      "value": 3908,
-      "fill": "#bfdbfe",
-    }
-  ];
+import { formatData, parseLabelInput } from './utils';
+import { DonutChartTooltip } from './DonutChartTooltip';
 
+export interface DonutChartDataPoint {
+    value: number,
+    name: string,
+    color?: Color,
+}
+
+export interface DonutChartProps {
+    data: DonutChartDataPoint[],
+    valueFormatter?: ValueFormatter,
+    label?: string,
+    showLabel?: boolean,
+    showAnimation?: boolean,
+    showTooltip?: boolean,
+    height?: Height,
+    marginTop?: MarginTop,
+}
 
 const DonutChart = ({
-    categories = [],
-    dataKey,
-    colors = themeColorRange,
+    data = [],
     valueFormatter = defaultValueFormatter,
+    label,
+    showLabel = true,
     showAnimation = true,
     showTooltip = true,
-    showLegend = true,
     height = 'h-44',
     marginTop = 'mt-0',
-}: BaseChartProps) => {
-    const [legendHeight, setLegendHeight] = useState(60);
+}: DonutChartProps) => {
+    const parsedLabelInput = parseLabelInput(label, valueFormatter, data);
+
     return (
         <div className={ classNames(
             'tremor-base tr-w-full',
@@ -76,38 +57,40 @@ const DonutChart = ({
         ) }
         >
             <ResponsiveContainer width="100%" height="100%">
-                {/* <text x={200} y={200} textAnchor="middle" dominantBaseline="middle">
-                  Donut
-                </text> */}
-                <ReChartDonutChart>
-                  {/* @Achi: Map Tailwind Colors here */}
-                <p>Test</p>
-                <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#64748b">
-                  Total
-                </text>
-                {/* <span x="50%" y="50%">
-                  Donut
-                </span> */}
-                {/* { categories.map((category, idx) => ( */}
+                <ReChartsDonutChart>
+                    { showLabel ? (
+                        <text
+                            x="50%"
+                            y="50%"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill={ getHexFromColorThemeValue(defaultColors.text) }
+                        >
+                            { parsedLabelInput }
+                        </text>
+                    ) : null }
                     <Pie
-                        data={ data }
+                        data={ formatData(data) }
                         cx="50%"
                         cy="50%"
-                        isAnimationActive={false}
-                        // label={renderCustomizedLabel}
-                        // cx={120}
-                        // cy={200}
-                        startAngle={90}
-                        endAngle={-270}
+                        isAnimationActive={ false }
+                        startAngle={ 90 }
+                        endAngle={ -270 }
                         innerRadius="75%"
                         outerRadius="100%"
-                        fill="fill"
-                        paddingAngle={0}
+                        paddingAngle={ 0 }
                         dataKey="value"
-                        >
+                    >
                     </Pie>
-                  {/* )) } */}
-                </ReChartDonutChart>
+                    { showTooltip ? (
+                        <Tooltip
+                            wrapperStyle={{ outline: 'none' }}
+                            content={ ({ active, payload }) => (
+                                <DonutChartTooltip active={ active } payload={ payload } />
+                            ) }
+                        />
+                    ) : null }
+                </ReChartsDonutChart>
             </ResponsiveContainer>
         </div>
     );
