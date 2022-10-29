@@ -4,6 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Block, Card, Flex, Tab, TabList, Text, Title } from 'components';
 import { BaseColors } from 'lib';
+import { CalendarIcon } from 'assets';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,8 +18,9 @@ const SimpleTabList = (args: any) => (
         <Tab
             value={ 5 }
             text={ 'This is a very Long Tab Value that is used as an edge case' }
+            icon={ CalendarIcon }
         />
-        <Tab value={ 3 } text={ 'Three' } />
+        <Tab value={ 3 } text={ 'Three' } icon={ CalendarIcon } />
         <Tab value={ 1 } text={ 'One' } />
     </TabList>
 );
