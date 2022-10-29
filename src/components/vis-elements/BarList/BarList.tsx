@@ -80,7 +80,7 @@ const BarList = ({
                                         'tr-flex-none',
                                         sizing.lg.height,
                                         sizing.lg.width,
-                                        spacing.lg.marginRight,
+                                        spacing.md.marginRight,
                                         getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                                     )} aria-hidden="true" />
                                 ) : null }
