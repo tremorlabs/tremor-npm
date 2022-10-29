@@ -123,29 +123,34 @@ const DefaultTemplate: ComponentStory<typeof DonutChart>= ({ ...args }) => (
 
 const data: DonutChartDataPoint[] = [
     {
-        'name': 'Group A',
+        'name': 'Georg Fischer AG',
         'value': 2400,
         'color': 'blue',
     },
     {
-        'name': 'Group B',
+        'name': 'Novartis AG',
         'value': 4567,
         'color': 'sky',
     },
     {
-        'name': 'Group C',
+        'name': 'Geberit AG',
         'value': 1398,
-        'color': 'emerald',
+        'color': 'indigo',
     },
     {
-        'name': 'Group D',
+        'name': 'Roche Holding AG',
         'value': 9800,
-        'color': 'amber',
+        'color': 'violet',
     },
     {
-        'name': 'Group E',
+        'name': 'Stadler Rail AG',
         'value': 3908,
-        'color': 'gray',
+        'color': 'purple',
+    },
+    {
+        'name': 'Swatch Group Ord Shs. This is an edge case.',
+        'value': 1908,
+        'color': 'fuchsia',
     }
 ];
 
