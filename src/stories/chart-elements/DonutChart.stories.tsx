@@ -16,39 +16,43 @@ import {
 import { DeltaType } from 'lib';
 import { DonutChartDataPoint } from 'components/chart-elements/DonutChart/DonutChart';
 
+const dataFormatter = (number: number) => {
+    return "$ " + Intl.NumberFormat("us").format(number).toString();
+};
+
 const stocks = [
     {
-        stock: 'Uber Inc.',
+        stock: 'Georg Fischer AG',
         value: '1,340',
-        rating: '23%',
+        rating: '2.3%',
         delta: 'moderateIncrease',
     },
     {
         stock: 'Novartis AG',
         value: '4,290',
-        rating: '12%',
+        rating: '1.2%',
         delta: 'moderateDecrease',
     },
     {
-        stock: 'Holcim',
+        stock: 'Geberit AG',
         value: '3,910',
         rating: '3.4%',
-        delta: 'moderateDecrease',
+        delta: 'decrease',
     },
     {
-        stock: 'Signa Group',
+        stock: 'Roche Holding AG',
         value: '10,140',
-        rating: '6%',
+        rating: '6.1%',
         delta: 'increase',
     },
     {
-        stock: 'Apple Inc.',
+        stock: 'Stadler Rail AG',
         value: '12,340',
-        rating: '5%',
+        rating: '0.5%',
         delta: 'moderateDecrease',
     },
     {
-        stock: 'Microsoft Inc.',
+        stock: 'Swatch Group Ord Shs',
         value: '9,340',
         rating: '1.8%',
         delta: 'moderateIncrease',
@@ -150,5 +154,6 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
     // categories: [ 'name 1', 'name 2', 'name 3', 'name 4', 'name 5', 'name 6' ],
     data: data,
+    valueFormatter: dataFormatter,
     marginTop: 'mt-6'
 };

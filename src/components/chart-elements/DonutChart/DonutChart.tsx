@@ -37,6 +37,7 @@ export interface DonutChartProps {
     marginTop?: MarginTop,
 }
 
+
 const DonutChart = ({
     data = [],
     valueFormatter = defaultValueFormatter,
