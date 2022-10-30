@@ -49,25 +49,7 @@ export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: bool
 
 export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
-export const useOnClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: {(event: any): void}) => {
-    useEffect(
-        () => {
-            const listener = (event: any) => {
-                if (!ref.current || ref.current.contains(event.target)) {
-                    return;
-                }
-                handler(event);
-            };
-            document.addEventListener('mousedown', listener);
-            document.addEventListener('touchstart', listener);
-            return () => {
-                document.removeEventListener('mousedown', listener);
-                document.removeEventListener('touchstart', listener);
-            };
-        },
-        [ref, handler]
-    );
-};
+export const sumNumericArray = (arr: number[]) => arr.reduce((prefixSum, num) => prefixSum + num, 0);
 
 export const removeValueFromArray = (value: any, array: any[]): any[] => {
     const index = array.indexOf(value);
@@ -116,6 +98,26 @@ export const getFilteredOptionNames = (searchQuery: string, allOptionNames: stri
         : allOptionNames.filter((optionName: string) => {
             return optionName.toLowerCase().includes(searchQuery.toLowerCase());
         });
+};
+
+export const useOnClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: {(event: any): void}) => {
+    useEffect(
+        () => {
+            const listener = (event: any) => {
+                if (!ref.current || ref.current.contains(event.target)) {
+                    return;
+                }
+                handler(event);
+            };
+            document.addEventListener('mousedown', listener);
+            document.addEventListener('touchstart', listener);
+            return () => {
+                document.removeEventListener('mousedown', listener);
+                document.removeEventListener('touchstart', listener);
+            };
+        },
+        [ref, handler]
+    );
 };
 
 export const useWindowSize = (handler: {(): void}, initialWindowSize?: number) => {

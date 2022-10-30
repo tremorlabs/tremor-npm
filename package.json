@@ -26,6 +26,7 @@
   "homepage": "https://github.com/tremorlabs/tremor#readme",
   "dependencies": {
     "@tippyjs/react": "^4.2.6",
+    "@tremor/react": "^1.0.12",
     "date-fns": "^2.28.0",
     "recharts": "^2.1.13"
   },
