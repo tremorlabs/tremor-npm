@@ -44,6 +44,8 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    dynamicXAxis,
+    dynamicYAxis
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -74,6 +76,7 @@ const AreaChart = ({
                             fontFamily: 'Inter; Helvetica',
                         } }
                         interval="preserveStartEnd"
+                        domain={ dynamicXAxis ? ['auto', 'auto'] : [0, 'auto']}
                         tickLine={ false }
                         axisLine={ false }
                         padding={{ left: 10, right: 10 }}
@@ -85,7 +88,7 @@ const AreaChart = ({
                         axisLine={ false }
                         tickLine={ false }
                         type="number"
-                        domain={ [0, 'auto'] }
+                        domain={ dynamicYAxis ? ['auto', 'auto'] : [0, 'auto']}
                         tick={ { transform: 'translate(-3, 0)' } }
                         style={ {
                             fontSize: '12px',

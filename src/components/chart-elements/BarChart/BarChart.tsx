@@ -52,6 +52,8 @@ const BarChart = ({
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    dynamicXAxis,
+    dynamicYAxis
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -103,6 +105,7 @@ const BarChart = ({
                             }}
                             tickLine={false}
                             axisLine={false}
+                            domain={ dynamicXAxis ? ['auto', 'auto'] : [0, 'auto']}
                             tickFormatter={ valueFormatter }
                             padding={{ left: 10, right: 10 }}
                             minTickGap={5}
@@ -115,7 +118,7 @@ const BarChart = ({
                             axisLine={ false }
                             tickLine={ false }
                             type="number"
-                            domain={ [0, 'auto'] }
+                            domain={ dynamicYAxis ? ['auto', 'auto'] : [0, 'auto']}
                             tick={ { transform: 'translate(-3, 0)' } } 
                             style={ {
                                 fontSize: '12px',
