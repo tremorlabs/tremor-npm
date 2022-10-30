@@ -123,3 +123,12 @@ WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
 };
+
+export const WithDynamicXAndYAxis = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithDynamicXAndYAxis.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dynamicXAxis: true,
+    dynamicYAxis: true
+};

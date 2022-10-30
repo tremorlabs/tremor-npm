@@ -43,6 +43,7 @@ DefaultResponsive.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
     dataKey: 'month',
+    dynamicYAxis: true
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
@@ -122,4 +123,12 @@ export const WithNoDataKey = DefaultTemplate.bind({});
 WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
+};
+
+export const WithDynamicXAndYAxis = ResponsiveTemplate.bind({});
+WithDynamicXAndYAxis.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dynamicXAxis: true,
+    dynamicYAxis: true
 };
