@@ -30,6 +30,7 @@ export const formatData = (data: DonutChartDataPoint[]) => data.map((
 ) => {
     return {
         ...dataPoint,
+        // explicitly adding color key if not present in input data for tooltip formatting
         color: getBaseColor(dataPoint.color, idx) as Color,
         fill: parseInputColor(dataPoint.color, idx), // Hex Code
     };
