@@ -37,7 +37,6 @@ export interface DonutChartProps {
     marginTop?: MarginTop,
 }
 
-
 const DonutChart = ({
     data = [],
     valueFormatter = defaultValueFormatter,
@@ -74,20 +73,24 @@ const DonutChart = ({
                         data={ formatData(data) }
                         cx="50%"
                         cy="50%"
-                        isAnimationActive={ false }
                         startAngle={ 90 }
                         endAngle={ -270 }
                         innerRadius="75%"
                         outerRadius="100%"
                         paddingAngle={ 0 }
                         dataKey="value"
+                        isAnimationActive={ showAnimation }
                     >
                     </Pie>
                     { showTooltip ? (
                         <Tooltip
-                            wrapperStyle={{ outline: 'none' }}
+                            wrapperStyle={ { outline: 'none' } }
                             content={ ({ active, payload }) => (
-                                <DonutChartTooltip active={ active } payload={ payload } />
+                                <DonutChartTooltip
+                                    active={ active }
+                                    payload={ payload }
+                                    valueFormatter={ valueFormatter }
+                                />
                             ) }
                         />
                     ) : null }

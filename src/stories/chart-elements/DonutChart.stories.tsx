@@ -17,7 +17,7 @@ import { DeltaType } from 'lib';
 import { DonutChartDataPoint } from 'components/chart-elements/DonutChart/DonutChart';
 
 const dataFormatter = (number: number) => {
-    return "$ " + Intl.NumberFormat("us").format(number).toString();
+    return '$ ' + Intl.NumberFormat('us').format(number).toString();
 };
 
 const stocks = [
@@ -113,12 +113,6 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
             </Card>
         </div>
     </>
-);
-
-const DefaultTemplate: ComponentStory<typeof DonutChart>= ({ ...args }) => (
-    <Card>
-        <DonutChart { ...args } />
-    </Card>
 );
 
 const data: DonutChartDataPoint[] = [
