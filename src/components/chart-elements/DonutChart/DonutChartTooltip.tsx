@@ -16,7 +16,7 @@ export const DonutChartTooltip = ({
     valueFormatter,
 }: DonutChartTooltipProps) => {
     if (active && payload[0]) {
-        const { value, name, color } = payload[0].payload;
+        const payloadRow = payload[0];
         return (
             <ChartTooltipFrame>
                 <div className={ classNames(
@@ -26,9 +26,9 @@ export const DonutChartTooltip = ({
                     spacing.sm.paddingBottom,
                 ) }>
                     <ChartTooltipRow
-                        value={  valueFormatter(value) }
-                        name={ name }
-                        color={ color }
+                        value={  valueFormatter(payloadRow.value) }
+                        name={ payloadRow.name }
+                        color={ payloadRow.payload.color }
                     />
                 </div>
             </ChartTooltipFrame>

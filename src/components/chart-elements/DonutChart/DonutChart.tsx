@@ -15,19 +15,21 @@ import {
     getHexFromColorThemeValue,
     parseHeight,
     parseMarginTop,
+    themeColorRange,
 } from 'lib';
 
-import { formatData, parseLabelInput } from './utils';
+import { parseData, parseLabelInput } from './inputParser';
 import { DonutChartTooltip } from './DonutChartTooltip';
 
 export interface DonutChartDataPoint {
-    value: number,
-    name: string,
     color?: Color,
 }
 
 export interface DonutChartProps {
-    data: DonutChartDataPoint[],
+    data: any[],
+    category?: string,
+    dataKey?: string,
+    colors?: Color[]
     valueFormatter?: ValueFormatter,
     label?: string,
     showLabel?: boolean,
@@ -39,6 +41,9 @@ export interface DonutChartProps {
 
 const DonutChart = ({
     data = [],
+    category = 'value',
+    dataKey = 'name',
+    colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
     label,
     showLabel = true,
@@ -47,7 +52,7 @@ const DonutChart = ({
     height = 'h-44',
     marginTop = 'mt-0',
 }: DonutChartProps) => {
-    const parsedLabelInput = parseLabelInput(label, valueFormatter, data);
+    const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
     return (
         <div className={ classNames(
@@ -70,7 +75,7 @@ const DonutChart = ({
                         </text>
                     ) : null }
                     <Pie
-                        data={ formatData(data) }
+                        data={ parseData(data, colors) }
                         cx="50%"
                         cy="50%"
                         startAngle={ 90 }
@@ -78,7 +83,8 @@ const DonutChart = ({
                         innerRadius="75%"
                         outerRadius="100%"
                         paddingAngle={ 0 }
-                        dataKey="value"
+                        dataKey={ category }
+                        nameKey={ dataKey }
                         isAnimationActive={ showAnimation }
                     >
                     </Pie>

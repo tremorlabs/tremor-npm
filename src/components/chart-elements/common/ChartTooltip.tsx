@@ -117,7 +117,6 @@ const ChartTooltip = ({
             </ChartTooltipFrame>
         );
     }
-  
     return null;
 };
 

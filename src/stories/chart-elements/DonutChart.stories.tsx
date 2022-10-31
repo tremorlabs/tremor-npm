@@ -6,8 +6,6 @@ import {
     BadgeDelta,
     Card,
     DonutChart,
-    Dropdown,
-    DropdownItem,
     Flex,
     List,
     ListItem,
@@ -15,7 +13,7 @@ import {
 } from 'components';
 import { DeltaType } from 'lib';
 
-import { simpleDonutChartData as data, simpleStockData as stocks } from 'stories/chart-elements/helpers/testData';
+import { simpleSingleCategoryData as data } from 'stories/chart-elements/helpers/testData';
 import { valueFormatter } from 'stories/chart-elements/helpers/utils';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -51,29 +49,13 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
         <Title>Base Layer (Beta)</Title>
         <div className="tr-w-full tr-mt-4">
             <Card>
-                <Flex spaceX="space-x-4" justifyContent="justify-start" alignItems="items-center">
-                    <Title>Asset</Title>
-                    <Dropdown
-                        handleSelect={ (value) => console.log('The selected value is', value) }
-                        placeholder="Portfolio Selection"
-                        maxWidth="max-w-xs"
-                    >
-                        <DropdownItem
-                            value={ 1 }
-                            text="Community portfolio"
-                        />
-                        <DropdownItem
-                            value={ 2 }
-                            text="My portfolio"
-                        />
-                    </Dropdown>
-                </Flex>
+                <Title>Asset</Title>
                 <DonutChart { ...args } />
                 <div className="tr-mt-6">
                     <List>
-                        {stocks.map((item) => (
-                            <ListItem key={ item.name }>
-                                <span> {item.name} </span>
+                        {data.map((item) => (
+                            <ListItem key={ item.city }>
+                                <span> { item.city } </span>
                                 <Flex spaceX="space-x-2" justifyContent="justify-end">
                                     <BadgeDelta
                                         deltaType={ item.deltaType as DeltaType }
@@ -95,6 +77,8 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
     data: data,
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
@@ -102,6 +86,8 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 WithValueFormatter.args = {
     data: data,
     valueFormatter: valueFormatter,
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithCusomLabel = ResponsiveTemplate.bind({});
@@ -110,6 +96,8 @@ WithCusomLabel.args = {
     data: data,
     valueFormatter: valueFormatter,
     label: 'Hello there',
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithLabelDisabled = ResponsiveTemplate.bind({});
@@ -119,32 +107,37 @@ WithLabelDisabled.args = {
     valueFormatter: valueFormatter,
     label: 'Hello there',
     showLabel: false,
+    category: 'sales',
+    dataKey: 'city',
 };
 
-const dataWithNoCustomColors = data.map((dataPoint) => ({value: dataPoint.value, name: dataPoint.name}));
-
-export const WithNoCustomColors = DefaultTemplate.bind({});
+export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoCustomColors.args = {
-    data: dataWithNoCustomColors,
+WithCustomColors.args = {
+    data: data,
+    colors: ['blue', 'amber', 'sky', 'emerald', 'rose', 'orange'],
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithMoreDatapointsThanColors = DefaultTemplate.bind({});
 WithMoreDatapointsThanColors.args = {
     data: [
         // extra long data array
-        ...dataWithNoCustomColors,
-        ...dataWithNoCustomColors,
-        ...dataWithNoCustomColors,
-        ...dataWithNoCustomColors,
-        ...dataWithNoCustomColors,
+        ...data,
+        ...data,
     ],
+    colors: ['blue', 'amber', 'sky', 'emerald', 'rose', 'orange'],
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
 WithLongValues.args = {
-    data: data.map((dataPoint) => ({...dataPoint, value: dataPoint.value * 10000000})),
+    data: data.map((dataPoint) => ({...dataPoint, sales: dataPoint.sales * 10000000})),
     valueFormatter: valueFormatter, 
+    category: 'sales',
+    dataKey: 'city',
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -155,8 +148,9 @@ WithNoData.args = {
 export const BlockExample = BlockTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 BlockExample.args = {
-    // categories: [ 'name 1', 'name 2', 'name 3', 'name 4', 'name 5', 'name 6' ],
     data: data,
+    category: 'sales',
+    dataKey: 'city',
     valueFormatter: valueFormatter,
     marginTop: 'mt-6'
 };

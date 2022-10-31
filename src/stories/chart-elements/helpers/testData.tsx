@@ -1,5 +1,3 @@
-import { DonutChartDataPoint } from 'components/chart-elements/DonutChart/DonutChart';
-
 export const simpleBaseChartData = [
     {
         month: 'Jan 21\'',
@@ -52,74 +50,42 @@ export const simpleBaseChartData = [
     },
 ];
 
-export const simpleDonutChartData: DonutChartDataPoint[] = [
+export const simpleSingleCategoryData = [
     {
-        'name': 'Georg Fischer AG',
-        'value': 2400,
-        'color': 'blue',
-    },
-    {
-        'name': 'Novartis AG',
-        'value': 4567,
-        'color': 'sky',
-    },
-    {
-        'name': 'Geberit AG',
-        'value': 1398,
-        'color': 'indigo',
-    },
-    {
-        'name': 'Roche Holding AG',
-        'value': 9800,
-        'color': 'violet',
-    },
-    {
-        'name': 'Stadler Rail AG',
-        'value': 3908,
-        'color': 'purple',
-    },
-    {
-        'name': 'Swatch Group Ord Shs. This is an edge case.',
-        'value': 1908,
-        'color': 'fuchsia',
-    }
-];
-
-export const simpleStockData = [
-    {
-        name: 'Georg Fischer AG',
-        value: '1,340',
+        city: 'San Francisco',
+        sales: 2400,
         delta: '2.3%',
         deltaType: 'moderateIncrease',
     },
     {
-        name: 'Novartis AG',
-        value: '4,290',
+        city: 'London',
+        sales: 4567,
         delta: '1.2%',
         deltaType: 'moderateDecrease',
     },
     {
-        name: 'Geberit AG',
-        value: '3,910',
+        city: 'Zurich',
+        sales: 1398,
         delta: '3.4%',
         deltaType: 'decrease',
     },
     {
-        name: 'Roche Holding AG',
-        value: '10,140',
+        city: 'New York',
+        sales: 9800,
         delta: '6.1%',
         deltaType: 'increase',
     },
     {
-        name: 'Stadler Rail AG',
-        value: '12,340',
+        city: 'Hong Kong',
+        sales: 3908,
         delta: '0.5%',
         deltaType: 'moderateDecrease',
     },
     {
-        name: 'Swatch Group Ord Shs',
-        value: '9,340',
+        city: 'Toronto',
+        sales: 1908,
         delta: '1.8%',
         deltaType: 'moderateIncrease',
-    },
+    }
 ];
+
