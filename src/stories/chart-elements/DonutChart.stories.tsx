@@ -49,7 +49,7 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
         <Title>Base Layer (Beta)</Title>
         <div className="tr-w-full tr-mt-4">
             <Card>
-                <Title>Asset</Title>
+                <Title>Sales</Title>
                 <DonutChart { ...args } />
                 <div className="tr-mt-6">
                     <List>
