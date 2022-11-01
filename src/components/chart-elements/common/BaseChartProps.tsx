@@ -5,7 +5,7 @@ import {
     ValueFormatter,
     Width,
 } from '../../../lib';
-import { ChartReferenceLineProps } from './ChartReferenceLine';
+import { ChartReferenceLineProps } from './ChartReferenceLineProps';
 
 
 interface BaseChartProps {

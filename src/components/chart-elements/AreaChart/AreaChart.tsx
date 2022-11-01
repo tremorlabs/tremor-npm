@@ -9,6 +9,7 @@ import {
     Tooltip,
     XAxis,
     YAxis,
+    ReferenceLine
 } from 'recharts';
 
 import BaseChartProps from '../common/BaseChartProps';
@@ -44,6 +45,8 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    showReferenceLines = false,
+    referenceLines = []
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -111,6 +114,34 @@ const AreaChart = ({
                             position={ { y: 0 } }
                         />
                     ) : null }
+
+                    {showReferenceLines ? (
+                        <>
+                            { referenceLines.map(({
+                                x, 
+                                y, 
+                                alwaysShow, 
+                                label, 
+                                isFront, 
+                                strokeWidth, 
+                                segment, 
+                                strokeDasharray, 
+                                stroke
+                            }) => (
+                                <ReferenceLine 
+                                    x={x}
+                                    y={y}
+                                    label={label}
+                                    alwaysShow={alwaysShow}
+                                    isFront={isFront}
+                                    strokeWidth={strokeWidth}
+                                    segment={segment}
+                                    strokeDasharray={strokeDasharray}
+                                    stroke={stroke}/>
+                            ))}
+                        </>
+                    ) : null}
+
                     { showLegend ? (
                         <Legend
                             verticalAlign="top"
