@@ -1,11 +1,22 @@
+import { ReactElement } from 'react';
+
 export interface ChartReferenceLineProps {
   x?: string | number;
   y?: string | number;
   alwaysShow?: boolean;
-  label: any;
+  label: string | number | ReactElement | Function;
   isFront?: boolean;
   strokeWidth?: number;
-  segment?: any;
+  segment?: [
+    {
+      x: string | number,
+      y: string | number,
+    },
+    {
+      x: string | number,
+      y: string | number,
+    }
+  ];
   strokeDasharray?: string;
   stroke?: string;
 }
