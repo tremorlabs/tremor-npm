@@ -5,11 +5,11 @@ import {
     CartesianGrid,
     Legend,
     AreaChart as ReChartsAreaChart,
+    ReferenceLine,
     ResponsiveContainer,
     Tooltip,
     XAxis,
-    YAxis,
-    ReferenceLine
+    YAxis
 } from 'recharts';
 
 import BaseChartProps from '../common/BaseChartProps';

@@ -5,11 +5,11 @@ import {
     Legend,
     Line,
     LineChart as ReChartsLineChart,
+    ReferenceLine,
     ResponsiveContainer,
     Tooltip,
     XAxis,
-    YAxis,
-    ReferenceLine
+    YAxis
 } from 'recharts';
 
 import BaseChartProps from '../common/BaseChartProps';

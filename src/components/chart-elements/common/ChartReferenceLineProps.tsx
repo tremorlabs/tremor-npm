@@ -4,7 +4,7 @@ export interface ChartReferenceLineProps {
   x?: string | number;
   y?: string | number;
   alwaysShow?: boolean;
-  label: string | number | ReactElement | Function;
+  label: string | number | ReactElement;
   isFront?: boolean;
   strokeWidth?: number;
   segment?: [

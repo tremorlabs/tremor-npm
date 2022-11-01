@@ -160,12 +160,12 @@ WithReferenceLines.args = {
     dataKey: 'month',
     showReferenceLines: true,
     referenceLines: [ 
-        { x: "Mar 21\'", stroke: "green", label:"Min PAGE", isFront: true },
-        { y: 2500, label: "Avg", stroke: "red", strokeDasharray: "3 3", isFront: true },
+        { x: 'Mar 21\'', stroke: 'green', label:'Min PAGE', isFront: true },
+        { y: 2500, label: 'Avg', stroke: 'red', strokeDasharray: '3 3', isFront: true },
         { 
-            label: "Segment",
-            stroke: "green",
-            strokeDasharray: "3 3",
+            label: 'Segment',
+            stroke: 'green',
+            strokeDasharray: '3 3',
             segment: [
                 { x: 'Feb 21\'', y: 0 },
                 { x: 'May 21\'', y: 4000 }
