@@ -5,6 +5,8 @@ import {
     ValueFormatter,
     Width,
 } from '../../../lib';
+import { ChartReferenceLineProps } from './ChartReferenceLine';
+
 
 interface BaseChartProps {
     data: any[],
@@ -23,6 +25,8 @@ interface BaseChartProps {
     showGridLines?: boolean,
     height?: Height,
     marginTop?: MarginTop,
+    showReferenceLines: boolean,
+    referenceLines?: ChartReferenceLineProps[];
 }
 
 export default BaseChartProps;
