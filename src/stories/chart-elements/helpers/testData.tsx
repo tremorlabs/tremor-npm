@@ -28,7 +28,7 @@ export const data = [
         'Test': 5000,
     },
     {
-        month: 'May 21',
+        month: 'May 21\'',
         Sales: 1890,
         'Successfull Payments': 1000,
         'This is an edge case': 100000000,

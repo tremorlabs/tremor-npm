@@ -123,3 +123,16 @@ WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
 };
+
+export const WithReferenceLines = DefaultTemplate.bind({});
+WithReferenceLines.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    showReferenceLines: true,
+    referenceLines: [ 
+        { x: "Mar 21\'", stroke: "green", label:"Min PAGE" },
+        { y: 2500, label: "Avg", stroke: "red", strokeDasharray: "3 3" },
+        { label: "Segment", stroke: "green", strokeDasharray: "3 3", segment: [{ x: 'Feb 21\'', y: 0 }, { x: 'May 21\'', y: 4000 }]}
+    ]
+};
