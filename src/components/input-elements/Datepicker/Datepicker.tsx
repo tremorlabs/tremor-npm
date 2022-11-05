@@ -44,6 +44,7 @@ import Modal from 'components/layout-elements/Modal';
 
 export interface DatepickerProps {
     handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
+    handleSelectStartDay?: { (selectedStartDay: Date): void },
     enableRelativeDates?: boolean,
     defaultRelativeFilterOption?: RelativeFilterOption,
     defaultStartDate?: Date | null,
@@ -59,6 +60,7 @@ export interface DatepickerProps {
 const Datepicker = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (selectedStartDay: Date, selectedEndDay: Date) => null,
+    handleSelectStartDay = (selectedStartDay: Date) => null,
     enableRelativeDates = true,
     defaultRelativeFilterOption = null,
     defaultStartDate = null,
@@ -148,6 +150,10 @@ const Datepicker = ({
     useEffect(() => {
         if (selectedStartDay && selectedEndDay) handleSelect(selectedStartDay, selectedEndDay);
     }, [selectedEndDay]);
+
+    useEffect(() => {
+        if(selectedStartDay) handleSelectStartDay(selectedStartDay);
+    }, [selectedStartDay]);
 
     return (
         <div className={ classNames(
