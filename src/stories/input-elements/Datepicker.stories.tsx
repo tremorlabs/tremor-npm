@@ -88,6 +88,9 @@ const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> = () => 
 
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
+DefaultResponsive.args = {
+    handleSelect: (startDate, endDate) => alert(`${startDate} + ${endDate}`)
+};
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {

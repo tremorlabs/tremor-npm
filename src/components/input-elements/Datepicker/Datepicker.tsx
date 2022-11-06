@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import {
     eachDayOfInterval,
@@ -128,6 +128,7 @@ const Datepicker = ({
                 setSelectedStartDay(day);
             // Selection complete
             } else if (day > selectedStartDay) {
+                handleSelect(selectedStartDay, day);
                 setSelectedEndDay(day);
                 setShowDatePickerModal(false);
                 setSelectedRelativeFilterOption(null); // Clear relative filter
@@ -140,14 +141,14 @@ const Datepicker = ({
 
     const handleRelativeFilterOptionClick = (selectedRelativeFilterOption: RelativeFilterOption) => {
         const startDate = getStartDateFromRelativeFilterOption(selectedRelativeFilterOption);
-        setSelectedStartDay(startDate);
-        setSelectedEndDay(today);
-        setCurrentMonth(format(today, 'MMM-yyyy'));
-    };
+        const endDate = today;
 
-    useEffect(() => {
-        if (selectedStartDay && selectedEndDay) handleSelect(selectedStartDay, selectedEndDay);
-    }, [selectedEndDay]);
+        handleSelect(startDate, endDate);
+
+        setSelectedStartDay(startDate);
+        setSelectedEndDay(endDate);
+        setCurrentMonth(format(endDate, 'MMM-yyyy'));
+    };
 
     return (
         <div className={ classNames(
