@@ -25,6 +25,12 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
         <Card>
             <SimpleMultiSelectBox { ...args } />
         </Card>
+        <Title marginTop="mt-5">With Black Background</Title>
+        <Card>
+            <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+                <SimpleMultiSelectBox { ...args } />
+            </div>
+        </Card>
     </form>
 );
 
@@ -59,12 +65,13 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    maxWidth: 'max-w-xs'
+    maxWidth: 'max-w-xs',
+    handleSelect: (values) => console.log(values),
 };
 
 export const WithDefaultValues = ResponsiveTemplate.bind({});
 WithDefaultValues.args = {
-    defaultValues: [5, 1]
+    defaultValues: [5, 1],
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});

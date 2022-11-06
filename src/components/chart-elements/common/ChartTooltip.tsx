@@ -15,13 +15,25 @@ import {
     spacing,
 } from 'lib';
 
+export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
+    <div className={ classNames(
+        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+        fontSize.sm,
+        borderRadius.md.all,
+        border.sm.all,
+        boxShadow.lg,
+    ) }>
+        { children }
+    </div>
+);
+
 export interface ChartTooltipRowProps {
     value: string,
     name: string,
     color: Color | null | undefined,
 }
 
-const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
     <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
         <div className="tr-flex tr-items-center tr-space-x-2">
             <span className={ classNames(
@@ -68,13 +80,7 @@ const ChartTooltip = ({
 }: ChartTooltipProps) => {
     if (active && payload) {
         return (
-            <div className={ classNames(
-                getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                fontSize.sm,
-                borderRadius.md.all,
-                border.sm.all,
-                boxShadow.lg,
-            ) }>
+            <ChartTooltipFrame>
                 <div className={ classNames(
                     getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
                     spacing.twoXl.paddingLeft,
@@ -99,21 +105,18 @@ const ChartTooltip = ({
                     spacing.sm.paddingBottom,
                     'tr-space-y-1',
                 ) }>
-                    {
-                        payload.map(({value, name}: { value: number, name: string }, idx: number) => (
-                            <ChartTooltipRow
-                                key={ `id-${idx}` }
-                                value={ valueFormatter(value) }
-                                name={ name }
-                                color={ categoryColors.get(name) }
-                            />
-                        ))
-                    }
+                    { payload.map(({value, name}: { value: number, name: string }, idx: number) => (
+                        <ChartTooltipRow
+                            key={ `id-${idx}` }
+                            value={ valueFormatter(value) }
+                            name={ name }
+                            color={ categoryColors.get(name) }
+                        />
+                    )) }
                 </div>
-            </div>
+            </ChartTooltipFrame>
         );
     }
-  
     return null;
 };
 
