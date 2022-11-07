@@ -57,8 +57,7 @@
     "eslint": "^8.13.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
-    "postcss": "^8.4.12",
-    "react-dom": "^18.0.0",
+    "postcss": "^8.4.18",
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
@@ -85,8 +84,14 @@
   "release": {
     "branches": [
       "main",
-      { "name": "beta", "prerelease": true },
-      { "name": "beta-*", "prerelease": true }
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "beta-*",
+        "prerelease": true
+      }
     ]
   }
 }
