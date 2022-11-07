@@ -241,7 +241,7 @@ export const getDayHoverBgColorClassName = (
     if (selectedEndDay && isEqual(day, selectedEndDay)) {
         return '';
     }
-    return 'hover:tr-bg-gray-200';
+    return 'hover:!tr-bg-gray-200';
 };
 
 export const getDayRoundedClassName = (
