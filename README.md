@@ -17,6 +17,9 @@
     <a href="https://github.com/tremorlabs/tremor/blob/main/License">
       <img alt="License Apache 2.0" src="https://img.shields.io/badge/license-Apache 2.0-blue.svg?style=flat&color=5C9BA1" height="20" width="auto">
     </a>
+    <a href="https://twitter.com/intent/follow?screen_name=tremorlabs">
+      <img src="https://img.shields.io/twitter/follow/tremorlabs?style=social" alt="Follow" />
+    </a>
   </div>
   <h3 align="center">
     <a href="https://www.tremor.so/docs/getting-started/introduction">Documentation</a> &bull;
