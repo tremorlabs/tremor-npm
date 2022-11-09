@@ -4,6 +4,8 @@ export { default as ArrowDownIcon } from './ArrowDownIcon';
 export { default as ArrowRightIcon } from './ArrowRightIcon';
 export { default as ArrowRightHeadIcon } from './ArrowRightHeadIcon';
 export { default as ArrowLeftHeadIcon } from './ArrowLeftHeadIcon';
+export { default as DoubleArrowLeftHeadIcon} from './DoubleArrowLeftHeadIcon';
+export { default as DoubleArrowRightHeadIcon} from './DoubleArrowRightHeadIcon';
 export { default as ArrowUpHeadIcon } from './ArrowUpHeadIcon';
 export { default as ArrowUpIcon } from './ArrowUpIcon';
 export { default as ArrowUpRightIcon } from './ArrowUpRightIcon';

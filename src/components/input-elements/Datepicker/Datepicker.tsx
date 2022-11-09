@@ -13,7 +13,14 @@ import {
     startOfToday,
 } from 'date-fns';
 
-import { ArrowDownHeadIcon, ArrowLeftHeadIcon, ArrowRightHeadIcon, CalendarIcon } from 'assets';
+import {
+    ArrowDownHeadIcon,
+    ArrowLeftHeadIcon,
+    ArrowRightHeadIcon,
+    CalendarIcon,
+    DoubleArrowLeftHeadIcon,
+    DoubleArrowRightHeadIcon
+} from 'assets';
 import {
     BaseColors,
     border,
@@ -36,8 +43,8 @@ import {
     getInitialDateRange,
     getStartDateFromRelativeFilterOption,
     isDayDisabled,
-    nextMonth,
-    previousMonth,
+    nextMonth, nextYear,
+    previousMonth, previousYear,
     relativeFilterOptions
 } from './utils';
 import Modal from 'components/layout-elements/Modal';
@@ -53,7 +60,8 @@ export interface DatepickerProps {
     placeholder?: string,
     color?: Color,
     marginTop?: MarginTop,
-    maxWidth?: MaxWidth
+    maxWidth?: MaxWidth,
+    showYearSelector?: boolean
 }
 
 const Datepicker = ({
@@ -69,6 +77,7 @@ const Datepicker = ({
     color = BaseColors.Blue,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
+    showYearSelector = false,
 }: DatepickerProps) => {
     const today = startOfToday();
 
@@ -275,6 +284,36 @@ const Datepicker = ({
                         spacing.sm.paddingBottom,
                     )}
                     >
+
+                        <button
+                            type="button"
+                            hidden={!showYearSelector}
+                            onClick={() => previousYear(firstDayCurrentMonth, setCurrentMonth)}
+                            className={ classNames(
+                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                spacing.twoXs.paddingLeft,
+                                spacing.twoXs.paddingRight,
+                                spacing.twoXs.paddingTop,
+                                spacing.twoXs.paddingBottom,
+                                fontSize.sm,
+                                fontWeight.md,
+                                borderRadius.sm.all,
+                                border.sm.all,
+                                boxShadow.sm,
+                            ) }
+                        >
+                            <DoubleArrowLeftHeadIcon
+                                className={ classNames(
+                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                    sizing.lg.height,
+                                    sizing.lg.width,
+                                ) }
+                                aria-hidden="true"
+                            />
+                        </button>
                         <button
                             type="button"
                             onClick={() => previousMonth(firstDayCurrentMonth, setCurrentMonth)}
@@ -332,6 +371,35 @@ const Datepicker = ({
                             ) }
                         >
                             <ArrowRightHeadIcon
+                                className={ classNames(
+                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                    sizing.lg.height,
+                                    sizing.lg.width,
+                                ) }
+                                aria-hidden="true"
+                            />
+                        </button>
+                        <button
+                            onClick={() => nextYear(firstDayCurrentMonth, setCurrentMonth)}
+                            type="button"
+                            hidden={!showYearSelector}
+                            className={ classNames(
+                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                spacing.twoXs.paddingLeft,
+                                spacing.twoXs.paddingRight,
+                                spacing.twoXs.paddingTop,
+                                spacing.twoXs.paddingBottom,
+                                fontSize.sm,
+                                fontWeight.md,
+                                borderRadius.sm.all,
+                                border.sm.all,
+                                boxShadow.sm,
+                            ) }
+                        >
+                            <DoubleArrowRightHeadIcon
                                 className={ classNames(
                                     getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                                     sizing.lg.height,

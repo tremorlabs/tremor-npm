@@ -164,3 +164,9 @@ WithDefaultRelativeFilterOption.args = {
     defaultRelativeFilterOption: 'w',
     handleSelect: handleSelect,
 };
+
+export const WithYearSelector = ResponsiveTemplate.bind({});
+WithYearSelector.args = {
+    showYearSelector:true,
+    handleSelect: handleSelect,
+};
