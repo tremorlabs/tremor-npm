@@ -17,6 +17,7 @@ import { buttonProportions, iconSizes } from './styles';
 
 export interface ButtonInlineProps {
     text: string,
+    type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"],
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
@@ -28,6 +29,7 @@ export interface ButtonInlineProps {
 
 const ButtonInline = ({
     text,
+    type = "button",
     icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
@@ -41,7 +43,7 @@ const ButtonInline = ({
     return (
         <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
             <button
-                type="button"
+                type={type}
                 onClick={handleClick}
                 className={classNames(
                     'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',

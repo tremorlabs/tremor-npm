@@ -25,6 +25,7 @@ import {
 
 export interface ButtonProps {
     text: string,
+    type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"],
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
@@ -40,6 +41,7 @@ const Button = ({
     icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
+    type = "button",
     size = Sizes.SM,
     color = BaseColors.Blue,
     importance = Importances.Primary,
@@ -53,7 +55,7 @@ const Button = ({
     return (
         <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <button
-                type="button"
+                type={type}
                 onClick={ handleClick }
                 className={ classNames(
                     'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
