@@ -74,7 +74,7 @@ Import the tremor stylesheet into the `App.js` / `App.tsx`  file:
 ```tsx
 import '@tremor/react/dist/esm/tremor.css';
 ```
-
+*Note, if you are importing other CSS files along with `tremor.css`, make sure to add the above import statement at the end, in order to avoid unintentional CSS conflicts.*
 <br>
 
 Finally, run the dev server.
@@ -110,7 +110,7 @@ Import the tremor stylesheet into the `_app.js` / `_app.tsx`  file:
 ```bash
 import '@tremor/react/dist/esm/tremor.css'
 ```
-
+*Note, if you are importing other CSS files along with `tremor.css`, make sure to add the above import statement at the end, in order to avoid unintentional CSS conflicts.*
 <br>
 
 Finally, run the dev server
