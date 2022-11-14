@@ -30,8 +30,8 @@
     "recharts": "^2.1.13"
   },
   "overrides": {
-    "d3-interpolate": {
-      "d3-color": "3.1.0"
+    "recharts": {
+      "d3-interpolate": "3.0.1"
     }
   },
   "devDependencies": {
