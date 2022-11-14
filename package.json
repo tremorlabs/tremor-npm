@@ -27,10 +27,13 @@
   "dependencies": {
     "@tippyjs/react": "^4.2.6",
     "date-fns": "^2.28.0",
-    "recharts": "^2.1.13"
+    "recharts": "^2.1.13",
+    "d3-color": "3.1.0"
   },
   "overrides": {
-    "d3-color": "3.1.0"
+    "d3-interpolate": {
+      "d3-color": "$d3-color"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
