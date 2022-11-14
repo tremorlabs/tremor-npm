@@ -29,6 +29,9 @@
     "date-fns": "^2.28.0",
     "recharts": "^2.1.13"
   },
+  "overrides": {
+    "d3-color": "3.1.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
