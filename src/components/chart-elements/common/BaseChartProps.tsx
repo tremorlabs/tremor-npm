@@ -23,6 +23,7 @@ interface BaseChartProps {
     showGridLines?: boolean,
     height?: Height,
     marginTop?: MarginTop,
+    stacked: boolean,
 }
 
 export default BaseChartProps;

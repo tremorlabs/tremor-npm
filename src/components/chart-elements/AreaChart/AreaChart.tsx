@@ -44,6 +44,7 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    stacked = false,
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -162,6 +163,7 @@ const AreaChart = ({
                             strokeWidth={2}
                             dot={false}
                             isAnimationActive={ showAnimation }
+                            stackId={ stacked ? 'a' : undefined }
                         />
                     ))}
                 

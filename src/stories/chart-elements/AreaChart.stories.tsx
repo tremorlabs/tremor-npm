@@ -120,3 +120,12 @@ WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
 };
+
+
+export const StackedResponsive = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+StackedResponsive.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    stacked: true,
+};
