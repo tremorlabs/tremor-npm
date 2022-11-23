@@ -140,6 +140,14 @@ WithLongValues.args = {
     dataKey: 'city',
 };
 
+export const WithNoCutout = DefaultTemplate.bind({});
+WithNoCutout.args = {
+    data: data,
+    category: 'sales',
+    dataKey: 'city',
+    showCutout: false
+};
+
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
