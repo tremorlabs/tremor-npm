@@ -35,6 +35,7 @@ export interface DonutChartProps {
     showLabel?: boolean,
     showAnimation?: boolean,
     showTooltip?: boolean,
+    showCutout?: boolean,
     height?: Height,
     marginTop?: MarginTop,
 }
@@ -49,6 +50,7 @@ const DonutChart = ({
     showLabel = true,
     showAnimation = true,
     showTooltip = true,
+    showCutout = true,
     height = 'h-44',
     marginTop = 'mt-0',
 }: DonutChartProps) => {
@@ -63,7 +65,7 @@ const DonutChart = ({
         >
             <ResponsiveContainer width="100%" height="100%">
                 <ReChartsDonutChart>
-                    { showLabel ? (
+                    { showLabel && showCutout ? (
                         <text
                             x="50%"
                             y="50%"
@@ -80,7 +82,7 @@ const DonutChart = ({
                         cy="50%"
                         startAngle={ 90 }
                         endAngle={ -270 }
-                        innerRadius="75%"
+                        innerRadius={ showCutout ? '75%' : '0%'} 
                         outerRadius="100%"
                         paddingAngle={ 0 }
                         dataKey={ category }
