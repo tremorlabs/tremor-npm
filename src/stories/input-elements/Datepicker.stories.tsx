@@ -165,8 +165,8 @@ WithDefaultRelativeFilterOption.args = {
     handleSelect: handleSelect,
 };
 
-export const WithYearSelector = ResponsiveTemplate.bind({});
-WithYearSelector.args = {
-    showYearSelector:true,
+export const WithYearPagination = ResponsiveTemplate.bind({});
+WithYearPagination.args = {
+    enableYearPagination: true,
     handleSelect: handleSelect,
 };

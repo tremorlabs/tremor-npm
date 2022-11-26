@@ -43,8 +43,10 @@ import {
     getInitialDateRange,
     getStartDateFromRelativeFilterOption,
     isDayDisabled,
-    nextMonth, nextYear,
-    previousMonth, previousYear,
+    nextMonth,
+    nextYear,
+    previousMonth,
+    previousYear,
     relativeFilterOptions
 } from './utils';
 import Modal from 'components/layout-elements/Modal';
@@ -61,7 +63,7 @@ export interface DatepickerProps {
     color?: Color,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
-    showYearSelector?: boolean
+    enableYearPagination?: boolean
 }
 
 const Datepicker = ({
@@ -77,7 +79,7 @@ const Datepicker = ({
     color = BaseColors.Blue,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
-    showYearSelector = false,
+    enableYearPagination = false,
 }: DatepickerProps) => {
     const today = startOfToday();
 
@@ -287,7 +289,7 @@ const Datepicker = ({
                         <div className="tr-flex tr-items-center tr-space-x-1">
                             <button
                                 type="button"
-                                hidden={!showYearSelector}
+                                hidden={!enableYearPagination}
                                 onClick={() => previousYear(firstDayCurrentMonth, setCurrentMonth)}
                                 className={ classNames(
                                     'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
@@ -384,7 +386,7 @@ const Datepicker = ({
                             <button
                                 onClick={() => nextYear(firstDayCurrentMonth, setCurrentMonth)}
                                 type="button"
-                                hidden={!showYearSelector}
+                                hidden={!enableYearPagination}
                                 className={ classNames(
                                     'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
                                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -403,6 +405,7 @@ const Datepicker = ({
                             >
                                 <DoubleArrowRightHeadIcon
                                     className={ classNames(
+                                        'tr-shrink-0 tr-flex-0',
                                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                                         sizing.lg.height,
                                         sizing.lg.width,
