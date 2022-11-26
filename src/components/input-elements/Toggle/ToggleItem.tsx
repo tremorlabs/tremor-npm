@@ -15,7 +15,7 @@ import { Color } from '../../../lib';
 
 export interface ToggleItemProps {
     value: any,
-    text: string,
+    text?: string,
     icon?: React.ElementType,
     privateProps?: {
         isActive: boolean,
@@ -58,18 +58,26 @@ const ToggleItem = ({
             )}
             onClick={() => { privateProps!.handleToggleItemClick!(value); }}
         >
-            {Icon ? (
-                <Icon
-                    className={classNames(
-                        'tr-opacity-70',
-                        spacing.xs.marginRight,
-                        sizing.lg.height,
-                        sizing.lg.width,
-                    )}
-                    aria-hidden="true"
-                />
-            ) : null}
-            <span className="tr-whitespace-nowrap tr-truncate">{text}</span>
+            {
+                Icon ? (
+                    <Icon
+                        className={classNames(
+                            'tr-opacity-70',
+                            text ? spacing.xs.marginRight : '',
+                            sizing.lg.height,
+                            sizing.lg.width,
+                        )}
+                        aria-hidden="true"
+                    />
+                ) : null
+            }
+            {
+                text ? (
+                    <span className="tr-whitespace-nowrap tr-truncate">
+                        {text}
+                    </span>
+                ) : null
+            }
         </button>
     );
 };

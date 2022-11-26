@@ -41,7 +41,7 @@ const Badge = ({
             <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span className={classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',
-                    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
+                    getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).textColor,
                     getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
                     borderRadius.full.all,
                     badgeProportions[badgeSize].paddingLeft,
@@ -50,15 +50,17 @@ const Badge = ({
                     badgeProportions[badgeSize].paddingBottom,
                     badgeProportions[badgeSize].fontSize,
                 )}>
-                    {Icon ? (
-                        <Icon className={classNames(
-                            spacing.twoXs.negativeMarginLeft,
-                            spacing.xs.marginRight,
-                            iconSizes[badgeSize].height,
-                            iconSizes[badgeSize].width,
-                        )}
-                        />
-                    ) : null}
+                    {
+                        Icon ? (
+                            <Icon className={classNames(
+                                spacing.twoXs.negativeMarginLeft,
+                                spacing.xs.marginRight,
+                                iconSizes[badgeSize].height,
+                                iconSizes[badgeSize].width,
+                            )}
+                            />
+                        ) : null
+                    }
                     <p className="text-elem tr-whitespace-nowrap">{text}</p>
                 </span>
             </Tooltip>
