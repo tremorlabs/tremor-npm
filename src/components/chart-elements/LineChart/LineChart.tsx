@@ -43,8 +43,7 @@ const LineChart = ({
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
-    dynamicXAxis,
-    dynamicYAxis
+    autoMinValue = false,
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -75,7 +74,6 @@ const LineChart = ({
                             fontSize: '12px',
                             fontFamily: 'Inter; Helvetica',
                         }}
-                        domain={ dynamicXAxis ? ['auto', 'auto'] : [0, 'auto']}
                         tickLine={ false }
                         axisLine={ false }
                         padding={{ left: 10, right: 10 }}
@@ -87,7 +85,7 @@ const LineChart = ({
                         axisLine={ false }
                         tickLine={ false }
                         type="number"
-                        domain={ dynamicYAxis ? ['auto', 'auto'] : [0, 'auto']}
+                        domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
                         tick={ { transform: 'translate(-3, 0)' } } 
                         style={ {
                             fontSize: '12px',

@@ -40,7 +40,14 @@ DefaultResponsive.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
     dataKey: 'month',
-    dynamicYAxis: true
+};
+
+export const WithAutoMinValue = ResponsiveTemplate.bind({});
+WithAutoMinValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    autoMinValue: true,
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
@@ -102,7 +109,6 @@ WithMultipleCategories.args = {
     valueFormatter: valueFormatter, 
 };
 
-
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
@@ -120,12 +126,4 @@ export const WithNoDataKey = DefaultTemplate.bind({});
 WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
-};
-
-export const WithDynamicXAndYAxis = ResponsiveTemplate.bind({});
-WithDynamicXAndYAxis.args = {
-    data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
-    dynamicXAxis: true,
-    dynamicYAxis: true
 };

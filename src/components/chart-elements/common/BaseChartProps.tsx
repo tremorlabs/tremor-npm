@@ -23,8 +23,7 @@ interface BaseChartProps {
     showGridLines?: boolean,
     height?: Height,
     marginTop?: MarginTop,
-    dynamicXAxis?: boolean,
-    dynamicYAxis?: boolean    
+    autoMinValue?: boolean,
 }
 
 export default BaseChartProps;
