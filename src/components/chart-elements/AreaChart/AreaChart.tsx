@@ -27,6 +27,10 @@ import {
     themeColorRange
 } from 'lib';
 
+export interface AreaChartProps extends BaseChartProps {
+    stack?: boolean,
+}
+
 const AreaChart = ({
     data = [],
     categories = [],
@@ -44,8 +48,8 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
-    stacked = false,
-}: BaseChartProps) => {
+    stack = false,
+}: AreaChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
 
@@ -163,7 +167,7 @@ const AreaChart = ({
                             strokeWidth={2}
                             dot={false}
                             isAnimationActive={ showAnimation }
-                            stackId={ stacked ? 'a' : undefined }
+                            stackId={ stack ? 'a' : undefined }
                         />
                     ))}
                 

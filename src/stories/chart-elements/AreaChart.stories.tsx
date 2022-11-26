@@ -42,6 +42,15 @@ DefaultResponsive.args = {
     dataKey: 'month',
 };
 
+export const WithStacked = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithStacked.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    stack: true,
+};
+
 export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
@@ -119,13 +128,4 @@ export const WithNoDataKey = DefaultTemplate.bind({});
 WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
-};
-
-
-export const StackedResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-StackedResponsive.args = {
-    data: data,
-    categories: [ 'Sales', 'Successfull Payments' ],
-    stacked: true,
 };
