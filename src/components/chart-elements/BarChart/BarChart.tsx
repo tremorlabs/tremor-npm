@@ -52,6 +52,7 @@ const BarChart = ({
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    autoMinValue = false,
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -96,7 +97,8 @@ const BarChart = ({
                         <XAxis
                             hide={ !showXAxis }
                             type="number"
-                            tick={ { transform: 'translate(-3, 0)' } } 
+                            tick={ { transform: 'translate(-3, 0)' } }
+                            domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
                             style={{
                                 fontSize: '12px',
                                 fontFamily: 'Inter; Helvetica',
@@ -115,8 +117,8 @@ const BarChart = ({
                             axisLine={ false }
                             tickLine={ false }
                             type="number"
-                            domain={ [0, 'auto'] }
-                            tick={ { transform: 'translate(-3, 0)' } } 
+                            domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
+                            tick={ { transform: 'translate(-3, 0)' } }
                             style={ {
                                 fontSize: '12px',
                                 fontFamily: 'Inter; Helvetica',
@@ -146,7 +148,7 @@ const BarChart = ({
                     ) }
                     { showTooltip ? (
                         <Tooltip
-                        // ongoing issue: https://github.com/recharts/recharts/issues/2920
+                            // ongoing issue: https://github.com/recharts/recharts/issues/2920
                             wrapperStyle={{ outline: 'none' }}
                             isAnimationActive={false}
                             cursor={ { fill: '#d1d5db', opacity: '0.15' } }

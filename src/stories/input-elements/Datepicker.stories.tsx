@@ -161,7 +161,7 @@ export const WithSelfDetectingModal = WithSelfDetectingModalTemplate.bind({});
 
 export const WithDefaultRelativeFilterOption = ResponsiveTemplate.bind({});
 WithDefaultRelativeFilterOption.args = {
-    defaultRelativeFilterOption: 'w',
+    defaultRelativeFilterOption: 'd',
     handleSelect: handleSelect,
 };
 
