@@ -61,13 +61,30 @@ WithRelative.args = {
     dataKey: 'month',
 };
 
-export const WithLayoutHorizontal = ResponsiveTemplate.bind({});
+export const WithLayoutVertical = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithLayoutHorizontal.args = {
+WithLayoutVertical.args = {
     data: data,
-    layout: 'horizontal',
+    layout: 'vertical',
     categories: [ 'Sales', 'Successfull Payments' ],
     dataKey: 'month',
+};
+
+export const WithAutoMinValue = ResponsiveTemplate.bind({});
+WithAutoMinValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    autoMinValue: true,
+};
+
+export const WithAutoMinValueAndLayoutVertical = ResponsiveTemplate.bind({});
+WithAutoMinValueAndLayoutVertical.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    layout: 'vertical',
+    autoMinValue: true,
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});

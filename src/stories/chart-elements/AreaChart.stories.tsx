@@ -61,6 +61,15 @@ WithValueFormatter.args = {
     colors: ['blue', 'green']
 };
 
+export const WithAutoMinValue = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithAutoMinValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    autoMinValue: true,
+};
+
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
@@ -129,3 +138,5 @@ WithNoDataKey.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
 };
+
+

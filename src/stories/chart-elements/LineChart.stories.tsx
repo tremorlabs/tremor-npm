@@ -42,6 +42,14 @@ DefaultResponsive.args = {
     dataKey: 'month',
 };
 
+export const WithAutoMinValue = ResponsiveTemplate.bind({});
+WithAutoMinValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    autoMinValue: true,
+};
+
 export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
@@ -100,7 +108,6 @@ WithMultipleCategories.args = {
     dataKey: 'month',
     valueFormatter: valueFormatter, 
 };
-
 
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

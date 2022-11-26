@@ -35,6 +35,8 @@ const AreaChart = ({
     data = [],
     categories = [],
     dataKey,
+    stack = false,
+    autoMinValue = false,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
@@ -48,7 +50,6 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
-    stack = false,
 }: AreaChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -90,7 +91,7 @@ const AreaChart = ({
                         axisLine={ false }
                         tickLine={ false }
                         type="number"
-                        domain={ [0, 'auto'] }
+                        domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
                         tick={ { transform: 'translate(-3, 0)' } }
                         style={ {
                             fontSize: '12px',
