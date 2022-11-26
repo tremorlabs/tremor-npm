@@ -88,6 +88,10 @@ export const relativeFilterOptions: {
     name: string,
 }[] = [
     {
+        value: 'd',
+        name: 'Today',
+    },
+    {
         value: 'w',
         name: 'Last 7 days',
     },
@@ -110,6 +114,8 @@ export const getStartDateFromRelativeFilterOption = (
 ): Date => {
     const today = startOfToday();
     switch(selectedRelativeFilterOption) {
+    case 'd':
+        return sub(today, { days: 0 });
     case 'w':
         return sub(today, { days: 7 });
     case 't':
@@ -156,7 +162,10 @@ export const displaySelected = (selectedStartDay: Date|null, selectedEndDay: Dat
         const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
         return selectedStartDay.toLocaleDateString('en-US', options);
     } else if (selectedStartDay && selectedEndDay) {
-        if ((selectedStartDay.getMonth() === selectedEndDay.getMonth())
+        if (isEqual(selectedStartDay, selectedEndDay)) {
+            const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+            return selectedStartDay.toLocaleDateString('en-US', options);
+        } else if ((selectedStartDay.getMonth() === selectedEndDay.getMonth())
             && (selectedStartDay.getFullYear() === selectedEndDay.getFullYear())) {
             const optionsStartDate: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
             return `${selectedStartDay.toLocaleDateString('en-US', optionsStartDate)} - 
@@ -251,6 +260,9 @@ export const getDayRoundedClassName = (
     hoveredDay: Date|null
 ): string => {
     if (!selectedStartDay && !selectedEndDay) {
+        return borderRadius.md.all;
+    }
+    if (selectedStartDay && selectedEndDay && isEqual(day, selectedStartDay) && isEqual(day, selectedEndDay)) {
         return borderRadius.md.all;
     }
     if (selectedStartDay && selectedEndDay && isEqual(day, selectedStartDay)) {
