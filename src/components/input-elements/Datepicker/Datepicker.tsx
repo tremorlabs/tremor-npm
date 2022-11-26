@@ -127,7 +127,7 @@ const Datepicker = ({
             if (day < selectedStartDay) {
                 setSelectedStartDay(day);
             // Selection complete
-            } else if (day > selectedStartDay) {
+            } else {
                 handleSelect(selectedStartDay, day);
                 setSelectedEndDay(day);
                 setShowDatePickerModal(false);
@@ -367,6 +367,7 @@ const Datepicker = ({
                     </div>
                     <div className="tr-grid tr-grid-cols-7">
                         {daysInCurrentMonth.map((day) => {
+
                             const isCurrentDayDisabled = isDayDisabled(
                                 day,
                                 minDate,
@@ -374,6 +375,7 @@ const Datepicker = ({
                                 firstDayCurrentMonth,
                                 lastDayCurrentMonth,
                             );
+
                             return (
                                 <div
                                     key={day.toString()}

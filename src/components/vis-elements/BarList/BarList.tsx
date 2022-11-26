@@ -19,6 +19,7 @@ type BarListData = {
     value: number,
     name: string,
     icon?: React.ElementType,
+    href?: string;
 }
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -84,13 +85,27 @@ const BarList = ({
                                         getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                                     )} aria-hidden="true" />
                                 ) : null }
-                                <p className={ classNames(
-                                    'text-elem tr-whitespace-nowrap tr-truncate',
-                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                                    fontSize.sm,
-                                ) }>
-                                    { item.name }
-                                </p>
+                                { item.href ? (
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className={ classNames(
+                                            'text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500',
+                                            'tr-no-underline hover:tr-underline visited:tr-text-blue-500',
+                                            fontSize.sm,
+                                        ) }>
+                                        { item.name }
+                                    </a>
+                                ) : (
+                                    <p className={ classNames(
+                                        'text-elem tr-whitespace-nowrap tr-truncate',
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                        fontSize.sm,
+                                    ) }>
+                                        { item.name }
+                                    </p>
+                                ) }
                             </div>
                         </div>
                     );
