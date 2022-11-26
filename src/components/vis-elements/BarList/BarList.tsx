@@ -16,19 +16,20 @@ import {
 import { Color, MarginTop, ValueFormatter } from '../../../lib';
 
 type BarListData = {
-    name: string,
     value: number,
+    name: string,
+    icon?: React.ElementType,
 }
 
-const getWidthsFromValues = (data: BarListData[]) => {
+const getWidthsFromValues = (dataValues: number[]) => {
     let maxValue = -Infinity;
-    data.forEach(item => {
-        maxValue = Math.max(maxValue, item.value);
+    dataValues.forEach(value => {
+        maxValue = Math.max(maxValue, value);
     });
 
-    return data.map(item => {
-        if (item.value === 0) return 0;
-        return Math.max((item.value / maxValue) * 100, 1);
+    return dataValues.map(value => {
+        if (value === 0) return 0;
+        return Math.max((value / maxValue) * 100, 1);
     });
 };
 
@@ -47,7 +48,7 @@ const BarList = ({
     showAnimation = true,
     marginTop = 'mt-0',
 }: BarListProps) => {
-    const widths = getWidthsFromValues(data);
+    const widths = getWidthsFromValues(data.map((item) => item.value));
 
     const rowHeight = sizing.threeXl.height;
 
@@ -58,28 +59,42 @@ const BarList = ({
             spacing.threeXl.spaceX,
         ) }>
             <div className="tr-relative tr-w-full">
-                { data.map((item, idx) => (
-                    <div
-                        key={ item.name }
-                        className={ classNames(
-                            'tr-flex tr-items-center',
-                            rowHeight,
-                            getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
-                            borderRadius.sm.all,
-                            idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
-                        ) }
-                        style={ { 'width': `${widths[idx]}%`, 'transition': showAnimation ? 'all 2s' : '' } }
-                    >
-                        <p className={ classNames(
-                            'text-elem tr-absolute tr-max-w-full tr-whitespace-nowrap tr-truncate',
-                            getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                            spacing.sm.left,
-                            fontSize.sm,
-                        ) }>
-                            { item.name }
-                        </p>
-                    </div>
-                )) }
+                { data.map((item, idx) => {
+                    const Icon = item.icon;
+
+                    return (
+                        <div
+                            key={ item.name }
+                            className={ classNames(
+                                'tr-flex tr-items-center',
+                                rowHeight,
+                                getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor,
+                                borderRadius.sm.all,
+                                idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
+                            ) }
+                            style={ { 'width': `${widths[idx]}%`, 'transition': showAnimation ? 'all 2s' : '' } }
+                        >   
+                            <div className={ classNames('tr-absolute tr-max-w-full tr-flex', spacing.sm.left) }>
+                                { Icon ? (
+                                    <Icon className={classNames(
+                                        'tr-flex-none',
+                                        sizing.lg.height,
+                                        sizing.lg.width,
+                                        spacing.md.marginRight,
+                                        getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                    )} aria-hidden="true" />
+                                ) : null }
+                                <p className={ classNames(
+                                    'text-elem tr-whitespace-nowrap tr-truncate',
+                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                    fontSize.sm,
+                                ) }>
+                                    { item.name }
+                                </p>
+                            </div>
+                        </div>
+                    );
+                }) }
             </div>
             <div className="tr-text-right tr-min-w-min">
                 { data.map((item, idx) => (

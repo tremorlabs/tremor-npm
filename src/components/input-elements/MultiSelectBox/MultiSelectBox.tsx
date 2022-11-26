@@ -24,7 +24,7 @@ import Modal from 'components/layout-elements/Modal';
 
 export interface MultiSelectBoxProps {
     defaultValues?: any[],
-    handleSelect?: { (value: any): void },
+    handleSelect?: { (values: any[]): void },
     placeholder?: string,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
@@ -34,7 +34,7 @@ export interface MultiSelectBoxProps {
 const MultiSelectBox = ({
     defaultValues = [],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
+    handleSelect = (values) => null,
     placeholder = 'Select...',
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
@@ -76,6 +76,7 @@ const MultiSelectBox = ({
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
+                getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,

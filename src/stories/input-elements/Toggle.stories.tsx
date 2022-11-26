@@ -29,17 +29,36 @@ const SimpleToggle = (args: any) => (
     </form>
 );
 
+const SimpleToggleIconOnly = (args: any) => (
+    <form>
+        <Toggle { ...args }>
+            <ToggleItem
+                value={ 5 }
+                icon={ Icon }
+            />
+            <ToggleItem value={ 3 } icon={ Icon } />
+            <ToggleItem value={ 1 } icon={ Icon } />
+        </Toggle>
+    </form>
+);
+
 const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
     <>
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
-                <SimpleToggle { ...args } />
+                <Block spaceY="space-y-2">
+                    <SimpleToggle { ...args } />
+                    <SimpleToggleIconOnly { ...args } />
+                </Block>
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
-            <SimpleToggle { ...args } />
+            <Block spaceY="space-y-2">
+                <SimpleToggle { ...args } />
+                <SimpleToggleIconOnly { ...args } />
+            </Block>
         </Card>
     </>
 );

@@ -24,7 +24,7 @@ import {
 
 export interface BadgeDeltaProps {
     text?: string,
-    deltaType: DeltaType,
+    deltaType?: DeltaType,
     isIncreasePositive?: boolean,
     size?: Size,
     tooltip?: string,

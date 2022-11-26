@@ -3,7 +3,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { BarChart, Card, Title } from 'components';
-import { data } from './helpers/testData';
+import { simpleBaseChartData as data } from './helpers/testData';
+import { valueFormatter } from 'stories/chart-elements/helpers/utils';
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -33,10 +34,6 @@ const DefaultTemplate: ComponentStory<typeof BarChart>= ({ ...args }) => (
         <BarChart { ...args } />
     </Card>
 );
-
-const valueFormatter = (number: number) => {
-    return Intl.NumberFormat('us').format(number).toString() + ' $';
-};
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

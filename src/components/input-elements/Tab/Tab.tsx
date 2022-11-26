@@ -8,13 +8,15 @@ import {
     fontWeight,
     getColorTheme,
     getColorVariantsFromColorThemeValue,
+    sizing,
     spacing
 } from 'lib';
 import { Color } from '../../../lib';
 
 export interface TabProps {
-    text: string,
     value: any,
+    text: string,
+    icon?: React.ElementType,
     privateProps?: {
         color: Color,
         isActive: boolean,
@@ -23,10 +25,13 @@ export interface TabProps {
 }
 
 const Tab = ({
-    text,
     value,
+    text,
+    icon,
     privateProps,
 }: TabProps) => {
+    const Icon = icon;
+
     const activeClassNames = classNames(
         getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text).textColor,
         getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).darkBorder).borderColor,
@@ -56,7 +61,19 @@ const Tab = ({
                 ) }
                 value={ value }
                 onClick={ () => privateProps!.handleTabClick!(value) }
-            >
+            >   
+                { Icon ? (
+                    <Icon className={classNames(
+                        'tr-flex-none',
+                        sizing.lg.height,
+                        sizing.lg.width,
+                        spacing.lg.marginRight,
+                        privateProps?.isActive
+                            ? getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text)
+                                .textColor
+                            : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor
+                    )} aria-hidden="true" />
+                ) : null }
                 <p className="text-elem tr-whitespace-nowrap tr-truncate">{ text }</p>
             </button>
         </li>

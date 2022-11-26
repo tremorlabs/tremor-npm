@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - beta
-      - test-**
+      - beta-**
 
 jobs:
   release:

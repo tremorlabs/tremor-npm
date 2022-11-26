@@ -14,7 +14,7 @@ import {
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from 'components/chart-elements/common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
-import { constructCategoryColors } from '../common/utils';
+import { constructCategoryColors } from '../common/constructCategoryColors';
 
 import {
     classNames,

@@ -3,7 +3,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { AreaChart, Card, Title } from 'components';
-import { data } from './helpers/testData';
+import { simpleBaseChartData as data } from './helpers/testData';
+import { valueFormatter } from './helpers/utils';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -32,10 +33,6 @@ const DefaultTemplate: ComponentStory<typeof AreaChart>= ({ ...args }) => (
         <AreaChart { ...args } />
     </Card>
 );
-
-const valueFormatter = (number: number) => {
-    return Intl.NumberFormat('us').format(number).toString() + ' $';
-};
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
