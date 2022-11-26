@@ -21,10 +21,6 @@ import {
 import { parseData, parseLabelInput } from './inputParser';
 import { DonutChartTooltip } from './DonutChartTooltip';
 
-export interface DonutChartDataPoint {
-    color?: Color,
-}
-
 export interface DonutChartProps {
     data: any[],
     category?: string,
