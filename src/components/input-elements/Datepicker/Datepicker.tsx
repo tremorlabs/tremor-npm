@@ -284,64 +284,65 @@ const Datepicker = ({
                         spacing.sm.paddingBottom,
                     )}
                     >
-
-                        <button
-                            type="button"
-                            hidden={!showYearSelector}
-                            onClick={() => previousYear(firstDayCurrentMonth, setCurrentMonth)}
-                            className={ classNames(
-                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
-                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                                spacing.twoXs.paddingLeft,
-                                spacing.twoXs.paddingRight,
-                                spacing.twoXs.paddingTop,
-                                spacing.twoXs.paddingBottom,
-                                fontSize.sm,
-                                fontWeight.md,
-                                borderRadius.sm.all,
-                                border.sm.all,
-                                boxShadow.sm,
-                            ) }
-                        >
-                            <DoubleArrowLeftHeadIcon
+                        <div className="tr-flex tr-items-center tr-space-x-1">
+                            <button
+                                type="button"
+                                hidden={!showYearSelector}
+                                onClick={() => previousYear(firstDayCurrentMonth, setCurrentMonth)}
                                 className={ classNames(
-                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                                    sizing.lg.height,
-                                    sizing.lg.width,
+                                    'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                    spacing.twoXs.paddingLeft,
+                                    spacing.twoXs.paddingRight,
+                                    spacing.twoXs.paddingTop,
+                                    spacing.twoXs.paddingBottom,
+                                    fontSize.sm,
+                                    fontWeight.md,
+                                    borderRadius.sm.all,
+                                    border.sm.all,
+                                    boxShadow.sm,
                                 ) }
-                                aria-hidden="true"
-                            />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => previousMonth(firstDayCurrentMonth, setCurrentMonth)}
-                            className={ classNames(
-                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
-                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                                spacing.twoXs.paddingLeft,
-                                spacing.twoXs.paddingRight,
-                                spacing.twoXs.paddingTop,
-                                spacing.twoXs.paddingBottom,
-                                fontSize.sm,
-                                fontWeight.md,
-                                borderRadius.sm.all,
-                                border.sm.all,
-                                boxShadow.sm,
-                            ) }
-                        >
-                            <ArrowLeftHeadIcon
+                            >
+                                <DoubleArrowLeftHeadIcon
+                                    className={ classNames(
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                        sizing.lg.height,
+                                        sizing.lg.width,
+                                    ) }
+                                    aria-hidden="true"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => previousMonth(firstDayCurrentMonth, setCurrentMonth)}
                                 className={ classNames(
-                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                                    sizing.lg.height,
-                                    sizing.lg.width,
+                                    'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                    spacing.twoXs.paddingLeft,
+                                    spacing.twoXs.paddingRight,
+                                    spacing.twoXs.paddingTop,
+                                    spacing.twoXs.paddingBottom,
+                                    fontSize.sm,
+                                    fontWeight.md,
+                                    borderRadius.sm.all,
+                                    border.sm.all,
+                                    boxShadow.sm,
                                 ) }
-                                aria-hidden="true"
-                            />
-                        </button>
+                            >
+                                <ArrowLeftHeadIcon
+                                    className={ classNames(
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                        sizing.lg.height,
+                                        sizing.lg.width,
+                                    ) }
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        </div>
                         <h2 className={ classNames(
                             'text-elem',
                             getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
@@ -351,64 +352,65 @@ const Datepicker = ({
                         >
                             {format(firstDayCurrentMonth, 'MMMM yyyy')}
                         </h2>
-                        <button
-                            onClick={() => nextMonth(firstDayCurrentMonth, setCurrentMonth)}
-                            type="button"
-                            className={ classNames(
-                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
-                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                                spacing.twoXs.paddingLeft,
-                                spacing.twoXs.paddingRight,
-                                spacing.twoXs.paddingTop,
-                                spacing.twoXs.paddingBottom,
-                                fontSize.sm,
-                                fontWeight.md,
-                                borderRadius.sm.all,
-                                border.sm.all,
-                                boxShadow.sm,
-                            ) }
-                        >
-                            <ArrowRightHeadIcon
+                        <div className="tr-flex tr-items-center tr-space-x-1">
+                            <button
+                                onClick={() => nextMonth(firstDayCurrentMonth, setCurrentMonth)}
+                                type="button"
                                 className={ classNames(
-                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                                    sizing.lg.height,
-                                    sizing.lg.width,
+                                    'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                    spacing.twoXs.paddingLeft,
+                                    spacing.twoXs.paddingRight,
+                                    spacing.twoXs.paddingTop,
+                                    spacing.twoXs.paddingBottom,
+                                    fontSize.sm,
+                                    fontWeight.md,
+                                    borderRadius.sm.all,
+                                    border.sm.all,
+                                    boxShadow.sm,
                                 ) }
-                                aria-hidden="true"
-                            />
-                        </button>
-                        <button
-                            onClick={() => nextYear(firstDayCurrentMonth, setCurrentMonth)}
-                            type="button"
-                            hidden={!showYearSelector}
-                            className={ classNames(
-                                'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
-                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                                spacing.twoXs.paddingLeft,
-                                spacing.twoXs.paddingRight,
-                                spacing.twoXs.paddingTop,
-                                spacing.twoXs.paddingBottom,
-                                fontSize.sm,
-                                fontWeight.md,
-                                borderRadius.sm.all,
-                                border.sm.all,
-                                boxShadow.sm,
-                            ) }
-                        >
-                            <DoubleArrowRightHeadIcon
+                            >
+                                <ArrowRightHeadIcon
+                                    className={ classNames(
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                        sizing.lg.height,
+                                        sizing.lg.width,
+                                    ) }
+                                    aria-hidden="true"
+                                />
+                            </button>
+                            <button
+                                onClick={() => nextYear(firstDayCurrentMonth, setCurrentMonth)}
+                                type="button"
+                                hidden={!showYearSelector}
                                 className={ classNames(
-                                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                                    sizing.lg.height,
-                                    sizing.lg.width,
+                                    'input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2',
+                                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+                                    spacing.twoXs.paddingLeft,
+                                    spacing.twoXs.paddingRight,
+                                    spacing.twoXs.paddingTop,
+                                    spacing.twoXs.paddingBottom,
+                                    fontSize.sm,
+                                    fontWeight.md,
+                                    borderRadius.sm.all,
+                                    border.sm.all,
+                                    boxShadow.sm,
                                 ) }
-                                aria-hidden="true"
-                            />
-                        </button>
-
+                            >
+                                <DoubleArrowRightHeadIcon
+                                    className={ classNames(
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                        sizing.lg.height,
+                                        sizing.lg.width,
+                                    ) }
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        </div>
                     </div>
                     <div className={ classNames(
                         'tr-grid tr-grid-cols-7 tr-text-center',
