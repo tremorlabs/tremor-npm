@@ -164,3 +164,9 @@ WithDefaultRelativeFilterOption.args = {
     defaultRelativeFilterOption: 'd',
     handleSelect: handleSelect,
 };
+
+export const WithYearPagination = ResponsiveTemplate.bind({});
+WithYearPagination.args = {
+    enableYearPagination: true,
+    handleSelect: handleSelect,
+};
