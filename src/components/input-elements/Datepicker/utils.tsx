@@ -139,7 +139,6 @@ export const colStartClasses = [
     'col-start-7',
 ];
 
-
 export const previousYear = (
     firstDayCurrentMonth: Date,
     setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
@@ -153,7 +152,6 @@ export const nextYear = (
     const firstDayNextMonth = add(firstDayCurrentMonth, {years: 1});
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
 };
-
 
 export const previousMonth = (
     firstDayCurrentMonth: Date,
