@@ -140,12 +140,12 @@ WithLongValues.args = {
     dataKey: 'city',
 };
 
-export const WithNoCutout = DefaultTemplate.bind({});
-WithNoCutout.args = {
+export const WithVariantPie = DefaultTemplate.bind({});
+WithVariantPie.args = {
     data: data,
     category: 'sales',
+    variant: 'pie',
     dataKey: 'city',
-    showCutout: false
 };
 
 export const WithNoData = DefaultTemplate.bind({});
