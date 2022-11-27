@@ -88,7 +88,7 @@ export const relativeFilterOptions: {
     name: string,
 }[] = [
     {
-        value: 'd',
+        value: 'tdy',
         name: 'Today',
     },
     {
@@ -114,7 +114,7 @@ export const getStartDateFromRelativeFilterOption = (
 ): Date => {
     const today = startOfToday();
     switch(selectedRelativeFilterOption) {
-    case 'd':
+    case 'tdy':
         return sub(today, { days: 0 });
     case 'w':
         return sub(today, { days: 7 });

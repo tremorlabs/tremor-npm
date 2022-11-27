@@ -18,7 +18,7 @@ export type VerticalPosition = 'top' | 'bottom';
 
 export type Importance = 'primary' | 'secondary';
 
-export type RelativeFilterOption = 'd' | 'w' | 't' | 'm' | 'y' | null;
+export type RelativeFilterOption = 'tdy' | 'w' | 't' | 'm' | 'y' | null;
 
 const deltaTypeValues = [
     'increase',
