@@ -35,6 +35,8 @@ const DeltaBar = ({
     showAnimation = true,
     marginTop = 'mt-0',
 }: DeltaBarProps) => {
+    const deltaType = mapInputsToDeltaType(getDeltaType(percentageValue), isIncreasePositive);
+
     return(
         <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
             <div className={ classNames(
@@ -48,10 +50,7 @@ const DeltaBar = ({
                         <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
                             <div 
                                 className={ classNames(
-                                    colors[mapInputsToDeltaType(
-                                        getDeltaType(percentageValue),
-                                        isIncreasePositive
-                                    )].bgColor,
+                                    colors[deltaType].bgColor,
                                     borderRadius.full.left,
                                 ) } 
                                 style={ {
@@ -76,10 +75,7 @@ const DeltaBar = ({
                         <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
                             <div
                                 className={ classNames(
-                                    colors[mapInputsToDeltaType(
-                                        getDeltaType(percentageValue),
-                                        isIncreasePositive
-                                    )].bgColor,
+                                    colors[deltaType].bgColor,
                                     borderRadius.full.right,
                                 ) } 
                                 style={ {
