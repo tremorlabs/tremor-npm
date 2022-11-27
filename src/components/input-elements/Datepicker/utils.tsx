@@ -141,21 +141,24 @@ export const colStartClasses = [
 
 export const previousYear = (
     firstDayCurrentMonth: Date,
-    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
+    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+) => {
     const firstDayNextMonth = add(firstDayCurrentMonth, {years: -1});
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
 };
 
 export const nextYear = (
     firstDayCurrentMonth: Date,
-    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
+    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+) => {
     const firstDayNextMonth = add(firstDayCurrentMonth, {years: 1});
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
 };
 
 export const previousMonth = (
     firstDayCurrentMonth: Date,
-    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
+    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+) => {
     const firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
 };
