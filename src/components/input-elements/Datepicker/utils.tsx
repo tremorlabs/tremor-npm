@@ -155,6 +155,21 @@ export const nextYear = (
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
 };
 
+export const previousYear = (
+    firstDayCurrentMonth: Date,
+    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
+    const firstDayNextMonth = add(firstDayCurrentMonth, {years: -1});
+    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
+};
+
+export const nextYear = (
+    firstDayCurrentMonth: Date,
+    setCurrentMonth: React.Dispatch<React.SetStateAction<string>>) => {
+    const firstDayNextMonth = add(firstDayCurrentMonth, {years: 1});
+    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
+};
+
+
 export const previousMonth = (
     firstDayCurrentMonth: Date,
     setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
