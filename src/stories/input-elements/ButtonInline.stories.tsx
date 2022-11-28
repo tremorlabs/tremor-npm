@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ArrowRightIcon } from 'assets';
@@ -64,6 +64,47 @@ const ResponsiveFlexTemplate: ComponentStory<typeof ButtonInline> = (args) => (
     </>
 );
 
+
+const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
+    const [loading, setLoading] = useState(false);
+    
+    return (
+        <Card>
+            <ButtonInline text="Click to Load" handleClick={ () => setLoading(!loading) } />
+            {/* <ColGrid numCols={4} gapY="gap-y-2" marginTop="mt-10">
+                {
+                    Object.values(InputSizes).map(size => (
+                        <>
+                            <ButtonInline size={size} text="Button" loading={ loading } />
+                            <ButtonInline size={size} text="Button" icon={MyIcon} loading={ loading } />
+                            <ButtonInline
+                                size={size}
+                                text="Button"
+                                icon={MyIcon}
+                                iconPosition="right"
+                                loading={ loading }
+                            />
+                        </>
+                    ))
+                }
+            </ColGrid>
+            <Title>With Loading Text</Title>
+            <ColGrid numCols={4} gapY="gap-y-2">
+                <ButtonInline text="Button" loading={ loading } loadingText="Loading" />
+                <ButtonInline text="Button" icon={MyIcon} loading={ loading } loadingText="Loading"  />
+                <ButtonInline
+                    text="Button"
+                    icon={MyIcon}
+                    iconPosition="right"
+                    loading={ loading }
+                    loadingText="Loading"
+                />
+            </ColGrid> */}
+            <ButtonInline text="Button" icon={MyIcon} loading={ loading } />
+        </Card>
+    );
+};
+
 export const Sizes = SizesTemplate.bind({});
 
 export const Colors = ColorsTemplate.bind({});
@@ -75,4 +116,8 @@ WithDisabled.args = {
     disabled: true,
 };
 
+export const LoadingStates = LoadingStateTemplate.bind({});
+LoadingStates.args = {
+    disabled: true,
+};
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

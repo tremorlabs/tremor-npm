@@ -8,12 +8,14 @@ import {
     defaultColors,
     getColorTheme,
     getColorVariantsFromColorThemeValue,
+    getPixelsFromTwClassName,
     isValidSize,
     parseMarginTop,
-    spacing
 } from 'lib';
-import { Color, HorizontalPosition, MarginTop, Size } from '../../../lib/inputTypes';
+import { Color, HorizontalPosition, MarginTop, Size, Width } from '../../../lib/inputTypes';
 import { buttonProportions, iconSizes } from './styles';
+import { ButtonIcon } from 'components/input-elements/Button/Button';
+import { Transition } from 'react-transition-group';
 
 export interface ButtonInlineProps {
     text: string,
@@ -23,7 +25,9 @@ export interface ButtonInlineProps {
     color?: Color,
     handleClick?: { (): void },
     marginTop?: MarginTop,
-    disabled?: boolean
+    disabled?: boolean,
+    loading?: boolean,
+    loadingText?: string,
 }
 
 const ButtonInline = ({
@@ -34,53 +38,94 @@ const ButtonInline = ({
     size = Sizes.SM,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
-    disabled = false
+    disabled = false,
+    loading = false,
+    loadingText,
 }: ButtonInlineProps) => {
+    const Icon = icon;
+
+    const isDisabled = loading || disabled;
+    const showButtonIcon = (Icon !== undefined) || loading;
+    const showLoadingText = loading && loadingText;
+
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
-    const Icon = icon ? icon : null;
+
+    const iconSize = classNames(
+        iconSizes[buttonSize].height,
+        iconSizes[buttonSize].width,
+    );
+
+    const iconWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
+
+    const defaultStyle = {
+        transition: `width 150ms`,
+        width: '0px',
+    };
+
+    const iconTransitionStyles: {[key: string]: any} = {
+        entering: { width: '0px' },
+        entered: { width: `${iconWidthPx}px` },
+        exiting: { width: `${iconWidthPx}px` },
+        exited: { width: '0px' },
+    };
+
     return (
-        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
-            <button
-                type="button"
-                onClick={handleClick}
-                className={classNames(
-                    'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',
-                    'focus:tr-outline-none focus:tr-ring-none',
-                    buttonProportions[buttonSize].fontSize,
-                    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
-                    !disabled ? classNames(
-                        getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).hoverTextColor,
-                    ) : 'tr-opacity-50',
-                )}
-                disabled={ disabled }
-            >
-                {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
-                    <Icon
+        <Transition in={loading} timeout={50}>
+            { state => (
+                <div className={ classNames('tremor-base tr-flex tr-items-center', parseMarginTop(marginTop)) }>
+                    <button
+                        type="button"
+                        onClick={handleClick}
                         className={classNames(
-                            spacing.twoXs.negativeMarginLeft,
-                            spacing.xs.marginRight,
-                            iconSizes[buttonSize].height,
-                            iconSizes[buttonSize].width,
+                            'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',
+                            'focus:tr-outline-none focus:tr-ring-none',
+                            buttonProportions[buttonSize].fontSize,
+                            getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
+                            getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
+                            getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
+                            !isDisabled ? classNames(
+                                getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).hoverTextColor,
+                            ) : 'tr-opacity-50',
                         )}
-                        aria-hidden="true"
-                    />
-                ) : null}
-                <p className="text-elem tr-whitespace-nowrap">{text}</p>
-                {Icon && (iconPosition === HorizontalPositions.Right) ? (
-                    <Icon
-                        className={classNames(
-                            spacing.twoXs.negativeMarginRight,
-                            spacing.xs.marginLeft,
-                            iconSizes[buttonSize].height,
-                            iconSizes[buttonSize].width,
-                        )}
-                        aria-hidden="true"
-                    />
-                ) : null}
-            </button>
-        </span>
+                        disabled={ isDisabled }
+                    >
+                        {
+                            showButtonIcon && (iconPosition !== HorizontalPositions.Right) ? (
+                                <ButtonIcon
+                                    loading={ loading }
+                                    iconSize={ iconSize }
+                                    iconPosition={ iconPosition }
+                                    Icon={ Icon }
+                                    style={{
+                                        ...defaultStyle,
+                                        ...iconTransitionStyles[state]
+                                    }}
+                                />
+                            ) : null
+                        }
+                        {
+                            <p className="text-elem tr-whitespace-nowrap">
+                                { showLoadingText ? loadingText : text }
+                            </p>
+                        }
+                        {
+                            showButtonIcon && (iconPosition === HorizontalPositions.Right) ? (
+                                <ButtonIcon
+                                    loading={ loading }
+                                    iconSize={ iconSize }
+                                    iconPosition={ iconPosition }
+                                    Icon={ Icon }
+                                    style={{
+                                        ...defaultStyle,
+                                        ...iconTransitionStyles[state]
+                                    }}
+                                />
+                            ) : null
+                        }
+                    </button>
+                </div>
+            )}
+        </Transition>
     );
 };
 
