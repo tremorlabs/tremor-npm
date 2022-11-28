@@ -27,6 +27,7 @@
   "dependencies": {
     "@tippyjs/react": "^4.2.6",
     "date-fns": "^2.28.0",
+    "react-transition-group": "^4.4.5",
     "recharts": "^2.1.13"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@testing-library/react": "^13.1.1",
     "@types/jest": "^27.4.1",
     "@types/react": "^18.0.5",
+    "@types/react-transition-group": "^4.4.5",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.4.4",
