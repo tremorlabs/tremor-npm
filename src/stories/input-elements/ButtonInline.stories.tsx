@@ -71,7 +71,7 @@ const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
     return (
         <Card>
             <ButtonInline text="Click to Load" handleClick={ () => setLoading(!loading) } />
-            {/* <ColGrid numCols={4} gapY="gap-y-2" marginTop="mt-10">
+            <ColGrid numCols={4} gapY="gap-y-2" marginTop="mt-10">
                 {
                     Object.values(InputSizes).map(size => (
                         <>
@@ -99,7 +99,7 @@ const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
                     loading={ loading }
                     loadingText="Loading"
                 />
-            </ColGrid> */}
+            </ColGrid>
             <ButtonInline text="Button" icon={MyIcon} loading={ loading } />
         </Card>
     );

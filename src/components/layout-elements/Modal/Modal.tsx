@@ -70,7 +70,7 @@ const Modal = ({
 
     const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
 
-    // Execute only when modal is of fixed size
+    // Execute only when modal is of absolute size
     if (width !== undefined) {
         const widthInPixel = getPixelsFromTwClassName(width);
         useEffect(() => {
@@ -105,7 +105,7 @@ const Modal = ({
             <div
                 ref={ modalRef }
                 className={ classNames(
-                    'tr-absolute -tr-bottom-2 tr-translate-y-full tr-z-10 tr-divide-y tr-overflow-y-auto',
+                    'tr-absolute tr-z-10 tr-divide-y tr-overflow-y-auto',
                     width ? parseWidth(width) : 'tr-w-full',
                     getAbsoluteSpacing(),
                     maxHeight,
