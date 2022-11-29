@@ -70,7 +70,7 @@ const Modal = ({
 
     const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
 
-    // Execute only when modal is of fixed size
+    // Execute only when modal is of absolute size
     if (width !== undefined) {
         const widthInPixel = getPixelsFromTwClassName(width);
         useEffect(() => {

@@ -14,7 +14,7 @@ import {
 } from 'lib';
 import { Color, HorizontalPosition, MarginTop, Size, Width } from '../../../lib/inputTypes';
 import { buttonProportions, iconSizes } from './styles';
-import { ButtonIcon } from 'components/input-elements/Button/Button';
+import { ButtonIconOrSpinner } from 'components/input-elements/Button/Button';
 import { Transition } from 'react-transition-group';
 
 export interface ButtonInlineProps {
@@ -45,29 +45,27 @@ const ButtonInline = ({
     const Icon = icon;
 
     const isDisabled = loading || disabled;
-    const showButtonIcon = (Icon !== undefined) || loading;
+    const showButtonIconOrSpinner = (Icon !== undefined) || loading;
     const showLoadingText = loading && loadingText;
 
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
-
     const iconSize = classNames(
         iconSizes[buttonSize].height,
         iconSizes[buttonSize].width,
     );
 
-    const iconWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
-
-    const defaultStyle = {
+    const spinnerWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
+    const spinnerDefaultStyle = {
         transition: `width 150ms`,
         width: '0px',
     };
-
-    const iconTransitionStyles: {[key: string]: any} = {
+    const spinnerTransitionStyle: {[key: string]: any} = {
         entering: { width: '0px' },
-        entered: { width: `${iconWidthPx}px` },
-        exiting: { width: `${iconWidthPx}px` },
+        entered: { width: `${spinnerWidthPx}px` },
+        exiting: { width: `${spinnerWidthPx}px` },
         exited: { width: '0px' },
     };
+
 
     return (
         <Transition in={loading} timeout={50}>
@@ -90,16 +88,16 @@ const ButtonInline = ({
                         disabled={ isDisabled }
                     >
                         {
-                            showButtonIcon && (iconPosition !== HorizontalPositions.Right) ? (
-                                <ButtonIcon
+                            showButtonIconOrSpinner && (iconPosition !== HorizontalPositions.Right) ? (
+                                <ButtonIconOrSpinner
                                     loading={ loading }
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    style={{
-                                        ...defaultStyle,
-                                        ...iconTransitionStyles[state]
-                                    }}
+                                    spinnerStyle={ {
+                                        ...spinnerDefaultStyle,
+                                        ...spinnerTransitionStyle[state]
+                                    } }
                                 />
                             ) : null
                         }
@@ -109,16 +107,16 @@ const ButtonInline = ({
                             </p>
                         }
                         {
-                            showButtonIcon && (iconPosition === HorizontalPositions.Right) ? (
-                                <ButtonIcon
+                            showButtonIconOrSpinner && (iconPosition === HorizontalPositions.Right) ? (
+                                <ButtonIconOrSpinner
                                     loading={ loading }
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    style={{
-                                        ...defaultStyle,
-                                        ...iconTransitionStyles[state]
-                                    }}
+                                    spinnerStyle={ {
+                                        ...spinnerDefaultStyle,
+                                        ...spinnerTransitionStyle[state]
+                                    } }
                                 />
                             ) : null
                         }

@@ -27,21 +27,21 @@ import {
 } from './styles';
 import { LoadingSpinner } from 'assets';
 
-export interface ButtonIconProps {
+export interface ButtonIconOrSpinnerProps {
     loading: boolean,
     iconSize: string,
     iconPosition: string,
     Icon: React.ElementType | undefined,
-    style: any,
+    spinnerStyle: any,
 }
 
-export const ButtonIcon = ({
+export const ButtonIconOrSpinner = ({
     loading,
     iconSize,
     iconPosition,
     Icon,
-    style,
-}: ButtonIconProps) => {
+    spinnerStyle,
+}: ButtonIconOrSpinnerProps) => {
     const margin = iconPosition === HorizontalPositions.Left ?
         classNames(
             spacing.twoXs.negativeMarginLeft,
@@ -55,11 +55,14 @@ export const ButtonIcon = ({
     Icon = Icon!;
     return (
         loading ? (
-            <LoadingSpinner className={ classNames(
-                'tr-animate-spin',
-                iconSize,
-                margin
-            ) } style={ style } />
+            <LoadingSpinner
+                className={ classNames(
+                    'tr-animate-spin',
+                    iconSize,
+                    margin
+                ) }
+                style={ spinnerStyle }
+            />
         ) : (
             <Icon
                 className={ classNames(
@@ -102,29 +105,26 @@ const Button = ({
     const Icon = icon;
 
     const isDisabled = loading || disabled;
-    const showButtonIcon = (Icon !== undefined) || loading;
+    const showButtonIconOrSpinner = (Icon !== undefined) || loading;
     const showLoadingText = loading && loadingText;
 
     const buttonColors = isBaseColor(color) ? colors[color] : colors[BaseColors.Blue];
     const buttonSize = isValidSize(size) ? size : Sizes.SM;
     const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
-
     const iconSize = classNames(
         iconSizes[buttonSize].height,
         iconSizes[buttonSize].width,
     );
 
-    const iconWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
-
-    const defaultStyle = {
+    const spinnerWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
+    const spinnerDefaultStyle = {
         transition: `width 150ms`,
         width: '0px',
     };
-
-    const iconTransitionStyles: {[key: string]: any} = {
+    const spinnerTransitionStyle: {[key: string]: any} = {
         entering: { width: '0px' },
-        entered: { width: `${iconWidthPx}px` },
-        exiting: { width: `${iconWidthPx}px` },
+        entered: { width: `${spinnerWidthPx}px` },
+        exiting: { width: `${spinnerWidthPx}px` },
         exited: { width: '0px' },
     };
 
@@ -160,16 +160,16 @@ const Button = ({
                         disabled={ isDisabled }
                     >
                         {
-                            showButtonIcon && (iconPosition !== HorizontalPositions.Right) ? (
-                                <ButtonIcon
+                            showButtonIconOrSpinner && (iconPosition !== HorizontalPositions.Right) ? (
+                                <ButtonIconOrSpinner
                                     loading={ loading }
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    style={{
-                                        ...defaultStyle,
-                                        ...iconTransitionStyles[state]
-                                    }}
+                                    spinnerStyle={ {
+                                        ...spinnerDefaultStyle,
+                                        ...spinnerTransitionStyle[state]
+                                    } }
                                 />
                             ) : null
                         }
@@ -179,16 +179,16 @@ const Button = ({
                             </p>
                         }
                         {
-                            showButtonIcon && (iconPosition === HorizontalPositions.Right) ? (
-                                <ButtonIcon
+                            showButtonIconOrSpinner && (iconPosition === HorizontalPositions.Right) ? (
+                                <ButtonIconOrSpinner
                                     loading={ loading }
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    style={{
-                                        ...defaultStyle,
-                                        ...iconTransitionStyles[state]
-                                    }}
+                                    spinnerStyle={ {
+                                        ...spinnerDefaultStyle,
+                                        ...spinnerTransitionStyle[state]
+                                    } }
                                 />
                             ) : null
                         }

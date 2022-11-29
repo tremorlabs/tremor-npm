@@ -30,13 +30,6 @@ const SizesTemplate: ComponentStory<typeof Button> = () => (
                 </>
             ))}
         </ColGrid>
-        <Title>With Loading Text</Title>
-        <div>
-            <Button text="Button" loading={ true } />
-            <Button text="Button" icon={MyIcon} loading={ true } />
-            <Button text="Button" icon={MyIcon} iconPosition="right" loading={ true } />
-            <Button text="Button" importance="secondary" loading={ true } />
-        </div>
     </Card>
 );
 
