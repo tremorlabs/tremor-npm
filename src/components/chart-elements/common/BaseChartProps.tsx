@@ -16,6 +16,7 @@ interface BaseChartProps {
     startEndOnly?: boolean,
     showXAxis?: boolean,
     showYAxis?: boolean,
+    yAxisMax?: string | number | 'auto' | 'dataMin' | 'dataMax',
     yAxisWidth?: Width,
     showAnimation?: boolean,
     showTooltip?: boolean,

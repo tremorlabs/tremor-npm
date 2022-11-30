@@ -42,6 +42,7 @@ const AreaChart = ({
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
+    yAxisMax = 'auto',
     yAxisWidth = 'w-14',
     showAnimation = true,
     showTooltip = true,
@@ -91,7 +92,7 @@ const AreaChart = ({
                         axisLine={ false }
                         tickLine={ false }
                         type="number"
-                        domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
+                        domain={ autoMinValue ? ['auto', yAxisMax] : [0, yAxisMax]}
                         tick={ { transform: 'translate(-3, 0)' } }
                         style={ {
                             fontSize: '12px',
