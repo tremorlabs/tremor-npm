@@ -17,36 +17,73 @@ import {
     themeColorRange,
 } from 'lib';
 
+
+const getMarkerBgColor = (
+    percentageValue: number | undefined,
+    categoryPercentageValues: number[],
+    colors: Color[]
+): string => {
+    if (percentageValue === undefined)
+        return '';
+
+    let prefixSum = 0;
+    for (let i = 0; i < categoryPercentageValues.length; i++) {
+        const currentWidthPercentage = categoryPercentageValues[i];
+        const currentBgColor = getColorVariantsFromColorThemeValue(getColorTheme(colors[i]).background).bgColor;
+
+        prefixSum += currentWidthPercentage;
+        if (prefixSum >= percentageValue)
+            return currentBgColor;
+    }
+
+    return '';
+};
+
 const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: number[]}) => {
     let prefixSum = 0;
+    let sumConsecutveHiddenLabels = 0;
     return (
         <div className={ classNames(
             'tremor-base tr-relative tr-flex tr-w-full',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-            spacing.twoXs.spaceX,
             spacing.sm.marginBottom,
             fontSize.sm,
         ) }
         >
             { categoryPercentageValues.slice(0, categoryPercentageValues.length).map((widthPercentage, idx) => {
                 prefixSum += widthPercentage;
+                const showLabel = (widthPercentage >= 10
+                    || sumConsecutveHiddenLabels >= 9)
+                    && (100 - prefixSum >= 15 )
+                    && (prefixSum >= 10);
+                sumConsecutveHiddenLabels = showLabel ? 0 : sumConsecutveHiddenLabels += widthPercentage;
+
                 return (
                     <div
                         key={ `item-${idx}` }
                         className="tr-flex tr-items-center tr-justify-end"
                         style={ { 'width': `${widthPercentage}%` } }
                     >
-                        <span className={
-                            classNames(idx === 0 && widthPercentage <= 10 ? 'tr-hidden sm:tr-inline-block' : '')
-                        }
-                        >
+                        <span className={ classNames(
+                            showLabel ? 'tr-block' : 'tr-hidden',
+                            'tr-left-1/2 tr-translate-x-1/2'
+                        ) }>
                             { prefixSum }
                         </span>
                     </div>
                 );
             }) }
-            <div className="tr-absolute -tr-left-1 tr-top-0 tr-flex tr-items-center">
+            <div className={ classNames(
+                'tr-absolute tr-top-0 tr-flex tr-items-center',
+                spacing.none.left,
+            ) }>
                 0
+            </div>
+            <div className={ classNames(
+                'tr-absolute tr-top-0 tr-flex tr-items-center',
+                spacing.none.right,
+            ) }>
+                100
             </div>
         </div>
     );
@@ -71,46 +108,36 @@ const CategoryBar = ({
     showAnimation = true,
     marginTop = 'mt-0',
 }: CategoryBarProps) => {
-
-    const getMarkerBgColor = (): string => {
-        if (percentageValue === undefined)
-            return '';
-
-        let prefixSum = 0;
-        for (let i = 0; i < categoryPercentageValues.length; i++) {
-            const currentWidthPercentage = categoryPercentageValues[i];
-            const currentBgColor = getColorVariantsFromColorThemeValue(getColorTheme(colors[i]).background).bgColor;
-
-            prefixSum += currentWidthPercentage;
-            if (prefixSum >= percentageValue)
-                return currentBgColor;
-        }
-
-        return '';
-    };
-
-    const markerBgColor = getMarkerBgColor();
+    const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
     return(
         <div className={ classNames(parseMarginTop(marginTop)) }>
             { showLabels ? <BarLabels categoryPercentageValues={ categoryPercentageValues } /> : null }
             <div className={ classNames(
-                'tr-relative tr-flex tr-items-center tr-w-full',
+                'tr-relative tr-w-full tr-flex tr-items-center',
                 sizing.xs.height,
-                spacing.threeXs.spaceX,
-                borderRadius.lg.all,
             ) }
             >
-                {categoryPercentageValues.map((percentageValue, idx) => {
-                    return(
-                        <div key={ `item-${idx}` } style={ { width: `${percentageValue}%` } } className={ classNames(
-                            'tr-h-full',
-                            getColorVariantsFromColorThemeValue(getColorTheme(colors[idx]).background).bgColor,
-                            borderRadius.md.all,
-                        ) }
-                        />
-                    );
-                })}
+                <div className={ classNames(
+                    'tr-flex-1 tr-flex tr-items-center tr-h-full tr-overflow-hidden',
+                    borderRadius.md.all
+                ) }>
+                    {categoryPercentageValues.map((percentageValue, idx) => {
+                        return(
+                            <div
+                                key={ `item-${idx}` }
+                                className={
+                                    classNames(
+                                        'tr-h-full',
+                                        getColorVariantsFromColorThemeValue(getColorTheme(colors[idx]).background)
+                                            .bgColor,
+                                    )
+                                }
+                                style={ { width: `${percentageValue}%` } }
+                            />
+                        );
+                    })}
+                </div>
                 { percentageValue !== undefined ? (
                     <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
                         <div
