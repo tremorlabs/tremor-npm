@@ -14,6 +14,7 @@ import {
     parseMarginTop,
     sizing,
     spacing,
+    sumNumericArray,
     themeColorRange,
 } from 'lib';
 
@@ -40,6 +41,7 @@ const getMarkerBgColor = (
 };
 
 const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: number[]}) => {
+    const sumValues = sumNumericArray(categoryPercentageValues);
     let prefixSum = 0;
     let sumConsecutveHiddenLabels = 0;
     return (
@@ -52,10 +54,10 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
         >
             { categoryPercentageValues.slice(0, categoryPercentageValues.length).map((widthPercentage, idx) => {
                 prefixSum += widthPercentage;
-                const showLabel = (widthPercentage >= 10
-                    || sumConsecutveHiddenLabels >= 9)
-                    && (100 - prefixSum >= 15 )
-                    && (prefixSum >= 10);
+                const showLabel = (widthPercentage >= 0.1 * sumValues
+                    || sumConsecutveHiddenLabels >= 0.09 * sumValues)
+                    && (sumValues - prefixSum >= 0.15 * sumValues )
+                    && (prefixSum >= 0.1 * sumValues);
                 sumConsecutveHiddenLabels = showLabel ? 0 : sumConsecutveHiddenLabels += widthPercentage;
 
                 return (
@@ -83,7 +85,7 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
                 'tr-absolute tr-top-0 tr-flex tr-items-center',
                 spacing.none.right,
             ) }>
-                100
+                { sumValues }
             </div>
         </div>
     );
