@@ -70,3 +70,23 @@ WithCloseEndValue.args = {
     tooltip: '90%',
     marginTop: 'mt-5'
 };
+
+export const WithZeroValues = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithZeroValues.args = {
+    categoryPercentageValues: [10, 25, 0, 50, 0, 15, 0],
+    colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+
+export const WithConsecutiveSmallValues = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithConsecutiveSmallValues.args = {
+    categoryPercentageValues: [10, 5, 5, 5, 5, 5, 50, 15, 0],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
