@@ -16,6 +16,7 @@ import {
 import { Color, MarginTop, ValueFormatter } from '../../../lib';
 
 type BarListData = {
+    key?: string,
     value: number,
     name: string,
     icon?: React.ElementType,
@@ -65,7 +66,7 @@ const BarList = ({
 
                     return (
                         <div
-                            key={ item.name }
+                            key={ item.key ?? item.name }
                             className={ classNames(
                                 'tr-flex tr-items-center',
                                 rowHeight,
@@ -114,7 +115,7 @@ const BarList = ({
             <div className="tr-text-right tr-min-w-min">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.name }
+                        key={ item.key ?? item.name }
                         className={ classNames(
                             'tr-flex tr-justify-end tr-items-center',
                             rowHeight,
