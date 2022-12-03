@@ -23,9 +23,9 @@ const Template: ComponentStory<typeof CategoryBar> = (args) => (
 );
   
 
-export const WithoutMarker = Template.bind({});
-WithoutMarker.args = {
-    categoryPercentageValues: [10, 25, 45, 20],
+export const Default = Template.bind({});
+Default.args = {
+    categoryPercentageValues: [60, 10, 20, 10],
     marginTop: 'mt-5',
 };
 
@@ -33,8 +33,59 @@ WithoutMarker.args = {
 export const WithMarker = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithMarker.args = {
+    categoryPercentageValues: [20, 15, 45, 20],
+    colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+export const WithMarkerOnLabel = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithMarkerOnLabel.args = {
+    categoryPercentageValues: [0, 50, 50],
+    colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+
+export const WithSmallStartValue = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithSmallStartValue.args = {
     categoryPercentageValues: [10, 25, 45, 20],
     colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+export const WithCloseEndValue = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithCloseEndValue.args = {
+    categoryPercentageValues: [10, 25, 50, 15],
+    colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+export const WithZeroValues = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithZeroValues.args = {
+    categoryPercentageValues: [10, 25, 0, 50, 0, 15, 0],
+    colors: ['emerald', 'yellow', 'orange', 'rose'],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+
+export const WithConsecutiveSmallValues = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithConsecutiveSmallValues.args = {
+    categoryPercentageValues: [10, 5, 5, 5, 5, 5, 50, 15, 0],
     percentageValue: 50,
     tooltip: '90%',
     marginTop: 'mt-5'
