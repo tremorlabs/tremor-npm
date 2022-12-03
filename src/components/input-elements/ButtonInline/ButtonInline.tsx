@@ -8,11 +8,10 @@ import {
     defaultColors,
     getColorTheme,
     getColorVariantsFromColorThemeValue,
-    getPixelsFromTwClassName,
     isValidSize,
     parseMarginTop,
 } from 'lib';
-import { Color, HorizontalPosition, MarginTop, Size, Width } from '../../../lib/inputTypes';
+import { Color, HorizontalPosition, MarginTop, Size } from '../../../lib/inputTypes';
 import { buttonProportions, iconSizes } from './styles';
 import { ButtonIconOrSpinner } from 'components/input-elements/Button/Button';
 import { Transition } from 'react-transition-group';
@@ -54,19 +53,6 @@ const ButtonInline = ({
         iconSizes[buttonSize].width,
     );
 
-    const spinnerWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
-    const spinnerDefaultStyle = {
-        transition: `width 150ms`,
-        width: '0px',
-    };
-    const spinnerTransitionStyle: {[key: string]: any} = {
-        entering: { width: '0px' },
-        entered: { width: `${spinnerWidthPx}px` },
-        exiting: { width: `${spinnerWidthPx}px` },
-        exited: { width: '0px' },
-    };
-
-
     return (
         <Transition in={loading} timeout={50}>
             { state => (
@@ -94,10 +80,7 @@ const ButtonInline = ({
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    spinnerStyle={ {
-                                        ...spinnerDefaultStyle,
-                                        ...spinnerTransitionStyle[state]
-                                    } }
+                                    transitionState={ state }
                                 />
                             ) : null
                         }
@@ -113,10 +96,7 @@ const ButtonInline = ({
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    spinnerStyle={ {
-                                        ...spinnerDefaultStyle,
-                                        ...spinnerTransitionStyle[state]
-                                    } }
+                                    transitionState={ state }
                                 />
                             ) : null
                         }

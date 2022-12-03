@@ -4,6 +4,10 @@ export type Sizing = {
 }
 
 export const sizing = {
+    none: {
+        height: 'tr-h-0',
+        width: 'tr-w-0',
+    },
     threeXs: {
         height: 'tr-h-0.5',
         width: 'tr-w-0.5',
