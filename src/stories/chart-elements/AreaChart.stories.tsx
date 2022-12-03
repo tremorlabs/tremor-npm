@@ -70,6 +70,17 @@ WithAutoMinValue.args = {
     autoMinValue: true,
 };
 
+export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithMinValueAndMaxValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    minValue: 'dataMin',
+    maxValue: 5000,
+};
+
+
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {

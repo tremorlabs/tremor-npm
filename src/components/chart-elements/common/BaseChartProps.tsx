@@ -12,11 +12,9 @@ interface BaseChartProps {
     dataKey: string,
     colors?: Color[],
     valueFormatter?: ValueFormatter,
-    autoMinValue?: boolean,
     startEndOnly?: boolean,
     showXAxis?: boolean,
     showYAxis?: boolean,
-    yAxisMax?: string | number | 'auto' | 'dataMin' | 'dataMax',
     yAxisWidth?: Width,
     showAnimation?: boolean,
     showTooltip?: boolean,
@@ -25,6 +23,9 @@ interface BaseChartProps {
     showGridLines?: boolean,
     height?: Height,
     marginTop?: MarginTop,
+    autoMinValue?: boolean,
+    minValue?: string | number | 'auto' | 'dataMin' | 'dataMax',
+    maxValue?: string | number | 'auto' | 'dataMin' | 'dataMax',
 }
 
 export default BaseChartProps;
