@@ -20,7 +20,7 @@ export const parseData = (data: any[], colors: Color[]) => data.map((
     };
 });
 
-const calculatDefaultLabel = (
+const calculateDefaultLabel = (
     data: any[],
     category: string,
 ) => sumNumericArray(data.map((dataPoint) => dataPoint[category]));
@@ -31,5 +31,5 @@ export const parseLabelInput = (
     data: any[],
     category: string,
 ) => (
-    labelInput ? labelInput : valueFormatter(calculatDefaultLabel(data, category))
+    labelInput ? labelInput : valueFormatter(calculateDefaultLabel(data, category))
 );

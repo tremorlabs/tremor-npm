@@ -33,14 +33,14 @@ const ToggleItem = ({
     const activeClassNames = classNames(
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text).textColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringRolor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
         boxShadow.sm,
     );
     const inActiveClassNames = classNames(
         getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.darkText).hoverTextColor,
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        getColorVariantsFromColorThemeValue(defaultColors.transparent).ringRolor,
+        getColorVariantsFromColorThemeValue(defaultColors.transparent).ringColor,
     );
     const Icon = icon ? icon : null;
     return (

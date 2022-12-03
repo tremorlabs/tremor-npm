@@ -28,7 +28,7 @@ export interface DropdownProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const Dropwdown = ({
+const Dropdown = ({
     placeholder = 'Select...',
     defaultValue,
     handleSelect = (value: any) => { value; },
@@ -128,4 +128,4 @@ const Dropwdown = ({
     );
 };
 
-export default Dropwdown;
+export default Dropdown;

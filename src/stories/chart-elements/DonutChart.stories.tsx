@@ -90,9 +90,9 @@ WithValueFormatter.args = {
     dataKey: 'city',
 };
 
-export const WithCusomLabel = ResponsiveTemplate.bind({});
+export const WithCustomLabel = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithCusomLabel.args = {
+WithCustomLabel.args = {
     data: data,
     valueFormatter: valueFormatter,
     label: 'Hello there',

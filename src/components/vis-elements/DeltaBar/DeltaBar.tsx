@@ -64,7 +64,7 @@ const DeltaBar = ({
                 <div className={ classNames(
                     'tr-ring-2 tr-z-10',
                     getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.white).ringRolor,
+                    getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
                     sizing.md.height,
                     sizing.twoXs.width,
                     borderRadius.lg.all,

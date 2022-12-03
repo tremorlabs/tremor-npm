@@ -62,7 +62,7 @@ const RangeBar = ({
                 <div
                     className={ classNames(
                         'tr-absolute tr-right-1/2 -tr-translate-x-1/2',
-                        sizing.lg.width, // wide transparant wrapper for tooltip activation
+                        sizing.lg.width, // wide transparent wrapper for tooltip activation
                     ) }
                     style={ { 'left': `${percentageValue}%`, 'transition': showAnimation ? 'all 2s' : '' } }
                 >
@@ -70,7 +70,7 @@ const RangeBar = ({
                         className={ classNames(
                             'tr-ring-2 tr-mx-auto',
                             getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor,
-                            getColorVariantsFromColorThemeValue(defaultColors.white).ringRolor,
+                            getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
                             sizing.md.height,
                             sizing.twoXs.width,
                             borderRadius.lg.all,

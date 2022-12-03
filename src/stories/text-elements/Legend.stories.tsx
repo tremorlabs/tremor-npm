@@ -22,7 +22,7 @@ export const Default = Template.bind({});
 Default.args = {
     categories: [
         'Critical',
-        'This is a very long catergory name to test an edge case',
+        'This is a very long category name to test an edge case',
         'Category C',
         'Category D',
     ]

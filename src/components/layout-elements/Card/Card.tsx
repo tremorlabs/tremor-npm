@@ -60,7 +60,7 @@ const Card = ({
             getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
             shadow ? boxShadow.md : '',
             getColorVariantsFromColorThemeValue(getColorTheme(decorationColor).border).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringRolor,
+            getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
             parseDecorationAlignment(decoration),
             spacing.threeXl.paddingLeft,
             spacing.threeXl.paddingRight,
