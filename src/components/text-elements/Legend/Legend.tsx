@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Color, MarginTop } from '../../../lib';
 import {
     classNames,
     defaultColors,
@@ -13,6 +12,8 @@ import {
     spacing,
     themeColorRange
 } from 'lib';
+import { Color } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface LegendItemProps {
     name: string,
@@ -53,19 +54,19 @@ const LegendItem = ({
 );
 
 
-export interface LegendProps {
+export interface LegendProps extends TremorBaseProps {
     categories: string[],
     colors?: Color[],
-    marginTop?: MarginTop,
 }
 
 const Legend = ({
     categories,
     colors = themeColorRange,
     marginTop = 'mt-0',
+    className = '',
 }: LegendProps) => {
     return(
-        <div className={ classNames('tremor-base termor-elem', parseMarginTop(marginTop)) }>
+        <div className={ classNames('tremor-base termor-elem', parseMarginTop(marginTop), className) }>
             <ol className="list-element tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
                 { categories.map((category, idx) => (
                     <LegendItem key={ `item-${idx}` } name={ category } color={ colors[idx] } />

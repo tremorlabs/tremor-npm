@@ -2,14 +2,16 @@ import React from 'react';
 
 import { border, classNames, parseHeight, spacing } from 'lib';
 import { Height } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface FooterProps {
+export interface FooterProps extends TremorBaseProps {
     height?: Height,
     children: React.ReactNode;
 }
 
 const Footer = ({
     height = 'h-14',
+    className = '',
     children
 }: FooterProps) => {
     return(
@@ -24,6 +26,7 @@ const Footer = ({
                 spacing.threeXl.paddingLeft,
                 spacing.threeXl.paddingRight,
                 border.sm.top,
+                className,
             ) }
             >
                 { children }

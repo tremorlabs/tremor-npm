@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
-import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,
@@ -17,14 +16,16 @@ import {
     sizing,
     spacing
 } from 'lib';
+import { MaxWidth } from '../../../lib/inputTypes';
 import Modal from 'components/layout-elements/Modal';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface DropdownProps {
+export interface DropdownProps extends TremorBaseProps {
     placeholder?: string,
     defaultValue?: any,
     handleSelect?: { (value: any): void },
-    marginTop?: MarginTop,
     maxWidth?: MaxWidth,
+    className?: string,
     children: React.ReactElement[] | React.ReactElement,
 }
 
@@ -32,8 +33,9 @@ const Dropdown = ({
     placeholder = 'Select...',
     defaultValue,
     handleSelect = (value: any) => { value; },
-    marginTop = 'mt-0',
     maxWidth = 'max-w-none',
+    marginTop = 'mt-0',
+    className = '',
     children,
 }: DropdownProps) => {
     const dropdownRef = useRef(null);
@@ -64,11 +66,13 @@ const Dropdown = ({
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,
                 border.sm.all,
                 boxShadow.sm,
+                className,
             ) }
         >
             <button
@@ -76,8 +80,6 @@ const Dropdown = ({
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,

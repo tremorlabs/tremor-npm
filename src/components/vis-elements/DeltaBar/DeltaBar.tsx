@@ -13,19 +13,18 @@ import {
     parseMarginTop,
     sizing,
 } from 'lib';
-import { MarginTop } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 import { colors } from './styles';
 
 const getDeltaType = (value: number) => (
     value >= 0 ? DeltaTypes.Increase : DeltaTypes.Decrease
 );
 
-export interface DeltaBarProps {
+export interface DeltaBarProps extends TremorBaseProps {
     percentageValue: number,
     isIncreasePositive?: boolean,
     tooltip?: string,
     showAnimation?: boolean
-    marginTop?: MarginTop,
 }
 
 const DeltaBar = ({
@@ -34,11 +33,12 @@ const DeltaBar = ({
     tooltip,
     showAnimation = true,
     marginTop = 'mt-0',
+    className = '',
 }: DeltaBarProps) => {
     const deltaType = mapInputsToDeltaType(getDeltaType(percentageValue), isIncreasePositive);
 
     return(
-        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
+        <div className={ classNames('tremor-base', parseMarginTop(marginTop), className) }>
             <div className={ classNames(
                 'tr-relative tr-flex tr-items-center tr-w-full',
                 getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,

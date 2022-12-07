@@ -13,7 +13,8 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, MarginTop, ValueFormatter } from '../../../lib';
+import { Color, ValueFormatter } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 type BarListData = {
     key?: string,
@@ -35,12 +36,11 @@ const getWidthsFromValues = (dataValues: number[]) => {
     });
 };
 
-export interface BarListProps {
+export interface BarListProps extends TremorBaseProps {
     data: BarListData[],
     valueFormatter?: ValueFormatter,
     color?: Color,
     showAnimation?: boolean,
-    marginTop?: MarginTop,
 }
 
 const BarList = ({
@@ -49,6 +49,7 @@ const BarList = ({
     valueFormatter = defaultValueFormatter,
     showAnimation = true,
     marginTop = 'mt-0',
+    className = '',
 }: BarListProps) => {
     const widths = getWidthsFromValues(data.map((item) => item.value));
 
@@ -59,6 +60,7 @@ const BarList = ({
             'tremor-base tr-flex tr-justify-between',
             parseMarginTop(marginTop),
             spacing.threeXl.spaceX,
+            className,
         ) }>
             <div className="tr-relative tr-w-full">
                 { data.map((item, idx) => {

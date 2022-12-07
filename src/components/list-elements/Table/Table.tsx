@@ -8,15 +8,15 @@ import {
     getColorVariantsFromColorThemeValue,
     parseMarginTop
 } from 'lib';
-import { MarginTop } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface TableProps {
-    marginTop?: MarginTop,
+export interface TableProps extends TremorBaseProps {
     children: React.ReactNode
 }
 
 const Table = ({
     marginTop = 'mt-0',
+    className = '',
     children
 }: TableProps) => (
     <div className="tr-overflow-auto">
@@ -26,6 +26,7 @@ const Table = ({
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             fontSize.sm,
             fontWeight.sm,
+            className,
         ) }
         >
             

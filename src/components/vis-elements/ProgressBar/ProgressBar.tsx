@@ -16,15 +16,15 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { Color } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface ProgressBarProps {
+export interface ProgressBarProps extends TremorBaseProps {
     percentageValue: number,
     label?: string,
     tooltip?: string,
     showAnimation?: boolean,
     color?: Color,
-    marginTop?: MarginTop,
 }
 
 const ProgressBar = ({
@@ -34,6 +34,7 @@ const ProgressBar = ({
     showAnimation = true,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
+    className = '',
 }: ProgressBarProps) => {
     const primaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor;
     const secondaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor;
@@ -42,6 +43,7 @@ const ProgressBar = ({
             classNames(
                 'tremor-base tr-flex tr-items-center tr-w-full',
                 parseMarginTop(marginTop),
+                className,
             )
         }>
             <div className={ classNames(

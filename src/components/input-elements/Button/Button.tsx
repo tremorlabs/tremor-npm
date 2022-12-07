@@ -19,13 +19,14 @@ import {
     sizing,
     spacing,
 } from 'lib';
-import { Color, HorizontalPosition, Importance, MarginTop, Size } from '../../../lib';
+import { Color, HorizontalPosition, Importance, Size } from '../../../lib';
 import {
     buttonProportions,
     colors,
     iconSizes,
 } from './styles';
 import { LoadingSpinner } from 'assets';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface ButtonIconOrSpinnerProps {
     loading: boolean,
@@ -86,7 +87,10 @@ export const ButtonIconOrSpinner = ({
     );
 };
 
-export interface ButtonProps {
+export type ButtonType = 'button' | 'submit' | 'reset';
+
+export interface ButtonProps extends TremorBaseProps {
+    type?: ButtonType,
     text: string,
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
@@ -94,13 +98,13 @@ export interface ButtonProps {
     color?: Color,
     importance?: Importance,
     handleClick?: { (): void },
-    marginTop?: MarginTop,
     disabled?: boolean,
     loading?: boolean,
     loadingText?: string,
 }
 
 const Button = ({
+    type = 'button',
     text,
     icon,
     iconPosition = HorizontalPositions.Left,
@@ -108,10 +112,11 @@ const Button = ({
     size = Sizes.SM,
     color = BaseColors.Blue,
     importance = Importances.Primary,
-    marginTop = 'mt-0',
     disabled = false,
     loading = false,
     loadingText,
+    marginTop = 'mt-0',
+    className = '',
 }: ButtonProps) => {
     const Icon = icon;
 
@@ -130,9 +135,13 @@ const Button = ({
     return (
         <Transition in={loading} timeout={50}>
             { state => (
-                <div className={ classNames('tremor-base tr-flex tr-items-center', parseMarginTop(marginTop)) }>
+                <div className={ classNames(
+                    'tremor-base tr-flex tr-items-center',
+                    parseMarginTop(marginTop),
+                    className,
+                ) }>
                     <button
-                        type="button"
+                        type={ type }
                         onClick={ handleClick }
                         className={ classNames(
                             'tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',

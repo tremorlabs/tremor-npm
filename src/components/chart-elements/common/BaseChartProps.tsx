@@ -1,12 +1,12 @@
 import {
     Color,
     Height,
-    MarginTop,
     ValueFormatter,
     Width,
 } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-interface BaseChartProps {
+interface BaseChartProps extends TremorBaseProps {
     data: any[],
     categories: string[],
     dataKey: string,
@@ -23,7 +23,6 @@ interface BaseChartProps {
     showLegend?: boolean,
     showGridLines?: boolean,
     height?: Height,
-    marginTop?: MarginTop,
 }
 
 export default BaseChartProps;

@@ -4,8 +4,9 @@ import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
 
 import { BaseColors, Sizes, classNames, isBaseColor, isValidSize, parseMarginTop } from 'lib';
-import { Color, IconVariant, MarginTop, Size } from '../../../lib';
+import { Color, IconVariant, Size } from '../../../lib';
 import { colors, iconSizes, shape, wrapperProportions } from './styles';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export const IconVariants: { [key: string]: IconVariant } = {
     Simple: 'simple',
@@ -19,13 +20,12 @@ const isValidIconVariant = (iconVariant: IconVariant): boolean => {
     return Object.values(IconVariants).includes(iconVariant);
 };
 
-export interface IconProps {
+export interface IconProps extends TremorBaseProps {
     icon: React.ElementType,
     variant?: IconVariant,
     tooltip?: string,
     size?: Size,
     color?: Color,
-    marginTop?: MarginTop,
 }
 
 const Icon = ({
@@ -35,13 +35,14 @@ const Icon = ({
     size = Sizes.SM,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
+    className = '',
 }: IconProps) => {
     const iconSize = isValidSize(size) ? size : Sizes.SM;
     const iconVariant = isValidIconVariant(variant) ? variant : IconVariants.Simple;
     const iconColors = isBaseColor(color) ? colors[iconVariant][color] : colors[iconVariant][BaseColors.Blue];
     const Icon = icon;
     return (
-        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
+        <span className={classNames('tremor-base', parseMarginTop(marginTop), className)}>
             <Tooltip content={tooltip} className={classNames(tooltip ? '' : 'tr-hidden') }>
                 <span
                     className={classNames(

@@ -17,6 +17,7 @@ export interface ToggleItemProps {
     value: any,
     text?: string,
     icon?: React.ElementType,
+    className?: string,
     privateProps?: {
         isActive: boolean,
         handleToggleItemClick: (value: any) => void,
@@ -28,6 +29,7 @@ const ToggleItem = ({
     value,
     text,
     icon,
+    className = '',
     privateProps,
 }: ToggleItemProps) => {
     const activeClassNames = classNames(
@@ -55,6 +57,7 @@ const ToggleItem = ({
                 fontSize.sm,
                 borderRadius.md.all,
                 privateProps!.isActive ? activeClassNames : inActiveClassNames,
+                className,
             )}
             onClick={() => { privateProps!.handleToggleItemClick!(value); }}
         >

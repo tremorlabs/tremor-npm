@@ -4,6 +4,7 @@ import { ArrowDownHeadIcon, ArrowUpHeadIcon } from 'assets';
 import { classNames, defaultColors, getColorVariantsFromColorThemeValue, sizing, spacing } from 'lib';
 
 export interface AccordionHeaderProps {
+    className?: string,
     privateProps?: {
         isExpanded: boolean,
         setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
@@ -12,6 +13,7 @@ export interface AccordionHeaderProps {
 }
 
 const AccordionHeader = ({
+    className = '',
     privateProps,
     children
 }: AccordionHeaderProps) => {
@@ -24,6 +26,7 @@ const AccordionHeader = ({
                 spacing.threeXl.paddingRight,
                 spacing.lg.paddingTop,
                 spacing.lg.paddingBottom,
+                className,
             ) }
             onClick={ () => privateProps!.setExpanded(!privateProps!.isExpanded) }
         >

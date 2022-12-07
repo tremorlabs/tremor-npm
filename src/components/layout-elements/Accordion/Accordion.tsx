@@ -9,12 +9,11 @@ import {
     getColorVariantsFromColorThemeValue,
     parseMarginTop
 } from 'lib';
-import { MarginTop } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface AccordionProps {
+export interface AccordionProps extends TremorBaseProps {
     shadow?: boolean,
     expanded?: boolean,
-    marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement,
     privateProps?: {
         shapeClassNames: string,
@@ -24,8 +23,9 @@ export interface AccordionProps {
 const Accordion = ({
     shadow,
     expanded = false,
-    marginTop = 'mt-0',
     children,
+    marginTop = 'mt-0',
+    className = '',
     privateProps = {
         shapeClassNames: classNames(border.sm.all, borderRadius.lg.all),
     },
@@ -41,6 +41,7 @@ const Accordion = ({
             getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
             privateProps!.shapeClassNames,
             shadow ? boxShadow.md : '',
+            className,
         ) }>
             { React.Children.map(children, (child, idx) => {
                 if (idx===0) return (

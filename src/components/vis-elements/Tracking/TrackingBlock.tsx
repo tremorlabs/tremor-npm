@@ -9,13 +9,15 @@ import { borderRadius, classNames, getColorTheme, getColorVariantsFromColorTheme
 export interface TrackingBlockProps {
     color: Color,
     height?: Height,
-    tooltip?: string
+    tooltip?: string,
+    className: string,
 }
 
 const TrackingBlock = ({
     color,
     height = 'h-10',
-    tooltip
+    tooltip,
+    className = ''
 }: TrackingBlockProps) => {
     return(
         <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
@@ -24,6 +26,7 @@ const TrackingBlock = ({
                 getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor,
                 parseHeight(height),
                 borderRadius.md.all,
+                className,
             ) }
             />
         </Tooltip>

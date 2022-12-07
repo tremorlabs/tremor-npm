@@ -13,14 +13,14 @@ import {
     parseMarginTop,
     sizing
 } from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { Color } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface MarkerBarProps {
+export interface MarkerBarProps extends TremorBaseProps {
     percentageValue: number,
     color?: Color,
     tooltip?: string,
     showAnimation?: boolean,
-    marginTop?: MarginTop,
 }
 
 const MarkerBar = ({
@@ -29,6 +29,7 @@ const MarkerBar = ({
     tooltip,
     showAnimation = true,
     marginTop = 'mt-0',
+    className = '',
 }: MarkerBarProps) => {
     const primaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).background).bgColor;
     const secondaryBgColor = getColorVariantsFromColorThemeValue(getColorTheme(color).lightBackground).bgColor;
@@ -39,6 +40,7 @@ const MarkerBar = ({
             secondaryBgColor,
             sizing.xs.height,
             borderRadius.lg.all,
+            className,
         ) }>
             <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
                 <div

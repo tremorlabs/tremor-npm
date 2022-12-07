@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from 'assets';
-import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,
@@ -20,13 +19,14 @@ import {
     sizing,
     spacing
 } from 'lib';
+import { MaxWidth } from '../../../lib/inputTypes';
 import Modal from 'components/layout-elements/Modal';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface MultiSelectBoxProps {
+export interface MultiSelectBoxProps extends TremorBaseProps {
     defaultValues?: any[],
     handleSelect?: { (values: any[]): void },
     placeholder?: string,
-    marginTop?: MarginTop,
     maxWidth?: MaxWidth,
     children: React.ReactElement[] | React.ReactElement,
 }
@@ -36,8 +36,9 @@ const MultiSelectBox = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (values) => null,
     placeholder = 'Select...',
-    marginTop = 'mt-0',
     maxWidth = 'max-w-none',
+    marginTop = 'mt-0',
+    className = '',
     children,
 }: MultiSelectBoxProps) => {
     const dropdownRef = useRef(null);
@@ -77,11 +78,13 @@ const MultiSelectBox = ({
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,
                 border.sm.all,
                 boxShadow.sm,
+                className,
             ) }
         >
             <button
@@ -89,8 +92,6 @@ const MultiSelectBox = ({
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-2 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
