@@ -9,7 +9,11 @@ import {
     spacing
 } from 'lib';
 
-const Divider = () => (
+export interface DividerProps {
+    className?: string,
+}
+
+const Divider = ({ className = '' }) => (
     <div className={ classNames(
         'tremor-base tr-w-full tr-mx-auto',
         getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
@@ -17,6 +21,7 @@ const Divider = () => (
         spacing.threeXl.marginTop,
         spacing.threeXl.marginBottom,
         borderRadius.lg.all,
+        className,
     ) }
     />
 );

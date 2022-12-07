@@ -6,14 +6,14 @@ import {
     getColorVariantsFromColorThemeValue,
     parseMarginTop,
 } from 'lib';
-import { MarginTop } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface ListProps {
-    marginTop?: MarginTop,
+export interface ListProps extends TremorBaseProps {
     children: React.ReactNode
 }
 
 const List = ({
+    className = '',
     marginTop = 'mt-0',
     children
 }: ListProps) => {
@@ -23,6 +23,7 @@ const List = ({
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
             parseMarginTop(marginTop),
+            className,
         ) }
         >
             { children }

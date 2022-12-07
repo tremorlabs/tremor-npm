@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 import Legend from 'components/text-elements/Legend';
 import { useWindowSize } from 'lib';
 

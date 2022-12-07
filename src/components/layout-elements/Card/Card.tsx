@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BaseColors, HorizontalPositions, VerticalPositions } from 'lib/primitives';
-import { Color, HorizontalPosition, MarginTop, MaxWidth, VerticalPosition } from '../../../lib';
+import { Color, HorizontalPosition, MaxWidth, VerticalPosition } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,
@@ -15,6 +15,7 @@ import {
     parseMaxWidth,
     spacing,
 } from 'lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 const parseDecorationAlignment = (decorationAlignment: string) => {
     if (!decorationAlignment) return '';
@@ -32,13 +33,12 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
     }
 };
 
-export interface CardProps {
+export interface CardProps extends TremorBaseProps {
     hFull?: boolean,
     maxWidth?: MaxWidth,
     shadow?: boolean,
     decoration?: HorizontalPosition | VerticalPosition | '',
     decorationColor?: Color,
-    marginTop?: MarginTop,
     children: React.ReactNode
 }
 
@@ -49,6 +49,7 @@ const Card = ({
     decoration = '',
     decorationColor = BaseColors.Blue,
     marginTop = 'mt-0',
+    className = '',
     children
 }: CardProps) => {
     return(
@@ -67,6 +68,7 @@ const Card = ({
             spacing.threeXl.paddingTop,
             spacing.threeXl.paddingBottom,
             borderRadius.lg.all,
+            className,
         ) }
         >
             { children }

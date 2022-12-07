@@ -3,7 +3,6 @@ import React from 'react';
 import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
 
-import { Color, MarginTop } from '../../../lib';
 import {
     borderRadius,
     classNames,
@@ -17,6 +16,8 @@ import {
     sumNumericArray,
     themeColorRange,
 } from 'lib';
+import { Color } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 
 const getMarkerBgColor = (
@@ -91,14 +92,13 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
     );
 };
 
-export interface CategoryBarProps {
+export interface CategoryBarProps extends TremorBaseProps {
     categoryPercentageValues: number[],
     colors?: Color[],
     percentageValue?: number,
     showLabels?: boolean,
     tooltip?: string,
     showAnimation?: boolean,
-    marginTop?: MarginTop,
 }
 
 const CategoryBar = ({
@@ -109,11 +109,12 @@ const CategoryBar = ({
     tooltip,
     showAnimation = true,
     marginTop = 'mt-0',
+    className = '',
 }: CategoryBarProps) => {
     const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
     return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
+        <div className={ classNames(parseMarginTop(marginTop), className) }>
             { showLabels ? <BarLabels categoryPercentageValues={ categoryPercentageValues } /> : null }
             <div className={ classNames(
                 'tr-relative tr-w-full tr-flex tr-items-center',

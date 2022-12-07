@@ -53,6 +53,7 @@ const BarChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
     autoMinValue = false,
+    className = '',
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -61,7 +62,8 @@ const BarChart = ({
         <div className={ classNames(
             'tremor-base tr-w-full',
             parseHeight(height),
-            parseMarginTop(marginTop)
+            parseMarginTop(marginTop),
+            className
         ) }
         >
             <ResponsiveContainer width="100%" height="100%">

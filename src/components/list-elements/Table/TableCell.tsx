@@ -1,20 +1,22 @@
 import React from 'react';
 
-import { 
+import {
     TextAlignments,
     classNames,
     parseTextAlignment,
     spacing,
 } from 'lib';
 import { TextAlignment } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface TableCellProps {
+export interface TableCellProps extends TremorBaseProps {
     textAlignment?: TextAlignment,
     children: React.ReactNode
 }
 
 const TableCell = ({
     textAlignment = TextAlignments.Left,
+    className = '',
     children
 }: TableCellProps) => {
     return(
@@ -26,6 +28,7 @@ const TableCell = ({
                 spacing.twoXl.paddingRight,
                 spacing.twoXl.paddingTop,
                 spacing.twoXl.paddingBottom,
+                className,
             )}>
                 { children }
             </td>

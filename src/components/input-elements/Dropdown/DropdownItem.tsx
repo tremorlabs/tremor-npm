@@ -13,6 +13,7 @@ export interface DropdownItemProps {
     value: any;
     text: string;
     icon?: React.ElementType;
+    className?: string,
     privateProps?: {
         isActive: boolean;
         handleDropdownItemClick: (value: any) => void;
@@ -23,6 +24,7 @@ const DropdownItem = ({
     value,
     text,
     icon,
+    className = '',
     privateProps,
 }: DropdownItemProps) => {
     const Icon = icon ? icon : null;
@@ -49,7 +51,8 @@ const DropdownItem = ({
                             .hoverBgColor,
                         getColorVariantsFromColorThemeValue(defaultColors.darkText)
                             .textColor
-                    )
+                    ),
+                className
             )}
         >
             <div className="tr-flex tr-items-center tr-truncate">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Color, ValueFormatter } from '../../../lib';
+import { Color, ValueFormatter } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,

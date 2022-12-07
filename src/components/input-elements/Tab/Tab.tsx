@@ -11,12 +11,13 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 
 export interface TabProps {
     value: any,
     text: string,
     icon?: React.ElementType,
+    className?: string,
     privateProps?: {
         color: Color,
         isActive: boolean,
@@ -28,6 +29,7 @@ const Tab = ({
     value,
     text,
     icon,
+    className = '',
     privateProps,
 }: TabProps) => {
     const Icon = icon;
@@ -58,6 +60,7 @@ const Tab = ({
                     fontSize.sm,
                     fontWeight.md,
                     privateProps!.isActive ? activeClassNames : inActiveClassNames,
+                    className,
                 ) }
                 value={ value }
                 onClick={ () => privateProps!.handleTabClick!(value) }

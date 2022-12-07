@@ -14,16 +14,16 @@ import {
     parseMarginTop,
     spacing,
 } from 'lib';
-import { Color, MarginTop, Size } from '../../../lib';
+import { Color, Size } from '../../../lib/inputTypes';
 import { badgeProportions, iconSizes } from './styles';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface BadgeProps {
+export interface BadgeProps extends TremorBaseProps {
     text: string,
     color?: Color,
     size?: Size,
     icon?: React.ElementType,
     tooltip?: string,
-    marginTop?: MarginTop,
 }
 
 const Badge = ({
@@ -33,11 +33,12 @@ const Badge = ({
     size = Sizes.SM,
     tooltip,
     marginTop = 'mt-0',
+    className = '',
 }: BadgeProps) => {
     const badgeSize = isValidSize(size) ? size : Sizes.SM;
     const Icon = icon ? icon : null;
     return (
-        <div className={classNames('tremor-base', parseMarginTop(marginTop))}>
+        <div className={classNames('tremor-base', parseMarginTop(marginTop), className)}>
             <Tooltip content={tooltip} className={tooltip ? '' : 'tr-hidden'}>
                 <span className={classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',

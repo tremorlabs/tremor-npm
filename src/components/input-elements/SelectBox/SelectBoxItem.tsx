@@ -10,6 +10,7 @@ export interface SelectBoxItemProps {
     value: any,
     text: string,
     icon?: React.ElementType,
+    className?: string,
     privateProps?: {
         handleSelectBoxItemClick: (selectedItem: any) => void
         isActive: boolean,
@@ -20,6 +21,7 @@ const SelectBoxItem = ({
     value,
     text,
     icon,
+    className = '',
     privateProps,
 }: SelectBoxItemProps) => {
     const Icon = icon ? icon : null;
@@ -42,7 +44,8 @@ const SelectBoxItem = ({
                     : classNames(
                         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                    )
+                    ),
+                className
             )}
         >
             <div className="tr-flex tr-items-center tr-truncate">

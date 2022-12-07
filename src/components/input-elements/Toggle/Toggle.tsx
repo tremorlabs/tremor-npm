@@ -9,14 +9,14 @@ import {
     parseMarginTop,
     spacing
 } from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface ToggleProps {
+export interface ToggleProps extends TremorBaseProps {
     defaultValue?: any,
     color?: Color,
     handleSelect?: { (value: any): void },
     children: React.ReactElement[] | React.ReactElement,
-    marginTop?: MarginTop,
 }
 
 const Toggle = ({
@@ -25,6 +25,7 @@ const Toggle = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (value) => null,
     marginTop = 'mt-0',
+    className = '',
     children,
 }: ToggleProps) => {
     const [activeToggleItem, setActiveToggleItem] = useState<any|null>(defaultValue);
@@ -43,7 +44,8 @@ const Toggle = ({
             spacing.twoXs.paddingRight,
             spacing.twoXs.paddingTop,
             spacing.twoXs.paddingBottom,
-            borderRadius.lg.all
+            borderRadius.lg.all,
+            className
         ) }
         >
             { React.Children.map(children, (child) => (

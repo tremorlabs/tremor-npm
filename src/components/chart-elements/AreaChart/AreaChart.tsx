@@ -50,6 +50,7 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
+    className = '',
 }: AreaChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
@@ -58,7 +59,8 @@ const AreaChart = ({
         <div
             className={ classNames(
                 'tremor-base tr-w-full',
-                parseHeight(height), parseMarginTop(marginTop)
+                parseHeight(height), parseMarginTop(marginTop),
+                className
             ) }
         >
             <ResponsiveContainer width="100%" height="100%">

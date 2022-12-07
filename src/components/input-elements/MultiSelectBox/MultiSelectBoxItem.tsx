@@ -15,6 +15,7 @@ import {
 export interface MultiSelectBoxItemProps {
     value: any,
     text: string,
+    className?: string,
     privateProps?: {
         handleMultiSelectBoxItemClick: (value: any) => void,
         isActive: boolean,
@@ -24,6 +25,7 @@ export interface MultiSelectBoxItemProps {
 const MultiSelectBoxItem = ({
     value,
     text,
+    className = '',
     privateProps,
 }: MultiSelectBoxItemProps) => (
     <button
@@ -38,6 +40,7 @@ const MultiSelectBoxItem = ({
             fontSize.sm,
             getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+            className,
         ) }
     >
         <div className="tr-flex tr-items-center tr-truncate">

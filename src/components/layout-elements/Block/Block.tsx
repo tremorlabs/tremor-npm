@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MarginTop, MaxWidth, SpaceY, TextAlignment } from '../../../lib/inputTypes';
+import { MaxWidth, SpaceY, TextAlignment } from '../../../lib/inputTypes';
 import {
     TextAlignments,
     classNames,
@@ -10,13 +10,13 @@ import {
     parseTextAlignment,
     parseTruncateOption
 } from 'lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface BlockProps {
+export interface BlockProps extends TremorBaseProps {
     maxWidth?: MaxWidth
     spaceY?: SpaceY | '',
     textAlignment?: TextAlignment,
     truncate?: boolean,
-    marginTop?: MarginTop,
     children: React.ReactNode,
 }
 
@@ -26,6 +26,7 @@ const Block = ({
     textAlignment = TextAlignments.Left,
     truncate = false,
     marginTop = 'mt-0',
+    className = '',
     children
 }: BlockProps) => {
     return(
@@ -37,6 +38,7 @@ const Block = ({
             parseTruncateOption(truncate),
             truncate ? 'tr-whitespace-nowrap' : '',
             parseMarginTop(marginTop),
+            className,
         ) }
         >
             { children }

@@ -7,7 +7,7 @@ import {
     Tooltip,
 } from 'recharts';
 
-import { Color, Height, MarginTop, ValueFormatter } from '../../../lib/inputTypes';
+import { Color, Height, ValueFormatter } from '../../../lib/inputTypes';
 import {
     classNames,
     defaultColors,
@@ -20,10 +20,11 @@ import {
 
 import { parseData, parseLabelInput } from './inputParser';
 import { DonutChartTooltip } from './DonutChartTooltip';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 type DonutChartVariant = 'donut' | 'pie';
 
-export interface DonutChartProps {
+export interface DonutChartProps extends TremorBaseProps {
     data: any[],
     category?: string,
     dataKey?: string,
@@ -35,7 +36,6 @@ export interface DonutChartProps {
     showAnimation?: boolean,
     showTooltip?: boolean,
     height?: Height,
-    marginTop?: MarginTop,
 }
 
 const DonutChart = ({
@@ -51,6 +51,7 @@ const DonutChart = ({
     showTooltip = true,
     height = 'h-44',
     marginTop = 'mt-0',
+    className = '',
 }: DonutChartProps) => {
     const isDonut = variant == 'donut';
 
@@ -60,7 +61,8 @@ const DonutChart = ({
         <div className={ classNames(
             'tremor-base tr-w-full',
             parseHeight(height),
-            parseMarginTop(marginTop)
+            parseMarginTop(marginTop),
+            className,
         ) }
         >
             <ResponsiveContainer width="100%" height="100%">

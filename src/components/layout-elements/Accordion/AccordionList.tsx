@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { border, borderRadius, boxShadow, classNames, parseMarginTop } from 'lib';
-import { MarginTop } from '../../../lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface AccordionListProps {
+export interface AccordionListProps extends TremorBaseProps {
     shadow?: boolean,
-    marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement,
 }
 
 const AccordionList = ({
     shadow = true,
     marginTop = 'mt-0',
+    className = '',
     children,
 }: AccordionListProps) => {
     const numChildren = React.Children.count(children);
@@ -22,6 +22,7 @@ const AccordionList = ({
             parseMarginTop(marginTop),
             borderRadius.lg.all,
             shadow ? boxShadow.md : '',
+            className,
         ) }>
             { React.Children.map(children, (child, idx) => {
                 if (idx === 0) {

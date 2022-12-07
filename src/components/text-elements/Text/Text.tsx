@@ -13,14 +13,14 @@ import {
     parseTextAlignment,
     parseTruncateOption,
 } from 'lib';
-import { Color, Height, MarginTop, TextAlignment } from '../../../lib/inputTypes';
+import { Color, Height, TextAlignment } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface TextProps {
+export interface TextProps extends TremorBaseProps {
     color?: Color,
     textAlignment?: TextAlignment,
     truncate?: boolean,
     height?: Height | '',
-    marginTop?: MarginTop,
     children: React.ReactNode,
 }
 
@@ -30,6 +30,7 @@ const Text = ({
     truncate = false,
     height = '',
     marginTop = 'mt-0',
+    className = '',
     children
 }: TextProps) => {
     return(
@@ -44,6 +45,7 @@ const Text = ({
             getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
             fontSize.sm,
             fontWeight.sm,
+            className,
         )}>
             { children }
         </p>
