@@ -30,7 +30,7 @@ import {
     parseMarginTop,
     parseMaxWidth
 } from 'lib';
-import { Color, MarginTop, MaxWidth, RelativeFilterOption } from '../../../lib/inputTypes';
+import { Color, MaxWidth, RelativeFilterOption } from '../../../lib/inputTypes';
 import { borderRadius, defaultColors, fontSize, fontWeight, sizing, spacing } from 'lib';
 import {
     colStartClasses,
@@ -50,6 +50,7 @@ import {
     relativeFilterOptions
 } from './utils';
 import Modal from 'components/layout-elements/Modal';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
@@ -441,7 +442,7 @@ const DatepickerBody = ({
     </>
 );
 
-export interface DatepickerProps {
+export interface DatepickerProps extends TremorBaseProps {
     handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
     enableRelativeDates?: boolean,
     defaultRelativeFilterOption?: RelativeFilterOption,
@@ -451,7 +452,6 @@ export interface DatepickerProps {
     maxDate?: Date | null,
     placeholder?: string,
     color?: Color,
-    marginTop?: MarginTop,
     maxWidth?: MaxWidth,
     enableYearPagination?: boolean
 }
@@ -467,9 +467,10 @@ const Datepicker = ({
     maxDate = null,
     placeholder = 'Select...',
     color = BaseColors.Blue,
-    marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     enableYearPagination = false,
+    marginTop = 'mt-0',
+    className = '',
 }: DatepickerProps) => {
     const today = startOfToday();
 
@@ -559,6 +560,7 @@ const Datepicker = ({
             'tremor-base tr-relative tr-w-full',
             parseMarginTop(marginTop),
             parseMaxWidth(maxWidth),
+            className,
         ) }>
             <DatepickerButton
                 datePickerRef={ datePickerRef }

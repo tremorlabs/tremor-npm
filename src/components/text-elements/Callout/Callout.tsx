@@ -14,15 +14,15 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, Height, MarginTop } from '../../../lib';
+import { Color, Height } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface CalloutProps {
+export interface CalloutProps extends TremorBaseProps {
     title: string,
     text: string,
     icon?: React.ElementType,
     color?: Color,
     height?: Height | '',
-    marginTop?: MarginTop,
 }
 
 const Callout = ({
@@ -31,7 +31,8 @@ const Callout = ({
     icon,
     color = BaseColors.Blue,
     height = '',
-    marginTop = 'mt-0'
+    marginTop = 'mt-0',
+    className = '',
 }: CalloutProps) => {
     const Icon = icon ? icon : null;
     return (
@@ -47,6 +48,7 @@ const Callout = ({
             fontSize.sm,
             borderRadius.md.all,
             border.lg.left,
+            className,
         )}
         >
             <div className={classNames(

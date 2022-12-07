@@ -14,7 +14,7 @@ import {
     sub,
 } from 'date-fns';
 
-import { Color, RelativeFilterOption } from '../../../lib';
+import { Color, RelativeFilterOption } from '../../../lib/inputTypes';
 import {
     classNames,
     defaultColors,

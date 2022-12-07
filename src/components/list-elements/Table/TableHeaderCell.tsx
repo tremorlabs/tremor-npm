@@ -10,14 +10,16 @@ import {
     spacing,
 } from 'lib';
 import { TextAlignment } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-interface TableHeaderCellProps {
+interface TableHeaderCellProps extends TremorBaseProps {
     textAlignment?: TextAlignment,
     children: React.ReactNode,
 }
 
 const TableHeaderCell = ({
     textAlignment = TextAlignments.Left,
+    className = '',
     children,
 }: TableHeaderCellProps) => (
     <>
@@ -31,6 +33,7 @@ const TableHeaderCell = ({
             spacing.xl.paddingTop,
             spacing.xl.paddingBottom,
             fontWeight.lg,
+            className,
         ) }>
             { children }
         </th>

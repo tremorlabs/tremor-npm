@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { classNames, fontSize, parseSpaceX, spacing } from 'lib';
-import { SpaceX } from '../../../lib';
+import { SpaceX } from '../../../lib/inputTypes';
 
 export interface ListItemProps {
     spaceX?: SpaceX | '',

@@ -10,12 +10,12 @@ import {
     parseMarginTop,
     parseTruncateOption
 } from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface SubtitleProps {
+export interface SubtitleProps extends TremorBaseProps {
     color?: Color,
     truncate?: boolean,
-    marginTop?: MarginTop,
     children: React.ReactNode,
 }
 
@@ -23,6 +23,7 @@ const Subtitle = ({
     color = BaseColors.Gray,
     truncate = false,
     marginTop = 'mt-0',
+    className = '',
     children
 }: SubtitleProps) => {
     return(
@@ -34,6 +35,7 @@ const Subtitle = ({
             getColorVariantsFromColorThemeValue(getColorTheme(color).lightText).textColor,
             fontSize.md,
             fontWeight.sm,
+            className,
         ) }
         >
             { children }

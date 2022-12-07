@@ -3,8 +3,9 @@ import React from 'react';
 import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
 
-import { DeltaType, DeltaTypes, MarginTop, Size } from '../../../lib';
+import { DeltaType, Size } from '../../../lib/inputTypes';
 import {
+    DeltaTypes,
     Sizes,
     borderRadius,
     classNames,
@@ -21,14 +22,14 @@ import {
     deltaIcons,
     iconSizes,
 } from './styles';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface BadgeDeltaProps {
+export interface BadgeDeltaProps extends TremorBaseProps {
     text?: string,
     deltaType?: DeltaType,
     isIncreasePositive?: boolean,
     size?: Size,
     tooltip?: string,
-    marginTop?: MarginTop,
 }
 
 const BadgeDelta = ({
@@ -38,6 +39,7 @@ const BadgeDelta = ({
     size = Sizes.SM,
     tooltip,
     marginTop = 'mt-0',
+    className = '',
 }: BadgeDeltaProps) => {
     const parsedDeltaType = isValidDeltaType(deltaType) ? deltaType : DeltaTypes.Increase;
     const Icon = deltaIcons[parsedDeltaType];
@@ -46,7 +48,7 @@ const BadgeDelta = ({
     const badgeSize = isValidSize(size) ? size : Sizes.SM;
 
     return(
-        <span className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
+        <span className={ classNames('tremor-base', parseMarginTop(marginTop), className) }>
             <Tooltip content={ tooltip } className={ classNames( tooltip ? '' : 'tr-hidden') }>
                 <span className={ classNames(
                     'tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center',

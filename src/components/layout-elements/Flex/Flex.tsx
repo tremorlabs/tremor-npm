@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AlignItems, JustifyContent, MarginTop, SpaceX } from '../../../lib';
+import { AlignItems, JustifyContent, SpaceX } from '../../../lib/inputTypes';
 import {
     classNames,
     parseAlignItems,
@@ -9,13 +9,13 @@ import {
     parseSpaceX,
     parseTruncateOption
 } from 'lib';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface FlexProps {
+export interface FlexProps extends TremorBaseProps {
     justifyContent?: JustifyContent,
     alignItems?: AlignItems,
     spaceX?: SpaceX | '',
     truncate?: boolean,
-    marginTop?: MarginTop,
     children: React.ReactNode,
 }
 
@@ -25,6 +25,7 @@ const Flex = ({
     spaceX = '',
     truncate = false,
     marginTop = 'mt-0',
+    className = '',
     children
 }: FlexProps) => {
     return(
@@ -36,6 +37,7 @@ const Flex = ({
             parseAlignItems(alignItems),
             spaceX ? parseSpaceX(spaceX) : spaceX,
             parseMarginTop(marginTop),
+            className,
         ) }
         >
             { children }

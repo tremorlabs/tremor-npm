@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Transition } from 'react-transition-group';
+
 import {
     BaseColors,
     HorizontalPositions,
@@ -11,35 +13,37 @@ import {
     isValidSize,
     parseMarginTop,
 } from 'lib';
-import { Color, HorizontalPosition, MarginTop, Size } from '../../../lib/inputTypes';
+import { ButtonIconOrSpinner, ButtonType } from '../Button/Button';
+import { Color, HorizontalPosition, Size } from '../../../lib/inputTypes';
 import { buttonProportions, iconSizes } from './styles';
-import { ButtonIconOrSpinner } from 'components/input-elements/Button/Button';
-import { Transition } from 'react-transition-group';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface ButtonInlineProps {
+export interface ButtonInlineProps extends TremorBaseProps {
+    type?: ButtonType,
     text: string,
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
     color?: Color,
     handleClick?: { (): void },
-    marginTop?: MarginTop,
     disabled?: boolean,
     loading?: boolean,
     loadingText?: string,
 }
 
 const ButtonInline = ({
+    type = 'button',
     text,
     icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
     size = Sizes.SM,
     color = BaseColors.Blue,
-    marginTop = 'mt-0',
     disabled = false,
     loading = false,
     loadingText,
+    marginTop = 'mt-0',
+    className = '',
 }: ButtonInlineProps) => {
     const Icon = icon;
 
@@ -56,9 +60,13 @@ const ButtonInline = ({
     return (
         <Transition in={loading} timeout={50}>
             { state => (
-                <div className={ classNames('tremor-base tr-flex tr-items-center', parseMarginTop(marginTop)) }>
+                <div className={ classNames(
+                    'tremor-base tr-flex tr-items-center',
+                    parseMarginTop(marginTop),
+                    className,
+                ) }>
                     <button
-                        type="button"
+                        type={ type }
                         onClick={handleClick}
                         className={classNames(
                             'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',

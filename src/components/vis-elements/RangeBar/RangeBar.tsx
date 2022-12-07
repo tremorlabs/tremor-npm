@@ -13,9 +13,10 @@ import {
     parseMarginTop,
     sizing
 } from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface RangeBarProps {
+export interface RangeBarProps extends TremorBaseProps {
     percentageValue: number,
     minPercentageValue: number,
     maxPercentageValue: number,
@@ -23,7 +24,6 @@ export interface RangeBarProps {
     rangeTooltip?: string,
     showAnimation?: boolean,
     color?: Color,
-    marginTop?: MarginTop,
 }
 
 const RangeBar = ({
@@ -35,6 +35,7 @@ const RangeBar = ({
     showAnimation = true,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
+    className = '',
 }: RangeBarProps) => {
     return(
         <div className={ classNames(
@@ -43,6 +44,7 @@ const RangeBar = ({
             getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
             sizing.xs.height,
             borderRadius.lg.all,
+            className,
         ) }>
             <Tooltip content={ rangeTooltip } className={ rangeTooltip ? '' : 'tr-hidden' }>
                 <div

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
-import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,
@@ -20,13 +19,14 @@ import {
     sizing,
     spacing
 } from 'lib';
+import { MaxWidth } from '../../../lib/inputTypes';
 import Modal from 'components/layout-elements/Modal';
+import TremorBaseProps from '../../../lib/TremorBaseProps';
 
-export interface SelectBoxProps {
+export interface SelectBoxProps extends TremorBaseProps {
     defaultValue?: any,
     handleSelect?: { (value: any): void },
     placeholder?: string,
-    marginTop?: MarginTop,
     maxWidth?: MaxWidth,
     children: React.ReactElement[] | React.ReactElement,
 }
@@ -36,8 +36,9 @@ const SelectBox = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (value) => null,
     placeholder = 'Select...',
-    marginTop = 'mt-0',
     maxWidth = 'max-w-none',
+    marginTop = 'mt-0',
+    className = '',
     children,
 }: SelectBoxProps) => {
     const dropdownRef = useRef(null);
@@ -69,11 +70,11 @@ const SelectBox = ({
             borderRadius.md.all,
             border.sm.all,
             boxShadow.sm,
+            className,
         ) }>
             <input
                 className={ classNames(
                     'input-elem tr-w-full focus:tr-ring-2 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                     getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
