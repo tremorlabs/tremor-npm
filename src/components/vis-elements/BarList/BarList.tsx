@@ -13,7 +13,7 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, ValueFormatter } from '../../../lib';
+import { Color, ValueFormatter } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 type BarListData = {

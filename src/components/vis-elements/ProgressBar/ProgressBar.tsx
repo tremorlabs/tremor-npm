@@ -16,7 +16,7 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface ProgressBarProps extends TremorBaseProps {

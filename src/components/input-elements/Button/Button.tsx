@@ -19,7 +19,7 @@ import {
     sizing,
     spacing,
 } from 'lib';
-import { Color, HorizontalPosition, Importance, Size } from '../../../lib';
+import { Color, HorizontalPosition, Importance, Size } from '../../../lib/inputTypes';
 import {
     buttonProportions,
     colors,

@@ -9,7 +9,7 @@ import {
     parseMarginTop,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface ToggleProps extends TremorBaseProps {

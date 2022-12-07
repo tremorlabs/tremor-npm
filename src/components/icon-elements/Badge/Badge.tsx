@@ -14,7 +14,7 @@ import {
     parseMarginTop,
     spacing,
 } from 'lib';
-import { Color, Size } from '../../../lib';
+import { Color, Size } from '../../../lib/inputTypes';
 import { badgeProportions, iconSizes } from './styles';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 

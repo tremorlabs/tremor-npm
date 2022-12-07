@@ -14,7 +14,7 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, Height } from '../../../lib';
+import { Color, Height } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface CalloutProps extends TremorBaseProps {

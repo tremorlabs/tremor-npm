@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AlignItems, JustifyContent, SpaceX } from '../../../lib';
+import { AlignItems, JustifyContent, SpaceX } from '../../../lib/inputTypes';
 import {
     classNames,
     parseAlignItems,

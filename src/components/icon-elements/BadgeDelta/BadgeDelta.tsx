@@ -3,8 +3,9 @@ import React from 'react';
 import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
 
-import { DeltaType, DeltaTypes, Size } from '../../../lib';
+import { DeltaType, Size } from '../../../lib/inputTypes';
 import {
+    DeltaTypes,
     Sizes,
     borderRadius,
     classNames,

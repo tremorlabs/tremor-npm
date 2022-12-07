@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BaseColors, HorizontalPositions, VerticalPositions } from 'lib/primitives';
-import { Color, HorizontalPosition, MaxWidth, VerticalPosition } from '../../../lib';
+import { Color, HorizontalPosition, MaxWidth, VerticalPosition } from '../../../lib/inputTypes';
 import {
     border,
     borderRadius,

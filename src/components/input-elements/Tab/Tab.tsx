@@ -11,7 +11,7 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 
 export interface TabProps {
     value: any,

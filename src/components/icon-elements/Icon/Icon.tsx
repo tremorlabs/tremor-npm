@@ -4,7 +4,7 @@ import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
 
 import { BaseColors, Sizes, classNames, isBaseColor, isValidSize, parseMarginTop } from 'lib';
-import { Color, IconVariant, Size } from '../../../lib';
+import { Color, IconVariant, Size } from '../../../lib/inputTypes';
 import { colors, iconSizes, shape, wrapperProportions } from './styles';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 

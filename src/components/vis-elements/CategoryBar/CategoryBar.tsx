@@ -16,7 +16,7 @@ import {
     sumNumericArray,
     themeColorRange,
 } from 'lib';
-import { Color } from '../../../lib';
+import { Color } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 

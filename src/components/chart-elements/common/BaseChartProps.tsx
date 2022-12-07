@@ -3,7 +3,7 @@ import {
     Height,
     ValueFormatter,
     Width,
-} from '../../../lib';
+} from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 interface BaseChartProps extends TremorBaseProps {

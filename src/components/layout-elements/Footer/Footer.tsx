@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { border, classNames, parseHeight, spacing } from 'lib';
-import { Height } from '../../../lib';
+import { Height } from '../../../lib/inputTypes';
 import TremorBaseProps from '../../../lib/TremorBaseProps';
 
 export interface FooterProps extends TremorBaseProps {
