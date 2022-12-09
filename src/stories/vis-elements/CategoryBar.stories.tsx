@@ -90,3 +90,20 @@ WithConsecutiveSmallValues.args = {
     tooltip: '90%',
     marginTop: 'mt-5'
 };
+
+export const WithNoLabelsInbetween = Template.bind({});
+WithNoLabelsInbetween.args = {
+    categoryPercentageValues: [5, 95],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5'
+};
+
+export const WithNoLabels = Template.bind({});
+WithNoLabels.args = {
+    categoryPercentageValues: [5, 95],
+    percentageValue: 50,
+    tooltip: '90%',
+    marginTop: 'mt-5',
+    showLabels: false,
+};

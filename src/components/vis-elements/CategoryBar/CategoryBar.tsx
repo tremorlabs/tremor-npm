@@ -49,6 +49,7 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
             'tremor-base tr-relative tr-flex tr-w-full',
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             spacing.sm.marginBottom,
+            sizing.lg.height,
             fontSize.sm,
         ) }
         >
@@ -76,13 +77,13 @@ const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: numb
                 );
             }) }
             <div className={ classNames(
-                'tr-absolute tr-top-0 tr-flex tr-items-center',
+                'tr-absolute tr-bottom-0 tr-flex tr-items-center',
                 spacing.none.left,
             ) }>
                 0
             </div>
             <div className={ classNames(
-                'tr-absolute tr-top-0 tr-flex tr-items-center',
+                'tr-absolute tr-bottom-0 tr-flex tr-items-center',
                 spacing.none.right,
             ) }>
                 { sumValues }
