@@ -72,7 +72,7 @@ const SelectBox = ({
         ) }>
             <input
                 className={ classNames(
-                    'input-elem tr-w-full focus:tr-outline-0',
+                    'input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,

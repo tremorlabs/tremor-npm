@@ -88,6 +88,7 @@ const MultiSelectBox = ({
                 type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
+                    'focus:tr-ring-0 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     spacing.twoXl.paddingLeft,
