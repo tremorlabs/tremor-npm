@@ -28,7 +28,7 @@ export interface DropdownProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const Dropwdown = ({
+const Dropdown = ({
     placeholder = 'Select...',
     defaultValue,
     handleSelect = (value: any) => { value; },
@@ -75,10 +75,9 @@ const Dropwdown = ({
                 type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
-                    'focus:tr-ring-2 focus:tr-outline-0',
+                    'focus:tr-outline-0 focus:tr-ring-0',
                     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
                     spacing.sm.paddingTop,
@@ -128,4 +127,4 @@ const Dropwdown = ({
     );
 };
 
-export default Dropwdown;
+export default Dropdown;

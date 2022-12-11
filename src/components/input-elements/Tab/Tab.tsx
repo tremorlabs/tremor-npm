@@ -50,6 +50,7 @@ const Tab = ({
                 type="button"
                 className={ classNames(
                     'input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate',
+                    'focus:tr-outline-0 focus:tr-ring-0',
                     spacing.twoXs.paddingRight,
                     spacing.twoXs.paddingLeft,
                     spacing.sm.paddingTop,

@@ -91,12 +91,10 @@ const DatepickerButton = ({
             ref={ datePickerRef }
             onClick={ () => setShowDatePickerModal(!showDatePickerModal) }
             className={ classNames(
-                'input-elem tr-flex tr-items-center tr-w-full tr-truncate',
-                'focus:tr-ring-2 focus:tr-outline-none focus:tr-z-10',
+                'input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0 focus:tr-outline-0',
                 enableRelativeDates ? border.none.right : classNames(borderRadius.md.right, border.sm.right),
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                 spacing.twoXl.paddingLeft,
                 spacing.twoXl.paddingRight,
                 spacing.sm.paddingTop,
@@ -134,10 +132,9 @@ const DatepickerButton = ({
                 onClick={ () => setShowDropdownModal(!showDropdownModal) }
                 className={ classNames(
                     'input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate',
-                    'focus:tr-ring-2 focus:tr-outline-none',
+                    'focus:tr-ring-0 focus:tr-outline-0',
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
                     spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
                     spacing.px.negativeMarginLeft,

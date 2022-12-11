@@ -12,14 +12,14 @@ import {
     boxShadow,
     classNames,
     fontWeight,
-    getPixelsFromTwClassName,
     isBaseColor,
     isValidImportance,
     isValidSize,
     parseMarginTop,
+    sizing,
     spacing,
 } from 'lib';
-import { Color, HorizontalPosition, Importance, MarginTop, Size, Width } from '../../../lib';
+import { Color, HorizontalPosition, Importance, MarginTop, Size } from '../../../lib';
 import {
     buttonProportions,
     colors,
@@ -32,7 +32,7 @@ export interface ButtonIconOrSpinnerProps {
     iconSize: string,
     iconPosition: string,
     Icon: React.ElementType | undefined,
-    spinnerStyle: any,
+    transitionState: string,
 }
 
 export const ButtonIconOrSpinner = ({
@@ -40,8 +40,10 @@ export const ButtonIconOrSpinner = ({
     iconSize,
     iconPosition,
     Icon,
-    spinnerStyle,
+    transitionState,
 }: ButtonIconOrSpinnerProps) => {
+    Icon = Icon!;
+
     const margin = iconPosition === HorizontalPositions.Left ?
         classNames(
             spacing.twoXs.negativeMarginLeft,
@@ -52,16 +54,25 @@ export const ButtonIconOrSpinner = ({
             spacing.xs.marginLeft,
         );
 
-    Icon = Icon!;
+    const defaultSpinnerSize = classNames(sizing.none.width, sizing.none.height);
+    const spinnerSize: {[key: string]: any} = {
+        default: defaultSpinnerSize,
+        entering: defaultSpinnerSize,
+        entered: iconSize,
+        exiting: iconSize,
+        exited: defaultSpinnerSize,
+    };
+
     return (
         loading ? (
             <LoadingSpinner
                 className={ classNames(
                     'tr-animate-spin',
-                    iconSize,
-                    margin
+                    margin,
+                    spinnerSize.default,
+                    spinnerSize[transitionState],
                 ) }
-                style={ spinnerStyle }
+                style={ { transition: `width 150ms` } }
             />
         ) : (
             <Icon
@@ -116,18 +127,6 @@ const Button = ({
         iconSizes[buttonSize].width,
     );
 
-    const spinnerWidthPx = getPixelsFromTwClassName(iconSizes[buttonSize].width as Width);
-    const spinnerDefaultStyle = {
-        transition: `width 150ms`,
-        width: '0px',
-    };
-    const spinnerTransitionStyle: {[key: string]: any} = {
-        entering: { width: '0px' },
-        entered: { width: `${spinnerWidthPx}px` },
-        exiting: { width: `${spinnerWidthPx}px` },
-        exited: { width: '0px' },
-    };
-
     return (
         <Transition in={loading} timeout={50}>
             { state => (
@@ -166,10 +165,7 @@ const Button = ({
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    spinnerStyle={ {
-                                        ...spinnerDefaultStyle,
-                                        ...spinnerTransitionStyle[state]
-                                    } }
+                                    transitionState={ state }
                                 />
                             ) : null
                         }
@@ -185,10 +181,7 @@ const Button = ({
                                     iconSize={ iconSize }
                                     iconPosition={ iconPosition }
                                     Icon={ Icon }
-                                    spinnerStyle={ {
-                                        ...spinnerDefaultStyle,
-                                        ...spinnerTransitionStyle[state]
-                                    } }
+                                    transitionState={ state }
                                 />
                             ) : null
                         }
