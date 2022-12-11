@@ -23,6 +23,7 @@ import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import { ExclamationFilledIcon } from 'assets';
 
 export interface TextInputProps {
+    type?: 'text' | 'password',
     defaultValue?: string,
     handleChange?: (value: string) => void,
     placeholder?: string,
@@ -34,6 +35,7 @@ export interface TextInputProps {
 }
 
 const TextInput = ({
+    type = 'text',
     defaultValue = '',
     handleChange,
     placeholder = 'Type...',
@@ -80,6 +82,7 @@ const TextInput = ({
                 ) : null
             }
             <input
+                type={ type }
                 className={ classNames(
                     'tremor-base input-elem',
                     'tr-w-full focus:tr-outline-0 focus:tr-ring-0',
@@ -99,7 +102,6 @@ const TextInput = ({
                 value={ inputValue }
                 onChange={ onChange }
                 placeholder={ placeholder }
-                type="text"
             />
             { error
                 ? (
