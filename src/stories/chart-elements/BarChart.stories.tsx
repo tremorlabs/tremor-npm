@@ -87,6 +87,15 @@ WithAutoMinValueAndLayoutVertical.args = {
     autoMinValue: true,
 };
 
+export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
+WithMinValueAndMaxValue.args = {
+    data: data,
+    categories: [ 'Sales', 'Successfull Payments' ],
+    dataKey: 'month',
+    minValue: -1000,
+    maxValue: 5000,
+};
+
 export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {

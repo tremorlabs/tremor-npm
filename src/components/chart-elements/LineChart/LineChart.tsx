@@ -11,10 +11,10 @@ import {
     YAxis,
 } from 'recharts';
 
+import { constructCategoryColors, getYAxisDomain } from '../common/utils';
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from 'components/chart-elements/common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
-import { constructCategoryColors } from '../common/constructCategoryColors';
 
 import {
     classNames,
@@ -26,6 +26,7 @@ import {
     parseMarginTop,
     themeColorRange
 } from 'lib';
+import { AxisDomain } from 'recharts/types/util/types';
 
 const LineChart = ({
     data = [],
@@ -44,9 +45,13 @@ const LineChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
     autoMinValue = false,
+    minValue,
+    maxValue,
 }: BaseChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
+
+    const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
     return (
         <div className={ classNames(
@@ -85,7 +90,7 @@ const LineChart = ({
                         axisLine={ false }
                         tickLine={ false }
                         type="number"
-                        domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
+                        domain={ yAxisDomain as AxisDomain }
                         tick={ { transform: 'translate(-3, 0)' } } 
                         style={ {
                             fontSize: '12px',
