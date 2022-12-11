@@ -12,7 +12,6 @@ interface BaseChartProps {
     dataKey: string,
     colors?: Color[],
     valueFormatter?: ValueFormatter,
-    autoMinValue?: boolean,
     startEndOnly?: boolean,
     showXAxis?: boolean,
     showYAxis?: boolean,
@@ -24,6 +23,9 @@ interface BaseChartProps {
     showGridLines?: boolean,
     height?: Height,
     marginTop?: MarginTop,
+    autoMinValue?: boolean,
+    minValue?: number,
+    maxValue?: number,
 }
 
 export default BaseChartProps;
