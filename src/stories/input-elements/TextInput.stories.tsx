@@ -30,6 +30,11 @@ WithIcon.args = {
     icon: CalendarIcon
 };
 
+export const WithNoPlaceholder = Template.bind({});
+WithNoPlaceholder.args = {
+    placeholder: '',
+};
+
 export const WithDefaultValue = Template.bind({});
 WithDefaultValue.args = {
     defaultValue: 'Hello',
@@ -41,14 +46,15 @@ WithError.args = {
     error: true,
 };
 
-export const WithNoPlaceholder = Template.bind({});
-WithNoPlaceholder.args = {
-    placeholder: '',
-};
-
 export const WithErrorMessage = Template.bind({});
 WithErrorMessage.args = {
     defaultValue: 'Hello',
     error: true,
     errorMessage: 'Something is wrong',
+};
+
+export const WithDisabled = Template.bind({});
+WithDisabled.args = {
+    defaultValue: 'Hello',
+    disabled: true,
 };

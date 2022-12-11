@@ -22,6 +22,14 @@ import {
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import { ExclamationFilledIcon } from 'assets';
 
+const getTextColor = (error: boolean, disabled: boolean) => {
+    if (error)
+        return getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor;
+    if (disabled)
+        return getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor;
+    return getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor;
+};
+
 export interface TextInputProps {
     type?: 'text' | 'password',
     defaultValue?: string,
@@ -30,6 +38,7 @@ export interface TextInputProps {
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     error?: boolean,
     errorMessage?: string,
+    disabled?: boolean,
     maxWidth?: MaxWidth,
     marginTop?: MarginTop,
 }
@@ -42,6 +51,7 @@ const TextInput = ({
     icon,
     error = false,
     errorMessage,
+    disabled = false,
     maxWidth = 'max-w-none',
     marginTop = 'mt-0',
 }: TextInputProps) => {
@@ -55,15 +65,21 @@ const TextInput = ({
         handleChange?.(newInputValue);
     };
 
+    const textColor = getTextColor(error, disabled);
+    const bgColor = disabled
+        ? getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor
+        : getColorVariantsFromColorThemeValue(defaultColors.white).bgColor;
+    const boderColor = error
+        ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border).borderColor
+        : getColorVariantsFromColorThemeValue(defaultColors.border).borderColor;
+
     return (
         <div className={ classNames(
             'tr-relative tr-w-full tr-flex tr-items-center tr-overflow-hidden tr-min-w-[10rem]',
             parseMaxWidth(maxWidth),
             parseMarginTop(marginTop),
-            getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-            error
-                ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border).borderColor
-                : getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            bgColor,
+            boderColor,
             borderRadius.md.all,
             border.sm.all,
             boxShadow.sm,
@@ -87,9 +103,7 @@ const TextInput = ({
                     'tremor-base input-elem',
                     'tr-w-full focus:tr-outline-0 focus:tr-ring-0',
                     getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    error
-                        ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor
-                        : getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                    textColor,
                     Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
                     error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
                     spacing.sm.paddingTop,
@@ -102,6 +116,7 @@ const TextInput = ({
                 value={ inputValue }
                 onChange={ onChange }
                 placeholder={ placeholder }
+                disabled={ disabled }
             />
             { error
                 ? (
