@@ -91,7 +91,7 @@ const TextInput = ({
                             sizing.lg.height,
                             sizing.lg.width,
                             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                            spacing.twoXl.marginLeft,
+                            spacing.xl.marginLeft,
                         )}
                         aria-hidden="true"
                     />
@@ -121,7 +121,7 @@ const TextInput = ({
             { error
                 ? (
                     <Tooltip content={ errorMessage } className={ errorMessage ? '' : 'tr-hidden' }>
-                        <div className={ classNames(spacing.twoXl.marginRight) }>
+                        <div className={ classNames(spacing.xl.marginRight) }>
                             <ExclamationFilledIcon
                                 className={ classNames(
                                     sizing.lg.height,
