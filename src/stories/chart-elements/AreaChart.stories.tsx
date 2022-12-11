@@ -76,10 +76,9 @@ WithMinValueAndMaxValue.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
     dataKey: 'month',
-    minValue: 'dataMin',
-    maxValue: 5000,
+    minValue: -1000,
+    maxValue: 4000
 };
-
 
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

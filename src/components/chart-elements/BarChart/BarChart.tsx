@@ -11,10 +11,10 @@ import {
     YAxis,
 } from 'recharts';
 
+import { constructCategoryColors, getYAxisDomain } from '../common/utils';
 import BaseChartProps from '../common/BaseChartProps';
 import ChartLegend from '../common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
-import { constructCategoryColors } from '../common/constructCategoryColors';
 
 import {
     classNames,
@@ -26,6 +26,7 @@ import {
     parseMarginTop,
     themeColorRange
 } from 'lib';
+import { AxisDomain } from 'recharts/types/util/types';
 
 export interface BarChartProps extends BaseChartProps {
     layout?: 'vertical' | 'horizontal',
@@ -53,11 +54,13 @@ const BarChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
     autoMinValue = false,
-    minValue = 0,
-    maxValue = 'auto',
+    minValue,
+    maxValue,
 }: BarChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
+
+    const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
     return (
         <div className={ classNames(
@@ -100,7 +103,7 @@ const BarChart = ({
                             hide={ !showXAxis }
                             type="number"
                             tick={ { transform: 'translate(-3, 0)' } }
-                            domain={ autoMinValue ? ['auto', 'auto'] : [0, 'auto']}
+                            domain={ yAxisDomain as AxisDomain }
                             style={{
                                 fontSize: '12px',
                                 fontFamily: 'Inter; Helvetica',
@@ -119,7 +122,7 @@ const BarChart = ({
                             axisLine={ false }
                             tickLine={ false }
                             type="number"
-                            domain={ autoMinValue ? ['auto', maxValue] : [minValue, maxValue]}
+                            domain={ yAxisDomain as AxisDomain }
                             tick={ { transform: 'translate(-3, 0)' } }
                             style={ {
                                 fontSize: '12px',

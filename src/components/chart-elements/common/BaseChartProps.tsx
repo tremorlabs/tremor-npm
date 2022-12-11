@@ -24,8 +24,8 @@ interface BaseChartProps {
     height?: Height,
     marginTop?: MarginTop,
     autoMinValue?: boolean,
-    minValue?: string | number | 'auto' | 'dataMin' | 'dataMax',
-    maxValue?: string | number | 'auto' | 'dataMin' | 'dataMax',
+    minValue?: number,
+    maxValue?: number,
 }
 
 export default BaseChartProps;

@@ -92,7 +92,7 @@ WithMinValueAndMaxValue.args = {
     data: data,
     categories: [ 'Sales', 'Successfull Payments' ],
     dataKey: 'month',
-    minValue: 'dataMin',
+    minValue: -1000,
     maxValue: 5000,
 };
 
