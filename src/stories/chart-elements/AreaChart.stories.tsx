@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 
 import { AreaChart, Card, Title } from 'components';
+import { AreaChartProps } from 'components/chart-elements/AreaChart/AreaChart';
+import { PickOfType } from 'lib';
 import { simpleBaseChartData as data } from './helpers/testData';
 import { valueFormatter } from './helpers/utils';
 
@@ -13,7 +15,9 @@ export default {
 } as ComponentMeta<typeof AreaChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
+type DataEntry = typeof data[0]
+
+const ResponsiveTemplate = (<T extends PickOfType<T, unknown>,>(): Story<AreaChartProps<T>> => (args) => (
     <>
         <Title>Mobile</Title>
         <div className="tr-w-64">
@@ -26,13 +30,13 @@ const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
             <AreaChart { ...args } />
         </Card>
     </>
-);
+))<DataEntry>();
 
-const DefaultTemplate: ComponentStory<typeof AreaChart>= ({ ...args }) => (
+const DefaultTemplate = (<T extends PickOfType<T, unknown>,>(): Story<AreaChartProps<T>> => (args) => (
     <Card>
         <AreaChart { ...args } />
     </Card>
-);
+))<DataEntry>();
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

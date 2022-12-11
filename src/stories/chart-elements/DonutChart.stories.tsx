@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 
 import { 
     BadgeDelta,
@@ -11,7 +11,9 @@ import {
     ListItem,
     Title
 } from 'components';
-import { DeltaType } from 'lib';
+import { DonutChartProps } from 'components/chart-elements/DonutChart/DonutChart';
+
+import { DeltaType, PickOfType } from 'lib';
 
 import { simpleSingleCategoryData as data } from 'stories/chart-elements/helpers/testData';
 import { valueFormatter } from 'stories/chart-elements/helpers/utils';
@@ -23,7 +25,9 @@ export default {
 } as ComponentMeta<typeof DonutChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
+type DataEntry = typeof data[0]
+
+const ResponsiveTemplate = (<T extends PickOfType<T, unknown>,>(): Story<DonutChartProps<T>> => (args) => (
     <>
         <Title>Mobile</Title>
         <div className="tr-w-64">
@@ -36,15 +40,15 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
             <DonutChart { ...args } />
         </Card>
     </>
-);
+))<DataEntry>();
 
-const DefaultTemplate: ComponentStory<typeof DonutChart>= ({ ...args }) => (
+const DefaultTemplate = (<T extends PickOfType<T, unknown>,>(): Story<DonutChartProps<T>> => (args) => (
     <Card>
         <DonutChart { ...args } />
     </Card>
-);
+))<DataEntry>();
 
-const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
+const BlockTemplate  = (<T extends PickOfType<T, unknown>,>(): Story<DonutChartProps<T>> => (args) => (
     <>
         <Title>Base Layer (Beta)</Title>
         <div className="tr-w-full tr-mt-4">
@@ -71,7 +75,7 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
             </Card>
         </div>
     </>
-);
+))<DataEntry>();
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

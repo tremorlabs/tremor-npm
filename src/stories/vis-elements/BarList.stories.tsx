@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 
 import { BarList, Block, Card } from 'components';
-import { BaseColors } from 'lib';
+import { BarListData, BarListProps } from 'components/vis-elements/BarList/BarList';
+import { BaseColors, PickOfType } from 'lib';
 import { CalendarIcon } from 'assets';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -13,13 +14,18 @@ export default {
 } as ComponentMeta<typeof BarList>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof BarList> = (args) => (
+type DataEntry = BarListData & {
+    name: string;
+    value: number;
+}
+
+const Template = (<T extends PickOfType<T, unknown> & BarListData,>(): Story<BarListProps<T>> => (args) => (
     <Card>
         <BarList {...args} />
     </Card>
-);
+))<DataEntry>();
 
-const ColorsTemplate: ComponentStory<typeof BarList> = (args) => (
+const ColorsTemplate = (<T extends PickOfType<T, unknown> & BarListData,>(): Story<BarListProps<T>> => (args) => (
     <Block spaceY="space-y-2">
         {
             Object.values(BaseColors).map((color) => (
@@ -29,7 +35,7 @@ const ColorsTemplate: ComponentStory<typeof BarList> = (args) => (
             ))
         }
     </Block>
-);
+))<DataEntry>();
   
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

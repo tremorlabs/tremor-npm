@@ -1,7 +1,9 @@
 import React from 'react';
 
 import {
-    BaseColors,
+    BaseColors,   
+    PickKeyOfType,
+    PickOfType,
     borderRadius,
     classNames,
     defaultColors,
@@ -15,10 +17,7 @@ import {
 } from 'lib';
 import { Color, MarginTop, ValueFormatter } from '../../../lib';
 
-type BarListData = {
-    key?: string,
-    value: number,
-    name: string,
+export interface BarListData {
     icon?: React.ElementType,
     href?: string;
 }
@@ -35,22 +34,26 @@ const getWidthsFromValues = (dataValues: number[]) => {
     });
 };
 
-export interface BarListProps {
-    data: BarListData[],
+export interface BarListProps<T extends BarListData> {
+    data: T[],
+    value?: PickKeyOfType<T, number>,
+    key?: PickKeyOfType<T, string>,
     valueFormatter?: ValueFormatter,
     color?: Color,
     showAnimation?: boolean,
     marginTop?: MarginTop,
 }
 
-const BarList = ({
+const BarList = <T extends PickOfType<T, unknown> & BarListData,>({
     data = [],
+    value = 'value' as PickKeyOfType<T, number>,
+    key = 'name' as PickKeyOfType<T, string>,
     color = BaseColors.Blue,
     valueFormatter = defaultValueFormatter,
     showAnimation = true,
     marginTop = 'mt-0',
-}: BarListProps) => {
-    const widths = getWidthsFromValues(data.map((item) => item.value));
+}: BarListProps<T>) => {
+    const widths = getWidthsFromValues(data.map((item) => item[value]));
 
     const rowHeight = sizing.threeXl.height;
 
@@ -66,7 +69,7 @@ const BarList = ({
 
                     return (
                         <div
-                            key={ item.key ?? item.name }
+                            key={ item[key] }
                             className={ classNames(
                                 'tr-flex tr-items-center',
                                 rowHeight,
@@ -96,7 +99,7 @@ const BarList = ({
                                             'tr-no-underline hover:tr-underline visited:tr-text-blue-500',
                                             fontSize.sm,
                                         ) }>
-                                        { item.name }
+                                        { item[key] }
                                     </a>
                                 ) : (
                                     <p className={ classNames(
@@ -104,7 +107,7 @@ const BarList = ({
                                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                                         fontSize.sm,
                                     ) }>
-                                        { item.name }
+                                        { item[key] }
                                     </p>
                                 ) }
                             </div>
@@ -115,7 +118,7 @@ const BarList = ({
             <div className="tr-text-right tr-min-w-min">
                 { data.map((item, idx) => (
                     <div
-                        key={ item.key ?? item.name }
+                        key={ item[key] }
                         className={ classNames(
                             'tr-flex tr-justify-end tr-items-center',
                             rowHeight,
@@ -127,7 +130,7 @@ const BarList = ({
                             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                             fontSize.sm,
                         ) }>
-                            { valueFormatter(item.value) }
+                            { valueFormatter(item[value]) }
                         </p>
                     </div>
                 )) }

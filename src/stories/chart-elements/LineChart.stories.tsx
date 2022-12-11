@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 
 import { Card, LineChart, Title } from 'components';
+import { BarChartProps } from 'components/chart-elements/BarChart/BarChart';
+import { PickOfType } from 'lib';
 import { simpleBaseChartData as data } from './helpers/testData';
 import { valueFormatter } from 'stories/chart-elements/helpers/utils';
 
@@ -13,7 +15,9 @@ export default {
 } as ComponentMeta<typeof LineChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
+type DataEntry = typeof data[0]
+
+const ResponsiveTemplate = (<T extends PickOfType<T, unknown>,>(): Story<BarChartProps<T>> => (args) => (
     <>
         <Title>Mobile</Title>
         <div className="tr-w-64">
@@ -26,13 +30,13 @@ const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
             <LineChart { ...args } />
         </Card>
     </>
-);
+))<DataEntry>();
 
-const DefaultTemplate: ComponentStory<typeof LineChart>= ({ ...args }) => (
+const DefaultTemplate = (<T extends PickOfType<T, unknown>,>(): Story<BarChartProps<T>> => (args) => (
     <Card>
         <LineChart { ...args } />
     </Card>
-);
+))<DataEntry>();
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

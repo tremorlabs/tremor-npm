@@ -9,6 +9,8 @@ import {
 
 import { Color, Height, MarginTop, ValueFormatter } from '../../../lib/inputTypes';
 import {
+    PickKeyOfType,
+    PickOfType,
     classNames,
     defaultColors,
     defaultValueFormatter,
@@ -23,11 +25,11 @@ import { DonutChartTooltip } from './DonutChartTooltip';
 
 type DonutChartVariant = 'donut' | 'pie';
 
-export interface DonutChartProps {
-    data: any[],
-    category?: string,
-    dataKey?: string,
-    colors?: Color[],
+export interface DonutChartProps<T> {
+    data: T[],
+    category?: PickKeyOfType<T, number>,
+    dataKey?: PickKeyOfType<T, string>,
+    colors?: Color[]
     variant?: DonutChartVariant,
     valueFormatter?: ValueFormatter,
     label?: string,
@@ -38,10 +40,10 @@ export interface DonutChartProps {
     marginTop?: MarginTop,
 }
 
-const DonutChart = ({
+const DonutChart = <T extends PickOfType<T, unknown>,>({
     data = [],
-    category = 'value',
-    dataKey = 'name',
+    category = 'value' as PickKeyOfType<T, number>,
+    dataKey = 'name' as PickKeyOfType<T, string>,
     colors = themeColorRange,
     variant = 'donut',
     valueFormatter = defaultValueFormatter,
@@ -51,7 +53,7 @@ const DonutChart = ({
     showTooltip = true,
     height = 'h-44',
     marginTop = 'mt-0',
-}: DonutChartProps) => {
+}: DonutChartProps<T>) => {
     const isDonut = variant == 'donut';
 
     const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);

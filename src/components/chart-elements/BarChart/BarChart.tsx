@@ -17,6 +17,7 @@ import ChartTooltip from '../common/ChartTooltip';
 import { constructCategoryColors } from '../common/constructCategoryColors';
 
 import {
+    PickOfType,
     classNames,
     defaultValueFormatter,
     getColorTheme,
@@ -27,13 +28,13 @@ import {
     themeColorRange
 } from 'lib';
 
-export interface BarChartProps extends BaseChartProps {
+export interface BarChartProps<T> extends BaseChartProps<T> {
     layout?: 'vertical' | 'horizontal',
     stack?: boolean,
     relative?: boolean,
 }
 
-const BarChart = ({
+const BarChart = <T extends PickOfType<T, unknown>,>({
     data = [],
     categories = [],
     dataKey,
@@ -53,7 +54,7 @@ const BarChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
     autoMinValue = false,
-}: BarChartProps) => {
+}: BarChartProps<T>) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
 

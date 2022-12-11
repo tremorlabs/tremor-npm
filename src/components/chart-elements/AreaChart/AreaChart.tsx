@@ -17,6 +17,7 @@ import ChartTooltip from '../common/ChartTooltip';
 import { constructCategoryColors } from '../common/constructCategoryColors';
 
 import {
+    PickOfType,
     classNames,
     defaultValueFormatter,
     getColorTheme,
@@ -27,11 +28,11 @@ import {
     themeColorRange
 } from 'lib';
 
-export interface AreaChartProps extends BaseChartProps {
+export interface AreaChartProps<T> extends BaseChartProps<T> {
     stack?: boolean,
 }
 
-const AreaChart = ({
+const AreaChart = <T extends PickOfType<T, unknown>,>({
     data = [],
     categories = [],
     dataKey,
@@ -50,7 +51,7 @@ const AreaChart = ({
     showGradient = true,
     height = 'h-80',
     marginTop = 'mt-0',
-}: AreaChartProps) => {
+}: AreaChartProps<T>) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
 

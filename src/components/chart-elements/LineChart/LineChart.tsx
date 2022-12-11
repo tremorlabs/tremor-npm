@@ -16,7 +16,8 @@ import ChartLegend from 'components/chart-elements/common/ChartLegend';
 import ChartTooltip from '../common/ChartTooltip';
 import { constructCategoryColors } from '../common/constructCategoryColors';
 
-import {
+import {    
+    PickOfType,
     classNames,
     defaultValueFormatter,
     getColorTheme,
@@ -27,7 +28,7 @@ import {
     themeColorRange
 } from 'lib';
 
-const LineChart = ({
+const LineChart = <T extends PickOfType<T, unknown>,>({
     data = [],
     categories = [],
     dataKey,
@@ -44,7 +45,7 @@ const LineChart = ({
     height = 'h-80',
     marginTop = 'mt-0',
     autoMinValue = false,
-}: BaseChartProps) => {
+}: BaseChartProps<T>) => {
     const [legendHeight, setLegendHeight] = useState(60);
     const categoryColors = constructCategoryColors(categories, colors);
 

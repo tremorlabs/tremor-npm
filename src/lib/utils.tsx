@@ -132,3 +132,9 @@ export const useWindowSize = (handler: {(): void}, initialWindowSize?: number) =
         return () => window.removeEventListener('resize', handleResize);
     }, [windowSize]);
 };
+
+export type PickOfType<T, U> = {
+    [K in keyof T as T[K] extends U ? K : never]: T[K]
+}
+
+export type PickKeyOfType<T, U> = string & keyof PickOfType<T, U>;

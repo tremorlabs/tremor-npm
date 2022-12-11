@@ -2,14 +2,15 @@ import {
     Color,
     Height,
     MarginTop,
+    PickKeyOfType,
     ValueFormatter,
     Width,
 } from '../../../lib';
 
-interface BaseChartProps {
-    data: any[],
-    categories: string[],
-    dataKey: string,
+interface BaseChartProps<T> {
+    data: T[],
+    categories: (PickKeyOfType<T, number>)[],
+    dataKey: PickKeyOfType<T, string>,
     colors?: Color[],
     valueFormatter?: ValueFormatter,
     autoMinValue?: boolean,
