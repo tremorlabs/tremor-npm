@@ -102,7 +102,7 @@ const TextInput = ({
                 className={ classNames(
                     'tremor-base input-elem',
                     'tr-w-full focus:tr-outline-0 focus:tr-ring-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                    // getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                     textColor,
                     Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
                     error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
