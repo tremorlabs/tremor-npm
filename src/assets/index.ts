@@ -10,6 +10,7 @@ export { default as ArrowUpHeadIcon } from './ArrowUpHeadIcon';
 export { default as ArrowUpIcon } from './ArrowUpIcon';
 export { default as ArrowUpRightIcon } from './ArrowUpRightIcon';
 export { default as CalendarIcon } from './CalendarIcon';
+export { default as ExclamationFilledIcon } from './ExclamationFilledIcon';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as SearchIcon } from './SearchIcon';
 export { default as XCircleIcon } from './XCircleIcon';
