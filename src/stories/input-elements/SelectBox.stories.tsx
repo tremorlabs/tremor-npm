@@ -2,10 +2,12 @@ import React from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, Flex, SelectBox, Text, Title } from 'components';
+import { Card, Datepicker, Flex, SelectBox, Text, Title } from 'components';
 import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
 import { SimpleDropdown } from 'stories/input-elements/helpers/SimpleDropdown';
 import { SimpleSelectBox } from './helpers/SimpleSelectBox';
+
+import { CalendarIcon } from 'assets';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -19,6 +21,7 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
+                <Datepicker />
                 <SimpleSelectBox { ...args } />
                 <SimpleDropdown />
             </Card>
@@ -73,6 +76,12 @@ WithFlexParent.args = {
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
     defaultValue: 5
+};
+
+export const WithIcon = ResponsiveTemplate.bind({});
+WithIcon.args = {
+    defaultValue: 5,
+    icon: CalendarIcon,
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});

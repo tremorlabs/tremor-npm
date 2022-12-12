@@ -68,7 +68,8 @@ Remove default margins from all text elements
 .input-elem {
     font-family: inherit; /* 1 */
     font-size: 100%; /* 1 */
-    line-height: inherit; /* 1 */   
+    line-height: inherit; /* 1 */ 
+    padding: 0;
 }
 
 /*

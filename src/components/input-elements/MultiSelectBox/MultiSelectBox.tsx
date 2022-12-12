@@ -26,6 +26,7 @@ export interface MultiSelectBoxProps {
     defaultValues?: any[],
     handleSelect?: { (values: any[]): void },
     placeholder?: string,
+    icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
     children: React.ReactElement[] | React.ReactElement,
@@ -36,10 +37,12 @@ const MultiSelectBox = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSelect = (values) => null,
     placeholder = 'Select...',
+    icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
 }: MultiSelectBoxProps) => {
+    const Icon = icon;
     const dropdownRef = useRef(null);
 
     const [showModal, setShowModal] = useState(false);
@@ -75,10 +78,11 @@ const MultiSelectBox = ({
             ref={ dropdownRef }
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
+                parseMarginTop(marginTop),
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                parseMarginTop(marginTop),
+                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                 borderRadius.md.all,
                 border.sm.all,
                 boxShadow.sm,
@@ -89,26 +93,39 @@ const MultiSelectBox = ({
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-ring-0 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    spacing.twoXl.paddingLeft,
+                    Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
                     spacing.sm.paddingTop,
                     spacing.sm.paddingBottom,
-                    borderRadius.md.all,
                 ) }
                 onClick={ () => setShowModal(!showModal) }
             >
-                <p className={ classNames(
-                    'text-elem tr-whitespace-nowrap tr-truncate',
-                    fontSize.sm,
-                    fontWeight.md,
-                    selectedItems.length !==0
-                        ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                        : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-                ) }>
-                    { selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder }
-                </p>
+                <div className="tr-flex tr-justify-start tr-items-center">
+                    {
+                        Icon ? (
+                            <Icon
+                                className={ classNames(
+                                    'tr-shrink-0',
+                                    sizing.lg.height,
+                                    sizing.lg.width,
+                                    getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                    spacing.lg.marginRight,
+                                )}
+                                aria-hidden="true"
+                            />
+                        ) : null
+                    }
+                    <p className={ classNames(
+                        'text-elem tr-whitespace-nowrap tr-truncate',
+                        fontSize.sm,
+                        fontWeight.md,
+                        selectedItems.length !==0
+                            ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+                            : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                    ) }>
+                        { selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder }
+                    </p>
+                </div>
                 <div className="tr-flex tr-items-center">
                     { selectedItems.length !== 0 ? (
                         <div

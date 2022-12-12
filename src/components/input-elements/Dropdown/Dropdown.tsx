@@ -20,22 +20,26 @@ import {
 import Modal from 'components/layout-elements/Modal';
 
 export interface DropdownProps {
-    placeholder?: string,
     defaultValue?: any,
     handleSelect?: { (value: any): void },
+    placeholder?: string,
+    icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
     maxWidth?: MaxWidth,
     children: React.ReactElement[] | React.ReactElement,
 }
 
 const Dropdown = ({
-    placeholder = 'Select...',
     defaultValue,
     handleSelect = (value: any) => { value; },
+    placeholder = 'Select...',
+    icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
 }: DropdownProps) => {
+    const Icon = icon;
+
     const dropdownRef = useRef(null);
 
     const constructValueToNameMapping = (): Map<string, string> => {
@@ -64,6 +68,7 @@ const Dropdown = ({
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
                 getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
                 parseMarginTop(marginTop),
                 borderRadius.md.all,
@@ -76,16 +81,27 @@ const Dropdown = ({
                 className={ classNames(
                     'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
                     'focus:tr-outline-0 focus:tr-ring-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    spacing.twoXl.paddingLeft,
+                    Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
                     spacing.twoXl.paddingRight,
                     spacing.sm.paddingTop,
                     spacing.sm.paddingBottom,
-                    borderRadius.md.all,
                 ) }
                 onClick={ () => setShowModal(!showModal) }
             >
+                {
+                    Icon ? (
+                        <Icon
+                            className={ classNames(
+                                'tr-shrink-0',
+                                sizing.lg.height,
+                                sizing.lg.width,
+                                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                spacing.lg.marginRight,
+                            )}
+                            aria-hidden="true"
+                        />
+                    ) : null
+                }
                 <p className={ classNames(
                     'text-elem tr-whitespace-nowrap tr-truncate',
                     fontSize.sm,

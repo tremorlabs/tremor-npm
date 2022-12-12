@@ -88,6 +88,7 @@ const TextInput = ({
                 Icon ? (
                     <Icon
                         className={ classNames(
+                            'tr-shrink-0',
                             sizing.lg.height,
                             sizing.lg.width,
                             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
