@@ -1,3 +1,5 @@
+export type ButtonType = 'button' | 'submit' | 'reset';
+
 export type ValueFormatter = {
     (value: number): string
 }

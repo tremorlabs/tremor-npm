@@ -19,7 +19,7 @@ import {
     sizing,
     spacing,
 } from 'lib';
-import { Color, HorizontalPosition, Importance, MarginTop, Size } from '../../../lib';
+import { ButtonType, Color, HorizontalPosition, Importance, MarginTop, Size } from '../../../lib';
 import {
     buttonProportions,
     colors,
@@ -87,13 +87,18 @@ export const ButtonIconOrSpinner = ({
 };
 
 export interface ButtonProps {
+    type?: ButtonType,
     text: string,
+    value?: any,
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
     color?: Color,
     importance?: Importance,
-    handleClick?: { (): void },
+    handleClick?: () => void,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
+    onSubmit?: React.FormEventHandler<HTMLButtonElement>,
+    onReset?: React.FormEventHandler<HTMLButtonElement>,
     marginTop?: MarginTop,
     disabled?: boolean,
     loading?: boolean,
@@ -101,10 +106,15 @@ export interface ButtonProps {
 }
 
 const Button = ({
+    type = 'button',
     text,
+    value,
     icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
+    onClick,
+    onSubmit,
+    onReset,
     size = Sizes.SM,
     color = BaseColors.Blue,
     importance = Importances.Primary,
@@ -113,6 +123,11 @@ const Button = ({
     loading = false,
     loadingText,
 }: ButtonProps) => {
+    if (handleClick) {
+        console.warn('DeprecationWarning: The `handleClick` property will be depracated in the next major release. \
+            Please use `onClick` instead.');
+    }
+
     const Icon = icon;
 
     const isDisabled = loading || disabled;
@@ -132,8 +147,11 @@ const Button = ({
             { state => (
                 <div className={ classNames('tremor-base tr-flex tr-items-center', parseMarginTop(marginTop)) }>
                     <button
-                        type="button"
-                        onClick={ handleClick }
+                        type={ type }
+                        value={ value }
+                        onClick={ handleClick ?? onClick }
+                        onSubmit={ onSubmit }
+                        onReset={ onReset }
                         className={ classNames(
                             'tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
                             'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',

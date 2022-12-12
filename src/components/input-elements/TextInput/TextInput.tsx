@@ -31,9 +31,10 @@ const getTextColor = (error: boolean, disabled: boolean) => {
 };
 
 export interface TextInputProps {
+    name?: string,
     type?: 'text' | 'password',
-    defaultValue?: string,
-    handleChange?: (value: string) => void,
+    value?: string,
+    onChange?: React.ChangeEventHandler<HTMLInputElement>,
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     error?: boolean,
@@ -44,9 +45,10 @@ export interface TextInputProps {
 }
 
 const TextInput = ({
+    name,
     type = 'text',
-    defaultValue = '',
-    handleChange,
+    value = '',
+    onChange,
     placeholder = 'Type...',
     icon,
     error = false,
@@ -57,12 +59,12 @@ const TextInput = ({
 }: TextInputProps) => {
     const Icon = icon;
 
-    const [inputValue, setInputValue] = useState<string>(defaultValue);
+    const [inputValue, setInputValue] = useState<string>(value);
 
-    const onChange = (e: any) => {
+    const handleChange = (e: any) => {
         const newInputValue = e.target.value;
         setInputValue(newInputValue);
-        handleChange?.(newInputValue);
+        onChange?.(e);
     };
 
     const textColor = getTextColor(error, disabled);
@@ -83,7 +85,8 @@ const TextInput = ({
             borderRadius.md.all,
             border.sm.all,
             boxShadow.sm,
-        ) }>
+        ) }
+        >
             {
                 Icon ? (
                     <Icon
@@ -99,6 +102,7 @@ const TextInput = ({
                 ) : null
             }
             <input
+                name={ name }
                 type={ type }
                 className={ classNames(
                     'tremor-base input-elem',
@@ -114,7 +118,7 @@ const TextInput = ({
                     'placeholder:tr-text-gray-500',
                 ) }
                 value={ inputValue }
-                onChange={ onChange }
+                onChange={ handleChange }
                 placeholder={ placeholder }
                 disabled={ disabled }
             />

@@ -18,29 +18,29 @@ export default {
 
 const MyIcon = ArrowRightIcon;
 
-const SizesTemplate: ComponentStory<typeof Button> = () => (
+const SizesTemplate: ComponentStory<typeof Button> = (args) => (
     <Card>
         <ColGrid numCols={4} gapY="gap-y-2">
             {Object.values(InputSizes).map(size => (
                 <>
-                    <Button size={size} text="Button" />
-                    <Button size={size} text="Button" icon={MyIcon} />
-                    <Button size={size} text="Button" icon={MyIcon} iconPosition="right" />
-                    <Button size={size} text="Button" importance="secondary" />
+                    <Button { ...args } size={size} text="Button" />
+                    <Button { ...args } size={size} text="Button" icon={MyIcon} />
+                    <Button { ...args } size={size} text="Button" icon={MyIcon} iconPosition="right" />
+                    <Button { ...args } size={size} text="Button" importance="secondary" />
                 </>
             ))}
         </ColGrid>
     </Card>
 );
 
-const ColorsTemplate: ComponentStory<typeof Button> = () => (
+const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
     <Card>
         <ColGrid numCols={3} numColsLg={6} gapY="gap-y-2">
             {Object.values(BaseColors).map(color => (
                 <>
-                    <Button color={color} text={color} />
-                    <Button color={color} text={color} icon={MyIcon} />
-                    <Button color={color} text={color} importance="secondary" />
+                    <Button { ...args } color={color} text={color} />
+                    <Button { ...args } color={color} text={color} icon={MyIcon} />
+                    <Button { ...args } color={color} text={color} importance="secondary" />
                 </>
             ))}
         </ColGrid>
@@ -98,8 +98,14 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
 };
 
 export const Sizes = SizesTemplate.bind({});
+Sizes.args = {
+    onClick: () => alert(2),
+};
 
 export const Colors = ColorsTemplate.bind({});
+Colors.args = {
+    handleClick: () => console.log('clicked'),
+};
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
 

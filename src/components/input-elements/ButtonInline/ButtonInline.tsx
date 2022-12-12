@@ -11,18 +11,23 @@ import {
     isValidSize,
     parseMarginTop,
 } from 'lib';
-import { Color, HorizontalPosition, MarginTop, Size } from '../../../lib/inputTypes';
+import { ButtonType, Color, HorizontalPosition, MarginTop, Size } from '../../../lib/inputTypes';
 import { buttonProportions, iconSizes } from './styles';
 import { ButtonIconOrSpinner } from 'components/input-elements/Button/Button';
 import { Transition } from 'react-transition-group';
 
 export interface ButtonInlineProps {
+    type?: ButtonType,
     text: string,
+    value?: any,
     icon?: React.ElementType,
     iconPosition?: HorizontalPosition,
     size?: Size,
     color?: Color,
-    handleClick?: { (): void },
+    handleClick?: () => void,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
+    onSubmit?: React.FormEventHandler<HTMLButtonElement>,
+    onReset?: React.FormEventHandler<HTMLButtonElement>,
     marginTop?: MarginTop,
     disabled?: boolean,
     loading?: boolean,
@@ -30,10 +35,15 @@ export interface ButtonInlineProps {
 }
 
 const ButtonInline = ({
+    type = 'button',
     text,
+    value,
     icon,
     iconPosition = HorizontalPositions.Left,
     handleClick,
+    onClick,
+    onSubmit,
+    onReset,
     size = Sizes.SM,
     color = BaseColors.Blue,
     marginTop = 'mt-0',
@@ -41,6 +51,11 @@ const ButtonInline = ({
     loading = false,
     loadingText,
 }: ButtonInlineProps) => {
+    if (handleClick) {
+        console.warn('DeprecationWarning: The `handleClick` property will be depracated in the next major release. \
+            Please use `onClick` instead.');
+    }
+
     const Icon = icon;
 
     const isDisabled = loading || disabled;
@@ -58,9 +73,12 @@ const ButtonInline = ({
             { state => (
                 <div className={ classNames('tremor-base tr-flex tr-items-center', parseMarginTop(marginTop)) }>
                     <button
-                        type="button"
-                        onClick={handleClick}
-                        className={classNames(
+                        value={ value }
+                        type={ type }
+                        onClick={ handleClick ?? onClick }
+                        onSubmit={ onSubmit }
+                        onReset={ onReset }
+                        className={ classNames(
                             'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium',
                             'focus:tr-outline-none focus:tr-ring-none',
                             buttonProportions[buttonSize].fontSize,
@@ -70,7 +88,7 @@ const ButtonInline = ({
                             !isDisabled ? classNames(
                                 getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).hoverTextColor,
                             ) : 'tr-opacity-50',
-                        )}
+                        ) }
                         disabled={ isDisabled }
                     >
                         {
