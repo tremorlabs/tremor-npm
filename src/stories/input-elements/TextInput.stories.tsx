@@ -61,3 +61,10 @@ WithDisabled.args = {
     value: 'Hello',
     disabled: true,
 };
+
+export const WithDisabledAndError = Template.bind({});
+WithDisabledAndError.args = {
+    value: 'Hello',
+    error: true,
+    disabled: true,
+};

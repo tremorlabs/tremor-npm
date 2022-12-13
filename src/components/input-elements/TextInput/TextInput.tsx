@@ -32,7 +32,6 @@ const getTextColor = (error: boolean, disabled: boolean) => {
 
 export interface TextInputProps {
     name?: string,
-    type?: 'text' | 'password',
     value?: string,
     onChange?: React.ChangeEventHandler<HTMLInputElement>,
     placeholder?: string,
@@ -46,7 +45,6 @@ export interface TextInputProps {
 
 const TextInput = ({
     name,
-    type = 'text',
     value = '',
     onChange,
     placeholder = 'Type...',
@@ -62,8 +60,7 @@ const TextInput = ({
     const [inputValue, setInputValue] = useState<string>(value);
 
     const handleChange = (e: any) => {
-        const newInputValue = e.target.value;
-        setInputValue(newInputValue);
+        setInputValue(e.target.value);
         onChange?.(e);
     };
 
@@ -103,10 +100,10 @@ const TextInput = ({
             }
             <input
                 name={ name }
-                type={ type }
+                type="text"
                 className={ classNames(
                     'tremor-base input-elem',
-                    'tr-w-full focus:tr-outline-0 focus:tr-ring-0',
+                    'tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit',
                     textColor,
                     Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
                     error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
