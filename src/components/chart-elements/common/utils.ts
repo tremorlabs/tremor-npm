@@ -18,6 +18,5 @@ export const getYAxisDomain = (
 ) => {
     const minDomain = autoMinValue ? 'auto' : (minValue ?? 0);
     const maxDomain = maxValue ?? 'auto';
-    console.log([minDomain, maxDomain]);
     return [minDomain, maxDomain];
 };
