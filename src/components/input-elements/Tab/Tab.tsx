@@ -68,7 +68,7 @@ const Tab = ({
                         'tr-flex-none',
                         sizing.lg.height,
                         sizing.lg.width,
-                        spacing.lg.marginRight,
+                        spacing.sm.marginRight,
                         privateProps?.isActive
                             ? getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text)
                                 .textColor
