@@ -13,6 +13,7 @@ html {
 
 button {
     background-color: transparent;
+    appearance: button;
     -webkit-appearance: button;
 }
 
@@ -163,6 +164,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
 .tremor-base [type='search'],
 [type='search'].tremor-base {
+    appearance: textfield;
     -webkit-appearance: textfield; /* 1 */
     outline-offset: -2px; /* 2 */
 }
