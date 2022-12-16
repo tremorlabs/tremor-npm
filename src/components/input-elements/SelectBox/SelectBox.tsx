@@ -63,8 +63,6 @@ const SelectBox = ({
         setShowModal(false);
     };
 
-    console.log('true');
-
     return (
         <div
             ref={ dropdownRef }

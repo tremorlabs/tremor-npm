@@ -88,30 +88,32 @@ const Dropdown = ({
                 ) }
                 onClick={ () => setShowModal(!showModal) }
             >
-                {
-                    Icon ? (
-                        <Icon
-                            className={ classNames(
-                                'tr-shrink-0',
-                                sizing.lg.height,
-                                sizing.lg.width,
-                                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                                spacing.lg.marginRight,
-                            )}
-                            aria-hidden="true"
-                        />
-                    ) : null
-                }
-                <p className={ classNames(
-                    'text-elem tr-whitespace-nowrap tr-truncate',
-                    fontSize.sm,
-                    fontWeight.md,
-                    selectedItem
-                        ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                        : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-                ) }>
-                    { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
-                </p>
+                <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
+                    {
+                        Icon ? (
+                            <Icon
+                                className={ classNames(
+                                    'tr-shrink-0',
+                                    sizing.lg.height,
+                                    sizing.lg.width,
+                                    getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                    spacing.lg.marginRight,
+                                )}
+                                aria-hidden="true"
+                            />
+                        ) : null
+                    }
+                    <p className={ classNames(
+                        'text-elem tr-whitespace-nowrap tr-truncate',
+                        fontSize.sm,
+                        fontWeight.md,
+                        selectedItem
+                            ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+                            : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                    ) }>
+                        { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
+                    </p>
+                </div>
                 <ArrowDownHeadIcon
                     className={ classNames(
                         'tr-flex-none',

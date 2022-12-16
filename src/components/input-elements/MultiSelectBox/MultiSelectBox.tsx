@@ -100,7 +100,7 @@ const MultiSelectBox = ({
                 ) }
                 onClick={ () => setShowModal(!showModal) }
             >
-                <div className="tr-flex tr-justify-start tr-items-center">
+                <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
                     {
                         Icon ? (
                             <Icon
