@@ -225,7 +225,7 @@ button.tremor-base,
 
 .tremor-base :disabled,
 :disabled.tremor-base {
-    cursor: default;
+    cursor: not-allowed;
 }
 
 /*
