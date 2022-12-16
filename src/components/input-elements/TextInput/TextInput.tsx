@@ -121,7 +121,11 @@ const TextInput = ({
             />
             { error
                 ? (
-                    <Tooltip content={ errorMessage } className={ errorMessage ? '' : 'tr-hidden' }>
+                    <Tooltip
+                        content={ errorMessage }
+                        className={ errorMessage ? '' : 'tr-hidden' }
+                        showOnCreate={ true }
+                    >
                         <div className={ classNames(spacing.xl.marginRight) }>
                             <ExclamationFilledIcon
                                 className={ classNames(
