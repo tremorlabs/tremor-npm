@@ -27,8 +27,8 @@ import {
 } from 'lib';
 
 export interface LineChartProps extends BaseChartProps {
-    strokeWidth?: number
-    strokeDash?: string
+    dashedCategories?: string[]
+    //strokeDash?: boolean
 }
 
 const LineChart = ({
@@ -47,8 +47,8 @@ const LineChart = ({
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
-    strokeWidth = 2,
-    strokeDash,
+    dashedCategories = [],
+    //strokeDash = false,
 }: LineChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     return (
@@ -137,10 +137,10 @@ const LineChart = ({
                             stroke={getHexFromColorThemeValue(
                                 getColorTheme(colors[idx]).background
                             )}
-                            strokeDasharray={strokeDash}
+                            strokeDasharray={ dashedCategories.includes(category) ? '5 5' : undefined }
+                            //strokeDasharray={ strokeDash ? '5 5' : undefined }
                             dot={false}
                             isAnimationActive={showAnimation}
-                            strokeWidth={strokeWidth}
                         />
                     ))}
                 </ReChartsLineChart>

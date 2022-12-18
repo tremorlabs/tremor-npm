@@ -127,12 +127,5 @@ export const WithDashedStroke = DefaultTemplate.bind({});
 WithDashedStroke.args = {
     data: data,
     categories: ['Sales', 'Successfull Payments'],
-    strokeDash: '5 5',
-};
-
-export const WithCustomStrokeWidth = DefaultTemplate.bind({});
-WithCustomStrokeWidth.args = {
-    data: data,
-    categories: ['Sales', 'Successfull Payments'],
-    strokeWidth: 5,
+    dashedCategories: ['Sales'],
 };
