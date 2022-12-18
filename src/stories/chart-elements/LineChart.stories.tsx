@@ -123,8 +123,8 @@ WithNoDataKey.args = {
     categories: ['Sales', 'Successfull Payments'],
 };
 
-export const WithDashedStroke = DefaultTemplate.bind({});
-WithDashedStroke.args = {
+export const WithDashedCategories = DefaultTemplate.bind({});
+WithDashedCategories.args = {
     data: data,
     categories: ['Sales', 'Successfull Payments'],
     dashedCategories: ['Sales'],

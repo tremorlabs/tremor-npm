@@ -28,7 +28,6 @@ import {
 
 export interface LineChartProps extends BaseChartProps {
     dashedCategories?: string[]
-    //strokeDash?: boolean
 }
 
 const LineChart = ({
@@ -41,14 +40,13 @@ const LineChart = ({
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 'w-14',
+    dashedCategories = [],
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
     height = 'h-80',
     marginTop = 'mt-0',
-    dashedCategories = [],
-    //strokeDash = false,
 }: LineChartProps) => {
     const [legendHeight, setLegendHeight] = useState(60);
     return (
@@ -137,9 +135,9 @@ const LineChart = ({
                             stroke={getHexFromColorThemeValue(
                                 getColorTheme(colors[idx]).background
                             )}
-                            strokeDasharray={ dashedCategories.includes(category) ? '5 5' : undefined }
-                            //strokeDasharray={ strokeDash ? '5 5' : undefined }
+                            strokeWidth={ 2 }
                             dot={false}
+                            strokeDasharray={ dashedCategories.includes(category) ? '4 4' : undefined }
                             isAnimationActive={showAnimation}
                         />
                     ))}
