@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
@@ -28,6 +28,21 @@ export interface DropdownProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
+// Achi I need your help here with the types
+const useEscape = (onEscape: any) => {
+    useEffect(() => {
+        const handleEsc = (event:any) => {
+            if (event.keyCode === 27) 
+                onEscape();
+        };
+        window.addEventListener('keydown', handleEsc);
+
+        return () => {
+            window.removeEventListener('keydown', handleEsc);
+        };
+    }, []);
+};
+
 const Dropwdown = ({
     placeholder = 'Select...',
     defaultValue,
@@ -51,6 +66,7 @@ const Dropwdown = ({
 
     const [selectedItem, setSelectedItem] = useState(defaultValue);
     const [showModal, setShowModal] = useState(false);
+    useEscape(() => setShowModal(false));
 
     const handleDropdownItemClick = (value: any) => {
         setSelectedItem(value);
