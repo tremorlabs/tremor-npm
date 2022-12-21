@@ -13,14 +13,22 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const Template: ComponentStory<typeof TextInput> = (args) => {
-    const [value, setValue] = useState(args.value);
+    const [value, setValue] = useState('');
     return (
         <Card>
-            <form onSubmit={(e) => { alert(value); e.preventDefault(); }}>
-                <TextInput { ...args } name="test" onChange={ (e) => setValue(e.target.value) } />
-                <Button type="submit" text="Submit" />
+            <form onSubmit={(e) => { alert(value); e.preventDefault(); }} onReset={ () => setValue('')}>
+                <Text>Uncontrolled</Text>
+                <TextInput { ...args } />
+                <Text>Default Value</Text>
+                <TextInput { ...args } value={ value } />
+                <Text>Controlled</Text>
+                <label htmlFor="a">Label</label>
+                <TextInput { ...args } id={ 'a' } value={ value } onChange={ (e) => setValue(e.target.value) } />
+                <Button type="submit" text="Submit" marginTop="mt-2" />
+                <Button type="reset" text="Reset Input" marginTop="mt-2" />
             </form>
             <Text>{ value }</Text>
+            {/* <input value={ value } onChange={ (e) => setValue(e.target.value) } /> */}
         </Card>
     );
 };

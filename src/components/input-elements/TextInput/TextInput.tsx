@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import 'tippy.js/dist/tippy.css';
 import Tooltip from '@tippyjs/react';
@@ -45,7 +45,7 @@ export interface TextInputProps {
 
 const TextInput = ({
     name,
-    value = '',
+    value,
     onChange,
     placeholder = 'Type...',
     icon,
@@ -56,13 +56,6 @@ const TextInput = ({
     marginTop = 'mt-0',
 }: TextInputProps) => {
     const Icon = icon;
-
-    const [inputValue, setInputValue] = useState<string>(value);
-
-    const handleChange = (e: any) => {
-        setInputValue(e.target.value);
-        onChange?.(e);
-    };
 
     const textColor = getTextColor(error, disabled);
     const bgColor = disabled
@@ -114,8 +107,8 @@ const TextInput = ({
                     border.none.all,
                     'placeholder:tr-text-gray-500',
                 ) }
-                value={ inputValue }
-                onChange={ handleChange }
+                value={ value }
+                onChange={ onChange }
                 placeholder={ placeholder }
                 disabled={ disabled }
             />
