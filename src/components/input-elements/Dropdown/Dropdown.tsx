@@ -8,6 +8,7 @@ import {
     borderRadius,
     boxShadow,
     classNames,
+    constructValueToNameMapping,
     defaultColors,
     fontSize,
     fontWeight,
@@ -18,9 +19,12 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
+import { useInternalState } from 'lib/hooks';
 
-export interface DropdownProps {
-    defaultValue?: any,
+export interface DropdownProps<T> {
+    defaultValue?: any | null,
+    value?: T | null,
+    onChange?: (value: T) => void,
     handleSelect?: { (value: any): void },
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
@@ -29,36 +33,30 @@ export interface DropdownProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const Dropdown = ({
+const Dropdown = <T, >({
     defaultValue,
+    value,
+    onChange,
     handleSelect = (value: any) => { value; },
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
-}: DropdownProps) => {
-    const Icon = icon;
+}: DropdownProps<T>) => {
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+    const [showModal, setShowModal] = useState(false);
 
     const dropdownRef = useRef(null);
 
-    const constructValueToNameMapping = (): Map<string, string> => {
-        const valueToNameMapping = new Map<string, string>();
-        React.Children.map(children, (child) => {
-            valueToNameMapping.set(child.props.value, child.props.text);
-        });
-        return valueToNameMapping;
-    };
-
-    const valueToNameMapping = constructValueToNameMapping();
-
-    const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [showModal, setShowModal] = useState(false);
+    const Icon = icon;
+    const valueToNameMapping = constructValueToNameMapping(children);
 
     const handleDropdownItemClick = (value: any) => {
-        setSelectedItem(value);
-        handleSelect(value);
+        setSelectedValue(value);
+        handleSelect?.(value);
         setShowModal(false);
+        onChange?.(value);
     };
 
     return(
@@ -107,11 +105,11 @@ const Dropdown = ({
                         'text-elem tr-whitespace-nowrap tr-truncate',
                         fontSize.sm,
                         fontWeight.md,
-                        selectedItem
+                        selectedValue
                             ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                     ) }>
-                        { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
+                        { selectedValue ? valueToNameMapping.get(selectedValue as string) : placeholder }
                     </p>
                 </div>
                 <ArrowDownHeadIcon
@@ -135,7 +133,7 @@ const Dropdown = ({
                         { React.cloneElement(child, {
                             privateProps: {
                                 handleDropdownItemClick,
-                                isActive: child?.props.value === selectedItem,
+                                isActive: child?.props.value === selectedValue,
                             },
                         }) }
                     </>
