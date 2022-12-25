@@ -70,7 +70,7 @@ const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
     const [value, setValue] = useState<number | null>(5);
     return (
         <Card>
-            <Dropdown value={value} onChange={ (value) => { setValue(value); alert(value); } }>
+            <Dropdown value={value} onValueChange={ (value) => { setValue(value); alert(value); } }>
                 <DropdownItem value={5} text={'Five'} />
                 <DropdownItem value={3} text={'Three'} />
                 <DropdownItem value={1} text={'One'} />

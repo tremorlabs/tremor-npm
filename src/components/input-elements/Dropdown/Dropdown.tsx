@@ -24,7 +24,7 @@ import { useInternalState } from 'lib/hooks';
 export interface DropdownProps<T> {
     defaultValue?: any | null,
     value?: T | null,
-    onChange?: (value: T) => void,
+    onValueChange?: (value: T) => void,
     handleSelect?: { (value: any): void },
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
@@ -36,7 +36,7 @@ export interface DropdownProps<T> {
 const Dropdown = <T, >({
     defaultValue,
     value,
-    onChange,
+    onValueChange,
     handleSelect = (value: any) => { value; },
     placeholder = 'Select...',
     icon,
@@ -44,6 +44,11 @@ const Dropdown = <T, >({
     maxWidth = 'max-w-none',
     children,
 }: DropdownProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
+
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
     const [showModal, setShowModal] = useState(false);
 
@@ -56,7 +61,7 @@ const Dropdown = <T, >({
         setSelectedValue(value);
         handleSelect?.(value);
         setShowModal(false);
-        onChange?.(value);
+        onValueChange?.(value);
     };
 
     return(
