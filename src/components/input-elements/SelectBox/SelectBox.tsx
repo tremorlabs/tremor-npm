@@ -164,7 +164,7 @@ const SelectBox = <T, >({
                             <>
                                 { React.cloneElement(child, {
                                     privateProps: {
-                                        handleSelectBoxItemClick: handleValueChange,
+                                        handleValueChange,
                                         isActive: selectedValue === child.props.value,
                                     }
                                 }) }
