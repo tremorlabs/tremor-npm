@@ -31,6 +31,11 @@ const Toggle = <T, >({
     marginTop = 'mt-0',
     children,
 }: ToggleProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
+
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
     const handleValueChange = (value: any) => {

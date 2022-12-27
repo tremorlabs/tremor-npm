@@ -36,12 +36,12 @@ const TabList = <T,>({
             Please use `onValueChange` instead.');
     }
 
-    const [selectedTab, setSelectedTab] = useInternalState(defaultValue, value);
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
     const handleValueChange = (value: any) => {
         onValueChange?.(value);
         handleSelect?.(value);
-        setSelectedTab(value);
+        setSelectedValue(value);
     };
 
     return(
@@ -55,7 +55,7 @@ const TabList = <T,>({
             { React.Children.map(children, (child) => (
                 React.cloneElement(child, {
                     privateProps: {
-                        isActive: selectedTab === child.props.value,
+                        isActive: selectedValue === child.props.value,
                         handleValueChange,
                         color,
                     }
