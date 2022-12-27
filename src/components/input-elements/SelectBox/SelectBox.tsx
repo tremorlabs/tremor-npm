@@ -124,7 +124,7 @@ const SelectBox = <T, >({
                         fontSize.sm,
                         fontWeight.md,
                         border.none.all,
-                        selectedValue ? 'placeholder:tr-text-gray-700' : 'placeholder:tr-text-gray-500',
+                        'placeholder:tr-text-gray-500',
                         'tr-pr-10' // avoid text overflow at arrow down icon
                     ) }
                     type="text"
