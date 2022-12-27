@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, Datepicker, Flex, MultiSelectBox, Text, Title } from 'components';
+import { Button, Card, Datepicker, Flex, MultiSelectBox, MultiSelectBoxItem, Text, Title } from 'components';
 import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
 import { SimpleMultiSelectBox } from './helpers/SimpleMultiSelectBox';
 
@@ -65,6 +65,23 @@ const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
         </Card>
     </>
 );
+
+
+const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () => {
+    const [value, setValue] = useState<number[] | null>(null);
+    return (
+        <Card>
+            <MultiSelectBox values={value} onValuesChange={ (values) => { setValue(values); alert(values); } }>
+                <MultiSelectBoxItem value={5} text={'Five'} />
+                <MultiSelectBoxItem value={3} text={'Three'} />
+                <MultiSelectBoxItem value={1} text={'One'} />
+            </MultiSelectBox>
+            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Set to One" onClick={ () => setValue([1]) } />
+        </Card>
+    );
+};
+
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
@@ -86,3 +103,5 @@ WithIcon.args = {
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
+
+export const WithControlledState = WithControlledStateTemplate.bind({});

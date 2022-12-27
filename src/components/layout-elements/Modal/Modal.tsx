@@ -18,7 +18,7 @@ import {
 
 export interface ModalProps {
     showModal: boolean,
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>> | ((nextState: boolean) => void),
     triggerRef: React.RefObject<HTMLElement>,
     width?: Width,
     maxHeight?: string,

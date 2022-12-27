@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from 'assets';
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
@@ -21,10 +21,13 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
+import { useInternalState } from 'lib/hooks';
 
-export interface MultiSelectBoxProps {
-    defaultValues?: any[],
-    handleSelect?: { (values: any[]): void },
+export interface MultiSelectBoxProps<T> {
+    defaultValues?: T[] | null,
+    values?: T[] | null,
+    onValuesChange?: (values: T[]) => void,
+    handleSelect?: (values: T[]) => void,
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
@@ -32,45 +35,51 @@ export interface MultiSelectBoxProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const MultiSelectBox = ({
-    defaultValues = [],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (values) => null,
+const MultiSelectBox = <T,>({
+    defaultValues,
+    values,
+    onValuesChange,
+    handleSelect,
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
-}: MultiSelectBoxProps) => {
+}: MultiSelectBoxProps<T>) => {
     const Icon = icon;
     const dropdownRef = useRef(null);
 
     const [showModal, setShowModal] = useState(false);
-    const [selectedItems, setSelectedItems] = useState(defaultValues);
+    const [selectedValues, setSelectedValues] = useInternalState(defaultValues, values);
     const [searchQuery, setSearchQuery] = useState('');
+
+    const selectedItems = selectedValues ?? [];
 
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
-    useEffect(() => {
-        setSearchQuery(''); // clear search query on modal close
-    }, [selectedItems]);
+    const handleModalToggle = (show: boolean) =>  {
+        setSearchQuery('');
+        setShowModal(show);
+    };
 
-    const handleMultiSelectBoxItemClick = (value: any) => {
+    const handleValuesChange = (value: any) => {
         let newSelectedItems = [];
         if (!isValueInArray(value, selectedItems)) {
             newSelectedItems = [...selectedItems, value];
-            setSelectedItems!([...newSelectedItems]);
+            setSelectedValues!([...newSelectedItems]);
         } else {
             newSelectedItems = removeValueFromArray(value, selectedItems!);
-            setSelectedItems!([...newSelectedItems!]);
+            setSelectedValues!([...newSelectedItems!]);
         }
-        handleSelect(newSelectedItems);
+        onValuesChange?.(newSelectedItems);
+        handleSelect?.(newSelectedItems);
     };
 
-    const resetSelection = () => {
-        setSelectedItems([]);
-        handleSelect([]);
+    const handleReset = () => {
+        setSelectedValues([]);
+        onValuesChange?.([]);
+        handleSelect?.([]);
     };
 
     return (
@@ -98,7 +107,7 @@ const MultiSelectBox = ({
                     spacing.sm.paddingTop,
                     spacing.sm.paddingBottom,
                 ) }
-                onClick={ () => setShowModal(!showModal) }
+                onClick={ () => handleModalToggle(!showModal) }
             >
                 <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
                     {
@@ -133,7 +142,7 @@ const MultiSelectBox = ({
                             className={ classNames(spacing.xs.marginRight) }
                             onClick={ (e) => {
                                 e.stopPropagation(); // prevent firing parent button
-                                resetSelection();
+                                handleReset();
                             } }
                         >
                             <XCircleIcon 
@@ -161,7 +170,7 @@ const MultiSelectBox = ({
             </button>
             <Modal
                 showModal={ showModal }
-                setShowModal={ setShowModal }
+                setShowModal={ handleModalToggle }
                 triggerRef={ dropdownRef }
             >
                 <div className={ classNames(
@@ -202,7 +211,7 @@ const MultiSelectBox = ({
                             <>
                                 { React.cloneElement(child, {
                                     privateProps: {
-                                        handleMultiSelectBoxItemClick,
+                                        handleValuesChange,
                                         isActive: isValueInArray(child.props.value, selectedItems),
                                     }
                                 }) }

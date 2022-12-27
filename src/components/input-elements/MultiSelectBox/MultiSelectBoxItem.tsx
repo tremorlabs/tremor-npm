@@ -16,7 +16,7 @@ export interface MultiSelectBoxItemProps {
     value: any,
     text: string,
     privateProps?: {
-        handleMultiSelectBoxItemClick: (value: any) => void,
+        handleValuesChange: (value: any) => void,
         isActive: boolean,
     },
 }
@@ -28,7 +28,7 @@ const MultiSelectBoxItem = ({
 }: MultiSelectBoxItemProps) => (
     <button
         type="button"
-        onClick={ () => privateProps!.handleMultiSelectBoxItemClick(value) }
+        onClick={ () => privateProps!.handleValuesChange(value) }
         className={ classNames(
             'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
             spacing.twoXl.paddingLeft,
