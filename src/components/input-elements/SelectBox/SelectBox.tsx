@@ -21,10 +21,13 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
+import { useInternalState } from 'lib/hooks';
 
-export interface SelectBoxProps {
-    defaultValue?: any,
-    handleSelect?: { (value: any): void },
+export interface SelectBoxProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
@@ -32,37 +35,46 @@ export interface SelectBoxProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const SelectBox = ({
+const SelectBox = <T, >({
     defaultValue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
+    value,
+    onValueChange,
+    handleSelect,
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
-}: SelectBoxProps) => {
+}: SelectBoxProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
+
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
+
     const Icon = icon;
     const dropdownRef = useRef(null);
 
     const valueToNameMapping = constructValueToNameMapping(children);
-
-    const [showModal, setShowModal] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping.get(selectedItem) : '');
-    const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
+    const defaultInputValue = valueToNameMapping.get(selectedValue);
 
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
     const handleSelectBoxItemClick = (value: any) => {
-        setInputText(valueToNameMapping.get(value));
-        setSelectedItem(value);
-        handleSelect(value);
+        setSearchQuery('');
         setShowModal(false);
+        setSelectedValue(value);
+
+        onValueChange?.(value);
+        handleSelect?.(value);
     };
 
+    const placeholderText = placeholder;
     return (
         <div
             ref={ dropdownRef }
@@ -102,6 +114,7 @@ const SelectBox = ({
                     ) : null
                 }
                 <input
+                    key={ String(selectedValue) }
                     className={ classNames(
                         'input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit',
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
@@ -111,13 +124,13 @@ const SelectBox = ({
                         fontSize.sm,
                         fontWeight.md,
                         border.none.all,
-                        'placeholder:tr-text-gray-500',
+                        selectedValue ? 'placeholder:tr-text-gray-700' : 'placeholder:tr-text-gray-500',
                         'tr-pr-10' // avoid text overflow at arrow down icon
                     ) }
                     type="text"
-                    placeholder={ placeholder }
-                    value={ inputText }
-                    onChange={ (e) => { setSearchQuery(e.target.value); setInputText(e.target.value); } }
+                    placeholder={ placeholderText }
+                    defaultValue={ defaultInputValue }
+                    onChange={ (e) => setSearchQuery(e.target.value) }
                     onClick={ () => setShowModal(!showModal) }
                 />
                 <button
@@ -152,7 +165,7 @@ const SelectBox = ({
                                 { React.cloneElement(child, {
                                     privateProps: {
                                         handleSelectBoxItemClick: handleSelectBoxItemClick,
-                                        isActive: selectedItem === child.props.value,
+                                        isActive: selectedValue === child.props.value,
                                     }
                                 }) }
                             </>

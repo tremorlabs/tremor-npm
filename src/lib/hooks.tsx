@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useInternalState = <T, >(defaultValueProp: T, valueProp: T) =>  {
+export function useInternalState<T>(defaultValueProp: T, valueProp: T) {
     const [valueState, setValueState] = useState(defaultValueProp);
 
     const isControlled = valueProp !== undefined;
@@ -13,5 +13,5 @@ export const useInternalState = <T, >(defaultValueProp: T, valueProp: T) =>  {
         setValueState(nextValue);
     };
 
-    return [value, setValue];
-};
+    return [value, setValue] as [T, React.Dispatch<React.SetStateAction<T>>];
+}

@@ -22,10 +22,10 @@ import Modal from 'components/layout-elements/Modal';
 import { useInternalState } from 'lib/hooks';
 
 export interface DropdownProps<T> {
-    defaultValue?: any | null,
-    value?: T | null,
+    defaultValue?: T,
+    value?: T,
     onValueChange?: (value: T) => void,
-    handleSelect?: { (value: any): void },
+    handleSelect?: (value: T) => void,
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
@@ -37,7 +37,7 @@ const Dropdown = <T, >({
     defaultValue,
     value,
     onValueChange,
-    handleSelect = (value: any) => { value; },
+    handleSelect,
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
@@ -114,7 +114,7 @@ const Dropdown = <T, >({
                             ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                     ) }>
-                        { selectedValue ? valueToNameMapping.get(selectedValue as string) : placeholder }
+                        { selectedValue ? valueToNameMapping.get(selectedValue) : placeholder }
                     </p>
                 </div>
                 <ArrowDownHeadIcon

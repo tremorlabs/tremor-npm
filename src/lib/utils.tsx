@@ -76,10 +76,10 @@ export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
 };
 
-export const constructValueToNameMapping = (
+export const constructValueToNameMapping = <T, >(
     children: React.ReactElement[] | React.ReactElement
-): Map<string, string> => {
-    const valueToNameMapping = new Map<string, string>();
+): Map<T, string> => {
+    const valueToNameMapping = new Map<T, string>();
     React.Children.map(children, (child) => {
         valueToNameMapping.set(child.props.value, child.props.text);
     });

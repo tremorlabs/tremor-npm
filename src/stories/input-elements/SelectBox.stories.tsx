@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, Datepicker, Flex, SelectBox, Text, Title } from 'components';
+import { Button, Card, Datepicker, Flex, SelectBox, SelectBoxItem, Text, Title } from 'components';
 import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
 import { SimpleDropdown } from 'stories/input-elements/helpers/SimpleDropdown';
 import { SimpleSelectBox } from './helpers/SimpleSelectBox';
@@ -65,12 +65,33 @@ const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
         </Card>
     </>
 );
+
+const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
+    const [value, setValue] = useState<number | null>(5);
+    return (
+        <Card>
+            <SelectBox value={value} onValueChange={ (value) => { setValue(value); alert(value); } }>
+                <SelectBoxItem value={5} text={'Five'} />
+                <SelectBoxItem value={3} text={'Three'} />
+                <SelectBoxItem value={1} text={'One'} />
+                <SelectBoxItem value={30} text={'Thirty'} />
+                <SelectBoxItem value={33} text={'Thirtythree'} />
+            </SelectBox>
+            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Set to One" onClick={ () => setValue(1) } />
+        </Card>
+    );
+};
+
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
+DefaultResponsive.args = {
+    onValueChange: (v) => alert(v),
+};
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    maxWidth: 'max-w-xs'
+    maxWidth: 'max-w-xs',
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
@@ -85,3 +106,5 @@ WithIcon.args = {
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
+
+export const WithControlledState = WithControlledStateTemplate.bind({});
