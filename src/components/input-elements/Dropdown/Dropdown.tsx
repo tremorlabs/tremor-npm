@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 
+import { SelectedValueContext } from 'contexts';
+
 import { ArrowDownHeadIcon } from 'assets';
 
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
@@ -133,16 +135,9 @@ const Dropdown = <T, >({
                 setShowModal={ setShowModal }
                 triggerRef={ dropdownRef }
             >
-                { React.Children.map(children, (child: React.ReactElement) => (
-                    <>
-                        { React.cloneElement(child, {
-                            privateProps: {
-                                handleValueChange,
-                                isActive: child?.props.value === selectedValue,
-                            },
-                        }) }
-                    </>
-                )) }
+                <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                    { React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child)) }
+                </SelectedValueContext.Provider>
             </Modal>
         </div>
     );

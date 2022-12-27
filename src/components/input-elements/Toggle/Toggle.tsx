@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BaseColorContext, SelectedValueContext } from 'contexts';
+
 import {
     BaseColors,
     borderRadius,
@@ -56,15 +58,11 @@ const Toggle = <T, >({
             borderRadius.lg.all
         ) }
         >
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        isActive: selectedValue === child.props.value,
-                        handleValueChange,
-                        color,
-                    }
-                })
-            )) }
+            <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                <BaseColorContext.Provider value={ color }>
+                    { React.Children.map(children, (child) => React.cloneElement(child)) }
+                </BaseColorContext.Provider>
+            </SelectedValueContext.Provider>
         </div>
     );
 };

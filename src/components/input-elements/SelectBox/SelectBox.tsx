@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
+import { SelectedValueContext } from 'contexts';
+
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
     border,
@@ -158,21 +160,14 @@ const SelectBox = <T, >({
                 setShowModal={ setShowModal }
                 triggerRef={ dropdownRef }
             >
-                { React.Children.map(children, (child) => {
-                    if (filteredOptionNames.has(String(child.props.text))) {
-                        return (
-                            <>
-                                { React.cloneElement(child, {
-                                    privateProps: {
-                                        handleValueChange,
-                                        isActive: selectedValue === child.props.value,
-                                    }
-                                }) }
-                            </>
-                        );
-                    }
-                    return null;
-                }) }
+                <SelectedValueContext.Provider value={ { selectedValue, handleValueChange }}>
+                    { React.Children.map(children, (child) => {
+                        if (filteredOptionNames.has(String(child.props.text))) {
+                            return React.cloneElement(child);
+                        }
+                        return null;
+                    }) }
+                </SelectedValueContext.Provider>
             </Modal>
         </div>
     );

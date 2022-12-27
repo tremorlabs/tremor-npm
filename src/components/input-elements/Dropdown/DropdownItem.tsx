@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SelectedValueContext } from 'contexts';
 
 import {
     classNames,
@@ -23,13 +25,15 @@ const DropdownItem = ({
     value,
     text,
     icon,
-    privateProps,
 }: DropdownItemProps) => {
+    const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
+    const isActive = selectedValue === value;
+
     const Icon = icon ? icon : null;
     return (
         <button
             type="button"
-            onClick={() => privateProps!.handleValueChange(value)}
+            onClick={() => handleValueChange?.(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
                 spacing.twoXl.paddingLeft,
@@ -37,7 +41,7 @@ const DropdownItem = ({
                 spacing.md.paddingTop,
                 spacing.md.paddingBottom,
                 fontSize.sm,
-                privateProps!.isActive
+                isActive
                     ? classNames(
                         getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
                             .bgColor,

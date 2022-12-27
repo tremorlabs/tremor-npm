@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react';
 
+import { SelectedValueContext } from 'contexts';
+
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from 'assets';
+
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
     border,
@@ -210,20 +213,16 @@ const MultiSelectBox = <T,>({
                         onChange={ (e) => setSearchQuery(e.target.value) }
                     />
                 </div>
-                { React.Children.map(children, (child) => {
-                    if (filteredOptionNames.has(String(child.props.text))) {
-                        return (
-                            <>
-                                { React.cloneElement(child, {
-                                    privateProps: {
-                                        handleValuesChange,
-                                        isActive: isValueInArray(child.props.value, selectedItems),
-                                    }
-                                }) }
-                            </>
-                        );
-                    }
-                }) }
+                <SelectedValueContext.Provider value={ {
+                    selectedValue: selectedItems,
+                    handleValueChange: handleValuesChange,
+                } }>
+                    { React.Children.map(children, (child) => {
+                        if (filteredOptionNames.has(String(child.props.text))) {
+                            return React.cloneElement(child);
+                        }
+                    }) }
+                </SelectedValueContext.Provider>
             </Modal>
         </div>
     );

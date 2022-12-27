@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BaseColorContext, SelectedValueContext } from 'contexts';
+
 import {
     BaseColors,
     border,
@@ -52,15 +54,11 @@ const TabList = <T,>({
             spacing.twoXl.spaceX,
             border.sm.bottom,
         ) }>
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        isActive: selectedValue === child.props.value,
-                        handleValueChange,
-                        color,
-                    }
-                })
-            )) }
+            <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                <BaseColorContext.Provider value={ color }>
+                    { React.Children.map(children, (child) => React.cloneElement(child)) }
+                </BaseColorContext.Provider>
+            </SelectedValueContext.Provider>
         </ol>
     );
 };
