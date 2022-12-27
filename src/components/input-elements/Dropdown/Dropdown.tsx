@@ -57,7 +57,7 @@ const Dropdown = <T, >({
     const Icon = icon;
     const valueToNameMapping = constructValueToNameMapping(children);
 
-    const handleDropdownItemClick = (value: any) => {
+    const handleValueChange = (value: any) => {
         setSelectedValue(value);
         handleSelect?.(value);
         setShowModal(false);
@@ -137,7 +137,7 @@ const Dropdown = <T, >({
                     <>
                         { React.cloneElement(child, {
                             privateProps: {
-                                handleDropdownItemClick,
+                                handleValueChange,
                                 isActive: child?.props.value === selectedValue,
                             },
                         }) }

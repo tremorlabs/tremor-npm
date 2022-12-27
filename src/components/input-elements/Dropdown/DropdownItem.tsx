@@ -15,7 +15,7 @@ export interface DropdownItemProps {
     icon?: React.ElementType;
     privateProps?: {
         isActive: boolean;
-        handleDropdownItemClick: (value: any) => void;
+        handleValueChange: (value: any) => void;
     };
 }
 
@@ -29,7 +29,7 @@ const DropdownItem = ({
     return (
         <button
             type="button"
-            onClick={() => privateProps!.handleDropdownItemClick(value)}
+            onClick={() => privateProps!.handleValueChange(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
                 spacing.twoXl.paddingLeft,

@@ -11,7 +11,7 @@ export interface SelectBoxItemProps {
     text: string,
     icon?: React.ElementType,
     privateProps?: {
-        handleSelectBoxItemClick: (selectedItem: any) => void
+        handleValueChange: (selectedItem: any) => void
         isActive: boolean,
     }
 }
@@ -26,7 +26,7 @@ const SelectBoxItem = ({
     return (
         <button
             type="button"
-            onClick={() => privateProps!.handleSelectBoxItemClick(value)}
+            onClick={() => privateProps!.handleValueChange(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
                 spacing.twoXl.paddingLeft,

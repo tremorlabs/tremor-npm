@@ -65,7 +65,7 @@ const SelectBox = <T, >({
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
-    const handleSelectBoxItemClick = (value: any) => {
+    const handleValueChange = (value: any) => {
         setSearchQuery('');
         setShowModal(false);
         setSelectedValue(value);
@@ -164,7 +164,7 @@ const SelectBox = <T, >({
                             <>
                                 { React.cloneElement(child, {
                                     privateProps: {
-                                        handleSelectBoxItemClick: handleSelectBoxItemClick,
+                                        handleSelectBoxItemClick: handleValueChange,
                                         isActive: selectedValue === child.props.value,
                                     }
                                 }) }
