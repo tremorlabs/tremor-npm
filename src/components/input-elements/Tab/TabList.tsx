@@ -40,7 +40,7 @@ const TabList = <T,>({
 
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-    const handleValueChange = (value: any) => {
+    const handleValueChange = (value: T) => {
         onValueChange?.(value);
         handleSelect?.(value);
         setSelectedValue(value);

@@ -67,7 +67,7 @@ const SelectBox = <T, >({
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
-    const handleValueChange = (value: any) => {
+    const handleValueChange = (value: T) => {
         setSearchQuery('');
         setShowModal(false);
         setSelectedValue(value);

@@ -15,10 +15,6 @@ export interface DropdownItemProps {
     value: any;
     text: string;
     icon?: React.ElementType;
-    privateProps?: {
-        isActive: boolean;
-        handleValueChange: (value: any) => void;
-    };
 }
 
 const DropdownItem = ({

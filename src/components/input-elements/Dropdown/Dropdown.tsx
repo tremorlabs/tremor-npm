@@ -59,7 +59,7 @@ const Dropdown = <T, >({
     const Icon = icon;
     const valueToNameMapping = constructValueToNameMapping(children);
 
-    const handleValueChange = (value: any) => {
+    const handleValueChange = (value: T) => {
         setSelectedValue(value);
         handleSelect?.(value);
         setShowModal(false);

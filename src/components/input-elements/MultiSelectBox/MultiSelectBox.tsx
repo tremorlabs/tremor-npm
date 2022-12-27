@@ -71,7 +71,7 @@ const MultiSelectBox = <T,>({
         setShowModal(show);
     };
 
-    const handleValuesChange = (value: any) => {
+    const handleValuesChange = (value: T) => {
         let newSelectedItems = [];
         if (!isValueInArray(value, selectedItems)) {
             newSelectedItems = [...selectedItems, value];
