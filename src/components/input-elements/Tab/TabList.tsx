@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
     BaseColors,
@@ -10,27 +10,37 @@ import {
     spacing
 } from 'lib';
 import { Color, MarginTop } from '../../../lib';
+import { useInternalState } from 'lib/hooks';
 
-export interface TabListProps {
-    defaultValue?: any,
+export interface TabListProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     color?: Color,
-    handleSelect?: { (value: any): void },
     marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement
 }
 
-const TabList = ({
+const TabList = <T,>({
     defaultValue,
+    value,
+    onValueChange,
+    handleSelect,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
     marginTop = 'mt-0',
     children,
-}: TabListProps) => {
-    const [selectedTab, setSelectedTab] = useState<any|null>(defaultValue);
+}: TabListProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
 
-    const handleTabClick = (value: any) => {
-        handleSelect(value);
+    const [selectedTab, setSelectedTab] = useInternalState(defaultValue, value);
+
+    const handleValueChange = (value: any) => {
+        onValueChange?.(value);
+        handleSelect?.(value);
         setSelectedTab(value);
     };
 
@@ -46,7 +56,7 @@ const TabList = ({
                 React.cloneElement(child, {
                     privateProps: {
                         isActive: selectedTab === child.props.value,
-                        handleTabClick,
+                        handleValueChange,
                         color,
                     }
                 })

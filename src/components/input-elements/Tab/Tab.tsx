@@ -20,7 +20,7 @@ export interface TabProps {
     privateProps?: {
         color: Color,
         isActive: boolean,
-        handleTabClick: (value: any) => null,
+        handleValueChange: (value: any) => null,
     },
 }
 
@@ -44,6 +44,7 @@ const Tab = ({
         getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
         'hover:tr-border-b-2'
     );
+
     return(
         <li>
             <button
@@ -61,7 +62,7 @@ const Tab = ({
                     privateProps!.isActive ? activeClassNames : inActiveClassNames,
                 ) }
                 value={ value }
-                onClick={ () => privateProps!.handleTabClick!(value) }
+                onClick={ () => privateProps!.handleValueChange(value) }
             >   
                 { Icon ? (
                     <Icon className={classNames(

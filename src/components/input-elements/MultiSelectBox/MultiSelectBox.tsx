@@ -46,6 +46,11 @@ const MultiSelectBox = <T,>({
     maxWidth = 'max-w-none',
     children,
 }: MultiSelectBoxProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
+
     const Icon = icon;
     const dropdownRef = useRef(null);
 
