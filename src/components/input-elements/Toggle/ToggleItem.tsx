@@ -19,7 +19,7 @@ export interface ToggleItemProps {
     icon?: React.ElementType,
     privateProps?: {
         isActive: boolean,
-        handleToggleItemClick: (value: any) => void,
+        handleValueChange: (value: any) => void,
         color: Color,
     }
 }
@@ -56,7 +56,7 @@ const ToggleItem = ({
                 borderRadius.md.all,
                 privateProps!.isActive ? activeClassNames : inActiveClassNames,
             )}
-            onClick={() => { privateProps!.handleToggleItemClick!(value); }}
+            onClick={() => { privateProps!.handleValueChange(value); }}
         >
             {
                 Icon ? (

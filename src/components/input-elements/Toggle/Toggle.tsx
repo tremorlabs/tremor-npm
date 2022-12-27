@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
     BaseColors,
@@ -10,28 +10,33 @@ import {
     spacing
 } from 'lib';
 import { Color, MarginTop } from '../../../lib';
+import { useInternalState } from 'lib/hooks';
 
-export interface ToggleProps {
-    defaultValue?: any,
+export interface ToggleProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     color?: Color,
-    handleSelect?: { (value: any): void },
-    children: React.ReactElement[] | React.ReactElement,
     marginTop?: MarginTop,
+    children: React.ReactElement[] | React.ReactElement,
 }
 
-const Toggle = ({
+const Toggle = <T, >({
     defaultValue,
+    value,
+    onValueChange,
+    handleSelect,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
     marginTop = 'mt-0',
     children,
-}: ToggleProps) => {
-    const [activeToggleItem, setActiveToggleItem] = useState<any|null>(defaultValue);
+}: ToggleProps<T>) => {
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-    const handleToggleItemClick = (value: any) => {
-        handleSelect(value);
-        setActiveToggleItem(value);
+    const handleValueChange = (value: any) => {
+        onValueChange?.(value);
+        handleSelect?.(value);
+        setSelectedValue(value);
     };
 
     return (
@@ -49,8 +54,8 @@ const Toggle = ({
             { React.Children.map(children, (child) => (
                 React.cloneElement(child, {
                     privateProps: {
-                        isActive: activeToggleItem === child.props.value,
-                        handleToggleItemClick,
+                        isActive: selectedValue === child.props.value,
+                        handleValueChange,
                         color,
                     }
                 })

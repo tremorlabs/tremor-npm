@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Block, Card, Flex, Text, Title, Toggle, ToggleItem } from 'components';
+import { Block, Button, Card, Flex, Text, Title, Toggle, ToggleItem } from 'components';
 import { BaseColors } from 'lib';
 import { CalendarIcon } from 'assets';
 
@@ -103,6 +103,21 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
         </Card>
     </>
 );
+
+const WithControlledStateTemplate: ComponentStory<typeof Toggle> = () => {
+    const [value, setValue] = useState<number | null>(5);
+    return (
+        <Card>
+            <Toggle value={value} onValueChange={ (value) => { setValue(value); alert(value); } }>
+                <ToggleItem value={5} text={'Five'} />
+                <ToggleItem value={3} text={'Three'} />
+                <ToggleItem value={1} text={'One'} />
+            </Toggle>
+            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Set to One" onClick={ () => setValue(1) } />
+        </Card>
+    );
+};
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
@@ -125,3 +140,5 @@ export const Colors = ColorsTemplate.bind({});
 Colors.args = {
     defaultValue: 5
 };
+
+export const WithControlledState = WithControlledStateTemplate.bind({});
