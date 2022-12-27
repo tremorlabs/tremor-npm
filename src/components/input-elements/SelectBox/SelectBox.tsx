@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
@@ -54,6 +54,7 @@ const SelectBox = <T, >({
     }
 
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+    const [inputValue, setInputValue] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
@@ -62,18 +63,27 @@ const SelectBox = <T, >({
     const dropdownRef = useRef(null);
 
     const valueToNameMapping = constructValueToNameMapping(children);
-    const defaultInputValue = valueToNameMapping.get(selectedValue);
+
+    useEffect(() => {
+        setInputValue(valueToNameMapping.get(selectedValue) || '');
+    }, [selectedValue]);
 
     const allOptionNames = getOptionNamesFromChildren(children);
     const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
 
     const handleValueChange = (value: T) => {
         setSearchQuery('');
+        setInputValue(valueToNameMapping.get(selectedValue) || '');
         setShowModal(false);
         setSelectedValue(value);
 
         onValueChange?.(value);
         handleSelect?.(value);
+    };
+
+    const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+        setInputValue(e.target.value);
     };
 
     const placeholderText = placeholder;
@@ -116,7 +126,6 @@ const SelectBox = <T, >({
                     ) : null
                 }
                 <input
-                    key={ String(selectedValue) }
                     className={ classNames(
                         'input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit',
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
@@ -131,8 +140,8 @@ const SelectBox = <T, >({
                     ) }
                     type="text"
                     placeholder={ placeholderText }
-                    defaultValue={ defaultInputValue }
-                    onChange={ (e) => setSearchQuery(e.target.value) }
+                    value={ inputValue }
+                    onChange={ handleInputValueChange }
                     onClick={ () => setShowModal(!showModal) }
                 />
                 <button
