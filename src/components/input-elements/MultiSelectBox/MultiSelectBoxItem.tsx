@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { SelectedValueContext } from 'contexts';
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
 import {
     BaseColors,
@@ -25,7 +25,9 @@ const MultiSelectBoxItem = ({
     text,
 }: MultiSelectBoxItemProps) => {
     const { selectedValue: selectedItems, handleValueChange: handleValuesChange } = useContext(SelectedValueContext);
+    const hoveredValue = useContext(HoveredValueContext);
     const isActive = isValueInArray(value, selectedItems as any[]);
+    const isHovered = hoveredValue === value;
 
     return (
         <button
@@ -40,6 +42,7 @@ const MultiSelectBoxItem = ({
                 fontSize.sm,
                 getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                isHovered ? getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor : '',
             ) }
         >
             <div className="tr-flex tr-items-center tr-truncate">

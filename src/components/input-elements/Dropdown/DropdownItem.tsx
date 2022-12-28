@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { SelectedValueContext } from 'contexts';
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
 import {
     classNames,
@@ -23,7 +23,8 @@ const DropdownItem = ({
     icon,
 }: DropdownItemProps) => {
     const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
-    const isActive = selectedValue === value;
+    const hoveredValue = useContext(HoveredValueContext);
+    const isActive = selectedValue === value || hoveredValue === value;
 
     const Icon = icon ? icon : null;
     return (

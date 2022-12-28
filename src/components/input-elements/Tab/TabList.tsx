@@ -2,6 +2,8 @@ import React from 'react';
 
 import { BaseColorContext, SelectedValueContext } from 'contexts';
 
+import { useInternalState } from 'hooks';
+
 import {
     BaseColors,
     border,
@@ -12,7 +14,6 @@ import {
     spacing
 } from 'lib';
 import { Color, MarginTop } from '../../../lib';
-import { useInternalState } from 'lib/hooks';
 
 export interface TabListProps<T> {
     defaultValue?: T,

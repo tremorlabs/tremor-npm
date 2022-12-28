@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 
-import { SelectedValueContext } from 'contexts';
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
+
+import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
 
 import { ArrowDownHeadIcon } from 'assets';
 
@@ -21,7 +23,6 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
-import { useInternalState } from 'lib/hooks';
 
 export interface DropdownProps<T> {
     defaultValue?: T,
@@ -52,23 +53,32 @@ const Dropdown = <T, >({
     }
 
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-    const [showModal, setShowModal] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const dropdownRef = useRef(null);
 
     const Icon = icon;
     const valueToNameMapping = constructValueToNameMapping(children);
+    const optionValues = React.Children.map(children, (child) => child.props.value);
 
     const handleValueChange = (value: T) => {
         setSelectedValue(value);
         handleSelect?.(value);
-        setShowModal(false);
+        setIsFocused(false);
         onValueChange?.(value);
     };
+
+    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+        optionValues,
+        handleValueChange,
+        isFocused,
+        setIsFocused
+    );
 
     return(
         <div
             ref={ dropdownRef }
+            onKeyDown={ handleKeyDown }
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
@@ -91,7 +101,7 @@ const Dropdown = <T, >({
                     spacing.sm.paddingTop,
                     spacing.sm.paddingBottom,
                 ) }
-                onClick={ () => setShowModal(!showModal) }
+                onClick={ () => setIsFocused(!isFocused) }
             >
                 <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
                     {
@@ -131,12 +141,14 @@ const Dropdown = <T, >({
                 />
             </button>
             <Modal
-                showModal={ showModal }
-                setShowModal={ setShowModal }
+                showModal={ isFocused }
+                setShowModal={ setIsFocused }
                 triggerRef={ dropdownRef }
             >
                 <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
-                    { React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child)) }
+                    <HoveredValueContext.Provider value={ hoveredValue }>
+                        { React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child)) }
+                    </HoveredValueContext.Provider>
                 </SelectedValueContext.Provider>
             </Modal>
         </div>

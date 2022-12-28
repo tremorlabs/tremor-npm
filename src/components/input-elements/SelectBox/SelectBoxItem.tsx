@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { SelectedValueContext } from 'contexts';
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
 import { classNames, getColorVariantsFromColorThemeValue } from 'lib/classnameUtils';
 import { defaultColors } from 'lib/colors';
@@ -12,10 +12,6 @@ export interface SelectBoxItemProps {
     value: any,
     text: string,
     icon?: React.ElementType,
-    privateProps?: {
-        handleValueChange: (selectedItem: any) => void
-        isActive: boolean,
-    }
 }
 
 const SelectBoxItem = ({
@@ -24,7 +20,8 @@ const SelectBoxItem = ({
     icon,
 }: SelectBoxItemProps) => {
     const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
-    const isActive = selectedValue === value;
+    const hoveredValue = useContext(HoveredValueContext);
+    const isActive = selectedValue === value || hoveredValue === value;
 
     const Icon = icon ? icon : null;
 

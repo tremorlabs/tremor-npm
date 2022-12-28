@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 
-import { SelectedValueContext } from 'contexts';
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
+
+import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from 'assets';
 
@@ -14,8 +16,7 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
-    getFilteredOptionNames,
-    getOptionNamesFromChildren,
+    getFilteredOptions,
     isValueInArray,
     parseMarginTop,
     parseMaxWidth,
@@ -24,7 +25,6 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
-import { useInternalState } from 'lib/hooks';
 
 export interface MultiSelectBoxProps<T> {
     defaultValues?: T[] | null,
@@ -60,11 +60,18 @@ const MultiSelectBox = <T,>({
     const [showModal, setShowModal] = useState(false);
     const [selectedValues, setSelectedValues] = useInternalState(defaultValues, values);
     const [searchQuery, setSearchQuery] = useState('');
-
+    console.log(selectedValues);
     const selectedItems = selectedValues ?? [];
+    const displayText = selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder;
+    const showResetButton = selectedItems.length > 0;
 
-    const allOptionNames = getOptionNamesFromChildren(children);
-    const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
+    const options = React.Children.map(children, (child) => ({
+        value: child.props.value,
+        text: child.props.text,
+    }));
+    const filteredOptions = getFilteredOptions(searchQuery, options);
+    const filteredOptionTexts = new Set(filteredOptions.map(option => option.text));
+    const filteredOptionValues = filteredOptions.map(option => option.value);
 
     const handleModalToggle = (show: boolean) =>  {
         setSearchQuery('');
@@ -75,11 +82,10 @@ const MultiSelectBox = <T,>({
         let newSelectedItems = [];
         if (!isValueInArray(value, selectedItems)) {
             newSelectedItems = [...selectedItems, value];
-            setSelectedValues!([...newSelectedItems]);
         } else {
-            newSelectedItems = removeValueFromArray(value, selectedItems!);
-            setSelectedValues!([...newSelectedItems!]);
+            newSelectedItems = [...removeValueFromArray(value, selectedItems!)];
         }
+        setSelectedValues(newSelectedItems);
         onValuesChange?.(newSelectedItems);
         handleSelect?.(newSelectedItems);
     };
@@ -89,6 +95,14 @@ const MultiSelectBox = <T,>({
         onValuesChange?.([]);
         handleSelect?.([]);
     };
+
+
+    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+        filteredOptionValues,
+        handleValuesChange,
+        showModal,
+        setShowModal,
+    );
 
     return (
         <div
@@ -104,6 +118,7 @@ const MultiSelectBox = <T,>({
                 border.sm.all,
                 boxShadow.sm,
             ) }
+            onKeyDown={ handleKeyDown }
         >
             <button
                 type="button"
@@ -140,11 +155,11 @@ const MultiSelectBox = <T,>({
                             ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                     ) }>
-                        { selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder }
+                        { displayText }
                     </p>
                 </div>
                 <div className="tr-flex tr-items-center">
-                    { selectedItems.length !== 0 ? (
+                    { showResetButton ? (
                         <div
                             role="button"
                             className={ classNames(spacing.xs.marginRight) }
@@ -217,11 +232,13 @@ const MultiSelectBox = <T,>({
                     selectedValue: selectedItems,
                     handleValueChange: handleValuesChange,
                 } }>
-                    { React.Children.map(children, (child) => {
-                        if (filteredOptionNames.has(String(child.props.text))) {
-                            return React.cloneElement(child);
-                        }
-                    }) }
+                    <HoveredValueContext.Provider value={ hoveredValue }>
+                        { React.Children.map(children, (child) => {
+                            if (filteredOptionTexts.has(String(child.props.text))) {
+                                return React.cloneElement(child);
+                            }
+                        }) }
+                    </HoveredValueContext.Provider>
                 </SelectedValueContext.Provider>
             </Modal>
         </div>

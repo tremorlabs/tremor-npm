@@ -100,6 +100,15 @@ export const getFilteredOptionNames = (searchQuery: string, allOptionNames: stri
         });
 };
 
+export const getFilteredOptions = (searchQuery: string, options: { value: any, text: string }[]) => {
+    return searchQuery === ''
+        ? options
+        : options.filter((option: any) => {
+            return option.text.toLowerCase().includes(searchQuery.toLowerCase());
+        });
+};    
+
+
 export const useOnClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: {(event: any): void}) => {
     useEffect(
         () => {

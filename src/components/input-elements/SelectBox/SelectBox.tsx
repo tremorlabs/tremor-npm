@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
-import { SelectedValueContext } from 'contexts';
+import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
 import {
@@ -15,15 +17,13 @@ import {
     fontSize,
     fontWeight,
     getColorVariantsFromColorThemeValue,
-    getFilteredOptionNames,
-    getOptionNamesFromChildren,
+    getFilteredOptions,
     parseMarginTop,
     parseMaxWidth,
     sizing,
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
-import { useInternalState } from 'lib/hooks';
 
 export interface SelectBoxProps<T> {
     defaultValue?: T,
@@ -56,26 +56,41 @@ const SelectBox = <T, >({
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
     const [inputValue, setInputValue] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [showModal, setShowModal] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
 
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const Icon = icon;
-    const dropdownRef = useRef(null);
-
     const valueToNameMapping = constructValueToNameMapping(children);
 
     useEffect(() => {
         setInputValue(valueToNameMapping.get(selectedValue) || '');
     }, [selectedValue]);
 
-    const allOptionNames = getOptionNamesFromChildren(children);
-    const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
+    const options = React.Children.map(children, (child) => ({
+        value: child.props.value,
+        text: child.props.text,
+    }));
+
+    const filteredOptions = getFilteredOptions(searchQuery, options);
+
+    const filteredOptionTexts = new Set(filteredOptions.map(option => option.text));
+    const filteredOptionValues = filteredOptions.map(option => option.value);
+
+    const handleFocusChange = (isFocused: boolean) => {
+        if (isFocused === false) {
+            inputRef.current?.blur();
+        }
+        setIsFocused(isFocused);
+    };
 
     const handleValueChange = (value: T) => {
         setSearchQuery('');
         setInputValue(valueToNameMapping.get(selectedValue) || '');
-        setShowModal(false);
+        handleFocusChange(false);
         setSelectedValue(value);
+        inputRef.current?.blur();
 
         onValueChange?.(value);
         handleSelect?.(value);
@@ -86,10 +101,18 @@ const SelectBox = <T, >({
         setInputValue(e.target.value);
     };
 
-    const placeholderText = placeholder;
+    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+        filteredOptionValues,
+        handleValueChange,
+        isFocused,
+        handleFocusChange,
+    );
+
     return (
         <div
             ref={ dropdownRef }
+            onClick={ () => handleFocusChange(!isFocused) }
+            onKeyDown={ handleKeyDown }
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
@@ -110,7 +133,6 @@ const SelectBox = <T, >({
                     Icon ? (
                         <button
                             type="button"
-                            onClick={ () => setShowModal(!showModal) }
                             className={ classNames('input-elem tr-p-0', spacing.xl.marginLeft) }
                         >
                             <Icon
@@ -126,6 +148,8 @@ const SelectBox = <T, >({
                     ) : null
                 }
                 <input
+                    ref={ inputRef }
+                    type="text"
                     className={ classNames(
                         'input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit',
                         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
@@ -138,11 +162,9 @@ const SelectBox = <T, >({
                         'placeholder:tr-text-gray-500',
                         'tr-pr-10' // avoid text overflow at arrow down icon
                     ) }
-                    type="text"
-                    placeholder={ placeholderText }
+                    placeholder={ placeholder }
                     value={ inputValue }
                     onChange={ handleInputValueChange }
-                    onClick={ () => setShowModal(!showModal) }
                 />
                 <button
                     type="button"
@@ -150,7 +172,6 @@ const SelectBox = <T, >({
                         'input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2 tr-bg-inherit',
                         spacing.twoXl.right,
                     ) }
-                    onClick={ () => setShowModal(!showModal) }
                 >
                     <ArrowDownHeadIcon
                         className={ classNames(
@@ -165,17 +186,19 @@ const SelectBox = <T, >({
                 </button>
             </div>
             <Modal
-                showModal={ filteredOptionNames.size === 0 ? false : showModal }
-                setShowModal={ setShowModal }
+                showModal={ filteredOptions.length === 0 ? false : isFocused }
+                setShowModal={ handleFocusChange }
                 triggerRef={ dropdownRef }
             >
                 <SelectedValueContext.Provider value={ { selectedValue, handleValueChange }}>
-                    { React.Children.map(children, (child) => {
-                        if (filteredOptionNames.has(String(child.props.text))) {
-                            return React.cloneElement(child);
-                        }
-                        return null;
-                    }) }
+                    <HoveredValueContext.Provider value={ hoveredValue }>
+                        { React.Children.map(children, (child) => {
+                            if (filteredOptionTexts.has(String(child.props.text))) {
+                                return React.cloneElement(child);
+                            }
+                            return null;
+                        }) }
+                    </HoveredValueContext.Provider>
                 </SelectedValueContext.Provider>
             </Modal>
         </div>
