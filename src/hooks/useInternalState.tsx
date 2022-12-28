@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 const useInternalState = <T, >(defaultValueProp: T, valueProp: T) => {
     const isControlled = valueProp !== undefined;
-    console.log('Is Controlled', isControlled);
     const [valueState, setValueState] = useState(defaultValueProp);
 
     const value = isControlled ? valueProp : valueState;

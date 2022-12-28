@@ -76,25 +76,25 @@ export const stringEndsWithNumber = (str: string): boolean => {
     return stringIsNumeric(str.split('-').pop());
 };
 
-export const constructValueToNameMapping = <T, >(
-    children: React.ReactElement[] | React.ReactElement
-): Map<T, string> => {
-    const valueToNameMapping = new Map<T, string>();
-    React.Children.map(children, (child) => {
-        valueToNameMapping.set(child.props.value, child.props.text);
-    });
-    return valueToNameMapping;
-};
-
 export interface SelectItemProps {
     value: any,
     text: string,
 }
 
+export const constructValueToNameMapping = <T, >(
+    children: React.ReactElement[] | React.ReactElement
+): Map<T, string> => {
+    const valueToNameMapping = new Map<T, string>();
+    React.Children.map(children, (child: { props: SelectItemProps }) => {
+        valueToNameMapping.set(child.props.value, child.props.text);
+    });
+    return valueToNameMapping;
+};
+
 export const getFilteredOptions = (searchQuery: string, options: SelectItemProps[]): SelectItemProps[] => {
     return searchQuery === ''
         ? options
-        : options.filter((option: any) => {
+        : options.filter((option: SelectItemProps) => {
             return option.text.toLowerCase().includes(searchQuery.toLowerCase());
         });
 };    

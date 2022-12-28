@@ -24,6 +24,7 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
+import { SelectBoxItemProps } from './SelectBoxItem';
 
 export interface SelectBoxProps<T> {
     defaultValue?: T,
@@ -68,10 +69,7 @@ const SelectBox = <T, >({
         setInputValue(valueToNameMapping.get(selectedValue) || '');
     }, [selectedValue]);
 
-    const options = React.Children.map(children, (child) => ({
-        value: child.props.value,
-        text: child.props.text,
-    }));
+    const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({ ...child.props }));
 
     const filteredOptions = getFilteredOptions(searchQuery, options);
 

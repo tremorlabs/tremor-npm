@@ -25,6 +25,7 @@ import {
     spacing
 } from 'lib';
 import Modal from 'components/layout-elements/Modal';
+import { MultiSelectBoxItemProps } from './MultiSelectBoxItem';
 
 export interface MultiSelectBoxProps<T> {
     defaultValues?: T[] | null,
@@ -60,15 +61,12 @@ const MultiSelectBox = <T,>({
     const [showModal, setShowModal] = useState(false);
     const [selectedValues, setSelectedValues] = useInternalState(defaultValues, values);
     const [searchQuery, setSearchQuery] = useState('');
-    console.log(selectedValues);
+
     const selectedItems = selectedValues ?? [];
     const displayText = selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder;
     const showResetButton = selectedItems.length > 0;
 
-    const options = React.Children.map(children, (child) => ({
-        value: child.props.value,
-        text: child.props.text,
-    }));
+    const options = React.Children.map(children, (child: { props: MultiSelectBoxItemProps }) => ({ ...child.props }));
     const filteredOptions = getFilteredOptions(searchQuery, options);
     const filteredOptionTexts = new Set(filteredOptions.map(option => option.text));
     const filteredOptionValues = filteredOptions.map(option => option.value);

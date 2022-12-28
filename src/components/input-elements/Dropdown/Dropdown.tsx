@@ -22,6 +22,7 @@ import {
     sizing,
     spacing
 } from 'lib';
+import { DropdownItemProps } from './DropdownItem';
 import Modal from 'components/layout-elements/Modal';
 
 export interface DropdownProps<T> {
@@ -59,7 +60,7 @@ const Dropdown = <T, >({
 
     const Icon = icon;
     const valueToNameMapping = constructValueToNameMapping(children);
-    const optionValues = React.Children.map(children, (child) => child.props.value);
+    const optionValues = React.Children.map(children, (child: { props: DropdownItemProps }) => child.props.value);
 
     const handleValueChange = (value: T) => {
         setSelectedValue(value);
