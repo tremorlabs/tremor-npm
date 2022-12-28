@@ -2,6 +2,7 @@ import React from 'react';
 
 import { border, borderRadius, boxShadow, classNames, parseMarginTop } from 'lib';
 import { MarginTop } from '../../../lib';
+import { RootStylesContext } from 'contexts';
 
 export interface AccordionListProps {
     shadow?: boolean,
@@ -26,52 +27,43 @@ const AccordionList = ({
             { React.Children.map(children, (child, idx) => {
                 if (idx === 0) {
                     return (
-                        <>
-                            { React.cloneElement(child, {
-                                privateProps: {
-                                    shapeClassNames: classNames(
-                                        borderRadius.lg.top,
-                                        border.sm.left,
-                                        border.sm.top,
-                                        border.sm.right,
-                                        border.sm.bottom,
-                                        boxShadow.none,
-                                    ),
-                                },
-                            }) }
-                        </>
+                        <RootStylesContext.Provider value={ classNames(
+                            borderRadius.lg.top,
+                            border.sm.left,
+                            border.sm.top,
+                            border.sm.right,
+                            border.sm.bottom,
+                            boxShadow.none,
+                        ) }
+                        >
+                            { React.cloneElement(child) }
+                        </RootStylesContext.Provider>
                     );
                 }
                 if (idx === numChildren - 1) {
                     return (
-                        <>
-                            { React.cloneElement(child, {
-                                privateProps: {
-                                    shapeClassNames: classNames(
-                                        borderRadius.lg.bottom,
-                                        border.sm.left,
-                                        border.sm.right,
-                                        border.sm.bottom,
-                                        boxShadow.none,
-                                    ),
-                                },
-                            }) }
-                        </>
+                        <RootStylesContext.Provider value={ classNames(
+                            borderRadius.lg.bottom,
+                            border.sm.left,
+                            border.sm.right,
+                            border.sm.bottom,
+                            boxShadow.none,
+                        ) }
+                        >
+                            { React.cloneElement(child) }
+                        </RootStylesContext.Provider>
                     );
                 }
                 return (
-                    <>
-                        { React.cloneElement(child, { 
-                            privateProps: {
-                                shapeClassNames:  classNames(
-                                    border.sm.left,
-                                    border.sm.right,
-                                    border.sm.bottom,
-                                    boxShadow.none,
-                                ),
-                            },
-                        }) }
-                    </>
+                    <RootStylesContext.Provider value={ classNames(
+                        border.sm.left,
+                        border.sm.right,
+                        border.sm.bottom,
+                        boxShadow.none,
+                    ) }
+                    >
+                        { React.cloneElement(child) }
+                    </RootStylesContext.Provider>
                 );
             })}
         </div>

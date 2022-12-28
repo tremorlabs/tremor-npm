@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ArrowDownHeadIcon, ArrowUpHeadIcon } from 'assets';
 import { classNames, defaultColors, getColorVariantsFromColorThemeValue, sizing, spacing } from 'lib';
+import { ExpandedContext } from 'components/layout-elements/Accordion/Accordion';
 
 export interface AccordionHeaderProps {
-    privateProps?: {
-        isExpanded: boolean,
-        setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
-    }
     children: React.ReactNode;
 }
 
 const AccordionHeader = ({
-    privateProps,
     children
 }: AccordionHeaderProps) => {
+    const { isExpanded, setIsExpanded } = useContext(ExpandedContext);
     return(
         <button
             type="button"
@@ -25,7 +22,7 @@ const AccordionHeader = ({
                 spacing.lg.paddingTop,
                 spacing.lg.paddingBottom,
             ) }
-            onClick={ () => privateProps!.setExpanded(!privateProps!.isExpanded) }
+            onClick={ () => setIsExpanded?.(!isExpanded) }
         >
             <div className={ classNames(
                 'tr-flex tr-flex-1',
@@ -34,7 +31,7 @@ const AccordionHeader = ({
                 { children }
             </div>
             <div>
-                { privateProps!.isExpanded
+                { isExpanded
                     ? (
                         <ArrowUpHeadIcon
                             className={ classNames(
