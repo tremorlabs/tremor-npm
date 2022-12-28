@@ -19,7 +19,9 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
             <form onSubmit={(e) => { alert(value); e.preventDefault(); }} onReset={ () => setValue('')}>
                 <Text>Uncontrolled</Text>
                 <TextInput { ...args } />
-                <Text>Default Value</Text>
+                <Text>Uncontrolled with defaultValue</Text>
+                <TextInput { ...args } defaultValue="hello" />
+                <Text>Conrolled without onChange</Text>
                 <TextInput { ...args } value={ value } />
                 <Text>Controlled</Text>
                 <label htmlFor="a">Label</label>

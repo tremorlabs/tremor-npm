@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { BaseColorContext, SelectedValueContext } from 'contexts';
+
+import { useInternalState } from 'hooks';
 
 import {
     BaseColors,
@@ -11,27 +15,36 @@ import {
 } from 'lib';
 import { Color, MarginTop } from '../../../lib';
 
-export interface ToggleProps {
-    defaultValue?: any,
+export interface ToggleProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     color?: Color,
-    handleSelect?: { (value: any): void },
-    children: React.ReactElement[] | React.ReactElement,
     marginTop?: MarginTop,
+    children: React.ReactElement[] | React.ReactElement,
 }
 
-const Toggle = ({
+const Toggle = <T, >({
     defaultValue,
+    value,
+    onValueChange,
+    handleSelect,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
     marginTop = 'mt-0',
     children,
-}: ToggleProps) => {
-    const [activeToggleItem, setActiveToggleItem] = useState<any|null>(defaultValue);
+}: ToggleProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
 
-    const handleToggleItemClick = (value: any) => {
-        handleSelect(value);
-        setActiveToggleItem(value);
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+
+    const handleValueChange = (value: T) => {
+        onValueChange?.(value);
+        handleSelect?.(value);
+        setSelectedValue(value);
     };
 
     return (
@@ -46,15 +59,11 @@ const Toggle = ({
             borderRadius.lg.all
         ) }
         >
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        isActive: activeToggleItem === child.props.value,
-                        handleToggleItemClick,
-                        color,
-                    }
-                })
-            )) }
+            <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                <BaseColorContext.Provider value={ color }>
+                    { React.Children.map(children, (child) => React.cloneElement(child)) }
+                </BaseColorContext.Provider>
+            </SelectedValueContext.Provider>
         </div>
     );
 };

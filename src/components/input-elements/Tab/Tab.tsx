@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { BaseColorContext, SelectedValueContext } from 'contexts';
 
 import {
     border,
@@ -11,30 +13,27 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
 
 export interface TabProps {
     value: any,
     text: string,
     icon?: React.ElementType,
-    privateProps?: {
-        color: Color,
-        isActive: boolean,
-        handleTabClick: (value: any) => null,
-    },
 }
 
 const Tab = ({
     value,
     text,
     icon,
-    privateProps,
 }: TabProps) => {
+    const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
+    const color = useContext(BaseColorContext);
+    
+    const isActive = selectedValue === value;
     const Icon = icon;
 
     const activeClassNames = classNames(
-        getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text).textColor,
-        getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).darkBorder).borderColor,
+        getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
+        getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder).borderColor,
         border.md.bottom,
     );
     const inActiveClassNames = classNames(
@@ -44,6 +43,7 @@ const Tab = ({
         getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
         'hover:tr-border-b-2'
     );
+
     return(
         <li>
             <button
@@ -58,10 +58,10 @@ const Tab = ({
                     spacing.px.negativeMarginBottom,
                     fontSize.sm,
                     fontWeight.md,
-                    privateProps!.isActive ? activeClassNames : inActiveClassNames,
+                    isActive ? activeClassNames : inActiveClassNames,
                 ) }
                 value={ value }
-                onClick={ () => privateProps!.handleTabClick!(value) }
+                onClick={ () => handleValueChange?.(value) }
             >   
                 { Icon ? (
                     <Icon className={classNames(
@@ -69,8 +69,8 @@ const Tab = ({
                         sizing.lg.height,
                         sizing.lg.width,
                         spacing.sm.marginRight,
-                        privateProps?.isActive
-                            ? getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text)
+                        isActive
+                            ? getColorVariantsFromColorThemeValue(getColorTheme(color).text)
                                 .textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor
                     )} aria-hidden="true" />

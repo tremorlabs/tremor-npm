@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useOnWindowResize } from 'hooks';
+
 import { Color } from '../../../lib';
 import Legend from 'components/text-elements/Legend';
-import { useWindowSize } from 'lib';
 
 const ChartLegend = (
     { payload }: any,
@@ -23,7 +24,7 @@ const ChartLegend = (
         setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
     }, []);
 
-    useWindowSize(() => {
+    useOnWindowResize(() => {
         setCurrentHeight(calculateHeight(currentheight));
         // setLegendHeight setState action from Chart parent
         setLegendHeight(calculateHeight(legendRef.current?.clientHeight));

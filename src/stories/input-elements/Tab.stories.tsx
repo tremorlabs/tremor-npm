@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Block, Card, Flex, Tab, TabList, Text, Title } from 'components';
+import { Block, Button, Card, Flex, Tab, TabList, Text, Title } from 'components';
 import { BaseColors } from 'lib';
 import { CalendarIcon } from 'assets';
 
@@ -78,6 +78,21 @@ const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
         </Card>
     </>
 );
+
+const WithControlledStateTemplate: ComponentStory<typeof TabList> = () => {
+    const [value, setValue] = useState<number | null>(5);
+    return (
+        <Card>
+            <TabList value={value} onValueChange={ (value) => { setValue(value); alert(value); } }>
+                <Tab value={5} text={'Five'} />
+                <Tab value={3} text={'Three'} />
+                <Tab value={1} text={'One'} />
+            </TabList>
+            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Set to One" onClick={ () => setValue(1) } />
+        </Card>
+    );
+};
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
@@ -95,3 +110,5 @@ export const Colors = ColorsTemplate.bind({});
 Colors.args = {
     defaultValue: 5
 };
+
+export const WithControlledState = WithControlledStateTemplate.bind({});

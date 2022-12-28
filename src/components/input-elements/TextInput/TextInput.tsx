@@ -31,7 +31,9 @@ const getTextColor = (error: boolean, disabled: boolean) => {
 };
 
 export interface TextInputProps {
+    id?: string,
     name?: string,
+    defaultValue?: string,
     value?: string,
     onChange?: React.ChangeEventHandler<HTMLInputElement>,
     placeholder?: string,
@@ -44,7 +46,9 @@ export interface TextInputProps {
 }
 
 const TextInput = ({
+    id,
     name,
+    defaultValue,
     value,
     onChange,
     placeholder = 'Type...',
@@ -92,6 +96,7 @@ const TextInput = ({
                 ) : null
             }
             <input
+                id={ id }
                 name={ name }
                 type="text"
                 className={ classNames(
@@ -107,6 +112,7 @@ const TextInput = ({
                     border.none.all,
                     'placeholder:tr-text-gray-500',
                 ) }
+                defaultValue={ defaultValue }
                 value={ value }
                 onChange={ onChange }
                 placeholder={ placeholder }

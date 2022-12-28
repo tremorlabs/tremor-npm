@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useOnClickOutside, useOnWindowResize } from 'hooks';
+
 import { HorizontalPosition, Width } from '../../../lib/inputTypes';
 import {
     HorizontalPositions,
@@ -12,13 +14,11 @@ import {
     getPixelsFromTwClassName,
     parseWidth,
     spacing,
-    useOnClickOutside,
-    useWindowSize,
 } from 'lib';
 
 export interface ModalProps {
     showModal: boolean,
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>> | ((nextState: boolean) => void),
     triggerRef: React.RefObject<HTMLElement>,
     width?: Width,
     maxHeight?: string,
@@ -35,6 +35,10 @@ const Modal = ({
     anchorPosition = HorizontalPositions.Left,
     children,
 }: ModalProps) => {
+    const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
+
+    const modalRef = useRef<HTMLDivElement>(null);
+
     const checkModalExceedsWindow = (
         modalWidth: number,
         windowWidth: number,
@@ -59,29 +63,6 @@ const Modal = ({
         return false;
     };
 
-    const modalRef = useRef<HTMLDivElement>(null);
-    useOnClickOutside(modalRef, (e) => {
-        // Exclude click on trigger button (e.g. Dropdown Button) from outside click handler
-        const isTriggerElem = triggerRef ? triggerRef.current?.contains(e.target) : false;
-        if (!isTriggerElem) {
-            setShowModal(false);
-        }
-    });
-
-    const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
-
-    // Execute only when modal is of absolute size
-    if (width !== undefined) {
-        const widthInPixel = getPixelsFromTwClassName(width);
-        useEffect(() => {
-            setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth));
-        }, [triggerRef]);
-
-        useWindowSize(
-            () => setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth)),
-        );
-    }
-
     const getAbsoluteSpacing = () => {
         if ((anchorPosition === HorizontalPositions.Left)) {
             if (!modalExceedsWindow) {
@@ -99,6 +80,26 @@ const Modal = ({
         }
         return spacing.none.left;
     };
+
+    useOnClickOutside(modalRef, (e) => {
+        // Exclude click on trigger button (e.g. Dropdown Button) from outside click handler
+        const isTriggerElem = triggerRef ? triggerRef.current?.contains(e.target) : false;
+        if (!isTriggerElem) {
+            setShowModal(false);
+        }
+    });
+
+    // Execute only when modal is of absolute size
+    if (width !== undefined) {
+        const widthInPixel = getPixelsFromTwClassName(width);
+        useEffect(() => {
+            setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth));
+        }, [triggerRef]);
+
+        useOnWindowResize(
+            () => setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth)),
+        );
+    }
 
     return (
         showModal ? (

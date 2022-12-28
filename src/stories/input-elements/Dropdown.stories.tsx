@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, Datepicker, Dropdown, Flex, Text, Title } from 'components';
+import { Button, Card, Datepicker, Dropdown, DropdownItem, Flex, Text, Title } from 'components';
 import { SelectElementsFlexTemplate } from './helpers/SelectElementsFlexTemplate';
 import { SimpleDropdown } from './helpers/SimpleDropdown';
 import { SimpleSelectBox } from 'stories/input-elements/helpers/SimpleSelectBox';
@@ -65,6 +65,22 @@ const FlexTemplate: ComponentStory<typeof Dropdown> = (args) => (
         </Card>
     </>
 );
+
+const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
+    const [value, setValue] = useState<number | null>(5);
+    return (
+        <Card>
+            <Dropdown value={value} onValueChange={ (value) => { setValue(value); alert(value); } }>
+                <DropdownItem value={5} text={'Five'} />
+                <DropdownItem value={3} text={'Three'} />
+                <DropdownItem value={1} text={'One'} />
+            </Dropdown>
+            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Set to One" onClick={ () => setValue(1) } />
+        </Card>
+    );
+};
+
   
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
@@ -85,3 +101,5 @@ WithIcon.args = {
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
+
+export const WithControlledState = WithControlledStateTemplate.bind({});

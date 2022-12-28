@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { BaseColorContext, SelectedValueContext } from 'contexts';
+
+import { useInternalState } from 'hooks';
 
 import {
     BaseColors,
@@ -11,27 +15,36 @@ import {
 } from 'lib';
 import { Color, MarginTop } from '../../../lib';
 
-export interface TabListProps {
-    defaultValue?: any,
+export interface TabListProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     color?: Color,
-    handleSelect?: { (value: any): void },
     marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement
 }
 
-const TabList = ({
+const TabList = <T,>({
     defaultValue,
+    value,
+    onValueChange,
+    handleSelect,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
     marginTop = 'mt-0',
     children,
-}: TabListProps) => {
-    const [selectedTab, setSelectedTab] = useState<any|null>(defaultValue);
+}: TabListProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
 
-    const handleTabClick = (value: any) => {
-        handleSelect(value);
-        setSelectedTab(value);
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+
+    const handleValueChange = (value: T) => {
+        onValueChange?.(value);
+        handleSelect?.(value);
+        setSelectedValue(value);
     };
 
     return(
@@ -42,15 +55,11 @@ const TabList = ({
             spacing.twoXl.spaceX,
             border.sm.bottom,
         ) }>
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        isActive: selectedTab === child.props.value,
-                        handleTabClick,
-                        color,
-                    }
-                })
-            )) }
+            <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                <BaseColorContext.Provider value={ color }>
+                    { React.Children.map(children, (child) => React.cloneElement(child)) }
+                </BaseColorContext.Provider>
+            </SelectedValueContext.Provider>
         </ol>
     );
 };

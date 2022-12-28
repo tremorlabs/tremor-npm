@@ -1,5 +1,9 @@
 import React, { useRef, useState } from 'react';
 
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
+
+import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+
 import { ArrowDownHeadIcon } from 'assets';
 
 import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
@@ -8,6 +12,7 @@ import {
     borderRadius,
     boxShadow,
     classNames,
+    constructValueToNameMapping,
     defaultColors,
     fontSize,
     fontWeight,
@@ -17,11 +22,14 @@ import {
     sizing,
     spacing
 } from 'lib';
+import { DropdownItemProps } from './DropdownItem';
 import Modal from 'components/layout-elements/Modal';
 
-export interface DropdownProps {
-    defaultValue?: any,
-    handleSelect?: { (value: any): void },
+export interface DropdownProps<T> {
+    defaultValue?: T,
+    value?: T,
+    onValueChange?: (value: T) => void,
+    handleSelect?: (value: T) => void,
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
@@ -29,41 +37,49 @@ export interface DropdownProps {
     children: React.ReactElement[] | React.ReactElement,
 }
 
-const Dropdown = ({
+const Dropdown = <T, >({
     defaultValue,
-    handleSelect = (value: any) => { value; },
+    value,
+    onValueChange,
+    handleSelect,
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     children,
-}: DropdownProps) => {
-    const Icon = icon;
+}: DropdownProps<T>) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
+            Please use `onValueChange` instead.');
+    }
+
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+    const [isFocused, setIsFocused] = useState(false);
 
     const dropdownRef = useRef(null);
 
-    const constructValueToNameMapping = (): Map<string, string> => {
-        const valueToNameMapping = new Map<string, string>();
-        React.Children.map(children, (child) => {
-            valueToNameMapping.set(child.props.value, child.props.text);
-        });
-        return valueToNameMapping;
+    const Icon = icon;
+    const valueToNameMapping = constructValueToNameMapping(children);
+    const optionValues = React.Children.map(children, (child: { props: DropdownItemProps }) => child.props.value);
+
+    const handleValueChange = (value: T) => {
+        setSelectedValue(value);
+        handleSelect?.(value);
+        setIsFocused(false);
+        onValueChange?.(value);
     };
 
-    const valueToNameMapping = constructValueToNameMapping();
-
-    const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [showModal, setShowModal] = useState(false);
-
-    const handleDropdownItemClick = (value: any) => {
-        setSelectedItem(value);
-        handleSelect(value);
-        setShowModal(false);
-    };
+    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+        optionValues,
+        handleValueChange,
+        isFocused,
+        setIsFocused
+    );
 
     return(
         <div
             ref={ dropdownRef }
+            onKeyDown={ handleKeyDown }
             className={ classNames(
                 'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
                 parseMaxWidth(maxWidth),
@@ -86,7 +102,7 @@ const Dropdown = ({
                     spacing.sm.paddingTop,
                     spacing.sm.paddingBottom,
                 ) }
-                onClick={ () => setShowModal(!showModal) }
+                onClick={ () => setIsFocused(!isFocused) }
             >
                 <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
                     {
@@ -107,11 +123,11 @@ const Dropdown = ({
                         'text-elem tr-whitespace-nowrap tr-truncate',
                         fontSize.sm,
                         fontWeight.md,
-                        selectedItem
+                        selectedValue
                             ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                     ) }>
-                        { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
+                        { selectedValue ? valueToNameMapping.get(selectedValue) : placeholder }
                     </p>
                 </div>
                 <ArrowDownHeadIcon
@@ -126,20 +142,15 @@ const Dropdown = ({
                 />
             </button>
             <Modal
-                showModal={ showModal }
-                setShowModal={ setShowModal }
+                showModal={ isFocused }
+                setShowModal={ setIsFocused }
                 triggerRef={ dropdownRef }
             >
-                { React.Children.map(children, (child: React.ReactElement) => (
-                    <>
-                        { React.cloneElement(child, {
-                            privateProps: {
-                                handleDropdownItemClick,
-                                isActive: child?.props.value === selectedItem,
-                            },
-                        }) }
-                    </>
-                )) }
+                <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
+                    <HoveredValueContext.Provider value={ hoveredValue }>
+                        { React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child)) }
+                    </HoveredValueContext.Provider>
+                </SelectedValueContext.Provider>
             </Modal>
         </div>
     );

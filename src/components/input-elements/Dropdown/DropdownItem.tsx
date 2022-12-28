@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
 import {
     classNames,
@@ -13,23 +15,22 @@ export interface DropdownItemProps {
     value: any;
     text: string;
     icon?: React.ElementType;
-    privateProps?: {
-        isActive: boolean;
-        handleDropdownItemClick: (value: any) => void;
-    };
 }
 
 const DropdownItem = ({
     value,
     text,
     icon,
-    privateProps,
 }: DropdownItemProps) => {
+    const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
+    const hoveredValue = useContext(HoveredValueContext);
+    const isActive = selectedValue === value || hoveredValue === value;
+
     const Icon = icon ? icon : null;
     return (
         <button
             type="button"
-            onClick={() => privateProps!.handleDropdownItemClick(value)}
+            onClick={() => handleValueChange?.(value)}
             className={classNames(
                 'input-elem tr-flex tr-items-center tr-justify-between tr-w-full',
                 spacing.twoXl.paddingLeft,
@@ -37,7 +38,7 @@ const DropdownItem = ({
                 spacing.md.paddingTop,
                 spacing.md.paddingBottom,
                 fontSize.sm,
-                privateProps!.isActive
+                isActive
                     ? classNames(
                         getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
                             .bgColor,

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { BaseColorContext, SelectedValueContext } from 'contexts';
 
 import {
     borderRadius,
@@ -11,28 +13,26 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color } from '../../../lib';
 
 export interface ToggleItemProps {
     value: any,
     text?: string,
     icon?: React.ElementType,
-    privateProps?: {
-        isActive: boolean,
-        handleToggleItemClick: (value: any) => void,
-        color: Color,
-    }
 }
 
 const ToggleItem = ({
     value,
     text,
     icon,
-    privateProps,
 }: ToggleItemProps) => {
+    const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
+    const color = useContext(BaseColorContext);
+    
+    const isActive = selectedValue === value;
+
     const activeClassNames = classNames(
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(getColorTheme(privateProps!.color).text).textColor,
+        getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
         boxShadow.sm,
     );
@@ -54,9 +54,9 @@ const ToggleItem = ({
                 spacing.xs.paddingBottom,
                 fontSize.sm,
                 borderRadius.md.all,
-                privateProps!.isActive ? activeClassNames : inActiveClassNames,
+                isActive ? activeClassNames : inActiveClassNames,
             )}
-            onClick={() => { privateProps!.handleToggleItemClick!(value); }}
+            onClick={() => { handleValueChange?.(value); }}
         >
             {
                 Icon ? (
