@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { BaseColorTheme, colorTheme } from './colors';
 import { BaseColors, DeltaTypes, Importances, Sizes } from './primitives';
@@ -86,58 +86,15 @@ export const constructValueToNameMapping = <T, >(
     return valueToNameMapping;
 };
 
-export const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-    React.Children.map(children, (child) => {
-        return String(child.props.text);
-    })
-);
+export interface SelectItemProps {
+    value: any,
+    text: string,
+}
 
-export const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-    return searchQuery === ''
-        ? allOptionNames
-        : allOptionNames.filter((optionName: string) => {
-            return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-        });
-};
-
-export const getFilteredOptions = (searchQuery: string, options: { value: any, text: string }[]) => {
+export const getFilteredOptions = (searchQuery: string, options: SelectItemProps[]): SelectItemProps[] => {
     return searchQuery === ''
         ? options
         : options.filter((option: any) => {
             return option.text.toLowerCase().includes(searchQuery.toLowerCase());
         });
 };    
-
-
-export const useOnClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: {(event: any): void}) => {
-    useEffect(
-        () => {
-            const listener = (event: any) => {
-                if (!ref.current || ref.current.contains(event.target)) {
-                    return;
-                }
-                handler(event);
-            };
-            document.addEventListener('mousedown', listener);
-            document.addEventListener('touchstart', listener);
-            return () => {
-                document.removeEventListener('mousedown', listener);
-                document.removeEventListener('touchstart', listener);
-            };
-        },
-        [ref, handler]
-    );
-};
-
-export const useWindowSize = (handler: {(): void}, initialWindowSize?: number) => {
-    const [windowSize, setWindowSize] = useState<undefined | number>(initialWindowSize);
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowSize(window.innerWidth);
-            handler();
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowSize]);
-};
