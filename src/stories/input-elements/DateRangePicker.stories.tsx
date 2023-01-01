@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Card, DateRangePicker } from 'components';
+import { Button, Card, DateRangePicker } from 'components';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -11,16 +11,36 @@ export default {
 } as ComponentMeta<typeof DateRangePicker>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof DateRangePicker> = (args) => (
-    <Card>
-        <DateRangePicker { ...args } />
-    </Card>
-);
+const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+    return (
+        <Card>
+            <DateRangePicker { ...args } />
+        </Card>
+    );
+};
 
-export const Default = ResponsiveTemplate.bind({});
-Default.args = {
-    startDate: new Date(2022, 5, 5),
-    endDate: new Date(2022, 5, 10),
-    minDate: new Date(2022, 5, 7),
-    maxDate: new Date(2022, 5, 8),
+const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+    const [value, setValue] = useState<(Date | null)[]>([new Date(2022, 5, 5), new Date(), 'tdy']);
+    return (
+        <Card>
+            <DateRangePicker { ...args }
+                value={ value }
+                onValueChange={ (v) => { setValue(v); console.log(v); }}
+            />
+            <Button text="Reset" onClick={ () => { setValue([null, null]); }} />
+        </Card>
+    );
+};
+
+export const Uncontrolled = UncontrolledTemplate.bind({});
+Uncontrolled.args = {
+    onValueChange: ([sd, ed]) => console.log(sd, ed),
+    defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10), 'tdy'],
+    enableYearPagination: true,
+    enableRelativeDates: true,
+};
+
+export const Controlled = ControlledTemplate.bind({});
+Controlled.args = {
+    enableYearPagination: true,
 };

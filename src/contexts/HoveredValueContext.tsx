@@ -1,5 +1,12 @@
-import { createContext } from 'react';
+import { Dispatch, SetStateAction, createContext } from 'react';
 
-const HoveredValueContext = createContext<any | undefined>(undefined);
+export interface HoveredValueContextValue {
+    hoveredValue: any | undefined;
+    setHoveredValue?: Dispatch<SetStateAction<any>>;
+}
+
+const HoveredValueContext = createContext<HoveredValueContextValue>({
+    hoveredValue: undefined,
+});
 
 export default HoveredValueContext;

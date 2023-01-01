@@ -23,7 +23,7 @@ const DropdownItem = ({
     icon,
 }: DropdownItemProps) => {
     const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
-    const hoveredValue = useContext(HoveredValueContext);
+    const { hoveredValue } = useContext(HoveredValueContext);
     const isActive = selectedValue === value || hoveredValue === value;
 
     const Icon = icon ? icon : null;

@@ -101,7 +101,7 @@ WithFlexParent.args = {
 export const WithDefaultDates = ResponsiveTemplate.bind({});
 WithDefaultDates.args = {
     defaultStartDate: new Date(2022, 6, 1),
-    defaultEndDate: new Date(2022, 7, 30),
+    defaultEndDate: new Date(),
     handleSelect: handleSelect,
 };
 

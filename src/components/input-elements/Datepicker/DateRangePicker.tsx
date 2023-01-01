@@ -1,14 +1,33 @@
-import React, { Dispatch, Ref, SetStateAction, useEffect, useRef, useState } from 'react';
-
-import { add, endOfMonth, format, getMonth, isEqual, max, min, startOfMonth } from 'date-fns';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 
 import {
+    add,
+    eachDayOfInterval,
+    endOfMonth,
+    format,
+    getDay,
+    isEqual,
+    isSaturday,
+    isSunday,
+    max,
+    min,
+    nextSaturday,
+    previousSunday,
+    startOfMonth
+} from 'date-fns';
+
+import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+
+import {
+    ArrowDownHeadIcon,
     ArrowLeftHeadIcon,
     ArrowRightHeadIcon,
     CalendarIcon,
     DoubleArrowLeftHeadIcon,
     DoubleArrowRightHeadIcon
 } from 'assets';
+
+import { BaseColorContext, HoveredValueContext } from 'contexts';
 import {
     BaseColors,
     border,
@@ -24,46 +43,41 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { Color, MarginTop, MaxWidth, RelativeFilterOption } from '../../../lib/inputTypes';
+import { Color, MarginTop, MaxWidth } from '../../../lib/inputTypes';
+import {
+    relativeFilterOptions as defaultFilterOptions,
+    getDateStyles,
+} from 'components/input-elements/Datepicker/utils';
 import Modal from 'components/layout-elements/Modal';
-import { useInternalState } from 'hooks';
 
-export interface DateRangePickerProps {
-    handleSelect?: (selectedStartDay: Date, selectedEndDay: Date) => void,
-    onValueChange?: (selectedStartDay: Date, selectedEndDay: Date) => void,
-    enableRelativeDates?: boolean,
-    defaultRelativeFilterOption?: RelativeFilterOption,
-    defaultStartDate?: Date | null,
-    defaultEndDate?: Date | null,
-    startDate?: Date | null,
-    endDate?: Date | null,
-    minDate?: Date | null,
-    maxDate?: Date | null,
-    placeholder?: string,
-    color?: Color,
-    marginTop?: MarginTop,
-    maxWidth?: MaxWidth,
-    enableYearPagination?: boolean
-}
+const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-const getFinalStartDate = (
+export const colStartClasses = [
+    '',
+    'col-start-2',
+    'col-start-3',
+    'col-start-4',
+    'col-start-5',
+    'col-start-6',
+    'col-start-7',
+];
+
+const getStartDate = (
     startDate: Date | null | undefined,
     minDate: Date | null | undefined,
 ) => {
-    if (!startDate && !minDate) return null;
+    if (!startDate) return null;
     if (startDate && !minDate) return startDate;
-    if (!startDate && minDate) return minDate;
 
     return max([startDate as Date, minDate as Date]);
 };
 
-const getFinalEndDate = (
+const getEndDate = (
     endDate: Date | null | undefined,
     maxDate: Date | null | undefined,
 ) => {
-    if (!endDate && !maxDate) return null;
+    if (!endDate) return null;
     if (endDate && !maxDate) return endDate;
-    if (!endDate && maxDate) return maxDate;
 
     return min([endDate as Date, maxDate as Date]);
 };
@@ -90,73 +104,6 @@ export const formatSelectedDates = (startDate: Date | null, endDate: Date | null
         }
     }
     return '';
-};
-
-interface DatepickerButtonProps {
-    datepickerRef: Ref<HTMLButtonElement>,
-    hasSelection: boolean,
-    displayedText: string,
-    showDatepickerModal: boolean,
-    setShowDatepickerModal: Dispatch<SetStateAction<boolean>>,
-}
-
-const DatepickerButton = ({
-    datepickerRef,
-    hasSelection,
-    displayedText,
-    showDatepickerModal,
-    setShowDatepickerModal,
-}: DatepickerButtonProps) => {
-    return (
-        <div className={ classNames(
-            'tr-flex tr-items-center tr-justify-between',
-            getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-            borderRadius.md.all,
-            boxShadow.sm,
-        ) }
-        >
-            <button
-                type="button"
-                ref={ datepickerRef }
-                onClick={ () => setShowDatepickerModal(!showDatepickerModal) }
-                className={ classNames(
-                    'input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0 focus:tr-outline-0',
-                    classNames(borderRadius.md.right, border.sm.right),
-                    getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    spacing.twoXl.paddingLeft,
-                    spacing.twoXl.paddingRight,
-                    spacing.sm.paddingTop,
-                    spacing.sm.paddingBottom,
-                    borderRadius.md.left,
-                    border.sm.all,
-                ) }
-            >
-                <CalendarIcon
-                    className={ classNames(
-                        'tr-flex-none',
-                        getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                        sizing.lg.height,
-                        sizing.lg.width,
-                        spacing.threeXs.negativeMarginLeft,
-                        spacing.lg.marginRight,
-                    ) }
-                    aria-hidden="true"
-                />
-                <p className={ classNames(
-                    'text-elem tr-whitespace-nowrap tr-truncate',
-                    fontSize.sm,
-                    fontWeight.md,
-                    hasSelection
-                        ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                        : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-                ) }>
-                    { displayedText }
-                </p>
-            </button>
-        </div>
-    );
 };
 
 interface DatepickerHeaderProps {
@@ -332,15 +279,141 @@ const DatepickerHeader = ({
     );
 };
 
-const DateRangePicker = ({
-    handleSelect,
+interface DatepickerBodyProps {
+    finalStartDate: Date | null,
+    finalEndDate: Date | null,
+    handleDateClick: (date: Date) => void,
+    displayedDates: Date[],
+    minDate: Date | null,
+    maxDate: Date | null,
+    firstDayDisplayedMonth: Date,
+    lastDayDisplayedMonth: Date,
+}
+
+const DatepickerBody = ({
+    finalStartDate,
+    finalEndDate,
+    handleDateClick,
+    displayedDates,
+    minDate,
+    maxDate,
+    firstDayDisplayedMonth,
+    lastDayDisplayedMonth,
+}: DatepickerBodyProps) => {
+    const { hoveredValue: hoveredDate, setHoveredValue: setHoveredDate } = useContext(HoveredValueContext);
+    const color = useContext(BaseColorContext);
+
+    const isDateDisabled = (
+        date: Date,
+        minDate: Date | null,
+        maxDate: Date | null,
+        firstDayDisplayedMonth: Date,
+        lastDayDisplayedMonth: Date,
+    ) => {
+        const isDateInDisplayedMonth = date >= firstDayDisplayedMonth && date <= lastDayDisplayedMonth;
+        return (minDate !== null && date < minDate)
+            || (maxDate !== null && date > maxDate)
+            || !isDateInDisplayedMonth;
+    };
+
+    return (
+        <>
+            <div className={ classNames(
+                'tr-grid tr-grid-cols-7 tr-text-center',
+                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                fontSize.xs,
+                fontWeight.md,
+            ) }
+            >
+                { WEEKDAYS.map((dayName) => (
+                    <div
+                        key={ dayName }
+                        className="tr-w-full tr-flex tr-justify-center"
+                    >
+                        <div
+                            className={ classNames(
+                                'tr-flex tr-items-center tr-justify-center tr-w-full',
+                                sizing.threeXl.height
+                            ) }
+                        >
+                            { dayName }
+                        </div>
+                    </div>
+                )) }
+            </div>
+            <div className="tr-grid tr-grid-cols-7">
+                { displayedDates.map((date) => {
+
+                    const isCurrentDateDisabled = isDateDisabled(
+                        date,
+                        minDate,
+                        maxDate,
+                        firstDayDisplayedMonth,
+                        lastDayDisplayedMonth,
+                    );
+
+                    return (
+                        <div
+                            key={date.toString()}
+                            className={classNames(
+                                colStartClasses[getDay(date)],
+                                'tr-w-full'
+                            )}
+                        >
+                            <button
+                                type="button"
+                                onClick={() => handleDateClick(date)}
+                                onPointerEnter={ () => setHoveredDate?.(date) }
+                                onPointerLeave={ () => setHoveredDate?.(undefined) }
+                                className={classNames(
+                                    'input-elem tr-w-full tr-flex tr-items-center tr-justify-center',
+                                    sizing.threeXl.height,
+                                    fontSize.sm,
+                                    getDateStyles(
+                                        date,
+                                        finalStartDate,
+                                        finalEndDate,
+                                        hoveredDate,
+                                        isCurrentDateDisabled,
+                                        color,
+                                    ),
+                                )}
+                                disabled={ isCurrentDateDisabled }
+                            >
+                                <time dateTime={format(date, 'yyyy-MM-dd')}>
+                                    {format(date, 'd')}
+                                </time>
+                            </button>
+                        </div>
+                    ); }) }
+            </div>
+        </>
+    );
+};
+
+export type Option<T> = { value: T, text: string, startDate: Date }
+
+export interface DateRangePickerProps<T> {
+    value?: (Date | null | T)[],
+    defaultValue?: (Date | null | T)[],
+    onValueChange?: (value: (Date | null | T)[]) => void,
+    enableFilterOptions?: boolean,
+    options: Option<T>[],
+    minDate?: Date | null,
+    maxDate?: Date | null,
+    placeholder?: string,
+    enableYearPagination?: boolean,
+    color?: Color,
+    marginTop?: MarginTop,
+    maxWidth?: MaxWidth,
+}
+
+const DateRangePicker = <T, >({
+    value,
+    defaultValue,
     onValueChange,
-    enableRelativeDates = true,
-    defaultRelativeFilterOption = null,
-    defaultStartDate,
-    defaultEndDate,
-    startDate,
-    endDate,
+    enableFilterOptions = true,
+    options,
     minDate = null,
     maxDate = null,
     placeholder = 'Select...',
@@ -348,62 +421,265 @@ const DateRangePicker = ({
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     enableYearPagination = false,
-}: DateRangePickerProps) => {
+}: DateRangePickerProps<T>) => {
     const TODAY = new Date();
-
     const datepickerRef = useRef(null);
+    const dropdownRef = useRef(null);
 
-    const [selectedStartDate, setSelectedStartDate] = useInternalState(defaultStartDate, startDate);
-    const [selectedEndDate, setSelectedEndDate] = useInternalState(defaultEndDate, endDate);
-    const [selectedRelativeFilterOption, setSelectedRelativeFilterOption] = useState(defaultRelativeFilterOption);
-    const [anchorDate, setAnchorDate] = useState(TODAY);
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
     const [showDatepickerModal, setShowDatepickerModal] = useState(false);
+    const [hoveredDate, setHoveredDate] = useState<Date | undefined>();
+    const [anchorDate, setAnchorDate] = useState(TODAY);
 
-    const displayedMonth = getMonth(anchorDate);
+    const [showRelativeFilterModal, setShowRelativeFilterModal] = useState(false);
+
+    useEffect(() => {
+        setAnchorDate(endDate ?? startDate ?? TODAY);
+    }, [value]);
+
+    const startDate = selectedValue ? getStartDate(selectedValue[0] as Date | null, minDate) : null;
+    const endDate = selectedValue ? getEndDate(selectedValue[1] as Date | null, maxDate) : null;
+    const selectedFilterOption = (selectedValue ? (selectedValue[2] ?? null) : null);
+
+    const hasSelection = (startDate || endDate) !== null;
+    const displayedText = hasSelection ? formatSelectedDates(startDate, endDate) : placeholder;
+
     const firstDayOfDisplayedMonth = startOfMonth(anchorDate);
     const lastDayOfDisplayedMonth = endOfMonth(anchorDate);
 
-    const finalStartDate = getFinalStartDate(selectedStartDate, minDate);
-    const finalEndDate = getFinalEndDate(selectedEndDate, maxDate);
-    
-    const hasSelection = (finalStartDate || finalEndDate) !== null;
-    const displayedText = hasSelection ? formatSelectedDates(finalStartDate, finalEndDate) : placeholder;
+    const displayedDates = eachDayOfInterval({
+        start: isSunday(firstDayOfDisplayedMonth)
+            ? firstDayOfDisplayedMonth
+            : previousSunday(firstDayOfDisplayedMonth),
+        end: isSaturday(lastDayOfDisplayedMonth)
+            ? lastDayOfDisplayedMonth
+            : nextSaturday(lastDayOfDisplayedMonth),
+    });
 
-    useEffect(() => {
-        setAnchorDate(finalEndDate ?? TODAY);
-    }, [selectedEndDate]);
+    const handleDateClick = (date: Date) => {
+        if (!startDate) {
+            onValueChange?.([date, endDate, null]);
+            setSelectedValue([date, endDate, null]);
+        } else if (startDate && !endDate) {
+            if (date < startDate) {
+                onValueChange?.([date, endDate, null]);
+                setSelectedValue([date, endDate, null]);
+            // Selection complete
+            } else {
+                onValueChange?.([startDate, date, null]);
+                setSelectedValue([startDate, date, null]);
+                setShowDatepickerModal(false);
+            }
+        } else if (startDate && endDate) {
+            onValueChange?.([date, null, null]);
+            setSelectedValue([date, null, null]);
+        }
+    };
 
-    console.log(finalStartDate);
-    console.log(finalEndDate);
-    console.log(displayedMonth);
+    const handleDatepickerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            setShowDatepickerModal(false);
+        }
+    };
+
+    const filterOptions = options ?? defaultFilterOptions;
+
+    const handleRelativeFilterClick = (optionValue: T, startDate?: Date) => {
+        const selectedStartDate = startDate
+            ?? filterOptions.filter((option: Option<T>) => option.value === optionValue)[0].startDate;
+        setSelectedValue([selectedStartDate, TODAY, optionValue]);
+        onValueChange?.([selectedStartDate, TODAY, optionValue]);
+        setAnchorDate(TODAY);
+        setShowRelativeFilterModal(false);
+    };
+
+    const [hoveredFilterOption, handleFilterKeyDown] = useOnSelectElementKeyDown(
+        filterOptions.map((option: Option<T>) => option.value),
+        handleRelativeFilterClick,
+        showRelativeFilterModal,
+        setShowRelativeFilterModal,
+    );
 
     return (
-        <div className={ classNames(
-            'tremor-base tr-relative tr-w-full',
-            parseMarginTop(marginTop),
-            parseMaxWidth(maxWidth),
-        ) }>
-            <DatepickerButton
-                datepickerRef={ datepickerRef }
-                hasSelection={ hasSelection }
-                displayedText={ displayedText }
-                showDatepickerModal={ showDatepickerModal }
-                setShowDatepickerModal={ setShowDatepickerModal }
-            />
-            <Modal
-                showModal={ showDatepickerModal }
-                setShowModal={ setShowDatepickerModal }
-                triggerRef={ datepickerRef }
-                width="w-72"
-                maxHeight="tr-max-h-fit"
-            >
-                <DatepickerHeader
-                    enableYearPagination={ enableYearPagination }
-                    anchorDate={ anchorDate }
-                    setAnchorDate={ setAnchorDate }
-                />
-            </Modal>
-        </div>
+        <BaseColorContext.Provider value={ color }>
+            <div className={ classNames(
+                'tremor-base tr-relative tr-w-full',
+                parseMarginTop(marginTop),
+                parseMaxWidth(maxWidth),
+            ) }>
+                <div className={ classNames(
+                    'tr-flex tr-items-center tr-justify-between',
+                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                    borderRadius.md.all,
+                    boxShadow.sm,
+                ) }
+                >
+                    <button
+                        type="button"
+                        ref={ datepickerRef }
+                        onClick={ () => setShowDatepickerModal(!showDatepickerModal) }
+                        onKeyDown={ handleDatepickerKeyDown }
+                        className={ classNames(
+                            `input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0
+                             focus:tr-outline-0`,
+                            enableFilterOptions
+                                ? border.none.right
+                                : classNames(borderRadius.md.right, border.sm.right),
+                            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                            spacing.twoXl.paddingLeft,
+                            spacing.twoXl.paddingRight,
+                            spacing.sm.paddingTop,
+                            spacing.sm.paddingBottom,
+                            borderRadius.md.left,
+                            border.sm.all,
+                        ) }
+                    >
+                        <CalendarIcon
+                            className={ classNames(
+                                'tr-flex-none',
+                                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                sizing.lg.height,
+                                sizing.lg.width,
+                                spacing.threeXs.negativeMarginLeft,
+                                spacing.lg.marginRight,
+                            ) }
+                            aria-hidden="true"
+                        />
+                        <p className={ classNames(
+                            'text-elem tr-whitespace-nowrap tr-truncate',
+                            fontSize.sm,
+                            fontWeight.md,
+                            hasSelection
+                                ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+                                : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                        ) }>
+                            { displayedText }
+                        </p>
+                    </button>
+                    { enableFilterOptions ? (
+                        <button
+                            type="button"
+                            ref={ dropdownRef }
+                            onClick={ () => setShowRelativeFilterModal(!showRelativeFilterModal) }
+                            className={ classNames(
+                                'input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate',
+                                'focus:tr-ring-0 focus:tr-outline-0',
+                                getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+                                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+                                spacing.twoXl.paddingLeft,
+                                spacing.twoXl.paddingRight,
+                                spacing.px.negativeMarginLeft,
+                                spacing.sm.paddingTop,
+                                spacing.sm.paddingBottom,
+                                borderRadius.md.right,
+                                border.sm.all,
+                            ) }
+                            onKeyDown={ handleFilterKeyDown }
+                        >
+                            <p className={ classNames(
+                                'text-elem tr-whitespace-nowrap tr-truncate',
+                                fontSize.sm,
+                                fontWeight.md,
+                                selectedFilterOption
+                                    ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+                                    : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                            ) }>
+                                { selectedFilterOption
+                                    ? String(defaultFilterOptions.find((filterOption) => (
+                                        filterOption.value === selectedFilterOption
+                                    ))?.name)
+                                    : 'Select' }
+                            </p>
+                            <ArrowDownHeadIcon
+                                className={ classNames(
+                                    'tr-flex-none',
+                                    sizing.lg.height,
+                                    sizing.lg.width,
+                                    spacing.twoXs.negativeMarginRight,
+                                    getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                                ) }
+                                aria-hidden="true"
+                            />
+                        </button>
+                    ) : null }
+                </div>
+                <HoveredValueContext.Provider value={
+                    { hoveredValue: hoveredDate, setHoveredValue: setHoveredDate }
+                }>
+                    <Modal
+                        showModal={ showDatepickerModal }
+                        setShowModal={ setShowDatepickerModal }
+                        triggerRef={ datepickerRef }
+                        width="w-72"
+                        maxHeight="tr-max-h-fit"
+                    >
+                        <div
+                            className={ classNames(
+                                spacing.lg.paddingLeft,
+                                spacing.lg.paddingRight,
+                                spacing.twoXs.paddingTop,
+                                spacing.twoXs.paddingBottom,
+                            ) }
+                        >
+                            <DatepickerHeader
+                                enableYearPagination={ enableYearPagination }
+                                anchorDate={ anchorDate }
+                                setAnchorDate={ setAnchorDate }
+                            />
+                            <DatepickerBody
+                                displayedDates={ displayedDates }
+                                finalStartDate={ startDate }
+                                finalEndDate={ endDate }
+                                handleDateClick={ handleDateClick }
+                                minDate={ minDate }
+                                maxDate={ maxDate }
+                                firstDayDisplayedMonth={ firstDayOfDisplayedMonth }
+                                lastDayDisplayedMonth={ lastDayOfDisplayedMonth }
+                            />
+                        </div>
+                    </Modal>
+                </HoveredValueContext.Provider>
+                <Modal
+                    showModal={ showRelativeFilterModal }
+                    setShowModal={ setShowRelativeFilterModal }
+                    triggerRef={ dropdownRef }
+                >
+                    { filterOptions.map(({value, text, startDate}: Option<T>) => (
+                        <button
+                            key={ String(value) }
+                            type="button"
+                            onClick={ () => handleRelativeFilterClick(value, startDate) }
+                            className={ classNames(
+                                'input-elem tr-flex tr-items-center tr-justify-between tr-w-full tr-truncate',
+                                spacing.twoXl.paddingLeft,
+                                spacing.twoXl.paddingRight,
+                                spacing.md.paddingTop,
+                                spacing.md.paddingBottom,
+                                fontSize.sm,
+                                selectedFilterOption === value || hoveredFilterOption === value
+                                    ? classNames(
+                                        getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
+                                    )
+                                    : classNames(
+                                        getColorVariantsFromColorThemeValue(
+                                            defaultColors.lightBackground).hoverBgColor,
+                                        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                                    )
+                            ) }
+                        >
+                            <p className="text-elem tr-whitespace-nowrap tr-truncate">
+                                { text }
+                            </p>
+                        </button>
+                    ))}      
+                </Modal>
+
+            </div>
+        </BaseColorContext.Provider>
     );
 };
 
