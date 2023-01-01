@@ -37,7 +37,7 @@ Uncontrolled.args = {
     onValueChange: ([sd, ed]) => console.log(sd, ed),
     defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10), 'tdy'],
     enableYearPagination: true,
-    enableFilterOptions: true,
+    enableDropdown: true,
 };
 
 export const Controlled = ControlledTemplate.bind({});

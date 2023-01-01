@@ -327,9 +327,9 @@ export const getDayRoundedClassName = (
 
 export const getDateStyles = (
     date: Date,
-    finalStartDate: Date|null,
-    finalEndDate: Date|null,
-    hoveredDate: Date|null,
+    finalStartDate: Date | null,
+    finalEndDate: Date | null,
+    hoveredDate: Date | undefined,
     isDateDisabled: boolean,
     color: Color,
 ) => (
@@ -338,7 +338,7 @@ export const getDateStyles = (
             date,
             finalStartDate,
             finalEndDate,
-            hoveredDate,
+            hoveredDate as Date | null,
             color,
             isDateDisabled,
         ),
@@ -346,7 +346,7 @@ export const getDateStyles = (
             date,
             finalStartDate,
             finalEndDate,
-            hoveredDate,
+            hoveredDate as Date | null,
             color,
             isDateDisabled,
         ),
@@ -356,6 +356,6 @@ export const getDateStyles = (
             finalEndDate,
             isDateDisabled,
         ),
-        getDayRoundedClassName(date, finalStartDate, finalEndDate, hoveredDate),
+        getDayRoundedClassName(date, finalStartDate, finalEndDate, hoveredDate as Date | null),
     )
 );
