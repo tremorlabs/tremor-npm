@@ -172,12 +172,12 @@ const DateRangePicker = <T, >({
                     calendarRef={ calendarRef }
                     showCalendar={ showCalendar }
                     setShowCalendar={ setShowCalendar }
-                    handleCalendarKeyDown={ handleCalendarKeyDown }
+                    onCalendarKeyDown={ handleCalendarKeyDown }
                     enableDropdown={ enableDropdown }
                     dropdownRef={ dropdownRef }
                     showDropdown={ showDropdown }
                     setShowDropdown={ setShowDropdown }
-                    handleDropdownKeyDown={ handleDropdownKeyDown }
+                    onDropdownKeyDown={ handleDropdownKeyDown }
                 />
                 {/* Calendar Modal */}
                 <Modal

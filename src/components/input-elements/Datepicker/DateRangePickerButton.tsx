@@ -50,12 +50,12 @@ interface DateRangePickerButtonProps<T> {
     calendarRef: Ref<HTMLButtonElement>,
     showCalendar: boolean,
     setShowCalendar: Dispatch<SetStateAction<boolean>>,
-    handleCalendarKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
+    onCalendarKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
     enableDropdown: boolean,
     dropdownRef: Ref<HTMLButtonElement>,
     showDropdown: boolean,
     setShowDropdown: Dispatch<SetStateAction<boolean>>,
-    handleDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
+    onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
 }
 
 const DateRangePickerButton = <T, >({
@@ -65,12 +65,12 @@ const DateRangePickerButton = <T, >({
     calendarRef,
     showCalendar,
     setShowCalendar,
-    handleCalendarKeyDown,
+    onCalendarKeyDown,
     enableDropdown,
     dropdownRef,
     showDropdown,
     setShowDropdown,
-    handleDropdownKeyDown
+    onDropdownKeyDown
 }: DateRangePickerButtonProps<T>) => {
     const [startDate, endDate, optionValue] = value;
     const hasSelection = (startDate || endDate) !== null;
@@ -95,7 +95,7 @@ const DateRangePickerButton = <T, >({
                 type="button"
                 ref={ calendarRef }
                 onClick={ () => setShowCalendar(!showCalendar) }
-                onKeyDown={ handleCalendarKeyDown }
+                onKeyDown={ onCalendarKeyDown }
                 className={ classNames(
                     `input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0
                      focus:tr-outline-0`,
@@ -152,7 +152,7 @@ const DateRangePickerButton = <T, >({
                         borderRadius.md.right,
                         border.sm.all,
                     ) }
-                    onKeyDown={ handleDropdownKeyDown }
+                    onKeyDown={ onDropdownKeyDown }
                 >
                     <p className={ classNames(
                         'text-elem tr-whitespace-nowrap tr-truncate',
