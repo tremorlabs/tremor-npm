@@ -20,7 +20,7 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 };
 
 const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
-    const [value, setValue] = useState<(Date | null)[]>([new Date(2022, 5, 5), new Date(), 'tdy']);
+    const [value, setValue] = useState<(Date | null | any)[]>([undefined, undefined]);
     return (
         <Card>
             <DateRangePicker { ...args }
@@ -37,7 +37,7 @@ Uncontrolled.args = {
     onValueChange: ([sd, ed]) => console.log(sd, ed),
     defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10), 'tdy'],
     enableYearPagination: true,
-    enableRelativeDates: true,
+    enableFilterOptions: true,
 };
 
 export const Controlled = ControlledTemplate.bind({});

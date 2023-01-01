@@ -13,7 +13,9 @@ import {
     min,
     nextSaturday,
     previousSunday,
-    startOfMonth
+    startOfDay,
+    startOfMonth,
+    startOfToday
 } from 'date-fns';
 
 import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
@@ -62,24 +64,32 @@ export const colStartClasses = [
     'col-start-7',
 ];
 
-const getStartDate = (
+const getStartDate = <T, >(
     startDate: Date | null | undefined,
     minDate: Date | null | undefined,
+    selectedFilterOption: T,
+    filterOptions: Option<T>[],
 ) => {
+    if (selectedFilterOption && startDate === undefined) {
+        startDate = filterOptions.filter(option => option.value === selectedFilterOption)[0].startDate;
+    }
     if (!startDate) return null;
-    if (startDate && !minDate) return startDate;
-
-    return max([startDate as Date, minDate as Date]);
+    if (startDate && !minDate) return startOfDay(startDate);
+    return startOfDay(max([startDate as Date, minDate as Date]));
 };
 
 const getEndDate = (
     endDate: Date | null | undefined,
     maxDate: Date | null | undefined,
+    selectedFilterOption: any,
 ) => {
+    if (selectedFilterOption && endDate === undefined) {
+        endDate = startOfToday();
+    }
     if (!endDate) return null;
-    if (endDate && !maxDate) return endDate;
+    if (endDate && !maxDate) return startOfDay(endDate);
 
-    return min([endDate as Date, maxDate as Date]);
+    return startOfDay(min([endDate as Date, maxDate as Date]));
 };
 
 export const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
@@ -422,27 +432,33 @@ const DateRangePicker = <T, >({
     maxWidth = 'max-w-none',
     enableYearPagination = false,
 }: DateRangePickerProps<T>) => {
-    const TODAY = new Date();
+    const TODAY = startOfToday();
     const datepickerRef = useRef(null);
     const dropdownRef = useRef(null);
 
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-    const [showDatepickerModal, setShowDatepickerModal] = useState(false);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>();
     const [anchorDate, setAnchorDate] = useState(TODAY);
-
+    const [showDatepickerModal, setShowDatepickerModal] = useState(false);
     const [showRelativeFilterModal, setShowRelativeFilterModal] = useState(false);
 
-    useEffect(() => {
-        setAnchorDate(endDate ?? startDate ?? TODAY);
-    }, [value]);
+    const filterOptions = options ?? defaultFilterOptions;
 
-    const startDate = selectedValue ? getStartDate(selectedValue[0] as Date | null, minDate) : null;
-    const endDate = selectedValue ? getEndDate(selectedValue[1] as Date | null, maxDate) : null;
-    const selectedFilterOption = (selectedValue ? (selectedValue[2] ?? null) : null);
+    const selectedFilterOptionValue = (selectedValue ? (selectedValue[2] ?? null) : null) as T;
+    const selectedStartDate = selectedValue ? getStartDate(
+        selectedValue[0] as Date | null,
+        minDate,
+        selectedFilterOptionValue,
+        filterOptions,
+    ) : null;
+    const selectedEndDate = selectedValue ? getEndDate(
+        selectedValue[1] as Date | null,
+        maxDate,
+        selectedFilterOptionValue
+    ) : null;
 
-    const hasSelection = (startDate || endDate) !== null;
-    const displayedText = hasSelection ? formatSelectedDates(startDate, endDate) : placeholder;
+    const hasSelection = (selectedStartDate || selectedEndDate) !== null;
+    const displayedText = hasSelection ? formatSelectedDates(selectedStartDate, selectedEndDate) : placeholder;
 
     const firstDayOfDisplayedMonth = startOfMonth(anchorDate);
     const lastDayOfDisplayedMonth = endOfMonth(anchorDate);
@@ -457,20 +473,20 @@ const DateRangePicker = <T, >({
     });
 
     const handleDateClick = (date: Date) => {
-        if (!startDate) {
-            onValueChange?.([date, endDate, null]);
-            setSelectedValue([date, endDate, null]);
-        } else if (startDate && !endDate) {
-            if (date < startDate) {
-                onValueChange?.([date, endDate, null]);
-                setSelectedValue([date, endDate, null]);
+        if (!selectedStartDate) {
+            onValueChange?.([date, selectedEndDate, null]);
+            setSelectedValue([date, selectedEndDate, null]);
+        } else if (selectedStartDate && !selectedEndDate) {
+            if (date < selectedStartDate) {
+                onValueChange?.([date, selectedEndDate, null]);
+                setSelectedValue([date, selectedEndDate, null]);
             // Selection complete
             } else {
-                onValueChange?.([startDate, date, null]);
-                setSelectedValue([startDate, date, null]);
+                onValueChange?.([selectedStartDate, date, null]);
+                setSelectedValue([selectedStartDate, date, null]);
                 setShowDatepickerModal(false);
             }
-        } else if (startDate && endDate) {
+        } else if (selectedStartDate && selectedEndDate) {
             onValueChange?.([date, null, null]);
             setSelectedValue([date, null, null]);
         }
@@ -483,8 +499,6 @@ const DateRangePicker = <T, >({
         }
     };
 
-    const filterOptions = options ?? defaultFilterOptions;
-
     const handleRelativeFilterClick = (optionValue: T, startDate?: Date) => {
         const selectedStartDate = startDate
             ?? filterOptions.filter((option: Option<T>) => option.value === optionValue)[0].startDate;
@@ -494,12 +508,16 @@ const DateRangePicker = <T, >({
         setShowRelativeFilterModal(false);
     };
 
-    const [hoveredFilterOption, handleFilterKeyDown] = useOnSelectElementKeyDown(
+    const [hoveredFilterOptionValue, handleFilterKeyDown] = useOnSelectElementKeyDown(
         filterOptions.map((option: Option<T>) => option.value),
         handleRelativeFilterClick,
         showRelativeFilterModal,
         setShowRelativeFilterModal,
     );
+
+    useEffect(() => {
+        setAnchorDate(selectedEndDate ?? selectedStartDate ?? TODAY);
+    }, [value]);
 
     return (
         <BaseColorContext.Provider value={ color }>
@@ -583,13 +601,13 @@ const DateRangePicker = <T, >({
                                 'text-elem tr-whitespace-nowrap tr-truncate',
                                 fontSize.sm,
                                 fontWeight.md,
-                                selectedFilterOption
+                                selectedFilterOptionValue
                                     ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                                     : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                             ) }>
-                                { selectedFilterOption
+                                { selectedFilterOptionValue
                                     ? String(defaultFilterOptions.find((filterOption) => (
-                                        filterOption.value === selectedFilterOption
+                                        filterOption.value === selectedFilterOptionValue
                                     ))?.name)
                                     : 'Select' }
                             </p>
@@ -631,8 +649,8 @@ const DateRangePicker = <T, >({
                             />
                             <DatepickerBody
                                 displayedDates={ displayedDates }
-                                finalStartDate={ startDate }
-                                finalEndDate={ endDate }
+                                finalStartDate={ selectedStartDate }
+                                finalEndDate={ selectedEndDate }
                                 handleDateClick={ handleDateClick }
                                 minDate={ minDate }
                                 maxDate={ maxDate }
@@ -659,7 +677,7 @@ const DateRangePicker = <T, >({
                                 spacing.md.paddingTop,
                                 spacing.md.paddingBottom,
                                 fontSize.sm,
-                                selectedFilterOption === value || hoveredFilterOption === value
+                                selectedFilterOptionValue === value || hoveredFilterOptionValue === value
                                     ? classNames(
                                         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
                                         getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
