@@ -25,7 +25,7 @@ const MultiSelectBoxItem = ({
     text,
 }: MultiSelectBoxItemProps) => {
     const { selectedValue: selectedItems, handleValueChange: handleValuesChange } = useContext(SelectedValueContext);
-    const hoveredValue = useContext(HoveredValueContext);
+    const { hoveredValue } = useContext(HoveredValueContext);
     const isActive = isValueInArray(value, selectedItems as any[]);
     const isHovered = hoveredValue === value;
 

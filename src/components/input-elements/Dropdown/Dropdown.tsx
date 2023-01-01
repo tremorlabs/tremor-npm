@@ -147,7 +147,7 @@ const Dropdown = <T, >({
                 triggerRef={ dropdownRef }
             >
                 <SelectedValueContext.Provider value={ { selectedValue, handleValueChange } }>
-                    <HoveredValueContext.Provider value={ hoveredValue }>
+                    <HoveredValueContext.Provider value={ { hoveredValue } }>
                         { React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child)) }
                     </HoveredValueContext.Provider>
                 </SelectedValueContext.Provider>

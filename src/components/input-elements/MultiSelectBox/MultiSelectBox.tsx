@@ -230,7 +230,7 @@ const MultiSelectBox = <T,>({
                     selectedValue: selectedItems,
                     handleValueChange: handleValuesChange,
                 } }>
-                    <HoveredValueContext.Provider value={ hoveredValue }>
+                    <HoveredValueContext.Provider value={ { hoveredValue } }>
                         { React.Children.map(children, (child) => {
                             if (filteredOptionTexts.has(String(child.props.text))) {
                                 return React.cloneElement(child);

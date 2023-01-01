@@ -439,7 +439,7 @@ const DatepickerBody = ({
 );
 
 export interface DatepickerProps {
-    handleSelect?: { (selectedStartDay: Date, selectedEndDay: Date): void },
+    handleSelect?: (selectedStartDay: Date, selectedEndDay: Date) => void,
     enableRelativeDates?: boolean,
     defaultRelativeFilterOption?: RelativeFilterOption,
     defaultStartDate?: Date | null,
@@ -455,7 +455,7 @@ export interface DatepickerProps {
 
 const Datepicker = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (selectedStartDay: Date, selectedEndDay: Date) => null,
+    handleSelect,
     enableRelativeDates = true,
     defaultRelativeFilterOption = null,
     defaultStartDate = null,
@@ -526,7 +526,7 @@ const Datepicker = ({
                 setSelectedStartDay(day);
             // Selection complete
             } else {
-                handleSelect(selectedStartDay, day);
+                handleSelect?.(selectedStartDay, day);
                 setSelectedEndDay(day);
                 setShowDatePickerModal(false);
                 setSelectedRelativeFilterOption(null); // Clear relative filter
@@ -541,7 +541,7 @@ const Datepicker = ({
         const startDate = getStartDateFromRelativeFilterOption(selectedRelativeFilterOption);
         const endDate = today;
 
-        handleSelect(startDate, endDate);
+        handleSelect?.(startDate, endDate);
 
         setSelectedStartDay(startDate);
         setSelectedEndDay(endDate);

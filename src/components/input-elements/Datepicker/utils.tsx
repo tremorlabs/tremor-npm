@@ -86,26 +86,38 @@ export const isDayDisabled = (
 export const relativeFilterOptions: {
     value: RelativeFilterOption,
     name: string,
+    text?: string,
+    startDate: Date,
 }[] = [
     {
         value: 'tdy',
         name: 'Today',
+        text: 'Today',
+        startDate: sub(startOfToday(), { days: 0 }),
     },
     {
         value: 'w',
         name: 'Last 7 days',
+        text: 'Last 7 days',
+        startDate: sub(startOfToday(), { days: 7 }),
     },
     {
         value: 't',
         name: 'Last 30 days',
+        text: 'Last 30 days',
+        startDate: sub(startOfToday(), { days: 30 }),
     },
     {
         value: 'm',
         name: 'Month to Date',
+        text: 'Month to Date',
+        startDate: startOfMonth(startOfToday()),
     },
     {
         value: 'y',
         name: 'Year to Date',
+        text: 'Year to Date',
+        startDate: startOfYear(startOfToday()),
     },
 ];
 
@@ -312,3 +324,38 @@ export const getDayRoundedClassName = (
     }
     return borderRadius.md.all;
 };
+
+export const getDateStyles = (
+    date: Date,
+    finalStartDate: Date | null,
+    finalEndDate: Date | null,
+    hoveredDate: Date | undefined,
+    isDateDisabled: boolean,
+    color: Color,
+) => (
+    classNames(
+        getDayBgColorClassName(
+            date,
+            finalStartDate,
+            finalEndDate,
+            hoveredDate as Date | null,
+            color,
+            isDateDisabled,
+        ),
+        getDayTextClassNames(
+            date,
+            finalStartDate,
+            finalEndDate,
+            hoveredDate as Date | null,
+            color,
+            isDateDisabled,
+        ),
+        getDayHoverBgColorClassName(
+            date,
+            finalStartDate,
+            finalEndDate,
+            isDateDisabled,
+        ),
+        getDayRoundedClassName(date, finalStartDate, finalEndDate, hoveredDate as Date | null),
+    )
+);
