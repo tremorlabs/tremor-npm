@@ -29,7 +29,7 @@ import {
     sizing,
     spacing
 } from 'lib';
-import { getDateStyles } from 'components/input-elements/Datepicker/utils';
+import { getDateStyles } from './dateRangePickerUtils';
 
 const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 

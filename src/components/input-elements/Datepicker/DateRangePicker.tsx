@@ -9,7 +9,7 @@ import {
 
 import { BaseColorContext, HoveredValueContext, SelectedValueContext } from 'contexts';
 
-import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+import { useInternalState, useSelectOnKeyDown } from 'hooks';
 
 import {
     BaseColors,
@@ -18,9 +18,7 @@ import {
     parseMaxWidth,
 } from 'lib';
 import { Color, MarginTop, MaxWidth } from '../../../lib/inputTypes';
-import {
-    relativeFilterOptions as defaultOptions,
-} from 'components/input-elements/Datepicker/utils';
+import { defaultOptions } from './dateRangePickerUtils';
 
 import Calendar from './Calendar';
 import DateRangePickerButton from './DateRangePickerButton';
@@ -30,11 +28,11 @@ import Modal from 'components/layout-elements/Modal';
 const getStartDate = <T, >(
     startDate: Date | null | undefined,
     minDate: Date | null | undefined,
-    selectedOption: T,
-    selectOptions: Option<T>[],
+    selectedOptionValue: T,
+    dropdownOptions: Option<T>[],
 ) => {
-    if (selectedOption && startDate === undefined) {
-        startDate = selectOptions.find(option => option.value === selectedOption)?.startDate;
+    if (selectedOptionValue && startDate === undefined) {
+        startDate = dropdownOptions.find(option => option.value === selectedOptionValue)?.startDate;
     }
     if (!startDate) return null;
     if (startDate && !minDate) return startOfDay(startDate);
@@ -44,9 +42,9 @@ const getStartDate = <T, >(
 const getEndDate = <T, >(
     endDate: Date | null | undefined,
     maxDate: Date | null | undefined,
-    selectedOption: T,
+    selectedOptionValue: T,
 ) => {
-    if (selectedOption && endDate === undefined) {
+    if (selectedOptionValue && endDate === undefined) {
         endDate = startOfToday();
     }
     if (!endDate) return null;
@@ -95,13 +93,13 @@ const DateRangePicker = <T, >({
     const [showCalendar, setShowCalendar] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const selectOptions = options ?? defaultOptions;
+    const dropdownOptions = options ?? defaultOptions;
     const selectedOptionValue = (selectedValue ? (selectedValue[2] ?? null) : null) as T;
     const selectedStartDate = selectedValue ? getStartDate(
         selectedValue[0] as Date | null,
         minDate,
         selectedOptionValue,
-        selectOptions,
+        dropdownOptions,
     ) : null;
     const selectedEndDate = selectedValue ? getEndDate(
         selectedValue[1] as Date | null,
@@ -137,7 +135,7 @@ const DateRangePicker = <T, >({
     };
 
     const handleSelectOptionClick = (optionValue: T) => {
-        let selectedStartDate = selectOptions.find((
+        let selectedStartDate = dropdownOptions.find((
             option: Option<T>) => option.value === optionValue)?.startDate ?? null;
         selectedStartDate = selectedStartDate ? startOfDay(selectedStartDate) : null;
 
@@ -147,8 +145,8 @@ const DateRangePicker = <T, >({
         setShowDropdown(false);
     };
 
-    const [hoveredOptionValue, handleDropdownKeyDown] = useOnSelectElementKeyDown(
-        selectOptions.map((option: Option<T>) => option.value),
+    const [hoveredOptionValue, handleDropdownKeyDown] = useSelectOnKeyDown(
+        dropdownOptions.map((option: Option<T>) => option.value),
         handleSelectOptionClick,
         showDropdown,
         setShowDropdown,
@@ -167,7 +165,7 @@ const DateRangePicker = <T, >({
             ) }>
                 <DateRangePickerButton
                     value={ [selectedStartDate, selectedEndDate, selectedOptionValue] }
-                    options={ selectOptions }
+                    options={ dropdownOptions }
                     placeholder={ placeholder }
                     calendarRef={ calendarRef }
                     showCalendar={ showCalendar }
@@ -210,7 +208,7 @@ const DateRangePicker = <T, >({
                     } }
                     >
                         <HoveredValueContext.Provider value={ { hoveredValue: hoveredOptionValue } }>
-                            { selectOptions.map(({ value, text }: Option<T>) => (
+                            { dropdownOptions.map(({ value, text }: Option<T>) => (
                                 <DropdownItem value={ value } text={ text } />
                             ))}
                         </HoveredValueContext.Provider>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useOnSelectElementKeyDown = <T, >(
+const useSelectOnKeyDown = <T, >(
     optionValues: T[],
     onValueChange: (value: T) => void,
     isFocused: boolean,
@@ -66,4 +66,4 @@ const useOnSelectElementKeyDown = <T, >(
     return [hoveredValue, handleKeyDown];
 };
 
-export default useOnSelectElementKeyDown;
+export default useSelectOnKeyDown;

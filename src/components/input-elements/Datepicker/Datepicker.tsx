@@ -1,3 +1,8 @@
+/**
+ * The Datepicker component is not maintained anymore and will be deprecated in the next major release.
+ * Please refer to the DateRangePicker component instead.
+ */
+
 import React, { Dispatch, Ref, SetStateAction, useRef, useState } from 'react';
 
 import {
@@ -48,7 +53,7 @@ import {
     previousMonth,
     previousYear,
     relativeFilterOptions
-} from './utils';
+} from './datepickerUtils';
 import Modal from 'components/layout-elements/Modal';
 
 export const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];

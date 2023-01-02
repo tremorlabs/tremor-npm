@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
-import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+import { useInternalState, useSelectOnKeyDown } from 'hooks';
 
 import { ArrowDownHeadIcon } from 'assets';
 
@@ -69,7 +69,7 @@ const Dropdown = <T, >({
         onValueChange?.(value);
     };
 
-    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+    const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
         optionValues,
         handleValueChange,
         isFocused,

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Button, Card, DateRangePicker } from 'components';
+import { startOfDay, sub } from 'date-fns';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -35,7 +36,7 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 export const Uncontrolled = UncontrolledTemplate.bind({});
 Uncontrolled.args = {
     onValueChange: ([sd, ed]) => console.log(sd, ed),
-    defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10), 'tdy'],
+    defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10)],
     enableYearPagination: true,
     enableDropdown: true,
 };
@@ -43,4 +44,31 @@ Uncontrolled.args = {
 export const Controlled = ControlledTemplate.bind({});
 Controlled.args = {
     enableYearPagination: true,
+};
+
+export const WithRelativeOption = UncontrolledTemplate.bind({});
+WithRelativeOption.args = {
+    onValueChange: ([sd, ed]) => console.log(sd, ed),
+    defaultValue: [undefined, undefined, 'tdy'],
+    enableYearPagination: true,
+    enableDropdown: true,
+};
+
+export const WithIndividualOptions = UncontrolledTemplate.bind({});
+WithIndividualOptions.args = {
+    onValueChange: ([sd, ed]) => console.log(sd, ed),
+    defaultValue: [undefined, undefined, 'f'],
+    options: [
+        { value: 'tdy', text: 'Today', startDate: startOfDay(new Date()) },
+        { value: 'f', text: 'Last 5 Years', startDate: sub(new Date(), { years: 5 }) },
+    ],
+    enableYearPagination: true,
+    enableDropdown: true,
+};
+
+export const WithoutDropdown = UncontrolledTemplate.bind({});
+WithoutDropdown.args = {
+    onValueChange: ([sd, ed]) => console.log(sd, ed),
+    defaultValue: [new Date(2022, 5, 5), new Date(2022, 5, 10)],
+    enableDropdown: false,
 };

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
-import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+import { useInternalState, useSelectOnKeyDown } from 'hooks';
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from 'assets';
 
@@ -95,7 +95,7 @@ const MultiSelectBox = <T,>({
     };
 
 
-    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+    const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
         filteredOptionValues,
         handleValuesChange,
         showModal,

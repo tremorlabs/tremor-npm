@@ -324,38 +324,3 @@ export const getDayRoundedClassName = (
     }
     return borderRadius.md.all;
 };
-
-export const getDateStyles = (
-    date: Date,
-    finalStartDate: Date | null,
-    finalEndDate: Date | null,
-    hoveredDate: Date | undefined,
-    isDateDisabled: boolean,
-    color: Color,
-) => (
-    classNames(
-        getDayBgColorClassName(
-            date,
-            finalStartDate,
-            finalEndDate,
-            hoveredDate as Date | null,
-            color,
-            isDateDisabled,
-        ),
-        getDayTextClassNames(
-            date,
-            finalStartDate,
-            finalEndDate,
-            hoveredDate as Date | null,
-            color,
-            isDateDisabled,
-        ),
-        getDayHoverBgColorClassName(
-            date,
-            finalStartDate,
-            finalEndDate,
-            isDateDisabled,
-        ),
-        getDayRoundedClassName(date, finalStartDate, finalEndDate, hoveredDate as Date | null),
-    )
-);

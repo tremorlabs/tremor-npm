@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowDownHeadIcon } from 'assets';
 
-import { useInternalState, useOnSelectElementKeyDown } from 'hooks';
+import { useInternalState, useSelectOnKeyDown } from 'hooks';
 
 import { HoveredValueContext, SelectedValueContext } from 'contexts';
 
@@ -99,7 +99,7 @@ const SelectBox = <T, >({
         setInputValue(e.target.value);
     };
 
-    const [hoveredValue, handleKeyDown] = useOnSelectElementKeyDown(
+    const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
         filteredOptionValues,
         handleValueChange,
         isFocused,
