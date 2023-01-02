@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import {
-    max,
-    min,
-    startOfDay,
-    startOfToday
-} from 'date-fns';
+import { startOfDay, startOfToday } from 'date-fns';
 
 import { BaseColorContext, HoveredValueContext, SelectedValueContext } from 'contexts';
 
@@ -18,49 +13,21 @@ import {
     parseMaxWidth,
 } from 'lib';
 import { Color, MarginTop, MaxWidth } from '../../../lib/inputTypes';
-import { defaultOptions } from './dateRangePickerUtils';
+import { defaultOptions, getEndDate, getStartDate } from './dateRangePickerUtils';
 
 import Calendar from './Calendar';
 import DateRangePickerButton from './DateRangePickerButton';
 import { DropdownItem } from 'components/input-elements/Dropdown';
 import Modal from 'components/layout-elements/Modal';
 
-const getStartDate = <T, >(
-    startDate: Date | null | undefined,
-    minDate: Date | null | undefined,
-    selectedOptionValue: T,
-    dropdownOptions: Option<T>[],
-) => {
-    if (selectedOptionValue && startDate === undefined) {
-        startDate = dropdownOptions.find(option => option.value === selectedOptionValue)?.startDate;
-    }
-    if (!startDate) return null;
-    if (startDate && !minDate) return startOfDay(startDate);
-    return startOfDay(max([startDate as Date, minDate as Date]));
-};
-
-const getEndDate = <T, >(
-    endDate: Date | null | undefined,
-    maxDate: Date | null | undefined,
-    selectedOptionValue: T,
-) => {
-    if (selectedOptionValue && endDate === undefined) {
-        endDate = startOfToday();
-    }
-    if (!endDate) return null;
-    if (endDate && !maxDate) return startOfDay(endDate);
-
-    return startOfDay(min([endDate as Date, maxDate as Date]));
-};
-
-export type Option<T> = { value: T, text: string, startDate: Date }
+export type DateRangePickerOption<T> = { value: T, text: string, startDate: Date }
 
 export interface DateRangePickerProps<T> {
     value?: (Date | null | T)[],
     defaultValue?: (Date | null | T)[],
     onValueChange?: (value: (Date | null | T)[]) => void,
     enableDropdown?: boolean,
-    options: Option<T>[],
+    options: DateRangePickerOption<T>[],
     minDate?: Date | null,
     maxDate?: Date | null,
     placeholder?: string,
@@ -136,7 +103,7 @@ const DateRangePicker = <T, >({
 
     const handleSelectOptionClick = (optionValue: T) => {
         let selectedStartDate = dropdownOptions.find((
-            option: Option<T>) => option.value === optionValue)?.startDate ?? null;
+            option: DateRangePickerOption<T>) => option.value === optionValue)?.startDate ?? null;
         selectedStartDate = selectedStartDate ? startOfDay(selectedStartDate) : null;
 
         setSelectedValue([selectedStartDate, TODAY, optionValue]);
@@ -146,7 +113,7 @@ const DateRangePicker = <T, >({
     };
 
     const [hoveredOptionValue, handleDropdownKeyDown] = useSelectOnKeyDown(
-        dropdownOptions.map((option: Option<T>) => option.value),
+        dropdownOptions.map((option: DateRangePickerOption<T>) => option.value),
         handleSelectOptionClick,
         showDropdown,
         setShowDropdown,
@@ -208,7 +175,7 @@ const DateRangePicker = <T, >({
                     } }
                     >
                         <HoveredValueContext.Provider value={ { hoveredValue: hoveredOptionValue } }>
-                            { dropdownOptions.map(({ value, text }: Option<T>) => (
+                            { dropdownOptions.map(({ value, text }: DateRangePickerOption<T>) => (
                                 <DropdownItem value={ value } text={ text } />
                             ))}
                         </HoveredValueContext.Provider>

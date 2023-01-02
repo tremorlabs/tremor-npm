@@ -30,7 +30,7 @@ export interface SelectBoxProps<T> {
     defaultValue?: T,
     value?: T,
     onValueChange?: (value: T) => void,
-    handleSelect?: (value: T) => void,
+    handleSelect?: (value: any) => void, // Depracated in next major release
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,

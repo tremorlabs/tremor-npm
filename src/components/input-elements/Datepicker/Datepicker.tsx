@@ -473,6 +473,11 @@ const Datepicker = ({
     maxWidth = 'max-w-none',
     enableYearPagination = false,
 }: DatepickerProps) => {
+    if (handleSelect !== undefined) {
+        console.warn('DeprecationWarning: The `Datepicker` component will be depracated in the next major release. \
+            Please use `DateRangePicker` instead.');
+    }
+
     const today = startOfToday();
 
     const datePickerRef = useRef(null);

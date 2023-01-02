@@ -16,17 +16,17 @@ const ResponsiveTemplate: ComponentStory<typeof Datepicker> = (args) => (
         <Title>Mobile</Title>
         <div className="tr-w-64">
             <Card>
-                <Datepicker { ...args } />
+                <Datepicker {...args} />
             </Card>
         </div>
         <Title marginTop="mt-5">Desktop</Title>
         <Card>
-            <Datepicker { ...args } />
+            <Datepicker {...args} />
         </Card>
         <Title marginTop="mt-5">With Black Background</Title>
         <Card>
             <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
-                <Datepicker { ...args } />
+                <Datepicker {...args} />
             </div>
         </Card>
     </>
@@ -37,56 +37,58 @@ const FlexTemplate: ComponentStory<typeof Datepicker> = (args) => (
         <Card>
             <Text marginTop="mt-2">Justify Start</Text>
             <Flex justifyContent="justify-start" marginTop="mt-2">
-                <Datepicker { ...args } />
+                <Datepicker {...args} />
             </Flex>
             <Flex justifyContent="justify-start" marginTop="mt-2">
-                <Datepicker { ...args } enableRelativeDates={ false } />
+                <Datepicker {...args} enableRelativeDates={false} />
             </Flex>
             <Text marginTop="mt-2">Justify End</Text>
             <Flex justifyContent="justify-end" marginTop="mt-2">
-                <Datepicker { ...args } />
+                <Datepicker {...args} />
             </Flex>
             <Flex justifyContent="justify-end" marginTop="mt-2">
-                <Datepicker { ...args } enableRelativeDates={ false } />
+                <Datepicker {...args} enableRelativeDates={false} />
             </Flex>
             <Text marginTop="mt-2">Justify End with inner div</Text>
             <Flex justifyContent="justify-end" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } />
+                    <Datepicker {...args} />
                 </div>
             </Flex>
             <Flex justifyContent="justify-end" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } enableRelativeDates={ false } />
+                    <Datepicker {...args} enableRelativeDates={false} />
                 </div>
             </Flex>
             <Text marginTop="mt-2">Justify Start with inner div</Text>
             <Flex justifyContent="justify-start" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } />
+                    <Datepicker {...args} />
                 </div>
             </Flex>
             <Flex justifyContent="justify-start" marginTop="mt-2">
                 <div>
-                    <Datepicker { ...args } enableRelativeDates={ false } />
+                    <Datepicker {...args} enableRelativeDates={false} />
                 </div>
             </Flex>
         </Card>
     </>
 );
 
-const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> = () => (
-    <ColGrid numColsLg={ 6 }>
-        <div>emptyCol</div>
-        <div>emptyCol</div>
-        <div>emptyCol</div>
-        <div>emptyCol</div>
-        <div>emptyCol</div>
-        <Datepicker enableRelativeDates={ false } />
-    </ColGrid>
-);
+const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> =
+  () => (
+      <ColGrid numColsLg={6}>
+          <div>emptyCol</div>
+          <div>emptyCol</div>
+          <div>emptyCol</div>
+          <div>emptyCol</div>
+          <div>emptyCol</div>
+          <Datepicker enableRelativeDates={false} />
+      </ColGrid>
+  );
 
-const handleSelect = (startDate: Date, endDate: Date) => alert(`${startDate} + ${endDate}`);
+const handleSelect = (startDate: Date, endDate: Date) =>
+    alert(`${startDate} + ${endDate}`);
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
@@ -95,7 +97,7 @@ DefaultResponsive.args = {
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-    maxWidth: 'max-w-xs'
+    maxWidth: 'max-w-xs',
 };
 
 export const WithDefaultDates = ResponsiveTemplate.bind({});

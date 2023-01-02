@@ -17,7 +17,7 @@ import {
     spacing
 } from 'lib';
 
-import { Option } from './DateRangePicker';
+import { DateRangePickerOption } from './DateRangePicker';
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
     if (!startDate && !endDate) {
@@ -45,7 +45,7 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
 
 interface DateRangePickerButtonProps<T> {
     value: (Date | null | undefined | T)[],
-    options: Option<T>[],
+    options: DateRangePickerOption<T>[],
     placeholder: string,
     calendarRef: Ref<HTMLButtonElement>,
     showCalendar: boolean,

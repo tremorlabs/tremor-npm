@@ -19,7 +19,7 @@ export interface TabListProps<T> {
     defaultValue?: T,
     value?: T,
     onValueChange?: (value: T) => void,
-    handleSelect?: (value: T) => void,
+    handleSelect?: (value: any) => void, // Depracated in next major release
     color?: Color,
     marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement

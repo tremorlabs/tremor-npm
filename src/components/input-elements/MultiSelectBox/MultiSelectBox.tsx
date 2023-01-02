@@ -31,7 +31,7 @@ export interface MultiSelectBoxProps<T> {
     defaultValues?: T[] | null,
     values?: T[] | null,
     onValuesChange?: (values: T[]) => void,
-    handleSelect?: (values: T[]) => void,
+    handleSelect?: (values: any[]) => void, // Depracated in next major release
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
