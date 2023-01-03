@@ -10,26 +10,26 @@ import { DateRangePickerOption } from './DateRangePicker';
 import { classNames } from 'lib';
 
 
-export const getStartDate = <T, >(
+export const getStartDate = (
     startDate: Date | null | undefined,
     minDate: Date | null | undefined,
-    selectedOptionValue: T,
-    dropdownOptions: DateRangePickerOption<T>[],
+    selectedDropdownValue: string | null | undefined,
+    dropdownOptions: DateRangePickerOption[],
 ) => {
-    if (selectedOptionValue && startDate === undefined) {
-        startDate = dropdownOptions.find(option => option.value === selectedOptionValue)?.startDate;
+    if (selectedDropdownValue) {
+        startDate = dropdownOptions.find(option => option.value === selectedDropdownValue)?.startDate;
     }
     if (!startDate) return null;
     if (startDate && !minDate) return startOfDay(startDate);
     return startOfDay(max([startDate as Date, minDate as Date]));
 };
 
-export const getEndDate = <T, >(
+export const getEndDate = (
     endDate: Date | null | undefined,
     maxDate: Date | null | undefined,
-    selectedOptionValue: T,
+    selectedDropdownValue: string | null | undefined,
 ) => {
-    if (selectedOptionValue && endDate === undefined) {
+    if (selectedDropdownValue) {
         endDate = startOfToday();
     }
     if (!endDate) return null;
@@ -39,7 +39,7 @@ export const getEndDate = <T, >(
 };
 
 
-export const defaultOptions: DateRangePickerOption<any>[] = [
+export const defaultOptions: DateRangePickerOption[] = [
     {
         value: 'tdy',
         text: 'Today',

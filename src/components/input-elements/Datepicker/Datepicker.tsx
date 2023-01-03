@@ -1,5 +1,5 @@
 /**
- * The Datepicker component is not maintained anymore and will be deprecated in the next major release.
+ * NOTE: The Datepicker component is not maintained anymore and will be deprecated in the next major release.
  * Please refer to the DateRangePicker component instead.
  */
 

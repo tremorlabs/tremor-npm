@@ -20,14 +20,15 @@ import DateRangePickerButton from './DateRangePickerButton';
 import { DropdownItem } from 'components/input-elements/Dropdown';
 import Modal from 'components/layout-elements/Modal';
 
-export type DateRangePickerOption<T> = { value: T, text: string, startDate: Date }
+export type DateRangePickerValue = [(Date | null)?, (Date | null)?, (string | null)?];
+export type DateRangePickerOption = { value: string, text: string, startDate: Date }
 
-export interface DateRangePickerProps<T> {
-    value?: (Date | null | T)[],
-    defaultValue?: (Date | null | T)[],
-    onValueChange?: (value: (Date | null | T)[]) => void,
+export interface DateRangePickerProps {
+    value?: DateRangePickerValue,
+    defaultValue?: DateRangePickerValue,
+    onValueChange?: (value: DateRangePickerValue) => void,
     enableDropdown?: boolean,
-    options: DateRangePickerOption<T>[],
+    options: DateRangePickerOption[],
     minDate?: Date | null,
     maxDate?: Date | null,
     placeholder?: string,
@@ -37,7 +38,7 @@ export interface DateRangePickerProps<T> {
     maxWidth?: MaxWidth,
 }
 
-const DateRangePicker = <T, >({
+const DateRangePicker = ({
     value,
     defaultValue,
     onValueChange,
@@ -50,7 +51,7 @@ const DateRangePicker = <T, >({
     marginTop = 'mt-0',
     maxWidth = 'max-w-none',
     enableYearPagination = false,
-}: DateRangePickerProps<T>) => {
+}: DateRangePickerProps) => {
     const TODAY = startOfToday();
     const calendarRef = useRef(null);
     const dropdownRef = useRef(null);
@@ -61,17 +62,17 @@ const DateRangePicker = <T, >({
     const [showDropdown, setShowDropdown] = useState(false);
 
     const dropdownOptions = options ?? defaultOptions;
-    const selectedOptionValue = (selectedValue ? (selectedValue[2] ?? null) : null) as T;
+    const selectedDropdownValue = (selectedValue ? (selectedValue[2] ?? null) : null);
     const selectedStartDate = selectedValue ? getStartDate(
-        selectedValue[0] as Date | null,
+        selectedValue[0],
         minDate,
-        selectedOptionValue,
+        selectedDropdownValue,
         dropdownOptions,
     ) : null;
     const selectedEndDate = selectedValue ? getEndDate(
-        selectedValue[1] as Date | null,
+        selectedValue[1],
         maxDate,
-        selectedOptionValue
+        selectedDropdownValue
     ) : null;
 
     const handleDateClick = (date: Date) => {
@@ -101,19 +102,19 @@ const DateRangePicker = <T, >({
         }
     };
 
-    const handleSelectOptionClick = (optionValue: T) => {
+    const handleSelectOptionClick = (dropdownValue: string) => {
         let selectedStartDate = dropdownOptions.find((
-            option: DateRangePickerOption<T>) => option.value === optionValue)?.startDate ?? null;
+            option: DateRangePickerOption) => option.value === dropdownValue)?.startDate ?? null;
         selectedStartDate = selectedStartDate ? startOfDay(selectedStartDate) : null;
 
-        setSelectedValue([selectedStartDate, TODAY, optionValue]);
-        onValueChange?.([selectedStartDate, TODAY, optionValue]);
+        setSelectedValue([selectedStartDate, TODAY, dropdownValue]);
+        onValueChange?.([selectedStartDate, TODAY, dropdownValue]);
         setAnchorDate(TODAY);
         setShowDropdown(false);
     };
 
-    const [hoveredOptionValue, handleDropdownKeyDown] = useSelectOnKeyDown(
-        dropdownOptions.map((option: DateRangePickerOption<T>) => option.value),
+    const [hoveredDropdownValue, handleDropdownKeyDown] = useSelectOnKeyDown(
+        dropdownOptions.map((option: DateRangePickerOption) => option.value),
         handleSelectOptionClick,
         showDropdown,
         setShowDropdown,
@@ -131,7 +132,7 @@ const DateRangePicker = <T, >({
                 parseMaxWidth(maxWidth),
             ) }>
                 <DateRangePickerButton
-                    value={ [selectedStartDate, selectedEndDate, selectedOptionValue] }
+                    value={ [selectedStartDate, selectedEndDate, selectedDropdownValue] }
                     options={ dropdownOptions }
                     placeholder={ placeholder }
                     calendarRef={ calendarRef }
@@ -170,12 +171,12 @@ const DateRangePicker = <T, >({
                     triggerRef={ dropdownRef }
                 >
                     <SelectedValueContext.Provider value={ {
-                        selectedValue: selectedOptionValue,
+                        selectedValue: selectedDropdownValue,
                         handleValueChange: handleSelectOptionClick
                     } }
                     >
-                        <HoveredValueContext.Provider value={ { hoveredValue: hoveredOptionValue } }>
-                            { dropdownOptions.map(({ value, text }: DateRangePickerOption<T>) => (
+                        <HoveredValueContext.Provider value={ { hoveredValue: hoveredDropdownValue } }>
+                            { dropdownOptions.map(({ value, text }: DateRangePickerOption) => (
                                 <DropdownItem value={ value } text={ text } />
                             ))}
                         </HoveredValueContext.Provider>

@@ -17,7 +17,7 @@ import {
     spacing
 } from 'lib';
 
-import { DateRangePickerOption } from './DateRangePicker';
+import { DateRangePickerOption, DateRangePickerValue } from './DateRangePicker';
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
     if (!startDate && !endDate) {
@@ -43,9 +43,9 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
     return '';
 };
 
-interface DateRangePickerButtonProps<T> {
-    value: (Date | null | undefined | T)[],
-    options: DateRangePickerOption<T>[],
+interface DateRangePickerButtonProps {
+    value: DateRangePickerValue,
+    options: DateRangePickerOption[],
     placeholder: string,
     calendarRef: Ref<HTMLButtonElement>,
     showCalendar: boolean,
@@ -58,7 +58,7 @@ interface DateRangePickerButtonProps<T> {
     onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
 }
 
-const DateRangePickerButton = <T, >({
+const DateRangePickerButton = ({
     value,
     options,
     placeholder,
@@ -71,13 +71,13 @@ const DateRangePickerButton = <T, >({
     showDropdown,
     setShowDropdown,
     onDropdownKeyDown
-}: DateRangePickerButtonProps<T>) => {
-    const [startDate, endDate, optionValue] = value;
+}: DateRangePickerButtonProps) => {
+    const [startDate, endDate, dropdownValue] = value;
     const hasSelection = (startDate || endDate) !== null;
     const calendarText = hasSelection ? formatSelectedDates(startDate as Date, endDate as Date) : placeholder;
-    const dropdownText = optionValue
+    const dropdownText = dropdownValue
         ? String(options.find((option) => (
-            option.value === optionValue
+            option.value === dropdownValue
         ))?.text )
         : 'Select';
 
@@ -158,7 +158,7 @@ const DateRangePickerButton = <T, >({
                         'text-elem tr-whitespace-nowrap tr-truncate',
                         fontSize.sm,
                         fontWeight.md,
-                        optionValue
+                        dropdownValue
                             ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
                             : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
                     ) }>
