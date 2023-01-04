@@ -70,10 +70,11 @@ const Dropdown = <T, >({
     };
 
     const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-        optionValues,
         handleValueChange,
+        optionValues,
         isFocused,
-        setIsFocused
+        setIsFocused,
+        selectedValue as T
     );
 
     return(

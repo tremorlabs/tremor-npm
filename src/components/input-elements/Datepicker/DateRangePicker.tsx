@@ -28,7 +28,7 @@ export interface DateRangePickerProps {
     defaultValue?: DateRangePickerValue,
     onValueChange?: (value: DateRangePickerValue) => void,
     enableDropdown?: boolean,
-    options: DateRangePickerOption[],
+    options?: DateRangePickerOption[],
     minDate?: Date | null,
     maxDate?: Date | null,
     placeholder?: string,
@@ -114,10 +114,11 @@ const DateRangePicker = ({
     };
 
     const [hoveredDropdownValue, handleDropdownKeyDown] = useSelectOnKeyDown(
-        dropdownOptions.map((option: DateRangePickerOption) => option.value),
         handleDropdownOptionClick,
+        dropdownOptions.map((option: DateRangePickerOption) => option.value),
         showDropdown,
         setShowDropdown,
+        selectedDropdownValue as string,
     );
 
     useEffect(() => {

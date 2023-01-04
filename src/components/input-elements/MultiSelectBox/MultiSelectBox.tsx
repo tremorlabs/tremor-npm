@@ -103,8 +103,8 @@ const MultiSelectBox = <T,>({
 
 
     const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-        filteredOptionValues,
         handleValueChange,
+        filteredOptionValues,
         showModal,
         setShowModal,
     );

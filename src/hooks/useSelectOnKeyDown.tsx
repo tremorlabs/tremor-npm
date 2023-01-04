@@ -1,24 +1,31 @@
 import { useEffect, useState } from 'react';
 
 const useSelectOnKeyDown = <T, >(
-    optionValues: T[],
     onValueChange: (value: T) => void,
+    optionValues: T[],
     isFocused: boolean,
     handleFocusChange: (isFocused: boolean) => void,
-) => {
+    value?: T,
+): [T | undefined, (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void] => {
     const BASE_HOVERED_IDX = -1;
     const [hoveredIdx, setHoveredIdx] = useState(BASE_HOVERED_IDX);
 
-    useEffect(() => {
-        if (!isFocused) {
-            setHoveredIdx(BASE_HOVERED_IDX);
-        }
-    }, [isFocused]);
-
-    const getHoveredValue = (hoveredIdx: number, optionValues: any[]) => {
+    const getHoveredValue = (hoveredIdx: number, optionValues: T[]) => {
         if (hoveredIdx < 0) return undefined;
         return optionValues.at(hoveredIdx);
     };
+
+    const getIndexOfSelectedValue = () => {
+        if (!value) return BASE_HOVERED_IDX;
+        const indexOfValue = optionValues.indexOf(value);
+        return indexOfValue === -1 ? BASE_HOVERED_IDX : indexOfValue;
+    };
+
+    useEffect(() => {
+        if (!isFocused) {
+            setHoveredIdx(getIndexOfSelectedValue());
+        }
+    }, [isFocused]);
     
     const hoveredValue = getHoveredValue(hoveredIdx, optionValues);
 
@@ -32,7 +39,7 @@ const useSelectOnKeyDown = <T, >(
         return prevIdx >= BASE_HOVERED_IDX ? prevIdx : optionValues.length - 1;
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => {
         if (!isFocused) {
             return;
         }

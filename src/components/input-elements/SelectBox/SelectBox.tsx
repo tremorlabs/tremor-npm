@@ -100,10 +100,11 @@ const SelectBox = <T, >({
     };
 
     const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-        filteredOptionValues,
         handleValueChange,
+        filteredOptionValues,
         isFocused,
         handleFocusChange,
+        selectedValue
     );
 
     return (
