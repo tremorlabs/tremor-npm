@@ -67,16 +67,16 @@ const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () => {
-    const [values, setValue] = useState<number[] | null>(null);
-    console.log('OUTER', values);
+    const [value, setValue] = useState<number[]>([]);
+    console.log('OUTER', value);
     return (
         <Card>
-            <MultiSelectBox values={values} onValuesChange={ (values) => { setValue(values); alert(values); } }>
+            <MultiSelectBox value={value} onValueChange={ (values) => { setValue(values); alert(values); } }>
                 <MultiSelectBoxItem value={5} text={'Five'} />
                 <MultiSelectBoxItem value={3} text={'Three'} />
                 <MultiSelectBoxItem value={1} text={'One'} />
             </MultiSelectBox>
-            <Button text="Reset" onClick={ () => setValue(null) } />
+            <Button text="Reset" onClick={ () => setValue([]) } />
             <Button text="Set to One" onClick={ () => setValue([1]) } />
         </Card>
     );

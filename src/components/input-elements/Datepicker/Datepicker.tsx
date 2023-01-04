@@ -1,5 +1,5 @@
 /**
- * NOTE: The Datepicker component is not maintained anymore and will be deprecated in the next major release.
+ * NOTE: The Datepicker component is deprecated and will be removed in the next major release.
  * Please refer to the DateRangePicker component instead.
  */
 
@@ -473,10 +473,8 @@ const Datepicker = ({
     maxWidth = 'max-w-none',
     enableYearPagination = false,
 }: DatepickerProps) => {
-    if (handleSelect !== undefined) {
-        console.warn('DeprecationWarning: The `Datepicker` component will be depracated in the next major release. \
-            Please use `DateRangePicker` instead.');
-    }
+    console.warn('DeprecationWarning: The `Datepicker` component is deprecated and will be removed \
+        in the next major release. Please the `DateRangePicker` component instead.');
 
     const today = startOfToday();
 

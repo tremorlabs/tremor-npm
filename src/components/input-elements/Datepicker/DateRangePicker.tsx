@@ -102,7 +102,7 @@ const DateRangePicker = ({
         }
     };
 
-    const handleSelectOptionClick = (dropdownValue: string) => {
+    const handleDropdownOptionClick = (dropdownValue: string) => {
         let selectedStartDate = dropdownOptions.find((
             option: DateRangePickerOption) => option.value === dropdownValue)?.startDate ?? null;
         selectedStartDate = selectedStartDate ? startOfDay(selectedStartDate) : null;
@@ -115,7 +115,7 @@ const DateRangePicker = ({
 
     const [hoveredDropdownValue, handleDropdownKeyDown] = useSelectOnKeyDown(
         dropdownOptions.map((option: DateRangePickerOption) => option.value),
-        handleSelectOptionClick,
+        handleDropdownOptionClick,
         showDropdown,
         setShowDropdown,
     );
@@ -172,7 +172,7 @@ const DateRangePicker = ({
                 >
                     <SelectedValueContext.Provider value={ {
                         selectedValue: selectedDropdownValue,
-                        handleValueChange: handleSelectOptionClick
+                        handleValueChange: handleDropdownOptionClick
                     } }
                     >
                         <HoveredValueContext.Provider value={ { hoveredValue: hoveredDropdownValue } }>

@@ -111,7 +111,7 @@ const Button = ({
     value,
     icon,
     iconPosition = HorizontalPositions.Left,
-    handleClick,
+    handleClick, // Deprecated
     onClick,
     onSubmit,
     onReset,
@@ -124,8 +124,8 @@ const Button = ({
     loadingText,
 }: ButtonProps) => {
     if (handleClick) {
-        console.warn('DeprecationWarning: The `handleClick` property will be depracated in the next major release. \
-            Please use `onClick` instead.');
+        console.warn('DeprecationWarning: The `handleClick` property is deprecated and will be removed \
+            in the next major release. Please use `onClick` instead.');
     }
 
     const Icon = icon;

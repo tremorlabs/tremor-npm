@@ -28,10 +28,11 @@ import Modal from 'components/layout-elements/Modal';
 import { MultiSelectBoxItemProps } from './MultiSelectBoxItem';
 
 export interface MultiSelectBoxProps<T> {
-    defaultValues?: T[] | null,
-    values?: T[] | null,
-    onValuesChange?: (values: T[]) => void,
-    handleSelect?: (values: any[]) => void, // Depracated in next major release
+    defaultValues?: any,
+    defaultValue?: T[],
+    value?: T[],
+    onValueChange?: (value: T[]) => void,
+    handleSelect?: (values: any[]) => void, // Deprecated in next major release
     placeholder?: string,
     icon?: React.ElementType | React.JSXElementConstructor<any>,
     marginTop?: MarginTop,
@@ -40,10 +41,11 @@ export interface MultiSelectBoxProps<T> {
 }
 
 const MultiSelectBox = <T,>({
-    defaultValues,
-    values,
-    onValuesChange,
-    handleSelect,
+    defaultValues, // Deprecated
+    defaultValue,
+    value,
+    onValueChange,
+    handleSelect, // Deprecated
     placeholder = 'Select...',
     icon,
     marginTop = 'mt-0',
@@ -51,18 +53,23 @@ const MultiSelectBox = <T,>({
     children,
 }: MultiSelectBoxProps<T>) => {
     if (handleSelect !== undefined) {
-        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
-            Please use `onValueChange` instead.');
+        console.warn('DeprecationWarning: The `handleSelect` property is deprecated and will be removed \
+            in the next major release. Please use `onValuesChange` instead.');
+    }
+
+    if (defaultValues !== undefined) {
+        console.warn('DeprecationWarning: The `defaultValues` property is deprecated and will be removed \
+            in the next major release. Please use `defaultValue` instead.');
     }
 
     const Icon = icon;
     const dropdownRef = useRef(null);
 
     const [showModal, setShowModal] = useState(false);
-    const [selectedValues, setSelectedValues] = useInternalState(defaultValues, values);
+    const [selectedValue, setSelectedValue] = useInternalState(defaultValues ?? defaultValue, value);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const selectedItems = selectedValues ?? [];
+    const selectedItems = selectedValue ?? [];
     const displayText = selectedItems.length !==0 ? `${selectedItems.length} Selected` : placeholder;
     const showResetButton = selectedItems.length > 0;
 
@@ -76,28 +83,28 @@ const MultiSelectBox = <T,>({
         setShowModal(show);
     };
 
-    const handleValuesChange = (value: T) => {
+    const handleValueChange = (value: T) => {
         let newSelectedItems = [];
         if (!isValueInArray(value, selectedItems)) {
             newSelectedItems = [...selectedItems, value];
         } else {
             newSelectedItems = [...removeValueFromArray(value, selectedItems!)];
         }
-        setSelectedValues(newSelectedItems);
-        onValuesChange?.(newSelectedItems);
+        setSelectedValue(newSelectedItems);
+        onValueChange?.(newSelectedItems);
         handleSelect?.(newSelectedItems);
     };
 
     const handleReset = () => {
-        setSelectedValues([]);
-        onValuesChange?.([]);
+        setSelectedValue([]);
+        onValueChange?.([]);
         handleSelect?.([]);
     };
 
 
     const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
         filteredOptionValues,
-        handleValuesChange,
+        handleValueChange,
         showModal,
         setShowModal,
     );
@@ -228,7 +235,7 @@ const MultiSelectBox = <T,>({
                 </div>
                 <SelectedValueContext.Provider value={ {
                     selectedValue: selectedItems,
-                    handleValueChange: handleValuesChange,
+                    handleValueChange,
                 } }>
                     <HoveredValueContext.Provider value={ { hoveredValue } }>
                         { React.Children.map(children, (child) => {

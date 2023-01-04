@@ -19,7 +19,7 @@ export interface ToggleProps<T> {
     defaultValue?: T,
     value?: T,
     onValueChange?: (value: T) => void,
-    handleSelect?: (value: any) => void, // Depracated in next major release
+    handleSelect?: (value: any) => void, // Deprecated
     color?: Color,
     marginTop?: MarginTop,
     children: React.ReactElement[] | React.ReactElement,
@@ -35,8 +35,8 @@ const Toggle = <T, >({
     children,
 }: ToggleProps<T>) => {
     if (handleSelect !== undefined) {
-        console.warn('DeprecationWarning: The `handleSelect` property will be depracated in the next major release. \
-            Please use `onValueChange` instead.');
+        console.warn('DeprecationWarning: The `handleSelect` property is deprecated and will be removed \
+            in the next major release. Please use `onValueChange` instead.');
     }
 
     const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);

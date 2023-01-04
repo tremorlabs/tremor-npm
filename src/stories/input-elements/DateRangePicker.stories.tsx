@@ -44,6 +44,7 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 
     const startDate = value[0];
     const endDate = value[1];
+
     return (
         <Card>
             <DateRangePicker
