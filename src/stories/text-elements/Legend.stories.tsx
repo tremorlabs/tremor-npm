@@ -1,31 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Card from 'components/layout-elements/Card';
-import Legend from 'components/text-elements/Legend/Legend';
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import Card from "components/layout-elements/Card";
+import Legend from "components/text-elements/Legend/Legend";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-    title: 'Tremor/TextElements/Legend',
-    component: Legend,
+  title: "Tremor/TextElements/Legend",
+  component: Legend,
 } as ComponentMeta<typeof Legend>;
-  
+
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Legend> = (args) => (
-    <Card maxWidth="max-w-md">
-        <Legend {...args} />
-    </Card>
+  <Card maxWidth="max-w-md">
+    <Legend {...args} />
+  </Card>
 );
-  
+
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-    categories: [
-        'Critical',
-        'This is a very long category name to test an edge case',
-        'Category C',
-        'Category D',
-    ]
+  categories: [
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+  ],
 };
-
-

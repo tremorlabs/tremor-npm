@@ -1,1 +1,1 @@
-export { default } from './CategoryBar';
+export { default } from "./CategoryBar";

@@ -1,1 +1,1 @@
-export { default } from './Legend';
+export { default } from "./Legend";

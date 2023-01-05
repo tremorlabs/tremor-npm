@@ -1,1 +1,1 @@
-export { default } from './DeltaBar';
+export { default } from "./DeltaBar";

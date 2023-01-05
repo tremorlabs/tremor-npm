@@ -56,6 +56,8 @@
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.5",
     "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "postcss": "^8.4.12",

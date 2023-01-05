@@ -1,19 +1,15 @@
-import React from 'react';
+import React from "react";
 
 export interface TableRowProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const TableRow = ({
-    children
-}: TableRowProps) => {
-    return(
-        <>
-            <tr>
-                { children }
-            </tr>
-        </>
-    );
+const TableRow = ({ children }: TableRowProps) => {
+  return (
+    <>
+      <tr>{children}</tr>
+    </>
+  );
 };
 
 export default TableRow;

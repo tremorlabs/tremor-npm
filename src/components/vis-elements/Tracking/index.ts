@@ -1,2 +1,2 @@
-export { default as Tracking } from './Tracking';
-export { default as TrackingBlock } from './TrackingBlock';
+export { default as Tracking } from "./Tracking";
+export { default as TrackingBlock } from "./TrackingBlock";

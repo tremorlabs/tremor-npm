@@ -1,15 +1,13 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render } from "@testing-library/react";
 
-import ArrowUpIcon from 'assets/ArrowUpIcon';
+import ArrowUpIcon from "assets/ArrowUpIcon";
 
-import Icon from 'components/icon-elements/Icon';
+import Icon from "components/icon-elements/Icon";
 
-describe('Icon', () => {
-    test('renders the Icon component with default props', () => {
-        render(
-            <Icon icon={ArrowUpIcon} />
-        );
-    });
+describe("Icon", () => {
+  test("renders the Icon component with default props", () => {
+    render(<Icon icon={ArrowUpIcon} />);
+  });
 });

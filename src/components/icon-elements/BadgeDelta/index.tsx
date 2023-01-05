@@ -1,1 +1,1 @@
-export { default } from './BadgeDelta';
+export { default } from "./BadgeDelta";

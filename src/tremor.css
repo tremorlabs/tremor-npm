@@ -1,9 +1,11 @@
 :root {
-    --tr-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  --tr-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
 }
 
 html {
-    font-family: var(--tr-font-family);
+  font-family: var(--tr-font-family);
 }
 
 /*
@@ -12,9 +14,9 @@ html {
 */
 
 button {
-    background-color: transparent;
-    appearance: button;
-    -webkit-appearance: button;
+  background-color: transparent;
+  appearance: button;
+  -webkit-appearance: button;
 }
 
 /*
@@ -27,27 +29,23 @@ button {
 */
 
 .tremor-base {
-    box-sizing: border-box; /* 1 */
-    line-height: 1.5; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-    -moz-tab-size: 4; /* 3 */
-    -o-tab-size: 4;
-       tab-size: 4; /* 3 */
-    border-width: 0; /* 2 */
-    border-style: solid; /* 2 */
-    border-color: #e5e7eb; /* 2 */
+  box-sizing: border-box; /* 1 */
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -moz-tab-size: 4; /* 3 */
+  -o-tab-size: 4;
+  tab-size: 4; /* 3 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: #e5e7eb; /* 2 */
 }
 
-.tremor-base :is(
-    *,
-    ::before,
-    ::after
-) {
-    box-sizing: inherit; /* 1 */
-    border-width: 0; /* 2 */
-    border-style: solid; /* 2 */
-    border-color: #e5e7eb; /* 2 */
-    line-height: inherit;
+.tremor-base :is(*, ::before, ::after) {
+  box-sizing: inherit; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: #e5e7eb; /* 2 */
+  line-height: inherit;
 }
 
 /*
@@ -55,9 +53,9 @@ Remove default margins from all text elements
 */
 
 .text-elem {
-    margin: 0;
-    font-size: inherit;
-    font-weight: inherit;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 /*
@@ -67,10 +65,10 @@ Remove default margins from all text elements
 */
 
 .input-elem {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 1 */
-    line-height: inherit; /* 1 */ 
-    padding: 0;
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: inherit; /* 1 */
+  padding: 0;
 }
 
 /*
@@ -78,9 +76,9 @@ Removes default list styles
 */
 
 .list-element {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /*
@@ -91,7 +89,7 @@ Set tooltip font-family
 .tremor-base ::after,
 ::after.tremor-base,
 ::before.tremor-base {
-  --tw-content: '';
+  --tw-content: "";
 }
 
 /*
@@ -100,8 +98,8 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 
 .tremor-base abbr:where([title]),
 abbr:where([title]).tremor-base {
-    -webkit-text-decoration: underline dotted;
-            text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 /*
@@ -112,9 +110,9 @@ abbr:where([title]).tremor-base {
 
 .tremor-base table,
 table.tremor-base {
-    text-indent: 0; /* 1 */
-    border-color: inherit; /* 2 */
-    border-collapse: collapse; /* 3 */
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
+  border-collapse: collapse; /* 3 */
 }
 
 /*
@@ -134,16 +132,16 @@ Use the modern Firefox focus style for all focusable elements.
 
 .tremor-base :-moz-focusring,
 :-moz-focusring.tremor-base {
-    outline: auto;
+  outline: auto;
 }
-  
+
 /*
 Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
 */
 
 .tremor-base :-moz-ui-invalid,
 :-moz-ui-invalid.tremor-base {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 /*
@@ -154,7 +152,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 .tremor-base ::-webkit-outer-spin-button,
 ::-webkit-inner-spin-button.tremor-base,
 ::-webkit-outer-spin-button.tremor-base {
-    height: auto;
+  height: auto;
 }
 
 /*
@@ -162,11 +160,11 @@ Correct the cursor style of increment and decrement buttons in Safari.
 2. Correct the outline style in Safari.
 */
 
-.tremor-base [type='search'],
-[type='search'].tremor-base {
-    appearance: textfield;
-    -webkit-appearance: textfield; /* 1 */
-    outline-offset: -2px; /* 2 */
+.tremor-base [type="search"],
+[type="search"].tremor-base {
+  appearance: textfield;
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
 }
 
 /*
@@ -175,8 +173,8 @@ Remove the inner padding in Chrome and Safari on macOS.
 
 .tremor-base ::-webkit-search-decoration,
 ::-webkit-search-decoration.tremor-base {
-    -webkit-appearance: none;
-}  
+  -webkit-appearance: none;
+}
 
 /*
 1. Correct the inability to style clickable types in iOS and Safari.
@@ -185,8 +183,8 @@ Remove the inner padding in Chrome and Safari on macOS.
 
 .tremor-base ::-webkit-file-upload-button,
 ::-webkit-file-upload-button.tremor-base {
-    -webkit-appearance: button; /* 1 */
-    font: inherit; /* 2 */
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
 }
 
 /*
@@ -197,21 +195,21 @@ Remove the inner padding in Chrome and Safari on macOS.
 .tremor-base textarea::-moz-placeholder,
 input::-moz-placeholder.tremor-base,
 textarea::-moz-placeholder.tremor-base {
-    opacity: 1; /* 1 */
+  opacity: 1; /* 1 */
 }
-  
+
 .tremor-base input:-ms-input-placeholder,
 .tremor-base textarea:-ms-input-placeholder,
 input:-ms-input-placeholder.tremor-base,
 textarea:-ms-input-placeholder.tremor-base {
-    opacity: 1; /* 1 */
+  opacity: 1; /* 1 */
 }
 
 .tremor-base input::placeholder,
 .tremor-base textarea::placeholder,
 input::placeholder.tremor-base,
 textarea::placeholder.tremor-base {
-    opacity: 1; /* 1 */
+  opacity: 1; /* 1 */
 }
 
 /*
@@ -222,12 +220,12 @@ Set the default cursor for buttons.
 .tremor-base [role="button"],
 button.tremor-base,
 [role="button"].tremor-base {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tremor-base :disabled,
 :disabled.tremor-base {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /*
@@ -236,16 +234,7 @@ button.tremor-base,
    This can trigger a poorly considered lint error in some tools but is included by design.
 */
 
-.tremor-base :is(
-    img,
-    svg,
-    video,
-    canvas,
-    audio,
-    iframe,
-    embed,
-    object
-) {
+.tremor-base :is(img, svg, video, canvas, audio, iframe, embed, object) {
   display: block; /* 1 */
   vertical-align: middle; /* 2 */
 }
@@ -256,52 +245,54 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .tremor-base [hidden],
 [hidden].tremor-base {
-    display: none;
+  display: none;
 }
 
-*, ::before, ::after {
-    --tw-translate-x: 0;
-    --tw-translate-y: 0;
-    --tw-rotate: 0;
-    --tw-skew-x: 0;
-    --tw-skew-y: 0;
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    --tw-pan-x:  ;
-    --tw-pan-y:  ;
-    --tw-pinch-zoom:  ;
-    --tw-scroll-snap-strictness: proximity;
-    --tw-ordinal:  ;
-    --tw-slashed-zero:  ;
-    --tw-numeric-figure:  ;
-    --tw-numeric-spacing:  ;
-    --tw-numeric-fraction:  ;
-    --tw-ring-inset:  ;
-    --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgb(59 130 246 / 0.5);
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 0 #0000;
-    --tw-shadow-colored: 0 0 #0000;
-    --tw-blur:  ;
-    --tw-brightness:  ;
-    --tw-contrast:  ;
-    --tw-grayscale:  ;
-    --tw-hue-rotate:  ;
-    --tw-invert:  ;
-    --tw-saturate:  ;
-    --tw-sepia:  ;
-    --tw-drop-shadow:  ;
-    --tw-backdrop-blur:  ;
-    --tw-backdrop-brightness:  ;
-    --tw-backdrop-contrast:  ;
-    --tw-backdrop-grayscale:  ;
-    --tw-backdrop-hue-rotate:  ;
-    --tw-backdrop-invert:  ;
-    --tw-backdrop-opacity:  ;
-    --tw-backdrop-saturate:  ;
-    --tw-backdrop-sepia:  ;
+*,
+::before,
+::after {
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x: ;
+  --tw-pan-y: ;
+  --tw-pinch-zoom: ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ordinal: ;
+  --tw-slashed-zero: ;
+  --tw-numeric-figure: ;
+  --tw-numeric-spacing: ;
+  --tw-numeric-fraction: ;
+  --tw-ring-inset: ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur: ;
+  --tw-brightness: ;
+  --tw-contrast: ;
+  --tw-grayscale: ;
+  --tw-hue-rotate: ;
+  --tw-invert: ;
+  --tw-saturate: ;
+  --tw-sepia: ;
+  --tw-drop-shadow: ;
+  --tw-backdrop-blur: ;
+  --tw-backdrop-brightness: ;
+  --tw-backdrop-contrast: ;
+  --tw-backdrop-grayscale: ;
+  --tw-backdrop-hue-rotate: ;
+  --tw-backdrop-invert: ;
+  --tw-backdrop-opacity: ;
+  --tw-backdrop-saturate: ;
+  --tw-backdrop-sepia: ;
 }
 
 @tailwind base;

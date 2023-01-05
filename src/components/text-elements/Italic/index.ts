@@ -1,1 +1,1 @@
-export { default } from './Italic';
+export { default } from "./Italic";
