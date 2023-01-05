@@ -43,7 +43,7 @@ export const defaultOptions: DateRangePickerOption[] = [
     {
         value: 'tdy',
         text: 'Today',
-        startDate: sub(startOfToday(), { days: 0 }),
+        startDate: startOfToday(),
     },
     {
         value: 'w',

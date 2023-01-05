@@ -31,12 +31,12 @@ const useSelectOnKeyDown = <T, >(
 
     const getNextIdx = () => {
         const nextIdx = hoveredIdx + 1;
-        return nextIdx < optionValues.length ? nextIdx : BASE_HOVERED_IDX;
+        return Math.min(nextIdx, optionValues.length - 1);
     };
 
     const getPrevIdx = () => {
         const prevIdx = hoveredIdx - 1;
-        return prevIdx >= BASE_HOVERED_IDX ? prevIdx : optionValues.length - 1;
+        return Math.max(prevIdx, 0);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => {
