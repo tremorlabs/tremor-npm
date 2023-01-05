@@ -4,9 +4,8 @@ const useOnWindowResize = (
   handler: { (): void },
   initialWindowSize?: number
 ) => {
-  const [windowSize, setWindowSize] = useState<undefined | number>(
-    initialWindowSize
-  );
+  const [windowSize, setWindowSize] =
+    useState<undefined | number>(initialWindowSize);
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(window.innerWidth);
