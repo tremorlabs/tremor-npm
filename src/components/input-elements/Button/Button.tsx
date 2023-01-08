@@ -78,7 +78,7 @@ export const ButtonIconOrSpinner = ({
 
 export interface ButtonProps {
   type?: ButtonType;
-  text: string;
+  text?: string;
   value?: any;
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
@@ -93,6 +93,7 @@ export interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
+  children?: React.ReactNode;
 }
 
 const Button = ({
@@ -112,6 +113,7 @@ const Button = ({
   disabled = false,
   loading = false,
   loadingText,
+  children,
 }: ButtonProps) => {
   if (handleClick) {
     console.warn(
@@ -191,7 +193,7 @@ const Button = ({
             ) : null}
             {
               <p className="text-elem tr-whitespace-nowrap">
-                {showLoadingText ? loadingText : text}
+                {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }
             {showButtonIconOrSpinner &&

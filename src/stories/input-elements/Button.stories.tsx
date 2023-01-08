@@ -138,6 +138,21 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
   );
 };
 
+const ButtonWithChildren: ComponentStory<typeof Button> = () => (
+  <Card>
+    <ColGrid numCols={1} gapY="gap-y-3" marginTop="mt-10">
+      <Button>Children</Button>
+      <Button text="Text" />
+      <Button text="Text is prefered">Children is prefered</Button>
+      <Button text="Text is prefered">
+        <span style={{ color: "red" }}>
+          Button can also take html elements as values
+        </span>
+      </Button>
+    </ColGrid>
+  </Card>
+);
+
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
@@ -159,5 +174,7 @@ export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
   disabled: true,
 };
+
+export const WithChildren = ButtonWithChildren.bind({});
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
