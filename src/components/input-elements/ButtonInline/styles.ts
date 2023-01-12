@@ -5,7 +5,9 @@ export type ButtonProportionTypes = {
   fontSize: string;
 };
 
-export const buttonProportions: { [size: string]: ButtonProportionTypes } = {
+export const buttonProportions: {
+  [size: string]: ButtonProportionTypes;
+} = {
   xs: {
     fontSize: fontSize.xs,
   },

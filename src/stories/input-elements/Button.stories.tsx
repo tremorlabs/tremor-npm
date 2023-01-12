@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
 
-import { BaseColors, Sizes as InputSizes } from "lib/primitives";
+import {
+  BaseColors,
+  Importances,
+  Sizes as InputSizes,
+  Variants,
+} from "lib/primitives";
 
 import { Card, ColGrid, Flex, Title } from "components";
 
@@ -153,6 +158,25 @@ const ButtonWithChildren: ComponentStory<typeof Button> = () => (
   </Card>
 );
 
+const ButtonVariant: ComponentStory<typeof Button> = () => (
+  <Card>
+    <ColGrid numCols={3} gapY="gap-y-2">
+      {Object.values(Variants).map((variant) => (
+        <>
+          <Button variant={variant} color="red">
+            Variant {variant}
+          </Button>
+        </>
+      ))}
+      {Object.values(Importances).map((importance) => (
+        <>
+          <Button importance={importance}>Importance {importance}</Button>
+        </>
+      ))}
+    </ColGrid>
+  </Card>
+);
+
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
@@ -176,5 +200,7 @@ LoadingStates.args = {
 };
 
 export const WithChildren = ButtonWithChildren.bind({});
+
+export const Variant = ButtonVariant.bind({});
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

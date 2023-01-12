@@ -3,6 +3,7 @@ import {
   DeltaType,
   HorizontalPosition,
   Importance,
+  Variant,
   Size,
   TextAlignment,
   VerticalPosition,
@@ -61,6 +62,12 @@ export const Sizes: { [key: string]: Size } = {
 export const Importances: { [key: string]: Importance } = {
   Primary: "primary",
   Secondary: "secondary",
+};
+
+export const Variants: { [key: string]: Variant } = {
+  Primary: "primary",
+  Secondary: "secondary",
+  Inline: "inline",
 };
 
 export const HorizontalPositions: { [key: string]: HorizontalPosition } = {

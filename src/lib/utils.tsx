@@ -1,11 +1,18 @@
 import React from "react";
 
 import { BaseColorTheme, colorTheme } from "./colors";
-import { BaseColors, DeltaTypes, Importances, Sizes } from "./primitives";
+import {
+  BaseColors,
+  DeltaTypes,
+  Importances,
+  Variants,
+  Sizes,
+} from "./primitives";
 import {
   Color,
   DeltaType,
   Importance,
+  Variant,
   Size,
   ValueFormatter,
 } from "./inputTypes";
@@ -34,6 +41,10 @@ export const isValidDeltaType = (deltaType: DeltaType): boolean => {
 
 export const isValidImportance = (importance: Importance): boolean => {
   return Object.values(Importances).includes(importance);
+};
+
+export const isValidVariant = (variant: Variant): boolean => {
+  return Object.values(Variants).includes(variant);
 };
 
 export const mapInputsToDeltaType = (

@@ -6,6 +6,7 @@ import {
   BaseColors,
   HorizontalPositions,
   Importances,
+  Variants,
   Sizes,
   border,
   borderRadius,
@@ -18,16 +19,27 @@ import {
   parseMarginTop,
   sizing,
   spacing,
+  isValidVariant,
+  getColorVariantsFromColorThemeValue,
+  defaultColors,
+  getColorTheme,
 } from "lib";
 import {
   ButtonType,
   Color,
   HorizontalPosition,
   Importance,
+  Variant,
   MarginTop,
   Size,
 } from "../../../lib";
-import { buttonProportions, colors, iconSizes } from "./styles";
+import {
+  buttonProportions,
+  buttonProportionsInline,
+  colorsImportance,
+  colorsVariant,
+  iconSizes,
+} from "./styles";
 import { LoadingSpinner } from "assets";
 
 export interface ButtonIconOrSpinnerProps {
@@ -85,6 +97,7 @@ export interface ButtonProps {
   size?: Size;
   color?: Color;
   importance?: Importance;
+  variant?: Variant;
   handleClick?: () => void;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSubmit?: React.FormEventHandler<HTMLButtonElement>;
@@ -109,6 +122,7 @@ const Button = ({
   size = Sizes.SM,
   color = BaseColors.Blue,
   importance = Importances.Primary,
+  variant = importance ? importance : Variants.Primary,
   marginTop = "mt-0",
   disabled = false,
   loading = false,
@@ -128,13 +142,17 @@ const Button = ({
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const buttonColors = isBaseColor(color)
-    ? colors[color]
-    : colors[BaseColors.Blue];
+  const buttonColorsImportance = isBaseColor(color)
+    ? colorsImportance[color]
+    : colorsImportance[BaseColors.Blue];
+  const buttonColorsVariant = isBaseColor(color)
+    ? colorsVariant[color]
+    : colorsVariant[BaseColors.Blue];
   const buttonSize = isValidSize(size) ? size : Sizes.SM;
   const buttonImportance = isValidImportance(importance)
     ? importance
     : Importances.Primary;
+  const buttonVariant = isValidVariant(variant) ? variant : Variants.Primary;
   const iconSize = classNames(
     iconSizes[buttonSize].height,
     iconSizes[buttonSize].width
@@ -155,30 +173,71 @@ const Button = ({
             onClick={handleClick ?? onClick}
             onSubmit={onSubmit}
             onReset={onReset}
-            className={classNames(
-              "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
-              "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent",
-              borderRadius.md.all,
-              border.sm.all,
-              boxShadow.sm,
-              fontWeight.md,
-              buttonProportions[buttonSize].paddingLeft,
-              buttonProportions[buttonSize].paddingRight,
-              buttonProportions[buttonSize].paddingTop,
-              buttonProportions[buttonSize].paddingBottom,
-              buttonProportions[buttonSize].fontSize,
-              buttonColors[buttonImportance].textColor,
-              buttonColors[buttonImportance].bgColor,
-              buttonColors[buttonImportance].borderColor,
-              parseMarginTop(marginTop),
-              !isDisabled
+            className={
+              variant != "inline"
                 ? classNames(
-                    buttonColors[buttonImportance].focusRingColor,
-                    buttonColors[buttonImportance].hoverBgColor,
-                    buttonColors[buttonImportance].hoverBorderColor
+                    "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
+                    "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent",
+                    borderRadius.md.all,
+                    border.sm.all,
+                    boxShadow.sm,
+                    fontWeight.md,
+                    buttonProportions[buttonSize].paddingLeft,
+                    buttonProportions[buttonSize].paddingRight,
+                    buttonProportions[buttonSize].paddingTop,
+                    buttonProportions[buttonSize].paddingBottom,
+                    buttonProportions[buttonSize].fontSize,
+                    !variant
+                      ? classNames(
+                          buttonColorsImportance[buttonImportance].textColor,
+                          buttonColorsImportance[buttonImportance].bgColor,
+                          buttonColorsImportance[buttonImportance].borderColor,
+                          !isDisabled
+                            ? classNames(
+                                buttonColorsImportance[buttonImportance]
+                                  .focusRingColor,
+                                buttonColorsImportance[buttonImportance]
+                                  .hoverBgColor,
+                                buttonColorsImportance[buttonImportance]
+                                  .hoverBorderColor
+                              )
+                            : "tr-opacity-50"
+                        )
+                      : "",
+                    buttonColorsVariant[buttonVariant].textColor,
+                    buttonColorsVariant[buttonVariant].bgColor,
+                    buttonColorsVariant[buttonVariant].borderColor,
+                    !isDisabled
+                      ? classNames(
+                          buttonColorsVariant[buttonVariant].focusRingColor,
+                          buttonColorsVariant[buttonVariant].hoverBgColor,
+                          buttonColorsVariant[buttonVariant].hoverBorderColor
+                        )
+                      : "tr-opacity-50",
+                    parseMarginTop(marginTop)
                   )
-                : "tr-opacity-50"
-            )}
+                : classNames(
+                    "input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium",
+                    "focus:tr-outline-none focus:tr-ring-none",
+                    buttonProportionsInline[buttonSize].fontSize,
+                    getColorVariantsFromColorThemeValue(
+                      getColorTheme(color).text
+                    ).textColor,
+                    getColorVariantsFromColorThemeValue(
+                      defaultColors.transparent
+                    ).bgColor,
+                    getColorVariantsFromColorThemeValue(
+                      defaultColors.transparent
+                    ).hoverBgColor,
+                    !isDisabled
+                      ? classNames(
+                          getColorVariantsFromColorThemeValue(
+                            getColorTheme(color).darkText
+                          ).hoverTextColor
+                        )
+                      : "tr-opacity-50"
+                  )
+            }
             disabled={isDisabled}
           >
             {showButtonIconOrSpinner &&
