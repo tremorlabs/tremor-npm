@@ -201,7 +201,7 @@ const DateRangePicker = ({
               value={{ hoveredValue: hoveredDropdownValue }}
             >
               {dropdownOptions.map(({ value, text }: DateRangePickerOption) => (
-                <DropdownItem value={value} text={text} />
+                <DropdownItem key={value} value={value} text={text} />
               ))}
             </HoveredValueContext.Provider>
           </SelectedValueContext.Provider>

@@ -54,15 +54,13 @@ const MultiSelectBox = <T,>({
 }: MultiSelectBoxProps<T>) => {
   if (handleSelect !== undefined) {
     console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed \
-            in the next major release. Please use `onValuesChange` instead."
+      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
     );
   }
 
   if (defaultValues !== undefined) {
     console.warn(
-      "DeprecationWarning: The `defaultValues` property is deprecated and will be removed \
-            in the next major release. Please use `defaultValue` instead."
+      "DeprecationWarning: The `defaultValues` property is deprecated and will be removed in the next major release. Please use `defaultValue` instead."
     );
   }
 
