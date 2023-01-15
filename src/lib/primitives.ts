@@ -3,7 +3,7 @@ import {
   DeltaType,
   HorizontalPosition,
   Importance,
-  Variant,
+  ButtonVariant,
   Size,
   TextAlignment,
   VerticalPosition,
@@ -64,7 +64,7 @@ export const Importances: { [key: string]: Importance } = {
   Secondary: "secondary",
 };
 
-export const Variants: { [key: string]: Variant } = {
+export const ButtonVariants: { [key: string]: ButtonVariant } = {
   Primary: "primary",
   Secondary: "secondary",
   Inline: "inline",

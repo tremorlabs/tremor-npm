@@ -8,7 +8,7 @@ import {
   getColorTheme,
 } from "lib";
 
-import { Color, Variant } from "../../../lib/inputTypes";
+import { Color, ButtonVariant } from "../../../lib/inputTypes";
 
 export const iconSizes: { [size: string]: Sizing } = {
   xs: {
@@ -33,7 +33,7 @@ export const iconSizes: { [size: string]: Sizing } = {
   },
 };
 
-export const getButtonProportions = (variant: Variant) => {
+export const getButtonProportions = (variant: ButtonVariant) => {
   if (!(variant === "inline")) {
     return {
       xs: {
@@ -112,7 +112,7 @@ export const getButtonProportions = (variant: Variant) => {
   };
 };
 
-export const getButtonColors = (variant: Variant, color: Color) => {
+export const getButtonColors = (variant: ButtonVariant, color: Color) => {
   switch (variant) {
     case "primary":
       return {

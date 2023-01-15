@@ -20,7 +20,7 @@ export type VerticalPosition = "top" | "bottom";
 
 export type Importance = "primary" | "secondary";
 
-export type Variant = "primary" | "secondary" | "inline";
+export type ButtonVariant = "primary" | "secondary" | "inline";
 
 export type RelativeFilterOption = "tdy" | "w" | "t" | "m" | "y" | null;
 

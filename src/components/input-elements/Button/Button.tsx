@@ -6,7 +6,7 @@ import {
   BaseColors,
   HorizontalPositions,
   Importances,
-  Variants,
+  ButtonVariants,
   Sizes,
   border,
   borderRadius,
@@ -25,7 +25,7 @@ import {
   Color,
   HorizontalPosition,
   Importance,
-  Variant,
+  ButtonVariant,
   MarginTop,
   Size,
 } from "../../../lib";
@@ -87,7 +87,7 @@ export interface ButtonProps {
   size?: Size;
   color?: Color;
   importance?: Importance;
-  variant?: Variant;
+  variant?: ButtonVariant;
   handleClick?: () => void;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSubmit?: React.FormEventHandler<HTMLButtonElement>;
@@ -137,7 +137,7 @@ const Button = ({
   const buttonVariant = variant
     ? isValidVariant(variant)
       ? variant
-      : Variants.Primary
+      : ButtonVariants.Primary
     : buttonImportance;
 
   const isDisabled = loading || disabled;

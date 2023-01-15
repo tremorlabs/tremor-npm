@@ -5,14 +5,14 @@ import {
   BaseColors,
   DeltaTypes,
   Importances,
-  Variants,
+  ButtonVariants,
   Sizes,
 } from "./primitives";
 import {
   Color,
   DeltaType,
   Importance,
-  Variant,
+  ButtonVariant,
   Size,
   ValueFormatter,
 } from "./inputTypes";
@@ -43,8 +43,8 @@ export const isValidImportance = (importance: Importance): boolean => {
   return Object.values(Importances).includes(importance);
 };
 
-export const isValidVariant = (variant: Variant): boolean => {
-  return Object.values(Variants).includes(variant);
+export const isValidVariant = (variant: ButtonVariant): boolean => {
+  return Object.values(ButtonVariants).includes(variant);
 };
 
 export const mapInputsToDeltaType = (
