@@ -18,6 +18,7 @@ import {
   sizing,
   spacing,
   isValidVariant,
+  isBaseColor,
 } from "lib";
 import {
   ButtonType,
@@ -146,6 +147,11 @@ const Button = ({
     variant !== "inline"
       ? classNames(borderRadius.md.all, border.sm.all, boxShadow.sm)
       : "";
+  const buttonColorStyles = isBaseColor(color)
+    ? getButtonColors(buttonVariant, color)
+    : getButtonColors(buttonVariant, BaseColors.Blue);
+  const buttonProportionStyles =
+    getButtonProportions(buttonVariant)[buttonSize];
 
   return (
     <Transition in={loading} timeout={50}>
@@ -168,15 +174,15 @@ const Button = ({
               "focus:tr-ring-transparent",
               fontWeight.md,
               buttonShapeStyles,
-              getButtonProportions(buttonVariant)[buttonSize].paddingLeft,
-              getButtonProportions(buttonVariant)[buttonSize].paddingRight,
-              getButtonProportions(buttonVariant)[buttonSize].paddingTop,
-              getButtonProportions(buttonVariant)[buttonSize].paddingBottom,
-              getButtonProportions(buttonVariant)[buttonSize].fontSize,
-              getButtonColors(buttonVariant, color).textColor,
-              getButtonColors(buttonVariant, color).bgColor,
-              getButtonColors(buttonVariant, color).borderColor,
-              getButtonColors(buttonVariant, color).focusRingColor,
+              buttonProportionStyles.paddingLeft,
+              buttonProportionStyles.paddingRight,
+              buttonProportionStyles.paddingTop,
+              buttonProportionStyles.paddingBottom,
+              buttonProportionStyles.fontSize,
+              buttonColorStyles.textColor,
+              buttonColorStyles.bgColor,
+              buttonColorStyles.borderColor,
+              buttonColorStyles.focusRingColor,
               !isDisabled
                 ? classNames(
                     getButtonColors(buttonVariant, color).hoverTextColor,

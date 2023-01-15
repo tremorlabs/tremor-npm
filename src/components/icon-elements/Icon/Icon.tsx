@@ -12,7 +12,7 @@ import {
   parseMarginTop,
 } from "lib";
 import { Color, IconVariant, MarginTop, Size } from "../../../lib";
-import { colors, iconSizes, shape, wrapperProportions } from "./styles";
+import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
 export const IconVariants: { [key: string]: IconVariant } = {
   Simple: "simple",
@@ -43,14 +43,16 @@ const Icon = ({
   color = BaseColors.Blue,
   marginTop = "mt-0",
 }: IconProps) => {
+  const Icon = icon;
+
   const iconSize = isValidSize(size) ? size : Sizes.SM;
   const iconVariant = isValidIconVariant(variant)
     ? variant
     : IconVariants.Simple;
-  const iconColors = isBaseColor(color)
-    ? colors[iconVariant][color]
-    : colors[iconVariant][BaseColors.Blue];
-  const Icon = icon;
+  const iconColorStyles = isBaseColor(color)
+    ? getIconColors(variant, color)
+    : getIconColors(variant, BaseColors.Blue);
+
   return (
     <span className={classNames("tremor-base", parseMarginTop(marginTop))}>
       <Tooltip
@@ -60,10 +62,10 @@ const Icon = ({
         <span
           className={classNames(
             "tr-inline-flex tr-flex-shrink-0 tr-items-center",
-            iconColors.bgColor,
-            iconColors.textColor,
-            iconColors.borderColor,
-            iconColors.ringColor,
+            iconColorStyles.bgColor,
+            iconColorStyles.textColor,
+            iconColorStyles.borderColor,
+            iconColorStyles.ringColor,
             shape[iconVariant].rounded,
             shape[iconVariant].border,
             shape[iconVariant].shadow,
