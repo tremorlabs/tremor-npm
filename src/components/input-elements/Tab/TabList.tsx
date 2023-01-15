@@ -36,8 +36,7 @@ const TabList = <T,>({
 }: TabListProps<T>) => {
   if (handleSelect !== undefined) {
     console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed \
-            in the next major release. Please use `onValueChange` instead."
+      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
     );
   }
 

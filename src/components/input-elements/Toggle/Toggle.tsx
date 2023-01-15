@@ -29,15 +29,14 @@ const Toggle = <T,>({
   defaultValue,
   value,
   onValueChange,
-  handleSelect,
+  handleSelect, // Deprecated
   color = BaseColors.Blue,
   marginTop = "mt-0",
   children,
 }: ToggleProps<T>) => {
   if (handleSelect !== undefined) {
     console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed \
-            in the next major release. Please use `onValueChange` instead."
+      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
     );
   }
 

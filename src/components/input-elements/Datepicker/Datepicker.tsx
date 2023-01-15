@@ -503,7 +503,6 @@ export interface DatepickerProps {
 }
 
 const Datepicker = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleSelect,
   enableRelativeDates = true,
   defaultRelativeFilterOption = null,
@@ -518,8 +517,7 @@ const Datepicker = ({
   enableYearPagination = false,
 }: DatepickerProps) => {
   console.warn(
-    "DeprecationWarning: The `Datepicker` component is deprecated and will be removed \
-        in the next major release. Please the `DateRangePicker` component instead."
+    "DeprecationWarning: The `Datepicker` component is deprecated and will be removed in the next major release. Please the `DateRangePicker` component instead."
   );
 
   const today = startOfToday();

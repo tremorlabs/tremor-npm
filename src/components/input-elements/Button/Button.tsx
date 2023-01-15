@@ -111,7 +111,7 @@ const Button = ({
   onReset,
   size = Sizes.SM,
   color = BaseColors.Blue,
-  importance,
+  importance, // Deprecated
   variant,
   marginTop = "mt-0",
   disabled = false,
@@ -121,14 +121,12 @@ const Button = ({
 }: ButtonProps) => {
   if (handleClick) {
     console.warn(
-      "DeprecationWarning: The `handleClick` property is deprecated and will be removed \
-            in the next major release. Please use `onClick` instead."
+      "DeprecationWarning: The `handleClick` property is deprecated and will be removed in the next major release. Please use `onClick` instead."
     );
   }
   if (importance) {
     console.warn(
-      "DeprecationWarning: The `importance` property is deprecated and will be removed \
-            in the next major release. Please use `variant` instead."
+      "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead."
     );
   }
 
