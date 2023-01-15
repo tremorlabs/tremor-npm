@@ -6,28 +6,30 @@ import {
   BaseColors,
   HorizontalPositions,
   Importances,
+  ButtonVariants,
   Sizes,
   border,
   borderRadius,
   boxShadow,
   classNames,
   fontWeight,
-  isBaseColor,
-  isValidImportance,
   isValidSize,
   parseMarginTop,
   sizing,
   spacing,
+  isValidVariant,
+  isBaseColor,
 } from "lib";
 import {
   ButtonType,
   Color,
   HorizontalPosition,
   Importance,
+  ButtonVariant,
   MarginTop,
   Size,
 } from "../../../lib";
-import { buttonProportions, colors, iconSizes } from "./styles";
+import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
 
 export interface ButtonIconOrSpinnerProps {
@@ -78,13 +80,14 @@ export const ButtonIconOrSpinner = ({
 
 export interface ButtonProps {
   type?: ButtonType;
-  text: string;
+  text?: string;
   value?: any;
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
   size?: Size;
   color?: Color;
   importance?: Importance;
+  variant?: ButtonVariant;
   handleClick?: () => void;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSubmit?: React.FormEventHandler<HTMLButtonElement>;
@@ -93,6 +96,7 @@ export interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
+  children?: React.ReactNode;
 }
 
 const Button = ({
@@ -107,11 +111,13 @@ const Button = ({
   onReset,
   size = Sizes.SM,
   color = BaseColors.Blue,
-  importance = Importances.Primary,
+  importance,
+  variant,
   marginTop = "mt-0",
   disabled = false,
   loading = false,
   loadingText,
+  children,
 }: ButtonProps) => {
   if (handleClick) {
     console.warn(
@@ -119,24 +125,39 @@ const Button = ({
             in the next major release. Please use `onClick` instead."
     );
   }
+  if (importance) {
+    console.warn(
+      "DeprecationWarning: The `importance` property is deprecated and will be removed \
+            in the next major release. Please use `variant` instead."
+    );
+  }
 
   const Icon = icon;
+  const buttonImportance = importance ?? Importances.Primary;
+  const buttonVariant = variant
+    ? isValidVariant(variant)
+      ? variant
+      : ButtonVariants.Primary
+    : buttonImportance;
 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const buttonColors = isBaseColor(color)
-    ? colors[color]
-    : colors[BaseColors.Blue];
   const buttonSize = isValidSize(size) ? size : Sizes.SM;
-  const buttonImportance = isValidImportance(importance)
-    ? importance
-    : Importances.Primary;
   const iconSize = classNames(
     iconSizes[buttonSize].height,
     iconSizes[buttonSize].width
   );
+  const buttonShapeStyles =
+    variant !== "inline"
+      ? classNames(borderRadius.md.all, border.sm.all, boxShadow.sm)
+      : "";
+  const buttonColorStyles = isBaseColor(color)
+    ? getButtonColors(buttonVariant, color)
+    : getButtonColors(buttonVariant, BaseColors.Blue);
+  const buttonProportionStyles =
+    getButtonProportions(buttonVariant)[buttonSize];
 
   return (
     <Transition in={loading} timeout={50}>
@@ -155,25 +176,24 @@ const Button = ({
             onReset={onReset}
             className={classNames(
               "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
-              "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent",
-              borderRadius.md.all,
-              border.sm.all,
-              boxShadow.sm,
+              "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2",
+              "focus:tr-ring-transparent",
               fontWeight.md,
-              buttonProportions[buttonSize].paddingLeft,
-              buttonProportions[buttonSize].paddingRight,
-              buttonProportions[buttonSize].paddingTop,
-              buttonProportions[buttonSize].paddingBottom,
-              buttonProportions[buttonSize].fontSize,
-              buttonColors[buttonImportance].textColor,
-              buttonColors[buttonImportance].bgColor,
-              buttonColors[buttonImportance].borderColor,
-              parseMarginTop(marginTop),
+              buttonShapeStyles,
+              buttonProportionStyles.paddingLeft,
+              buttonProportionStyles.paddingRight,
+              buttonProportionStyles.paddingTop,
+              buttonProportionStyles.paddingBottom,
+              buttonProportionStyles.fontSize,
+              buttonColorStyles.textColor,
+              buttonColorStyles.bgColor,
+              buttonColorStyles.borderColor,
+              buttonColorStyles.focusRingColor,
               !isDisabled
                 ? classNames(
-                    buttonColors[buttonImportance].focusRingColor,
-                    buttonColors[buttonImportance].hoverBgColor,
-                    buttonColors[buttonImportance].hoverBorderColor
+                    getButtonColors(buttonVariant, color).hoverTextColor,
+                    getButtonColors(buttonVariant, color).hoverBgColor,
+                    getButtonColors(buttonVariant, color).hoverBorderColor
                   )
                 : "tr-opacity-50"
             )}
@@ -191,7 +211,7 @@ const Button = ({
             ) : null}
             {
               <p className="text-elem tr-whitespace-nowrap">
-                {showLoadingText ? loadingText : text}
+                {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }
             {showButtonIconOrSpinner &&

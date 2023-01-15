@@ -124,6 +124,21 @@ const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
   );
 };
 
+const ButtonInlineWithChildren: ComponentStory<typeof ButtonInline> = () => (
+  <Card>
+    <ColGrid numCols={1} gapY="gap-y-3" marginTop="mt-10">
+      <ButtonInline>Children</ButtonInline>
+      <ButtonInline text="Text" />
+      <ButtonInline text="Text is prefered">Children is prefered</ButtonInline>
+      <ButtonInline text="Text is prefered">
+        <span style={{ color: "red" }}>
+          ButtonInline can also take html elements as values
+        </span>
+      </ButtonInline>
+    </ColGrid>
+  </Card>
+);
+
 export const Sizes = SizesTemplate.bind({});
 
 export const Colors = ColorsTemplate.bind({});
@@ -139,4 +154,6 @@ export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
   disabled: true,
 };
+
+export const WithChildren = ButtonInlineWithChildren.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

@@ -24,7 +24,7 @@ import { Transition } from "react-transition-group";
 
 export interface ButtonInlineProps {
   type?: ButtonType;
-  text: string;
+  text?: string;
   value?: any;
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
@@ -38,6 +38,7 @@ export interface ButtonInlineProps {
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
+  children?: React.ReactNode;
 }
 
 const ButtonInline = ({
@@ -56,6 +57,7 @@ const ButtonInline = ({
   disabled = false,
   loading = false,
   loadingText,
+  children,
 }: ButtonInlineProps) => {
   if (handleClick) {
     console.warn(
@@ -123,7 +125,7 @@ const ButtonInline = ({
             ) : null}
             {
               <p className="text-elem tr-whitespace-nowrap">
-                {showLoadingText ? loadingText : text}
+                {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }
             {showButtonIconOrSpinner &&

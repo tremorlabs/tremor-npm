@@ -20,7 +20,7 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={4} gapY="gap-y-2">
+    <ColGrid numCols={5} gapY="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <Button {...args} size={size} text="Button" />
@@ -32,7 +32,22 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
             icon={MyIcon}
             iconPosition="right"
           />
-          <Button {...args} size={size} text="Button" importance="secondary" />
+          <Button
+            {...args}
+            size={size}
+            text="Button"
+            variant="secondary"
+            icon={MyIcon}
+            iconPosition="left"
+          />
+          <Button
+            {...args}
+            size={size}
+            text="Button"
+            variant="inline"
+            icon={MyIcon}
+            iconPosition="right"
+          />
         </>
       ))}
     </ColGrid>
@@ -41,12 +56,13 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
 
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={3} numColsLg={6} gapY="gap-y-2">
+    <ColGrid numCols={4} numColsLg={4} gapY="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <>
           <Button {...args} color={color} text={color} />
           <Button {...args} color={color} text={color} icon={MyIcon} />
-          <Button {...args} color={color} text={color} importance="secondary" />
+          <Button {...args} color={color} text={color} variant="secondary" />
+          <Button {...args} color={color} text={color} variant="inline" />
         </>
       ))}
     </ColGrid>
@@ -138,6 +154,28 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
   );
 };
 
+const ButtonWithChildren: ComponentStory<typeof Button> = () => (
+  <Card>
+    <ColGrid numCols={1} gapY="gap-y-3" marginTop="mt-10">
+      <Button>Children only</Button>
+      <Button text="Text only" />
+      <Button text="Text is prefered">Children are prefered</Button>
+      <Button text="Text is prefered">
+        <span style={{ color: "red" }}>Button with span and text prop</span>
+      </Button>
+      <Button text="Text is prefered">
+        <span style={{ color: "red" }}>Button with span and text prop</span>
+      </Button>
+      <Button text="Text is prefered" icon={MyIcon}>
+        <span style={{ color: "red" }}>Button with span and icon prop</span>
+      </Button>
+      <Button text="Text is prefered" icon={MyIcon} iconPosition="right">
+        <span style={{ color: "red" }}>Button with span and icon prop</span>
+      </Button>
+    </ColGrid>
+  </Card>
+);
+
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
@@ -159,5 +197,7 @@ export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
   disabled: true,
 };
+
+export const WithChildren = ButtonWithChildren.bind({});
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
