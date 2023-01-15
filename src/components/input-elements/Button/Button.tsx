@@ -111,7 +111,7 @@ const Button = ({
   onReset,
   size = Sizes.SM,
   color = BaseColors.Blue,
-  importance = Importances.Primary,
+  importance,
   variant,
   marginTop = "mt-0",
   disabled = false,
@@ -125,14 +125,20 @@ const Button = ({
             in the next major release. Please use `onClick` instead."
     );
   }
+  if (importance) {
+    console.warn(
+      "DeprecationWarning: The `importance` property is deprecated and will be removed \
+            in the next major release. Please use `variant` instead."
+    );
+  }
 
   const Icon = icon;
-
+  const buttonImportance = importance ?? Importances.Primary;
   const buttonVariant = variant
     ? isValidVariant(variant)
       ? variant
       : Variants.Primary
-    : importance;
+    : buttonImportance;
 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
