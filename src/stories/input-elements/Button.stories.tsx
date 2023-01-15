@@ -44,7 +44,7 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
             {...args}
             size={size}
             text="Button"
-            variant="inline"
+            variant="light"
             icon={MyIcon}
             iconPosition="right"
           />
@@ -62,7 +62,7 @@ const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
           <Button {...args} color={color} text={color} />
           <Button {...args} color={color} text={color} icon={MyIcon} />
           <Button {...args} color={color} text={color} variant="secondary" />
-          <Button {...args} color={color} text={color} variant="inline" />
+          <Button {...args} color={color} text={color} variant="light" />
         </>
       ))}
     </ColGrid>

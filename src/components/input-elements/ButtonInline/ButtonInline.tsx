@@ -1,6 +1,6 @@
 /**
  * NOTE: The ButtonInline component is deprecated and will be removed in the next major release.
- * Please refer to the variant="inline" property of the Button component instead.
+ * Please refer to the variant="light" property of the Button component instead.
  */
 
 import React from "react";
@@ -65,7 +65,7 @@ const ButtonInline = ({
   children,
 }: ButtonInlineProps) => {
   console.warn(
-    "DeprecationWarning: The `ButtonInline` component is deprecated and will be removed in the next major release. Please use `<Button variant='inline'>` instead."
+    "DeprecationWarning: The `ButtonInline` component is deprecated and will be removed in the next major release. Please use `<Button variant='light'>` instead."
   );
 
   if (handleClick) {

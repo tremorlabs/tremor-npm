@@ -67,7 +67,7 @@ export const Importances: { [key: string]: Importance } = {
 export const ButtonVariants: { [key: string]: ButtonVariant } = {
   Primary: "primary",
   Secondary: "secondary",
-  Inline: "inline",
+  Light: "light",
 };
 
 export const HorizontalPositions: { [key: string]: HorizontalPosition } = {

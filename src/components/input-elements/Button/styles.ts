@@ -34,7 +34,7 @@ export const iconSizes: { [size: string]: Sizing } = {
 };
 
 export const getButtonProportions = (variant: ButtonVariant) => {
-  if (!(variant === "inline")) {
+  if (!(variant === "light")) {
     return {
       xs: {
         paddingLeft: spacing.md.paddingLeft,
@@ -159,7 +159,7 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
           getColorTheme(color).ring
         ).focusRingColor,
       };
-    case "inline":
+    case "light":
       return {
         textColor: getColorVariantsFromColorThemeValue(
           getColorTheme(color).text

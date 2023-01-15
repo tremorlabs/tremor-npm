@@ -129,12 +129,6 @@ const Button = ({
       "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead."
     );
   }
-  if (importance) {
-    console.warn(
-      "DeprecationWarning: The `importance` property is deprecated and will be removed \
-            in the next major release. Please use `variant` instead."
-    );
-  }
 
   const Icon = icon;
   const buttonImportance = importance ?? Importances.Primary;
@@ -154,7 +148,7 @@ const Button = ({
     iconSizes[buttonSize].width
   );
   const buttonShapeStyles =
-    variant !== "inline"
+    variant !== "light"
       ? classNames(borderRadius.md.all, border.sm.all, boxShadow.sm)
       : "";
   const buttonColorStyles = isBaseColor(color)
