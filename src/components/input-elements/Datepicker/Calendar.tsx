@@ -12,7 +12,7 @@ import {
   previousSunday,
   startOfMonth,
 } from "date-fns";
-
+import { enUS } from "date-fns/locale";
 import { BaseColorContext } from "contexts";
 
 import {
@@ -36,6 +36,11 @@ import {
 } from "lib";
 import { getDateStyles } from "./dateRangePickerUtils";
 
+export type CalendarLocale = {
+  weekDays?: typeof WEEKDAYS;
+  locale?: typeof enUS;
+};
+
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 export const colStartClasses = [
@@ -52,12 +57,14 @@ interface CalendarHeaderProps {
   enableYearPagination: boolean;
   anchorDate: Date;
   setAnchorDate: Dispatch<SetStateAction<Date>>;
+  locale?: CalendarLocale["locale"];
 }
 
 const CalendarHeader = ({
   enableYearPagination,
   anchorDate,
   setAnchorDate,
+  locale,
 }: CalendarHeaderProps) => {
   const handlePaginationClick = (
     type: "nextMonth" | "prevMonth" | "nextYear" | "prevYear"
@@ -78,7 +85,7 @@ const CalendarHeader = ({
     }
   };
 
-  const displayedTitle = format(anchorDate, "MMMM yyyy");
+  const displayedTitle = format(anchorDate, "MMMM yyyy", { locale });
 
   return (
     <div
@@ -249,6 +256,8 @@ interface CalendarBodyProps {
   onDateClick: (date: Date) => void;
   minDate: Date | null;
   maxDate: Date | null;
+  weekDays?: CalendarLocale["weekDays"];
+  locale?: CalendarLocale["locale"];
 }
 
 const CalendarBody = ({
@@ -258,6 +267,8 @@ const CalendarBody = ({
   onDateClick,
   minDate,
   maxDate,
+  weekDays = WEEKDAYS,
+  locale,
 }: CalendarBodyProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>();
   const color = useContext(BaseColorContext);
@@ -301,7 +312,7 @@ const CalendarBody = ({
           fontWeight.md
         )}
       >
-        {WEEKDAYS.map((dayName) => (
+        {weekDays.map((dayName) => (
           <div key={dayName} className="tr-w-full tr-flex tr-justify-center">
             <div
               className={classNames(
@@ -349,8 +360,8 @@ const CalendarBody = ({
                 )}
                 disabled={isCurrentDateDisabled}
               >
-                <time dateTime={format(date, "yyyy-MM-dd")}>
-                  {format(date, "d")}
+                <time dateTime={format(date, "yyyy-MM-dd", { locale })}>
+                  {format(date, "d", { locale })}
                 </time>
               </button>
             </div>
@@ -370,6 +381,7 @@ export interface CalendarProps {
   minDate: Date | null;
   maxDate: Date | null;
   onDateClick: (date: Date) => void;
+  locales?: CalendarLocale;
 }
 
 const Calendar = ({
@@ -381,6 +393,7 @@ const Calendar = ({
   minDate,
   maxDate,
   onDateClick,
+  locales,
 }: CalendarProps) => {
   return (
     <div
@@ -395,6 +408,7 @@ const Calendar = ({
         enableYearPagination={enableYearPagination}
         anchorDate={anchorDate}
         setAnchorDate={setAnchorDate}
+        locale={locales?.locale}
       />
       <CalendarBody
         anchorDate={anchorDate}
@@ -403,6 +417,8 @@ const Calendar = ({
         onDateClick={onDateClick}
         minDate={minDate}
         maxDate={maxDate}
+        locale={locales?.locale}
+        weekDays={locales?.weekDays}
       />
     </div>
   );

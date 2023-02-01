@@ -22,6 +22,7 @@ import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
 import Modal from "components/layout-elements/Modal";
+import { CalendarLocale } from "./Calendar";
 
 export type DateRangePickerValue = [
   (Date | null)?,
@@ -47,6 +48,7 @@ export interface DateRangePickerProps {
   color?: Color;
   marginTop?: MarginTop;
   maxWidth?: MaxWidth;
+  locales?: CalendarLocale & { pickerPlaceholder?: string };
 }
 
 const DateRangePicker = ({
@@ -62,6 +64,7 @@ const DateRangePicker = ({
   marginTop = "mt-0",
   maxWidth = "max-w-none",
   enableYearPagination = false,
+  locales,
 }: DateRangePickerProps) => {
   const TODAY = startOfToday();
   const calendarRef = useRef(null);
@@ -165,6 +168,8 @@ const DateRangePicker = ({
           showDropdown={showDropdown}
           setShowDropdown={setShowDropdown}
           onDropdownKeyDown={handleDropdownKeyDown}
+          locale={locales?.locale}
+          pickerPlaceholder={locales?.pickerPlaceholder}
         />
         {/* Calendar Modal */}
         <Modal
@@ -183,6 +188,7 @@ const DateRangePicker = ({
             minDate={minDate}
             maxDate={maxDate}
             onDateClick={handleDateClick}
+            locales={locales}
           />
         </Modal>
         {/* Dropdpown Modal */}
