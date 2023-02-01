@@ -11,7 +11,7 @@ import {
   Title,
 } from "components";
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
-
+import { fr } from "date-fns/locale";
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Tremor/InputElements/DateRangePicker",
@@ -101,6 +101,16 @@ export const UncontrolledDefault = UncontrolledTemplate.bind({});
 export const UncontrolledWithDefaultDateRange = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultDateRange.args = {
   defaultValue: [new Date(2022, 10, 1), new Date()],
+};
+export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
+UncontrolledWithDefaultFrLocale.args = {
+  // defaultValue: [new Date(2022, 10, 1), new Date()],
+  locales: {
+    locale: fr,
+    weekDays: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    pickerPlaceholder: "Sélectionnez",
+  },
+  placeholder: "Sélectionnez...",
 };
 
 export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind(
