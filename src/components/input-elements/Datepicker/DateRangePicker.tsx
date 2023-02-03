@@ -63,8 +63,8 @@ const DateRangePicker = ({
   options,
   minDate = null,
   maxDate = null,
-  placeholder = "Select...",
-  dropdownPlaceholder = "Select...",
+  placeholder = "Select",
+  dropdownPlaceholder = "Select",
   color = BaseColors.Blue,
   marginTop = "mt-0",
   maxWidth = "max-w-none",
@@ -79,6 +79,7 @@ const DateRangePicker = ({
     defaultValue,
     value
   );
+
   const [anchorDate, setAnchorDate] = useState(TODAY);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -94,7 +95,12 @@ const DateRangePicker = ({
       )
     : null;
   const selectedEndDate = selectedValue
-    ? getEndDate(selectedValue[1], maxDate, selectedDropdownValue)
+    ? getEndDate(
+        selectedValue[1],
+        maxDate,
+        selectedDropdownValue,
+        dropdownOptions
+      )
     : null;
 
   const handleDateClick = (date: Date) => {
@@ -133,9 +139,15 @@ const DateRangePicker = ({
       ? startOfDay(selectedStartDate)
       : null;
 
-    setSelectedValue([selectedStartDate, TODAY, dropdownValue]);
-    onValueChange?.([selectedStartDate, TODAY, dropdownValue]);
-    setAnchorDate(TODAY);
+    const selectedEndDate = startOfDay(
+      dropdownOptions.find(
+        (option: DateRangePickerOption) => option.value === dropdownValue
+      )?.endDate ?? TODAY
+    );
+
+    setSelectedValue([selectedStartDate, selectedEndDate, dropdownValue]);
+    onValueChange?.([selectedStartDate, selectedEndDate, dropdownValue]);
+    setAnchorDate(selectedEndDate);
     setShowDropdown(false);
   };
 

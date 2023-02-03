@@ -50,10 +50,13 @@ export const getStartDate = (
 export const getEndDate = (
   endDate: Date | null | undefined,
   maxDate: Date | null | undefined,
-  selectedDropdownValue: string | null | undefined
+  selectedDropdownValue: string | null | undefined,
+  dropdownOptions: DateRangePickerOption[]
 ) => {
   if (selectedDropdownValue) {
-    endDate = startOfToday();
+    endDate =
+      dropdownOptions.find((option) => option.value === selectedDropdownValue)
+        ?.endDate ?? startOfToday();
   }
   if (!endDate) return null;
   if (endDate && !maxDate) return startOfDay(endDate);
