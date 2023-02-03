@@ -109,7 +109,6 @@ UncontrolledWithDefaultFrLocale.args = {
 export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind(
   {}
 );
-
 UncontrolledWithDefaultSelectOption.args = {
   defaultValue: [undefined, undefined, "tdy"],
 };

@@ -105,8 +105,6 @@ const DateRangePicker = ({
       )
     : null;
 
-  console.log(selectedEndDate);
-
   const handleDateClick = (date: Date) => {
     if (!selectedStartDate) {
       onValueChange?.([date, selectedEndDate, null]);
