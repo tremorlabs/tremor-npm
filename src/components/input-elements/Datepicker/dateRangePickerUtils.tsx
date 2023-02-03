@@ -5,17 +5,31 @@ import {
   getDayTextClassNames,
 } from "./datepickerUtils";
 import {
+  addDays,
+  format,
   max,
   min,
   startOfDay,
   startOfMonth,
   startOfToday,
+  startOfWeek,
   startOfYear,
   sub,
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
 import { classNames } from "lib";
+
+export const getWeekdays = (locale: Locale) => {
+  const firstDayOfWeek = startOfWeek(new Date());
+  return Array.from(Array(7)).map((e, i) =>
+    format(addDays(firstDayOfWeek, i), "EEEEEE", { locale })
+  );
+};
+
+export const capitalize = (s: string, locale: Locale) => {
+  return s.charAt(0).toLocaleUpperCase(locale.code) + s.substring(1);
+};
 
 export const getStartDate = (
   startDate: Date | null | undefined,

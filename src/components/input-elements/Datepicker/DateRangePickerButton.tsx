@@ -18,12 +18,11 @@ import {
 } from "lib";
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
-import { CalendarLocale } from "./Calendar";
 
 const formatSelectedDates = (
   startDate: Date | null,
   endDate: Date | null,
-  locale?: CalendarLocale["locale"]
+  locale?: Locale
 ) => {
   const localeCode = locale?.code || "en-US";
   if (!startDate && !endDate) {
@@ -79,8 +78,8 @@ interface DateRangePickerButtonProps {
   showDropdown: boolean;
   setShowDropdown: Dispatch<SetStateAction<boolean>>;
   onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
-  locale?: CalendarLocale["locale"];
-  pickerPlaceholder?: string;
+  locale?: Locale;
+  dropdownPlaceholder?: string;
 }
 
 const DateRangePickerButton = ({
@@ -97,7 +96,7 @@ const DateRangePickerButton = ({
   setShowDropdown,
   onDropdownKeyDown,
   locale,
-  pickerPlaceholder = "Select",
+  dropdownPlaceholder = "Select",
 }: DateRangePickerButtonProps) => {
   const [startDate, endDate, dropdownValue] = value;
   const hasSelection = (startDate || endDate) !== null;
@@ -106,7 +105,7 @@ const DateRangePickerButton = ({
     : placeholder;
   const dropdownText = dropdownValue
     ? String(options.find((option) => option.value === dropdownValue)?.text)
-    : pickerPlaceholder;
+    : dropdownPlaceholder;
 
   return (
     <div

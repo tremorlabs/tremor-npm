@@ -105,11 +105,8 @@ UncontrolledWithDefaultDateRange.args = {
 export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultFrLocale.args = {
   // defaultValue: [new Date(2022, 10, 1), new Date()],
-  locales: {
-    locale: fr,
-    weekDays: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-    pickerPlaceholder: "Sélectionnez",
-  },
+  dropdownPlaceholder: "Sélectionnez",
+  locale: fr,
   placeholder: "Sélectionnez...",
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { startOfDay, startOfToday } from "date-fns";
+import { enUS } from "date-fns/locale";
 
 import {
   BaseColorContext,
@@ -22,7 +23,8 @@ import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
 import Modal from "components/layout-elements/Modal";
-import { CalendarLocale } from "./Calendar";
+
+export type Locale = typeof enUS;
 
 export type DateRangePickerValue = [
   (Date | null)?,
@@ -33,6 +35,7 @@ export type DateRangePickerOption = {
   value: string;
   text: string;
   startDate: Date;
+  endDate?: Date;
 };
 
 export interface DateRangePickerProps {
@@ -44,11 +47,12 @@ export interface DateRangePickerProps {
   minDate?: Date | null;
   maxDate?: Date | null;
   placeholder?: string;
+  dropdownPlaceholder?: string;
   enableYearPagination?: boolean;
   color?: Color;
   marginTop?: MarginTop;
   maxWidth?: MaxWidth;
-  locales?: CalendarLocale & { pickerPlaceholder?: string };
+  locale?: Locale;
 }
 
 const DateRangePicker = ({
@@ -60,11 +64,12 @@ const DateRangePicker = ({
   minDate = null,
   maxDate = null,
   placeholder = "Select...",
+  dropdownPlaceholder = "Select...",
   color = BaseColors.Blue,
   marginTop = "mt-0",
   maxWidth = "max-w-none",
   enableYearPagination = false,
-  locales,
+  locale = enUS,
 }: DateRangePickerProps) => {
   const TODAY = startOfToday();
   const calendarRef = useRef(null);
@@ -168,8 +173,8 @@ const DateRangePicker = ({
           showDropdown={showDropdown}
           setShowDropdown={setShowDropdown}
           onDropdownKeyDown={handleDropdownKeyDown}
-          locale={locales?.locale}
-          pickerPlaceholder={locales?.pickerPlaceholder}
+          locale={locale}
+          dropdownPlaceholder={dropdownPlaceholder}
         />
         {/* Calendar Modal */}
         <Modal
@@ -188,7 +193,7 @@ const DateRangePicker = ({
             minDate={minDate}
             maxDate={maxDate}
             onDateClick={handleDateClick}
-            locales={locales}
+            locale={locale}
           />
         </Modal>
         {/* Dropdpown Modal */}
