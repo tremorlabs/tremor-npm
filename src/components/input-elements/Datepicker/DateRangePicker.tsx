@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { startOfDay, startOfToday } from "date-fns";
+import { startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import {
@@ -15,8 +15,10 @@ import { BaseColors, classNames, parseMarginTop, parseMaxWidth } from "lib";
 import { Color, MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   defaultOptions,
-  getEndDate,
-  getStartDate,
+  getEndDateByDropdownValue,
+  getStartDateByDropdownValue,
+  parseEndDate,
+  parseStartDate,
 } from "./dateRangePickerUtils";
 
 import Calendar from "./Calendar";
@@ -87,7 +89,7 @@ const DateRangePicker = ({
   const dropdownOptions = options ?? defaultOptions;
   const selectedDropdownValue = selectedValue ? selectedValue[2] ?? null : null;
   const selectedStartDate = selectedValue
-    ? getStartDate(
+    ? parseStartDate(
         selectedValue[0],
         minDate,
         selectedDropdownValue,
@@ -95,13 +97,15 @@ const DateRangePicker = ({
       )
     : null;
   const selectedEndDate = selectedValue
-    ? getEndDate(
+    ? parseEndDate(
         selectedValue[1],
         maxDate,
         selectedDropdownValue,
         dropdownOptions
       )
     : null;
+
+  console.log(selectedEndDate);
 
   const handleDateClick = (date: Date) => {
     if (!selectedStartDate) {
@@ -131,18 +135,13 @@ const DateRangePicker = ({
   };
 
   const handleDropdownOptionClick = (dropdownValue: string) => {
-    let selectedStartDate =
-      dropdownOptions.find(
-        (option: DateRangePickerOption) => option.value === dropdownValue
-      )?.startDate ?? null;
-    selectedStartDate = selectedStartDate
-      ? startOfDay(selectedStartDate)
-      : null;
-
-    const selectedEndDate = startOfDay(
-      dropdownOptions.find(
-        (option: DateRangePickerOption) => option.value === dropdownValue
-      )?.endDate ?? TODAY
+    const selectedStartDate = getStartDateByDropdownValue(
+      dropdownValue,
+      dropdownOptions
+    );
+    const selectedEndDate = getEndDateByDropdownValue(
+      dropdownValue,
+      dropdownOptions
     );
 
     setSelectedValue([selectedStartDate, selectedEndDate, dropdownValue]);

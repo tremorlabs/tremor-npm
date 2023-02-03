@@ -48,7 +48,7 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 };
 
 const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
-  const [value, setValue] = useState<DateRangePickerValue>([null, null]);
+  const [value, setValue] = useState<DateRangePickerValue>(args.value!);
 
   const startDate = value[0];
   const endDate = value[1];
@@ -194,7 +194,7 @@ export const ControlledWithDropdownOptionsWithEndDate = ControlledTemplate.bind(
   {}
 );
 ControlledWithDropdownOptionsWithEndDate.args = {
-  value: [new Date(2022, 10, 1), new Date(), "tdy"],
+  value: [new Date(2022, 5, 1), new Date(), "tdy"],
   options: [
     {
       value: "tdy",
