@@ -19,7 +19,12 @@ import {
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
 
-const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
+const formatSelectedDates = (
+  startDate: Date | null,
+  endDate: Date | null,
+  locale?: Locale
+) => {
+  const localeCode = locale?.code || "en-US";
   if (!startDate && !endDate) {
     return "";
   } else if (startDate && !endDate) {
@@ -28,7 +33,7 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
       month: "short",
       day: "numeric",
     };
-    return startDate.toLocaleDateString("en-US", options);
+    return startDate.toLocaleDateString(localeCode, options);
   } else if (startDate && endDate) {
     if (isEqual(startDate, endDate)) {
       const options: Intl.DateTimeFormatOptions = {
@@ -36,7 +41,7 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
         month: "short",
         day: "numeric",
       };
-      return startDate.toLocaleDateString("en-US", options);
+      return startDate.toLocaleDateString(localeCode, options);
     } else if (
       startDate.getMonth() === endDate.getMonth() &&
       startDate.getFullYear() === endDate.getFullYear()
@@ -45,7 +50,7 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
         month: "short",
         day: "numeric",
       };
-      return `${startDate.toLocaleDateString("en-US", optionsStartDate)} - 
+      return `${startDate.toLocaleDateString(localeCode, optionsStartDate)} - 
                     ${endDate.getDate()}, ${endDate.getFullYear()}`;
     } else {
       const options: Intl.DateTimeFormatOptions = {
@@ -53,8 +58,8 @@ const formatSelectedDates = (startDate: Date | null, endDate: Date | null) => {
         month: "short",
         day: "numeric",
       };
-      return `${startDate.toLocaleDateString("en-US", options)} - 
-                    ${endDate.toLocaleDateString("en-US", options)}`;
+      return `${startDate.toLocaleDateString(localeCode, options)} - 
+                    ${endDate.toLocaleDateString(localeCode, options)}`;
     }
   }
   return "";
@@ -73,6 +78,8 @@ interface DateRangePickerButtonProps {
   showDropdown: boolean;
   setShowDropdown: Dispatch<SetStateAction<boolean>>;
   onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  locale?: Locale;
+  dropdownPlaceholder?: string;
 }
 
 const DateRangePickerButton = ({
@@ -88,15 +95,17 @@ const DateRangePickerButton = ({
   showDropdown,
   setShowDropdown,
   onDropdownKeyDown,
+  locale,
+  dropdownPlaceholder = "Select",
 }: DateRangePickerButtonProps) => {
   const [startDate, endDate, dropdownValue] = value;
   const hasSelection = (startDate || endDate) !== null;
   const calendarText = hasSelection
-    ? formatSelectedDates(startDate as Date, endDate as Date)
+    ? formatSelectedDates(startDate as Date, endDate as Date, locale)
     : placeholder;
   const dropdownText = dropdownValue
     ? String(options.find((option) => option.value === dropdownValue)?.text)
-    : "Select";
+    : dropdownPlaceholder;
 
   return (
     <div
