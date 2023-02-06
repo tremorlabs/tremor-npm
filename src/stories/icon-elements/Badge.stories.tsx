@@ -44,7 +44,7 @@ const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
 const ResponsiveFlexTemplate: ComponentStory<typeof Badge> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Flex>
           <Badge {...args} />

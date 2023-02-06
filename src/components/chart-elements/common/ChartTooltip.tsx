@@ -36,11 +36,11 @@ export interface ChartTooltipRowProps {
 }
 
 export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
-  <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
-    <div className="tr-flex tr-items-center tr-space-x-2">
+  <div className="flex items-center justify-between space-x-8">
+    <div className="flex items-center space-x-2">
       <span
         className={clsx(
-          "tr-shrink-0",
+          "shrink-0",
           getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
           getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
           sizing.sm.height,
@@ -52,7 +52,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       />
       <p
         className={clsx(
-          "text-elem tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap",
+          "text-elem font-medium tabular-nums text-right whitespace-nowrap",
           getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
         )}
       >
@@ -61,7 +61,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     </div>
     <p
       className={clsx(
-        "text-elem tr-text-right tr-whitespace-nowrap",
+        "text-elem text-right whitespace-nowrap",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontWeight.sm,
       )}
@@ -116,7 +116,7 @@ const ChartTooltip = ({
             spacing.twoXl.paddingRight,
             spacing.sm.paddingTop,
             spacing.sm.paddingBottom,
-            "tr-space-y-1",
+            "space-y-1",
           )}
         >
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (

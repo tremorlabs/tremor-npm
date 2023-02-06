@@ -9,9 +9,7 @@ export interface BoldProps {
 
 const Bold = ({ children }: BoldProps) => {
   return (
-    <span className={clsx("tremor-base tr-text-inherit", fontSize.sm, fontWeight.lg)}>
-      {children}
-    </span>
+    <span className={clsx("tremor-base text-inherit", fontSize.sm, fontWeight.lg)}>{children}</span>
   );
 };
 

@@ -116,7 +116,7 @@ const SelectBox = <T,>({
       onClick={() => handleFocusChange(!isFocused)}
       onKeyDown={handleKeyDown}
       className={clsx(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
+        "tremor-base relative w-full min-w-[10rem]",
         parseMaxWidth(maxWidth),
         parseMarginTop(marginTop),
         !isSelectBoxHovered
@@ -130,12 +130,12 @@ const SelectBox = <T,>({
       onMouseEnter={() => setIsSelectBoxHovered(true)}
       onMouseLeave={() => setIsSelectBoxHovered(false)}
     >
-      <div className="tr-flex tr-items-center overflow-hidden">
+      <div className="flex items-center overflow-hidden">
         {Icon ? (
-          <button type="button" className={clsx("input-elem tr-p-0", spacing.xl.marginLeft)}>
+          <button type="button" className={clsx("input-elem p-0", spacing.xl.marginLeft)}>
             <Icon
               className={clsx(
-                "tr-shrink-0 tr-bg-inherit",
+                "shrink-0 bg-inherit",
                 sizing.lg.height,
                 sizing.lg.width,
                 getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
@@ -148,7 +148,7 @@ const SelectBox = <T,>({
           ref={inputRef}
           type="text"
           className={clsx(
-            "input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit",
+            "input-elem w-full focus:outline-0 focus:ring-0 bg-inherit",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingTop,
@@ -156,8 +156,8 @@ const SelectBox = <T,>({
             fontSize.sm,
             fontWeight.md,
             border.none.all,
-            "placeholder:tr-text-gray-500",
-            "tr-pr-10", // avoid text overflow at arrow down icon
+            "placeholder:text-gray-500",
+            "pr-10", // avoid text overflow at arrow down icon
           )}
           placeholder={placeholder}
           value={inputValue}
@@ -166,13 +166,13 @@ const SelectBox = <T,>({
         <button
           type="button"
           className={clsx(
-            "input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2 tr-bg-inherit",
+            "input-elem absolute top-1/2 -translate-y-1/2 bg-inherit",
             spacing.twoXl.right,
           )}
         >
           <ArrowDownHeadIcon
             className={clsx(
-              "tr-flex-none",
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,

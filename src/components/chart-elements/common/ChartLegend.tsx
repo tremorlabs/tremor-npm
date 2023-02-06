@@ -31,7 +31,7 @@ const ChartLegend = (
   });
 
   return (
-    <div ref={legendRef} className="tr-flex tr-items-center tr-justify-end">
+    <div ref={legendRef} className="flex items-center justify-end">
       <Legend
         categories={payload.map((entry: any) => entry.value)}
         colors={payload.map((entry: any) => categoryColors.get(entry.value))}

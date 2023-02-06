@@ -28,7 +28,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
   <form>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Datepicker />
         <SimpleMultiSelectBox {...args} />
@@ -41,7 +41,7 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
     </Card>
     <Title marginTop="mt-5">With Black Background</Title>
     <Card>
-      <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+      <div className="flex items-center bg-black h-24">
         <SimpleMultiSelectBox {...args} />
       </div>
     </Card>

@@ -15,7 +15,7 @@ const AccordionHeader = ({ children }: AccordionHeaderProps) => {
     <button
       type="button"
       className={clsx(
-        "input-elem tr-w-full tr-flex tr-items-center tr-justify-between",
+        "input-elem w-full flex items-center justify-between",
         spacing.threeXl.paddingLeft,
         spacing.threeXl.paddingRight,
         spacing.lg.paddingTop,
@@ -23,7 +23,7 @@ const AccordionHeader = ({ children }: AccordionHeaderProps) => {
       )}
       onClick={() => setIsExpanded?.(!isExpanded)}
     >
-      <div className={clsx("tr-flex tr-flex-1", spacing.threeXl.marginRight)}>{children}</div>
+      <div className={clsx("flex flex-1", spacing.threeXl.marginRight)}>{children}</div>
       <div>
         {isExpanded ? (
           <ArrowUpHeadIcon

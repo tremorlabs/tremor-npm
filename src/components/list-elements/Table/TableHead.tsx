@@ -11,7 +11,7 @@ const TableHead = ({ children }: TableHeadProps) => (
   <>
     <thead
       className={clsx(
-        "tr-text-left",
+        "text-left",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontWeight.lg,
       )}

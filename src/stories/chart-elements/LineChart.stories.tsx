@@ -16,7 +16,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <LineChart {...args} />
       </Card>

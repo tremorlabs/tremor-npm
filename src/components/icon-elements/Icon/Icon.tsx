@@ -1,9 +1,9 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
-import { BaseColors, Sizes, clsx, isBaseColor, isValidSize, parseMarginTop } from "lib";
+import { BaseColors, Sizes, isBaseColor, isValidSize, parseMarginTop } from "lib";
 import { Color, IconVariant, MarginTop, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
@@ -46,10 +46,10 @@ const Icon = ({
 
   return (
     <span className={clsx("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "tr-hidden")}>
+      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "hidden")}>
         <span
           className={clsx(
-            "tr-inline-flex tr-flex-shrink-0 tr-items-center",
+            "inline-flex flex-shrink-0 items-center",
             iconColorStyles.bgColor,
             iconColorStyles.textColor,
             iconColorStyles.borderColor,

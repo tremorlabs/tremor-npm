@@ -19,7 +19,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
   <form>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Datepicker />
         <SimpleDropdown {...args} />
@@ -32,7 +32,7 @@ const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
     </Card>
     <Title marginTop="mt-5">With Black Background</Title>
     <Card>
-      <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+      <div className="flex items-center bg-black h-24">
         <SimpleDropdown {...args} />
       </div>
     </Card>

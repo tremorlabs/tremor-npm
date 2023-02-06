@@ -39,20 +39,18 @@ const ProgressBar = ({
     getColor(color).lightBackground,
   ).bgColor;
   return (
-    <div
-      className={clsx("tremor-base tr-flex tr-items-center tr-w-full", parseMarginTop(marginTop))}
-    >
+    <div className={clsx("tremor-base flex items-center w-full", parseMarginTop(marginTop))}>
       <div
         className={clsx(
-          "tr-relative tr-flex tr-items-center tr-w-full",
+          "relative flex items-center w-full",
           secondaryBgColor,
           sizing.xs.height,
           borderRadius.lg.all,
         )}
       >
-        <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
+        <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
           <div
-            className={clsx(primaryBgColor, "tr-flex-col tr-h-full", borderRadius.lg.all)}
+            className={clsx(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
             style={{
               width: `${percentageValue}%`,
               transition: showAnimation ? "all 2s" : "",
@@ -63,14 +61,14 @@ const ProgressBar = ({
       {label ? (
         <div
           className={clsx(
-            "tr-w-16 tr-truncate tr-text-right",
+            "w-16 truncate text-right",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             spacing.sm.marginLeft,
           )}
         >
           <p
             className={clsx(
-              "text-elem tr-shrink-0 tr-whitespace-nowrap tr-truncate",
+              "text-elem shrink-0 whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.sm,
             )}

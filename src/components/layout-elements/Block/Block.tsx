@@ -31,12 +31,12 @@ const Block = ({
   return (
     <div
       className={clsx(
-        "tr-w-full",
+        "w-full",
         parseMaxWidth(maxWidth),
         spaceY ? parseSpaceY(spaceY) : spaceY,
         parseTextAlignment(textAlignment),
         parseTruncateOption(truncate),
-        truncate ? "tr-whitespace-nowrap" : "",
+        truncate ? "whitespace-nowrap" : "",
         parseMarginTop(marginTop),
       )}
     >

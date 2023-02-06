@@ -51,7 +51,7 @@ const Toggle = <T,>({
   return (
     <div
       className={clsx(
-        "tremor-base tr-flex-nowrap tr-inline-flex tr-justify-start",
+        "tremor-base flex-nowrap inline-flex justify-start",
         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         parseMarginTop(marginTop),
         spacing.twoXs.paddingLeft,

@@ -22,14 +22,14 @@ export interface LegendItemProps {
 const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
     className={clsx(
-      "termor-elem tr-inline-flex tr-items-center tr-truncate",
+      "termor-elem inline-flex items-center truncate",
       getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
       spacing.md.marginRight,
     )}
   >
     <svg
       className={clsx(
-        "termor-elem tr-flex-none",
+        "termor-elem flex-none",
         getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         sizing.xs.height,
         sizing.xs.width,
@@ -42,7 +42,7 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     </svg>
     <p
       className={clsx(
-        "text-elem termor-elem tr-whitespace-nowrap tr-truncate",
+        "text-elem termor-elem whitespace-nowrap truncate",
         fontSize.sm,
         fontWeight.sm,
       )}
@@ -61,7 +61,7 @@ export interface LegendProps {
 const Legend = ({ categories, colors = themeColorRange, marginTop = "mt-0" }: LegendProps) => {
   return (
     <div className={clsx("tremor-base termor-elem", parseMarginTop(marginTop))}>
-      <ol className="list-element tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
+      <ol className="list-element flex flex-wrap overflow-hidden truncate">
         {categories.map((category, idx) => (
           <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
         ))}

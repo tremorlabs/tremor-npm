@@ -29,7 +29,7 @@ const Subtitle = ({
     <p
       className={clsx(
         "text-elem tremor-base",
-        truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
+        truncate ? "whitespace-nowrap" : "shrink-0",
         parseTruncateOption(truncate),
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(getColor(color).lightText).textColor,

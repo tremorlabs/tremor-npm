@@ -16,7 +16,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof Card> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <SimpleCard {...args} />
     </div>
     <Title marginTop="mt-5">Desktop</Title>

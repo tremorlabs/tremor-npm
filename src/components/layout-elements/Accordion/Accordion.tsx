@@ -36,7 +36,7 @@ const Accordion = ({ shadow, expanded = false, marginTop = "mt-0", children }: A
   return (
     <div
       className={clsx(
-        "tremor-base tr-overflow-hidden",
+        "tremor-base overflow-hidden",
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
@@ -53,7 +53,7 @@ const Accordion = ({ shadow, expanded = false, marginTop = "mt-0", children }: A
           );
         }
 
-        return <div className={isExpanded ? "" : "tr-hidden"}>{child}</div>;
+        return <div className={isExpanded ? "" : "hidden"}>{child}</div>;
       })}
     </div>
   );

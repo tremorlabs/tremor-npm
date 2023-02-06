@@ -16,7 +16,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <AreaChart {...args} />
       </Card>

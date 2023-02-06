@@ -85,7 +85,7 @@ const DatepickerButton = ({
 }: DatepickerButtonProps) => (
   <div
     className={clsx(
-      "tr-flex tr-items-center tr-justify-between",
+      "flex items-center justify-between",
       getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
       getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
       borderRadius.md.all,
@@ -97,7 +97,7 @@ const DatepickerButton = ({
       ref={datePickerRef}
       onClick={() => setShowDatePickerModal(!showDatePickerModal)}
       className={clsx(
-        "input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0 focus:tr-outline-0",
+        "input-elem flex items-center w-full truncate focus:ring-0 focus:outline-0",
         enableRelativeDates ? border.none.right : clsx(borderRadius.md.right, border.sm.right),
         getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -111,7 +111,7 @@ const DatepickerButton = ({
     >
       <CalendarIcon
         className={clsx(
-          "tr-flex-none",
+          "flex-none",
           getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
           sizing.lg.height,
           sizing.lg.width,
@@ -122,7 +122,7 @@ const DatepickerButton = ({
       />
       <p
         className={clsx(
-          "text-elem tr-whitespace-nowrap tr-truncate",
+          "text-elem whitespace-nowrap truncate",
           fontSize.sm,
           fontWeight.md,
           showSelectionText
@@ -139,8 +139,8 @@ const DatepickerButton = ({
         ref={dropdownRef}
         onClick={() => setShowDropdownModal(!showDropdownModal)}
         className={clsx(
-          "input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate",
-          "focus:tr-ring-0 focus:tr-outline-0",
+          "input-elem inline-flex justify-between w-48 truncate",
+          "focus:ring-0 focus:outline-0",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           spacing.twoXl.paddingLeft,
@@ -154,7 +154,7 @@ const DatepickerButton = ({
       >
         <p
           className={clsx(
-            "text-elem tr-whitespace-nowrap tr-truncate",
+            "text-elem whitespace-nowrap truncate",
             fontSize.sm,
             fontWeight.md,
             selectedRelativeFilterOption
@@ -172,7 +172,7 @@ const DatepickerButton = ({
         </p>
         <ArrowDownHeadIcon
           className={clsx(
-            "tr-flex-none",
+            "flex-none",
             sizing.lg.height,
             sizing.lg.width,
             spacing.twoXs.negativeMarginRight,
@@ -198,20 +198,20 @@ const DatepickerHeader = ({
 }: DatepickerHeaderProps) => (
   <div
     className={clsx(
-      "tr-flex tr-justify-between tr-items-center",
+      "flex justify-between items-center",
       spacing.twoXs.paddingLeft,
       spacing.twoXs.paddingRight,
       spacing.sm.paddingTop,
       spacing.sm.paddingBottom,
     )}
   >
-    <div className="tr-flex tr-items-center tr-space-x-1">
+    <div className="flex items-center space-x-1">
       <button
         type="button"
         hidden={!enableYearPagination}
         onClick={() => previousYear(firstDayCurrentMonth, setCurrentMonth)}
         className={clsx(
-          "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+          "input-elem inline-flex focus:outline-none focus:ring-2",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -239,7 +239,7 @@ const DatepickerHeader = ({
         type="button"
         onClick={() => previousMonth(firstDayCurrentMonth, setCurrentMonth)}
         className={clsx(
-          "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+          "input-elem inline-flex focus:outline-none focus:ring-2",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -274,12 +274,12 @@ const DatepickerHeader = ({
     >
       {format(firstDayCurrentMonth, "MMMM yyyy")}
     </h2>
-    <div className="tr-flex tr-items-center tr-space-x-1">
+    <div className="flex items-center space-x-1">
       <button
         onClick={() => nextMonth(firstDayCurrentMonth, setCurrentMonth)}
         type="button"
         className={clsx(
-          "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+          "input-elem inline-flex focus:outline-none focus:ring-2",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -308,7 +308,7 @@ const DatepickerHeader = ({
         type="button"
         hidden={!enableYearPagination}
         className={clsx(
-          "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+          "input-elem inline-flex focus:outline-none focus:ring-2",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -325,7 +325,7 @@ const DatepickerHeader = ({
       >
         <DoubleArrowRightHeadIcon
           className={clsx(
-            "tr-shrink-0 tr-flex-0",
+            "shrink-0 flex-0",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             sizing.lg.height,
             sizing.lg.width,
@@ -367,26 +367,21 @@ const DatepickerBody = ({
   <>
     <div
       className={clsx(
-        "tr-grid tr-grid-cols-7 tr-text-center",
+        "grid grid-cols-7 text-center",
         getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
         fontSize.xs,
         fontWeight.md,
       )}
     >
       {WEEKDAYS.map((dayName) => (
-        <div key={dayName} className="tr-w-full tr-flex tr-justify-center">
-          <div
-            className={clsx(
-              "tr-flex tr-items-center tr-justify-center tr-w-full",
-              sizing.threeXl.height,
-            )}
-          >
+        <div key={dayName} className="w-full flex justify-center">
+          <div className={clsx("flex items-center justify-center w-full", sizing.threeXl.height)}>
             {dayName}
           </div>
         </div>
       ))}
     </div>
-    <div className="tr-grid tr-grid-cols-7">
+    <div className="grid grid-cols-7">
       {daysInCurrentMonth.map((day) => {
         const isCurrentDayDisabled = isDayDisabled(
           day,
@@ -397,14 +392,14 @@ const DatepickerBody = ({
         );
 
         return (
-          <div key={day.toString()} className={clsx(colStartClasses[getDay(day)], "tr-w-full")}>
+          <div key={day.toString()} className={clsx(colStartClasses[getDay(day)], "w-full")}>
             <button
               type="button"
               onClick={() => handleDayClick(day)}
               onPointerEnter={() => setHoveredDay(day)}
               onPointerLeave={() => setHoveredDay(null)}
               className={clsx(
-                "input-elem tr-w-full tr-flex tr-items-center tr-justify-center",
+                "input-elem w-full flex items-center justify-center",
                 getDayBgColorClassName(
                   day,
                   selectedStartDay,
@@ -560,7 +555,7 @@ const Datepicker = ({
   return (
     <div
       className={clsx(
-        "tremor-base tr-relative tr-w-full",
+        "tremor-base relative w-full",
         parseMarginTop(marginTop),
         parseMaxWidth(maxWidth),
       )}
@@ -582,7 +577,7 @@ const Datepicker = ({
         setShowModal={setShowDatePickerModal}
         triggerRef={datePickerRef}
         width="w-72"
-        maxHeight="tr-max-h-fit"
+        maxHeight="max-h-fit"
       >
         <div
           className={clsx(
@@ -628,7 +623,7 @@ const Datepicker = ({
                 setShowDropdownModal(false);
               }}
               className={clsx(
-                "input-elem tr-flex tr-items-center tr-justify-between tr-w-full tr-truncate",
+                "input-elem flex items-center justify-between w-full truncate",
                 spacing.twoXl.paddingLeft,
                 spacing.twoXl.paddingRight,
                 spacing.md.paddingTop,
@@ -646,7 +641,7 @@ const Datepicker = ({
                     ),
               )}
             >
-              <p className="text-elem tr-whitespace-nowrap tr-truncate">{name}</p>
+              <p className="text-elem whitespace-nowrap truncate">{name}</p>
             </button>
           ),
         )}

@@ -37,7 +37,7 @@ const Callout = ({
   return (
     <div
       className={clsx(
-        "tremor-base tr-relative",
+        "tremor-base relative",
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
         getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
@@ -50,17 +50,17 @@ const Callout = ({
         border.lg.left,
       )}
     >
-      <div className={clsx("tr-overflow-hidden", spacing.xs.marginLeft)}>
+      <div className={clsx("overflow-hidden", spacing.xs.marginLeft)}>
         <div
           className={clsx(
-            "tr-flex tr-items-start",
+            "flex items-start",
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
           )}
         >
           {Icon ? (
             <Icon
               className={clsx(
-                "tr-flex-none",
+                "flex-none",
                 sizing.lg.height,
                 sizing.lg.width,
                 spacing.xs.marginRight,
@@ -72,7 +72,7 @@ const Callout = ({
         </div>
         <div
           className={clsx(
-            "tr-overflow-y-auto",
+            "overflow-y-auto",
             height ? parseHeight(height) : height,
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
             spacing.sm.marginTop,

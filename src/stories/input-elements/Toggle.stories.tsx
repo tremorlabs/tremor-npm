@@ -42,7 +42,7 @@ const SimpleToggleIconOnly = (args: any) => (
 const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Block spaceY="space-y-2">
           <SimpleToggle {...args} />

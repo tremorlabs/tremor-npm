@@ -57,12 +57,12 @@ const BarList = ({
   return (
     <div
       className={clsx(
-        "tremor-base tr-flex tr-justify-between",
+        "tremor-base flex justify-between",
         parseMarginTop(marginTop),
         spacing.threeXl.spaceX,
       )}
     >
-      <div className="tr-relative tr-w-full">
+      <div className="relative w-full">
         {data.map((item, idx) => {
           const Icon = item.icon;
 
@@ -70,7 +70,7 @@ const BarList = ({
             <div
               key={item.key ?? item.name}
               className={clsx(
-                "tr-flex tr-items-center",
+                "flex items-center",
                 rowHeight,
                 getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
                 borderRadius.sm.all,
@@ -81,11 +81,11 @@ const BarList = ({
                 transition: showAnimation ? "all 2s" : "",
               }}
             >
-              <div className={clsx("tr-absolute tr-max-w-full tr-flex", spacing.sm.left)}>
+              <div className={clsx("absolute max-w-full flex", spacing.sm.left)}>
                 {Icon ? (
                   <Icon
                     className={clsx(
-                      "tr-flex-none",
+                      "flex-none",
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
@@ -100,8 +100,8 @@ const BarList = ({
                     target="_blank"
                     rel="noreferrer"
                     className={clsx(
-                      "text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500",
-                      "tr-no-underline hover:tr-underline visited:tr-text-blue-500",
+                      "text-elem whitespace-nowrap truncate text-blue-500",
+                      "no-underline hover:underline visited:text-blue-500",
                       fontSize.sm,
                     )}
                   >
@@ -110,7 +110,7 @@ const BarList = ({
                 ) : (
                   <p
                     className={clsx(
-                      "text-elem tr-whitespace-nowrap tr-truncate",
+                      "text-elem whitespace-nowrap truncate",
                       getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                       fontSize.sm,
                     )}
@@ -123,19 +123,19 @@ const BarList = ({
           );
         })}
       </div>
-      <div className="tr-text-right tr-min-w-min">
+      <div className="text-right min-w-min">
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
             className={clsx(
-              "tr-flex tr-justify-end tr-items-center",
+              "flex justify-end items-center",
               rowHeight,
               idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
             )}
           >
             <p
               className={clsx(
-                "text-elem tr-whitespace-nowrap tr-truncate",
+                "text-elem whitespace-nowrap truncate",
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                 fontSize.sm,
               )}

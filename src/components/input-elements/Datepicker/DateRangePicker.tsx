@@ -138,7 +138,7 @@ const DateRangePicker = ({
     <BaseColorContext.Provider value={color}>
       <div
         className={clsx(
-          "tremor-base tr-relative tr-w-full",
+          "tremor-base relative w-full",
           parseMarginTop(marginTop),
           parseMaxWidth(maxWidth),
         )}
@@ -165,7 +165,7 @@ const DateRangePicker = ({
           setShowModal={setShowCalendar}
           triggerRef={calendarRef}
           width="w-72"
-          maxHeight="tr-max-h-fit"
+          maxHeight="max-h-fit"
         >
           <Calendar
             enableYearPagination={enableYearPagination}

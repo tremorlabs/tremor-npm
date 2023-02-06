@@ -13,7 +13,7 @@ const Tracking = ({ marginTop = "mt-0", children }: TrackingProps) => {
   return (
     <div
       className={clsx(
-        "tremor-base tr-w-full tr-flex tr-items-center",
+        "tremor-base w-full flex items-center",
         parseMarginTop(marginTop),
         spacing.threeXs.spaceX,
       )}

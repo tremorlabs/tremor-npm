@@ -23,7 +23,7 @@ const TableHeaderCell = ({
   <>
     <th
       className={clsx(
-        "tr-sticky tr-whitespace-nowrap",
+        "sticky whitespace-nowrap",
         parseTextAlignment(textAlignment),
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.none.top,

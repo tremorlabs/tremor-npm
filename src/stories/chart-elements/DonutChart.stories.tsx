@@ -18,7 +18,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <DonutChart {...args} />
       </Card>
@@ -39,11 +39,11 @@ const DefaultTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => (
 const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
   <>
     <Title>Base Layer (Beta)</Title>
-    <div className="tr-w-full tr-mt-4">
+    <div className="w-full mt-4">
       <Card>
         <Title>Sales</Title>
         <DonutChart {...args} />
-        <div className="tr-mt-6">
+        <div className="mt-6">
           <List>
             {data.map((item) => (
               <ListItem key={item.city}>

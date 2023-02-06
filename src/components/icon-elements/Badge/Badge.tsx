@@ -37,10 +37,10 @@ const Badge = ({
   const Icon = icon ? icon : null;
   return (
     <div className={clsx("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
+      <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
         <span
           className={clsx(
-            "tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center",
+            "flex-shrink-0 inline-flex justify-center items-center",
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
             getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
             borderRadius.full.all,
@@ -61,7 +61,7 @@ const Badge = ({
               )}
             />
           ) : null}
-          <p className="text-elem tr-whitespace-nowrap">{text}</p>
+          <p className="text-elem whitespace-nowrap">{text}</p>
         </span>
       </Tooltip>
     </div>

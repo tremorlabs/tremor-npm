@@ -14,7 +14,7 @@ const ListItem = ({ spaceX = "", children }: ListItemProps) => {
     <>
       <li
         className={clsx(
-          "tr-w-full tr-flex tr-justify-between tr-items-center tr-truncate tr-tabular-nums",
+          "w-full flex justify-between items-center truncate tabular-nums",
           spaceX ? parseSpaceX(spaceX) : spaceX,
           spacing.sm.paddingTop,
           spacing.sm.paddingBottom,

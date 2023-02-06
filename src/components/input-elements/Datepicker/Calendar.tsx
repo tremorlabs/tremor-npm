@@ -79,19 +79,19 @@ const CalendarHeader = ({
   return (
     <div
       className={clsx(
-        "tr-flex tr-justify-between tr-items-center",
+        "flex justify-between items-center",
         spacing.twoXs.paddingLeft,
         spacing.twoXs.paddingRight,
         spacing.sm.paddingTop,
         spacing.sm.paddingBottom,
       )}
     >
-      <div className="tr-flex tr-items-center tr-space-x-1">
+      <div className="flex items-center space-x-1">
         <button
           type="button"
           hidden={!enableYearPagination}
           className={clsx(
-            "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+            "input-elem inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -120,7 +120,7 @@ const CalendarHeader = ({
           type="button"
           name="prevMonth"
           className={clsx(
-            "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+            "input-elem inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -156,12 +156,12 @@ const CalendarHeader = ({
       >
         {displayedTitle}
       </h2>
-      <div className="tr-flex tr-items-center tr-space-x-1">
+      <div className="flex items-center space-x-1">
         <button
           type="button"
           name="nextMonth"
           className={clsx(
-            "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+            "input-elem inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -190,7 +190,7 @@ const CalendarHeader = ({
           type="button"
           hidden={!enableYearPagination}
           className={clsx(
-            "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
+            "input-elem inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -208,7 +208,7 @@ const CalendarHeader = ({
         >
           <DoubleArrowRightHeadIcon
             className={clsx(
-              "tr-shrink-0 tr-flex-0",
+              "shrink-0 flex-0",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -276,26 +276,21 @@ const CalendarBody = ({
     <>
       <div
         className={clsx(
-          "tr-grid tr-grid-cols-7 tr-text-center",
+          "grid grid-cols-7 text-center",
           getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
           fontSize.xs,
           fontWeight.md,
         )}
       >
         {weekdays.map((dayName) => (
-          <div key={dayName} className="tr-w-full tr-flex tr-justify-center">
-            <div
-              className={clsx(
-                "tr-flex tr-items-center tr-justify-center tr-w-full",
-                sizing.threeXl.height,
-              )}
-            >
+          <div key={dayName} className="w-full flex justify-center">
+            <div className={clsx("flex items-center justify-center w-full", sizing.threeXl.height)}>
               {dayName}
             </div>
           </div>
         ))}
       </div>
-      <div className="tr-grid tr-grid-cols-7">
+      <div className="grid grid-cols-7">
         {displayedDates.map((date) => {
           const isCurrentDateDisabled = isDateDisabled(
             date,
@@ -306,14 +301,14 @@ const CalendarBody = ({
           );
 
           return (
-            <div key={date.toString()} className={clsx(colStartClasses[getDay(date)], "tr-w-full")}>
+            <div key={date.toString()} className={clsx(colStartClasses[getDay(date)], "w-full")}>
               <button
                 type="button"
                 onClick={() => onDateClick(date)}
                 onPointerEnter={() => setHoveredDate?.(date)}
                 onPointerLeave={() => setHoveredDate?.(undefined)}
                 className={clsx(
-                  "input-elem tr-w-full tr-flex tr-items-center tr-justify-center",
+                  "input-elem w-full flex items-center justify-center",
                   sizing.threeXl.height,
                   fontSize.sm,
                   getDateStyles(

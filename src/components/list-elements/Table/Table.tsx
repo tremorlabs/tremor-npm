@@ -16,10 +16,10 @@ export interface TableProps {
 }
 
 const Table = ({ marginTop = "mt-0", children }: TableProps) => (
-  <div className="tr-overflow-auto">
+  <div className="overflow-auto">
     <table
       className={clsx(
-        "tremor-base tr-w-full tr-tabular-nums",
+        "tremor-base w-full tabular-nums",
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontSize.sm,

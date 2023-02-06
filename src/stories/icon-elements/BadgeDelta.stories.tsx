@@ -43,7 +43,7 @@ const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
 const ResponsiveFlexTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Flex>
           <BadgeDelta {...args} />

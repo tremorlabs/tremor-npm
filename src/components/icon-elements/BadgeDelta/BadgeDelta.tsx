@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
@@ -7,7 +7,6 @@ import { DeltaType, DeltaTypes, MarginTop, Size } from "../../../lib";
 import {
   Sizes,
   borderRadius,
-  clsx,
   isValidDeltaType,
   isValidSize,
   mapInputsToDeltaType,
@@ -47,10 +46,10 @@ const BadgeDelta = ({
 
   return (
     <span className={clsx("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "tr-hidden")}>
+      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "hidden")}>
         <span
           className={clsx(
-            "tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center",
+            "flex-shrink-0 inline-flex justify-center items-center",
             borderRadius.full.all,
             colors[mappedDeltaType].bgColor,
             colors[mappedDeltaType].textColor,
@@ -69,7 +68,7 @@ const BadgeDelta = ({
               iconSizes[badgeSize].width,
             )}
           />
-          {text ? <p className="text-elem tr-whitespace-nowrap">{text}</p> : null}
+          {text ? <p className="text-elem whitespace-nowrap">{text}</p> : null}
         </span>
       </Tooltip>
     </span>

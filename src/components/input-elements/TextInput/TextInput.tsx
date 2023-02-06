@@ -69,7 +69,7 @@ const TextInput = ({
   return (
     <div
       className={clsx(
-        "tr-relative tr-w-full tr-flex tr-items-center tr-overflow-hidden tr-min-w-[10rem]",
+        "relative w-full flex items-center overflow-hidden min-w-[10rem]",
         parseMaxWidth(maxWidth),
         parseMarginTop(marginTop),
         bgColor,
@@ -82,7 +82,7 @@ const TextInput = ({
       {Icon ? (
         <Icon
           className={clsx(
-            "tr-shrink-0",
+            "shrink-0",
             sizing.lg.height,
             sizing.lg.width,
             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
@@ -97,7 +97,7 @@ const TextInput = ({
         type="text"
         className={clsx(
           "tremor-base input-elem",
-          "tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit",
+          "w-full focus:outline-0 focus:ring-0 bg-inherit",
           textColor,
           Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
           error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
@@ -106,7 +106,7 @@ const TextInput = ({
           fontSize.sm,
           fontWeight.md,
           border.none.all,
-          "placeholder:tr-text-gray-500",
+          "placeholder:text-gray-500",
         )}
         defaultValue={defaultValue}
         value={value}
@@ -117,7 +117,7 @@ const TextInput = ({
       {error ? (
         <Tooltip
           content={errorMessage}
-          className={errorMessage ? "" : "tr-hidden"}
+          className={errorMessage ? "" : "hidden"}
           showOnCreate={true}
         >
           <div className={clsx(spacing.xl.marginRight)}>

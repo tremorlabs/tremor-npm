@@ -13,7 +13,7 @@ const List = ({ marginTop = "mt-0", children }: ListProps) => {
   return (
     <ul
       className={clsx(
-        "tremor-base list-element tr-w-full tr-overflow-hidden tr-divide-y",
+        "tremor-base list-element w-full overflow-hidden divide-y",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
         parseMarginTop(marginTop),

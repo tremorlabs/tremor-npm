@@ -29,13 +29,13 @@ interface BoolClassParser {
 }
 
 export const parseTruncateOption: BoolClassParser = (option) => {
-  return option === true ? "tr-truncate" : "";
+  return option === true ? "truncate" : "";
 };
 
 export const parseHFullOption: BoolClassParser = (option) => {
-  return option === true ? "tr-h-full" : "";
+  return option === true ? "h-full" : "";
 };
 
 export const parseWFullOption: BoolClassParser = (option) => {
-  return option === true ? "tr-w-full" : "";
+  return option === true ? "w-full" : "";
 };

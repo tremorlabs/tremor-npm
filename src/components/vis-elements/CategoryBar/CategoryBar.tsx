@@ -45,7 +45,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   return (
     <div
       className={clsx(
-        "tremor-base tr-relative tr-flex tr-w-full",
+        "tremor-base relative flex w-full",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.sm.marginBottom,
         sizing.lg.height,
@@ -67,24 +67,17 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
           return (
             <div
               key={`item-${idx}`}
-              className="tr-flex tr-items-center tr-justify-end"
+              className="flex items-center justify-end"
               style={{ width: `${widthPercentage}%` }}
             >
-              <span
-                className={clsx(
-                  showLabel ? "tr-block" : "tr-hidden",
-                  "tr-left-1/2 tr-translate-x-1/2",
-                )}
-              >
+              <span className={clsx(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}>
                 {prefixSum}
               </span>
             </div>
           );
         })}
-      <div className={clsx("tr-absolute tr-bottom-0 tr-flex tr-items-center", spacing.none.left)}>
-        0
-      </div>
-      <div className={clsx("tr-absolute tr-bottom-0 tr-flex tr-items-center", spacing.none.right)}>
+      <div className={clsx("absolute bottom-0 flex items-center", spacing.none.left)}>0</div>
+      <div className={clsx("absolute bottom-0 flex items-center", spacing.none.right)}>
         {sumValues}
       </div>
     </div>
@@ -115,19 +108,16 @@ const CategoryBar = ({
   return (
     <div className={clsx(parseMarginTop(marginTop))}>
       {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
-      <div className={clsx("tr-relative tr-w-full tr-flex tr-items-center", sizing.xs.height)}>
+      <div className={clsx("relative w-full flex items-center", sizing.xs.height)}>
         <div
-          className={clsx(
-            "tr-flex-1 tr-flex tr-items-center tr-h-full tr-overflow-hidden",
-            borderRadius.md.all,
-          )}
+          className={clsx("flex-1 flex items-center h-full overflow-hidden", borderRadius.md.all)}
         >
           {categoryPercentageValues.map((percentageValue, idx) => {
             return (
               <div
                 key={`item-${idx}`}
                 className={clsx(
-                  "tr-h-full",
+                  "h-full",
                   getColorVariantsFromColorThemeValue(getColor(colors[idx]).background).bgColor,
                 )}
                 style={{ width: `${percentageValue}%` }}
@@ -136,10 +126,10 @@ const CategoryBar = ({
           })}
         </div>
         {percentageValue !== undefined ? (
-          <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
+          <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
             <div
               className={clsx(
-                "tr-absolute tr-right-1/2 -tr-translate-x-1/2",
+                "absolute right-1/2 -translate-x-1/2",
                 sizing.lg.width, // wide transparent wrapper for tooltip activation
               )}
               style={{
@@ -149,7 +139,7 @@ const CategoryBar = ({
             >
               <div
                 className={clsx(
-                  "tr-ring-2 tr-mx-auto",
+                  "ring-2 mx-auto",
                   markerBgColor,
                   getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
                   sizing.md.height,

@@ -14,7 +14,7 @@ const TableCell = ({ textAlignment = TextAlignments.Left, children }: TableCellP
     <>
       <td
         className={clsx(
-          "tr-align-middle tr-whitespace-nowrap tr-tabular-nums",
+          "align-middle whitespace-nowrap tabular-nums",
           parseTextAlignment(textAlignment),
           spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,

@@ -52,7 +52,7 @@ const TabList = <T,>({
     <ol
       aria-label="Tabs"
       className={clsx(
-        "tremor-base list-element tr-flex tr-justify-start tr-overflow-x-clip",
+        "tremor-base list-element flex justify-start overflow-x-clip",
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         parseMarginTop(marginTop),
         spacing.twoXl.spaceX,

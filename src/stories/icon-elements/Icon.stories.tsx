@@ -54,7 +54,7 @@ const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
 const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Block spaceY="space-y-2">
           {Object.values(IconVariants).map((variant) => (

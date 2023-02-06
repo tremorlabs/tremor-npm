@@ -14,7 +14,7 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof Datepicker> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Datepicker {...args} />
       </Card>
@@ -25,7 +25,7 @@ const ResponsiveTemplate: ComponentStory<typeof Datepicker> = (args) => (
     </Card>
     <Title marginTop="mt-5">With Black Background</Title>
     <Card>
-      <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+      <div className="flex items-center bg-black h-24">
         <Datepicker {...args} />
       </div>
     </Card>

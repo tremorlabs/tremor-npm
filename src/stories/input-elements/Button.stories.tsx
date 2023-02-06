@@ -66,7 +66,7 @@ const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
 const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Flex>
           <Button {...args} text="Button" icon={MyIcon} />

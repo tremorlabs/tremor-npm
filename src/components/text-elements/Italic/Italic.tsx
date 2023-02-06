@@ -8,9 +8,7 @@ export interface ItalicProps {
 }
 
 const Italic = ({ children }: ItalicProps) => {
-  return (
-    <span className={clsx("tremor-base tr-italic tr-text-inherit", fontSize.sm)}>{children}</span>
-  );
+  return <span className={clsx("tremor-base italic text-inherit", fontSize.sm)}>{children}</span>;
 };
 
 export default Italic;

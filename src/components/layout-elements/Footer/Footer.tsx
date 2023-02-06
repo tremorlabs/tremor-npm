@@ -15,7 +15,7 @@ const Footer = ({ height = "h-14", children }: FooterProps) => {
       <div className={clsx(parseHeight(height))} />
       <div
         className={clsx(
-          "tremor-base tr-absolute tr-flex tr-items-center tr-w-full",
+          "tremor-base absolute flex items-center w-full",
           parseHeight(height),
           spacing.none.left,
           spacing.none.right,

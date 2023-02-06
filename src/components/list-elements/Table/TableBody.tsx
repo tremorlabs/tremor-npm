@@ -11,7 +11,7 @@ const TableBody = ({ children }: TableBodyProps) => (
   <>
     <tbody
       className={clsx(
-        "tr-align-top tr-overflow-x-auto tr-divide-y",
+        "align-top overflow-x-auto divide-y",
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
       )}
     >

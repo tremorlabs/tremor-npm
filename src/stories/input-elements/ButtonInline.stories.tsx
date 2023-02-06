@@ -48,7 +48,7 @@ const ColorsTemplate: ComponentStory<typeof ButtonInline> = () => (
 const ResponsiveFlexTemplate: ComponentStory<typeof ButtonInline> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <Flex>
           <ButtonInline {...args} text="ButtonInline" icon={MyIcon} />

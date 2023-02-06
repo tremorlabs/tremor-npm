@@ -64,7 +64,7 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={clsx("tr-animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
+      className={clsx("animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
       style={{ transition: `width 150ms` }}
     />
   ) : (
@@ -148,7 +148,7 @@ const Button = ({
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
-        <div className={clsx("tremor-base tr-flex tr-items-center", parseMarginTop(marginTop))}>
+        <div className={clsx("tremor-base flex items-center", parseMarginTop(marginTop))}>
           <button
             type={type}
             value={value}
@@ -156,9 +156,9 @@ const Button = ({
             onSubmit={onSubmit}
             onReset={onReset}
             className={clsx(
-              "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
-              "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2",
-              "focus:tr-ring-transparent",
+              "tremor-base input-elem flex-shrink-0 inline-flex items-center group",
+              "focus:outline-none focus:ring-2 focus:ring-offset-2",
+              "focus:ring-transparent",
               fontWeight.md,
               buttonShapeStyles,
               buttonProportionStyles.paddingLeft,
@@ -176,7 +176,7 @@ const Button = ({
                     getButtonColors(buttonVariant, color).hoverBgColor,
                     getButtonColors(buttonVariant, color).hoverBorderColor,
                   )
-                : "tr-opacity-50",
+                : "opacity-50",
             )}
             disabled={isDisabled}
           >
@@ -190,7 +190,7 @@ const Button = ({
               />
             ) : null}
             {
-              <p className="text-elem tr-whitespace-nowrap">
+              <p className="text-elem whitespace-nowrap">
                 {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }

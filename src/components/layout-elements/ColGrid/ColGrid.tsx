@@ -47,7 +47,7 @@ const ColGrid = ({
   return (
     <div
       className={clsx(
-        "tr-grid",
+        "grid",
         getColClassNames(),
         parseGapX(gapX),
         parseGapY(gapY),

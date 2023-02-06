@@ -116,7 +116,7 @@ const MultiSelectBox = <T,>({
     <div
       ref={dropdownRef}
       className={clsx(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
+        "tremor-base relative w-full min-w-[10rem]",
         parseMarginTop(marginTop),
         parseMaxWidth(maxWidth),
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
@@ -131,8 +131,8 @@ const MultiSelectBox = <T,>({
       <button
         type="button"
         className={clsx(
-          "input-elem tr-flex tr-justify-between tr-items-center tr-w-full",
-          "focus:tr-ring-0 focus:tr-outline-0",
+          "input-elem flex justify-between items-center w-full",
+          "focus:ring-0 focus:outline-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingTop,
@@ -140,11 +140,11 @@ const MultiSelectBox = <T,>({
         )}
         onClick={() => handleModalToggle(!showModal)}
       >
-        <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
+        <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
               className={clsx(
-                "tr-shrink-0",
+                "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
                 getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
@@ -155,7 +155,7 @@ const MultiSelectBox = <T,>({
           ) : null}
           <p
             className={clsx(
-              "text-elem tr-whitespace-nowrap tr-truncate",
+              "text-elem whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedItems.length !== 0
@@ -166,7 +166,7 @@ const MultiSelectBox = <T,>({
             {displayText}
           </p>
         </div>
-        <div className="tr-flex tr-items-center">
+        <div className="flex items-center">
           {showResetButton ? (
             <div
               role="button"
@@ -178,7 +178,7 @@ const MultiSelectBox = <T,>({
             >
               <XCircleIcon
                 className={clsx(
-                  "tr-flex-none",
+                  "flex-none",
                   sizing.md.height,
                   sizing.md.width,
                   getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
@@ -189,7 +189,7 @@ const MultiSelectBox = <T,>({
           ) : null}
           <ArrowDownHeadIcon
             className={clsx(
-              "tr-flex-none",
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
@@ -202,7 +202,7 @@ const MultiSelectBox = <T,>({
       <Modal showModal={showModal} setShowModal={handleModalToggle} triggerRef={dropdownRef}>
         <div
           className={clsx(
-            "tr-flex tr-items-center tr-w-full",
+            "flex items-center w-full",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor,
             spacing.twoXl.paddingLeft,
             spacing.twoXl.paddingRight,
@@ -211,7 +211,7 @@ const MultiSelectBox = <T,>({
           <span>
             <SearchIcon
               className={clsx(
-                "tr-flex-none",
+                "flex-none",
                 getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                 spacing.threeXs.negativeMarginLeft,
                 spacing.lg.marginRight,
@@ -226,7 +226,7 @@ const MultiSelectBox = <T,>({
             type="input"
             placeholder="Search"
             className={clsx(
-              "input-elem tr-w-full focus:tr-outline-none focus:tr-ring-none",
+              "input-elem w-full focus:outline-none focus:ring-none",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
               spacing.sm.paddingTop,

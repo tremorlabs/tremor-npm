@@ -37,9 +37,9 @@ const Text = ({
       className={clsx(
         "text-elem tremor-base",
         parseTruncateOption(truncate),
-        truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
+        truncate ? "whitespace-nowrap" : "shrink-0",
         height ? parseHeight(height) : height,
-        height ? "tr-overflow-y-auto" : "",
+        height ? "overflow-y-auto" : "",
         parseMarginTop(marginTop),
         parseTextAlignment(textAlignment),
         getColorVariantsFromColorThemeValue(getColor(color).text).textColor,

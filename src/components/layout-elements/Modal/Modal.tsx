@@ -31,7 +31,7 @@ const Modal = ({
   setShowModal,
   triggerRef,
   width,
-  maxHeight = "tr-max-h-72",
+  maxHeight = "max-h-72",
   anchorPosition = HorizontalPositions.Left,
   children,
 }: ModalProps) => {
@@ -96,8 +96,8 @@ const Modal = ({
     <div
       ref={modalRef}
       className={clsx(
-        "tr-absolute tr-z-10 tr-divide-y tr-overflow-y-auto",
-        width ? parseWidth(width) : "tr-w-full",
+        "absolute z-10 divide-y overflow-y-auto",
+        width ? parseWidth(width) : "w-full",
         getAbsoluteSpacing(),
         maxHeight,
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,

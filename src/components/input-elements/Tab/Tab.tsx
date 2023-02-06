@@ -37,7 +37,7 @@ const Tab = ({ value, text, icon }: TabProps) => {
     getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
     getColorVariantsFromColorThemeValue(defaultColors.text).hoverTextColor,
     getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
-    "hover:tr-border-b-2",
+    "hover:border-b-2",
   );
 
   return (
@@ -45,8 +45,8 @@ const Tab = ({ value, text, icon }: TabProps) => {
       <button
         type="button"
         className={clsx(
-          "input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate",
-          "focus:tr-outline-0 focus:tr-ring-0",
+          "input-elem flex whitespace-nowrap max-w-xs truncate",
+          "focus:outline-0 focus:ring-0",
           spacing.twoXs.paddingRight,
           spacing.twoXs.paddingLeft,
           spacing.sm.paddingTop,
@@ -62,7 +62,7 @@ const Tab = ({ value, text, icon }: TabProps) => {
         {Icon ? (
           <Icon
             className={clsx(
-              "tr-flex-none",
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.sm.marginRight,
@@ -73,7 +73,7 @@ const Tab = ({ value, text, icon }: TabProps) => {
             aria-hidden="true"
           />
         ) : null}
-        <p className="text-elem tr-whitespace-nowrap tr-truncate">{text}</p>
+        <p className="text-elem whitespace-nowrap truncate">{text}</p>
       </button>
     </li>
   );

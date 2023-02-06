@@ -31,7 +31,7 @@ const MultiSelectBoxItem = ({ value, text }: MultiSelectBoxItemProps) => {
       type="button"
       onClick={() => handleValuesChange?.(value)}
       className={clsx(
-        "input-elem tr-flex tr-items-center tr-justify-between tr-w-full",
+        "input-elem flex items-center justify-between w-full",
         spacing.twoXl.paddingLeft,
         spacing.twoXl.paddingRight,
         spacing.md.paddingTop,
@@ -42,11 +42,11 @@ const MultiSelectBoxItem = ({ value, text }: MultiSelectBoxItemProps) => {
         isHovered ? getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor : "",
       )}
     >
-      <div className="tr-flex tr-items-center tr-truncate">
+      <div className="flex items-center truncate">
         <input
           type="checkbox"
           className={clsx(
-            "input-elem tr-flex-none focus:tr-ring-none focus:tr-outline-none tr-cursor-pointer",
+            "input-elem flex-none focus:ring-none focus:outline-none cursor-pointer",
             getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
             getColorVariantsFromColorThemeValue(getColor(BaseColors.Blue).text).textColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -57,7 +57,7 @@ const MultiSelectBoxItem = ({ value, text }: MultiSelectBoxItemProps) => {
           checked={isActive}
           readOnly={true}
         />
-        <p className="text-elem tr-whitespace-nowrap tr-truncate">{text}</p>
+        <p className="text-elem whitespace-nowrap truncate">{text}</p>
       </div>
     </button>
   );

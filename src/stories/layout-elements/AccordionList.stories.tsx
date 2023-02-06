@@ -25,7 +25,7 @@ const SimpleAccordionList = ({ ...args }) => {
 const ResponsiveTemplate: ComponentStory<typeof AccordionList> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <SimpleAccordionList {...args} length={length} />
       </Card>

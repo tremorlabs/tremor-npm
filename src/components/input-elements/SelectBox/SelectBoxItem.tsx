@@ -27,7 +27,7 @@ const SelectBoxItem = ({ value, text, icon }: SelectBoxItemProps) => {
       type="button"
       onClick={() => handleValueChange?.(value)}
       className={clsx(
-        "input-elem tr-flex tr-items-center tr-justify-between tr-w-full",
+        "input-elem flex items-center justify-between w-full",
         spacing.twoXl.paddingLeft,
         spacing.twoXl.paddingRight,
         spacing.md.paddingTop,
@@ -44,11 +44,11 @@ const SelectBoxItem = ({ value, text, icon }: SelectBoxItemProps) => {
             ),
       )}
     >
-      <div className="tr-flex tr-items-center tr-truncate">
+      <div className="flex items-center truncate">
         {Icon ? (
           <Icon
             className={clsx(
-              "tr-flex-none",
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.lg.marginRight,
@@ -57,7 +57,7 @@ const SelectBoxItem = ({ value, text, icon }: SelectBoxItemProps) => {
             aria-hidden="true"
           />
         ) : null}
-        <p className="text-elem tr-whitespace-nowrap tr-truncate">{text}</p>
+        <p className="text-elem whitespace-nowrap truncate">{text}</p>
       </div>
     </button>
   );

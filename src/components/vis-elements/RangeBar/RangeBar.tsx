@@ -38,17 +38,17 @@ const RangeBar = ({
   return (
     <div
       className={clsx(
-        "tremor-base tr-relative tr-flex tr-items-center tr-w-full",
+        "tremor-base relative flex items-center w-full",
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         sizing.xs.height,
         borderRadius.lg.all,
       )}
     >
-      <Tooltip content={rangeTooltip} className={rangeTooltip ? "" : "tr-hidden"}>
+      <Tooltip content={rangeTooltip} className={rangeTooltip ? "" : "hidden"}>
         <div
           className={clsx(
-            "tr-absolute tr-h-full",
+            "absolute h-full",
             getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
             borderRadius.lg.all,
           )}
@@ -59,10 +59,10 @@ const RangeBar = ({
           }}
         />
       </Tooltip>
-      <Tooltip content={markerTooltip} className={markerTooltip ? "" : "tr-hidden"}>
+      <Tooltip content={markerTooltip} className={markerTooltip ? "" : "hidden"}>
         <div
           className={clsx(
-            "tr-absolute tr-right-1/2 -tr-translate-x-1/2",
+            "absolute right-1/2 -translate-x-1/2",
             sizing.lg.width, // wide transparent wrapper for tooltip activation
           )}
           style={{
@@ -72,7 +72,7 @@ const RangeBar = ({
         >
           <div
             className={clsx(
-              "tr-ring-2 tr-mx-auto",
+              "ring-2 mx-auto",
               getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
               getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
               sizing.md.height,

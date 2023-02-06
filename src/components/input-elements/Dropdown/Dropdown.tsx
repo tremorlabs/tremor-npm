@@ -86,7 +86,7 @@ const Dropdown = <T,>({
       ref={dropdownRef}
       onKeyDown={handleKeyDown}
       className={clsx(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
+        "tremor-base relative w-full min-w-[10rem]",
         parseMaxWidth(maxWidth),
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -100,8 +100,8 @@ const Dropdown = <T,>({
       <button
         type="button"
         className={clsx(
-          "input-elem tr-flex tr-justify-between tr-items-center tr-w-full",
-          "focus:tr-outline-0 focus:tr-ring-0",
+          "input-elem flex justify-between items-center w-full",
+          "focus:outline-0 focus:ring-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingTop,
@@ -109,11 +109,11 @@ const Dropdown = <T,>({
         )}
         onClick={() => setIsFocused(!isFocused)}
       >
-        <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
+        <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
               className={clsx(
-                "tr-shrink-0",
+                "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
                 getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
@@ -124,7 +124,7 @@ const Dropdown = <T,>({
           ) : null}
           <p
             className={clsx(
-              "text-elem tr-whitespace-nowrap tr-truncate",
+              "text-elem whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedValue
@@ -137,7 +137,7 @@ const Dropdown = <T,>({
         </div>
         <ArrowDownHeadIcon
           className={clsx(
-            "tr-flex-none",
+            "flex-none",
             sizing.lg.height,
             sizing.lg.width,
             spacing.twoXs.negativeMarginRight,

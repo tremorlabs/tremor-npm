@@ -79,7 +79,7 @@ const ButtonInline = ({
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
-        <div className={clsx("tremor-base tr-flex tr-items-center", parseMarginTop(marginTop))}>
+        <div className={clsx("tremor-base flex items-center", parseMarginTop(marginTop))}>
           <button
             value={value}
             type={type}
@@ -87,15 +87,15 @@ const ButtonInline = ({
             onSubmit={onSubmit}
             onReset={onReset}
             className={clsx(
-              "input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group tr-font-medium",
-              "focus:tr-outline-none focus:tr-ring-none",
+              "input-elem flex-shrink-0 inline-flex items-center group font-medium",
+              "focus:outline-none focus:ring-none",
               buttonProportions[buttonSize].fontSize,
               getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
               !isDisabled
                 ? clsx(getColorVariantsFromColorThemeValue(getColor(color).darkText).hoverTextColor)
-                : "tr-opacity-50",
+                : "opacity-50",
             )}
             disabled={isDisabled}
           >
@@ -109,7 +109,7 @@ const ButtonInline = ({
               />
             ) : null}
             {
-              <p className="text-elem tr-whitespace-nowrap">
+              <p className="text-elem whitespace-nowrap">
                 {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }

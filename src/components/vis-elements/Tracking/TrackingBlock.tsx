@@ -14,10 +14,10 @@ export interface TrackingBlockProps {
 
 const TrackingBlock = ({ color, height = "h-10", tooltip }: TrackingBlockProps) => {
   return (
-    <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
+    <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
       <div
         className={clsx(
-          "tr-w-full",
+          "w-full",
           getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
           parseHeight(height),
           borderRadius.md.all,

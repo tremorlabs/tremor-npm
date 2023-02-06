@@ -43,7 +43,7 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
     <button
       type="button"
       className={clsx(
-        "input-elem tr-flex tr-items-center tr-ring-1",
+        "input-elem flex items-center ring-1",
         spacing.lg.paddingLeft,
         spacing.lg.paddingRight,
         spacing.xs.paddingTop,
@@ -59,7 +59,7 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
       {Icon ? (
         <Icon
           className={clsx(
-            "tr-opacity-70",
+            "opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,
             sizing.lg.width,
@@ -67,7 +67,7 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
           aria-hidden="true"
         />
       ) : null}
-      {text ? <span className="tr-whitespace-nowrap tr-truncate">{text}</span> : null}
+      {text ? <span className="whitespace-nowrap truncate">{text}</span> : null}
     </button>
   );
 };
