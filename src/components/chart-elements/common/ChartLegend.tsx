@@ -8,7 +8,7 @@ import Legend from "components/text-elements/Legend";
 const ChartLegend = (
   { payload }: any,
   categoryColors: Map<string, Color>,
-  setLegendHeight: React.Dispatch<React.SetStateAction<number>>
+  setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   const calculateHeight = (height: number | undefined) =>
     height
@@ -16,9 +16,7 @@ const ChartLegend = (
       : 60; // default height
 
   const legendRef = useRef<HTMLDivElement>(null);
-  const [currentheight, setCurrentHeight] = useState(
-    calculateHeight(undefined)
-  );
+  const [currentheight, setCurrentHeight] = useState(calculateHeight(undefined));
 
   useEffect(() => {
     setCurrentHeight(calculateHeight(currentheight));

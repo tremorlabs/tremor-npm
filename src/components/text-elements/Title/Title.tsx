@@ -1,11 +1,11 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   BaseColors,
-  classNames,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   parseTruncateOption,
@@ -27,15 +27,14 @@ const Title = ({
 }: TitleProps) => {
   return (
     <p
-      className={classNames(
+      className={clsx(
         "text-elem tremor-base",
         truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
         parseTruncateOption(truncate),
         parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-          .textColor,
+        getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
         fontSize.lg,
-        fontWeight.md
+        fontWeight.md,
       )}
     >
       {children}

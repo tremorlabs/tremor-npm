@@ -1,11 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  classNames,
-  defaultColors,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { defaultColors, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
 
 interface TableHeadProps {
   children: React.ReactElement[] | React.ReactElement;
@@ -14,10 +10,10 @@ interface TableHeadProps {
 const TableHead = ({ children }: TableHeadProps) => (
   <>
     <thead
-      className={classNames(
+      className={clsx(
         "tr-text-left",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        fontWeight.lg
+        fontWeight.lg,
       )}
     >
       {children}

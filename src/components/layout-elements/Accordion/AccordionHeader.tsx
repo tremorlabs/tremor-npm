@@ -1,13 +1,8 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 
 import { ArrowDownHeadIcon, ArrowUpHeadIcon } from "assets";
-import {
-  classNames,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { defaultColors, getColorVariantsFromColorThemeValue, sizing, spacing } from "lib";
 import { ExpandedContext } from "components/layout-elements/Accordion/Accordion";
 
 export interface AccordionHeaderProps {
@@ -19,39 +14,33 @@ const AccordionHeader = ({ children }: AccordionHeaderProps) => {
   return (
     <button
       type="button"
-      className={classNames(
+      className={clsx(
         "input-elem tr-w-full tr-flex tr-items-center tr-justify-between",
         spacing.threeXl.paddingLeft,
         spacing.threeXl.paddingRight,
         spacing.lg.paddingTop,
-        spacing.lg.paddingBottom
+        spacing.lg.paddingBottom,
       )}
       onClick={() => setIsExpanded?.(!isExpanded)}
     >
-      <div
-        className={classNames("tr-flex tr-flex-1", spacing.threeXl.marginRight)}
-      >
-        {children}
-      </div>
+      <div className={clsx("tr-flex tr-flex-1", spacing.threeXl.marginRight)}>{children}</div>
       <div>
         {isExpanded ? (
           <ArrowUpHeadIcon
-            className={classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor,
+            className={clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,
-              sizing.xl.width
+              sizing.xl.width,
             )}
           />
         ) : (
           <ArrowDownHeadIcon
-            className={classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor,
+            className={clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,
-              sizing.xl.width
+              sizing.xl.width,
             )}
           />
         )}

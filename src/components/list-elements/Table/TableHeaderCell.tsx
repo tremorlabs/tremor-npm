@@ -1,8 +1,8 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   TextAlignments,
-  classNames,
   defaultColors,
   fontWeight,
   getColorVariantsFromColorThemeValue,
@@ -22,7 +22,7 @@ const TableHeaderCell = ({
 }: TableHeaderCellProps) => (
   <>
     <th
-      className={classNames(
+      className={clsx(
         "tr-sticky tr-whitespace-nowrap",
         parseTextAlignment(textAlignment),
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
@@ -31,7 +31,7 @@ const TableHeaderCell = ({
         spacing.twoXl.paddingRight,
         spacing.xl.paddingTop,
         spacing.xl.paddingBottom,
-        fontWeight.lg
+        fontWeight.lg,
       )}
     >
       {children}

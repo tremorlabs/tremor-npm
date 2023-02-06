@@ -31,12 +31,7 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
         <TextInput {...args} value={value} />
         <Text>Controlled</Text>
         <label htmlFor="a">Label</label>
-        <TextInput
-          {...args}
-          id={"a"}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
+        <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
         <Button type="submit" text="Submit" marginTop="mt-2" />
         <Button type="reset" text="Reset Input" marginTop="mt-2" />
       </form>

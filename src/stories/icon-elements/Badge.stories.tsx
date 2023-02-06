@@ -22,12 +22,7 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
       {Object.values(InputSizes).map((size) => (
         <>
           <Badge size={size} text={args.text} tooltip={args.tooltip} />
-          <Badge
-            size={size}
-            text={args.text}
-            tooltip={args.tooltip}
-            icon={ArrowUpIcon}
-          />
+          <Badge size={size} text={args.text} tooltip={args.tooltip} icon={ArrowUpIcon} />
           <BadgeDelta size={size} text={args.text} deltaType="increase" />
           <BadgeDelta size={size} deltaType="increase" />
         </>

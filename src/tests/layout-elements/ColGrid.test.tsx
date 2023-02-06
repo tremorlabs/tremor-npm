@@ -28,7 +28,7 @@ describe("ColGrid", () => {
         <Card>
           <div className="h-44" />
         </Card>
-      </ColGrid>
+      </ColGrid>,
     );
   });
 });

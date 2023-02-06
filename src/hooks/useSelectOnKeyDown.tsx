@@ -5,11 +5,8 @@ const useSelectOnKeyDown = <T,>(
   optionValues: T[],
   isFocused: boolean,
   handleFocusChange: (isFocused: boolean) => void,
-  value?: T
-): [
-  T | undefined,
-  (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void
-] => {
+  value?: T,
+): [T | undefined, (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void] => {
   const BASE_HOVERED_IDX = -1;
   const [hoveredIdx, setHoveredIdx] = useState(BASE_HOVERED_IDX);
 
@@ -42,9 +39,7 @@ const useSelectOnKeyDown = <T,>(
     return Math.max(prevIdx, 0);
   };
 
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>
-  ) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => {
     if (!isFocused) {
       return;
     }

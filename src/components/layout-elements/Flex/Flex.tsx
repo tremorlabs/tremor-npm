@@ -1,8 +1,8 @@
 import React from "react";
+import clsx from "clsx";
 
 import { AlignItems, JustifyContent, MarginTop, SpaceX } from "../../../lib";
 import {
-  classNames,
   parseAlignItems,
   parseJustifyContent,
   parseMarginTop,
@@ -29,14 +29,14 @@ const Flex = ({
 }: FlexProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-flex tr-w-full",
         parseTruncateOption(truncate),
         truncate ? "tr-whitespace-nowrap" : "",
         parseJustifyContent(justifyContent),
         parseAlignItems(alignItems),
         spaceX ? parseSpaceX(spaceX) : spaceX,
-        parseMarginTop(marginTop)
+        parseMarginTop(marginTop),
       )}
     >
       {children}

@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import {
   border,
-  classNames,
   defaultColors,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
@@ -27,25 +27,24 @@ const Tab = ({ value, text, icon }: TabProps) => {
   const isActive = selectedValue === value;
   const Icon = icon;
 
-  const activeClassNames = classNames(
-    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-    getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder)
-      .borderColor,
-    border.md.bottom
+  const activeClassNames = clsx(
+    getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+    getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
+    border.md.bottom,
   );
-  const inActiveClassNames = classNames(
+  const inActiveClassNames = clsx(
     getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
     getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
     getColorVariantsFromColorThemeValue(defaultColors.text).hoverTextColor,
     getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
-    "hover:tr-border-b-2"
+    "hover:tr-border-b-2",
   );
 
   return (
     <li>
       <button
         type="button"
-        className={classNames(
+        className={clsx(
           "input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate",
           "focus:tr-outline-0 focus:tr-ring-0",
           spacing.twoXs.paddingRight,
@@ -55,23 +54,21 @@ const Tab = ({ value, text, icon }: TabProps) => {
           spacing.px.negativeMarginBottom,
           fontSize.sm,
           fontWeight.md,
-          isActive ? activeClassNames : inActiveClassNames
+          isActive ? activeClassNames : inActiveClassNames,
         )}
         value={value}
         onClick={() => handleValueChange?.(value)}
       >
         {Icon ? (
           <Icon
-            className={classNames(
+            className={clsx(
               "tr-flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.sm.marginRight,
               isActive
-                ? getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-                    .textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                    .textColor
+                ? getColorVariantsFromColorThemeValue(getColor(color).text).textColor
+                : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
             )}
             aria-hidden="true"
           />

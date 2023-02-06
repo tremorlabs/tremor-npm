@@ -1,20 +1,9 @@
 import React from "react";
+import clsx from "clsx";
+import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
+import { Color, Height, MarginTop, ValueFormatter } from "../../../lib/inputTypes";
 import {
-  Pie,
-  PieChart as ReChartsDonutChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
-
-import {
-  Color,
-  Height,
-  MarginTop,
-  ValueFormatter,
-} from "../../../lib/inputTypes";
-import {
-  classNames,
   defaultColors,
   defaultValueFormatter,
   getHexFromColorThemeValue,
@@ -59,21 +48,10 @@ const DonutChart = ({
 }: DonutChartProps) => {
   const isDonut = variant == "donut";
 
-  const parsedLabelInput = parseLabelInput(
-    label,
-    valueFormatter,
-    data,
-    category
-  );
+  const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div className={clsx("tremor-base tr-w-full", parseHeight(height), parseMarginTop(marginTop))}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (

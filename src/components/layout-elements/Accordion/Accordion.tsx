@@ -1,16 +1,10 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
+import clsx from "clsx";
 
 import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   defaultColors,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
@@ -34,28 +28,20 @@ export interface AccordionProps {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Accordion = ({
-  shadow,
-  expanded = false,
-  marginTop = "mt-0",
-  children,
-}: AccordionProps) => {
+const Accordion = ({ shadow, expanded = false, marginTop = "mt-0", children }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
 
-  const rootStyles =
-    useContext(RootStylesContext) ??
-    classNames(border.sm.all, borderRadius.lg.all);
+  const rootStyles = useContext(RootStylesContext) ?? clsx(border.sm.all, borderRadius.lg.all);
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-overflow-hidden",
         parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .borderColor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         rootStyles,
-        shadow ? boxShadow.md : ""
+        shadow ? boxShadow.md : "",
       )}
     >
       {React.Children.map(children, (child, idx) => {

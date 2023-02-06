@@ -62,9 +62,7 @@ const FlexTemplate: ComponentStory<typeof AccordionList> = (args) => (
   </Card>
 );
 
-const LessThanThreeChildrenTemplate: ComponentStory<typeof AccordionList> = (
-  args
-) => (
+const LessThanThreeChildrenTemplate: ComponentStory<typeof AccordionList> = (args) => (
   <Card>
     <AccordionList {...args}>
       <SimpleAccordion />

@@ -1,6 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import { classNames, spacing } from "lib";
+import { spacing } from "lib";
 
 export interface AccordionBodyProps {
   children: React.ReactNode;
@@ -9,11 +10,11 @@ export interface AccordionBodyProps {
 const AccordionBody = ({ children }: AccordionBodyProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-w-full",
         spacing.threeXl.paddingLeft,
         spacing.threeXl.paddingRight,
-        spacing.lg.paddingBottom
+        spacing.lg.paddingBottom,
       )}
     >
       {children}

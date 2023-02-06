@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import {
   borderRadius,
   boxShadow,
-  classNames,
   defaultColors,
   fontSize,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
@@ -26,23 +26,23 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
 
   const isActive = selectedValue === value;
 
-  const activeClassNames = classNames(
+  const activeClassNames = clsx(
     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
+    getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
     getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
-    boxShadow.sm
+    boxShadow.sm,
   );
-  const inActiveClassNames = classNames(
+  const inActiveClassNames = clsx(
     getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
     getColorVariantsFromColorThemeValue(defaultColors.darkText).hoverTextColor,
     getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).ringColor
+    getColorVariantsFromColorThemeValue(defaultColors.transparent).ringColor,
   );
   const Icon = icon ? icon : null;
   return (
     <button
       type="button"
-      className={classNames(
+      className={clsx(
         "input-elem tr-flex tr-items-center tr-ring-1",
         spacing.lg.paddingLeft,
         spacing.lg.paddingRight,
@@ -50,7 +50,7 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
         spacing.xs.paddingBottom,
         fontSize.sm,
         borderRadius.md.all,
-        isActive ? activeClassNames : inActiveClassNames
+        isActive ? activeClassNames : inActiveClassNames,
       )}
       onClick={() => {
         handleValueChange?.(value);
@@ -58,18 +58,16 @@ const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
     >
       {Icon ? (
         <Icon
-          className={classNames(
+          className={clsx(
             "tr-opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,
-            sizing.lg.width
+            sizing.lg.width,
           )}
           aria-hidden="true"
         />
       ) : null}
-      {text ? (
-        <span className="tr-whitespace-nowrap tr-truncate">{text}</span>
-      ) : null}
+      {text ? <span className="tr-whitespace-nowrap tr-truncate">{text}</span> : null}
     </button>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import clsx from "clsx";
 
 import {
   Bar,
@@ -17,9 +18,8 @@ import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
 import {
-  classNames,
   defaultValueFormatter,
-  getColorTheme,
+  getColor,
   getHexFromColorThemeValue,
   getPixelsFromTwClassName,
   parseHeight,
@@ -63,13 +63,7 @@ const BarChart = ({
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div className={clsx("tremor-base tr-w-full", parseHeight(height), parseMarginTop(marginTop))}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsBarChart
           data={data}
@@ -90,11 +84,7 @@ const BarChart = ({
               dataKey={dataKey}
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
-              ticks={
-                startEndOnly
-                  ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                  : undefined
-              }
+              ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
               style={{
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
@@ -134,9 +124,7 @@ const BarChart = ({
                 fontFamily: "Inter; Helvetica",
               }}
               tickFormatter={
-                relative
-                  ? (value: number) => `${(value * 100).toString()} %`
-                  : valueFormatter
+                relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
               }
             />
           ) : (
@@ -146,11 +134,7 @@ const BarChart = ({
               dataKey={dataKey}
               axisLine={false}
               tickLine={false}
-              ticks={
-                startEndOnly
-                  ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                  : undefined
-              }
+              ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
               type="category"
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }}
@@ -182,9 +166,7 @@ const BarChart = ({
             <Legend
               verticalAlign="top"
               height={legendHeight}
-              content={({ payload }) =>
-                ChartLegend({ payload }, categoryColors, setLegendHeight)
-              }
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
           {categories.map((category) => (
@@ -194,9 +176,7 @@ const BarChart = ({
               type="linear"
               stackId={stack || relative ? "a" : undefined}
               dataKey={category}
-              fill={getHexFromColorThemeValue(
-                getColorTheme(categoryColors.get(category)).background
-              )}
+              fill={getHexFromColorThemeValue(getColor(categoryColors.get(category)).background)}
               isAnimationActive={showAnimation}
             />
           ))}

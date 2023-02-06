@@ -2,15 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  BadgeDelta,
-  Card,
-  DonutChart,
-  Flex,
-  List,
-  ListItem,
-  Title,
-} from "components";
+import { BadgeDelta, Card, DonutChart, Flex, List, ListItem, Title } from "components";
 import { DeltaType } from "lib";
 
 import { simpleSingleCategoryData as data } from "stories/chart-elements/helpers/testData";

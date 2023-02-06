@@ -4,7 +4,7 @@ import {
   borderRadius,
   boxShadow,
   defaultColors,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
@@ -119,62 +119,38 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
   switch (variant) {
     case "simple":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         bgColor: "",
         borderColor: "",
         ringColor: "",
       };
     case "light":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).lightBackground
-        ).bgColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
         borderColor: "",
         ringColor: "",
       };
     case "shadow":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          defaultColors.lightBorder
-        ).borderColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+        borderColor: getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         ringColor: "",
       };
     case "solid":
       return {
-        textColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .textColor,
-        bgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).background
-        ).bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(
-          defaultColors.lightBorder
-        ).ringColor,
+        textColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
+        borderColor: getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
+        ringColor: getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
       };
     case "outlined":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).border
-        ).borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).lightRing
-        ).ringColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+        borderColor: getColorVariantsFromColorThemeValue(getColor(color).border).borderColor,
+        ringColor: getColorVariantsFromColorThemeValue(getColor(color).lightRing).ringColor,
       };
   }
 };

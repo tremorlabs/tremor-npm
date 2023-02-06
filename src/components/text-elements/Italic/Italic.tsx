@@ -1,6 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import { classNames, fontSize } from "lib";
+import { fontSize } from "lib";
 
 export interface ItalicProps {
   children: React.ReactNode;
@@ -8,14 +9,7 @@ export interface ItalicProps {
 
 const Italic = ({ children }: ItalicProps) => {
   return (
-    <span
-      className={classNames(
-        "tremor-base tr-italic tr-text-inherit",
-        fontSize.sm
-      )}
-    >
-      {children}
-    </span>
+    <span className={clsx("tremor-base tr-italic tr-text-inherit", fontSize.sm)}>{children}</span>
   );
 };
 

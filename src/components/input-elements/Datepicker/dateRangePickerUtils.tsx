@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import {
   getDayBgColorClassName,
   getDayHoverBgColorClassName,
@@ -18,12 +19,11 @@ import {
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
-import { classNames } from "lib";
 
 export const getWeekdays = (locale: Locale) => {
   const firstDayOfWeek = startOfWeek(new Date());
   return Array.from(Array(7)).map((e, i) =>
-    format(addDays(firstDayOfWeek, i), "EEEEEE", { locale })
+    format(addDays(firstDayOfWeek, i), "EEEEEE", { locale }),
   );
 };
 
@@ -33,36 +33,31 @@ export const capitalize = (s: string, locale: Locale) => {
 
 export const getStartDateByDropdownValue = (
   dropdownValue: string | null | undefined,
-  dropdownOptions: DateRangePickerOption[]
+  dropdownOptions: DateRangePickerOption[],
 ) => {
   const startDate =
-    dropdownOptions.find(
-      (option: DateRangePickerOption) => option.value === dropdownValue
-    )?.startDate ?? null;
+    dropdownOptions.find((option: DateRangePickerOption) => option.value === dropdownValue)
+      ?.startDate ?? null;
   return startDate ? startOfDay(startDate) : null;
 };
 
 export const getEndDateByDropdownValue = (
   dropdownValue: string | null | undefined,
-  dropdownOptions: DateRangePickerOption[]
+  dropdownOptions: DateRangePickerOption[],
 ) =>
   startOfDay(
-    dropdownOptions.find(
-      (option: DateRangePickerOption) => option.value === dropdownValue
-    )?.endDate ?? startOfToday()
+    dropdownOptions.find((option: DateRangePickerOption) => option.value === dropdownValue)
+      ?.endDate ?? startOfToday(),
   );
 
 export const parseStartDate = (
   startDate: Date | null | undefined,
   minDate: Date | null | undefined,
   selectedDropdownValue: string | null | undefined,
-  dropdownOptions: DateRangePickerOption[]
+  dropdownOptions: DateRangePickerOption[],
 ) => {
   if (selectedDropdownValue) {
-    startDate = getStartDateByDropdownValue(
-      selectedDropdownValue,
-      dropdownOptions
-    );
+    startDate = getStartDateByDropdownValue(selectedDropdownValue, dropdownOptions);
   }
   if (!startDate) return null;
   if (startDate && !minDate) return startOfDay(startDate);
@@ -73,7 +68,7 @@ export const parseEndDate = (
   endDate: Date | null | undefined,
   maxDate: Date | null | undefined,
   selectedDropdownValue: string | null | undefined,
-  dropdownOptions: DateRangePickerOption[]
+  dropdownOptions: DateRangePickerOption[],
 ) => {
   if (selectedDropdownValue) {
     endDate = getEndDateByDropdownValue(selectedDropdownValue, dropdownOptions);
@@ -118,16 +113,16 @@ export const getDateStyles = (
   finalEndDate: Date | null,
   hoveredDate: Date | undefined,
   isDateDisabled: boolean,
-  color: Color
+  color: Color,
 ) =>
-  classNames(
+  clsx(
     getDayBgColorClassName(
       date,
       finalStartDate,
       finalEndDate,
       hoveredDate as Date | null,
       color,
-      isDateDisabled
+      isDateDisabled,
     ),
     getDayTextClassNames(
       date,
@@ -135,18 +130,8 @@ export const getDateStyles = (
       finalEndDate,
       hoveredDate as Date | null,
       color,
-      isDateDisabled
+      isDateDisabled,
     ),
-    getDayHoverBgColorClassName(
-      date,
-      finalStartDate,
-      finalEndDate,
-      isDateDisabled
-    ),
-    getDayRoundedClassName(
-      date,
-      finalStartDate,
-      finalEndDate,
-      hoveredDate as Date | null
-    )
+    getDayHoverBgColorClassName(date, finalStartDate, finalEndDate, isDateDisabled),
+    getDayRoundedClassName(date, finalStartDate, finalEndDate, hoveredDate as Date | null),
   );

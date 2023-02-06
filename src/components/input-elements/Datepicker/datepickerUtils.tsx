@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import {
   add,
   format,
@@ -15,13 +15,7 @@ import {
 } from "date-fns";
 
 import { Color, RelativeFilterOption } from "../../../lib";
-import {
-  classNames,
-  defaultColors,
-  fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { defaultColors, fontWeight, getColor, getColorVariantsFromColorThemeValue } from "lib";
 import { borderRadius } from "lib/shape";
 
 export const getInitialDateRange = (
@@ -29,14 +23,12 @@ export const getInitialDateRange = (
   defaultEndDate: Date | null,
   minDate: Date | null,
   maxDate: Date | null,
-  hasDefaultDateRange: boolean
+  hasDefaultDateRange: boolean,
 ): (Date | null)[] => {
   if (hasDefaultDateRange) {
     return [
       // startDate
-      startOfDay(
-        minDate ? max([defaultStartDate!, minDate]) : defaultStartDate!
-      ),
+      startOfDay(minDate ? max([defaultStartDate!, minDate]) : defaultStartDate!),
       // endDate
       startOfDay(maxDate ? min([defaultEndDate!, maxDate]) : defaultEndDate!),
     ];
@@ -45,10 +37,7 @@ export const getInitialDateRange = (
 };
 
 // Get month that will be displayed when opening the modal
-export const getInitialCurrentMonth = (
-  initialEndDate: Date | null,
-  maxDate: Date | null
-) => {
+export const getInitialCurrentMonth = (initialEndDate: Date | null, maxDate: Date | null) => {
   if (maxDate !== null) {
     return format(maxDate, "MMM-yyyy");
   } else if (initialEndDate !== null) {
@@ -62,7 +51,7 @@ export const getInitialCurrentMonth = (
 const isDayInCurrentMonth = (
   day: Date,
   firstDayCurrentMonth: Date,
-  lastDayCurrentMonth: Date
+  lastDayCurrentMonth: Date,
 ): boolean => day >= firstDayCurrentMonth && day <= lastDayCurrentMonth;
 
 export const isDayDisabled = (
@@ -70,7 +59,7 @@ export const isDayDisabled = (
   minDate: Date | null,
   maxDate: Date | null,
   firstDayCurrentMonth: Date,
-  lastDayCurrentMonth: Date
+  lastDayCurrentMonth: Date,
 ): boolean => {
   return (
     (minDate !== null && day < minDate) ||
@@ -118,7 +107,7 @@ export const relativeFilterOptions: {
 ];
 
 export const getStartDateFromRelativeFilterOption = (
-  selectedRelativeFilterOption: RelativeFilterOption
+  selectedRelativeFilterOption: RelativeFilterOption,
 ): Date => {
   const today = startOfToday();
   switch (selectedRelativeFilterOption) {
@@ -149,7 +138,7 @@ export const colStartClasses = [
 
 export const previousYear = (
   firstDayCurrentMonth: Date,
-  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const firstDayNextMonth = add(firstDayCurrentMonth, { years: -1 });
   setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
@@ -157,7 +146,7 @@ export const previousYear = (
 
 export const nextYear = (
   firstDayCurrentMonth: Date,
-  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const firstDayNextMonth = add(firstDayCurrentMonth, { years: 1 });
   setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
@@ -165,7 +154,7 @@ export const nextYear = (
 
 export const previousMonth = (
   firstDayCurrentMonth: Date,
-  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
   setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
@@ -173,16 +162,13 @@ export const previousMonth = (
 
 export const nextMonth = (
   firstDayCurrentMonth: Date,
-  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>
+  setCurrentMonth: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
   setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
 };
 
-export const displaySelected = (
-  selectedStartDay: Date | null,
-  selectedEndDay: Date | null
-) => {
+export const displaySelected = (selectedStartDay: Date | null, selectedEndDay: Date | null) => {
   if (!selectedStartDay && !selectedEndDay) {
     return "";
   } else if (selectedStartDay && !selectedEndDay) {
@@ -208,10 +194,7 @@ export const displaySelected = (
         month: "short",
         day: "numeric",
       };
-      return `${selectedStartDay.toLocaleDateString(
-        "en-US",
-        optionsStartDate
-      )} - 
+      return `${selectedStartDay.toLocaleDateString("en-US", optionsStartDate)} - 
                     ${selectedEndDay.getDate()}, ${selectedEndDay.getFullYear()}`;
     } else {
       const options: Intl.DateTimeFormatOptions = {
@@ -231,14 +214,11 @@ export const getDayBgColorClassName = (
   selectedEndDay: Date | null,
   hoveredDay: Date | null,
   color: Color,
-  isDayDisabled = false
+  isDayDisabled = false,
 ): string => {
-  if (isDayDisabled)
-    return getColorVariantsFromColorThemeValue(defaultColors.transparent)
-      .bgColor;
+  if (isDayDisabled) return getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor;
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
-    return getColorVariantsFromColorThemeValue(getColorTheme(color).background)
-      .bgColor;
+    return getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
   }
   if (
     selectedStartDay &&
@@ -247,21 +227,13 @@ export const getDayBgColorClassName = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-      .bgColor;
+    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
-    return getColorVariantsFromColorThemeValue(getColorTheme(color).background)
-      .bgColor;
+    return getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
   }
-  if (
-    selectedStartDay &&
-    selectedEndDay &&
-    day > selectedStartDay &&
-    day < selectedEndDay
-  ) {
-    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-      .bgColor;
+  if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
+    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor;
   }
   return getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor;
 };
@@ -272,11 +244,9 @@ export const getDayTextClassNames = (
   selectedEndDay: Date | null,
   hoveredDay: Date | null,
   color: Color,
-  isDayDisabled = false
+  isDayDisabled = false,
 ): string => {
-  if (isDayDisabled)
-    return getColorVariantsFromColorThemeValue(defaultColors.lightText)
-      .textColor;
+  if (isDayDisabled) return getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor;
   if (isToday(day)) {
     if (
       (selectedStartDay && isEqual(day, selectedStartDay)) ||
@@ -284,10 +254,7 @@ export const getDayTextClassNames = (
     ) {
       return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
     }
-    return classNames(
-      getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-      fontWeight.lg
-    );
+    return clsx(getColorVariantsFromColorThemeValue(getColor(color).text).textColor, fontWeight.lg);
   }
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
     return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
@@ -299,30 +266,22 @@ export const getDayTextClassNames = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return getColorVariantsFromColorThemeValue(defaultColors.darkestText)
-      .textColor;
+    return getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
     return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
   }
-  if (
-    selectedStartDay &&
-    selectedEndDay &&
-    day > selectedStartDay &&
-    day < selectedEndDay
-  ) {
-    return getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-      .textColor;
+  if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
+    return getColorVariantsFromColorThemeValue(getColor(color).text).textColor;
   }
-  return getColorVariantsFromColorThemeValue(defaultColors.darkestText)
-    .textColor;
+  return getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor;
 };
 
 export const getDayHoverBgColorClassName = (
   day: Date,
   selectedStartDay: Date | null,
   selectedEndDay: Date | null,
-  isDayDisabled = false
+  isDayDisabled = false,
 ): string => {
   if (isDayDisabled) return "";
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
@@ -338,7 +297,7 @@ export const getDayRoundedClassName = (
   day: Date,
   selectedStartDay: Date | null,
   selectedEndDay: Date | null,
-  hoveredDay: Date | null
+  hoveredDay: Date | null,
 ): string => {
   if (!selectedStartDay && !selectedEndDay) {
     return borderRadius.md.all;
@@ -354,20 +313,10 @@ export const getDayRoundedClassName = (
   if (selectedStartDay && selectedEndDay && isEqual(day, selectedStartDay)) {
     return borderRadius.md.left;
   }
-  if (
-    selectedStartDay &&
-    !selectedEndDay &&
-    !hoveredDay &&
-    isEqual(day, selectedStartDay)
-  ) {
+  if (selectedStartDay && !selectedEndDay && !hoveredDay && isEqual(day, selectedStartDay)) {
     return borderRadius.md.all;
   }
-  if (
-    selectedStartDay &&
-    !selectedEndDay &&
-    hoveredDay &&
-    day < selectedStartDay
-  ) {
+  if (selectedStartDay && !selectedEndDay && hoveredDay && day < selectedStartDay) {
     return borderRadius.md.all;
   }
   if (
@@ -388,12 +337,7 @@ export const getDayRoundedClassName = (
   ) {
     return borderRadius.none.all;
   }
-  if (
-    selectedStartDay &&
-    selectedEndDay &&
-    day > selectedStartDay &&
-    day < selectedEndDay
-  ) {
+  if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
     return borderRadius.none.all;
   }
   if (
@@ -408,11 +352,7 @@ export const getDayRoundedClassName = (
   if (selectedStartDay && selectedEndDay && isEqual(day, selectedEndDay)) {
     return borderRadius.md.right;
   }
-  if (
-    selectedStartDay &&
-    selectedEndDay &&
-    (day < selectedStartDay || day > selectedEndDay)
-  ) {
+  if (selectedStartDay && selectedEndDay && (day < selectedStartDay || day > selectedEndDay)) {
     return borderRadius.md.all;
   }
   return borderRadius.md.all;

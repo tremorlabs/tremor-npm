@@ -7,7 +7,7 @@ import { DeltaType, DeltaTypes, MarginTop, Size } from "../../../lib";
 import {
   Sizes,
   borderRadius,
-  classNames,
+  clsx,
   isValidDeltaType,
   isValidSize,
   mapInputsToDeltaType,
@@ -39,27 +39,17 @@ const BadgeDelta = ({
   tooltip,
   marginTop = "mt-0",
 }: BadgeDeltaProps) => {
-  const parsedDeltaType = isValidDeltaType(deltaType)
-    ? deltaType
-    : DeltaTypes.Increase;
+  const parsedDeltaType = isValidDeltaType(deltaType) ? deltaType : DeltaTypes.Increase;
   const Icon = deltaIcons[parsedDeltaType];
-  const mappedDeltaType = mapInputsToDeltaType(
-    parsedDeltaType,
-    isIncreasePositive
-  );
-  const badgeProportions = text
-    ? badgeProportionsWithText
-    : badgeProportionsIconOnly;
+  const mappedDeltaType = mapInputsToDeltaType(parsedDeltaType, isIncreasePositive);
+  const badgeProportions = text ? badgeProportionsWithText : badgeProportionsIconOnly;
   const badgeSize = isValidSize(size) ? size : Sizes.SM;
 
   return (
-    <span className={classNames("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip
-        content={tooltip}
-        className={classNames(tooltip ? "" : "tr-hidden")}
-      >
+    <span className={clsx("tremor-base", parseMarginTop(marginTop))}>
+      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "tr-hidden")}>
         <span
-          className={classNames(
+          className={clsx(
             "tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center",
             borderRadius.full.all,
             colors[mappedDeltaType].bgColor,
@@ -68,20 +58,18 @@ const BadgeDelta = ({
             badgeProportions[badgeSize].paddingRight,
             badgeProportions[badgeSize].paddingTop,
             badgeProportions[badgeSize].paddingBottom,
-            badgeProportions[badgeSize].fontSize
+            badgeProportions[badgeSize].fontSize,
           )}
         >
           <Icon
-            className={classNames(
+            className={clsx(
               text ? spacing.twoXs.negativeMarginLeft : "",
               text ? spacing.xs.marginRight : "",
               iconSizes[badgeSize].height,
-              iconSizes[badgeSize].width
+              iconSizes[badgeSize].width,
             )}
           />
-          {text ? (
-            <p className="text-elem tr-whitespace-nowrap">{text}</p>
-          ) : null}
+          {text ? <p className="text-elem tr-whitespace-nowrap">{text}</p> : null}
         </span>
       </Tooltip>
     </span>

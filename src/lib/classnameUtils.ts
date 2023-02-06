@@ -2,24 +2,12 @@ import { ColorTypes, colorVariantMapping } from "./colorVariantMapping";
 import { Height, MarginTop, Width } from "./inputTypes";
 import { twColorsHex } from "lib/colors";
 
-interface StringJoiner {
-  (...classes: string[]): string;
-}
-
-export const classNames: StringJoiner = (...classes: string[]): string => {
-  return classes.filter(Boolean).join(" ");
-};
-
-export const getPixelsFromTwClassName = (
-  twClassName: MarginTop | Height | Width
-): number => {
+export const getPixelsFromTwClassName = (twClassName: MarginTop | Height | Width): number => {
   const classNameParts = twClassName.split("-");
   return Number(classNameParts[classNameParts.length - 1]) * 4;
 };
 
-export const getColorVariantsFromColorThemeValue = (
-  colorThemeValue: string
-): ColorTypes => {
+export const getColorVariantsFromColorThemeValue = (colorThemeValue: string): ColorTypes => {
   const colorThemeValueParts = colorThemeValue.split("-");
   const baseColor = colorThemeValueParts[0];
   const colorValue = colorThemeValueParts[1];

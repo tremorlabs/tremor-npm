@@ -1,24 +1,14 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  BaseColors,
-  HorizontalPositions,
-  VerticalPositions,
-} from "lib/primitives";
-import {
-  Color,
-  HorizontalPosition,
-  MarginTop,
-  MaxWidth,
-  VerticalPosition,
-} from "../../../lib";
+import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/primitives";
+import { Color, HorizontalPosition, MarginTop, MaxWidth, VerticalPosition } from "../../../lib";
 import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   defaultColors,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseHFullOption,
   parseMarginTop,
@@ -63,24 +53,21 @@ const Card = ({
 }: CardProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-relative tr-w-full tr-mx-auto tr-text-left tr-ring-1",
         parseMarginTop(marginTop),
         parseHFullOption(hFull),
         parseMaxWidth(maxWidth),
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         shadow ? boxShadow.md : "",
-        getColorVariantsFromColorThemeValue(
-          getColorTheme(decorationColor).border
-        ).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .ringColor,
+        getColorVariantsFromColorThemeValue(getColor(decorationColor).border).borderColor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingLeft,
         spacing.threeXl.paddingRight,
         spacing.threeXl.paddingTop,
         spacing.threeXl.paddingBottom,
-        borderRadius.lg.all
+        borderRadius.lg.all,
       )}
     >
       {children}

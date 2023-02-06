@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import clsx from "clsx";
 import {
   Area,
   CartesianGrid,
@@ -17,9 +17,8 @@ import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
 import {
-  classNames,
   defaultValueFormatter,
-  getColorTheme,
+  getColor,
   getHexFromColorThemeValue,
   getPixelsFromTwClassName,
   parseHeight,
@@ -60,31 +59,17 @@ const AreaChart = ({
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div className={clsx("tremor-base tr-w-full", parseHeight(height), parseMarginTop(marginTop))}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsAreaChart data={data}>
           {showGridLines ? (
-            <CartesianGrid
-              strokeDasharray="3 3"
-              horizontal={true}
-              vertical={false}
-            />
+            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           ) : null}
           <XAxis
             hide={!showXAxis}
             dataKey={dataKey}
             tick={{ transform: "translate(0, 6)" }}
-            ticks={
-              startEndOnly
-                ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                : undefined
-            }
+            ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
@@ -131,48 +116,34 @@ const AreaChart = ({
             <Legend
               verticalAlign="top"
               height={legendHeight}
-              content={({ payload }) =>
-                ChartLegend({ payload }, categoryColors, setLegendHeight)
-              }
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
 
           {categories.map((category) => (
             <defs key={category}>
               {showGradient ? (
-                <linearGradient
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
+                <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
                     stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
+                      getColor(categoryColors.get(category)).background,
                     )}
                     stopOpacity={0.4}
                   />
                   <stop
                     offset="95%"
                     stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
+                      getColor(categoryColors.get(category)).background,
                     )}
                     stopOpacity={0}
                   />
                 </linearGradient>
               ) : (
-                <linearGradient
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
+                <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
                   <stop
                     stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
+                      getColor(categoryColors.get(category)).background,
                     )}
                     stopOpacity={0.3}
                   />
@@ -187,9 +158,7 @@ const AreaChart = ({
               name={category}
               type="linear"
               dataKey={category}
-              stroke={getHexFromColorThemeValue(
-                getColorTheme(categoryColors.get(category)).background
-              )}
+              stroke={getHexFromColorThemeValue(getColor(categoryColors.get(category)).background)}
               fill={`url(#${categoryColors.get(category)})`}
               strokeWidth={2}
               dot={false}

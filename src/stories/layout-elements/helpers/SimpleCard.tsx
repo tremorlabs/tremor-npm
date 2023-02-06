@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-  BadgeDelta,
-  ButtonInline,
-  Card,
-  Flex,
-  Footer,
-  Metric,
-  Text,
-} from "components";
+import { BadgeDelta, ButtonInline, Card, Flex, Footer, Metric, Text } from "components";
 
 export const SimpleCard = (args: any) => (
   <Card {...args}>

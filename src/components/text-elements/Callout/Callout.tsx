@@ -1,13 +1,13 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   BaseColors,
   border,
   borderRadius,
-  classNames,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseHeight,
   parseMarginTop,
@@ -36,51 +36,46 @@ const Callout = ({
   const Icon = icon ? icon : null;
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-relative",
         parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(
-          getColorTheme(color).canvasBackground
-        ).bgColor,
-        getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder)
-          .borderColor,
+        getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
+        getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
         spacing.lg.paddingLeft,
         spacing.lg.paddingRight,
         spacing.lg.paddingTop,
         spacing.lg.paddingBottom,
         fontSize.sm,
         borderRadius.md.all,
-        border.lg.left
+        border.lg.left,
       )}
     >
-      <div className={classNames("tr-overflow-hidden", spacing.xs.marginLeft)}>
+      <div className={clsx("tr-overflow-hidden", spacing.xs.marginLeft)}>
         <div
-          className={classNames(
+          className={clsx(
             "tr-flex tr-items-start",
-            getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-              .textColor
+            getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
           )}
         >
           {Icon ? (
             <Icon
-              className={classNames(
+              className={clsx(
                 "tr-flex-none",
                 sizing.lg.height,
                 sizing.lg.width,
-                spacing.xs.marginRight
+                spacing.xs.marginRight,
               )}
               aria-hidden="true"
             />
           ) : null}
-          <h4 className={classNames("text-elem", fontWeight.lg)}>{title}</h4>
+          <h4 className={clsx("text-elem", fontWeight.lg)}>{title}</h4>
         </div>
         <div
-          className={classNames(
+          className={clsx(
             "tr-overflow-y-auto",
             height ? parseHeight(height) : height,
-            getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-              .textColor,
-            spacing.sm.marginTop
+            getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
+            spacing.sm.marginTop,
           )}
         >
           {text}

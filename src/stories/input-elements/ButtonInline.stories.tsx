@@ -25,12 +25,7 @@ const SizesTemplate: ComponentStory<typeof ButtonInline> = () => (
         <>
           <ButtonInline size={size} text="ButtonInline" />
           <ButtonInline size={size} text="ButtonInline" icon={MyIcon} />
-          <ButtonInline
-            size={size}
-            text="ButtonInline"
-            icon={MyIcon}
-            iconPosition="right"
-          />
+          <ButtonInline size={size} text="ButtonInline" icon={MyIcon} iconPosition="right" />
         </>
       ))}
     </ColGrid>
@@ -63,11 +58,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof ButtonInline> = (args) => (
     <Title marginTop="mt-5">Desktop</Title>
     <Card>
       <Flex>
-        <ButtonInline
-          {...args}
-          text="Very Long ButtonInline Text"
-          icon={MyIcon}
-        />
+        <ButtonInline {...args} text="Very Long ButtonInline Text" icon={MyIcon} />
       </Flex>
     </Card>
   </>
@@ -78,20 +69,12 @@ const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
 
   return (
     <Card>
-      <ButtonInline
-        text="Click to Load"
-        handleClick={() => setLoading(!loading)}
-      />
+      <ButtonInline text="Click to Load" handleClick={() => setLoading(!loading)} />
       <ColGrid numCols={4} gapY="gap-y-2" marginTop="mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
             <ButtonInline size={size} text="Button" loading={loading} />
-            <ButtonInline
-              size={size}
-              text="Button"
-              icon={MyIcon}
-              loading={loading}
-            />
+            <ButtonInline size={size} text="Button" icon={MyIcon} loading={loading} />
             <ButtonInline
               size={size}
               text="Button"
@@ -105,12 +88,7 @@ const LoadingStateTemplate: ComponentStory<typeof ButtonInline> = () => {
       <Title>With Loading Text</Title>
       <ColGrid numCols={4} gapY="gap-y-2">
         <ButtonInline text="Button" loading={loading} loadingText="Loading" />
-        <ButtonInline
-          text="Button"
-          icon={MyIcon}
-          loading={loading}
-          loadingText="Loading"
-        />
+        <ButtonInline text="Button" icon={MyIcon} loading={loading} loadingText="Loading" />
         <ButtonInline
           text="Button"
           icon={MyIcon}
@@ -131,9 +109,7 @@ const ButtonInlineWithChildren: ComponentStory<typeof ButtonInline> = () => (
       <ButtonInline text="Text" />
       <ButtonInline text="Text is prefered">Children is prefered</ButtonInline>
       <ButtonInline text="Text is prefered">
-        <span style={{ color: "red" }}>
-          ButtonInline can also take html elements as values
-        </span>
+        <span style={{ color: "red" }}>ButtonInline can also take html elements as values</span>
       </ButtonInline>
     </ColGrid>
   </Card>

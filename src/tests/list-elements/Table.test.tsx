@@ -34,7 +34,7 @@ describe("List", () => {
             <TableCell textAlignment="text-right">211</TableCell>
           </TableRow>
         </TableBody>
-      </Table>
+      </Table>,
     );
   });
 });

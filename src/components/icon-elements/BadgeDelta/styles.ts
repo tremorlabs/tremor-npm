@@ -3,7 +3,7 @@ import {
   DeltaTypes,
   Sizing,
   fontSize,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
@@ -135,44 +135,27 @@ export type ColorTypes = {
 
 export const colors: { [key: string]: ColorTypes } = {
   [DeltaTypes.Increase]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Emerald).lightBackground
-    ).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Emerald).darkText
-    ).textColor,
+    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).lightBackground)
+      .bgColor,
+    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).darkText).textColor,
   },
   [DeltaTypes.ModerateIncrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Emerald).lightBackground
-    ).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Emerald).darkText
-    ).textColor,
+    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).lightBackground)
+      .bgColor,
+    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).darkText).textColor,
   },
   [DeltaTypes.Decrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Rose).lightBackground
-    ).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Rose).darkText
-    ).textColor,
+    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).lightBackground).bgColor,
+    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).darkText).textColor,
   },
   [DeltaTypes.ModerateDecrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Rose).lightBackground
-    ).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Rose).darkText
-    ).textColor,
+    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).lightBackground).bgColor,
+    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).darkText).textColor,
   },
   [DeltaTypes.Unchanged]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Orange).lightBackground
-    ).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(
-      getColorTheme(BaseColors.Orange).darkText
-    ).textColor,
+    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Orange).lightBackground)
+      .bgColor,
+    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Orange).darkText).textColor,
   },
 };
 

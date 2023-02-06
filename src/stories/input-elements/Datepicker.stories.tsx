@@ -75,20 +75,18 @@ const FlexTemplate: ComponentStory<typeof Datepicker> = (args) => (
   </>
 );
 
-const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> =
-  () => (
-    <ColGrid numColsLg={6}>
-      <div>emptyCol</div>
-      <div>emptyCol</div>
-      <div>emptyCol</div>
-      <div>emptyCol</div>
-      <div>emptyCol</div>
-      <Datepicker enableRelativeDates={false} />
-    </ColGrid>
-  );
+const WithSelfDetectingModalTemplate: ComponentStory<typeof Datepicker> = () => (
+  <ColGrid numColsLg={6}>
+    <div>emptyCol</div>
+    <div>emptyCol</div>
+    <div>emptyCol</div>
+    <div>emptyCol</div>
+    <div>emptyCol</div>
+    <Datepicker enableRelativeDates={false} />
+  </ColGrid>
+);
 
-const handleSelect = (startDate: Date, endDate: Date) =>
-  alert(`${startDate} + ${endDate}`);
+const handleSelect = (startDate: Date, endDate: Date) => alert(`${startDate} + ${endDate}`);
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {

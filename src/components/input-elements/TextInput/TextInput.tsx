@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
@@ -8,7 +8,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   colorTheme,
   defaultColors,
   fontSize,
@@ -23,12 +22,8 @@ import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import { ExclamationFilledIcon } from "assets";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
-  if (error)
-    return getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text)
-      .textColor;
-  if (disabled)
-    return getColorVariantsFromColorThemeValue(defaultColors.lightText)
-      .textColor;
+  if (error) return getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor;
+  if (disabled) return getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor;
   return getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor;
 };
 
@@ -65,17 +60,15 @@ const TextInput = ({
 
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
-    ? getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-        .bgColor
+    ? getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor
     : getColorVariantsFromColorThemeValue(defaultColors.white).bgColor;
   const boderColor = error
-    ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border)
-        .borderColor
+    ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border).borderColor
     : getColorVariantsFromColorThemeValue(defaultColors.border).borderColor;
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-relative tr-w-full tr-flex tr-items-center tr-overflow-hidden tr-min-w-[10rem]",
         parseMaxWidth(maxWidth),
         parseMarginTop(marginTop),
@@ -83,18 +76,17 @@ const TextInput = ({
         boderColor,
         borderRadius.md.all,
         border.sm.all,
-        boxShadow.sm
+        boxShadow.sm,
       )}
     >
       {Icon ? (
         <Icon
-          className={classNames(
+          className={clsx(
             "tr-shrink-0",
             sizing.lg.height,
             sizing.lg.width,
-            getColorVariantsFromColorThemeValue(defaultColors.lightText)
-              .textColor,
-            spacing.xl.marginLeft
+            getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+            spacing.xl.marginLeft,
           )}
           aria-hidden="true"
         />
@@ -103,7 +95,7 @@ const TextInput = ({
         id={id}
         name={name}
         type="text"
-        className={classNames(
+        className={clsx(
           "tremor-base input-elem",
           "tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit",
           textColor,
@@ -114,7 +106,7 @@ const TextInput = ({
           fontSize.sm,
           fontWeight.md,
           border.none.all,
-          "placeholder:tr-text-gray-500"
+          "placeholder:tr-text-gray-500",
         )}
         defaultValue={defaultValue}
         value={value}
@@ -128,14 +120,12 @@ const TextInput = ({
           className={errorMessage ? "" : "tr-hidden"}
           showOnCreate={true}
         >
-          <div className={classNames(spacing.xl.marginRight)}>
+          <div className={clsx(spacing.xl.marginRight)}>
             <ExclamationFilledIcon
-              className={classNames(
+              className={clsx(
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(
-                  colorTheme[BaseColors.Rose].text
-                ).textColor
+                getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor,
               )}
               aria-hidden="true"
             />

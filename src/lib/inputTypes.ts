@@ -4,15 +4,9 @@ export type ValueFormatter = {
   (value: number): string;
 };
 
-const iconVariantValues = [
-  "simple",
-  "light",
-  "shadow",
-  "solid",
-  "outlined",
-] as const;
+const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as const;
 
-export type IconVariant = typeof iconVariantValues[number];
+export type IconVariant = (typeof iconVariantValues)[number];
 
 export type HorizontalPosition = "left" | "right";
 
@@ -32,11 +26,11 @@ const deltaTypeValues = [
   "unchanged",
 ] as const;
 
-export type DeltaType = typeof deltaTypeValues[number];
+export type DeltaType = (typeof deltaTypeValues)[number];
 
 const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;
 
-export type Size = typeof sizeValues[number];
+export type Size = (typeof sizeValues)[number];
 
 const baseColorValues = [
   "slate",
@@ -63,7 +57,7 @@ const baseColorValues = [
   "rose",
 ] as const;
 
-export type Color = typeof baseColorValues[number];
+export type Color = (typeof baseColorValues)[number];
 
 const twJustifyContentValues = [
   "justify-start",
@@ -74,7 +68,7 @@ const twJustifyContentValues = [
   "justify-evenly",
 ] as const;
 
-export type JustifyContent = typeof twJustifyContentValues[number];
+export type JustifyContent = (typeof twJustifyContentValues)[number];
 
 const twAlignItemsValues = [
   "items-start",
@@ -84,7 +78,7 @@ const twAlignItemsValues = [
   "items-stretch",
 ] as const;
 
-export type AlignItems = typeof twAlignItemsValues[number];
+export type AlignItems = (typeof twAlignItemsValues)[number];
 
 const twTextAlignmentValues = [
   "text-left",
@@ -95,7 +89,7 @@ const twTextAlignmentValues = [
   "text-end",
 ] as const;
 
-export type TextAlignment = typeof twTextAlignmentValues[number];
+export type TextAlignment = (typeof twTextAlignmentValues)[number];
 
 const twMaxWidthValues = [
   "max-w-0",
@@ -122,7 +116,7 @@ const twMaxWidthValues = [
   "max-w-screen-2xl",
 ] as const;
 
-export type MaxWidth = typeof twMaxWidthValues[number];
+export type MaxWidth = (typeof twMaxWidthValues)[number];
 
 const twSpaceXValues = [
   "space-x-0",
@@ -194,7 +188,7 @@ const twSpaceXValues = [
   "-space-x-96",
 ] as const;
 
-export type SpaceX = typeof twSpaceXValues[number];
+export type SpaceX = (typeof twSpaceXValues)[number];
 
 const twSpaceYValues = [
   "space-y-0",
@@ -266,7 +260,7 @@ const twSpaceYValues = [
   "-space-y-96",
 ] as const;
 
-export type SpaceY = typeof twSpaceYValues[number];
+export type SpaceY = (typeof twSpaceYValues)[number];
 
 const twTopMargins = [
   "mt-0",
@@ -338,7 +332,7 @@ const twTopMargins = [
   "-mt-96",
 ] as const;
 
-export type MarginTop = typeof twTopMargins[number];
+export type MarginTop = (typeof twTopMargins)[number];
 
 const twHeights = [
   "h-0",
@@ -377,7 +371,7 @@ const twHeights = [
   "h-96",
 ] as const;
 
-export type Height = typeof twHeights[number];
+export type Height = (typeof twHeights)[number];
 
 const twWidths = [
   "w-0",
@@ -416,7 +410,7 @@ const twWidths = [
   "w-96",
 ] as const;
 
-export type Width = typeof twWidths[number];
+export type Width = (typeof twWidths)[number];
 
 const twGapXValues = [
   "gap-x-0",
@@ -455,7 +449,7 @@ const twGapXValues = [
   "gap-x-96",
 ] as const;
 
-export type GapX = typeof twGapXValues[number];
+export type GapX = (typeof twGapXValues)[number];
 
 const twGapYValues = [
   "gap-y-0",
@@ -494,4 +488,4 @@ const twGapYValues = [
   "gap-y-96",
 ] as const;
 
-export type GapY = typeof twGapYValues[number];
+export type GapY = (typeof twGapYValues)[number];

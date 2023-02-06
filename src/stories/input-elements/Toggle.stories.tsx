@@ -2,16 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  Block,
-  Button,
-  Card,
-  Flex,
-  Text,
-  Title,
-  Toggle,
-  ToggleItem,
-} from "components";
+import { Block, Button, Card, Flex, Text, Title, Toggle, ToggleItem } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 

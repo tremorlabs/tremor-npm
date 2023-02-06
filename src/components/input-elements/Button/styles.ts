@@ -5,7 +5,7 @@ import {
   getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
-  getColorTheme,
+  getColor,
 } from "lib";
 
 import { Color, ButtonVariant } from "../../../lib/inputTypes";
@@ -116,62 +116,35 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
   switch (variant) {
     case "primary":
       return {
-        textColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .textColor,
-        bgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).background
-        ).bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).darkBackground
-        ).hoverBgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          defaultColors.transparent
-        ).borderColor,
-        hoverBorderColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).darkBackground
-        ).hoverBorderColor,
-        focusRingColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).ring
-        ).focusRingColor,
+        textColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
+        hoverTextColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
+        hoverBgColor: getColorVariantsFromColorThemeValue(getColor(color).darkBackground)
+          .hoverBgColor,
+        borderColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
+        hoverBorderColor: getColorVariantsFromColorThemeValue(getColor(color).darkBackground)
+          .hoverBorderColor,
+        focusRingColor: getColorVariantsFromColorThemeValue(getColor(color).ring).focusRingColor,
       };
     case "secondary":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent)
-          .bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).lightBackground
-        ).hoverBgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).border
-        ).borderColor,
-        hoverBorderColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).darkBorder
-        ).borderColor,
-        focusRingColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).ring
-        ).focusRingColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        hoverTextColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
+        hoverBgColor: getColorVariantsFromColorThemeValue(getColor(color).lightBackground)
+          .hoverBgColor,
+        borderColor: getColorVariantsFromColorThemeValue(getColor(color).border).borderColor,
+        hoverBorderColor: getColorVariantsFromColorThemeValue(getColor(color).darkBorder)
+          .borderColor,
+        focusRingColor: getColorVariantsFromColorThemeValue(getColor(color).ring).focusRingColor,
       };
     case "light":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).darkText
-        ).hoverTextColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent)
-          .bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(
-          defaultColors.transparent
-        ).hoverBgColor,
+        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        hoverTextColor: getColorVariantsFromColorThemeValue(getColor(color).darkText)
+          .hoverTextColor,
+        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
+        hoverBgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
         borderColor: "",
         hoverBorderColor: "",
         focusRingColor: "",

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
-
+import clsx from "clsx";
 import {
   add,
   eachDayOfInterval,
@@ -25,7 +25,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   defaultColors,
   fontSize,
   fontWeight,
@@ -58,9 +57,7 @@ const CalendarHeader = ({
   setAnchorDate,
   locale,
 }: CalendarHeaderProps) => {
-  const handlePaginationClick = (
-    type: "nextMonth" | "prevMonth" | "nextYear" | "prevYear"
-  ) => {
+  const handlePaginationClick = (type: "nextMonth" | "prevMonth" | "nextYear" | "prevYear") => {
     switch (type) {
       case "nextMonth":
         setAnchorDate(add(anchorDate, { months: 1 }));
@@ -77,33 +74,27 @@ const CalendarHeader = ({
     }
   };
 
-  const displayedTitle = capitalize(
-    format(anchorDate, "MMMM yyyy", { locale }),
-    locale
-  );
+  const displayedTitle = capitalize(format(anchorDate, "MMMM yyyy", { locale }), locale);
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-flex tr-justify-between tr-items-center",
         spacing.twoXs.paddingLeft,
         spacing.twoXs.paddingRight,
         spacing.sm.paddingTop,
-        spacing.sm.paddingBottom
+        spacing.sm.paddingBottom,
       )}
     >
       <div className="tr-flex tr-items-center tr-space-x-1">
         <button
           type="button"
           hidden={!enableYearPagination}
-          className={classNames(
+          className={clsx(
             "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border)
-              .borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring)
-              .focusRingColor,
+            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
             spacing.twoXs.paddingLeft,
             spacing.twoXs.paddingRight,
             spacing.twoXs.paddingTop,
@@ -112,16 +103,15 @@ const CalendarHeader = ({
             fontWeight.md,
             borderRadius.sm.all,
             border.sm.all,
-            boxShadow.sm
+            boxShadow.sm,
           )}
           onClick={() => handlePaginationClick("prevYear")}
         >
           <DoubleArrowLeftHeadIcon
-            className={classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
+            className={clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
-              sizing.lg.width
+              sizing.lg.width,
             )}
             aria-hidden="true"
           />
@@ -129,14 +119,11 @@ const CalendarHeader = ({
         <button
           type="button"
           name="prevMonth"
-          className={classNames(
+          className={clsx(
             "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border)
-              .borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring)
-              .focusRingColor,
+            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
             spacing.twoXs.paddingLeft,
             spacing.twoXs.paddingRight,
             spacing.twoXs.paddingTop,
@@ -145,28 +132,26 @@ const CalendarHeader = ({
             fontWeight.md,
             borderRadius.sm.all,
             border.sm.all,
-            boxShadow.sm
+            boxShadow.sm,
           )}
           onClick={() => handlePaginationClick("prevMonth")}
         >
           <ArrowLeftHeadIcon
-            className={classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
+            className={clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
-              sizing.lg.width
+              sizing.lg.width,
             )}
             aria-hidden="true"
           />
         </button>
       </div>
       <h2
-        className={classNames(
+        className={clsx(
           "text-elem",
-          getColorVariantsFromColorThemeValue(defaultColors.darkestText)
-            .textColor,
+          getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
           fontSize.sm,
-          fontWeight.lg
+          fontWeight.lg,
         )}
       >
         {displayedTitle}
@@ -175,14 +160,11 @@ const CalendarHeader = ({
         <button
           type="button"
           name="nextMonth"
-          className={classNames(
+          className={clsx(
             "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border)
-              .borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring)
-              .focusRingColor,
+            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
             spacing.twoXs.paddingLeft,
             spacing.twoXs.paddingRight,
             spacing.twoXs.paddingTop,
@@ -191,16 +173,15 @@ const CalendarHeader = ({
             fontWeight.md,
             borderRadius.sm.all,
             border.sm.all,
-            boxShadow.sm
+            boxShadow.sm,
           )}
           onClick={() => handlePaginationClick("nextMonth")}
         >
           <ArrowRightHeadIcon
-            className={classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
+            className={clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
-              sizing.lg.width
+              sizing.lg.width,
             )}
             aria-hidden="true"
           />
@@ -208,14 +189,11 @@ const CalendarHeader = ({
         <button
           type="button"
           hidden={!enableYearPagination}
-          className={classNames(
+          className={clsx(
             "input-elem tr-inline-flex focus:tr-outline-none focus:tr-ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border)
-              .borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring)
-              .focusRingColor,
+            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
             spacing.twoXs.paddingLeft,
             spacing.twoXs.paddingRight,
             spacing.twoXs.paddingTop,
@@ -224,17 +202,16 @@ const CalendarHeader = ({
             fontWeight.md,
             borderRadius.sm.all,
             border.sm.all,
-            boxShadow.sm
+            boxShadow.sm,
           )}
           onClick={() => handlePaginationClick("nextYear")}
         >
           <DoubleArrowRightHeadIcon
-            className={classNames(
+            className={clsx(
               "tr-shrink-0 tr-flex-0",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
+              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
-              sizing.lg.width
+              sizing.lg.width,
             )}
             aria-hidden="true"
           />
@@ -269,9 +246,7 @@ const CalendarBody = ({
   const firstDayOfDisplayedMonth = startOfMonth(anchorDate);
   const lastDayOfDisplayedMonth = endOfMonth(anchorDate);
 
-  const weekdays = getWeekdays(locale).map((dayName) =>
-    capitalize(dayName, locale)
-  );
+  const weekdays = getWeekdays(locale).map((dayName) => capitalize(dayName, locale));
 
   const displayedDates = eachDayOfInterval({
     start: isSunday(firstDayOfDisplayedMonth)
@@ -287,10 +262,9 @@ const CalendarBody = ({
     minDate: Date | null,
     maxDate: Date | null,
     firstDayDisplayedMonth: Date,
-    lastDayDisplayedMonth: Date
+    lastDayDisplayedMonth: Date,
   ) => {
-    const isDateInDisplayedMonth =
-      date >= firstDayDisplayedMonth && date <= lastDayDisplayedMonth;
+    const isDateInDisplayedMonth = date >= firstDayDisplayedMonth && date <= lastDayDisplayedMonth;
     return (
       (minDate !== null && date < minDate) ||
       (maxDate !== null && date > maxDate) ||
@@ -301,20 +275,19 @@ const CalendarBody = ({
   return (
     <>
       <div
-        className={classNames(
+        className={clsx(
           "tr-grid tr-grid-cols-7 tr-text-center",
-          getColorVariantsFromColorThemeValue(defaultColors.lightText)
-            .textColor,
+          getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
           fontSize.xs,
-          fontWeight.md
+          fontWeight.md,
         )}
       >
         {weekdays.map((dayName) => (
           <div key={dayName} className="tr-w-full tr-flex tr-justify-center">
             <div
-              className={classNames(
+              className={clsx(
                 "tr-flex tr-items-center tr-justify-center tr-w-full",
-                sizing.threeXl.height
+                sizing.threeXl.height,
               )}
             >
               {dayName}
@@ -329,20 +302,17 @@ const CalendarBody = ({
             minDate,
             maxDate,
             firstDayOfDisplayedMonth,
-            lastDayOfDisplayedMonth
+            lastDayOfDisplayedMonth,
           );
 
           return (
-            <div
-              key={date.toString()}
-              className={classNames(colStartClasses[getDay(date)], "tr-w-full")}
-            >
+            <div key={date.toString()} className={clsx(colStartClasses[getDay(date)], "tr-w-full")}>
               <button
                 type="button"
                 onClick={() => onDateClick(date)}
                 onPointerEnter={() => setHoveredDate?.(date)}
                 onPointerLeave={() => setHoveredDate?.(undefined)}
-                className={classNames(
+                className={clsx(
                   "input-elem tr-w-full tr-flex tr-items-center tr-justify-center",
                   sizing.threeXl.height,
                   fontSize.sm,
@@ -352,8 +322,8 @@ const CalendarBody = ({
                     selectedEndDate,
                     hoveredDate,
                     isCurrentDateDisabled,
-                    color
-                  )
+                    color,
+                  ),
                 )}
                 disabled={isCurrentDateDisabled}
               >
@@ -394,11 +364,11 @@ const Calendar = ({
 }: CalendarProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         spacing.lg.paddingLeft,
         spacing.lg.paddingRight,
         spacing.twoXs.paddingTop,
-        spacing.twoXs.paddingBottom
+        spacing.twoXs.paddingBottom,
       )}
     >
       <CalendarHeader

@@ -1,14 +1,13 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
 import {
   BaseColors,
   borderRadius,
-  classNames,
   defaultColors,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   sizing,
@@ -38,25 +37,20 @@ const RangeBar = ({
 }: RangeBarProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-relative tr-flex tr-items-center tr-w-full",
         parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-          .bgColor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         sizing.xs.height,
-        borderRadius.lg.all
+        borderRadius.lg.all,
       )}
     >
-      <Tooltip
-        content={rangeTooltip}
-        className={rangeTooltip ? "" : "tr-hidden"}
-      >
+      <Tooltip content={rangeTooltip} className={rangeTooltip ? "" : "tr-hidden"}>
         <div
-          className={classNames(
+          className={clsx(
             "tr-absolute tr-h-full",
-            getColorVariantsFromColorThemeValue(defaultColors.darkBackground)
-              .bgColor,
-            borderRadius.lg.all
+            getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
+            borderRadius.lg.all,
           )}
           style={{
             left: `${minPercentageValue}%`,
@@ -65,14 +59,11 @@ const RangeBar = ({
           }}
         />
       </Tooltip>
-      <Tooltip
-        content={markerTooltip}
-        className={markerTooltip ? "" : "tr-hidden"}
-      >
+      <Tooltip content={markerTooltip} className={markerTooltip ? "" : "tr-hidden"}>
         <div
-          className={classNames(
+          className={clsx(
             "tr-absolute tr-right-1/2 -tr-translate-x-1/2",
-            sizing.lg.width // wide transparent wrapper for tooltip activation
+            sizing.lg.width, // wide transparent wrapper for tooltip activation
           )}
           style={{
             left: `${percentageValue}%`,
@@ -80,16 +71,13 @@ const RangeBar = ({
           }}
         >
           <div
-            className={classNames(
+            className={clsx(
               "tr-ring-2 tr-mx-auto",
-              getColorVariantsFromColorThemeValue(
-                getColorTheme(color).background
-              ).bgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.white)
-                .ringColor,
+              getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
+              getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
               sizing.md.height,
               sizing.twoXs.width,
-              borderRadius.lg.all
+              borderRadius.lg.all,
             )}
           />
         </div>

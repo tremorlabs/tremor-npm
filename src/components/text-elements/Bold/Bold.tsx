@@ -1,6 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import { classNames, fontSize, fontWeight } from "lib";
+import { fontSize, fontWeight } from "lib";
 
 export interface BoldProps {
   children: React.ReactNode;
@@ -8,13 +9,7 @@ export interface BoldProps {
 
 const Bold = ({ children }: BoldProps) => {
   return (
-    <span
-      className={classNames(
-        "tremor-base tr-text-inherit",
-        fontSize.sm,
-        fontWeight.lg
-      )}
-    >
+    <span className={clsx("tremor-base tr-text-inherit", fontSize.sm, fontWeight.lg)}>
       {children}
     </span>
   );

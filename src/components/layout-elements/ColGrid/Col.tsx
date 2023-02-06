@@ -1,13 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  GridClassesMapping,
-  colSpan,
-  colSpanLg,
-  colSpanMd,
-  colSpanSm,
-} from "./styles";
-import { classNames } from "lib";
+import { GridClassesMapping, colSpan, colSpanLg, colSpanMd, colSpanSm } from "./styles";
 
 export interface ColProps {
   numColSpan?: number;
@@ -17,16 +11,10 @@ export interface ColProps {
   children: React.ReactNode;
 }
 
-const Col = ({
-  numColSpan = 1,
-  numColSpanSm,
-  numColSpanMd,
-  numColSpanLg,
-  children,
-}: ColProps) => {
+const Col = ({ numColSpan = 1, numColSpanSm, numColSpanMd, numColSpanLg, children }: ColProps) => {
   const getColSpan = (
     numColSpan: number | undefined,
-    colSpanMapping: GridClassesMapping
+    colSpanMapping: GridClassesMapping,
   ): string => {
     if (!numColSpan) return "";
     if (!Object.keys(colSpanMapping).includes(String(numColSpan))) return "";
@@ -39,10 +27,10 @@ const Col = ({
     const spanMd = getColSpan(numColSpanMd, colSpanMd);
     const spanLg = getColSpan(numColSpanLg, colSpanLg);
 
-    return classNames(spanBase, spanSm, spanMd, spanLg);
+    return clsx(spanBase, spanSm, spanMd, spanLg);
   };
 
-  return <div className={classNames(getColSpanClassNames())}>{children}</div>;
+  return <div className={clsx(getColSpanClassNames())}>{children}</div>;
 };
 
 export default Col;

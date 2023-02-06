@@ -1,24 +1,19 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   BaseColors,
   TextAlignments,
-  classNames,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseHeight,
   parseMarginTop,
   parseTextAlignment,
   parseTruncateOption,
 } from "lib";
-import {
-  Color,
-  Height,
-  MarginTop,
-  TextAlignment,
-} from "../../../lib/inputTypes";
+import { Color, Height, MarginTop, TextAlignment } from "../../../lib/inputTypes";
 
 export interface TextProps {
   color?: Color;
@@ -39,7 +34,7 @@ const Text = ({
 }: TextProps) => {
   return (
     <p
-      className={classNames(
+      className={clsx(
         "text-elem tremor-base",
         parseTruncateOption(truncate),
         truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
@@ -47,10 +42,9 @@ const Text = ({
         height ? "tr-overflow-y-auto" : "",
         parseMarginTop(marginTop),
         parseTextAlignment(textAlignment),
-        getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-          .textColor,
+        getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         fontSize.sm,
-        fontWeight.sm
+        fontWeight.sm,
       )}
     >
       {children}

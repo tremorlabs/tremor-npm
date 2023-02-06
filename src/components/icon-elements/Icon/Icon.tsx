@@ -3,14 +3,7 @@ import React from "react";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
-import {
-  BaseColors,
-  Sizes,
-  classNames,
-  isBaseColor,
-  isValidSize,
-  parseMarginTop,
-} from "lib";
+import { BaseColors, Sizes, clsx, isBaseColor, isValidSize, parseMarginTop } from "lib";
 import { Color, IconVariant, MarginTop, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
@@ -46,21 +39,16 @@ const Icon = ({
   const Icon = icon;
 
   const iconSize = isValidSize(size) ? size : Sizes.SM;
-  const iconVariant = isValidIconVariant(variant)
-    ? variant
-    : IconVariants.Simple;
+  const iconVariant = isValidIconVariant(variant) ? variant : IconVariants.Simple;
   const iconColorStyles = isBaseColor(color)
     ? getIconColors(variant, color)
     : getIconColors(variant, BaseColors.Blue);
 
   return (
-    <span className={classNames("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip
-        content={tooltip}
-        className={classNames(tooltip ? "" : "tr-hidden")}
-      >
+    <span className={clsx("tremor-base", parseMarginTop(marginTop))}>
+      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "tr-hidden")}>
         <span
-          className={classNames(
+          className={clsx(
             "tr-inline-flex tr-flex-shrink-0 tr-items-center",
             iconColorStyles.bgColor,
             iconColorStyles.textColor,
@@ -73,15 +61,10 @@ const Icon = ({
             wrapperProportions[iconSize].paddingLeft,
             wrapperProportions[iconSize].paddingRight,
             wrapperProportions[iconSize].paddingTop,
-            wrapperProportions[iconSize].paddingBottom
+            wrapperProportions[iconSize].paddingBottom,
           )}
         >
-          <Icon
-            className={classNames(
-              iconSizes[iconSize].height,
-              iconSizes[iconSize].width
-            )}
-          />
+          <Icon className={clsx(iconSizes[iconSize].height, iconSizes[iconSize].width)} />
         </span>
       </Tooltip>
     </span>

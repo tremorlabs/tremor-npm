@@ -25,13 +25,7 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
         <>
           <Button {...args} size={size} text="Button" />
           <Button {...args} size={size} text="Button" icon={MyIcon} />
-          <Button
-            {...args}
-            size={size}
-            text="Button"
-            icon={MyIcon}
-            iconPosition="right"
-          />
+          <Button {...args} size={size} text="Button" icon={MyIcon} iconPosition="right" />
           <Button
             {...args}
             size={size}
@@ -76,12 +70,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
       <Card>
         <Flex>
           <Button {...args} text="Button" icon={MyIcon} />
-          <Button
-            {...args}
-            text="Button"
-            icon={MyIcon}
-            importance={"secondary"}
-          />
+          <Button {...args} text="Button" icon={MyIcon} importance={"secondary"} />
         </Flex>
       </Card>
     </div>
@@ -89,12 +78,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
     <Card>
       <Flex>
         <Button {...args} text="Very Long Button Text" icon={MyIcon} />
-        <Button
-          {...args}
-          text="Very Long Button Text"
-          icon={MyIcon}
-          importance={"secondary"}
-        />
+        <Button {...args} text="Very Long Button Text" icon={MyIcon} importance={"secondary"} />
       </Flex>
     </Card>
   </>
@@ -118,24 +102,14 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
               iconPosition="right"
               loading={loading}
             />
-            <Button
-              size={size}
-              text="Button"
-              importance="secondary"
-              loading={loading}
-            />
+            <Button size={size} text="Button" importance="secondary" loading={loading} />
           </>
         ))}
       </ColGrid>
       <Title>With Loading Text</Title>
       <ColGrid numCols={4} gapY="gap-y-2">
         <Button text="Button" loading={loading} loadingText="Loading" />
-        <Button
-          text="Button"
-          icon={MyIcon}
-          loading={loading}
-          loadingText="Loading"
-        />
+        <Button text="Button" icon={MyIcon} loading={loading} loadingText="Loading" />
         <Button
           text="Button"
           icon={MyIcon}
@@ -143,12 +117,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
           loading={loading}
           loadingText="Loading"
         />
-        <Button
-          text="Button"
-          importance="secondary"
-          loading={loading}
-          loadingText="Loading"
-        />
+        <Button text="Button" importance="secondary" loading={loading} loadingText="Loading" />
       </ColGrid>
     </Card>
   );

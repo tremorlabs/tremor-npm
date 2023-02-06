@@ -1,14 +1,9 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  MarginTop,
-  MaxWidth,
-  SpaceY,
-  TextAlignment,
-} from "../../../lib/inputTypes";
+import { MarginTop, MaxWidth, SpaceY, TextAlignment } from "../../../lib/inputTypes";
 import {
   TextAlignments,
-  classNames,
   parseMarginTop,
   parseMaxWidth,
   parseSpaceY,
@@ -35,14 +30,14 @@ const Block = ({
 }: BlockProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-w-full",
         parseMaxWidth(maxWidth),
         spaceY ? parseSpaceY(spaceY) : spaceY,
         parseTextAlignment(textAlignment),
         parseTruncateOption(truncate),
         truncate ? "tr-whitespace-nowrap" : "",
-        parseMarginTop(marginTop)
+        parseMarginTop(marginTop),
       )}
     >
       {children}

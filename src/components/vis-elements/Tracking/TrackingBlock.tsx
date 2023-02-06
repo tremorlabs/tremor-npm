@@ -1,16 +1,10 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
 import { Color, Height } from "../../../lib";
-import {
-  borderRadius,
-  classNames,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseHeight,
-} from "lib";
+import { borderRadius, getColor, getColorVariantsFromColorThemeValue, parseHeight } from "lib";
 
 export interface TrackingBlockProps {
   color: Color;
@@ -18,20 +12,15 @@ export interface TrackingBlockProps {
   tooltip?: string;
 }
 
-const TrackingBlock = ({
-  color,
-  height = "h-10",
-  tooltip,
-}: TrackingBlockProps) => {
+const TrackingBlock = ({ color, height = "h-10", tooltip }: TrackingBlockProps) => {
   return (
     <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
       <div
-        className={classNames(
+        className={clsx(
           "tr-w-full",
-          getColorVariantsFromColorThemeValue(getColorTheme(color).background)
-            .bgColor,
+          getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
           parseHeight(height),
-          borderRadius.md.all
+          borderRadius.md.all,
         )}
       />
     </Tooltip>

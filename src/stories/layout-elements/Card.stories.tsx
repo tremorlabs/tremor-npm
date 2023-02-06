@@ -47,10 +47,7 @@ const FlexTemplate: ComponentStory<typeof Card> = (args) => (
 const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
   <ColGrid numCols={2} gapX="gap-x-2" gapY="gap-y-2">
     {["left", "top", "right", "bottom", "mistyped"].map((position) => (
-      <Card
-        {...args}
-        decoration={position as HorizontalPosition | VerticalPosition | ""}
-      >
+      <Card {...args} decoration={position as HorizontalPosition | VerticalPosition | ""}>
         <Title>{`Decoration ${position}`}</Title>
       </Card>
     ))}

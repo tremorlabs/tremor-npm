@@ -1,8 +1,8 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   borderRadius,
-  classNames,
   defaultColors,
   getColorVariantsFromColorThemeValue,
   sizing,
@@ -11,13 +11,13 @@ import {
 
 const Divider = () => (
   <div
-    className={classNames(
+    className={clsx(
       "tremor-base tr-w-full tr-mx-auto",
       getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
       sizing.threeXs.height,
       spacing.threeXl.marginTop,
       spacing.threeXl.marginBottom,
-      borderRadius.lg.all
+      borderRadius.lg.all,
     )}
   />
 );

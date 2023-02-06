@@ -1,15 +1,14 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
 import { Color, MarginTop } from "../../../lib";
 import {
   borderRadius,
-  classNames,
   defaultColors,
   fontSize,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   sizing,
@@ -21,7 +20,7 @@ import {
 const getMarkerBgColor = (
   percentageValue: number | undefined,
   categoryPercentageValues: number[],
-  colors: Color[]
+  colors: Color[],
 ): string => {
   if (percentageValue === undefined) return "";
 
@@ -29,7 +28,7 @@ const getMarkerBgColor = (
   for (let i = 0; i < categoryPercentageValues.length; i++) {
     const currentWidthPercentage = categoryPercentageValues[i];
     const currentBgColor = getColorVariantsFromColorThemeValue(
-      getColorTheme(colors[i]).background
+      getColor(colors[i]).background,
     ).bgColor;
 
     prefixSum += currentWidthPercentage;
@@ -39,22 +38,18 @@ const getMarkerBgColor = (
   return "";
 };
 
-const BarLabels = ({
-  categoryPercentageValues,
-}: {
-  categoryPercentageValues: number[];
-}) => {
+const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: number[] }) => {
   const sumValues = sumNumericArray(categoryPercentageValues);
   let prefixSum = 0;
   let sumConsecutveHiddenLabels = 0;
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-relative tr-flex tr-w-full",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.sm.marginBottom,
         sizing.lg.height,
-        fontSize.sm
+        fontSize.sm,
       )}
     >
       {categoryPercentageValues
@@ -62,8 +57,7 @@ const BarLabels = ({
         .map((widthPercentage, idx) => {
           prefixSum += widthPercentage;
           const showLabel =
-            (widthPercentage >= 0.1 * sumValues ||
-              sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
+            (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
             sumValues - prefixSum >= 0.15 * sumValues &&
             prefixSum >= 0.1 * sumValues;
           sumConsecutveHiddenLabels = showLabel
@@ -77,9 +71,9 @@ const BarLabels = ({
               style={{ width: `${widthPercentage}%` }}
             >
               <span
-                className={classNames(
+                className={clsx(
                   showLabel ? "tr-block" : "tr-hidden",
-                  "tr-left-1/2 tr-translate-x-1/2"
+                  "tr-left-1/2 tr-translate-x-1/2",
                 )}
               >
                 {prefixSum}
@@ -87,20 +81,10 @@ const BarLabels = ({
             </div>
           );
         })}
-      <div
-        className={classNames(
-          "tr-absolute tr-bottom-0 tr-flex tr-items-center",
-          spacing.none.left
-        )}
-      >
+      <div className={clsx("tr-absolute tr-bottom-0 tr-flex tr-items-center", spacing.none.left)}>
         0
       </div>
-      <div
-        className={classNames(
-          "tr-absolute tr-bottom-0 tr-flex tr-items-center",
-          spacing.none.right
-        )}
-      >
+      <div className={clsx("tr-absolute tr-bottom-0 tr-flex tr-items-center", spacing.none.right)}>
         {sumValues}
       </div>
     </div>
@@ -126,38 +110,25 @@ const CategoryBar = ({
   showAnimation = true,
   marginTop = "mt-0",
 }: CategoryBarProps) => {
-  const markerBgColor = getMarkerBgColor(
-    percentageValue,
-    categoryPercentageValues,
-    colors
-  );
+  const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
   return (
-    <div className={classNames(parseMarginTop(marginTop))}>
-      {showLabels ? (
-        <BarLabels categoryPercentageValues={categoryPercentageValues} />
-      ) : null}
-      <div
-        className={classNames(
-          "tr-relative tr-w-full tr-flex tr-items-center",
-          sizing.xs.height
-        )}
-      >
+    <div className={clsx(parseMarginTop(marginTop))}>
+      {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
+      <div className={clsx("tr-relative tr-w-full tr-flex tr-items-center", sizing.xs.height)}>
         <div
-          className={classNames(
+          className={clsx(
             "tr-flex-1 tr-flex tr-items-center tr-h-full tr-overflow-hidden",
-            borderRadius.md.all
+            borderRadius.md.all,
           )}
         >
           {categoryPercentageValues.map((percentageValue, idx) => {
             return (
               <div
                 key={`item-${idx}`}
-                className={classNames(
+                className={clsx(
                   "tr-h-full",
-                  getColorVariantsFromColorThemeValue(
-                    getColorTheme(colors[idx]).background
-                  ).bgColor
+                  getColorVariantsFromColorThemeValue(getColor(colors[idx]).background).bgColor,
                 )}
                 style={{ width: `${percentageValue}%` }}
               />
@@ -167,9 +138,9 @@ const CategoryBar = ({
         {percentageValue !== undefined ? (
           <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
             <div
-              className={classNames(
+              className={clsx(
                 "tr-absolute tr-right-1/2 -tr-translate-x-1/2",
-                sizing.lg.width // wide transparent wrapper for tooltip activation
+                sizing.lg.width, // wide transparent wrapper for tooltip activation
               )}
               style={{
                 left: `${percentageValue}%`,
@@ -177,14 +148,13 @@ const CategoryBar = ({
               }}
             >
               <div
-                className={classNames(
+                className={clsx(
                   "tr-ring-2 tr-mx-auto",
                   markerBgColor,
-                  getColorVariantsFromColorThemeValue(defaultColors.white)
-                    .ringColor,
+                  getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
                   sizing.md.height,
                   sizing.twoXs.width,
-                  borderRadius.lg.all
+                  borderRadius.lg.all,
                 )}
               />
             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import { Transition } from "react-transition-group";
 
 import {
@@ -11,7 +11,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   fontWeight,
   isValidSize,
   parseMarginTop,
@@ -51,10 +50,10 @@ export const ButtonIconOrSpinner = ({
 
   const margin =
     iconPosition === HorizontalPositions.Left
-      ? classNames(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-      : classNames(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+      ? clsx(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+      : clsx(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
-  const defaultSpinnerSize = classNames(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = clsx(sizing.none.width, sizing.none.height);
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -65,16 +64,11 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={classNames(
-        "tr-animate-spin",
-        margin,
-        spinnerSize.default,
-        spinnerSize[transitionState]
-      )}
+      className={clsx("tr-animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={classNames(iconSize, margin)} aria-hidden="true" />
+    <Icon className={clsx(iconSize, margin)} aria-hidden="true" />
   );
 };
 
@@ -121,12 +115,12 @@ const Button = ({
 }: ButtonProps) => {
   if (handleClick) {
     console.warn(
-      "DeprecationWarning: The `handleClick` property is deprecated and will be removed in the next major release. Please use `onClick` instead."
+      "DeprecationWarning: The `handleClick` property is deprecated and will be removed in the next major release. Please use `onClick` instead.",
     );
   }
   if (importance) {
     console.warn(
-      "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead."
+      "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead.",
     );
   }
 
@@ -143,36 +137,25 @@ const Button = ({
   const showLoadingText = loading && loadingText;
 
   const buttonSize = isValidSize(size) ? size : Sizes.SM;
-  const iconSize = classNames(
-    iconSizes[buttonSize].height,
-    iconSizes[buttonSize].width
-  );
+  const iconSize = clsx(iconSizes[buttonSize].height, iconSizes[buttonSize].width);
   const buttonShapeStyles =
-    variant !== "light"
-      ? classNames(borderRadius.md.all, border.sm.all, boxShadow.sm)
-      : "";
+    variant !== "light" ? clsx(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
   const buttonColorStyles = isBaseColor(color)
     ? getButtonColors(buttonVariant, color)
     : getButtonColors(buttonVariant, BaseColors.Blue);
-  const buttonProportionStyles =
-    getButtonProportions(buttonVariant)[buttonSize];
+  const buttonProportionStyles = getButtonProportions(buttonVariant)[buttonSize];
 
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
-        <div
-          className={classNames(
-            "tremor-base tr-flex tr-items-center",
-            parseMarginTop(marginTop)
-          )}
-        >
+        <div className={clsx("tremor-base tr-flex tr-items-center", parseMarginTop(marginTop))}>
           <button
             type={type}
             value={value}
             onClick={handleClick ?? onClick}
             onSubmit={onSubmit}
             onReset={onReset}
-            className={classNames(
+            className={clsx(
               "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
               "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2",
               "focus:tr-ring-transparent",
@@ -188,17 +171,16 @@ const Button = ({
               buttonColorStyles.borderColor,
               buttonColorStyles.focusRingColor,
               !isDisabled
-                ? classNames(
+                ? clsx(
                     getButtonColors(buttonVariant, color).hoverTextColor,
                     getButtonColors(buttonVariant, color).hoverBgColor,
-                    getButtonColors(buttonVariant, color).hoverBorderColor
+                    getButtonColors(buttonVariant, color).hoverBorderColor,
                   )
-                : "tr-opacity-50"
+                : "tr-opacity-50",
             )}
             disabled={isDisabled}
           >
-            {showButtonIconOrSpinner &&
-            iconPosition !== HorizontalPositions.Right ? (
+            {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
               <ButtonIconOrSpinner
                 loading={loading}
                 iconSize={iconSize}
@@ -212,8 +194,7 @@ const Button = ({
                 {showLoadingText ? loadingText : !children ? text : children}
               </p>
             }
-            {showButtonIconOrSpinner &&
-            iconPosition === HorizontalPositions.Right ? (
+            {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
               <ButtonIconOrSpinner
                 loading={loading}
                 iconSize={iconSize}

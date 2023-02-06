@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 
 import { startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-import {
-  BaseColorContext,
-  HoveredValueContext,
-  SelectedValueContext,
-} from "contexts";
+import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "contexts";
 
 import { useInternalState, useSelectOnKeyDown } from "hooks";
 
-import { BaseColors, classNames, parseMarginTop, parseMaxWidth } from "lib";
+import { BaseColors, parseMarginTop, parseMaxWidth } from "lib";
 import { Color, MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   defaultOptions,
@@ -28,11 +25,7 @@ import Modal from "components/layout-elements/Modal";
 
 export type Locale = typeof enUS;
 
-export type DateRangePickerValue = [
-  (Date | null)?,
-  (Date | null)?,
-  (string | null)?
-];
+export type DateRangePickerValue = [(Date | null)?, (Date | null)?, (string | null)?];
 export type DateRangePickerOption = {
   value: string;
   text: string;
@@ -77,10 +70,7 @@ const DateRangePicker = ({
   const calendarRef = useRef(null);
   const dropdownRef = useRef(null);
 
-  const [selectedValue, setSelectedValue] = useInternalState(
-    defaultValue,
-    value
-  );
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const [anchorDate, setAnchorDate] = useState(TODAY);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -89,20 +79,10 @@ const DateRangePicker = ({
   const dropdownOptions = options ?? defaultOptions;
   const selectedDropdownValue = selectedValue ? selectedValue[2] ?? null : null;
   const selectedStartDate = selectedValue
-    ? parseStartDate(
-        selectedValue[0],
-        minDate,
-        selectedDropdownValue,
-        dropdownOptions
-      )
+    ? parseStartDate(selectedValue[0], minDate, selectedDropdownValue, dropdownOptions)
     : null;
   const selectedEndDate = selectedValue
-    ? parseEndDate(
-        selectedValue[1],
-        maxDate,
-        selectedDropdownValue,
-        dropdownOptions
-      )
+    ? parseEndDate(selectedValue[1], maxDate, selectedDropdownValue, dropdownOptions)
     : null;
 
   const handleDateClick = (date: Date) => {
@@ -133,14 +113,8 @@ const DateRangePicker = ({
   };
 
   const handleDropdownOptionClick = (dropdownValue: string) => {
-    const selectedStartDate = getStartDateByDropdownValue(
-      dropdownValue,
-      dropdownOptions
-    );
-    const selectedEndDate = getEndDateByDropdownValue(
-      dropdownValue,
-      dropdownOptions
-    );
+    const selectedStartDate = getStartDateByDropdownValue(dropdownValue, dropdownOptions);
+    const selectedEndDate = getEndDateByDropdownValue(dropdownValue, dropdownOptions);
 
     setSelectedValue([selectedStartDate, selectedEndDate, dropdownValue]);
     onValueChange?.([selectedStartDate, selectedEndDate, dropdownValue]);
@@ -153,7 +127,7 @@ const DateRangePicker = ({
     dropdownOptions.map((option: DateRangePickerOption) => option.value),
     showDropdown,
     setShowDropdown,
-    selectedDropdownValue as string
+    selectedDropdownValue as string,
   );
 
   useEffect(() => {
@@ -163,10 +137,10 @@ const DateRangePicker = ({
   return (
     <BaseColorContext.Provider value={color}>
       <div
-        className={classNames(
+        className={clsx(
           "tremor-base tr-relative tr-w-full",
           parseMarginTop(marginTop),
-          parseMaxWidth(maxWidth)
+          parseMaxWidth(maxWidth),
         )}
       >
         <DateRangePickerButton
@@ -206,20 +180,14 @@ const DateRangePicker = ({
           />
         </Modal>
         {/* Dropdpown Modal */}
-        <Modal
-          showModal={showDropdown}
-          setShowModal={setShowDropdown}
-          triggerRef={dropdownRef}
-        >
+        <Modal showModal={showDropdown} setShowModal={setShowDropdown} triggerRef={dropdownRef}>
           <SelectedValueContext.Provider
             value={{
               selectedValue: selectedDropdownValue,
               handleValueChange: handleDropdownOptionClick,
             }}
           >
-            <HoveredValueContext.Provider
-              value={{ hoveredValue: hoveredDropdownValue }}
-            >
+            <HoveredValueContext.Provider value={{ hoveredValue: hoveredDropdownValue }}>
               {dropdownOptions.map(({ value, text }: DateRangePickerOption) => (
                 <DropdownItem key={value} value={value} text={text} />
               ))}

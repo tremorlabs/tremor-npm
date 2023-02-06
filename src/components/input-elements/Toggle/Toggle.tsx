@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -7,7 +8,6 @@ import { useInternalState } from "hooks";
 import {
   BaseColors,
   borderRadius,
-  classNames,
   defaultColors,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
@@ -36,14 +36,11 @@ const Toggle = <T,>({
 }: ToggleProps<T>) => {
   if (handleSelect !== undefined) {
     console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
+      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
     );
   }
 
-  const [selectedValue, setSelectedValue] = useInternalState(
-    defaultValue,
-    value
-  );
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const handleValueChange = (value: T) => {
     onValueChange?.(value);
@@ -53,21 +50,18 @@ const Toggle = <T,>({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-flex-nowrap tr-inline-flex tr-justify-start",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-          .bgColor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         parseMarginTop(marginTop),
         spacing.twoXs.paddingLeft,
         spacing.twoXs.paddingRight,
         spacing.twoXs.paddingTop,
         spacing.twoXs.paddingBottom,
-        borderRadius.lg.all
+        borderRadius.lg.all,
       )}
     >
-      <SelectedValueContext.Provider
-        value={{ selectedValue, handleValueChange }}
-      >
+      <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
         <BaseColorContext.Provider value={color}>
           {React.Children.map(children, (child) => React.cloneElement(child))}
         </BaseColorContext.Provider>

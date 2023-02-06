@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -7,7 +8,6 @@ import { useInternalState } from "hooks";
 import {
   BaseColors,
   border,
-  classNames,
   defaultColors,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
@@ -36,14 +36,11 @@ const TabList = <T,>({
 }: TabListProps<T>) => {
   if (handleSelect !== undefined) {
     console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
+      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
     );
   }
 
-  const [selectedValue, setSelectedValue] = useInternalState(
-    defaultValue,
-    value
-  );
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const handleValueChange = (value: T) => {
     onValueChange?.(value);
@@ -54,18 +51,15 @@ const TabList = <T,>({
   return (
     <ol
       aria-label="Tabs"
-      className={classNames(
+      className={clsx(
         "tremor-base list-element tr-flex tr-justify-start tr-overflow-x-clip",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .borderColor,
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         parseMarginTop(marginTop),
         spacing.twoXl.spaceX,
-        border.sm.bottom
+        border.sm.bottom,
       )}
     >
-      <SelectedValueContext.Provider
-        value={{ selectedValue, handleValueChange }}
-      >
+      <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
         <BaseColorContext.Provider value={color}>
           {React.Children.map(children, (child) => React.cloneElement(child))}
         </BaseColorContext.Provider>

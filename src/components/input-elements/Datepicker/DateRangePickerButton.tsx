@@ -1,5 +1,5 @@
 import React, { Dispatch, Ref, SetStateAction } from "react";
-
+import clsx from "clsx";
 import { isEqual } from "date-fns";
 
 import { ArrowDownHeadIcon, CalendarIcon } from "assets";
@@ -8,7 +8,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
   defaultColors,
   fontSize,
   fontWeight,
@@ -19,11 +18,7 @@ import {
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
 
-const formatSelectedDates = (
-  startDate: Date | null,
-  endDate: Date | null,
-  locale?: Locale
-) => {
+const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
   const localeCode = locale?.code || "en-US";
   if (!startDate && !endDate) {
     return "";
@@ -109,12 +104,12 @@ const DateRangePickerButton = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-flex tr-items-center tr-justify-between",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
         borderRadius.md.all,
-        boxShadow.sm
+        boxShadow.sm,
       )}
     >
       <button
@@ -122,45 +117,39 @@ const DateRangePickerButton = ({
         ref={calendarRef}
         onClick={() => setShowCalendar(!showCalendar)}
         onKeyDown={onCalendarKeyDown}
-        className={classNames(
+        className={clsx(
           `input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0
                      focus:tr-outline-0`,
-          enableDropdown
-            ? border.none.right
-            : classNames(borderRadius.md.right, border.sm.right),
+          enableDropdown ? border.none.right : clsx(borderRadius.md.right, border.sm.right),
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-          getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-            .hoverBgColor,
+          getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingTop,
           spacing.sm.paddingBottom,
           borderRadius.md.left,
-          border.sm.all
+          border.sm.all,
         )}
       >
         <CalendarIcon
-          className={classNames(
+          className={clsx(
             "tr-flex-none",
-            getColorVariantsFromColorThemeValue(defaultColors.lightText)
-              .textColor,
+            getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
             sizing.lg.height,
             sizing.lg.width,
             spacing.threeXs.negativeMarginLeft,
-            spacing.lg.marginRight
+            spacing.lg.marginRight,
           )}
           aria-hidden="true"
         />
         <p
-          className={classNames(
+          className={clsx(
             "text-elem tr-whitespace-nowrap tr-truncate",
             fontSize.sm,
             fontWeight.md,
             hasSelection
-              ? getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                  .textColor
-              : getColorVariantsFromColorThemeValue(defaultColors.text)
-                  .textColor
+              ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+              : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
           )}
         >
           {calendarText}
@@ -171,45 +160,40 @@ const DateRangePickerButton = ({
           type="button"
           ref={dropdownRef}
           onClick={() => setShowDropdown(!showDropdown)}
-          className={classNames(
+          className={clsx(
             "input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate",
             "focus:tr-ring-0 focus:tr-outline-0",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border)
-              .borderColor,
+            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             spacing.twoXl.paddingLeft,
             spacing.twoXl.paddingRight,
             spacing.px.negativeMarginLeft,
             spacing.sm.paddingTop,
             spacing.sm.paddingBottom,
             borderRadius.md.right,
-            border.sm.all
+            border.sm.all,
           )}
           onKeyDown={onDropdownKeyDown}
         >
           <p
-            className={classNames(
+            className={clsx(
               "text-elem tr-whitespace-nowrap tr-truncate",
               fontSize.sm,
               fontWeight.md,
               dropdownValue
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                    .textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text)
-                    .textColor
+                ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+                : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             )}
           >
             {dropdownText}
           </p>
           <ArrowDownHeadIcon
-            className={classNames(
+            className={clsx(
               "tr-flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor
+              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
             )}
             aria-hidden="true"
           />

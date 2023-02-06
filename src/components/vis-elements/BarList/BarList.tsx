@@ -1,13 +1,13 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   BaseColors,
   borderRadius,
-  classNames,
   defaultColors,
   defaultValueFormatter,
   fontSize,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   sizing,
@@ -56,10 +56,10 @@ const BarList = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-flex tr-justify-between",
         parseMarginTop(marginTop),
-        spacing.threeXl.spaceX
+        spacing.threeXl.spaceX,
       )}
     >
       <div className="tr-relative tr-w-full">
@@ -69,38 +69,27 @@ const BarList = ({
           return (
             <div
               key={item.key ?? item.name}
-              className={classNames(
+              className={clsx(
                 "tr-flex tr-items-center",
                 rowHeight,
-                getColorVariantsFromColorThemeValue(
-                  getColorTheme(color).lightBackground
-                ).bgColor,
+                getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
                 borderRadius.sm.all,
-                idx === data.length - 1
-                  ? spacing.none.marginBottom
-                  : spacing.sm.marginBottom
+                idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{
                 width: `${widths[idx]}%`,
                 transition: showAnimation ? "all 2s" : "",
               }}
             >
-              <div
-                className={classNames(
-                  "tr-absolute tr-max-w-full tr-flex",
-                  spacing.sm.left
-                )}
-              >
+              <div className={clsx("tr-absolute tr-max-w-full tr-flex", spacing.sm.left)}>
                 {Icon ? (
                   <Icon
-                    className={classNames(
+                    className={clsx(
                       "tr-flex-none",
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
-                      getColorVariantsFromColorThemeValue(
-                        defaultColors.lightText
-                      ).textColor
+                      getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                     )}
                     aria-hidden="true"
                   />
@@ -110,22 +99,20 @@ const BarList = ({
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={classNames(
+                    className={clsx(
                       "text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500",
                       "tr-no-underline hover:tr-underline visited:tr-text-blue-500",
-                      fontSize.sm
+                      fontSize.sm,
                     )}
                   >
                     {item.name}
                   </a>
                 ) : (
                   <p
-                    className={classNames(
+                    className={clsx(
                       "text-elem tr-whitespace-nowrap tr-truncate",
-                      getColorVariantsFromColorThemeValue(
-                        defaultColors.darkText
-                      ).textColor,
-                      fontSize.sm
+                      getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                      fontSize.sm,
                     )}
                   >
                     {item.name}
@@ -140,20 +127,17 @@ const BarList = ({
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
-            className={classNames(
+            className={clsx(
               "tr-flex tr-justify-end tr-items-center",
               rowHeight,
-              idx === data.length - 1
-                ? spacing.none.marginBottom
-                : spacing.sm.marginBottom
+              idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
             )}
           >
             <p
-              className={classNames(
+              className={clsx(
                 "text-elem tr-whitespace-nowrap tr-truncate",
-                getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                  .textColor,
-                fontSize.sm
+                getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                fontSize.sm,
               )}
             >
               {valueFormatter(item.value)}

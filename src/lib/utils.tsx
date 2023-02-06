@@ -1,29 +1,16 @@
 import React from "react";
 
 import { BaseColorTheme, colorTheme } from "./colors";
-import {
-  BaseColors,
-  DeltaTypes,
-  Importances,
-  ButtonVariants,
-  Sizes,
-} from "./primitives";
-import {
-  Color,
-  DeltaType,
-  Importance,
-  ButtonVariant,
-  Size,
-  ValueFormatter,
-} from "./inputTypes";
+import { BaseColors, DeltaTypes, Importances, ButtonVariants, Sizes } from "./primitives";
+import { Color, DeltaType, Importance, ButtonVariant, Size, ValueFormatter } from "./inputTypes";
 
 export const isBaseColor = (baseColor: Color): boolean => {
   return Object.values(BaseColors).includes(baseColor);
 };
 
-export const getColorTheme = (
+export const getColor = (
   baseColor: Color | null | undefined,
-  defaultColor: Color = BaseColors.Blue
+  defaultColor: Color = BaseColors.Blue,
 ): BaseColorTheme => {
   if (!baseColor || !isBaseColor(baseColor)) {
     return colorTheme[defaultColor];
@@ -47,10 +34,7 @@ export const isValidVariant = (variant: ButtonVariant): boolean => {
   return Object.values(ButtonVariants).includes(variant);
 };
 
-export const mapInputsToDeltaType = (
-  deltaType: string,
-  isIncreasePositive: boolean
-): string => {
+export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
     return deltaType;
   }
@@ -67,8 +51,7 @@ export const mapInputsToDeltaType = (
   return "";
 };
 
-export const defaultValueFormatter: ValueFormatter = (value: number) =>
-  value.toString();
+export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
 export const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0);
@@ -104,7 +87,7 @@ export interface SelectItemProps {
 }
 
 export const constructValueToNameMapping = <T,>(
-  children: React.ReactElement[] | React.ReactElement
+  children: React.ReactElement[] | React.ReactElement,
 ): Map<T, string> => {
   const valueToNameMapping = new Map<T, string>();
   React.Children.map(children, (child: { props: SelectItemProps }) => {
@@ -115,7 +98,7 @@ export const constructValueToNameMapping = <T,>(
 
 export const getFilteredOptions = (
   searchQuery: string,
-  options: SelectItemProps[]
+  options: SelectItemProps[],
 ): SelectItemProps[] => {
   return searchQuery === ""
     ? options

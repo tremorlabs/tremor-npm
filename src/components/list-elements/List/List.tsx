@@ -1,11 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  classNames,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-} from "lib";
+import { defaultColors, getColorVariantsFromColorThemeValue, parseMarginTop } from "lib";
 import { MarginTop } from "../../../lib/inputTypes";
 
 export interface ListProps {
@@ -16,12 +12,11 @@ export interface ListProps {
 const List = ({ marginTop = "mt-0", children }: ListProps) => {
   return (
     <ul
-      className={classNames(
+      className={clsx(
         "tremor-base list-element tr-w-full tr-overflow-hidden tr-divide-y",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .divideColor,
-        parseMarginTop(marginTop)
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+        parseMarginTop(marginTop),
       )}
     >
       {children}

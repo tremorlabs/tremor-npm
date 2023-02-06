@@ -8,11 +8,7 @@ const TestModalWrapper = () => {
   const modalRef = useRef(null);
 
   return (
-    <Modal
-      showModal={showModal}
-      setShowModal={setShowModal}
-      triggerRef={modalRef}
-    >
+    <Modal showModal={showModal} setShowModal={setShowModal} triggerRef={modalRef}>
       <div>Hello</div>
     </Modal>
   );

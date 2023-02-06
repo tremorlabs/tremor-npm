@@ -1,6 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import { classNames, parseMarginTop, spacing } from "lib";
+import { parseMarginTop, spacing } from "lib";
 import { MarginTop } from "../../../lib";
 
 export interface TrackingProps {
@@ -11,10 +12,10 @@ export interface TrackingProps {
 const Tracking = ({ marginTop = "mt-0", children }: TrackingProps) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tremor-base tr-w-full tr-flex tr-items-center",
         parseMarginTop(marginTop),
-        spacing.threeXs.spaceX
+        spacing.threeXs.spaceX,
       )}
     >
       {children}

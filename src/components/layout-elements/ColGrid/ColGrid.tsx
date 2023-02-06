@@ -1,14 +1,9 @@
 import React from "react";
+import clsx from "clsx";
 
 import { GapX, GapY, MarginTop } from "../../../lib/inputTypes";
-import {
-  GridClassesMapping,
-  gridCols,
-  gridColsLg,
-  gridColsMd,
-  gridColsSm,
-} from "./styles";
-import { classNames, parseGapX, parseGapY, parseMarginTop } from "lib";
+import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
+import { parseGapX, parseGapY, parseMarginTop } from "lib";
 
 export interface ColGridProps {
   numCols?: number;
@@ -33,7 +28,7 @@ const ColGrid = ({
 }: ColGridProps) => {
   const getGridCols = (
     numCols: number | undefined,
-    gridColsMapping: GridClassesMapping
+    gridColsMapping: GridClassesMapping,
   ): string => {
     if (!numCols) return "";
     if (!Object.keys(gridColsMapping).includes(String(numCols))) return "";
@@ -46,17 +41,17 @@ const ColGrid = ({
     const colsMd = getGridCols(numColsMd, gridColsMd);
     const colsLg = getGridCols(numColsLg, gridColsLg);
 
-    return classNames(colsBase, colsSm, colsMd, colsLg);
+    return clsx(colsBase, colsSm, colsMd, colsLg);
   };
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "tr-grid",
         getColClassNames(),
         parseGapX(gapX),
         parseGapY(gapY),
-        parseMarginTop(marginTop)
+        parseMarginTop(marginTop),
       )}
     >
       {children}

@@ -1,6 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import { classNames, fontSize, parseSpaceX, spacing } from "lib";
+import { fontSize, parseSpaceX, spacing } from "lib";
 import { SpaceX } from "../../../lib";
 
 export interface ListItemProps {
@@ -12,12 +13,12 @@ const ListItem = ({ spaceX = "", children }: ListItemProps) => {
   return (
     <>
       <li
-        className={classNames(
+        className={clsx(
           "tr-w-full tr-flex tr-justify-between tr-items-center tr-truncate tr-tabular-nums",
           spaceX ? parseSpaceX(spaceX) : spaceX,
           spacing.sm.paddingTop,
           spacing.sm.paddingBottom,
-          fontSize.sm
+          fontSize.sm,
         )}
       >
         {children}

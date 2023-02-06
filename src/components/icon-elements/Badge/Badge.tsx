@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
@@ -7,8 +7,7 @@ import {
   BaseColors,
   Sizes,
   borderRadius,
-  classNames,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   isValidSize,
   parseMarginTop,
@@ -37,31 +36,28 @@ const Badge = ({
   const badgeSize = isValidSize(size) ? size : Sizes.SM;
   const Icon = icon ? icon : null;
   return (
-    <div className={classNames("tremor-base", parseMarginTop(marginTop))}>
+    <div className={clsx("tremor-base", parseMarginTop(marginTop))}>
       <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
         <span
-          className={classNames(
+          className={clsx(
             "tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center",
-            getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-              .textColor,
-            getColorVariantsFromColorThemeValue(
-              getColorTheme(color).lightBackground
-            ).bgColor,
+            getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
+            getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
             borderRadius.full.all,
             badgeProportions[badgeSize].paddingLeft,
             badgeProportions[badgeSize].paddingRight,
             badgeProportions[badgeSize].paddingTop,
             badgeProportions[badgeSize].paddingBottom,
-            badgeProportions[badgeSize].fontSize
+            badgeProportions[badgeSize].fontSize,
           )}
         >
           {Icon ? (
             <Icon
-              className={classNames(
+              className={clsx(
                 spacing.twoXs.negativeMarginLeft,
                 spacing.xs.marginRight,
                 iconSizes[badgeSize].height,
-                iconSizes[badgeSize].width
+                iconSizes[badgeSize].width,
               )}
             />
           ) : null}

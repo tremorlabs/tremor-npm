@@ -1,16 +1,15 @@
 import React from "react";
-
+import clsx from "clsx";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
 import {
   BaseColors,
   borderRadius,
-  classNames,
   defaultColors,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   sizing,
@@ -35,34 +34,25 @@ const ProgressBar = ({
   color = BaseColors.Blue,
   marginTop = "mt-0",
 }: ProgressBarProps) => {
-  const primaryBgColor = getColorVariantsFromColorThemeValue(
-    getColorTheme(color).background
-  ).bgColor;
+  const primaryBgColor = getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
   const secondaryBgColor = getColorVariantsFromColorThemeValue(
-    getColorTheme(color).lightBackground
+    getColor(color).lightBackground,
   ).bgColor;
   return (
     <div
-      className={classNames(
-        "tremor-base tr-flex tr-items-center tr-w-full",
-        parseMarginTop(marginTop)
-      )}
+      className={clsx("tremor-base tr-flex tr-items-center tr-w-full", parseMarginTop(marginTop))}
     >
       <div
-        className={classNames(
+        className={clsx(
           "tr-relative tr-flex tr-items-center tr-w-full",
           secondaryBgColor,
           sizing.xs.height,
-          borderRadius.lg.all
+          borderRadius.lg.all,
         )}
       >
         <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
           <div
-            className={classNames(
-              primaryBgColor,
-              "tr-flex-col tr-h-full",
-              borderRadius.lg.all
-            )}
+            className={clsx(primaryBgColor, "tr-flex-col tr-h-full", borderRadius.lg.all)}
             style={{
               width: `${percentageValue}%`,
               transition: showAnimation ? "all 2s" : "",
@@ -72,18 +62,17 @@ const ProgressBar = ({
       </div>
       {label ? (
         <div
-          className={classNames(
+          className={clsx(
             "tr-w-16 tr-truncate tr-text-right",
-            getColorVariantsFromColorThemeValue(defaultColors.darkText)
-              .textColor,
-            spacing.sm.marginLeft
+            getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+            spacing.sm.marginLeft,
           )}
         >
           <p
-            className={classNames(
+            className={clsx(
               "text-elem tr-shrink-0 tr-whitespace-nowrap tr-truncate",
               fontSize.sm,
-              fontWeight.sm
+              fontWeight.sm,
             )}
           >
             {label}

@@ -1,10 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
-import {
-  classNames,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 
 interface TableBodyProps {
   children: React.ReactElement[] | React.ReactElement;
@@ -13,10 +10,9 @@ interface TableBodyProps {
 const TableBody = ({ children }: TableBodyProps) => (
   <>
     <tbody
-      className={classNames(
+      className={clsx(
         "tr-align-top tr-overflow-x-auto tr-divide-y",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .divideColor
+        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
       )}
     >
       {children}

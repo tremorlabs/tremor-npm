@@ -1,11 +1,11 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
   BaseColors,
-  classNames,
   fontSize,
   fontWeight,
-  getColorTheme,
+  getColor,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
   parseTruncateOption,
@@ -26,16 +26,15 @@ const Metric = ({
   children,
 }: MetricProps) => {
   return (
-    <div className={classNames("tremor-base", parseMarginTop(marginTop))}>
+    <div className={clsx("tremor-base", parseMarginTop(marginTop))}>
       <p
-        className={classNames(
+        className={clsx(
           "text-elem",
           truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
           parseTruncateOption(truncate),
-          getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-            .textColor,
+          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
           fontSize.threeXl,
-          fontWeight.lg
+          fontWeight.lg,
         )}
       >
         {children}

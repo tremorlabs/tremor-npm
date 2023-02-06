@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
-import {
-  classNames,
-  getColorVariantsFromColorThemeValue,
-} from "lib/classnameUtils";
+import { getColorVariantsFromColorThemeValue } from "lib/classnameUtils";
 import { defaultColors } from "lib/colors";
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
@@ -27,7 +25,7 @@ const DropdownItem = ({ value, text, icon }: DropdownItemProps) => {
     <button
       type="button"
       onClick={() => handleValueChange?.(value)}
-      className={classNames(
+      className={clsx(
         "input-elem tr-flex tr-items-center tr-justify-between tr-w-full",
         spacing.twoXl.paddingLeft,
         spacing.twoXl.paddingRight,
@@ -35,30 +33,25 @@ const DropdownItem = ({ value, text, icon }: DropdownItemProps) => {
         spacing.md.paddingBottom,
         fontSize.sm,
         isActive
-          ? classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-                .bgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.darkestText)
-                .textColor
+          ? clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
+              getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
             )
-          : classNames(
-              getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-                .hoverBgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor
-            )
+          : clsx(
+              getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
+              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+            ),
       )}
     >
       <div className="tr-flex tr-items-center tr-truncate">
         {Icon ? (
           <Icon
-            className={classNames(
+            className={clsx(
               "tr-flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.lg.marginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor
+              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
             )}
             aria-hidden="true"
           />

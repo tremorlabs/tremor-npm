@@ -1,7 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 
 import {
-  classNames,
   defaultColors,
   fontSize,
   fontWeight,
@@ -18,12 +18,12 @@ export interface TableProps {
 const Table = ({ marginTop = "mt-0", children }: TableProps) => (
   <div className="tr-overflow-auto">
     <table
-      className={classNames(
+      className={clsx(
         "tremor-base tr-w-full tr-tabular-nums",
         parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontSize.sm,
-        fontWeight.sm
+        fontWeight.sm,
       )}
     >
       {children}

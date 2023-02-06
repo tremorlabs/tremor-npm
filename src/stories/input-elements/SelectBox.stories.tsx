@@ -2,16 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  Button,
-  Card,
-  Datepicker,
-  Flex,
-  SelectBox,
-  SelectBoxItem,
-  Text,
-  Title,
-} from "components";
+import { Button, Card, Datepicker, Flex, SelectBox, SelectBoxItem, Text, Title } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleDropdown } from "stories/input-elements/helpers/SimpleDropdown";
 import { SimpleSelectBox } from "./helpers/SimpleSelectBox";
