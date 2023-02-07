@@ -1,30 +1,33 @@
 import React from "react";
 import clsx from "clsx";
 
-import { fontSize, parseSpaceX, spacing } from "lib";
+import { fontSize, spacing } from "lib";
 import { SpaceX } from "../../../lib";
 
-export interface ListItemProps {
+export interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
   spaceX?: SpaceX | "";
   children: React.ReactNode;
 }
 
-const ListItem = ({ spaceX = "", children }: ListItemProps) => {
+const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <>
       <li
+        ref={ref}
         className={clsx(
           "w-full flex justify-between items-center truncate tabular-nums",
-          spaceX ? parseSpaceX(spaceX) : spaceX,
           spacing.sm.paddingTop,
           spacing.sm.paddingBottom,
           fontSize.sm,
+          className,
         )}
+        {...other}
       >
         {children}
       </li>
     </>
   );
-};
+});
 
 export default ListItem;

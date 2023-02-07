@@ -2,7 +2,16 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Button, Card, Datepicker, Flex, SelectBox, SelectBoxItem, Text, Title } from "components";
+import {
+  Button,
+  Card,
+  DateRangePicker,
+  Flex,
+  SelectBox,
+  SelectBoxItem,
+  Text,
+  Title,
+} from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleDropdown } from "stories/input-elements/helpers/SimpleDropdown";
 import { SimpleSelectBox } from "./helpers/SimpleSelectBox";
@@ -21,7 +30,7 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <Datepicker />
+        <DateRangePicker />
         <SimpleSelectBox {...args} />
         <SimpleDropdown />
       </Card>
@@ -43,21 +52,21 @@ const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
   <>
     <Card>
       <Text marginTop="mt-2">Justify Start</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Flex justifyContent="start" marginTop="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
       <Text marginTop="mt-2">Justify End</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Flex justifyContent="end" marginTop="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
       <Text marginTop="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Flex justifyContent="end" marginTop="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
       </Flex>
       <Text marginTop="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Flex justifyContent="start" marginTop="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
@@ -67,7 +76,7 @@ const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
-  const [value, setValue] = useState<number | null>(5);
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <SelectBox
@@ -77,14 +86,14 @@ const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
           alert(value);
         }}
       >
-        <SelectBoxItem value={5} text={"Five"} />
-        <SelectBoxItem value={3} text={"Three"} />
-        <SelectBoxItem value={1} text={"One"} />
-        <SelectBoxItem value={30} text={"Thirty"} />
-        <SelectBoxItem value={33} text={"Thirtythree"} />
+        <SelectBoxItem value={"5"} text={"Five"} />
+        <SelectBoxItem value={"3"} text={"Three"} />
+        <SelectBoxItem value={"1"} text={"One"} />
+        <SelectBoxItem value={"30"} text={"Thirty"} />
+        <SelectBoxItem value={"33"} text={"Thirtythree"} />
       </SelectBox>
-      <Button text="Reset" onClick={() => setValue(null)} />
-      <Button text="Set to One" onClick={() => setValue(1)} />
+      <Button onClick={() => setValue("")}>Reset</Button>
+      <Button onClick={() => setValue("1")}>One</Button>
     </Card>
   );
 };
@@ -101,12 +110,12 @@ WithFlexParent.args = {
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-  defaultValue: 5,
+  defaultValue: "5",
 };
 
 export const WithIcon = ResponsiveTemplate.bind({});
 WithIcon.args = {
-  defaultValue: 5,
+  defaultValue: "5",
   icon: CalendarIcon,
 };
 

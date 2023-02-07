@@ -10,62 +10,56 @@ import {
   border,
   defaultColors,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
   spacing,
 } from "lib";
 import { Color, MarginTop } from "../../../lib";
 
-export interface TabListProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void; // Deprecated
+export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
   color?: Color;
   marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const TabList = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-  children,
-}: TabListProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
-    );
-  }
-
+const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    color = BaseColors.Blue,
+    children,
+    className,
+    ...other
+  } = props;
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     onValueChange?.(value);
-    handleSelect?.(value);
     setSelectedValue(value);
   };
 
   return (
-    <ol
+    <div
+      ref={ref}
       aria-label="Tabs"
       className={clsx(
-        "tremor-base list-element flex justify-start overflow-x-clip",
+        "flex justify-start overflow-x-clip",
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-        parseMarginTop(marginTop),
         spacing.twoXl.spaceX,
         border.sm.bottom,
+        className,
       )}
+      {...other}
     >
       <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
         <BaseColorContext.Provider value={color}>
           {React.Children.map(children, (child) => React.cloneElement(child))}
         </BaseColorContext.Provider>
       </SelectedValueContext.Provider>
-    </ol>
+    </div>
   );
-};
+});
 
 export default TabList;

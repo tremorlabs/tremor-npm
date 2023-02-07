@@ -13,14 +13,16 @@ import {
   sizing,
   spacing,
 } from "lib";
+import { textElem } from "lib/baseStyles";
 
-export interface TabProps {
-  value: any;
+export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
   text: string;
   icon?: React.ElementType;
 }
 
-const Tab = ({ value, text, icon }: TabProps) => {
+const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
+  const { value, text, icon, className, onClick, ...other } = props;
   const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
   const color = useContext(BaseColorContext);
 
@@ -41,42 +43,45 @@ const Tab = ({ value, text, icon }: TabProps) => {
   );
 
   return (
-    <li>
-      <button
-        type="button"
-        className={clsx(
-          "input-elem flex whitespace-nowrap max-w-xs truncate",
-          "focus:outline-0 focus:ring-0",
-          spacing.twoXs.paddingRight,
-          spacing.twoXs.paddingLeft,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
-          spacing.px.negativeMarginBottom,
-          fontSize.sm,
-          fontWeight.md,
-          isActive ? activeClassNames : inActiveClassNames,
-        )}
-        value={value}
-        onClick={() => handleValueChange?.(value)}
-      >
-        {Icon ? (
-          <Icon
-            className={clsx(
-              "flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.sm.marginRight,
-              isActive
-                ? getColorVariantsFromColorThemeValue(getColor(color).text).textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-            )}
-            aria-hidden="true"
-          />
-        ) : null}
-        <p className="text-elem whitespace-nowrap truncate">{text}</p>
-      </button>
-    </li>
+    <button
+      ref={ref}
+      className={clsx(
+        "flex whitespace-nowrap max-w-xs truncate",
+        "focus:outline-0 focus:ring-0",
+        spacing.twoXs.paddingRight,
+        spacing.twoXs.paddingLeft,
+        spacing.sm.paddingTop,
+        spacing.sm.paddingBottom,
+        spacing.px.negativeMarginBottom,
+        fontSize.sm,
+        fontWeight.md,
+        isActive ? activeClassNames : inActiveClassNames,
+        className,
+      )}
+      value={value}
+      onClick={(e) => {
+        handleValueChange?.(value);
+        onClick?.(e);
+      }}
+      {...other}
+    >
+      {Icon ? (
+        <Icon
+          className={clsx(
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.sm.marginRight,
+            isActive
+              ? getColorVariantsFromColorThemeValue(getColor(color).text).textColor
+              : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+          )}
+          aria-hidden="true"
+        />
+      ) : null}
+      <p className={textElem}>{text}</p>
+    </button>
   );
-};
+});
 
 export default Tab;

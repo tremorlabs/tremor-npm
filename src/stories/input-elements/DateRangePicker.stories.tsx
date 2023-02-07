@@ -47,17 +47,19 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
     <Card>
       <DateRangePicker {...args} value={value} onValueChange={(v) => setValue(v)} />
       <Button
-        text="Reset"
         onClick={() => {
           setValue([null, null]);
         }}
-      />
+      >
+        Reset
+      </Button>
       <Button
-        text="Today"
         onClick={() => {
           setValue([null, null, "tdy"]);
         }}
-      />
+      >
+        Today
+      </Button>
       <Title>Filtered Data</Title>
       <Text>StartDate: {String(startDate)} </Text>
       <Text>EndDate: {String(endDate)} </Text>

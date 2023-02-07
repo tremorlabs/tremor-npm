@@ -1,30 +1,29 @@
 import React from "react";
 import clsx from "clsx";
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
 
 import { Color, Height } from "../../../lib";
-import { borderRadius, getColor, getColorVariantsFromColorThemeValue, parseHeight } from "lib";
+import { borderRadius, getColor, getColorVariantsFromColorThemeValue } from "lib";
 
-export interface TrackingBlockProps {
+export interface TrackingBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   color: Color;
   height?: Height;
   tooltip?: string;
 }
 
-const TrackingBlock = ({ color, height = "h-10", tooltip }: TrackingBlockProps) => {
+const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((props, ref) => {
+  const { color, className, ...other } = props;
   return (
-    <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
-      <div
-        className={clsx(
-          "w-full",
-          getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
-          parseHeight(height),
-          borderRadius.md.all,
-        )}
-      />
-    </Tooltip>
+    <div
+      ref={ref}
+      className={clsx(
+        "w-full",
+        getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
+        borderRadius.md.all,
+        className,
+      )}
+      {...other}
+    />
   );
-};
+});
 
 export default TrackingBlock;

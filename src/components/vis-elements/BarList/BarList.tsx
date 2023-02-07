@@ -9,7 +9,6 @@ import {
   fontSize,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
   sizing,
   spacing,
 } from "lib";
@@ -35,7 +34,7 @@ const getWidthsFromValues = (dataValues: number[]) => {
   });
 };
 
-export interface BarListProps {
+export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
   data: BarListData[];
   valueFormatter?: ValueFormatter;
   color?: Color;
@@ -43,24 +42,25 @@ export interface BarListProps {
   marginTop?: MarginTop;
 }
 
-const BarList = ({
-  data = [],
-  color = BaseColors.Blue,
-  valueFormatter = defaultValueFormatter,
-  showAnimation = true,
-  marginTop = "mt-0",
-}: BarListProps) => {
+const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
+  const {
+    data = [],
+    color = BaseColors.Blue,
+    valueFormatter = defaultValueFormatter,
+    showAnimation = true,
+    className,
+    ...other
+  } = props;
+
   const widths = getWidthsFromValues(data.map((item) => item.value));
 
   const rowHeight = sizing.threeXl.height;
 
   return (
     <div
-      className={clsx(
-        "tremor-base flex justify-between",
-        parseMarginTop(marginTop),
-        spacing.threeXl.spaceX,
-      )}
+      ref={ref}
+      className={clsx("flex justify-between", spacing.threeXl.spaceX, className)}
+      {...other}
     >
       <div className="relative w-full">
         {data.map((item, idx) => {
@@ -100,7 +100,7 @@ const BarList = ({
                     target="_blank"
                     rel="noreferrer"
                     className={clsx(
-                      "text-elem whitespace-nowrap truncate text-blue-500",
+                      "whitespace-nowrap truncate text-blue-500",
                       "no-underline hover:underline visited:text-blue-500",
                       fontSize.sm,
                     )}
@@ -110,7 +110,7 @@ const BarList = ({
                 ) : (
                   <p
                     className={clsx(
-                      "text-elem whitespace-nowrap truncate",
+                      "whitespace-nowrap truncate",
                       getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                       fontSize.sm,
                     )}
@@ -135,7 +135,7 @@ const BarList = ({
           >
             <p
               className={clsx(
-                "text-elem whitespace-nowrap truncate",
+                "whitespace-nowrap truncate",
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                 fontSize.sm,
               )}
@@ -147,6 +147,6 @@ const BarList = ({
       </div>
     </div>
   );
-};
+});
 
 export default BarList;

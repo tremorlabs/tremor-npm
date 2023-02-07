@@ -13,54 +13,66 @@ import {
   isValueInArray,
   spacing,
 } from "lib";
+import { textElem } from "lib/baseStyles";
 
-export interface MultiSelectBoxItemProps {
+export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: any;
   text: string;
 }
 
-const MultiSelectBoxItem = ({ value, text }: MultiSelectBoxItemProps) => {
-  const { selectedValue: selectedItems, handleValueChange: handleValuesChange } =
-    useContext(SelectedValueContext);
-  const { hoveredValue } = useContext(HoveredValueContext);
-  const isActive = isValueInArray(value, selectedItems as any[]);
-  const isHovered = hoveredValue === value;
+const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxItemProps>(
+  (props, ref) => {
+    const { value, text, className, onClick, ...other } = props;
+    const { selectedValue: selectedItems, handleValueChange: handleValuesChange } =
+      useContext(SelectedValueContext);
+    const { hoveredValue } = useContext(HoveredValueContext);
+    const isActive = isValueInArray(value, selectedItems as any[]);
+    const isHovered = hoveredValue === value;
 
-  return (
-    <button
-      type="button"
-      onClick={() => handleValuesChange?.(value)}
-      className={clsx(
-        "input-elem flex items-center justify-between w-full",
-        spacing.twoXl.paddingLeft,
-        spacing.twoXl.paddingRight,
-        spacing.md.paddingTop,
-        spacing.md.paddingBottom,
-        fontSize.sm,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-        isHovered ? getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor : "",
-      )}
-    >
-      <div className="flex items-center truncate">
-        <input
-          type="checkbox"
-          className={clsx(
-            "input-elem flex-none focus:ring-none focus:outline-none cursor-pointer",
-            getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
-            getColorVariantsFromColorThemeValue(getColor(BaseColors.Blue).text).textColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            spacing.lg.marginRight,
-            borderRadius.sm.all,
-            border.sm.all,
-          )}
-          checked={isActive}
-          readOnly={true}
-        />
-        <p className="text-elem whitespace-nowrap truncate">{text}</p>
-      </div>
-    </button>
-  );
-};
+    return (
+      <button
+        ref={ref}
+        type="button"
+        onClick={(e) => {
+          handleValuesChange?.(value);
+          onClick?.(e);
+        }}
+        className={clsx(
+          "flex items-center justify-between w-full",
+          spacing.twoXl.paddingLeft,
+          spacing.twoXl.paddingRight,
+          spacing.md.paddingTop,
+          spacing.md.paddingBottom,
+          fontSize.sm,
+          getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
+          getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+          isHovered
+            ? getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor
+            : "",
+          className,
+        )}
+        {...other}
+      >
+        <div className="flex items-center truncate">
+          <input
+            type="checkbox"
+            className={clsx(
+              "flex-none focus:ring-none focus:outline-none cursor-pointer",
+              getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
+              getColorVariantsFromColorThemeValue(getColor(BaseColors.Blue).text).textColor,
+              getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+              spacing.lg.marginRight,
+              borderRadius.sm.all,
+              border.sm.all,
+            )}
+            checked={isActive}
+            readOnly={true}
+          />
+          <p className={textElem}>{text}</p>
+        </div>
+      </button>
+    );
+  },
+);
 
 export default MultiSelectBoxItem;

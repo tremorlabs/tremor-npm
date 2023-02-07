@@ -7,39 +7,31 @@ import {
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseTruncateOption,
 } from "lib";
 import { Color, MarginTop } from "../../../lib";
 
-export interface TitleProps {
+export interface TitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
   truncate?: boolean;
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Title = ({
-  color = BaseColors.Gray,
-  truncate = false,
-  marginTop = "mt-0",
-  children,
-}: TitleProps) => {
+const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
   return (
     <p
+      ref={ref}
       className={clsx(
-        "text-elem tremor-base",
-        truncate ? "whitespace-nowrap" : "shrink-0",
-        parseTruncateOption(truncate),
-        parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
         fontSize.lg,
         fontWeight.md,
+        className,
       )}
+      {...other}
     >
       {children}
     </p>
   );
-};
+});
 
 export default Title;

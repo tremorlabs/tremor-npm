@@ -1,9 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
 
-import { BaseColors, Sizes, isBaseColor, isValidSize, parseMarginTop } from "lib";
+import { BaseColors, Sizes } from "lib";
 import { Color, IconVariant, MarginTop, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
@@ -15,11 +13,7 @@ export const IconVariants: { [key: string]: IconVariant } = {
   Outlined: "outlined",
 };
 
-const isValidIconVariant = (iconVariant: IconVariant): boolean => {
-  return Object.values(IconVariants).includes(iconVariant);
-};
-
-export interface IconProps {
+export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: React.ElementType;
   variant?: IconVariant;
   tooltip?: string;
@@ -28,47 +22,42 @@ export interface IconProps {
   marginTop?: MarginTop;
 }
 
-const Icon = ({
-  icon,
-  variant = IconVariants.Simple,
-  tooltip,
-  size = Sizes.SM,
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-}: IconProps) => {
+const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
+  const {
+    icon,
+    variant = IconVariants.Simple,
+    size = Sizes.SM,
+    color = BaseColors.Blue,
+    className,
+    ...other
+  } = props;
   const Icon = icon;
-
-  const iconSize = isValidSize(size) ? size : Sizes.SM;
-  const iconVariant = isValidIconVariant(variant) ? variant : IconVariants.Simple;
-  const iconColorStyles = isBaseColor(color)
-    ? getIconColors(variant, color)
-    : getIconColors(variant, BaseColors.Blue);
+  const iconColorStyles = getIconColors(variant, color);
 
   return (
-    <span className={clsx("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip content={tooltip} className={clsx(tooltip ? "" : "hidden")}>
-        <span
-          className={clsx(
-            "inline-flex flex-shrink-0 items-center",
-            iconColorStyles.bgColor,
-            iconColorStyles.textColor,
-            iconColorStyles.borderColor,
-            iconColorStyles.ringColor,
-            shape[iconVariant].rounded,
-            shape[iconVariant].border,
-            shape[iconVariant].shadow,
-            shape[iconVariant].ring,
-            wrapperProportions[iconSize].paddingLeft,
-            wrapperProportions[iconSize].paddingRight,
-            wrapperProportions[iconSize].paddingTop,
-            wrapperProportions[iconSize].paddingBottom,
-          )}
-        >
-          <Icon className={clsx(iconSizes[iconSize].height, iconSizes[iconSize].width)} />
-        </span>
-      </Tooltip>
-    </span>
+    <div
+      ref={ref}
+      className={clsx(
+        "inline-flex flex-shrink-0 items-center",
+        iconColorStyles.bgColor,
+        iconColorStyles.textColor,
+        iconColorStyles.borderColor,
+        iconColorStyles.ringColor,
+        shape[variant].rounded,
+        shape[variant].border,
+        shape[variant].shadow,
+        shape[variant].ring,
+        wrapperProportions[size].paddingLeft,
+        wrapperProportions[size].paddingRight,
+        wrapperProportions[size].paddingTop,
+        wrapperProportions[size].paddingBottom,
+        className,
+      )}
+      {...other}
+    >
+      <Icon className={clsx(iconSizes[size].height, iconSizes[size].width)} />
+    </div>
   );
-};
+});
 
 export default Icon;

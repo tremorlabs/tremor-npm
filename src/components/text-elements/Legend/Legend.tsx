@@ -8,7 +8,6 @@ import {
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
   sizing,
   spacing,
   themeColorRange,
@@ -40,34 +39,27 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     >
       <circle cx={4} cy={4} r={4} />
     </svg>
-    <p
-      className={clsx(
-        "text-elem termor-elem whitespace-nowrap truncate",
-        fontSize.sm,
-        fontWeight.sm,
-      )}
-    >
+    <p className={clsx("termor-elem whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
       {name}
     </p>
   </li>
 );
 
-export interface LegendProps {
+export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
   marginTop?: MarginTop;
 }
 
-const Legend = ({ categories, colors = themeColorRange, marginTop = "mt-0" }: LegendProps) => {
+const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
+  const { categories, colors = themeColorRange, className, ...other } = props;
   return (
-    <div className={clsx("tremor-base termor-elem", parseMarginTop(marginTop))}>
-      <ol className="list-element flex flex-wrap overflow-hidden truncate">
-        {categories.map((category, idx) => (
-          <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
-        ))}
-      </ol>
-    </div>
+    <ol ref={ref} className={clsx("flex flex-wrap overflow-hidden truncate", className)} {...other}>
+      {categories.map((category, idx) => (
+        <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
+      ))}
+    </ol>
   );
-};
+});
 
 export default Legend;

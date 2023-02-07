@@ -1,15 +1,16 @@
 import React from "react";
 
-export interface TableRowProps {
-  children: React.ReactNode;
-}
-
-const TableRow = ({ children }: TableRowProps) => {
-  return (
-    <>
-      <tr>{children}</tr>
-    </>
-  );
-};
+const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
+  (props, ref) => {
+    const { children, ...other } = props;
+    return (
+      <>
+        <tr ref={ref} {...other}>
+          {children}
+        </tr>
+      </>
+    );
+  },
+);
 
 export default TableRow;

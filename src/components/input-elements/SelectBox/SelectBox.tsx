@@ -18,19 +18,17 @@ import {
   fontWeight,
   getColorVariantsFromColorThemeValue,
   getFilteredOptions,
-  parseMarginTop,
-  parseMaxWidth,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import Modal from "components/layout-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 
-export interface SelectBoxProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void; // Deprecated
+export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   marginTop?: MarginTop;
@@ -38,22 +36,21 @@ export interface SelectBoxProps<T> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const SelectBox = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: SelectBoxProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
-    );
-  }
+const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) => {
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    onClick,
+    onKeyDown,
+    onMouseEnter,
+    onMouseLeave,
+    ...other
+  } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [inputValue, setInputValue] = useState("");
@@ -86,7 +83,7 @@ const SelectBox = <T,>({
     setIsFocused(isFocused);
   };
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     setSearchQuery("");
     setInputValue(valueToNameMapping.get(selectedValue) || "");
     handleFocusChange(false);
@@ -94,7 +91,6 @@ const SelectBox = <T,>({
     inputRef.current?.blur();
 
     onValueChange?.(value);
-    handleSelect?.(value);
   };
 
   const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,13 +108,17 @@ const SelectBox = <T,>({
 
   return (
     <div
-      ref={dropdownRef}
-      onClick={() => handleFocusChange(!isFocused)}
-      onKeyDown={handleKeyDown}
+      ref={mergeRefs([dropdownRef, ref])}
+      onClick={(e) => {
+        handleFocusChange(!isFocused);
+        onClick?.(e);
+      }}
+      onKeyDown={(e) => {
+        handleKeyDown(e);
+        onKeyDown?.(e);
+      }}
       className={clsx(
-        "tremor-base relative w-full min-w-[10rem]",
-        parseMaxWidth(maxWidth),
-        parseMarginTop(marginTop),
+        "relative w-full min-w-[10rem]",
         !isSelectBoxHovered
           ? getColorVariantsFromColorThemeValue(defaultColors.white).bgColor
           : getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
@@ -126,13 +126,21 @@ const SelectBox = <T,>({
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
+        className,
       )}
-      onMouseEnter={() => setIsSelectBoxHovered(true)}
-      onMouseLeave={() => setIsSelectBoxHovered(false)}
+      onMouseEnter={(e) => {
+        setIsSelectBoxHovered(true);
+        onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        setIsSelectBoxHovered(false);
+        onMouseLeave?.(e);
+      }}
+      {...other}
     >
       <div className="flex items-center overflow-hidden">
         {Icon ? (
-          <button type="button" className={clsx("input-elem p-0", spacing.xl.marginLeft)}>
+          <button type="button" className={clsx("p-0", spacing.xl.marginLeft)}>
             <Icon
               className={clsx(
                 "shrink-0 bg-inherit",
@@ -148,7 +156,7 @@ const SelectBox = <T,>({
           ref={inputRef}
           type="text"
           className={clsx(
-            "input-elem w-full focus:outline-0 focus:ring-0 bg-inherit",
+            "w-full focus:outline-0 focus:ring-0 bg-inherit",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingTop,
@@ -165,10 +173,7 @@ const SelectBox = <T,>({
         />
         <button
           type="button"
-          className={clsx(
-            "input-elem absolute top-1/2 -translate-y-1/2 bg-inherit",
-            spacing.twoXl.right,
-          )}
+          className={clsx("absolute top-1/2 -translate-y-1/2 bg-inherit", spacing.twoXl.right)}
         >
           <ArrowDownHeadIcon
             className={clsx(
@@ -185,7 +190,7 @@ const SelectBox = <T,>({
       <Modal
         showModal={filteredOptions.length === 0 ? false : isFocused}
         setShowModal={handleFocusChange}
-        triggerRef={dropdownRef}
+        parentRef={dropdownRef}
       >
         <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
           <HoveredValueContext.Provider value={{ hoveredValue }}>
@@ -200,6 +205,6 @@ const SelectBox = <T,>({
       </Modal>
     </div>
   );
-};
+});
 
 export default SelectBox;

@@ -1,26 +1,24 @@
 import React from "react";
 import clsx from "clsx";
 
-import { parseMarginTop, spacing } from "lib";
+import { spacing } from "lib";
 import { MarginTop } from "../../../lib";
 
-export interface TrackingProps {
+export interface TrackingProps extends React.HTMLAttributes<HTMLDivElement> {
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Tracking = ({ marginTop = "mt-0", children }: TrackingProps) => {
+const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <div
-      className={clsx(
-        "tremor-base w-full flex items-center",
-        parseMarginTop(marginTop),
-        spacing.threeXs.spaceX,
-      )}
+      ref={ref}
+      className={clsx("w-full flex items-center", spacing.threeXs.spaceX, className)}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default Tracking;

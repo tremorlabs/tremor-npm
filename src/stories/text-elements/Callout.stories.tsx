@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof Callout> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
       <div className="mb-5 max-w-lg">
-        <Callout {...args} color={color} />
+        <Callout {...args} color={color} className="h-24 mt-5" />
       </div>
     ))}
   </>

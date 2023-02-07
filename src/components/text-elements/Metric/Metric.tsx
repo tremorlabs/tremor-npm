@@ -7,40 +7,31 @@ import {
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseTruncateOption,
 } from "lib";
 import { Color, MarginTop } from "../../../lib";
 
-export interface MetricProps {
+export interface MetricProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
   truncate?: boolean;
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Metric = ({
-  color = BaseColors.Gray,
-  truncate = false,
-  marginTop = "mt-0",
-  children,
-}: MetricProps) => {
+const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
   return (
-    <div className={clsx("tremor-base", parseMarginTop(marginTop))}>
-      <p
-        className={clsx(
-          "text-elem",
-          truncate ? "whitespace-nowrap" : "shrink-0",
-          parseTruncateOption(truncate),
-          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
-          fontSize.threeXl,
-          fontWeight.lg,
-        )}
-      >
-        {children}
-      </p>
-    </div>
+    <p
+      ref={ref}
+      className={clsx(
+        getColorVariantsFromColorThemeValue(getColor(color as Color).darkText).textColor,
+        fontSize.threeXl,
+        fontWeight.lg,
+        className,
+      )}
+      {...other}
+    >
+      {children}
+    </p>
   );
-};
+});
 
 export default Metric;

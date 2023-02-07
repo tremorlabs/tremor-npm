@@ -18,8 +18,7 @@ import {
   getColorVariantsFromColorThemeValue,
   getFilteredOptions,
   isValueInArray,
-  parseMarginTop,
-  parseMaxWidth,
+  mergeRefs,
   removeValueFromArray,
   sizing,
   spacing,
@@ -27,12 +26,10 @@ import {
 import Modal from "components/layout-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 
-export interface MultiSelectBoxProps<T> {
-  defaultValues?: any;
-  defaultValue?: T[];
-  value?: T[];
-  onValueChange?: (value: T[]) => void;
-  handleSelect?: (values: any[]) => void; // Deprecated in next major release
+export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string[];
+  value?: string[];
+  onValueChange?: (value: string[]) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   marginTop?: MarginTop;
@@ -40,35 +37,24 @@ export interface MultiSelectBoxProps<T> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const MultiSelectBox = <T,>({
-  defaultValues, // Deprecated
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: MultiSelectBoxProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
-    );
-  }
-
-  if (defaultValues !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `defaultValues` property is deprecated and will be removed in the next major release. Please use `defaultValue` instead.",
-    );
-  }
+const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((props, ref) => {
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    onKeyDown,
+    ...other
+  } = props;
 
   const Icon = icon;
   const dropdownRef = useRef(null);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedValue, setSelectedValue] = useInternalState(defaultValues ?? defaultValue, value);
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
 
   const selectedItems = selectedValue ?? [];
@@ -87,7 +73,7 @@ const MultiSelectBox = <T,>({
     setShowModal(show);
   };
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     let newSelectedItems = [];
     if (!isValueInArray(value, selectedItems)) {
       newSelectedItems = [...selectedItems, value];
@@ -96,13 +82,11 @@ const MultiSelectBox = <T,>({
     }
     setSelectedValue(newSelectedItems);
     onValueChange?.(newSelectedItems);
-    handleSelect?.(newSelectedItems);
   };
 
   const handleReset = () => {
     setSelectedValue([]);
     onValueChange?.([]);
-    handleSelect?.([]);
   };
 
   const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
@@ -114,24 +98,27 @@ const MultiSelectBox = <T,>({
 
   return (
     <div
-      ref={dropdownRef}
+      ref={mergeRefs([dropdownRef, ref])}
       className={clsx(
-        "tremor-base relative w-full min-w-[10rem]",
-        parseMarginTop(marginTop),
-        parseMaxWidth(maxWidth),
+        "relative w-full min-w-[10rem]",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
+        className,
       )}
-      onKeyDown={handleKeyDown}
+      onKeyDown={(e) => {
+        handleKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      {...other}
     >
       <button
         type="button"
         className={clsx(
-          "input-elem flex justify-between items-center w-full",
+          "flex justify-between items-center w-full",
           "focus:ring-0 focus:outline-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
@@ -155,7 +142,7 @@ const MultiSelectBox = <T,>({
           ) : null}
           <p
             className={clsx(
-              "text-elem whitespace-nowrap truncate",
+              "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedItems.length !== 0
@@ -199,7 +186,7 @@ const MultiSelectBox = <T,>({
           />
         </div>
       </button>
-      <Modal showModal={showModal} setShowModal={handleModalToggle} triggerRef={dropdownRef}>
+      <Modal showModal={showModal} setShowModal={handleModalToggle} parentRef={dropdownRef}>
         <div
           className={clsx(
             "flex items-center w-full",
@@ -226,7 +213,7 @@ const MultiSelectBox = <T,>({
             type="input"
             placeholder="Search"
             className={clsx(
-              "input-elem w-full focus:outline-none focus:ring-none",
+              "w-full focus:outline-none focus:ring-none",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
               spacing.sm.paddingTop,
@@ -254,6 +241,6 @@ const MultiSelectBox = <T,>({
       </Modal>
     </div>
   );
-};
+});
 
 export default MultiSelectBox;

@@ -1,27 +1,30 @@
 import React from "react";
 import clsx from "clsx";
 
-import { defaultColors, getColorVariantsFromColorThemeValue, parseMarginTop } from "lib";
+import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 import { MarginTop } from "../../../lib/inputTypes";
 
-export interface ListProps {
+export interface ListProps extends React.HTMLAttributes<HTMLUListElement> {
   marginTop?: MarginTop;
   children: React.ReactNode;
 }
 
-const List = ({ marginTop = "mt-0", children }: ListProps) => {
+const List = React.forwardRef<HTMLUListElement, ListProps>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <ul
+      ref={ref}
       className={clsx(
-        "tremor-base list-element w-full overflow-hidden divide-y",
+        "w-full overflow-hidden divide-y",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
-        parseMarginTop(marginTop),
+        className,
       )}
+      {...other}
     >
       {children}
     </ul>
   );
-};
+});
 
 export default List;

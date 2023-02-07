@@ -59,26 +59,13 @@ const baseColorValues = [
 
 export type Color = (typeof baseColorValues)[number];
 
-const twJustifyContentValues = [
-  "justify-start",
-  "justify-end",
-  "justify-center",
-  "justify-between",
-  "justify-around",
-  "justify-evenly",
-] as const;
+const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
+export type JustifyContent = (typeof justifyContentValues)[number];
 
-export type JustifyContent = (typeof twJustifyContentValues)[number];
+const alignItemsValues = ["start", "end", "center", "baseline", "stretch"] as const;
+export type AlignItems = (typeof alignItemsValues)[number];
 
-const twAlignItemsValues = [
-  "items-start",
-  "items-end",
-  "items-center",
-  "items-baseline",
-  "items-stretch",
-] as const;
-
-export type AlignItems = (typeof twAlignItemsValues)[number];
+export type FlexDirection = "row" | "col" | "row-reverse" | "col-reverse";
 
 const twTextAlignmentValues = [
   "text-left",
@@ -88,7 +75,6 @@ const twTextAlignmentValues = [
   "text-start",
   "text-end",
 ] as const;
-
 export type TextAlignment = (typeof twTextAlignmentValues)[number];
 
 const twMaxWidthValues = [
@@ -115,7 +101,6 @@ const twMaxWidthValues = [
   "max-w-screen-xl",
   "max-w-screen-2xl",
 ] as const;
-
 export type MaxWidth = (typeof twMaxWidthValues)[number];
 
 const twSpaceXValues = [
@@ -187,7 +172,6 @@ const twSpaceXValues = [
   "-space-x-80",
   "-space-x-96",
 ] as const;
-
 export type SpaceX = (typeof twSpaceXValues)[number];
 
 const twSpaceYValues = [
@@ -259,7 +243,6 @@ const twSpaceYValues = [
   "-space-y-80",
   "-space-y-96",
 ] as const;
-
 export type SpaceY = (typeof twSpaceYValues)[number];
 
 const twTopMargins = [
@@ -331,7 +314,6 @@ const twTopMargins = [
   "-mt-80",
   "-mt-96",
 ] as const;
-
 export type MarginTop = (typeof twTopMargins)[number];
 
 const twHeights = [
@@ -370,7 +352,6 @@ const twHeights = [
   "h-80",
   "h-96",
 ] as const;
-
 export type Height = (typeof twHeights)[number];
 
 const twWidths = [
@@ -409,7 +390,6 @@ const twWidths = [
   "w-80",
   "w-96",
 ] as const;
-
 export type Width = (typeof twWidths)[number];
 
 const twGapXValues = [
@@ -448,7 +428,6 @@ const twGapXValues = [
   "gap-x-80",
   "gap-x-96",
 ] as const;
-
 export type GapX = (typeof twGapXValues)[number];
 
 const twGapYValues = [
@@ -487,5 +466,4 @@ const twGapYValues = [
   "gap-y-80",
   "gap-y-96",
 ] as const;
-
 export type GapY = (typeof twGapYValues)[number];

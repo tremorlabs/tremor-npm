@@ -1,16 +1,34 @@
 import React from "react";
 import clsx from "clsx";
 
-import { AlignItems, JustifyContent, MarginTop, SpaceX } from "../../../lib";
-import {
-  parseAlignItems,
-  parseJustifyContent,
-  parseMarginTop,
-  parseSpaceX,
-  parseTruncateOption,
-} from "lib";
+import { AlignItems, FlexDirection, JustifyContent, MarginTop, SpaceX } from "../../../lib";
 
-export interface FlexProps {
+const justifyContentClassNames: { [key in JustifyContent]: string } = {
+  start: "justify-start",
+  end: "justify-end",
+  center: "justify-center",
+  between: "justify-between",
+  around: "justify-around",
+  evenly: "justify-evenly",
+};
+
+const alignItmesClassNames: { [key in AlignItems]: string } = {
+  start: "items-start",
+  end: "items-end",
+  center: "items-center",
+  baseline: "items-baseline",
+  stretch: "items-stretch",
+};
+
+const flexDirectionClassNames: { [key in FlexDirection]: string } = {
+  row: "flex-row",
+  col: "flex-col",
+  "row-reverse": "flex-row-reverse",
+  "col-reverse": "flex-col-reverse",
+};
+
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
+  flexDirection?: FlexDirection;
   justifyContent?: JustifyContent;
   alignItems?: AlignItems;
   spaceX?: SpaceX | "";
@@ -19,29 +37,31 @@ export interface FlexProps {
   children: React.ReactNode;
 }
 
-const Flex = ({
-  justifyContent = "justify-between",
-  alignItems = "items-center",
-  spaceX = "",
-  truncate = false,
-  marginTop = "mt-0",
-  children,
-}: FlexProps) => {
+const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
+  const {
+    flexDirection = "row",
+    justifyContent = "between",
+    alignItems = "center",
+    children,
+    className,
+    ...other
+  } = props;
+
   return (
     <div
+      ref={ref}
       className={clsx(
         "flex w-full",
-        parseTruncateOption(truncate),
-        truncate ? "whitespace-nowrap" : "",
-        parseJustifyContent(justifyContent),
-        parseAlignItems(alignItems),
-        spaceX ? parseSpaceX(spaceX) : spaceX,
-        parseMarginTop(marginTop),
+        flexDirectionClassNames[flexDirection],
+        justifyContentClassNames[justifyContent],
+        alignItmesClassNames[alignItems],
+        className,
       )}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default Flex;

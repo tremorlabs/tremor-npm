@@ -1,9 +1,7 @@
 import {
-  AlignItems,
   GapX,
   GapY,
   Height,
-  JustifyContent,
   MarginTop,
   MaxWidth,
   SpaceX,
@@ -11,31 +9,6 @@ import {
   TextAlignment,
   Width,
 } from "./inputTypes";
-
-export const parseJustifyContent = (input: JustifyContent): string => {
-  const prefixMapping: { [key in JustifyContent]: string } = {
-    "justify-start": "justify-start",
-    "justify-end": "justify-end",
-    "justify-center": "justify-center",
-    "justify-between": "justify-between",
-    "justify-around": "justify-around",
-    "justify-evenly": "justify-evenly",
-  };
-
-  return prefixMapping[input] || "";
-};
-
-export const parseAlignItems = (input: AlignItems): string => {
-  const prefixMapping: { [key in AlignItems]: string } = {
-    "items-start": "items-start",
-    "items-end": "items-end",
-    "items-center": "items-center",
-    "items-baseline": "items-baseline",
-    "items-stretch": "items-stretch",
-  };
-
-  return prefixMapping[input] || "";
-};
 
 export const parseTextAlignment = (input: TextAlignment): string => {
   const prefixMapping: { [key in TextAlignment]: string } = {

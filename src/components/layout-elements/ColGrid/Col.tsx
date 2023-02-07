@@ -3,15 +3,23 @@ import clsx from "clsx";
 
 import { GridClassesMapping, colSpan, colSpanLg, colSpanMd, colSpanSm } from "./styles";
 
-export interface ColProps {
+export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
   numColSpan?: number;
   numColSpanSm?: number;
   numColSpanMd?: number;
   numColSpanLg?: number;
-  children: React.ReactNode;
 }
 
-const Col = ({ numColSpan = 1, numColSpanSm, numColSpanMd, numColSpanLg, children }: ColProps) => {
+const Col = React.forwardRef<HTMLDivElement, ColProps>((props, ref) => {
+  const {
+    numColSpan = 1,
+    numColSpanSm,
+    numColSpanMd,
+    numColSpanLg,
+    children,
+    className,
+    ...other
+  } = props;
   const getColSpan = (
     numColSpan: number | undefined,
     colSpanMapping: GridClassesMapping,
@@ -30,7 +38,11 @@ const Col = ({ numColSpan = 1, numColSpanSm, numColSpanMd, numColSpanLg, childre
     return clsx(spanBase, spanSm, spanMd, spanLg);
   };
 
-  return <div className={clsx(getColSpanClassNames())}>{children}</div>;
-};
+  return (
+    <div ref={ref} className={clsx(getColSpanClassNames(), className)} {...other}>
+      {children}
+    </div>
+  );
+});
 
 export default Col;

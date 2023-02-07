@@ -3,21 +3,26 @@ import clsx from "clsx";
 
 import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 
-interface TableBodyProps {
-  children: React.ReactElement[] | React.ReactElement;
-}
-
-const TableBody = ({ children }: TableBodyProps) => (
-  <>
-    <tbody
-      className={clsx(
-        "align-top overflow-x-auto divide-y",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
-      )}
-    >
-      {children}
-    </tbody>
-  </>
-);
+const TableBody = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
+  return (
+    <>
+      <tbody
+        ref={ref}
+        className={clsx(
+          "align-top overflow-x-auto divide-y",
+          getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+          className,
+        )}
+        {...other}
+      >
+        {children}
+      </tbody>
+    </>
+  );
+});
 
 export default TableBody;

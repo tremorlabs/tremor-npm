@@ -1,6 +1,6 @@
 {
   "name": "alpha-trm-v2",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "scripts": {
     "rollup": "rollup -c",

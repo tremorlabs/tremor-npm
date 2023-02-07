@@ -1,7 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
 
 import { Color, MarginTop } from "../../../lib";
 import {
@@ -10,7 +8,6 @@ import {
   fontSize,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
   sizing,
   spacing,
   sumNumericArray,
@@ -45,7 +42,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   return (
     <div
       className={clsx(
-        "tremor-base relative flex w-full",
+        "relative flex w-full",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.sm.marginBottom,
         sizing.lg.height,
@@ -84,7 +81,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   );
 };
 
-export interface CategoryBarProps {
+export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
   categoryPercentageValues: number[];
   colors?: Color[];
   percentageValue?: number;
@@ -94,19 +91,21 @@ export interface CategoryBarProps {
   marginTop?: MarginTop;
 }
 
-const CategoryBar = ({
-  categoryPercentageValues = [],
-  colors = themeColorRange,
-  percentageValue,
-  showLabels = true,
-  tooltip,
-  showAnimation = true,
-  marginTop = "mt-0",
-}: CategoryBarProps) => {
+const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, ref) => {
+  const {
+    categoryPercentageValues = [],
+    colors = themeColorRange,
+    percentageValue,
+    showLabels = true,
+    showAnimation = true,
+    className,
+    ...other
+  } = props;
+
   const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
   return (
-    <div className={clsx(parseMarginTop(marginTop))}>
+    <div ref={ref} className={className} {...other}>
       {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
       <div className={clsx("relative w-full flex items-center", sizing.xs.height)}>
         <div
@@ -126,33 +125,31 @@ const CategoryBar = ({
           })}
         </div>
         {percentageValue !== undefined ? (
-          <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
+          <div
+            className={clsx(
+              "absolute right-1/2 -translate-x-1/2",
+              sizing.lg.width, // wide transparent wrapper for tooltip activation
+            )}
+            style={{
+              left: `${percentageValue}%`,
+              transition: showAnimation ? "all 2s" : "",
+            }}
+          >
             <div
               className={clsx(
-                "absolute right-1/2 -translate-x-1/2",
-                sizing.lg.width, // wide transparent wrapper for tooltip activation
+                "ring-2 mx-auto",
+                markerBgColor,
+                getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
+                sizing.md.height,
+                sizing.twoXs.width,
+                borderRadius.lg.all,
               )}
-              style={{
-                left: `${percentageValue}%`,
-                transition: showAnimation ? "all 2s" : "",
-              }}
-            >
-              <div
-                className={clsx(
-                  "ring-2 mx-auto",
-                  markerBgColor,
-                  getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
-                  sizing.md.height,
-                  sizing.twoXs.width,
-                  borderRadius.lg.all,
-                )}
-              />
-            </div>
-          </Tooltip>
+            />
+          </div>
         ) : null}
       </div>
     </div>
   );
-};
+});
 
 export default CategoryBar;

@@ -1,31 +1,36 @@
 import React from "react";
 import clsx from "clsx";
 
-import { TextAlignments, parseTextAlignment, spacing } from "lib";
+import { spacing } from "lib";
 import { TextAlignment } from "../../../lib/inputTypes";
 
-export interface TableCellProps {
+export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {
   textAlignment?: TextAlignment;
-  children: React.ReactNode;
 }
 
-const TableCell = ({ textAlignment = TextAlignments.Left, children }: TableCellProps) => {
+const TableCell = React.forwardRef<
+  HTMLTableCellElement,
+  React.TdHTMLAttributes<HTMLTableCellElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <>
       <td
+        ref={ref}
         className={clsx(
-          "align-middle whitespace-nowrap tabular-nums",
-          parseTextAlignment(textAlignment),
+          "align-middle whitespace-nowrap tabular-nums text-left",
           spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.twoXl.paddingTop,
           spacing.twoXl.paddingBottom,
+          className,
         )}
+        {...other}
       >
         {children}
       </td>
     </>
   );
-};
+});
 
 export default TableCell;

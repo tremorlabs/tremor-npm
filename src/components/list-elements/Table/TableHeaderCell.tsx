@@ -1,42 +1,38 @@
 import React from "react";
 import clsx from "clsx";
 
-import {
-  TextAlignments,
-  defaultColors,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseTextAlignment,
-  spacing,
-} from "lib";
+import { defaultColors, fontWeight, getColorVariantsFromColorThemeValue, spacing } from "lib";
 import { TextAlignment } from "../../../lib/inputTypes";
 
-interface TableHeaderCellProps {
+interface TableHeaderCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
   textAlignment?: TextAlignment;
-  children: React.ReactNode;
 }
 
-const TableHeaderCell = ({
-  textAlignment = TextAlignments.Left,
-  children,
-}: TableHeaderCellProps) => (
-  <>
-    <th
-      className={clsx(
-        "sticky whitespace-nowrap",
-        parseTextAlignment(textAlignment),
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        spacing.none.top,
-        spacing.twoXl.paddingLeft,
-        spacing.twoXl.paddingRight,
-        spacing.xl.paddingTop,
-        spacing.xl.paddingBottom,
-        fontWeight.lg,
-      )}
-    >
-      {children}
-    </th>
-  </>
+const TableHeaderCell = React.forwardRef<HTMLTableCellElement, TableHeaderCellProps>(
+  (props, ref) => {
+    const { children, className, ...other } = props;
+    return (
+      <>
+        <th
+          ref={ref}
+          className={clsx(
+            "sticky whitespace-nowrap text-left",
+            getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+            spacing.none.top,
+            spacing.twoXl.paddingLeft,
+            spacing.twoXl.paddingRight,
+            spacing.xl.paddingTop,
+            spacing.xl.paddingBottom,
+            fontWeight.lg,
+            className,
+          )}
+          {...other}
+        >
+          {children}
+        </th>
+      </>
+    );
+  },
 );
 
 export default TableHeaderCell;

@@ -10,9 +10,6 @@ import {
   defaultColors,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseHFullOption,
-  parseMarginTop,
-  parseMaxWidth,
   spacing,
 } from "lib";
 
@@ -32,34 +29,30 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
   }
 };
 
-export interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   hFull?: boolean;
   maxWidth?: MaxWidth;
   shadow?: boolean;
   decoration?: HorizontalPosition | VerticalPosition | "";
   decorationColor?: Color;
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Card = ({
-  hFull = false,
-  maxWidth = "max-w-none",
-  shadow = true,
-  decoration = "",
-  decorationColor = BaseColors.Blue,
-  marginTop = "mt-0",
-  children,
-}: CardProps) => {
+const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+  const {
+    decoration = "",
+    decorationColor = BaseColors.Blue,
+    children,
+    className,
+    ...other
+  } = props;
   return (
     <div
+      ref={ref}
       className={clsx(
-        "tremor-base relative w-full mx-auto text-left ring-1",
-        parseMarginTop(marginTop),
-        parseHFullOption(hFull),
-        parseMaxWidth(maxWidth),
+        "tremor-bg-color-base relative w-full mx-auto text-left ring-1",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        shadow ? boxShadow.md : "",
+        boxShadow.md,
         getColorVariantsFromColorThemeValue(getColor(decorationColor).border).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
         parseDecorationAlignment(decoration),
@@ -68,11 +61,13 @@ const Card = ({
         spacing.threeXl.paddingTop,
         spacing.threeXl.paddingBottom,
         borderRadius.lg.all,
+        className,
       )}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default Card;

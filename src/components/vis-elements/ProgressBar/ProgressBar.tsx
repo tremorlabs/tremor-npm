@@ -1,7 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
 
 import {
   BaseColors,
@@ -11,13 +9,12 @@ import {
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
   sizing,
   spacing,
 } from "lib";
 import { Color, MarginTop } from "../../../lib";
 
-export interface ProgressBarProps {
+export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
   label?: string;
   tooltip?: string;
@@ -26,20 +23,23 @@ export interface ProgressBarProps {
   marginTop?: MarginTop;
 }
 
-const ProgressBar = ({
-  percentageValue,
-  label,
-  tooltip,
-  showAnimation = true,
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-}: ProgressBarProps) => {
+const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
+  const {
+    percentageValue,
+    label,
+    showAnimation = true,
+    color = BaseColors.Blue,
+    className,
+    ...other
+  } = props;
+
   const primaryBgColor = getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
   const secondaryBgColor = getColorVariantsFromColorThemeValue(
     getColor(color).lightBackground,
   ).bgColor;
+
   return (
-    <div className={clsx("tremor-base flex items-center w-full", parseMarginTop(marginTop))}>
+    <div ref={ref} className={clsx("flex items-center w-full", className)} {...other}>
       <div
         className={clsx(
           "relative flex items-center w-full",
@@ -48,15 +48,13 @@ const ProgressBar = ({
           borderRadius.lg.all,
         )}
       >
-        <Tooltip content={tooltip} className={tooltip ? "" : "hidden"}>
-          <div
-            className={clsx(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
-            style={{
-              width: `${percentageValue}%`,
-              transition: showAnimation ? "all 2s" : "",
-            }}
-          />
-        </Tooltip>
+        <div
+          className={clsx(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
+          style={{
+            width: `${percentageValue}%`,
+            transition: showAnimation ? "all 2s" : "",
+          }}
+        />
       </div>
       {label ? (
         <div
@@ -66,19 +64,13 @@ const ProgressBar = ({
             spacing.sm.marginLeft,
           )}
         >
-          <p
-            className={clsx(
-              "text-elem shrink-0 whitespace-nowrap truncate",
-              fontSize.sm,
-              fontWeight.sm,
-            )}
-          >
+          <p className={clsx("shrink-0 whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
             {label}
           </p>
         </div>
       ) : null}
     </div>
   );
-};
+});
 
 export default ProgressBar;

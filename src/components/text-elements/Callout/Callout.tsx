@@ -9,36 +9,35 @@ import {
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseHeight,
-  parseMarginTop,
   sizing,
   spacing,
 } from "lib";
 import { Color, Height, MarginTop } from "../../../lib";
 
-export interface CalloutProps {
+export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
-  text: string;
+  text?: string;
   icon?: React.ElementType;
   color?: Color;
-  height?: Height | "";
+  height?: Height | ""; // Deprecated
   marginTop?: MarginTop;
 }
 
-const Callout = ({
-  title,
-  text,
-  icon,
-  color = BaseColors.Blue,
-  height = "",
-  marginTop = "mt-0",
-}: CalloutProps) => {
-  const Icon = icon ? icon : null;
+const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
+  const { title, text, icon, color = BaseColors.Blue, height = "", className, ...other } = props;
+
+  console.log(
+    "DeprecationWarning: The `height` property is deprecated and will be removed in the next major release. Please use classNames='h-*' instead",
+  );
+  console.log(
+    "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
+  );
+
+  const Icon = icon;
   return (
     <div
+      ref={ref}
       className={clsx(
-        "tremor-base relative",
-        parseMarginTop(marginTop),
         getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
         getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
         spacing.lg.paddingLeft,
@@ -48,7 +47,9 @@ const Callout = ({
         fontSize.sm,
         borderRadius.md.all,
         border.lg.left,
+        className,
       )}
+      {...other}
     >
       <div className={clsx("overflow-hidden", spacing.xs.marginLeft)}>
         <div
@@ -73,9 +74,9 @@ const Callout = ({
         <div
           className={clsx(
             "overflow-y-auto",
-            height ? parseHeight(height) : height,
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
             spacing.sm.marginTop,
+            height,
           )}
         >
           {text}
@@ -83,6 +84,6 @@ const Callout = ({
       </div>
     </div>
   );
-};
+});
 
 export default Callout;

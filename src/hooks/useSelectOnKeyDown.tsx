@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 
-const useSelectOnKeyDown = <T,>(
-  onValueChange: (value: T) => void,
-  optionValues: T[],
+const useSelectOnKeyDown = (
+  onValueChange: (value: string) => void,
+  optionValues: string[],
   isFocused: boolean,
   handleFocusChange: (isFocused: boolean) => void,
-  value?: T,
-): [T | undefined, (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void] => {
+  value?: string,
+): [
+  string | null | undefined,
+  (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void,
+] => {
   const BASE_HOVERED_IDX = -1;
   const [hoveredIdx, setHoveredIdx] = useState(BASE_HOVERED_IDX);
 
-  const getHoveredValue = (hoveredIdx: number, optionValues: T[]) => {
+  const getHoveredValue = (hoveredIdx: number, optionValues: string[]) => {
     if (hoveredIdx < 0) return undefined;
     return optionValues.at(hoveredIdx);
   };

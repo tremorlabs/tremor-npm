@@ -5,31 +5,18 @@ import { Transition } from "react-transition-group";
 import {
   BaseColors,
   HorizontalPositions,
-  Importances,
-  ButtonVariants,
   Sizes,
   border,
   borderRadius,
   boxShadow,
   fontWeight,
-  isValidSize,
-  parseMarginTop,
   sizing,
   spacing,
-  isValidVariant,
-  isBaseColor,
 } from "lib";
-import {
-  ButtonType,
-  Color,
-  HorizontalPosition,
-  Importance,
-  ButtonVariant,
-  MarginTop,
-  Size,
-} from "../../../lib";
+import { Color, HorizontalPosition, ButtonVariant, MarginTop, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
+import { textElem } from "lib/baseStyles";
 
 export interface ButtonIconOrSpinnerProps {
   loading: boolean;
@@ -72,142 +59,99 @@ export const ButtonIconOrSpinner = ({
   );
 };
 
-export interface ButtonProps {
-  type?: ButtonType;
-  text?: string;
-  value?: any;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
   size?: Size;
   color?: Color;
-  importance?: Importance;
   variant?: ButtonVariant;
-  handleClick?: () => void;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onSubmit?: React.FormEventHandler<HTMLButtonElement>;
-  onReset?: React.FormEventHandler<HTMLButtonElement>;
   marginTop?: MarginTop;
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
-  children?: React.ReactNode;
 }
 
-const Button = ({
-  type = "button",
-  text,
-  value,
-  icon,
-  iconPosition = HorizontalPositions.Left,
-  handleClick, // Deprecated
-  onClick,
-  onSubmit,
-  onReset,
-  size = Sizes.SM,
-  color = BaseColors.Blue,
-  importance, // Deprecated
-  variant,
-  marginTop = "mt-0",
-  disabled = false,
-  loading = false,
-  loadingText,
-  children,
-}: ButtonProps) => {
-  if (handleClick) {
-    console.warn(
-      "DeprecationWarning: The `handleClick` property is deprecated and will be removed in the next major release. Please use `onClick` instead.",
-    );
-  }
-  if (importance) {
-    console.warn(
-      "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead.",
-    );
-  }
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {
+    icon,
+    iconPosition = HorizontalPositions.Left,
+    size = Sizes.SM,
+    color = BaseColors.Blue,
+    variant = "primary",
+    disabled,
+    loading = false,
+    loadingText,
+    children,
+    className,
+    ...other
+  } = props;
 
   const Icon = icon;
-  const buttonImportance = importance ?? Importances.Primary;
-  const buttonVariant = variant
-    ? isValidVariant(variant)
-      ? variant
-      : ButtonVariants.Primary
-    : buttonImportance;
 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const buttonSize = isValidSize(size) ? size : Sizes.SM;
-  const iconSize = clsx(iconSizes[buttonSize].height, iconSizes[buttonSize].width);
+  const iconSize = clsx(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
     variant !== "light" ? clsx(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
-  const buttonColorStyles = isBaseColor(color)
-    ? getButtonColors(buttonVariant, color)
-    : getButtonColors(buttonVariant, BaseColors.Blue);
-  const buttonProportionStyles = getButtonProportions(buttonVariant)[buttonSize];
+  const buttonColorStyles = getButtonColors(variant, color);
+  const buttonProportionStyles = getButtonProportions(variant)[size];
 
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
-        <div className={clsx("tremor-base flex items-center", parseMarginTop(marginTop))}>
-          <button
-            type={type}
-            value={value}
-            onClick={handleClick ?? onClick}
-            onSubmit={onSubmit}
-            onReset={onReset}
-            className={clsx(
-              "tremor-base input-elem flex-shrink-0 inline-flex items-center group",
-              "focus:outline-none focus:ring-2 focus:ring-offset-2",
-              "focus:ring-transparent",
-              fontWeight.md,
-              buttonShapeStyles,
-              buttonProportionStyles.paddingLeft,
-              buttonProportionStyles.paddingRight,
-              buttonProportionStyles.paddingTop,
-              buttonProportionStyles.paddingBottom,
-              buttonProportionStyles.fontSize,
-              buttonColorStyles.textColor,
-              buttonColorStyles.bgColor,
-              buttonColorStyles.borderColor,
-              buttonColorStyles.focusRingColor,
-              !isDisabled
-                ? clsx(
-                    getButtonColors(buttonVariant, color).hoverTextColor,
-                    getButtonColors(buttonVariant, color).hoverBgColor,
-                    getButtonColors(buttonVariant, color).hoverBorderColor,
-                  )
-                : "opacity-50",
-            )}
-            disabled={isDisabled}
-          >
-            {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
-              <ButtonIconOrSpinner
-                loading={loading}
-                iconSize={iconSize}
-                iconPosition={iconPosition}
-                Icon={Icon}
-                transitionState={state}
-              />
-            ) : null}
-            {
-              <p className="text-elem whitespace-nowrap">
-                {showLoadingText ? loadingText : !children ? text : children}
-              </p>
-            }
-            {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
-              <ButtonIconOrSpinner
-                loading={loading}
-                iconSize={iconSize}
-                iconPosition={iconPosition}
-                Icon={Icon}
-                transitionState={state}
-              />
-            ) : null}
-          </button>
-        </div>
+        <button
+          ref={ref}
+          className={clsx(
+            "flex-shrink-0 inline-flex items-center group",
+            "focus:outline-none focus:ring-2 focus:ring-offset-2",
+            fontWeight.md,
+            buttonShapeStyles,
+            buttonProportionStyles.paddingLeft,
+            buttonProportionStyles.paddingRight,
+            buttonProportionStyles.paddingTop,
+            buttonProportionStyles.paddingBottom,
+            buttonProportionStyles.fontSize,
+            buttonColorStyles.textColor,
+            buttonColorStyles.bgColor,
+            buttonColorStyles.borderColor,
+            buttonColorStyles.focusRingColor,
+            !isDisabled
+              ? clsx(
+                  getButtonColors(variant, color).hoverTextColor,
+                  getButtonColors(variant, color).hoverBgColor,
+                  getButtonColors(variant, color).hoverBorderColor,
+                )
+              : "opacity-50",
+            className,
+          )}
+          disabled={isDisabled}
+          {...other}
+        >
+          {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+          {<p className={textElem}>{showLoadingText ? loadingText : children}</p>}
+          {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+        </button>
       )}
     </Transition>
   );
-};
+});
 
 export default Button;

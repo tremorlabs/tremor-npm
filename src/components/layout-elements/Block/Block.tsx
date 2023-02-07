@@ -1,17 +1,8 @@
 import React from "react";
-import clsx from "clsx";
 
 import { MarginTop, MaxWidth, SpaceY, TextAlignment } from "../../../lib/inputTypes";
-import {
-  TextAlignments,
-  parseMarginTop,
-  parseMaxWidth,
-  parseSpaceY,
-  parseTextAlignment,
-  parseTruncateOption,
-} from "lib";
 
-export interface BlockProps {
+export interface BlockProps extends React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: MaxWidth;
   spaceY?: SpaceY | "";
   textAlignment?: TextAlignment;
@@ -20,29 +11,13 @@ export interface BlockProps {
   children: React.ReactNode;
 }
 
-const Block = ({
-  maxWidth = "max-w-none",
-  spaceY = "",
-  textAlignment = TextAlignments.Left,
-  truncate = false,
-  marginTop = "mt-0",
-  children,
-}: BlockProps) => {
+const Block = React.forwardRef<HTMLDivElement, BlockProps>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
-    <div
-      className={clsx(
-        "w-full",
-        parseMaxWidth(maxWidth),
-        spaceY ? parseSpaceY(spaceY) : spaceY,
-        parseTextAlignment(textAlignment),
-        parseTruncateOption(truncate),
-        truncate ? "whitespace-nowrap" : "",
-        parseMarginTop(marginTop),
-      )}
-    >
+    <div ref={ref} className={className} {...other}>
       {children}
     </div>
   );
-};
+});
 
 export default Block;

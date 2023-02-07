@@ -17,15 +17,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import {
-  defaultValueFormatter,
-  getColor,
-  getHexFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { defaultValueFormatter, getColor, getHexFromColorThemeValue, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface BarChartProps extends BaseChartProps {
@@ -34,36 +26,37 @@ export interface BarChartProps extends BaseChartProps {
   relative?: boolean;
 }
 
-const BarChart = ({
-  data = [],
-  categories = [],
-  dataKey,
-  colors = themeColorRange,
-  valueFormatter = defaultValueFormatter,
-  layout = "horizontal",
-  stack = false,
-  relative = false,
-  startEndOnly = false,
-  showAnimation = true,
-  showXAxis = true,
-  showYAxis = true,
-  yAxisWidth = "w-14",
-  showTooltip = true,
-  showLegend = true,
-  showGridLines = true,
-  height = "h-80",
-  marginTop = "mt-0",
-  autoMinValue = false,
-  minValue,
-  maxValue,
-}: BarChartProps) => {
+const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
+  const {
+    data = [],
+    categories = [],
+    dataKey,
+    colors = themeColorRange,
+    valueFormatter = defaultValueFormatter,
+    layout = "horizontal",
+    stack = false,
+    relative = false,
+    startEndOnly = false,
+    showAnimation = true,
+    showXAxis = true,
+    showYAxis = true,
+    yAxisWidth = 56,
+    showTooltip = true,
+    showLegend = true,
+    showGridLines = true,
+    autoMinValue = false,
+    minValue,
+    maxValue,
+    className,
+    ...other
+  } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div className={clsx("tremor-base w-full", parseHeight(height), parseMarginTop(marginTop))}>
+    <div ref={ref} className={clsx("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsBarChart
           data={data}
@@ -112,7 +105,7 @@ const BarChart = ({
           )}
           {layout !== "vertical" ? (
             <YAxis
-              width={getPixelsFromTwClassName(yAxisWidth)}
+              width={yAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
@@ -129,7 +122,7 @@ const BarChart = ({
             />
           ) : (
             <YAxis
-              width={getPixelsFromTwClassName(yAxisWidth)}
+              width={yAxisWidth}
               hide={!showYAxis}
               dataKey={dataKey}
               axisLine={false}
@@ -184,6 +177,6 @@ const BarChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default BarChart;

@@ -1,28 +1,22 @@
 import React from "react";
 import clsx from "clsx";
 
-import { border, borderRadius, boxShadow, parseMarginTop } from "lib";
+import { border, borderRadius, boxShadow } from "lib";
 import { MarginTop } from "../../../lib";
 import { RootStylesContext } from "contexts";
 
-export interface AccordionListProps {
+export interface AccordionListProps extends React.HTMLAttributes<HTMLDivElement> {
   shadow?: boolean;
   marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const AccordionList = ({ shadow = true, marginTop = "mt-0", children }: AccordionListProps) => {
+const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((props, ref) => {
+  const { children, className, ...other } = props;
   const numChildren = React.Children.count(children);
 
   return (
-    <div
-      className={clsx(
-        "tremor-base",
-        parseMarginTop(marginTop),
-        borderRadius.lg.all,
-        shadow ? boxShadow.md : "",
-      )}
-    >
+    <div ref={ref} className={clsx(borderRadius.lg.all, boxShadow.md, className)} {...other}>
       {React.Children.map(children, (child, idx) => {
         if (idx === 0) {
           return (
@@ -65,6 +59,6 @@ const AccordionList = ({ shadow = true, marginTop = "mt-0", children }: Accordio
       })}
     </div>
   );
-};
+});
 
 export default AccordionList;

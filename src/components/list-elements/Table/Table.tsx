@@ -1,34 +1,32 @@
 import React from "react";
 import clsx from "clsx";
 
-import {
-  defaultColors,
-  fontSize,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-} from "lib";
+import { defaultColors, fontSize, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
 import { MarginTop } from "../../../lib";
 
-export interface TableProps {
+export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Table = ({ marginTop = "mt-0", children }: TableProps) => (
-  <div className="overflow-auto">
-    <table
-      className={clsx(
-        "tremor-base w-full tabular-nums",
-        parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        fontSize.sm,
-        fontWeight.sm,
-      )}
-    >
-      {children}
-    </table>
-  </div>
-);
+const Table = React.forwardRef<HTMLTableElement, TableProps>((props, ref) => {
+  const { children, className, ...other } = props;
+
+  return (
+    <div className={clsx("overflow-auto", className)}>
+      <table
+        ref={ref}
+        className={clsx(
+          "w-full tabular-nums",
+          getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+          fontSize.sm,
+          fontWeight.sm,
+        )}
+        {...other}
+      >
+        {children}
+      </table>
+    </div>
+  );
+});
 
 export default Table;

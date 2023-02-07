@@ -3,14 +3,13 @@ import clsx from "clsx";
 
 import { fontSize, fontWeight } from "lib";
 
-export interface BoldProps {
-  children: React.ReactNode;
-}
-
-const Bold = ({ children }: BoldProps) => {
+const Bold = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
-    <span className={clsx("tremor-base text-inherit", fontSize.sm, fontWeight.lg)}>{children}</span>
+    <b ref={ref} className={clsx("text-inherit", fontSize.sm, fontWeight.lg, className)} {...other}>
+      {children}
+    </b>
   );
-};
+});
 
 export default Bold;

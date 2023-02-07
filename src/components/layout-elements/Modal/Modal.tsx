@@ -3,78 +3,60 @@ import clsx from "clsx";
 
 import { useOnClickOutside, useOnWindowResize } from "hooks";
 
-import { HorizontalPosition, Width } from "../../../lib/inputTypes";
+import { HorizontalPosition } from "../../../lib/inputTypes";
 import {
-  HorizontalPositions,
   border,
   borderRadius,
   boxShadow,
   defaultColors,
   getColorVariantsFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseWidth,
+  mergeRefs,
   spacing,
 } from "lib";
 
-export interface ModalProps {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>> | ((nextState: boolean) => void);
-  triggerRef: React.RefObject<HTMLElement>;
-  width?: Width;
+  parentRef: React.RefObject<HTMLElement>;
+  width?: number;
   maxHeight?: string;
   anchorPosition?: HorizontalPosition;
   children: React.ReactNode;
 }
 
-const Modal = ({
-  showModal,
-  setShowModal,
-  triggerRef,
-  width,
-  maxHeight = "max-h-72",
-  anchorPosition = HorizontalPositions.Left,
-  children,
-}: ModalProps) => {
+const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
+  const {
+    showModal,
+    setShowModal,
+    parentRef,
+    width,
+    maxHeight = "max-h-72",
+    children,
+    className,
+    ...other
+  } = props;
   const [modalExceedsWindow, setModalExceedsWindow] = useState(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
   const checkModalExceedsWindow = (modalWidth: number, windowWidth: number): boolean => {
-    if (!triggerRef.current) {
+    if (!parentRef.current) {
       return false;
     }
-    if (anchorPosition === HorizontalPositions.Left) {
-      const modalBoundingRight = triggerRef.current.getBoundingClientRect().left + modalWidth;
-      return windowWidth - modalBoundingRight < 0;
-    }
-    if (anchorPosition === HorizontalPositions.Right) {
-      const modalBoundingLeft = triggerRef.current.getBoundingClientRect().right - modalWidth;
-      return modalBoundingLeft < 0;
-    }
-    return false;
+    const modalBoundingRight = parentRef.current.getBoundingClientRect().left + modalWidth;
+    return windowWidth - modalBoundingRight < 0;
   };
 
   const getAbsoluteSpacing = () => {
-    if (anchorPosition === HorizontalPositions.Left) {
-      if (!modalExceedsWindow) {
-        return spacing.none.left;
-      } else {
-        return spacing.none.right;
-      }
+    if (!modalExceedsWindow) {
+      return spacing.none.left;
     }
-    if (anchorPosition === HorizontalPositions.Right) {
-      if (!modalExceedsWindow) {
-        return spacing.none.right;
-      } else {
-        return spacing.none.left;
-      }
-    }
-    return spacing.none.left;
+    return spacing.none.right;
   };
 
   useOnClickOutside(modalRef, (e) => {
     // Exclude click on trigger button (e.g. Dropdown Button) from outside click handler
-    const isTriggerElem = triggerRef ? triggerRef.current?.contains(e.target) : false;
+    const isTriggerElem = parentRef ? parentRef.current?.contains(e.target) : false;
     if (!isTriggerElem) {
       setShowModal(false);
     }
@@ -82,22 +64,21 @@ const Modal = ({
 
   // Execute only when modal is of absolute size
   if (width !== undefined) {
-    const widthInPixel = getPixelsFromTwClassName(width);
     useEffect(() => {
-      setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth));
-    }, [triggerRef]);
+      setModalExceedsWindow(checkModalExceedsWindow(width, window.innerWidth));
+    }, [parentRef]);
 
     useOnWindowResize(() =>
-      setModalExceedsWindow(checkModalExceedsWindow(widthInPixel, window.innerWidth)),
+      setModalExceedsWindow(checkModalExceedsWindow(width, window.innerWidth)),
     );
   }
 
   return showModal ? (
     <div
-      ref={modalRef}
+      ref={mergeRefs([modalRef, ref])}
       className={clsx(
         "absolute z-10 divide-y overflow-y-auto",
-        width ? parseWidth(width) : "w-full",
+        "w-full",
         getAbsoluteSpacing(),
         maxHeight,
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
@@ -108,11 +89,14 @@ const Modal = ({
         borderRadius.md.all,
         border.sm.all,
         boxShadow.lg,
+        className,
       )}
+      style={{ width }}
+      {...other}
     >
       {children}
     </div>
   ) : null;
-};
+});
 
 export default Modal;

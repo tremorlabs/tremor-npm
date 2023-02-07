@@ -7,8 +7,6 @@ import {
   defaultColors,
   defaultValueFormatter,
   getHexFromColorThemeValue,
-  parseHeight,
-  parseMarginTop,
   themeColorRange,
 } from "lib";
 
@@ -17,7 +15,7 @@ import { DonutChartTooltip } from "./DonutChartTooltip";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps {
+export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   category?: string;
   dataKey?: string;
@@ -32,26 +30,27 @@ export interface DonutChartProps {
   marginTop?: MarginTop;
 }
 
-const DonutChart = ({
-  data = [],
-  category = "value",
-  dataKey = "name",
-  colors = themeColorRange,
-  variant = "donut",
-  valueFormatter = defaultValueFormatter,
-  label,
-  showLabel = true,
-  showAnimation = true,
-  showTooltip = true,
-  height = "h-44",
-  marginTop = "mt-0",
-}: DonutChartProps) => {
+const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
+  const {
+    data = [],
+    category = "value",
+    dataKey = "name",
+    colors = themeColorRange,
+    variant = "donut",
+    valueFormatter = defaultValueFormatter,
+    label,
+    showLabel = true,
+    showAnimation = true,
+    showTooltip = true,
+    className,
+    ...other
+  } = props;
   const isDonut = variant == "donut";
 
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   return (
-    <div className={clsx("tremor-base w-full", parseHeight(height), parseMarginTop(marginTop))}>
+    <div ref={ref} className={clsx("w-full h-44", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (
@@ -77,7 +76,7 @@ const DonutChart = ({
             dataKey={category}
             nameKey={dataKey}
             isAnimationActive={showAnimation}
-          ></Pie>
+          />
           {showTooltip ? (
             <Tooltip
               wrapperStyle={{ outline: "none" }}
@@ -94,6 +93,6 @@ const DonutChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default DonutChart;

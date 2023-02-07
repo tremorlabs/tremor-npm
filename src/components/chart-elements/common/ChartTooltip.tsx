@@ -52,7 +52,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       />
       <p
         className={clsx(
-          "text-elem font-medium tabular-nums text-right whitespace-nowrap",
+          "font-medium tabular-nums text-right whitespace-nowrap",
           getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
         )}
       >
@@ -61,7 +61,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     </div>
     <p
       className={clsx(
-        "text-elem text-right whitespace-nowrap",
+        "text-right whitespace-nowrap",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontWeight.sm,
       )}

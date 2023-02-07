@@ -118,7 +118,7 @@ const DateRangePickerButton = ({
         onClick={() => setShowCalendar(!showCalendar)}
         onKeyDown={onCalendarKeyDown}
         className={clsx(
-          `input-elem flex items-center w-full truncate focus:ring-0
+          `flex items-center w-full truncate focus:ring-0
                      focus:outline-0`,
           enableDropdown ? border.none.right : clsx(borderRadius.md.right, border.sm.right),
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -144,7 +144,7 @@ const DateRangePickerButton = ({
         />
         <p
           className={clsx(
-            "text-elem whitespace-nowrap truncate",
+            "whitespace-nowrap truncate",
             fontSize.sm,
             fontWeight.md,
             hasSelection
@@ -161,7 +161,7 @@ const DateRangePickerButton = ({
           ref={dropdownRef}
           onClick={() => setShowDropdown(!showDropdown)}
           className={clsx(
-            "input-elem inline-flex justify-between w-48 truncate",
+            "inline-flex justify-between w-48 truncate",
             "focus:ring-0 focus:outline-0",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -177,7 +177,7 @@ const DateRangePickerButton = ({
         >
           <p
             className={clsx(
-              "text-elem whitespace-nowrap truncate",
+              "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               dropdownValue

@@ -1,6 +1,6 @@
-import { Color, Height, MarginTop, ValueFormatter, Width } from "../../../lib";
+import { Color, Height, MarginTop, ValueFormatter } from "../../../lib";
 
-interface BaseChartProps {
+interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   categories: string[];
   dataKey: string;
@@ -9,7 +9,7 @@ interface BaseChartProps {
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
-  yAxisWidth?: Width;
+  yAxisWidth?: number;
   showAnimation?: boolean;
   showTooltip?: boolean;
   showGradient?: boolean;

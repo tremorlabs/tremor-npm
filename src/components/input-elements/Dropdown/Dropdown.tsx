@@ -17,43 +17,35 @@ import {
   fontSize,
   fontWeight,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseMaxWidth,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/layout-elements/Modal";
 
-export interface DropdownProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void;
+export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
   placeholder?: string;
-  icon?: React.ElementType | React.JSXElementConstructor<any>;
+  icon?: React.JSXElementConstructor<any>;
   marginTop?: MarginTop;
   maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Dropdown = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: DropdownProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead.",
-    );
-  }
-
+const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    ...other
+  } = props;
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -66,9 +58,8 @@ const Dropdown = <T,>({
     (child: { props: DropdownItemProps }) => child.props.value,
   );
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     setSelectedValue(value);
-    handleSelect?.(value);
     setIsFocused(false);
     onValueChange?.(value);
   };
@@ -78,29 +69,29 @@ const Dropdown = <T,>({
     optionValues,
     isFocused,
     setIsFocused,
-    selectedValue as T,
+    selectedValue,
   );
 
   return (
     <div
-      ref={dropdownRef}
+      ref={mergeRefs([dropdownRef, ref])}
       onKeyDown={handleKeyDown}
       className={clsx(
-        "tremor-base relative w-full min-w-[10rem]",
-        parseMaxWidth(maxWidth),
+        "relative w-full min-w-[10rem]",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
         getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-        parseMarginTop(marginTop),
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
+        className,
       )}
+      {...other}
     >
       <button
         type="button"
         className={clsx(
-          "input-elem flex justify-between items-center w-full",
+          "flex justify-between items-center w-full",
           "focus:outline-0 focus:ring-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
@@ -124,7 +115,7 @@ const Dropdown = <T,>({
           ) : null}
           <p
             className={clsx(
-              "text-elem whitespace-nowrap truncate",
+              "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedValue
@@ -146,7 +137,7 @@ const Dropdown = <T,>({
           aria-hidden="true"
         />
       </button>
-      <Modal showModal={isFocused} setShowModal={setIsFocused} triggerRef={dropdownRef}>
+      <Modal showModal={isFocused} setShowModal={setIsFocused} parentRef={dropdownRef}>
         <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
           <HoveredValueContext.Provider value={{ hoveredValue }}>
             {React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child))}
@@ -155,6 +146,6 @@ const Dropdown = <T,>({
       </Modal>
     </div>
   );
-};
+});
 
 export default Dropdown;

@@ -8,7 +8,7 @@ import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "con
 
 import { useInternalState, useSelectOnKeyDown } from "hooks";
 
-import { BaseColors, parseMarginTop, parseMaxWidth } from "lib";
+import { BaseColors } from "lib";
 import { Color, MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   defaultOptions,
@@ -33,7 +33,8 @@ export type DateRangePickerOption = {
   endDate?: Date;
 };
 
-export interface DateRangePickerProps {
+export interface DateRangePickerProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
   value?: DateRangePickerValue;
   defaultValue?: DateRangePickerValue;
   onValueChange?: (value: DateRangePickerValue) => void;
@@ -50,22 +51,24 @@ export interface DateRangePickerProps {
   locale?: Locale;
 }
 
-const DateRangePicker = ({
-  value,
-  defaultValue,
-  onValueChange,
-  enableDropdown = true,
-  options,
-  minDate = null,
-  maxDate = null,
-  placeholder = "Select",
-  dropdownPlaceholder = "Select",
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  enableYearPagination = false,
-  locale = enUS,
-}: DateRangePickerProps) => {
+const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
+  const {
+    value,
+    defaultValue,
+    onValueChange,
+    enableDropdown = true,
+    options,
+    minDate = null,
+    maxDate = null,
+    placeholder = "Select",
+    dropdownPlaceholder = "Select",
+    color = BaseColors.Blue,
+    enableYearPagination = false,
+    locale = enUS,
+    className,
+    ...other
+  } = props;
+
   const TODAY = startOfToday();
   const calendarRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -136,13 +139,7 @@ const DateRangePicker = ({
 
   return (
     <BaseColorContext.Provider value={color}>
-      <div
-        className={clsx(
-          "tremor-base relative w-full",
-          parseMarginTop(marginTop),
-          parseMaxWidth(maxWidth),
-        )}
-      >
+      <div ref={ref} className={clsx("relative w-full", className)} {...other}>
         <DateRangePickerButton
           value={[selectedStartDate, selectedEndDate, selectedDropdownValue]}
           options={dropdownOptions}
@@ -163,8 +160,8 @@ const DateRangePicker = ({
         <Modal
           showModal={showCalendar}
           setShowModal={setShowCalendar}
-          triggerRef={calendarRef}
-          width="w-72"
+          parentRef={calendarRef}
+          width={288}
           maxHeight="max-h-fit"
         >
           <Calendar
@@ -180,7 +177,7 @@ const DateRangePicker = ({
           />
         </Modal>
         {/* Dropdpown Modal */}
-        <Modal showModal={showDropdown} setShowModal={setShowDropdown} triggerRef={dropdownRef}>
+        <Modal showModal={showDropdown} setShowModal={setShowDropdown} parentRef={dropdownRef}>
           <SelectedValueContext.Provider
             value={{
               selectedValue: selectedDropdownValue,
@@ -197,6 +194,6 @@ const DateRangePicker = ({
       </div>
     </BaseColorContext.Provider>
   );
-};
+});
 
 export default DateRangePicker;

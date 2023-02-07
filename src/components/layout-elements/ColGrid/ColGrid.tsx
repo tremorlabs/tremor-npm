@@ -3,9 +3,8 @@ import clsx from "clsx";
 
 import { GapX, GapY, MarginTop } from "../../../lib/inputTypes";
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
-import { parseGapX, parseGapY, parseMarginTop } from "lib";
 
-export interface ColGridProps {
+export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
   numCols?: number;
   numColsSm?: number;
   numColsMd?: number;
@@ -16,16 +15,9 @@ export interface ColGridProps {
   children: React.ReactNode;
 }
 
-const ColGrid = ({
-  numCols = 1,
-  numColsSm,
-  numColsMd,
-  numColsLg,
-  gapX = "gap-x-0",
-  gapY = "gap-y-0",
-  marginTop = "mt-0",
-  children,
-}: ColGridProps) => {
+const ColGrid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
+  const { numCols = 1, numColsSm, numColsMd, numColsLg, children, className, ...other } = props;
+
   const getGridCols = (
     numCols: number | undefined,
     gridColsMapping: GridClassesMapping,
@@ -45,18 +37,10 @@ const ColGrid = ({
   };
 
   return (
-    <div
-      className={clsx(
-        "grid",
-        getColClassNames(),
-        parseGapX(gapX),
-        parseGapY(gapY),
-        parseMarginTop(marginTop),
-      )}
-    >
+    <div ref={ref} className={clsx("grid", getColClassNames(), className)} {...other}>
       {children}
     </div>
   );
-};
+});
 
 export default ColGrid;

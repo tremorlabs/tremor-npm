@@ -91,7 +91,7 @@ const CalendarHeader = ({
           type="button"
           hidden={!enableYearPagination}
           className={clsx(
-            "input-elem inline-flex focus:outline-none focus:ring-2",
+            "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -120,7 +120,7 @@ const CalendarHeader = ({
           type="button"
           name="prevMonth"
           className={clsx(
-            "input-elem inline-flex focus:outline-none focus:ring-2",
+            "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -161,7 +161,7 @@ const CalendarHeader = ({
           type="button"
           name="nextMonth"
           className={clsx(
-            "input-elem inline-flex focus:outline-none focus:ring-2",
+            "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -190,7 +190,7 @@ const CalendarHeader = ({
           type="button"
           hidden={!enableYearPagination}
           className={clsx(
-            "input-elem inline-flex focus:outline-none focus:ring-2",
+            "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
@@ -308,7 +308,7 @@ const CalendarBody = ({
                 onPointerEnter={() => setHoveredDate?.(date)}
                 onPointerLeave={() => setHoveredDate?.(undefined)}
                 className={clsx(
-                  "input-elem w-full flex items-center justify-center",
+                  "w-full flex items-center justify-center",
                   sizing.threeXl.height,
                   fontSize.sm,
                   getDateStyles(

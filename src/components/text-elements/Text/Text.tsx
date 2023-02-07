@@ -3,45 +3,28 @@ import clsx from "clsx";
 
 import {
   BaseColors,
-  TextAlignments,
   fontSize,
   fontWeight,
   getColor,
   getColorVariantsFromColorThemeValue,
-  parseHeight,
-  parseMarginTop,
-  parseTextAlignment,
-  parseTruncateOption,
 } from "lib";
 import { Color, Height, MarginTop, TextAlignment } from "../../../lib/inputTypes";
 
-export interface TextProps {
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
   textAlignment?: TextAlignment;
   truncate?: boolean;
   height?: Height | "";
   marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Text = ({
-  color = BaseColors.Gray,
-  textAlignment = TextAlignments.Left,
-  truncate = false,
-  height = "",
-  marginTop = "mt-0",
-  children,
-}: TextProps) => {
+const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
+  const { color = BaseColors.Gray, children } = props;
   return (
     <p
+      ref={ref}
       className={clsx(
-        "text-elem tremor-base",
-        parseTruncateOption(truncate),
-        truncate ? "whitespace-nowrap" : "shrink-0",
-        height ? parseHeight(height) : height,
-        height ? "overflow-y-auto" : "",
-        parseMarginTop(marginTop),
-        parseTextAlignment(textAlignment),
+        "overflow-y-auto",
         getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         fontSize.sm,
         fontWeight.sm,
@@ -50,6 +33,6 @@ const Text = ({
       {children}
     </p>
   );
-};
+});
 
 export default Text;

@@ -2,7 +2,16 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Button, Card, Datepicker, Dropdown, DropdownItem, Flex, Text, Title } from "components";
+import {
+  Button,
+  Card,
+  DateRangePicker,
+  Dropdown,
+  DropdownItem,
+  Flex,
+  Text,
+  Title,
+} from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleDropdown } from "./helpers/SimpleDropdown";
 import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
@@ -21,7 +30,7 @@ const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <Datepicker />
+        <DateRangePicker />
         <SimpleDropdown {...args} />
         <SimpleSelectBox icon={CalendarIcon} />
       </Card>

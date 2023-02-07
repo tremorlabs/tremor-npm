@@ -16,51 +16,44 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import {
-  defaultValueFormatter,
-  getColor,
-  getHexFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { defaultValueFormatter, getColor, getHexFromColorThemeValue, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
 }
 
-const AreaChart = ({
-  data = [],
-  categories = [],
-  dataKey,
-  stack = false,
-  colors = themeColorRange,
-  valueFormatter = defaultValueFormatter,
-  startEndOnly = false,
-  showXAxis = true,
-  showYAxis = true,
-  yAxisWidth = "w-14",
-  showAnimation = true,
-  showTooltip = true,
-  showLegend = true,
-  showGridLines = true,
-  showGradient = true,
-  height = "h-80",
-  marginTop = "mt-0",
-  autoMinValue = false,
-  minValue,
-  maxValue,
-}: AreaChartProps) => {
+const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
+  const {
+    data = [],
+    categories = [],
+    dataKey,
+    stack = false,
+    colors = themeColorRange,
+    valueFormatter = defaultValueFormatter,
+    startEndOnly = false,
+    showXAxis = true,
+    showYAxis = true,
+    yAxisWidth = 56,
+    showAnimation = true,
+    showTooltip = true,
+    showLegend = true,
+    showGridLines = true,
+    showGradient = true,
+    autoMinValue = false,
+    minValue,
+    maxValue,
+    className,
+    ...other
+  } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div className={clsx("tremor-base w-full", parseHeight(height), parseMarginTop(marginTop))}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={clsx("w-full h-80", className)} {...other}>
+      <ResponsiveContainer width="100%" height={"100%"}>
         <ReChartsAreaChart data={data}>
           {showGridLines ? (
             <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
@@ -73,6 +66,7 @@ const AreaChart = ({
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
+              color: "red",
             }}
             interval="preserveStartEnd"
             tickLine={false}
@@ -81,7 +75,7 @@ const AreaChart = ({
             minTickGap={5}
           />
           <YAxis
-            width={getPixelsFromTwClassName(yAxisWidth)}
+            width={yAxisWidth}
             hide={!showYAxis}
             axisLine={false}
             tickLine={false}
@@ -170,6 +164,6 @@ const AreaChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default AreaChart;

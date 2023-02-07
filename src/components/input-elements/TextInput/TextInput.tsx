@@ -13,8 +13,6 @@ import {
   fontSize,
   fontWeight,
   getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseMaxWidth,
   sizing,
   spacing,
 } from "lib";
@@ -27,13 +25,9 @@ const getTextColor = (error: boolean, disabled: boolean) => {
   return getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor;
 };
 
-export interface TextInputProps {
-  id?: string;
-  name?: string;
+export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   defaultValue?: string;
   value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   error?: boolean;
   errorMessage?: string;
@@ -42,20 +36,16 @@ export interface TextInputProps {
   marginTop?: MarginTop;
 }
 
-const TextInput = ({
-  id,
-  name,
-  defaultValue,
-  value,
-  onChange,
-  placeholder = "Type...",
-  icon,
-  error = false,
-  errorMessage,
-  disabled = false,
-  maxWidth = "max-w-none",
-  marginTop = "mt-0",
-}: TextInputProps) => {
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+  const {
+    placeholder = "Type...",
+    icon,
+    error = false,
+    errorMessage,
+    disabled = false,
+    className,
+    ...other
+  } = props;
   const Icon = icon;
 
   const textColor = getTextColor(error, disabled);
@@ -70,13 +60,12 @@ const TextInput = ({
     <div
       className={clsx(
         "relative w-full flex items-center overflow-hidden min-w-[10rem]",
-        parseMaxWidth(maxWidth),
-        parseMarginTop(marginTop),
         bgColor,
         boderColor,
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
+        className,
       )}
     >
       {Icon ? (
@@ -92,11 +81,10 @@ const TextInput = ({
         />
       ) : null}
       <input
-        id={id}
-        name={name}
+        ref={ref}
         type="text"
         className={clsx(
-          "tremor-base input-elem",
+          "input-elem",
           "w-full focus:outline-0 focus:ring-0 bg-inherit",
           textColor,
           Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
@@ -108,11 +96,9 @@ const TextInput = ({
           border.none.all,
           "placeholder:text-gray-500",
         )}
-        defaultValue={defaultValue}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
+        {...other}
       />
       {error ? (
         <Tooltip
@@ -134,6 +120,6 @@ const TextInput = ({
       ) : null}
     </div>
   );
-};
+});
 
 export default TextInput;
