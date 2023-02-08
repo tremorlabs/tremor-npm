@@ -31,5 +31,5 @@ export const Default = Template.bind({});
 Default.args = {
   percentageValue: 50,
   tooltip: "50%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };

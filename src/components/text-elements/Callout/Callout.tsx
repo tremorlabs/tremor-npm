@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -35,7 +35,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
         getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
         spacing.lg.paddingAll,
@@ -46,16 +46,16 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       )}
       {...other}
     >
-      <div className={twMerge("overflow-hidden", spacing.xs.marginLeft)}>
+      <div className={clsx("overflow-hidden", spacing.xs.marginLeft)}>
         <div
-          className={twMerge(
+          className={clsx(
             "flex items-start",
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
           )}
         >
           {Icon ? (
             <Icon
-              className={twMerge(
+              className={clsx(
                 "flex-none",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -64,10 +64,10 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
               aria-hidden="true"
             />
           ) : null}
-          <h4 className={twMerge("text-elem", fontWeight.lg)}>{title}</h4>
+          <h4 className={clsx("text-elem", fontWeight.lg)}>{title}</h4>
         </div>
         <div
-          className={twMerge(
+          className={clsx(
             "overflow-y-auto",
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
             spacing.sm.marginTop,

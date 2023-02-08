@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -19,7 +19,7 @@ const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) =>
   return (
     <p
       ref={ref}
-      className={twMerge(
+      className={clsx(
         getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
         fontSize.lg,
         fontWeight.md,

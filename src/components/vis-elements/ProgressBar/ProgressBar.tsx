@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -38,9 +38,9 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
   ).bgColor;
 
   return (
-    <div ref={ref} className={twMerge("flex items-center w-full", className)} {...other}>
+    <div ref={ref} className={clsx("flex items-center w-full", className)} {...other}>
       <div
-        className={twMerge(
+        className={clsx(
           "relative flex items-center w-full",
           secondaryBgColor,
           sizing.xs.height,
@@ -48,7 +48,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
         )}
       >
         <div
-          className={twMerge(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
+          className={clsx(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
           style={{
             width: `${percentageValue}%`,
             transition: showAnimation ? "all 2s" : "",
@@ -57,13 +57,13 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
       </div>
       {label ? (
         <div
-          className={twMerge(
+          className={clsx(
             "w-16 truncate text-right",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             spacing.sm.marginLeft,
           )}
         >
-          <p className={twMerge("shrink-0 whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
+          <p className={clsx("shrink-0 whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
             {label}
           </p>
         </div>

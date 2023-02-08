@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -43,7 +43,7 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "flex-nowrap inline-flex justify-start",
         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         spacing.twoXs.paddingAll,

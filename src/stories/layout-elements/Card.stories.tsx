@@ -19,22 +19,22 @@ const ResponsiveTemplate: ComponentStory<typeof Card> = (args) => (
     <div className="w-64">
       <SimpleCard {...args} />
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <SimpleCard {...args} />
   </>
 );
 
 const FlexTemplate: ComponentStory<typeof Card> = (args) => (
   <>
-    <Flex alignItems="items-stretch" spaceX="space-x-2">
+    <Flex alignItems="stretch" className="space-x-2">
       <SimpleCard {...args} />
       <SimpleCard {...args} />
       <Card {...args}>
         <Metric>$ 30,000</Metric>
       </Card>
     </Flex>
-    <Flex alignItems="items-stretch" marginTop="mt-5" spaceX="space-x-2">
-      <Block spaceY="space-y-2">
+    <Flex alignItems="stretch" className="mt-5 space-x-2">
+      <Block className="space-y-2">
         <SimpleCard {...args} />
         <SimpleCard {...args} />
         <SimpleCard {...args} />
@@ -45,7 +45,7 @@ const FlexTemplate: ComponentStory<typeof Card> = (args) => (
 );
 
 const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
-  <ColGrid numCols={2} gapX="gap-x-2" gapY="gap-y-2">
+  <ColGrid numCols={2} className="gap-x-2 gap-y-2">
     {["left", "top", "right", "bottom", "mistyped"].map((position) => (
       <Card {...args} decoration={position as HorizontalPosition | VerticalPosition | ""}>
         <Title>{`Decoration ${position}`}</Title>
@@ -55,7 +55,7 @@ const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
 );
 
 const DecorationColorsTemplate: ComponentStory<typeof Card> = (args) => (
-  <ColGrid numCols={3} gapX="gap-x-2" gapY="gap-y-2">
+  <ColGrid numCols={3} className="gap-x-2 gap-y-2">
     {Object.values(BaseColors).map((color) => (
       <Card {...args} decoration="top" decorationColor={color}>
         <Title>{`Decoration Color: ${color}`}</Title>
@@ -74,7 +74,7 @@ export const DecorationColors = DecorationColorsTemplate.bind({});
 
 export const WithMaxWidth = FlexTemplate.bind({});
 WithMaxWidth.args = {
-  maxWidth: "max-w-sm",
+  className: "max-w-sm",
 };
 
 export const WithFlexItemsStretch = FlexTemplate.bind({});

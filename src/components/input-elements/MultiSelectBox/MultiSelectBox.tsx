@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
@@ -96,7 +96,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
   return (
     <div
       ref={mergeRefs([dropdownRef, ref])}
-      className={twMerge(
+      className={clsx(
         "relative w-full min-w-[10rem]",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -114,7 +114,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     >
       <button
         type="button"
-        className={twMerge(
+        className={clsx(
           "flex justify-between items-center w-full",
           "focus:ring-0 focus:outline-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
@@ -126,7 +126,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
-              className={twMerge(
+              className={clsx(
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -137,7 +137,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             />
           ) : null}
           <p
-            className={twMerge(
+            className={clsx(
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -153,14 +153,14 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           {showResetButton ? (
             <div
               role="button"
-              className={twMerge(spacing.xs.marginRight)}
+              className={clsx(spacing.xs.marginRight)}
               onClick={(e) => {
                 e.stopPropagation(); // prevent firing parent button
                 handleReset();
               }}
             >
               <XCircleIcon
-                className={twMerge(
+                className={clsx(
                   "flex-none",
                   sizing.md.height,
                   sizing.md.width,
@@ -171,7 +171,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             </div>
           ) : null}
           <ArrowDownHeadIcon
-            className={twMerge(
+            className={clsx(
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,
@@ -184,7 +184,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
       </button>
       <Modal showModal={showModal} setShowModal={handleModalToggle} parentRef={dropdownRef}>
         <div
-          className={twMerge(
+          className={clsx(
             "flex items-center w-full",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor,
             spacing.twoXl.paddingX,
@@ -192,7 +192,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         >
           <span>
             <SearchIcon
-              className={twMerge(
+              className={clsx(
                 "flex-none",
                 getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
                 spacing.threeXs.negativeMarginLeft,
@@ -207,7 +207,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             name="search"
             type="input"
             placeholder="Search"
-            className={twMerge(
+            className={clsx(
               "w-full focus:outline-none focus:ring-none",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,

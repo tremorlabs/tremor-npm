@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 import {
   CartesianGrid,
   Legend,
@@ -46,7 +46,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
+    <div ref={ref} className={clsx("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsLineChart data={data}>
           {showGridLines ? (

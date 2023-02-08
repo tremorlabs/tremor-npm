@@ -30,7 +30,7 @@ const ResponsiveTemplate: ComponentStory<typeof AccordionList> = (args) => (
         <SimpleAccordionList {...args} length={length} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <SimpleAccordionList {...args} length={length} />
     </Card>
@@ -39,22 +39,22 @@ const ResponsiveTemplate: ComponentStory<typeof AccordionList> = (args) => (
 
 const FlexTemplate: ComponentStory<typeof AccordionList> = (args) => (
   <Card>
-    <Text marginTop="mt-2">Justify Start</Text>
-    <Flex justifyContent="justify-start" marginTop="mt-2">
+    <Text className="mt-2">Justify Start</Text>
+    <Flex justifyContent="start" className="mt-2">
       <SimpleAccordionList {...args} />
     </Flex>
-    <Text marginTop="mt-2">Justify End</Text>
-    <Flex justifyContent="justify-end" marginTop="mt-2">
+    <Text className="mt-2">Justify End</Text>
+    <Flex justifyContent="end" className="mt-2">
       <SimpleAccordionList {...args} />
     </Flex>
-    <Text marginTop="mt-2">Justify End with inner div</Text>
-    <Flex justifyContent="justify-end" marginTop="mt-2">
+    <Text className="mt-2">Justify End with inner div</Text>
+    <Flex justifyContent="end" className="mt-2">
       <div>
         <SimpleAccordionList {...args} />
       </div>
     </Flex>
-    <Text marginTop="mt-2">Justify Start with inner div</Text>
-    <Flex justifyContent="justify-start" marginTop="mt-2">
+    <Text className="mt-2">Justify Start with inner div</Text>
+    <Flex justifyContent="start" className="mt-2">
       <div>
         <SimpleAccordionList {...args} />
       </div>
@@ -67,7 +67,7 @@ const LessThanThreeChildrenTemplate: ComponentStory<typeof AccordionList> = (arg
     <AccordionList {...args}>
       <SimpleAccordion />
     </AccordionList>
-    <AccordionList marginTop="mt-5">
+    <AccordionList className="mt-5">
       <SimpleAccordion />
       <SimpleAccordion />
     </AccordionList>

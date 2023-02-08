@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { Color } from "../../../lib";
 import { borderRadius, getColor, getColorVariantsFromColorThemeValue } from "lib";
@@ -14,7 +14,7 @@ const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((prop
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "w-full",
         getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
         borderRadius.md.all,

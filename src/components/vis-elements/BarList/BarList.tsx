@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -58,7 +58,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge("flex justify-between", spacing.threeXl.spaceX, className)}
+      className={clsx("flex justify-between", spacing.threeXl.spaceX, className)}
       {...other}
     >
       <div className="relative w-full">
@@ -68,7 +68,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
           return (
             <div
               key={item.key ?? item.name}
-              className={twMerge(
+              className={clsx(
                 "flex items-center",
                 rowHeight,
                 getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
@@ -80,10 +80,10 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 transition: showAnimation ? "all 2s" : "",
               }}
             >
-              <div className={twMerge("absolute max-w-full flex", spacing.sm.left)}>
+              <div className={clsx("absolute max-w-full flex", spacing.sm.left)}>
                 {Icon ? (
                   <Icon
-                    className={twMerge(
+                    className={clsx(
                       "flex-none",
                       sizing.lg.height,
                       sizing.lg.width,
@@ -98,7 +98,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={twMerge(
+                    className={clsx(
                       "whitespace-nowrap truncate text-blue-500",
                       "no-underline hover:underline visited:text-blue-500",
                       fontSize.sm,
@@ -108,7 +108,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   </a>
                 ) : (
                   <p
-                    className={twMerge(
+                    className={clsx(
                       "whitespace-nowrap truncate",
                       getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                       fontSize.sm,
@@ -126,14 +126,14 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
-            className={twMerge(
+            className={clsx(
               "flex justify-end items-center",
               rowHeight,
               idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
             )}
           >
             <p
-              className={twMerge(
+              className={clsx(
                 "whitespace-nowrap truncate",
                 getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
                 fontSize.sm,

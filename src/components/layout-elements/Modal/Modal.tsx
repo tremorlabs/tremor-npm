@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { useOnClickOutside, useOnWindowResize } from "hooks";
 
@@ -76,7 +76,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   return showModal ? (
     <div
       ref={mergeRefs([modalRef, ref])}
-      className={twMerge(
+      className={clsx(
         "absolute z-10 divide-y overflow-y-auto",
         "w-full",
         getAbsoluteSpacing(),

@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { Color } from "../../../lib";
 import {
@@ -41,7 +41,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   let sumConsecutveHiddenLabels = 0;
   return (
     <div
-      className={twMerge(
+      className={clsx(
         "relative flex w-full",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         spacing.sm.marginBottom,
@@ -67,14 +67,14 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
               className="flex items-center justify-end"
               style={{ width: `${widthPercentage}%` }}
             >
-              <span className={twMerge(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}>
+              <span className={clsx(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}>
                 {prefixSum}
               </span>
             </div>
           );
         })}
-      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.left)}>0</div>
-      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+      <div className={clsx("absolute bottom-0 flex items-center", spacing.none.left)}>0</div>
+      <div className={clsx("absolute bottom-0 flex items-center", spacing.none.right)}>
         {sumValues}
       </div>
     </div>
@@ -106,18 +106,15 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
   return (
     <div ref={ref} className={className} {...other}>
       {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
-      <div className={twMerge("relative w-full flex items-center", sizing.xs.height)}>
+      <div className={clsx("relative w-full flex items-center", sizing.xs.height)}>
         <div
-          className={twMerge(
-            "flex-1 flex items-center h-full overflow-hidden",
-            borderRadius.md.all,
-          )}
+          className={clsx("flex-1 flex items-center h-full overflow-hidden", borderRadius.md.all)}
         >
           {categoryPercentageValues.map((percentageValue, idx) => {
             return (
               <div
                 key={`item-${idx}`}
-                className={twMerge(
+                className={clsx(
                   "h-full",
                   getColorVariantsFromColorThemeValue(getColor(colors[idx]).background).bgColor,
                 )}
@@ -128,7 +125,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         </div>
         {percentageValue !== undefined ? (
           <div
-            className={twMerge(
+            className={clsx(
               "absolute right-1/2 -translate-x-1/2",
               sizing.lg.width, // wide transparent wrapper for tooltip activation
             )}
@@ -138,7 +135,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
             }}
           >
             <div
-              className={twMerge(
+              className={clsx(
                 "ring-2 mx-auto",
                 markerBgColor,
                 getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,

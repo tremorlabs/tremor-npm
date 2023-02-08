@@ -16,8 +16,8 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
-  <Card maxWidth="max-w-lg">
-    <ColGrid numCols={4} gapY="gap-y-2">
+  <Card className="max-w-lg">
+    <ColGrid numCols={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <BadgeDelta size={size} deltaType="increase" />
@@ -31,8 +31,8 @@ const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
 );
 
 const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
-  <Card maxWidth="max-w-sm">
-    <ColGrid gapY="gap-y-1">
+  <Card className="max-w-sm">
+    <ColGrid className="gap-y-1">
       {Object.values(InputDeltaTypes).map((deltaType) => (
         <BadgeDelta deltaType={deltaType} text={args.text} />
       ))}
@@ -51,7 +51,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
         </Flex>
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <Flex>
         <BadgeDelta {...args} />

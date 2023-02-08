@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { DeltaType, DeltaTypes, Size } from "../../../lib";
 import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
@@ -37,7 +37,7 @@ const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "flex-shrink-0 inline-flex justify-center items-center",
         borderRadius.full.all,
         colors[mappedDeltaType].bgColor,
@@ -49,9 +49,7 @@ const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref
       )}
       {...other}
     >
-      <Icon
-        className={twMerge(text ?? iconElem(), iconSizes[size].height, iconSizes[size].width)}
-      />
+      <Icon className={clsx(text ?? iconElem(), iconSizes[size].height, iconSizes[size].width)} />
       {children || text ? <p className={textElem}>{children ?? text}</p> : null}
     </div>
   );

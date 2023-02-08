@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { spacing } from "lib";
 
@@ -9,7 +9,7 @@ const Tracking = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     return (
       <div
         ref={ref}
-        className={twMerge("w-full flex items-center", spacing.threeXs.spaceX, className)}
+        className={clsx("w-full flex items-center", spacing.threeXs.spaceX, className)}
         {...other}
       >
         {children}

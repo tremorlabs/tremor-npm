@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
@@ -48,7 +48,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
+    <div ref={ref} className={clsx("w-full h-44", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (

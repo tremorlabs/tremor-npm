@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof Block> = (args) => (
   <Flex {...args}>
     <Block>
       <Text>Hello World</Text>
-      <ProgressBar marginTop="mt-14" percentageValue={32} />
+      <ProgressBar className="mt-14" percentageValue={32} />
     </Block>
     <div>Some text</div>
   </Flex>

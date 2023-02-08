@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 
@@ -29,11 +29,11 @@ const ColGrid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
     const colsMd = getGridCols(numColsMd, gridColsMd);
     const colsLg = getGridCols(numColsLg, gridColsLg);
 
-    return twMerge(colsBase, colsSm, colsMd, colsLg);
+    return clsx(colsBase, colsSm, colsMd, colsLg);
   };
 
   return (
-    <div ref={ref} className={twMerge("grid", getColClassNames(), className)} {...other}>
+    <div ref={ref} className={clsx("grid", getColClassNames(), className)} {...other}>
       {children}
     </div>
   );

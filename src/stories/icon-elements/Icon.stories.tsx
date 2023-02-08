@@ -24,7 +24,7 @@ const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
         <Block>
           <Title>{variant}</Title>
           {Object.values(InputSizes).map((size) => (
-            <Block marginTop="mt-2">
+            <Block className="mt-2">
               <Icon icon={args.icon} variant={variant} size={size} />
             </Block>
           ))}
@@ -35,13 +35,13 @@ const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
 );
 
 const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
-  <ColGrid numColsLg={2} gapX="gap-x-2" gapY="gap-y-2">
+  <ColGrid numColsLg={2} className="gap-x-2 gap-y-2">
     {Object.values(IconVariants).map((variant) => (
-      <Card maxWidth="max-w-lg">
+      <Card className="max-w-lg">
         <Title>{variant}</Title>
         <ColGrid numCols={5}>
           {Object.values(BaseColors).map((color) => (
-            <Block marginTop="mt-2">
+            <Block className="mt-2">
               <Icon icon={args.icon} variant={variant} color={color} />
             </Block>
           ))}
@@ -56,7 +56,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <Block spaceY="space-y-2">
+        <Block className="space-y-2">
           {Object.values(IconVariants).map((variant) => (
             <Flex>
               <Icon {...args} variant={variant} />
@@ -66,9 +66,9 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
         </Block>
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
-      <Block spaceY="space-y-2">
+      <Block className="space-y-2">
         {Object.values(IconVariants).map((variant) => (
           <Flex>
             <Icon {...args} variant={variant} />

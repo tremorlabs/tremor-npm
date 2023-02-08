@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { BaseColors, Sizes } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
@@ -36,7 +36,7 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "inline-flex flex-shrink-0 items-center",
         iconColorStyles.bgColor,
         iconColorStyles.textColor,
@@ -52,7 +52,7 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
       )}
       {...other}
     >
-      <Icon className={twMerge(iconSizes[size].height, iconSizes[size].width)} />
+      <Icon className={clsx(iconSizes[size].height, iconSizes[size].width)} />
     </div>
   );
 });

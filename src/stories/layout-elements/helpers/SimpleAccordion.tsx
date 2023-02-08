@@ -15,10 +15,10 @@ import { ArrowRightIcon } from "assets";
 export const SimpleAccordion = (args: any) => (
   <Accordion {...args}>
     <AccordionHeader>
-      <Block spaceY="space-y-2" truncate={true}>
-        <Flex truncate={true}>
-          <Text truncate={true}>Product A</Text>
-          <Text truncate={true}>$ 23,300 (80%)</Text>
+      <Block className="space-y-2 truncate">
+        <Flex className="truncate">
+          <Text className="truncate">Product A</Text>
+          <Text className="truncate">$ 23,300 (80%)</Text>
         </Flex>
         <ProgressBar percentageValue={80} />
       </Block>
@@ -30,7 +30,7 @@ export const SimpleAccordion = (args: any) => (
                     consetetur sadipscing elitr. Per aspera ad astra."
         icon={ArrowRightIcon}
         color="gray"
-        marginTop="mt-2"
+        className="mt-2"
       />
     </AccordionBody>
   </Accordion>

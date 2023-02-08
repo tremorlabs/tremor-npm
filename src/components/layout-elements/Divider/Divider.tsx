@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   borderRadius,
@@ -15,7 +15,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     return (
       <div
         ref={ref}
-        className={twMerge(
+        className={clsx(
           "w-full mx-auto",
           getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
           sizing.threeXs.height,

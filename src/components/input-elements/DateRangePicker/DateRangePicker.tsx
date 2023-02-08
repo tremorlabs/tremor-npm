@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -137,7 +137,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
   return (
     <BaseColorContext.Provider value={color}>
-      <div ref={ref} className={twMerge("relative w-full", className)} {...other}>
+      <div ref={ref} className={clsx("relative w-full", className)} {...other}>
         <DateRangePickerButton
           value={[selectedStartDate, selectedEndDate, selectedDropdownValue]}
           options={dropdownOptions}

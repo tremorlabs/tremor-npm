@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
@@ -28,17 +28,17 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
       ref={ref}
       type="button"
       onClick={() => handleValueChange?.(value)}
-      className={twMerge(
+      className={clsx(
         "flex items-center justify-between w-full",
         spacing.twoXl.paddingX,
         spacing.md.paddingY,
         fontSize.sm,
         isActive
-          ? twMerge(
+          ? clsx(
               getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
               getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
             )
-          : twMerge(
+          : clsx(
               getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             ),
@@ -49,7 +49,7 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
       <div className="flex items-center truncate">
         {Icon ? (
           <Icon
-            className={twMerge(
+            className={clsx(
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,

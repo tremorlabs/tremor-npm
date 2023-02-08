@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { GridClassesMapping, colSpan, colSpanLg, colSpanMd, colSpanSm } from "./styles";
 
@@ -35,11 +35,11 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>((props, ref) => {
     const spanMd = getColSpan(numColSpanMd, colSpanMd);
     const spanLg = getColSpan(numColSpanLg, colSpanLg);
 
-    return twMerge(spanBase, spanSm, spanMd, spanLg);
+    return clsx(spanBase, spanSm, spanMd, spanLg);
   };
 
   return (
-    <div ref={ref} className={twMerge(getColSpanClassNames(), className)} {...other}>
+    <div ref={ref} className={clsx(getColSpanClassNames(), className)} {...other}>
       {children}
     </div>
   );

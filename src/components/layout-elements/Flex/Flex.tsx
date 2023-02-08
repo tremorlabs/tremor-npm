@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { AlignItems, FlexDirection, JustifyContent } from "../../../lib";
 
@@ -47,7 +47,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "flex w-full",
         flexDirectionClassNames[flexDirection],
         justifyContentClassNames[justifyContent],

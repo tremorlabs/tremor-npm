@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -19,7 +19,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
   return (
     <p
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "overflow-y-auto",
         getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         fontSize.sm,

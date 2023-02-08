@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 import { Transition } from "react-transition-group";
 
 import {
@@ -37,10 +37,10 @@ export const ButtonIconOrSpinner = ({
 
   const margin =
     iconPosition === HorizontalPositions.Left
-      ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-      : twMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+      ? clsx(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+      : clsx(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
-  const defaultSpinnerSize = twMerge(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = clsx(sizing.none.width, sizing.none.height);
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -51,11 +51,11 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={twMerge("animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
+      className={clsx("animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={twMerge(iconSize, margin)} aria-hidden="true" />
+    <Icon className={clsx(iconSize, margin)} aria-hidden="true" />
   );
 };
 
@@ -91,9 +91,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const iconSize = twMerge(iconSizes[size].height, iconSizes[size].width);
+  const iconSize = clsx(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
-    variant !== "light" ? twMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
+    variant !== "light" ? clsx(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];
 
@@ -102,7 +102,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       {(state) => (
         <button
           ref={ref}
-          className={twMerge(
+          className={clsx(
             "flex-shrink-0 inline-flex items-center group",
             "focus:outline-none focus:ring-2 focus:ring-offset-2",
             fontWeight.md,
@@ -115,7 +115,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             buttonColorStyles.borderColor,
             buttonColorStyles.focusRingColor,
             !isDisabled
-              ? twMerge(
+              ? clsx(
                   getButtonColors(variant, color).hoverTextColor,
                   getButtonColors(variant, color).hoverBgColor,
                   getButtonColors(variant, color).hoverBorderColor,

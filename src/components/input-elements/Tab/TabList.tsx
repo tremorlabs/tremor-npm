@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -43,7 +43,7 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
     <div
       ref={ref}
       aria-label="Tabs"
-      className={twMerge(
+      className={clsx(
         "flex justify-start overflow-x-clip",
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         spacing.twoXl.spaceX,

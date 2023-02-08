@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { spacing } from "lib";
 
@@ -12,7 +12,7 @@ const TableCell = React.forwardRef<
     <>
       <td
         ref={ref}
-        className={twMerge(
+        className={clsx(
           "align-middle whitespace-nowrap tabular-nums text-left",
           spacing.twoXl.paddingAll,
           className,

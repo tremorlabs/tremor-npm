@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { Color, ValueFormatter } from "../../../lib";
 import {
@@ -17,7 +17,7 @@ import {
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
-    className={twMerge(
+    className={clsx(
       getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
       fontSize.sm,
       borderRadius.md.all,
@@ -39,7 +39,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
-        className={twMerge(
+        className={clsx(
           "shrink-0",
           getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
           getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
@@ -51,7 +51,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
         )}
       />
       <p
-        className={twMerge(
+        className={clsx(
           "font-medium tabular-nums text-right whitespace-nowrap",
           getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
         )}
@@ -60,7 +60,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       </p>
     </div>
     <p
-      className={twMerge(
+      className={clsx(
         "text-right whitespace-nowrap",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         fontWeight.sm,
@@ -90,7 +90,7 @@ const ChartTooltip = ({
     return (
       <ChartTooltipFrame>
         <div
-          className={twMerge(
+          className={clsx(
             getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
@@ -98,7 +98,7 @@ const ChartTooltip = ({
           )}
         >
           <p
-            className={twMerge(
+            className={clsx(
               "text-elem",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               fontWeight.md,
@@ -108,7 +108,7 @@ const ChartTooltip = ({
           </p>
         </div>
 
-        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={clsx(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}

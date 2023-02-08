@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import { defaultColors, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
 
@@ -12,7 +12,7 @@ const TableHead = React.forwardRef<
     <>
       <thead
         ref={ref}
-        className={twMerge(
+        className={clsx(
           "text-left",
           getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
           fontWeight.lg,

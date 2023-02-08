@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 import {
   BaseColors,
@@ -35,7 +35,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={clsx(
         "relative flex items-center w-full",
         secondaryBgColor,
         sizing.xs.height,
@@ -45,7 +45,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       {...other}
     >
       <div
-        className={twMerge(
+        className={clsx(
           "absolute right-1/2 -translate-x-1/2",
           sizing.lg.width, // wide transparent wrapper for tooltip activation
         )}
@@ -55,7 +55,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         }}
       >
         <div
-          className={twMerge(
+          className={clsx(
             "ring-2 mx-auto",
             primaryBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
