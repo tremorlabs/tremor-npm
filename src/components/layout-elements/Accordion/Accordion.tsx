@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { border, borderRadius, defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 import { RootStylesContext } from "contexts";
@@ -23,12 +23,12 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
   const { expanded = false, children, className, ...other } = props;
   const [isExpanded, setIsExpanded] = useState(expanded);
 
-  const rootStyles = useContext(RootStylesContext) ?? clsx(border.sm.all, borderRadius.lg.all);
+  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all, borderRadius.lg.all);
 
   return (
     <div
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "overflow-hidden",
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,

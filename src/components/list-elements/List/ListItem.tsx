@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { fontSize, spacing } from "lib";
 
@@ -13,7 +13,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>((props, ref) => 
     <>
       <li
         ref={ref}
-        className={clsx(
+        className={twMerge(
           "w-full flex justify-between items-center truncate tabular-nums",
           spacing.sm.paddingY,
           fontSize.sm,

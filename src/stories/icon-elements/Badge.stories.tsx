@@ -17,8 +17,8 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
-  <Card maxWidth="max-w-md">
-    <ColGrid numCols={4} gapY="gap-y-2">
+  <Card className="max-w-md">
+    <ColGrid numCols={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <Badge size={size} text={args.text} tooltip={args.tooltip} />
@@ -32,8 +32,8 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
 );
 
 const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
-  <Card maxWidth="max-w-sm">
-    <ColGrid numCols={5} gapY="gap-y-2">
+  <Card className="max-w-sm">
+    <ColGrid numCols={5} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <Badge color={color} text={args.text} icon={args.icon} />
       ))}
@@ -52,7 +52,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Badge> = (args) => (
         </Flex>
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <Flex>
         <Badge {...args} />

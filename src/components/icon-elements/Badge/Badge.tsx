@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import {
   BaseColors,
@@ -35,7 +35,7 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "flex-shrink-0 inline-flex justify-center items-center",
         getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
         getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
@@ -48,7 +48,7 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
       {...other}
     >
       {Icon ? (
-        <Icon className={clsx(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
+        <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
       ) : null}
       <p className={textElem}>{children ?? text}</p>
     </div>

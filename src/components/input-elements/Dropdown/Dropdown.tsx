@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
@@ -73,7 +73,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     <div
       ref={mergeRefs([dropdownRef, ref])}
       onKeyDown={handleKeyDown}
-      className={clsx(
+      className={twMerge(
         "relative w-full min-w-[10rem]",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -87,7 +87,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     >
       <button
         type="button"
-        className={clsx(
+        className={twMerge(
           "flex justify-between items-center w-full",
           "focus:outline-0 focus:ring-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
@@ -99,7 +99,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
         <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
-              className={clsx(
+              className={twMerge(
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -110,7 +110,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             />
           ) : null}
           <p
-            className={clsx(
+            className={twMerge(
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -123,7 +123,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           </p>
         </div>
         <ArrowDownHeadIcon
-          className={clsx(
+          className={twMerge(
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,

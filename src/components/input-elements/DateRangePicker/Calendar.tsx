@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import {
   add,
   eachDayOfInterval,
@@ -78,7 +78,7 @@ const CalendarHeader = ({
 
   return (
     <div
-      className={clsx(
+      className={twMerge(
         "flex justify-between items-center",
         spacing.twoXs.paddingX,
         spacing.sm.paddingY,
@@ -88,7 +88,7 @@ const CalendarHeader = ({
         <button
           type="button"
           hidden={!enableYearPagination}
-          className={clsx(
+          className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -103,7 +103,7 @@ const CalendarHeader = ({
           onClick={() => handlePaginationClick("prevYear")}
         >
           <DoubleArrowLeftHeadIcon
-            className={clsx(
+            className={twMerge(
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -114,7 +114,7 @@ const CalendarHeader = ({
         <button
           type="button"
           name="prevMonth"
-          className={clsx(
+          className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -129,7 +129,7 @@ const CalendarHeader = ({
           onClick={() => handlePaginationClick("prevMonth")}
         >
           <ArrowLeftHeadIcon
-            className={clsx(
+            className={twMerge(
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -139,7 +139,7 @@ const CalendarHeader = ({
         </button>
       </div>
       <h2
-        className={clsx(
+        className={twMerge(
           "text-elem",
           getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
           fontSize.sm,
@@ -152,7 +152,7 @@ const CalendarHeader = ({
         <button
           type="button"
           name="nextMonth"
-          className={clsx(
+          className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -167,7 +167,7 @@ const CalendarHeader = ({
           onClick={() => handlePaginationClick("nextMonth")}
         >
           <ArrowRightHeadIcon
-            className={clsx(
+            className={twMerge(
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -178,7 +178,7 @@ const CalendarHeader = ({
         <button
           type="button"
           hidden={!enableYearPagination}
-          className={clsx(
+          className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
@@ -193,7 +193,7 @@ const CalendarHeader = ({
           onClick={() => handlePaginationClick("nextYear")}
         >
           <DoubleArrowRightHeadIcon
-            className={clsx(
+            className={twMerge(
               "shrink-0 flex-0",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               sizing.lg.height,
@@ -261,7 +261,7 @@ const CalendarBody = ({
   return (
     <>
       <div
-        className={clsx(
+        className={twMerge(
           "grid grid-cols-7 text-center",
           getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
           fontSize.xs,
@@ -270,7 +270,9 @@ const CalendarBody = ({
       >
         {weekdays.map((dayName) => (
           <div key={dayName} className="w-full flex justify-center">
-            <div className={clsx("flex items-center justify-center w-full", sizing.threeXl.height)}>
+            <div
+              className={twMerge("flex items-center justify-center w-full", sizing.threeXl.height)}
+            >
               {dayName}
             </div>
           </div>
@@ -287,13 +289,13 @@ const CalendarBody = ({
           );
 
           return (
-            <div key={date.toString()} className={clsx(colStartClasses[getDay(date)], "w-full")}>
+            <div key={date.toString()} className={twMerge(colStartClasses[getDay(date)], "w-full")}>
               <button
                 type="button"
                 onClick={() => onDateClick(date)}
                 onPointerEnter={() => setHoveredDate?.(date)}
                 onPointerLeave={() => setHoveredDate?.(undefined)}
-                className={clsx(
+                className={twMerge(
                   "w-full flex items-center justify-center",
                   sizing.threeXl.height,
                   fontSize.sm,
@@ -344,7 +346,7 @@ const Calendar = ({
   locale,
 }: CalendarProps) => {
   return (
-    <div className={clsx(spacing.lg.paddingX, spacing.twoXs.paddingY)}>
+    <div className={twMerge(spacing.lg.paddingX, spacing.twoXs.paddingY)}>
       <CalendarHeader
         enableYearPagination={enableYearPagination}
         anchorDate={anchorDate}

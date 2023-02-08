@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import {
   addDays,
   format,
@@ -118,7 +118,7 @@ export const getDateStyles = (
   isDateDisabled: boolean,
   color: Color,
 ) =>
-  clsx(
+  twMerge(
     getDayBgColorClassName(
       date,
       finalStartDate,
@@ -290,7 +290,10 @@ const getDayTextClassNames = (
     ) {
       return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
     }
-    return clsx(getColorVariantsFromColorThemeValue(getColor(color).text).textColor, fontWeight.lg);
+    return twMerge(
+      getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+      fontWeight.lg,
+    );
   }
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
     return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;

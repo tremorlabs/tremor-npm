@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 import { MarginTop } from "../../../lib/inputTypes";
@@ -14,7 +14,7 @@ const List = React.forwardRef<HTMLUListElement, ListProps>((props, ref) => {
   return (
     <ul
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "w-full overflow-hidden divide-y",
         getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,

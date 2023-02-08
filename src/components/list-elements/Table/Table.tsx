@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { defaultColors, fontSize, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
 import { MarginTop } from "../../../lib";
@@ -12,10 +12,10 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>((props, ref) => {
   const { children, className, ...other } = props;
 
   return (
-    <div className={clsx("overflow-auto", className)}>
+    <div className={twMerge("overflow-auto", className)}>
       <table
         ref={ref}
-        className={clsx(
+        className={twMerge(
           "w-full tabular-nums",
           getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
           fontSize.sm,

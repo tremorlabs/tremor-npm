@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import {
   DeltaTypes,
@@ -33,7 +33,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
   return (
     <div
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "relative flex items-center w-full",
         getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
         sizing.xs.height,
@@ -45,7 +45,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       <div className="flex justify-end h-full w-1/2">
         {percentageValue < 0 ? (
           <div
-            className={clsx(colors[deltaType].bgColor, borderRadius.full.left)}
+            className={twMerge(colors[deltaType].bgColor, borderRadius.full.left)}
             style={{
               width: `${Math.abs(percentageValue)}%`,
               transition: showAnimation ? "all 2s" : "",
@@ -54,7 +54,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         ) : null}
       </div>
       <div
-        className={clsx(
+        className={twMerge(
           "ring-2 z-10",
           getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
           getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
@@ -66,7 +66,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       <div className="flex justify-start h-full w-1/2">
         {percentageValue >= 0 ? (
           <div
-            className={clsx(colors[deltaType].bgColor, borderRadius.full.right)}
+            className={twMerge(colors[deltaType].bgColor, borderRadius.full.right)}
             style={{
               width: `${Math.abs(percentageValue)}%`,
               transition: showAnimation ? "all 2s" : "",

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { ArrowDownHeadIcon, ArrowUpHeadIcon } from "assets";
 import { defaultColors, getColorVariantsFromColorThemeValue, sizing, spacing } from "lib";
@@ -15,7 +15,7 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
   return (
     <button
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "w-full flex items-center justify-between",
         spacing.threeXl.paddingX,
         spacing.lg.paddingY,
@@ -28,11 +28,11 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
       type="button"
       {...other}
     >
-      <div className={clsx("flex flex-1", spacing.threeXl.marginRight)}>{children}</div>
+      <div className={twMerge("flex flex-1", spacing.threeXl.marginRight)}>{children}</div>
       <div>
         {isExpanded ? (
           <ArrowUpHeadIcon
-            className={clsx(
+            className={twMerge(
               getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,
@@ -41,7 +41,7 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
           />
         ) : (
           <ArrowDownHeadIcon
-            className={clsx(
+            className={twMerge(
               getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,

@@ -1,5 +1,5 @@
 import React, { Dispatch, Ref, SetStateAction } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import { isEqual } from "date-fns";
 
 import { ArrowDownHeadIcon, CalendarIcon } from "assets";
@@ -104,7 +104,7 @@ const DateRangePickerButton = ({
 
   return (
     <div
-      className={clsx(
+      className={twMerge(
         "flex items-center justify-between",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
@@ -117,10 +117,10 @@ const DateRangePickerButton = ({
         ref={calendarRef}
         onClick={() => setShowCalendar(!showCalendar)}
         onKeyDown={onCalendarKeyDown}
-        className={clsx(
+        className={twMerge(
           `flex items-center w-full truncate focus:ring-0
                      focus:outline-0`,
-          enableDropdown ? border.none.right : clsx(borderRadius.md.right, border.sm.right),
+          enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
           spacing.twoXl.paddingX,
@@ -130,7 +130,7 @@ const DateRangePickerButton = ({
         )}
       >
         <CalendarIcon
-          className={clsx(
+          className={twMerge(
             "flex-none",
             getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
             sizing.lg.height,
@@ -141,7 +141,7 @@ const DateRangePickerButton = ({
           aria-hidden="true"
         />
         <p
-          className={clsx(
+          className={twMerge(
             "whitespace-nowrap truncate",
             fontSize.sm,
             fontWeight.md,
@@ -158,7 +158,7 @@ const DateRangePickerButton = ({
           type="button"
           ref={dropdownRef}
           onClick={() => setShowDropdown(!showDropdown)}
-          className={clsx(
+          className={twMerge(
             "inline-flex justify-between w-48 truncate",
             "focus:ring-0 focus:outline-0",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
@@ -172,7 +172,7 @@ const DateRangePickerButton = ({
           onKeyDown={onDropdownKeyDown}
         >
           <p
-            className={clsx(
+            className={twMerge(
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -184,7 +184,7 @@ const DateRangePickerButton = ({
             {dropdownText}
           </p>
           <ArrowDownHeadIcon
-            className={clsx(
+            className={twMerge(
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,
