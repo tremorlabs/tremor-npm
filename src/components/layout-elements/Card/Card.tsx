@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/primitives";
 import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
@@ -47,7 +47,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "relative w-full mx-auto text-left ring-1",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         boxShadow.md,

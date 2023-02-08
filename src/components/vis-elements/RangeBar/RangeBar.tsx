@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import {
   BaseColors,
@@ -34,7 +34,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
   return (
     <div
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "relative flex items-center w-full",
         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
         sizing.xs.height,
@@ -44,7 +44,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       {...other}
     >
       <div
-        className={clsx(
+        className={twMerge(
           "absolute h-full",
           getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
           borderRadius.lg.all,
@@ -56,7 +56,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         }}
       />
       <div
-        className={clsx(
+        className={twMerge(
           "absolute right-1/2 -translate-x-1/2",
           sizing.lg.width, // wide transparent wrapper for tooltip activation
         )}
@@ -66,7 +66,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         }}
       >
         <div
-          className={clsx(
+          className={twMerge(
             "ring-2 mx-auto",
             getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
             getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,

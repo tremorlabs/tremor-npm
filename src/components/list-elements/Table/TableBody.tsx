@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
 
@@ -12,7 +12,7 @@ const TableBody = React.forwardRef<
     <>
       <tbody
         ref={ref}
-        className={clsx(
+        className={twMerge(
           "align-top overflow-x-auto divide-y",
           getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
           className,

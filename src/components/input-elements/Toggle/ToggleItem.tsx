@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -28,13 +28,13 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
 
   const isActive = selectedValue === value;
 
-  const activeClassNames = clsx(
+  const activeClassNames = twMerge(
     getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
     getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
     getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
     boxShadow.sm,
   );
-  const inActiveClassNames = clsx(
+  const inActiveClassNames = twMerge(
     getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
     getColorVariantsFromColorThemeValue(defaultColors.darkText).hoverTextColor,
     getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
@@ -45,7 +45,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
     <button
       ref={ref}
       type="button"
-      className={clsx(
+      className={twMerge(
         "flex items-center ring-1",
         spacing.lg.paddingX,
         spacing.xs.paddingY,
@@ -62,7 +62,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
     >
       {Icon ? (
         <Icon
-          className={clsx(
+          className={twMerge(
             "opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,

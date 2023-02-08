@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
 import {
@@ -37,7 +37,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           handleValuesChange?.(value);
           onClick?.(e);
         }}
-        className={clsx(
+        className={twMerge(
           "flex items-center justify-between w-full",
           spacing.twoXl.paddingX,
           spacing.md.paddingY,
@@ -54,7 +54,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
         <div className="flex items-center truncate">
           <input
             type="checkbox"
-            className={clsx(
+            className={twMerge(
               "flex-none focus:ring-none focus:outline-none cursor-pointer",
               getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
               getColorVariantsFromColorThemeValue(getColor(BaseColors.Blue).text).textColor,

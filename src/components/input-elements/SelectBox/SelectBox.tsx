@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { ArrowDownHeadIcon } from "assets";
 
@@ -114,7 +114,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         handleKeyDown(e);
         onKeyDown?.(e);
       }}
-      className={clsx(
+      className={twMerge(
         "relative w-full min-w-[10rem]",
         !isSelectBoxHovered
           ? getColorVariantsFromColorThemeValue(defaultColors.white).bgColor
@@ -137,9 +137,9 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     >
       <div className="flex items-center overflow-hidden">
         {Icon ? (
-          <button type="button" className={clsx("p-0", spacing.xl.marginLeft)}>
+          <button type="button" className={twMerge("p-0", spacing.xl.marginLeft)}>
             <Icon
-              className={clsx(
+              className={twMerge(
                 "shrink-0 bg-inherit",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -152,7 +152,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         <input
           ref={inputRef}
           type="text"
-          className={clsx(
+          className={twMerge(
             "w-full focus:outline-0 focus:ring-0 bg-inherit",
             getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
@@ -169,10 +169,10 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         />
         <button
           type="button"
-          className={clsx("absolute top-1/2 -translate-y-1/2 bg-inherit", spacing.twoXl.right)}
+          className={twMerge("absolute top-1/2 -translate-y-1/2 bg-inherit", spacing.twoXl.right)}
         >
           <ArrowDownHeadIcon
-            className={clsx(
+            className={twMerge(
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,

@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { border, borderRadius, boxShadow } from "lib";
 import { RootStylesContext } from "contexts";
@@ -14,12 +14,12 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
   const numChildren = React.Children.count(children);
 
   return (
-    <div ref={ref} className={clsx(borderRadius.lg.all, boxShadow.md, className)} {...other}>
+    <div ref={ref} className={twMerge(borderRadius.lg.all, boxShadow.md, className)} {...other}>
       {React.Children.map(children, (child, idx) => {
         if (idx === 0) {
           return (
             <RootStylesContext.Provider
-              value={clsx(
+              value={twMerge(
                 borderRadius.lg.top,
                 border.sm.left,
                 border.sm.top,
@@ -35,7 +35,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={clsx(
+              value={twMerge(
                 borderRadius.lg.bottom,
                 border.sm.left,
                 border.sm.right,
@@ -49,7 +49,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         }
         return (
           <RootStylesContext.Provider
-            value={clsx(border.sm.left, border.sm.right, border.sm.bottom, boxShadow.none)}
+            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom, boxShadow.none)}
           >
             {React.cloneElement(child)}
           </RootStylesContext.Provider>

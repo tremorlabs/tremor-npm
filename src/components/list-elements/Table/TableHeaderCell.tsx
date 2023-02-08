@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { defaultColors, fontWeight, getColorVariantsFromColorThemeValue, spacing } from "lib";
 
@@ -12,7 +12,7 @@ const TableHeaderCell = React.forwardRef<
     <>
       <th
         ref={ref}
-        className={clsx(
+        className={twMerge(
           "sticky whitespace-nowrap text-left",
           getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
           spacing.none.top,

@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import "tippy.js/dist/tippy.css";
 import Tooltip from "@tippyjs/react";
 
@@ -55,7 +55,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
 
   return (
     <div
-      className={clsx(
+      className={twMerge(
         "relative w-full flex items-center overflow-hidden min-w-[10rem]",
         bgColor,
         boderColor,
@@ -67,7 +67,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     >
       {Icon ? (
         <Icon
-          className={clsx(
+          className={twMerge(
             "shrink-0",
             sizing.lg.height,
             sizing.lg.width,
@@ -80,7 +80,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       <input
         ref={ref}
         type="text"
-        className={clsx(
+        className={twMerge(
           "input-elem",
           "w-full focus:outline-0 focus:ring-0 bg-inherit",
           textColor,
@@ -102,9 +102,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           className={errorMessage ? "" : "hidden"}
           showOnCreate={true}
         >
-          <div className={clsx(spacing.xl.marginRight)}>
+          <div className={twMerge(spacing.xl.marginRight)}>
             <ExclamationFilledIcon
-              className={clsx(
+              className={twMerge(
                 sizing.lg.height,
                 sizing.lg.width,
                 getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor,

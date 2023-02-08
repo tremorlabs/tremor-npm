@@ -1,9 +1,9 @@
 // DeprecationWarning: The `Footer` component is deprecated and will be removed with the next major release.
 
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
-import { border, parseHeight, spacing } from "lib";
+import { border, spacing } from "lib";
 
 export interface FooterProps {
   height?: string;
@@ -17,11 +17,11 @@ const Footer = ({ height = "h-14", children }: FooterProps) => {
 
   return (
     <>
-      <div className={clsx(parseHeight(height))} />
+      <div className={twMerge(height)} />
       <div
-        className={clsx(
+        className={twMerge(
           "absolute flex items-center w-full",
-          parseHeight(height),
+          height,
           spacing.none.left,
           spacing.none.right,
           spacing.none.bottom,

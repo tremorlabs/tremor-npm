@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { Color } from "../../../lib";
 import {
@@ -20,14 +20,14 @@ export interface LegendItemProps {
 
 const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
-    className={clsx(
+    className={twMerge(
       "termor-elem inline-flex items-center truncate",
       getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
       spacing.md.marginRight,
     )}
   >
     <svg
-      className={clsx(
+      className={twMerge(
         "termor-elem flex-none",
         getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
         sizing.xs.height,
@@ -39,7 +39,7 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     >
       <circle cx={4} cy={4} r={4} />
     </svg>
-    <p className={clsx("termor-elem whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
+    <p className={twMerge("termor-elem whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
       {name}
     </p>
   </li>
@@ -53,7 +53,11 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const { categories, colors = themeColorRange, className, ...other } = props;
   return (
-    <ol ref={ref} className={clsx("flex flex-wrap overflow-hidden truncate", className)} {...other}>
+    <ol
+      ref={ref}
+      className={twMerge("flex flex-wrap overflow-hidden truncate", className)}
+      {...other}
+    >
       {categories.map((category, idx) => (
         <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
       ))}

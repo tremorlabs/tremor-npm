@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
@@ -29,12 +29,12 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const isActive = selectedValue === value;
   const Icon = icon;
 
-  const activeClassNames = clsx(
+  const activeClassNames = twMerge(
     getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
     getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
     border.md.bottom,
   );
-  const inActiveClassNames = clsx(
+  const inActiveClassNames = twMerge(
     getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
     getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
     getColorVariantsFromColorThemeValue(defaultColors.text).hoverTextColor,
@@ -45,7 +45,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   return (
     <button
       ref={ref}
-      className={clsx(
+      className={twMerge(
         "flex whitespace-nowrap max-w-xs truncate",
         "focus:outline-0 focus:ring-0",
         spacing.twoXs.paddingX,
@@ -65,7 +65,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
     >
       {Icon ? (
         <Icon
-          className={clsx(
+          className={twMerge(
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,

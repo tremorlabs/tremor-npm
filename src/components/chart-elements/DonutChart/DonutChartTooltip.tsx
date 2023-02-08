@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 import { ChartTooltipFrame, ChartTooltipRow } from "components/chart-elements/common/ChartTooltip";
 import { spacing } from "lib";
@@ -16,7 +16,7 @@ export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChar
     const payloadRow = payload[0];
     return (
       <ChartTooltipFrame>
-        <div className={clsx(spacing.twoXl.paddingX, spacing.sm.paddingY)}>
+        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY)}>
           <ChartTooltipRow
             value={valueFormatter(payloadRow.value)}
             name={payloadRow.name}
