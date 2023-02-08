@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
-import { Color, Height, MarginTop, ValueFormatter } from "../../../lib/inputTypes";
+import { Color, ValueFormatter } from "../../../lib/inputTypes";
 import {
   defaultColors,
   defaultValueFormatter,
@@ -26,8 +26,6 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
-  height?: Height;
-  marginTop?: MarginTop;
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {

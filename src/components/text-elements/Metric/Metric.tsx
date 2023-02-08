@@ -8,12 +8,10 @@ import {
   getColor,
   getColorVariantsFromColorThemeValue,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface MetricProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  truncate?: boolean;
-  marginTop?: MarginTop;
 }
 
 const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) => {

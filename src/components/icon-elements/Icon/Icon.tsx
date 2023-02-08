@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 import { BaseColors, Sizes } from "lib";
-import { Color, IconVariant, MarginTop, Size } from "../../../lib";
+import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
 export const IconVariants: { [key: string]: IconVariant } = {
@@ -19,7 +19,6 @@ export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   tooltip?: string;
   size?: Size;
   color?: Color;
-  marginTop?: MarginTop;
 }
 
 const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {

@@ -9,7 +9,7 @@ import {
   getColorVariantsFromColorThemeValue,
   sizing,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -19,7 +19,6 @@ export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
   rangeTooltip?: string;
   showAnimation?: boolean;
   color?: Color;
-  marginTop?: MarginTop;
 }
 
 const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) => {

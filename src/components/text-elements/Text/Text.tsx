@@ -8,14 +8,10 @@ import {
   getColor,
   getColorVariantsFromColorThemeValue,
 } from "lib";
-import { Color, Height, MarginTop, TextAlignment } from "../../../lib/inputTypes";
+import { Color } from "../../../lib/inputTypes";
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  textAlignment?: TextAlignment;
-  truncate?: boolean;
-  height?: Height | "";
-  marginTop?: MarginTop;
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {

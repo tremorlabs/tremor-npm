@@ -1,13 +1,6 @@
 import React from "react";
 
-import { MarginTop, MaxWidth, SpaceY, TextAlignment } from "../../../lib/inputTypes";
-
 export interface BlockProps extends React.HTMLAttributes<HTMLDivElement> {
-  maxWidth?: MaxWidth;
-  spaceY?: SpaceY | "";
-  textAlignment?: TextAlignment;
-  truncate?: boolean;
-  marginTop?: MarginTop;
   children: React.ReactNode;
 }
 

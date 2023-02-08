@@ -1,12 +1,11 @@
 import React from "react";
 import clsx from "clsx";
 
-import { Color, Height } from "../../../lib";
+import { Color } from "../../../lib";
 import { borderRadius, getColor, getColorVariantsFromColorThemeValue } from "lib";
 
 export interface TrackingBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   color: Color;
-  height?: Height;
   tooltip?: string;
 }
 

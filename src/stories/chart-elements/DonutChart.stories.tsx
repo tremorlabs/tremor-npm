@@ -23,7 +23,7 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
         <DonutChart {...args} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <DonutChart {...args} />
     </Card>
@@ -42,13 +42,13 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
     <div className="w-full mt-4">
       <Card>
         <Title>Sales</Title>
-        <DonutChart {...args} />
+        <DonutChart className="mt-5" {...args} />
         <div className="mt-6">
           <List>
             {data.map((item) => (
               <ListItem key={item.city}>
                 <span> {item.city} </span>
-                <Flex spaceX="space-x-2" justifyContent="justify-end">
+                <Flex className="space-x-2" justifyContent="end">
                   <BadgeDelta
                     deltaType={item.deltaType as DeltaType}
                     text={item.delta}
@@ -154,5 +154,4 @@ BlockExample.args = {
   category: "sales",
   dataKey: "city",
   valueFormatter: valueFormatter,
-  marginTop: "mt-6",
 };

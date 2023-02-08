@@ -7,7 +7,6 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   border,
   borderRadius,
@@ -31,8 +30,6 @@ export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 

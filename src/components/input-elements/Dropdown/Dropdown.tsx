@@ -7,7 +7,6 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { ArrowDownHeadIcon } from "assets";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   border,
   borderRadius,
@@ -30,8 +29,6 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   icon?: React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 

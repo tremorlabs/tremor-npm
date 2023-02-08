@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 import {
   borderRadius,
   defaultColors,
@@ -88,7 +88,6 @@ export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
   showLabels?: boolean;
   tooltip?: string;
   showAnimation?: boolean;
-  marginTop?: MarginTop;
 }
 
 const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, ref) => {

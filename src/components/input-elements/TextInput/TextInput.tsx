@@ -16,7 +16,6 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import { ExclamationFilledIcon } from "assets";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
@@ -32,8 +31,6 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
-  maxWidth?: MaxWidth;
-  marginTop?: MarginTop;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {

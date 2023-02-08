@@ -2,10 +2,8 @@ import React from "react";
 import clsx from "clsx";
 
 import { fontSize, spacing } from "lib";
-import { SpaceX } from "../../../lib";
 
 export interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  spaceX?: SpaceX | "";
   children: React.ReactNode;
 }
 

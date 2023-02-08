@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 import {
   defaultColors,
   fontSize,
@@ -48,7 +48,6 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
-  marginTop?: MarginTop;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {

@@ -12,7 +12,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -20,7 +20,6 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   tooltip?: string;
   showAnimation?: boolean;
   color?: Color;
-  marginTop?: MarginTop;
 }
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {

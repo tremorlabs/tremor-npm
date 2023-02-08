@@ -1,11 +1,5 @@
 import { ColorTypes, colorVariantMapping } from "./colorVariantMapping";
-import { Height, MarginTop, Width } from "./inputTypes";
 import { twColorsHex } from "lib/colors";
-
-export const getPixelsFromTwClassName = (twClassName: MarginTop | Height | Width): number => {
-  const classNameParts = twClassName.split("-");
-  return Number(classNameParts[classNameParts.length - 1]) * 4;
-};
 
 export const getColorVariantsFromColorThemeValue = (colorThemeValue: string): ColorTypes => {
   const colorThemeValueParts = colorThemeValue.split("-");
@@ -22,20 +16,4 @@ export const getHexFromColorThemeValue = (colorThemeValue: string): string => {
   // Currently only 500 is supported
   const hexValue = twColorsHex[baseColor][500];
   return hexValue;
-};
-
-interface BoolClassParser {
-  (twClassName: boolean): string;
-}
-
-export const parseTruncateOption: BoolClassParser = (option) => {
-  return option === true ? "truncate" : "";
-};
-
-export const parseHFullOption: BoolClassParser = (option) => {
-  return option === true ? "h-full" : "";
-};
-
-export const parseWFullOption: BoolClassParser = (option) => {
-  return option === true ? "w-full" : "";
 };

@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/primitives";
-import { Color, HorizontalPosition, MarginTop, MaxWidth, VerticalPosition } from "../../../lib";
+import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
 import {
   border,
   borderRadius,
@@ -31,11 +31,9 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   hFull?: boolean;
-  maxWidth?: MaxWidth;
   shadow?: boolean;
   decoration?: HorizontalPosition | VerticalPosition | "";
   decorationColor?: Color;
-  marginTop?: MarginTop;
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {

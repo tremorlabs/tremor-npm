@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { AlignItems, FlexDirection, JustifyContent, MarginTop, SpaceX } from "../../../lib";
+import { AlignItems, FlexDirection, JustifyContent } from "../../../lib";
 
 const justifyContentClassNames: { [key in JustifyContent]: string } = {
   start: "justify-start",
@@ -31,9 +31,6 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   flexDirection?: FlexDirection;
   justifyContent?: JustifyContent;
   alignItems?: AlignItems;
-  spaceX?: SpaceX | "";
-  truncate?: boolean;
-  marginTop?: MarginTop;
   children: React.ReactNode;
 }
 

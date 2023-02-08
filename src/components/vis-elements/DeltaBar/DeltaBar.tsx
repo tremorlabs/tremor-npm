@@ -9,7 +9,6 @@ import {
   mapInputsToDeltaType,
   sizing,
 } from "lib";
-import { MarginTop } from "../../../lib";
 import { colors } from "./styles";
 
 const getDeltaType = (value: number) => (value >= 0 ? DeltaTypes.Increase : DeltaTypes.Decrease);
@@ -19,7 +18,6 @@ export interface DeltaBarProps extends React.HTMLAttributes<HTMLDivElement> {
   isIncreasePositive?: boolean;
   tooltip?: string;
   showAnimation?: boolean;
-  marginTop?: MarginTop;
 }
 
 const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) => {

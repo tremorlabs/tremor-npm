@@ -9,7 +9,7 @@ import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "con
 import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { BaseColors } from "lib";
-import { Color, MarginTop, MaxWidth } from "../../../lib/inputTypes";
+import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,
   getEndDateByDropdownValue,
@@ -46,8 +46,6 @@ export interface DateRangePickerProps
   dropdownPlaceholder?: string;
   enableYearPagination?: boolean;
   color?: Color;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   locale?: Locale;
 }
 

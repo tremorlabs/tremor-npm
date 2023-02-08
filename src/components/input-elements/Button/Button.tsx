@@ -13,7 +13,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { Color, HorizontalPosition, ButtonVariant, MarginTop, Size } from "../../../lib";
+import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
 import { textElem } from "lib/baseStyles";
@@ -65,7 +65,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: Size;
   color?: Color;
   variant?: ButtonVariant;
-  marginTop?: MarginTop;
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;

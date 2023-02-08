@@ -35,11 +35,11 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
         <SimpleDropdown />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <SimpleSelectBox {...args} />
     </Card>
-    <Title marginTop="mt-5">With Black Background</Title>
+    <Title className="mt-5">With Black Background</Title>
     <Card>
       <div className="flex items-center bg-black h-24">
         <SimpleSelectBox {...args} />
@@ -51,22 +51,22 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
 const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
   <>
     <Card>
-      <Text marginTop="mt-2">Justify Start</Text>
-      <Flex justifyContent="start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start</Text>
+      <Flex justifyContent="start" className="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End</Text>
-      <Flex justifyContent="end" marginTop="mt-2">
+      <Text className="mt-2">Justify End</Text>
+      <Flex justifyContent="end" className="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="end" marginTop="mt-2">
+      <Text className="mt-2">Justify End with inner div</Text>
+      <Flex justifyContent="end" className="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
       </Flex>
-      <Text marginTop="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start with inner div</Text>
+      <Flex justifyContent="start" className="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
@@ -105,7 +105,7 @@ DefaultResponsive.args = {
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-  maxWidth: "max-w-xs",
+  className: "max-w-xs",
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});

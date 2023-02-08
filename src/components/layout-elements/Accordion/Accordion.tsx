@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, createContext, useContext, useState } 
 import clsx from "clsx";
 
 import { border, borderRadius, defaultColors, getColorVariantsFromColorThemeValue } from "lib";
-import { MarginTop } from "../../../lib";
 import { RootStylesContext } from "contexts";
 
 interface ExpandedContextValue {
@@ -17,7 +16,6 @@ export const ExpandedContext = createContext<ExpandedContextValue>({
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   shadow?: boolean;
   expanded?: boolean;
-  marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 

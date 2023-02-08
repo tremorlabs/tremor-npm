@@ -1,7 +1,6 @@
 import React from "react";
 import clsx from "clsx";
 
-import { GapX, GapY, MarginTop } from "../../../lib/inputTypes";
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 
 export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -9,9 +8,6 @@ export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
   numColsSm?: number;
   numColsMd?: number;
   numColsLg?: number;
-  gapX?: GapX;
-  gapY?: GapY;
-  marginTop?: MarginTop;
   children: React.ReactNode;
 }
 

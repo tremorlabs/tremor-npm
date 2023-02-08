@@ -2,11 +2,6 @@ import React from "react";
 import clsx from "clsx";
 
 import { spacing } from "lib";
-import { TextAlignment } from "../../../lib/inputTypes";
-
-export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {
-  textAlignment?: TextAlignment;
-}
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,

@@ -9,14 +9,13 @@ import {
   getColorVariantsFromColorThemeValue,
   sizing,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
   color?: Color;
   tooltip?: string;
   showAnimation?: boolean;
-  marginTop?: MarginTop;
 }
 
 const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) => {

@@ -4,10 +4,9 @@ import React from "react";
 import clsx from "clsx";
 
 import { border, parseHeight, spacing } from "lib";
-import { Height } from "../../../lib";
 
 export interface FooterProps {
-  height?: Height;
+  height?: string;
   children: React.ReactNode;
 }
 

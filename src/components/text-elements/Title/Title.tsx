@@ -8,12 +8,10 @@ import {
   getColor,
   getColorVariantsFromColorThemeValue,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  truncate?: boolean;
-  marginTop?: MarginTop;
 }
 
 const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) => {

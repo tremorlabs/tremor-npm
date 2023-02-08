@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { DeltaType, DeltaTypes, MarginTop, Size } from "../../../lib";
+import { DeltaType, DeltaTypes, Size } from "../../../lib";
 import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
 import {
   badgeProportionsIconOnly,
@@ -17,7 +17,6 @@ export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLDivElement> {
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
-  marginTop?: MarginTop;
 }
 
 const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref) => {

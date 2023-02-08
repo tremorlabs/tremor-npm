@@ -12,7 +12,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { Color, MarginTop, ValueFormatter } from "../../../lib";
+import { Color, ValueFormatter } from "../../../lib";
 
 type BarListData = {
   key?: string;
@@ -39,7 +39,6 @@ export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
   valueFormatter?: ValueFormatter;
   color?: Color;
   showAnimation?: boolean;
-  marginTop?: MarginTop;
 }
 
 const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {

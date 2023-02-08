@@ -7,7 +7,6 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   border,
   borderRadius,
@@ -32,8 +31,6 @@ export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement
   onValueChange?: (value: string[]) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 

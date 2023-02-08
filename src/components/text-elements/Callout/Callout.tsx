@@ -12,19 +12,17 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { Color, Height, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   text?: string;
   icon?: React.ElementType;
   color?: Color;
-  height?: Height | ""; // Deprecated
-  marginTop?: MarginTop;
 }
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
-  const { title, text, icon, color = BaseColors.Blue, height = "", className, ...other } = props;
+  const { title, text, icon, color = BaseColors.Blue, className, ...other } = props;
 
   console.log(
     "DeprecationWarning: The `height` property is deprecated and will be removed in the next major release. Please use classNames='h-*' instead",
@@ -73,7 +71,6 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
             "overflow-y-auto",
             getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
             spacing.sm.marginTop,
-            height,
           )}
         >
           {text}

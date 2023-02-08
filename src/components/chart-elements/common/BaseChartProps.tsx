@@ -1,4 +1,4 @@
-import { Color, Height, MarginTop, ValueFormatter } from "../../../lib";
+import { Color, ValueFormatter } from "../../../lib";
 
 interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
@@ -15,8 +15,6 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showGradient?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
-  height?: Height;
-  marginTop?: MarginTop;
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;

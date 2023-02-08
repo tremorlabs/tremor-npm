@@ -2,12 +2,10 @@ import React from "react";
 import clsx from "clsx";
 
 import { border, borderRadius, boxShadow } from "lib";
-import { MarginTop } from "../../../lib";
 import { RootStylesContext } from "contexts";
 
 export interface AccordionListProps extends React.HTMLAttributes<HTMLDivElement> {
   shadow?: boolean;
-  marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 

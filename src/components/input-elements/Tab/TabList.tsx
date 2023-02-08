@@ -12,14 +12,13 @@ import {
   getColorVariantsFromColorThemeValue,
   spacing,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 
 export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
   color?: Color;
-  marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 

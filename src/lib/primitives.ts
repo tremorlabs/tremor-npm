@@ -5,18 +5,8 @@ import {
   Importance,
   ButtonVariant,
   Size,
-  TextAlignment,
   VerticalPosition,
 } from "./inputTypes";
-
-export const TextAlignments: { [key: string]: TextAlignment } = {
-  Left: "text-left",
-  Center: "text-center",
-  Right: "text-right",
-  Justify: "text-justify",
-  Start: "text-start",
-  End: "text-end",
-};
 
 export const DeltaTypes: { [key: string]: DeltaType } = {
   Increase: "increase",
