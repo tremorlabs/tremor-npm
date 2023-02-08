@@ -95,8 +95,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           "focus:outline-0 focus:ring-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
+          spacing.sm.paddingY,
         )}
         onClick={() => setIsFocused(!isFocused)}
       >

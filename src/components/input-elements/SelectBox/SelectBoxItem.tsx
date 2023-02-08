@@ -33,10 +33,8 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
       }}
       className={clsx(
         "flex items-center justify-between w-full",
-        spacing.twoXl.paddingLeft,
-        spacing.twoXl.paddingRight,
-        spacing.md.paddingTop,
-        spacing.md.paddingBottom,
+        spacing.twoXl.paddingX,
+        spacing.md.paddingY,
         fontSize.sm,
         isActive
           ? clsx(

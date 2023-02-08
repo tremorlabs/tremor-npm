@@ -47,10 +47,8 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
         shape[variant].border,
         shape[variant].shadow,
         shape[variant].ring,
-        wrapperProportions[size].paddingLeft,
-        wrapperProportions[size].paddingRight,
-        wrapperProportions[size].paddingTop,
-        wrapperProportions[size].paddingBottom,
+        wrapperProportions[size].paddingX,
+        wrapperProportions[size].paddingY,
         className,
       )}
       {...other}

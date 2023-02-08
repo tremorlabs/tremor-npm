@@ -16,14 +16,7 @@ export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChar
     const payloadRow = payload[0];
     return (
       <ChartTooltipFrame>
-        <div
-          className={clsx(
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
-          )}
-        >
+        <div className={clsx(spacing.twoXl.paddingX, spacing.sm.paddingY)}>
           <ChartTooltipRow
             value={valueFormatter(payloadRow.value)}
             name={payloadRow.name}

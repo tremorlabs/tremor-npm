@@ -26,8 +26,7 @@ const Footer = ({ height = "h-14", children }: FooterProps) => {
           spacing.none.left,
           spacing.none.right,
           spacing.none.bottom,
-          spacing.threeXl.paddingLeft,
-          spacing.threeXl.paddingRight,
+          spacing.threeXl.paddingX,
           border.sm.top,
         )}
       >

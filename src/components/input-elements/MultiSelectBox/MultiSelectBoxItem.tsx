@@ -39,10 +39,8 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
         }}
         className={clsx(
           "flex items-center justify-between w-full",
-          spacing.twoXl.paddingLeft,
-          spacing.twoXl.paddingRight,
-          spacing.md.paddingTop,
-          spacing.md.paddingBottom,
+          spacing.twoXl.paddingX,
+          spacing.md.paddingY,
           fontSize.sm,
           getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,

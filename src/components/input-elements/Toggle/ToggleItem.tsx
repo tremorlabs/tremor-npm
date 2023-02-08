@@ -47,10 +47,8 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
       type="button"
       className={clsx(
         "flex items-center ring-1",
-        spacing.lg.paddingLeft,
-        spacing.lg.paddingRight,
-        spacing.xs.paddingTop,
-        spacing.xs.paddingBottom,
+        spacing.lg.paddingX,
+        spacing.xs.paddingY,
         fontSize.sm,
         borderRadius.md.all,
         isActive ? activeClassNames : inActiveClassNames,

@@ -122,8 +122,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           "focus:ring-0 focus:outline-0",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
+          spacing.sm.paddingY,
         )}
         onClick={() => handleModalToggle(!showModal)}
       >
@@ -191,8 +190,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           className={clsx(
             "flex items-center w-full",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor,
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
+            spacing.twoXl.paddingX,
           )}
         >
           <span>
@@ -216,8 +214,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               "w-full focus:outline-none focus:ring-none",
               getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
               getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-              spacing.sm.paddingTop,
-              spacing.sm.paddingBottom,
+              spacing.sm.paddingY,
               fontSize.sm,
               fontWeight.md,
             )}

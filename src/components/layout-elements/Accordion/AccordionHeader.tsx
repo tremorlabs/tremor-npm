@@ -17,10 +17,8 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
       ref={ref}
       className={clsx(
         "w-full flex items-center justify-between",
-        spacing.threeXl.paddingLeft,
-        spacing.threeXl.paddingRight,
-        spacing.lg.paddingTop,
-        spacing.lg.paddingBottom,
+        spacing.threeXl.paddingX,
+        spacing.lg.paddingY,
         className,
       )}
       onClick={(e) => {

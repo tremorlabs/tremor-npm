@@ -92,10 +92,8 @@ const ChartTooltip = ({
         <div
           className={clsx(
             getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
+            spacing.twoXl.paddingX,
+            spacing.sm.paddingY,
             border.sm.bottom,
           )}
         >
@@ -110,15 +108,7 @@ const ChartTooltip = ({
           </p>
         </div>
 
-        <div
-          className={clsx(
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
-            "space-y-1",
-          )}
-        >
+        <div className={clsx(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}

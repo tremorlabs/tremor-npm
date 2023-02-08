@@ -40,10 +40,8 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
         getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
         getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
         borderRadius.full.all,
-        badgeProportions[size].paddingLeft,
-        badgeProportions[size].paddingRight,
-        badgeProportions[size].paddingTop,
-        badgeProportions[size].paddingBottom,
+        badgeProportions[size].paddingX,
+        badgeProportions[size].paddingY,
         badgeProportions[size].fontSize,
         className,
       )}

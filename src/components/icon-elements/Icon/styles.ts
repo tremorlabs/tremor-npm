@@ -13,42 +13,30 @@ import {
 import { Color, IconVariant } from "../../../lib/inputTypes";
 
 export type WrapperProportionTypes = {
-  paddingLeft: string;
-  paddingRight: string;
-  paddingTop: string;
-  paddingBottom: string;
+  paddingX: string;
+  paddingY: string;
 };
 
 export const wrapperProportions: { [size: string]: WrapperProportionTypes } = {
   xs: {
-    paddingLeft: spacing.xs.paddingLeft,
-    paddingRight: spacing.xs.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xs.paddingX,
+    paddingY: spacing.xs.paddingY,
   },
   sm: {
-    paddingLeft: spacing.xs.paddingLeft,
-    paddingRight: spacing.xs.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xs.paddingX,
+    paddingY: spacing.xs.paddingY,
   },
   md: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.sm.paddingTop,
-    paddingBottom: spacing.sm.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.sm.paddingY,
   },
   lg: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.sm.paddingTop,
-    paddingBottom: spacing.sm.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.sm.paddingY,
   },
   xl: {
-    paddingLeft: spacing.md.paddingLeft,
-    paddingRight: spacing.md.paddingRight,
-    paddingTop: spacing.md.paddingTop,
-    paddingBottom: spacing.md.paddingBottom,
+    paddingX: spacing.md.paddingX,
+    paddingY: spacing.md.paddingY,
   },
 };
 

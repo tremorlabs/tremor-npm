@@ -80,10 +80,8 @@ const CalendarHeader = ({
     <div
       className={clsx(
         "flex justify-between items-center",
-        spacing.twoXs.paddingLeft,
-        spacing.twoXs.paddingRight,
-        spacing.sm.paddingTop,
-        spacing.sm.paddingBottom,
+        spacing.twoXs.paddingX,
+        spacing.sm.paddingY,
       )}
     >
       <div className="flex items-center space-x-1">
@@ -95,10 +93,7 @@ const CalendarHeader = ({
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-            spacing.twoXs.paddingLeft,
-            spacing.twoXs.paddingRight,
-            spacing.twoXs.paddingTop,
-            spacing.twoXs.paddingBottom,
+            spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
             borderRadius.sm.all,
@@ -124,10 +119,7 @@ const CalendarHeader = ({
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-            spacing.twoXs.paddingLeft,
-            spacing.twoXs.paddingRight,
-            spacing.twoXs.paddingTop,
-            spacing.twoXs.paddingBottom,
+            spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
             borderRadius.sm.all,
@@ -165,10 +157,7 @@ const CalendarHeader = ({
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-            spacing.twoXs.paddingLeft,
-            spacing.twoXs.paddingRight,
-            spacing.twoXs.paddingTop,
-            spacing.twoXs.paddingBottom,
+            spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
             borderRadius.sm.all,
@@ -194,10 +183,7 @@ const CalendarHeader = ({
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
             getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-            spacing.twoXs.paddingLeft,
-            spacing.twoXs.paddingRight,
-            spacing.twoXs.paddingTop,
-            spacing.twoXs.paddingBottom,
+            spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
             borderRadius.sm.all,
@@ -358,14 +344,7 @@ const Calendar = ({
   locale,
 }: CalendarProps) => {
   return (
-    <div
-      className={clsx(
-        spacing.lg.paddingLeft,
-        spacing.lg.paddingRight,
-        spacing.twoXs.paddingTop,
-        spacing.twoXs.paddingBottom,
-      )}
-    >
+    <div className={clsx(spacing.lg.paddingX, spacing.twoXs.paddingY)}>
       <CalendarHeader
         enableYearPagination={enableYearPagination}
         anchorDate={anchorDate}

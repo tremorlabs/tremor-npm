@@ -12,13 +12,7 @@ const AccordionBody = React.forwardRef<HTMLDivElement, AccordionBodyProps>((prop
   return (
     <div
       ref={ref}
-      className={clsx(
-        "w-full",
-        spacing.threeXl.paddingLeft,
-        spacing.threeXl.paddingRight,
-        spacing.lg.paddingBottom,
-        className,
-      )}
+      className={clsx("w-full", spacing.threeXl.paddingX, spacing.lg.paddingBottom, className)}
       {...other}
     >
       {children}

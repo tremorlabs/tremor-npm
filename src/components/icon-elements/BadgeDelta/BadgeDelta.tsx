@@ -43,10 +43,8 @@ const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref
         borderRadius.full.all,
         colors[mappedDeltaType].bgColor,
         colors[mappedDeltaType].textColor,
-        badgeProportions[size].paddingLeft,
-        badgeProportions[size].paddingRight,
-        badgeProportions[size].paddingTop,
-        badgeProportions[size].paddingBottom,
+        badgeProportions[size].paddingX,
+        badgeProportions[size].paddingY,
         badgeProportions[size].fontSize,
         className,
       )}

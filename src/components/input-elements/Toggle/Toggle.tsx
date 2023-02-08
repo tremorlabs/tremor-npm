@@ -47,10 +47,7 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
       className={clsx(
         "flex-nowrap inline-flex justify-start",
         getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
-        spacing.twoXs.paddingLeft,
-        spacing.twoXs.paddingRight,
-        spacing.twoXs.paddingTop,
-        spacing.twoXs.paddingBottom,
+        spacing.twoXs.paddingAll,
         borderRadius.lg.all,
         className,
       )}

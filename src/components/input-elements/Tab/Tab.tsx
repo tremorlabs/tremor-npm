@@ -48,10 +48,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       className={clsx(
         "flex whitespace-nowrap max-w-xs truncate",
         "focus:outline-0 focus:ring-0",
-        spacing.twoXs.paddingRight,
-        spacing.twoXs.paddingLeft,
-        spacing.sm.paddingTop,
-        spacing.sm.paddingBottom,
+        spacing.twoXs.paddingX,
+        spacing.sm.paddingY,
         spacing.px.negativeMarginBottom,
         fontSize.sm,
         fontWeight.md,

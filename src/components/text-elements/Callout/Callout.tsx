@@ -40,10 +40,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       className={clsx(
         getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
         getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
-        spacing.lg.paddingLeft,
-        spacing.lg.paddingRight,
-        spacing.lg.paddingTop,
-        spacing.lg.paddingBottom,
+        spacing.lg.paddingAll,
         fontSize.sm,
         borderRadius.md.all,
         border.lg.left,

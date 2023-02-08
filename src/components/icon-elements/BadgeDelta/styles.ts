@@ -18,10 +18,8 @@ import {
 } from "assets";
 
 export type BadgeProportionTypes = {
-  paddingLeft: string;
-  paddingRight: string;
-  paddingTop: string;
-  paddingBottom: string;
+  paddingX: string;
+  paddingY: string;
   fontSize: string;
 };
 
@@ -29,38 +27,28 @@ export const badgeProportionsIconOnly: {
   [char: string]: BadgeProportionTypes;
 } = {
   xs: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.threeXs.paddingTop,
-    paddingBottom: spacing.threeXs.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.threeXs.paddingY,
     fontSize: fontSize.xs,
   },
   sm: {
-    paddingLeft: spacing.md.paddingLeft,
-    paddingRight: spacing.md.paddingRight,
-    paddingTop: spacing.twoXs.paddingTop,
-    paddingBottom: spacing.twoXs.paddingBottom,
+    paddingX: spacing.md.paddingX,
+    paddingY: spacing.twoXs.paddingY,
     fontSize: fontSize.sm,
   },
   md: {
-    paddingLeft: spacing.lg.paddingLeft,
-    paddingRight: spacing.lg.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.lg.paddingX,
+    paddingY: spacing.xs.paddingY,
     fontSize: fontSize.md,
   },
   lg: {
-    paddingLeft: spacing.xl.paddingLeft,
-    paddingRight: spacing.xl.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xl.paddingX,
+    paddingY: spacing.xs.paddingY,
     fontSize: fontSize.lg,
   },
   xl: {
-    paddingLeft: spacing.xl.paddingLeft,
-    paddingRight: spacing.xl.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xl.paddingX,
+    paddingY: spacing.xs.paddingY,
     fontSize: fontSize.xl,
   },
 };
@@ -69,38 +57,28 @@ export const badgeProportionsWithText: {
   [char: string]: BadgeProportionTypes;
 } = {
   xs: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.threeXs.paddingTop,
-    paddingBottom: spacing.threeXs.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.threeXs.paddingY,
     fontSize: fontSize.xs,
   },
   sm: {
-    paddingLeft: spacing.md.paddingLeft,
-    paddingRight: spacing.md.paddingRight,
-    paddingTop: spacing.threeXs.paddingTop,
-    paddingBottom: spacing.threeXs.paddingBottom,
+    paddingX: spacing.md.paddingX,
+    paddingY: spacing.threeXs.paddingY,
     fontSize: fontSize.sm,
   },
   md: {
-    paddingLeft: spacing.lg.paddingLeft,
-    paddingRight: spacing.lg.paddingRight,
-    paddingTop: spacing.threeXs.paddingTop,
-    paddingBottom: spacing.threeXs.paddingBottom,
+    paddingX: spacing.lg.paddingX,
+    paddingY: spacing.threeXs.paddingY,
     fontSize: fontSize.md,
   },
   lg: {
-    paddingLeft: spacing.xl.paddingLeft,
-    paddingRight: spacing.xl.paddingRight,
-    paddingTop: spacing.threeXs.paddingTop,
-    paddingBottom: spacing.threeXs.paddingBottom,
+    paddingX: spacing.xl.paddingX,
+    paddingY: spacing.threeXs.paddingY,
     fontSize: fontSize.lg,
   },
   xl: {
-    paddingLeft: spacing.twoXl.paddingLeft,
-    paddingRight: spacing.twoXl.paddingRight,
-    paddingTop: spacing.twoXs.paddingTop,
-    paddingBottom: spacing.twoXs.paddingBottom,
+    paddingX: spacing.twoXl.paddingX,
+    paddingY: spacing.twoXs.paddingY,
     fontSize: fontSize.xl,
   },
 };

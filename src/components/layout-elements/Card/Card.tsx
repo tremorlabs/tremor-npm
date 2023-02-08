@@ -50,16 +50,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     <div
       ref={ref}
       className={clsx(
-        "tremor-bg-color-base relative w-full mx-auto text-left ring-1",
+        "relative w-full mx-auto text-left ring-1",
         getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
         boxShadow.md,
         getColorVariantsFromColorThemeValue(getColor(decorationColor).border).borderColor,
         getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
         parseDecorationAlignment(decoration),
-        spacing.threeXl.paddingLeft,
-        spacing.threeXl.paddingRight,
-        spacing.threeXl.paddingTop,
-        spacing.threeXl.paddingBottom,
+        spacing.threeXl.paddingAll,
         borderRadius.lg.all,
         className,
       )}

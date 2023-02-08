@@ -19,10 +19,7 @@ const TableCell = React.forwardRef<
         ref={ref}
         className={clsx(
           "align-middle whitespace-nowrap tabular-nums text-left",
-          spacing.twoXl.paddingLeft,
-          spacing.twoXl.paddingRight,
-          spacing.twoXl.paddingTop,
-          spacing.twoXl.paddingBottom,
+          spacing.twoXl.paddingAll,
           className,
         )}
         {...other}

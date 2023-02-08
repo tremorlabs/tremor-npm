@@ -19,10 +19,8 @@ const TableHeaderCell = React.forwardRef<HTMLTableCellElement, TableHeaderCellPr
             "sticky whitespace-nowrap text-left",
             getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
             spacing.none.top,
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.xl.paddingTop,
-            spacing.xl.paddingBottom,
+            spacing.twoXl.paddingX,
+            spacing.xl.paddingY,
             fontWeight.lg,
             className,
           )}

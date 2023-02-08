@@ -30,10 +30,8 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
       onClick={() => handleValueChange?.(value)}
       className={clsx(
         "flex items-center justify-between w-full",
-        spacing.twoXl.paddingLeft,
-        spacing.twoXl.paddingRight,
-        spacing.md.paddingTop,
-        spacing.md.paddingBottom,
+        spacing.twoXl.paddingX,
+        spacing.md.paddingY,
         fontSize.sm,
         isActive
           ? clsx(

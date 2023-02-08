@@ -17,8 +17,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>((props, ref) => 
         ref={ref}
         className={clsx(
           "w-full flex justify-between items-center truncate tabular-nums",
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
+          spacing.sm.paddingY,
           fontSize.sm,
           className,
         )}
