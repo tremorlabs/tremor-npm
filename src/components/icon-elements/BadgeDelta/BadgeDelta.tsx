@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { DeltaType, DeltaTypes, Size } from "../../../lib";
+import { DeltaType, DeltaTypes, Size, spacing } from "../../../lib";
 import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
 import {
   badgeProportionsIconOnly,
@@ -10,16 +10,16 @@ import {
   deltaIcons,
   iconSizes,
 } from "./styles";
-import { iconElem, textElem } from "lib/baseStyles";
+import { textElem } from "lib/baseStyles";
 
-export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
 }
 
-const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref) => {
+const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, ref) => {
   const {
     text,
     deltaType = DeltaTypes.Increase,
@@ -35,25 +35,29 @@ const BadgeDelta = React.forwardRef<HTMLDivElement, BadgeDeltaProps>((props, ref
   const badgeProportions = children || text ? badgeProportionsWithText : badgeProportionsIconOnly;
 
   return (
-    <div
-      ref={ref}
-      className={twMerge(
-        "flex-shrink-0 inline-flex justify-center items-center",
-        borderRadius.full.all,
-        colors[mappedDeltaType].bgColor,
-        colors[mappedDeltaType].textColor,
-        badgeProportions[size].paddingX,
-        badgeProportions[size].paddingY,
-        badgeProportions[size].fontSize,
-        className,
-      )}
-      {...other}
-    >
-      <Icon
-        className={twMerge(text ?? iconElem(), iconSizes[size].height, iconSizes[size].width)}
-      />
-      {children || text ? <p className={textElem}>{children ?? text}</p> : null}
-    </div>
+    <span ref={ref} className={className} {...other}>
+      <span
+        className={twMerge(
+          "flex-shrink-0 inline-flex justify-center items-center",
+          borderRadius.full.all,
+          colors[mappedDeltaType].bgColor,
+          colors[mappedDeltaType].textColor,
+          badgeProportions[size].paddingX,
+          badgeProportions[size].paddingY,
+          badgeProportions[size].fontSize,
+        )}
+      >
+        <Icon
+          className={twMerge(
+            text
+              ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+              : iconSizes[size].height,
+            iconSizes[size].width,
+          )}
+        />
+        {children || text ? <p className={textElem}>{children ?? text}</p> : null}
+      </span>
+    </span>
   );
 });
 

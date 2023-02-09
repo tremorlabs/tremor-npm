@@ -1,6 +1,6 @@
 export * from "./classnameUtils";
 export * from "./colors";
-export * from "./colorVariantMapping";
+export * from "./colorClassNames";
 export * from "./inputTypes";
 export * from "./primitives";
 export * from "./shape";

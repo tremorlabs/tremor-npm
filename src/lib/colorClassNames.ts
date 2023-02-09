@@ -13,7 +13,7 @@ export type ColorTypes = {
   focusRingColor: string;
 };
 
-export const colorVariantMapping: {
+export const colorClassNames: {
   [baseColor: string]: { [colorVariant: string]: ColorTypes };
 } = {
   transparent: {

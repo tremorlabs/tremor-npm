@@ -12,7 +12,7 @@ import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { iconElem, textElem } from "lib/baseStyles";
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string;
   color?: Color;
   size?: Size;
@@ -20,7 +20,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   tooltip?: string;
 }
 
-const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   const {
     text,
     color = BaseColors.Blue,
@@ -33,25 +33,24 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
 
   const Icon = icon ? icon : null;
   return (
-    <div
-      ref={ref}
-      className={twMerge(
-        "flex-shrink-0 inline-flex justify-center items-center",
-        getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
-        getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
-        borderRadius.full.all,
-        badgeProportions[size].paddingX,
-        badgeProportions[size].paddingY,
-        badgeProportions[size].fontSize,
-        className,
-      )}
-      {...other}
-    >
-      {Icon ? (
-        <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
-      ) : null}
-      <p className={textElem}>{children ?? text}</p>
-    </div>
+    <span ref={ref} className={className} {...other}>
+      <span
+        className={twMerge(
+          "flex-shrink-0 inline-flex justify-center items-center",
+          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
+          getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
+          borderRadius.full.all,
+          badgeProportions[size].paddingX,
+          badgeProportions[size].paddingY,
+          badgeProportions[size].fontSize,
+        )}
+      >
+        {Icon ? (
+          <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
+        ) : null}
+        <p className={textElem}>{children ?? text}</p>
+      </span>
+    </span>
   );
 });
 
