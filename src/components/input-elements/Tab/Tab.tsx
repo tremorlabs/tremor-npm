@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { border, colorClassNames, fontSize, fontWeight, sizing, spacing } from "lib";
-import { textElem } from "lib/baseStyles";
+
 import { colorPalette, TRANSPARENT, DEFAULT_COLOR } from "lib/theme";
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -69,7 +69,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
           aria-hidden="true"
         />
       ) : null}
-      <p className={textElem}>{text}</p>
+      <p className="text-sm whitespace-nowrap">{text}</p>
     </button>
   );
 });

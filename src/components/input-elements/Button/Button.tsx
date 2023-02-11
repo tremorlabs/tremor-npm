@@ -16,7 +16,6 @@ import {
 import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
-import { textElem } from "lib/baseStyles";
 
 export interface ButtonIconOrSpinnerProps {
   loading: boolean;
@@ -135,7 +134,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               transitionState={state}
             />
           ) : null}
-          {<p className={textElem}>{showLoadingText ? loadingText : children}</p>}
+          {<p className="text-sm whitespace-nowrap">{showLoadingText ? loadingText : children}</p>}
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
               loading={loading}

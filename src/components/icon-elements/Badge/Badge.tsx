@@ -1,10 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes, borderRadius, colorClassNames } from "lib";
+import { BaseColors, Sizes, borderRadius, colorClassNames, spacing } from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
-import { iconElem, textElem } from "lib/baseStyles";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
@@ -50,9 +49,16 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
           {...getReferenceProps}
         >
           {Icon ? (
-            <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
+            <Icon
+              className={twMerge(
+                spacing.twoXs.negativeMarginLeft,
+                spacing.xs.marginRight,
+                iconSizes[size].height,
+                iconSizes[size].width,
+              )}
+            />
           ) : null}
-          <p className={textElem}>{children ?? text}</p>
+          <p className="text-sm whitespace-nowrap">{children ?? text}</p>
         </span>
       </span>
     </>

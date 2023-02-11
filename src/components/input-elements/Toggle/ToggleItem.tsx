@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { borderRadius, boxShadow, colorClassNames, fontSize, sizing, spacing } from "lib";
-import { textElem } from "lib/baseStyles";
+
 import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 
 export interface ToggleItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -63,7 +63,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
           aria-hidden="true"
         />
       ) : null}
-      {text ? <span className={textElem}>{text}</span> : null}
+      {text ? <span className="text-sm whitespace-nowrap">{text}</span> : null}
     </button>
   );
 });

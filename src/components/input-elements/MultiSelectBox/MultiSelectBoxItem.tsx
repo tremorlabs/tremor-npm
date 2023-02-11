@@ -11,7 +11,7 @@ import {
   isValueInArray,
   spacing,
 } from "lib";
-import { textElem } from "lib/baseStyles";
+
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -63,7 +63,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
             checked={isActive}
             readOnly={true}
           />
-          <p className={textElem}>{text}</p>
+          <p className="text-sm whitespace-nowrap">{text}</p>
         </div>
       </button>
     );

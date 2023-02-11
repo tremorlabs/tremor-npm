@@ -6,7 +6,7 @@ import { HoveredValueContext, SelectedValueContext } from "contexts";
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
-import { textElem } from "lib/baseStyles";
+
 import { colorClassNames } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
@@ -59,7 +59,7 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
             aria-hidden="true"
           />
         ) : null}
-        <p className={textElem}>{text ?? value}</p>
+        <p className="text-sm whitespace-nowrap">{text ?? value}</p>
       </div>
     </button>
   );

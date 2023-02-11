@@ -10,7 +10,6 @@ import {
   deltaIcons,
   iconSizes,
 } from "./styles";
-import { textElem } from "lib/baseStyles";
 
 export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
@@ -55,7 +54,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
             iconSizes[size].width,
           )}
         />
-        {children || text ? <p className={textElem}>{children ?? text}</p> : null}
+        {children || text ? <p className="text-sm whitespace-nowrap">{children ?? text}</p> : null}
       </span>
     </span>
   );
