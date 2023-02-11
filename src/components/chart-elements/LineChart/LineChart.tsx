@@ -16,7 +16,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import { defaultValueFormatter, getColor, getHexFromColorThemeValue, themeColorRange } from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) => {
@@ -112,7 +112,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
               name={category}
               type="linear"
               dataKey={category}
-              stroke={getHexFromColorThemeValue(getColor(categoryColors.get(category)).background)}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray][500]}
               strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}

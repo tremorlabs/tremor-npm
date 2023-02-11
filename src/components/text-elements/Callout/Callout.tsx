@@ -5,14 +5,14 @@ import {
   BaseColors,
   border,
   borderRadius,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 import { Color } from "../../../lib";
+import { colorPalette } from "lib/theme";
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -29,8 +29,8 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "flex flex-col overflow-hidden",
-        getColorVariantsFromColorThemeValue(getColor(color).canvasBackground).bgColor,
-        getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
+        colorClassNames[color][colorPalette.canvasBackground].bgColor,
+        colorClassNames[color][colorPalette.darkBorder].borderColor,
         spacing.lg.paddingY,
         spacing.lg.paddingRight,
         spacing.twoXl.paddingLeft,
@@ -44,7 +44,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <div
         className={twMerge(
           "flex items-start",
-          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
+          colorClassNames[color][colorPalette.darkText].textColor,
         )}
       >
         {Icon ? (
@@ -63,7 +63,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <div
         className={twMerge(
           "overflow-y-scroll",
-          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
+          colorClassNames[color][colorPalette.darkText].textColor,
           spacing.sm.marginTop,
         )}
       >

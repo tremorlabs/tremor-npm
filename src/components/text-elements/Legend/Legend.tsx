@@ -1,17 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Color } from "../../../lib";
-import {
-  defaultColors,
-  fontSize,
-  fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-  themeColorRange,
-} from "lib";
+import { Color, colorClassNames } from "../../../lib";
+import { fontSize, fontWeight, sizing, spacing, themeColorRange } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface LegendItemProps {
   name: string;
@@ -22,14 +14,14 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
     className={twMerge(
       "termor-elem inline-flex items-center truncate",
-      getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+      colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
       spacing.md.marginRight,
     )}
   >
     <svg
       className={twMerge(
         "termor-elem flex-none",
-        getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        colorClassNames[color][colorPalette.text].textColor,
         sizing.xs.height,
         sizing.xs.width,
         spacing.xs.marginRight,

@@ -1,16 +1,11 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  Sizes,
-  borderRadius,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { BaseColors, Sizes, borderRadius, colorClassNames } from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { iconElem, textElem } from "lib/baseStyles";
+import { colorPalette } from "lib/theme";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string;
@@ -37,8 +32,8 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       <span
         className={twMerge(
           "flex-shrink-0 inline-flex justify-center items-center",
-          getColorVariantsFromColorThemeValue(getColor(color).darkText).textColor,
-          getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
+          colorClassNames[color][colorPalette.darkText].textColor,
+          colorClassNames[color][colorPalette.lightBackground].bgColor,
           borderRadius.full.all,
           badgeProportions[size].paddingX,
           badgeProportions[size].paddingY,

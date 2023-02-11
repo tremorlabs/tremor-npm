@@ -1,13 +1,4 @@
-import {
-  BaseColors,
-  DeltaTypes,
-  Sizing,
-  fontSize,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { BaseColors, DeltaTypes, Sizing, colorClassNames, fontSize, sizing, spacing } from "lib";
 
 import {
   ArrowDownIcon,
@@ -16,6 +7,7 @@ import {
   ArrowUpIcon,
   ArrowUpRightIcon,
 } from "assets";
+import { colorPalette } from "lib/theme";
 
 export type BadgeProportionTypes = {
   paddingX: string;
@@ -113,27 +105,24 @@ export type ColorTypes = {
 
 export const colors: { [key: string]: ColorTypes } = {
   [DeltaTypes.Increase]: {
-    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).lightBackground)
-      .bgColor,
-    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).darkText).textColor,
+    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.lightBackground].bgColor,
+    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
   },
   [DeltaTypes.ModerateIncrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).lightBackground)
-      .bgColor,
-    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Emerald).darkText).textColor,
+    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.lightBackground].bgColor,
+    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
   },
   [DeltaTypes.Decrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).lightBackground).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).darkText).textColor,
+    bgColor: colorClassNames[BaseColors.Rose][colorPalette.lightBackground].bgColor,
+    textColor: colorClassNames[BaseColors.Rose][colorPalette.darkText].textColor,
   },
   [DeltaTypes.ModerateDecrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).lightBackground).bgColor,
-    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Rose).darkText).textColor,
+    bgColor: colorClassNames[BaseColors.Rose][colorPalette.lightBackground].bgColor,
+    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
   },
   [DeltaTypes.Unchanged]: {
-    bgColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Orange).lightBackground)
-      .bgColor,
-    textColor: getColorVariantsFromColorThemeValue(getColor(BaseColors.Orange).darkText).textColor,
+    bgColor: colorClassNames[BaseColors.Orange][colorPalette.lightBackground].bgColor,
+    textColor: colorClassNames[BaseColors.Orange][colorPalette.darkText].textColor,
   },
 };
 

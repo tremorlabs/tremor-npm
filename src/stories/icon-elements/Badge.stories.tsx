@@ -2,8 +2,8 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BaseColors } from "lib/primitives";
-import { Sizes as InputSizes } from "lib/primitives";
+import { BaseColors } from "lib/constants";
+import { Sizes as InputSizes } from "lib/constants";
 
 import { BadgeDelta, Card, ColGrid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";

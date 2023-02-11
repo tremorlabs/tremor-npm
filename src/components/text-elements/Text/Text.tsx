@@ -1,14 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  fontSize,
-  fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { BaseColors, colorClassNames, fontSize, fontWeight } from "lib";
 import { Color } from "../../../lib/inputTypes";
+import { colorPalette } from "lib/theme";
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
@@ -21,7 +16,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "overflow-y-auto",
-        getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        colorClassNames[color][colorPalette.text].textColor,
         fontSize.sm,
         fontWeight.sm,
       )}

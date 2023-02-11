@@ -1,16 +1,7 @@
-import {
-  Sizing,
-  border,
-  borderRadius,
-  boxShadow,
-  defaultColors,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { Sizing, border, borderRadius, boxShadow, colorClassNames, sizing, spacing } from "lib";
 
 import { Color, IconVariant } from "../../../lib/inputTypes";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -107,38 +98,38 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
   switch (variant) {
     case "simple":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
         bgColor: "",
         borderColor: "",
         ringColor: "",
       };
     case "light":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
+        bgColor: colorClassNames[color][colorPalette.lightBackground].bgColor,
         borderColor: "",
         ringColor: "",
       };
     case "shadow":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
+        bgColor: colorClassNames[WHITE]["none"].bgColor,
+        borderColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
         ringColor: "",
       };
     case "solid":
       return {
-        textColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
+        textColor: colorClassNames[WHITE]["none"].textColor,
+        bgColor: colorClassNames[color][colorPalette.background].bgColor,
+        borderColor: colorClassNames[WHITE]["none"].borderColor,
+        ringColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
       };
     case "outlined":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(getColor(color).border).borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(getColor(color).lightRing).ringColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
+        bgColor: colorClassNames[WHITE]["none"].bgColor,
+        borderColor: colorClassNames[color][colorPalette.border].borderColor,
+        ringColor: colorClassNames[color][colorPalette.lightRing].ringColor,
       };
   }
 };

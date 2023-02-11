@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/primitives";
+import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/constants";
 
 import { BadgeDelta, Card, ColGrid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";

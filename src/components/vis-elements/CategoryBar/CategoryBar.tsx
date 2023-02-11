@@ -1,18 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Color } from "../../../lib";
-import {
-  borderRadius,
-  defaultColors,
-  fontSize,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-  sumNumericArray,
-  themeColorRange,
-} from "lib";
+import { Color, colorClassNames } from "../../../lib";
+import { borderRadius, fontSize, sizing, spacing, sumNumericArray, themeColorRange } from "lib";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 const getMarkerBgColor = (
   percentageValue: number | undefined,
@@ -24,9 +15,7 @@ const getMarkerBgColor = (
   let prefixSum = 0;
   for (let i = 0; i < categoryPercentageValues.length; i++) {
     const currentWidthPercentage = categoryPercentageValues[i];
-    const currentBgColor = getColorVariantsFromColorThemeValue(
-      getColor(colors[i]).background,
-    ).bgColor;
+    const currentBgColor = colorClassNames[colors[i]][colorPalette.background].bgColor;
 
     prefixSum += currentWidthPercentage;
     if (prefixSum >= percentageValue) return currentBgColor;
@@ -43,7 +32,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
     <div
       className={twMerge(
         "relative flex w-full",
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
         spacing.sm.marginBottom,
         sizing.lg.height,
         fontSize.sm,
@@ -119,7 +108,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 key={`item-${idx}`}
                 className={twMerge(
                   "h-full",
-                  getColorVariantsFromColorThemeValue(getColor(colors[idx]).background).bgColor,
+                  colorClassNames[colors[idx]][colorPalette.background].bgColor,
                 )}
                 style={{ width: `${percentageValue}%` }}
               />
@@ -141,7 +130,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               className={twMerge(
                 "ring-2 mx-auto",
                 markerBgColor,
-                getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
+                colorClassNames[WHITE]["none"].ringColor,
                 sizing.md.height,
                 sizing.twoXs.width,
                 borderRadius.lg.all,

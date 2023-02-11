@@ -25,14 +25,14 @@ import {
   border,
   borderRadius,
   boxShadow,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 import { capitalize, getDateStyles, getWeekdays } from "./dateRangePickerUtils";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const colStartClasses = [
   "",
@@ -90,9 +90,9 @@ const CalendarHeader = ({
           hidden={!enableYearPagination}
           className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -104,7 +104,7 @@ const CalendarHeader = ({
         >
           <DoubleArrowLeftHeadIcon
             className={twMerge(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -116,9 +116,9 @@ const CalendarHeader = ({
           name="prevMonth"
           className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -130,7 +130,7 @@ const CalendarHeader = ({
         >
           <ArrowLeftHeadIcon
             className={twMerge(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -141,7 +141,7 @@ const CalendarHeader = ({
       <h2
         className={twMerge(
           "text-elem",
-          getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
           fontSize.sm,
           fontWeight.lg,
         )}
@@ -154,9 +154,9 @@ const CalendarHeader = ({
           name="nextMonth"
           className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -168,7 +168,7 @@ const CalendarHeader = ({
         >
           <ArrowRightHeadIcon
             className={twMerge(
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -180,9 +180,9 @@ const CalendarHeader = ({
           hidden={!enableYearPagination}
           className={twMerge(
             "inline-flex focus:outline-none focus:ring-2",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -195,7 +195,7 @@ const CalendarHeader = ({
           <DoubleArrowRightHeadIcon
             className={twMerge(
               "shrink-0 flex-0",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -263,7 +263,7 @@ const CalendarBody = ({
       <div
         className={twMerge(
           "grid grid-cols-7 text-center",
-          getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
           fontSize.xs,
           fontWeight.md,
         )}

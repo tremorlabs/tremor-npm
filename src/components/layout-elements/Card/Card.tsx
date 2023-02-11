@@ -1,17 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/primitives";
-import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  defaultColors,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  spacing,
-} from "lib";
+import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/constants";
+import { Color, HorizontalPosition, VerticalPosition, colorClassNames } from "../../../lib";
+import { border, borderRadius, boxShadow, spacing } from "lib";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 const parseDecorationAlignment = (decorationAlignment: string) => {
   if (!decorationAlignment) return "";
@@ -49,10 +42,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "relative w-full mx-auto text-left ring-1",
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+        colorClassNames[WHITE]["none"].bgColor,
         boxShadow.md,
-        getColorVariantsFromColorThemeValue(getColor(decorationColor).border).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
+        colorClassNames[decorationColor][colorPalette.border].borderColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
         borderRadius.lg.all,

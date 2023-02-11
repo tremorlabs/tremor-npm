@@ -1,6 +1,7 @@
+import { BaseColors } from "./constants";
 import { Color } from "./inputTypes";
 
-export const DEFAULT_COlOR: Color = "gray";
+export const DEFAULT_COLOR: Color = "gray";
 export const WHITE = "white";
 export const TRANSPARENT = "transparent";
 
@@ -11,12 +12,38 @@ export const colorPalette = {
   darkBackground: 600,
   darkestBackground: 800,
   lightBorder: 200,
-  border: 400,
+  border: 300,
   darkBorder: 600,
   lightRing: 200,
   ring: 400,
   lightText: 400,
   text: 500,
   darkText: 700,
+  darkestText: 900,
   icon: 500,
 };
+
+export const themeColorRange: Color[] = [
+  BaseColors.Cyan,
+  BaseColors.Sky,
+  BaseColors.Blue,
+  BaseColors.Indigo,
+  BaseColors.Violet,
+  BaseColors.Purple,
+  BaseColors.Fuchsia,
+  BaseColors.Slate,
+  BaseColors.Gray,
+  BaseColors.Zinc,
+  BaseColors.Neutral,
+  BaseColors.Stone,
+  BaseColors.Red,
+  BaseColors.Orange,
+  BaseColors.Amber,
+  BaseColors.Yellow,
+  BaseColors.Lime,
+  BaseColors.Green,
+  BaseColors.Emerald,
+  BaseColors.Teal,
+  BaseColors.Pink,
+  BaseColors.Rose,
+];

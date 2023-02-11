@@ -1,38 +1,7 @@
 import React from "react";
 
-import { BaseColorTheme, colorTheme } from "./colors";
-import { BaseColors, DeltaTypes, Importances, ButtonVariants, Sizes } from "./primitives";
-import { Color, DeltaType, Importance, ButtonVariant, Size, ValueFormatter } from "./inputTypes";
-
-export const isBaseColor = (baseColor: Color): boolean => {
-  return Object.values(BaseColors).includes(baseColor);
-};
-
-export const getColor = (
-  baseColor: Color | null | undefined,
-  defaultColor: Color = BaseColors.Blue,
-): BaseColorTheme => {
-  if (!baseColor || !isBaseColor(baseColor)) {
-    return colorTheme[defaultColor];
-  }
-  return colorTheme[baseColor];
-};
-
-export const isValidSize = (size: Size): boolean => {
-  return Object.values(Sizes).includes(size);
-};
-
-export const isValidDeltaType = (deltaType: DeltaType): boolean => {
-  return Object.values(DeltaTypes).includes(deltaType);
-};
-
-export const isValidImportance = (importance: Importance): boolean => {
-  return Object.values(Importances).includes(importance);
-};
-
-export const isValidVariant = (variant: ButtonVariant): boolean => {
-  return Object.values(ButtonVariants).includes(variant);
-};
+import { DeltaTypes } from "./constants";
+import { ValueFormatter } from "./inputTypes";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {

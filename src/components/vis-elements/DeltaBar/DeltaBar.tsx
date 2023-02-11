@@ -1,15 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  DeltaTypes,
-  borderRadius,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  mapInputsToDeltaType,
-  sizing,
-} from "lib";
+import { DeltaTypes, borderRadius, colorClassNames, mapInputsToDeltaType, sizing } from "lib";
 import { colors } from "./styles";
+import { DEFAULT_COLOR, colorPalette, WHITE } from "lib/theme";
 
 const getDeltaType = (value: number) => (value >= 0 ? DeltaTypes.Increase : DeltaTypes.Decrease);
 
@@ -35,7 +29,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       ref={ref}
       className={twMerge(
         "relative flex items-center w-full",
-        getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
         sizing.xs.height,
         borderRadius.lg.all,
         className,
@@ -56,8 +50,8 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       <div
         className={twMerge(
           "ring-2 z-10",
-          getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
-          getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.darkBackground].bgColor,
+          colorClassNames[WHITE]["none"].ringColor,
           sizing.md.height,
           sizing.twoXs.width,
           borderRadius.lg.all,

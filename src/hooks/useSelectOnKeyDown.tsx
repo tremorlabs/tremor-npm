@@ -15,7 +15,7 @@ const useSelectOnKeyDown = (
 
   const getHoveredValue = (hoveredIdx: number, optionValues: string[]) => {
     if (hoveredIdx < 0) return undefined;
-    return optionValues.at(hoveredIdx);
+    return optionValues[hoveredIdx];
   };
 
   const getIndexOfSelectedValue = () => {

@@ -11,10 +11,9 @@ import {
   border,
   borderRadius,
   boxShadow,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   getFilteredOptions,
   isValueInArray,
   mergeRefs,
@@ -24,6 +23,7 @@ import {
 } from "lib";
 import Modal from "components/layout-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
+import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 
 export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string[];
@@ -98,9 +98,9 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
       ref={mergeRefs([dropdownRef, ref])}
       className={twMerge(
         "relative w-full min-w-[10rem]",
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+        colorClassNames[WHITE]["none"].bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
@@ -130,7 +130,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
                 spacing.lg.marginRight,
               )}
               aria-hidden="true"
@@ -142,8 +142,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               fontSize.sm,
               fontWeight.md,
               selectedItems.length !== 0
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
+                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
             )}
           >
             {displayText}
@@ -164,7 +164,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                   "flex-none",
                   sizing.md.height,
                   sizing.md.width,
-                  getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                  colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
                 )}
                 aria-hidden="true"
               />
@@ -176,7 +176,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             )}
             aria-hidden="true"
           />
@@ -186,7 +186,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         <div
           className={twMerge(
             "flex items-center w-full",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor,
             spacing.twoXl.paddingX,
           )}
         >
@@ -194,7 +194,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             <SearchIcon
               className={twMerge(
                 "flex-none",
-                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
                 spacing.threeXs.negativeMarginLeft,
                 spacing.lg.marginRight,
                 sizing.md.height,
@@ -209,8 +209,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             placeholder="Search"
             className={twMerge(
               "w-full focus:outline-none focus:ring-none",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-              getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              colorClassNames[TRANSPARENT]["none"].bgColor,
               spacing.sm.paddingY,
               fontSize.sm,
               fontWeight.md,

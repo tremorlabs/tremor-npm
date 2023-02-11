@@ -6,7 +6,7 @@ import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 import Card from "components/layout-elements/Card";
 import Metric from "components/text-elements/Metric";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 import { Flex } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

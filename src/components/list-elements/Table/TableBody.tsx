@@ -1,7 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
+import { colorClassNames } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
@@ -14,7 +15,7 @@ const TableBody = React.forwardRef<
         ref={ref}
         className={twMerge(
           "align-top overflow-x-auto divide-y",
-          getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].divideColor,
           className,
         )}
         {...other}

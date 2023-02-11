@@ -1,10 +1,10 @@
-import { BaseColors, getColor, getHexFromColorThemeValue, sumNumericArray } from "lib";
+import { BaseColors, hexColors, sumNumericArray } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
 export const parseData = (data: any[], colors: Color[]) =>
   data.map((dataPoint: any, idx: number) => {
     const baseColor = idx < colors.length ? colors[idx] : BaseColors.Gray;
-    const hexCode = getHexFromColorThemeValue(getColor(baseColor).background);
+    const hexCode = hexColors[baseColor ?? BaseColors.Gray][500];
     return {
       ...dataPoint,
       // explicitly adding color key if not present for tooltip coloring

@@ -1,15 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  borderRadius,
-  defaultColors,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-} from "lib";
+import { BaseColors, borderRadius, colorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
+import { colorPalette, WHITE } from "lib/theme";
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -27,10 +21,8 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
     ...other
   } = props;
 
-  const primaryBgColor = getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
-  const secondaryBgColor = getColorVariantsFromColorThemeValue(
-    getColor(color).lightBackground,
-  ).bgColor;
+  const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
+  const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
 
   return (
     <div
@@ -58,7 +50,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
           className={twMerge(
             "ring-2 mx-auto",
             primaryBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
+            colorClassNames[WHITE]["none"].ringColor,
             sizing.md.height,
             sizing.twoXs.width,
             borderRadius.lg.all,

@@ -15,13 +15,8 @@ import {
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
-import {
-  borderRadius,
-  defaultColors,
-  fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { borderRadius, colorClassNames, fontWeight } from "lib";
+import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 
 export const getWeekdays = (locale: Locale) => {
   const firstDayOfWeek = startOfWeek(new Date());
@@ -252,9 +247,9 @@ const getDayBgColorClassName = (
   color: Color,
   isDayDisabled = false,
 ): string => {
-  if (isDayDisabled) return getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor;
+  if (isDayDisabled) return colorClassNames[TRANSPARENT]["none"].bgColor;
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
-    return getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
+    return colorClassNames[color][colorPalette.background].bgColor;
   }
   if (
     selectedStartDay &&
@@ -263,15 +258,15 @@ const getDayBgColorClassName = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor;
+    return colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
-    return getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
+    return colorClassNames[color][colorPalette.background].bgColor;
   }
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
-    return getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor;
+    return colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor;
   }
-  return getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor;
+  return colorClassNames[TRANSPARENT]["none"].bgColor;
 };
 
 const getDayTextClassNames = (
@@ -282,21 +277,18 @@ const getDayTextClassNames = (
   color: Color,
   isDayDisabled = false,
 ): string => {
-  if (isDayDisabled) return getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor;
+  if (isDayDisabled) return colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor;
   if (isToday(day)) {
     if (
       (selectedStartDay && isEqual(day, selectedStartDay)) ||
       (selectedEndDay && isEqual(day, selectedEndDay))
     ) {
-      return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
+      return colorClassNames[WHITE]["none"].textColor;
     }
-    return twMerge(
-      getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-      fontWeight.lg,
-    );
+    return twMerge(colorClassNames[color][colorPalette.text].textColor, fontWeight.lg);
   }
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
-    return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
+    return colorClassNames[WHITE]["none"].textColor;
   }
   if (
     selectedStartDay &&
@@ -305,15 +297,15 @@ const getDayTextClassNames = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor;
+    return colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
-    return getColorVariantsFromColorThemeValue(defaultColors.white).textColor;
+    return colorClassNames[WHITE]["none"].textColor;
   }
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
-    return getColorVariantsFromColorThemeValue(getColor(color).text).textColor;
+    return colorClassNames[color][colorPalette.text].textColor;
   }
-  return getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor;
+  return colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor;
 };
 
 const getDayHoverBgColorClassName = (

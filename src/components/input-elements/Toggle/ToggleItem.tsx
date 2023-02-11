@@ -3,17 +3,9 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import {
-  borderRadius,
-  boxShadow,
-  defaultColors,
-  fontSize,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { borderRadius, boxShadow, colorClassNames, fontSize, sizing, spacing } from "lib";
 import { textElem } from "lib/baseStyles";
+import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 
 export interface ToggleItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -29,16 +21,16 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
   const isActive = selectedValue === value;
 
   const activeClassNames = twMerge(
-    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-    getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
+    colorClassNames[WHITE]["none"].bgColor,
+    colorClassNames[color][colorPalette.text].textColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
     boxShadow.sm,
   );
   const inActiveClassNames = twMerge(
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-    getColorVariantsFromColorThemeValue(defaultColors.darkText).hoverTextColor,
-    getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).ringColor,
+    colorClassNames[TRANSPARENT]["none"].bgColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.darkText].hoverTextColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+    colorClassNames[TRANSPARENT]["none"].ringColor,
   );
   const Icon = icon;
   return (

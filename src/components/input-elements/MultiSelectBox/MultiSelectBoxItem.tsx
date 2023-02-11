@@ -6,14 +6,13 @@ import {
   BaseColors,
   border,
   borderRadius,
-  defaultColors,
+  colorClassNames,
   fontSize,
-  getColor,
-  getColorVariantsFromColorThemeValue,
   isValueInArray,
   spacing,
 } from "lib";
 import { textElem } from "lib/baseStyles";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -42,11 +41,9 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           spacing.twoXl.paddingX,
           spacing.md.paddingY,
           fontSize.sm,
-          getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
-          getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-          isHovered
-            ? getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor
-            : "",
+          colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+          isHovered ? colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor : "",
           className,
         )}
         {...other}
@@ -56,9 +53,9 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
             type="checkbox"
             className={twMerge(
               "flex-none focus:ring-none focus:outline-none cursor-pointer",
-              getColorVariantsFromColorThemeValue(defaultColors.lightRing).focusRingColor,
-              getColorVariantsFromColorThemeValue(getColor(BaseColors.Blue).text).textColor,
-              getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightRing].focusRingColor,
+              colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
               spacing.lg.marginRight,
               borderRadius.sm.all,
               border.sm.all,

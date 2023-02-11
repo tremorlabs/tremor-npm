@@ -11,11 +11,10 @@ import {
   border,
   borderRadius,
   boxShadow,
+  colorClassNames,
   constructValueToNameMapping,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   getFilteredOptions,
   mergeRefs,
   sizing,
@@ -23,6 +22,7 @@ import {
 } from "lib";
 import Modal from "components/layout-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -117,9 +117,9 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       className={twMerge(
         "relative w-full min-w-[10rem]",
         !isSelectBoxHovered
-          ? getColorVariantsFromColorThemeValue(defaultColors.white).bgColor
-          : getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+          ? colorClassNames[WHITE]["none"].bgColor
+          : colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
@@ -143,7 +143,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
                 "shrink-0 bg-inherit",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
               )}
               aria-hidden="true"
             />
@@ -154,7 +154,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           type="text"
           className={twMerge(
             "w-full focus:outline-0 focus:ring-0 bg-inherit",
-            getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingY,
             fontSize.sm,
@@ -177,7 +177,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             )}
             aria-hidden="true"
           />

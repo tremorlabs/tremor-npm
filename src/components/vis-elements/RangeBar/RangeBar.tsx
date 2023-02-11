@@ -1,15 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  borderRadius,
-  defaultColors,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-} from "lib";
+import { BaseColors, borderRadius, colorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette, WHITE } from "lib/theme";
 
 export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -36,7 +30,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       ref={ref}
       className={twMerge(
         "relative flex items-center w-full",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
         sizing.xs.height,
         borderRadius.lg.all,
         className,
@@ -46,7 +40,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       <div
         className={twMerge(
           "absolute h-full",
-          getColorVariantsFromColorThemeValue(defaultColors.darkBackground).bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.darkBackground].bgColor,
           borderRadius.lg.all,
         )}
         style={{
@@ -68,8 +62,8 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         <div
           className={twMerge(
             "ring-2 mx-auto",
-            getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.white).ringColor,
+            colorClassNames[color][colorPalette.background].bgColor,
+            colorClassNames[WHITE]["none"].ringColor,
             sizing.md.height,
             sizing.twoXs.width,
             borderRadius.lg.all,

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
 
-import { BaseColors, Sizes as InputSizes } from "lib/primitives";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 import { Card, ColGrid, Flex, Title } from "components";
 

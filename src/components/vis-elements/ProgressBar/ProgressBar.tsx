@@ -4,15 +4,14 @@ import { twMerge } from "tailwind-merge";
 import {
   BaseColors,
   borderRadius,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -32,10 +31,8 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
     ...other
   } = props;
 
-  const primaryBgColor = getColorVariantsFromColorThemeValue(getColor(color).background).bgColor;
-  const secondaryBgColor = getColorVariantsFromColorThemeValue(
-    getColor(color).lightBackground,
-  ).bgColor;
+  const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
+  const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
 
   return (
     <div ref={ref} className={twMerge("flex items-center w-full", className)} {...other}>
@@ -59,7 +56,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
         <div
           className={twMerge(
             "w-16 truncate text-right",
-            getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             spacing.sm.marginLeft,
           )}
         >

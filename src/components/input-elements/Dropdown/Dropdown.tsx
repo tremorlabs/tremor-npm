@@ -11,17 +11,17 @@ import {
   border,
   borderRadius,
   boxShadow,
+  colorClassNames,
   constructValueToNameMapping,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/layout-elements/Modal";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
@@ -75,9 +75,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
       onKeyDown={handleKeyDown}
       className={twMerge(
         "relative w-full min-w-[10rem]",
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+        colorClassNames[WHITE]["none"].bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
         borderRadius.md.all,
         border.sm.all,
         boxShadow.sm,
@@ -103,7 +103,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
                 spacing.lg.marginRight,
               )}
               aria-hidden="true"
@@ -115,8 +115,8 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
               fontSize.sm,
               fontWeight.md,
               selectedValue
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
+                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
             )}
           >
             {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
@@ -128,7 +128,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             sizing.lg.height,
             sizing.lg.width,
             spacing.twoXs.negativeMarginRight,
-            getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
           )}
           aria-hidden="true"
         />

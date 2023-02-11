@@ -8,15 +8,15 @@ import {
   border,
   borderRadius,
   boxShadow,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
   const localeCode = locale?.code || "en-US";
@@ -106,8 +106,8 @@ const DateRangePickerButton = ({
     <div
       className={twMerge(
         "flex items-center justify-between",
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+        colorClassNames[WHITE]["none"].bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
         borderRadius.md.all,
         boxShadow.sm,
       )}
@@ -121,8 +121,8 @@ const DateRangePickerButton = ({
           `flex items-center w-full truncate focus:ring-0
                      focus:outline-0`,
           enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
-          getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-          getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           spacing.twoXl.paddingX,
           spacing.sm.paddingY,
           borderRadius.md.left,
@@ -132,7 +132,7 @@ const DateRangePickerButton = ({
         <CalendarIcon
           className={twMerge(
             "flex-none",
-            getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             sizing.lg.height,
             sizing.lg.width,
             spacing.threeXs.negativeMarginLeft,
@@ -146,8 +146,8 @@ const DateRangePickerButton = ({
             fontSize.sm,
             fontWeight.md,
             hasSelection
-              ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-              : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+              ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
+              : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
           )}
         >
           {calendarText}
@@ -161,8 +161,8 @@ const DateRangePickerButton = ({
           className={twMerge(
             "inline-flex justify-between w-48 truncate",
             "focus:ring-0 focus:outline-0",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             spacing.px.negativeMarginLeft,
@@ -177,8 +177,8 @@ const DateRangePickerButton = ({
               fontSize.sm,
               fontWeight.md,
               dropdownValue
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
+                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
             )}
           >
             {dropdownText}
@@ -189,7 +189,7 @@ const DateRangePickerButton = ({
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             )}
             aria-hidden="true"
           />

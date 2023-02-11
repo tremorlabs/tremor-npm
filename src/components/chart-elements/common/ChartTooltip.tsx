@@ -3,22 +3,22 @@ import { twMerge } from "tailwind-merge";
 
 import { Color, ValueFormatter } from "../../../lib";
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={twMerge(
-      getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+      colorClassNames[WHITE]["none"].bgColor,
       fontSize.sm,
       borderRadius.md.all,
       border.sm.all,
@@ -32,7 +32,7 @@ export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) =
 export interface ChartTooltipRowProps {
   value: string;
   name: string;
-  color: Color | null | undefined;
+  color: Color;
 }
 
 export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
@@ -41,8 +41,8 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <span
         className={twMerge(
           "shrink-0",
-          getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
-          getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
+          colorClassNames[color][colorPalette.background].bgColor,
+          colorClassNames[WHITE]["none"].borderColor,
           sizing.sm.height,
           sizing.sm.width,
           borderRadius.full.all,
@@ -53,7 +53,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <p
         className={twMerge(
           "font-medium tabular-nums text-right whitespace-nowrap",
-          getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
         )}
       >
         {value}
@@ -62,7 +62,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     <p
       className={twMerge(
         "text-right whitespace-nowrap",
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
         fontWeight.sm,
       )}
     >
@@ -91,7 +91,7 @@ const ChartTooltip = ({
       <ChartTooltipFrame>
         <div
           className={twMerge(
-            getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             border.sm.bottom,
@@ -100,7 +100,7 @@ const ChartTooltip = ({
           <p
             className={twMerge(
               "text-elem",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               fontWeight.md,
             )}
           >
@@ -114,7 +114,7 @@ const ChartTooltip = ({
               key={`id-${idx}`}
               value={valueFormatter(value)}
               name={name}
-              color={categoryColors.get(name)}
+              color={categoryColors.get(name) ?? BaseColors.Blue}
             />
           ))}
         </div>

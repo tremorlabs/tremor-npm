@@ -17,7 +17,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import { defaultValueFormatter, getColor, getHexFromColorThemeValue, themeColorRange } from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface BarChartProps extends BaseChartProps {
@@ -169,7 +169,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               type="linear"
               stackId={stack || relative ? "a" : undefined}
               dataKey={category}
-              fill={getHexFromColorThemeValue(getColor(categoryColors.get(category)).background)}
+              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray][500]}
               isAnimationActive={showAnimation}
             />
           ))}

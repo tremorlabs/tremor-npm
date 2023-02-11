@@ -5,14 +5,9 @@ import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { useInternalState } from "hooks";
 
-import {
-  BaseColors,
-  border,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  spacing,
-} from "lib";
+import { BaseColors, border, colorClassNames, spacing } from "lib";
 import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -45,7 +40,7 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
       aria-label="Tabs"
       className={twMerge(
         "flex justify-start overflow-x-clip",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
         spacing.twoXl.spaceX,
         border.sm.bottom,
         className,

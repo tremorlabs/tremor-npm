@@ -4,15 +4,14 @@ import { twMerge } from "tailwind-merge";
 import {
   BaseColors,
   borderRadius,
-  defaultColors,
+  colorClassNames,
   defaultValueFormatter,
   fontSize,
-  getColor,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 import { Color, ValueFormatter } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 type BarListData = {
   key?: string;
@@ -71,7 +70,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={twMerge(
                 "flex items-center",
                 rowHeight,
-                getColorVariantsFromColorThemeValue(getColor(color).lightBackground).bgColor,
+                colorClassNames[color][colorPalette.lightBackground].bgColor,
                 borderRadius.sm.all,
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
@@ -88,7 +87,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
-                      getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+                      colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
                     )}
                     aria-hidden="true"
                   />
@@ -110,7 +109,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   <p
                     className={twMerge(
                       "whitespace-nowrap truncate",
-                      getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                      colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
                       fontSize.sm,
                     )}
                   >
@@ -135,7 +134,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
             <p
               className={twMerge(
                 "whitespace-nowrap truncate",
-                getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+                colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
                 fontSize.sm,
               )}
             >

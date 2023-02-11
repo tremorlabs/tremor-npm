@@ -1,7 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { defaultColors, fontSize, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
+import { colorClassNames, fontSize, fontWeight } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
   (props, ref) => {
@@ -13,7 +14,7 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
           ref={ref}
           className={twMerge(
             "w-full tabular-nums",
-            getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
             fontSize.sm,
             fontWeight.sm,
           )}

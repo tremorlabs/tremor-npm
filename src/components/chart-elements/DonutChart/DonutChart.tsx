@@ -3,15 +3,11 @@ import { twMerge } from "tailwind-merge";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import {
-  defaultColors,
-  defaultValueFormatter,
-  getHexFromColorThemeValue,
-  themeColorRange,
-} from "lib";
+import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
+import { DEFAULT_COLOR } from "lib/theme";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -57,7 +53,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               y="50%"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill={getHexFromColorThemeValue(defaultColors.text)}
+              fill={hexColors[DEFAULT_COLOR][500]}
             >
               {parsedLabelInput}
             </text>

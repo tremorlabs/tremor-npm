@@ -1,8 +1,9 @@
 import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { border, borderRadius, defaultColors, getColorVariantsFromColorThemeValue } from "lib";
+import { border, borderRadius, colorClassNames } from "lib";
 import { RootStylesContext } from "contexts";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 interface ExpandedContextValue {
   isExpanded: boolean;
@@ -30,8 +31,8 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
       ref={ref}
       className={twMerge(
         "overflow-hidden",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
+        colorClassNames[WHITE]["none"].bgColor,
         rootStyles,
         className,
       )}

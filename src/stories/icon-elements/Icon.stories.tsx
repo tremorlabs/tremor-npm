@@ -3,7 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowUpIcon } from "assets";
 
-import { BaseColors, Sizes as InputSizes } from "lib/primitives";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 import { Block, Card, ColGrid, Flex, Title } from "components";
 
 import { IconVariants } from "components/icon-elements/Icon/Icon";

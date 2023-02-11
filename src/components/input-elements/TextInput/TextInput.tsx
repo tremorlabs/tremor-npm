@@ -8,20 +8,19 @@ import {
   border,
   borderRadius,
   boxShadow,
-  colorTheme,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
 import { ExclamationFilledIcon } from "assets";
+import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
-  if (error) return getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor;
-  if (disabled) return getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor;
-  return getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor;
+  if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
+  if (disabled) return colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor;
+  return colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor;
 };
 
 export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -47,11 +46,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
 
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
-    ? getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).bgColor
-    : getColorVariantsFromColorThemeValue(defaultColors.white).bgColor;
+    ? colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor
+    : colorClassNames[WHITE]["none"].bgColor;
   const boderColor = error
-    ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border).borderColor
-    : getColorVariantsFromColorThemeValue(defaultColors.border).borderColor;
+    ? colorClassNames[BaseColors.Rose][colorPalette.border].borderColor
+    : colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor;
 
   return (
     <div
@@ -71,7 +70,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
             "shrink-0",
             sizing.lg.height,
             sizing.lg.width,
-            getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             spacing.xl.marginLeft,
           )}
           aria-hidden="true"
@@ -107,7 +106,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
               className={twMerge(
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text).textColor,
+                colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
               )}
               aria-hidden="true"
             />

@@ -5,7 +5,7 @@ import { ArrowUpRightIcon } from "assets";
 
 import Callout from "../../components/text-elements/Callout/Callout";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

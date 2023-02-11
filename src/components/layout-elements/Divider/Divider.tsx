@@ -1,13 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  borderRadius,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { borderRadius, colorClassNames, sizing, spacing } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
@@ -17,7 +12,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
         ref={ref}
         className={twMerge(
           "w-full mx-auto",
-          getColorVariantsFromColorThemeValue(defaultColors.background).bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
           sizing.threeXs.height,
           spacing.threeXl.marginTop,
           spacing.threeXl.marginBottom,

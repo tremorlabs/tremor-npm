@@ -3,12 +3,12 @@ import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
-import { getColorVariantsFromColorThemeValue } from "lib/classnameUtils";
-import { defaultColors } from "lib/colors";
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 import { textElem } from "lib/baseStyles";
+import { colorClassNames } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface DropdownItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -35,12 +35,12 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
         fontSize.sm,
         isActive
           ? twMerge(
-              getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.darkestText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
             )
           : twMerge(
-              getColorVariantsFromColorThemeValue(defaultColors.lightBackground).hoverBgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             ),
         className,
       )}
@@ -54,7 +54,7 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
               sizing.lg.height,
               sizing.lg.width,
               spacing.lg.marginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             )}
             aria-hidden="true"
           />

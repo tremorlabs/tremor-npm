@@ -1,7 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { defaultColors, fontWeight, getColorVariantsFromColorThemeValue } from "lib";
+import { colorClassNames, fontWeight } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const TableHead = React.forwardRef<
   HTMLTableSectionElement,
@@ -14,7 +15,7 @@ const TableHead = React.forwardRef<
         ref={ref}
         className={twMerge(
           "text-left",
-          getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
           fontWeight.lg,
           className,
         )}

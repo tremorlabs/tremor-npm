@@ -1,14 +1,7 @@
-import {
-  Sizing,
-  defaultColors,
-  fontSize,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-  getColor,
-} from "lib";
+import { Sizing, fontSize, sizing, spacing, colorClassNames } from "lib";
 
 import { Color, ButtonVariant } from "../../../lib/inputTypes";
+import { WHITE, colorPalette, TRANSPARENT } from "lib/theme";
 
 export const iconSizes: { [size: string]: Sizing } = {
   xs: {
@@ -96,35 +89,30 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
   switch (variant) {
     case "primary":
       return {
-        textColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(defaultColors.white).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(getColor(color).darkBackground)
-          .hoverBgColor,
-        borderColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
-        hoverBorderColor: getColorVariantsFromColorThemeValue(getColor(color).darkBackground)
-          .hoverBorderColor,
-        focusRingColor: getColorVariantsFromColorThemeValue(getColor(color).ring).focusRingColor,
+        textColor: colorClassNames[WHITE]["none"].textColor,
+        hoverTextColor: colorClassNames[WHITE]["none"].textColor,
+        bgColor: colorClassNames[color][colorPalette.background].bgColor,
+        hoverBgColor: colorClassNames[color][colorPalette.darkBackground].hoverBgColor,
+        borderColor: colorClassNames[TRANSPARENT]["none"].borderColor,
+        hoverBorderColor: colorClassNames[color][colorPalette.darkBorder].hoverBorderColor,
+        focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
       };
     case "secondary":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(getColor(color).lightBackground)
-          .hoverBgColor,
-        borderColor: getColorVariantsFromColorThemeValue(getColor(color).border).borderColor,
-        hoverBorderColor: getColorVariantsFromColorThemeValue(getColor(color).darkBorder)
-          .borderColor,
-        focusRingColor: getColorVariantsFromColorThemeValue(getColor(color).ring).focusRingColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
+        hoverTextColor: colorClassNames[color][colorPalette.text].textColor,
+        bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
+        hoverBgColor: colorClassNames[color][colorPalette.lightBackground].hoverBgColor,
+        borderColor: colorClassNames[color][colorPalette.border].borderColor,
+        hoverBorderColor: colorClassNames[color][colorPalette.darkBorder].hoverBorderColor,
+        focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
       };
     case "light":
       return {
-        textColor: getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-        hoverTextColor: getColorVariantsFromColorThemeValue(getColor(color).darkText)
-          .hoverTextColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-        hoverBgColor: getColorVariantsFromColorThemeValue(defaultColors.transparent).hoverBgColor,
+        textColor: colorClassNames[color][colorPalette.text].textColor,
+        hoverTextColor: colorClassNames[color][colorPalette.darkText].hoverTextColor,
+        bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
+        hoverBgColor: colorClassNames[TRANSPARENT]["none"].hoverBgColor,
         borderColor: "",
         hoverBorderColor: "",
         focusRingColor: "",

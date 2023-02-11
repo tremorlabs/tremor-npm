@@ -1,7 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { defaultColors, getColorVariantsFromColorThemeValue } from "lib";
+import { colorClassNames } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
   (props, ref) => {
@@ -11,8 +12,8 @@ const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListEl
         ref={ref}
         className={twMerge(
           "w-full overflow-hidden divide-y",
-          getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-          getColorVariantsFromColorThemeValue(defaultColors.lightBorder).divideColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].divideColor,
           className,
         )}
         {...other}

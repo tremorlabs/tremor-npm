@@ -56,6 +56,7 @@ specifiers:
   semantic-release: ^19.0.5
   tailwind-merge: ^1.9.1
   tailwindcss: ^3.0.24
+  tslib: ^2.5.0
   typescript: ^4.6.3
   webpack: ^5.75.0
 
@@ -75,7 +76,7 @@ devDependencies:
   '@mdx-js/react': 2.2.1_react@18.2.0
   '@rollup/plugin-commonjs': 21.1.0_rollup@2.79.1
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
-  '@rollup/plugin-typescript': 8.5.0_zptcx3kz3uwp66hzhyyt545weq
+  '@rollup/plugin-typescript': 8.5.0_bhcmvni67fkldpaxrtldxbogce
   '@storybook/addon-actions': 6.5.16_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.16_ludb4wetox2g5qwr6mmu3dkjji
   '@storybook/addon-interactions': 6.5.16_22w7zynjonpso4757xealkaezm
@@ -117,6 +118,7 @@ devDependencies:
   rollup-plugin-typescript-paths: 1.4.0_typescript@4.9.5
   semantic-release: 19.0.5
   tailwindcss: 3.2.6_postcss@8.4.21
+  tslib: 2.5.0
   typescript: 4.9.5
   webpack: 5.75.0
 
@@ -2344,7 +2346,7 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@rollup/plugin-typescript/8.5.0_zptcx3kz3uwp66hzhyyt545weq:
+  /@rollup/plugin-typescript/8.5.0_bhcmvni67fkldpaxrtldxbogce:
     resolution: {integrity: sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -2358,6 +2360,7 @@ packages:
       '@rollup/pluginutils': 3.1.0_rollup@2.79.1
       resolve: 1.22.1
       rollup: 2.79.1
+      tslib: 2.5.0
       typescript: 4.9.5
     dev: true
 

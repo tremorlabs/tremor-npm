@@ -1,5 +1,3 @@
-export type ButtonType = "button" | "submit" | "reset";
-
 export type ValueFormatter = {
   (value: number): string;
 };
@@ -12,11 +10,7 @@ export type HorizontalPosition = "left" | "right";
 
 export type VerticalPosition = "top" | "bottom";
 
-export type Importance = "primary" | "secondary";
-
 export type ButtonVariant = "primary" | "secondary" | "light";
-
-export type RelativeFilterOption = "tdy" | "w" | "t" | "m" | "y" | null;
 
 const deltaTypeValues = [
   "increase",
@@ -32,7 +26,7 @@ const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export type Size = (typeof sizeValues)[number];
 
-const baseColorValues = [
+const colorValues = [
   "slate",
   "gray",
   "zinc",
@@ -57,7 +51,7 @@ const baseColorValues = [
   "rose",
 ] as const;
 
-export type Color = (typeof baseColorValues)[number];
+export type Color = (typeof colorValues)[number];
 
 const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
 export type JustifyContent = (typeof justifyContentValues)[number];

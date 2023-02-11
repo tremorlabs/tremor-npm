@@ -1,8 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Color } from "../../../lib";
-import { borderRadius, getColor, getColorVariantsFromColorThemeValue } from "lib";
+import { Color, colorClassNames } from "../../../lib";
+import { borderRadius } from "lib";
+import { colorPalette } from "lib/theme";
 
 export interface TrackingBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   color: Color;
@@ -16,7 +17,7 @@ const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((prop
       ref={ref}
       className={twMerge(
         "w-full",
-        getColorVariantsFromColorThemeValue(getColor(color).background).bgColor,
+        colorClassNames[color][colorPalette.background].bgColor,
         borderRadius.md.all,
         className,
       )}

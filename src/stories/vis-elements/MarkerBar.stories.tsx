@@ -6,7 +6,7 @@ import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 import Card from "components/layout-elements/Card";
 import Metric from "components/text-elements/Metric";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

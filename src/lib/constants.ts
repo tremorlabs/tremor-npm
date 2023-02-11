@@ -1,12 +1,4 @@
-import {
-  Color,
-  DeltaType,
-  HorizontalPosition,
-  Importance,
-  ButtonVariant,
-  Size,
-  VerticalPosition,
-} from "./inputTypes";
+import { Color, DeltaType, HorizontalPosition, Size, VerticalPosition } from "./inputTypes";
 
 export const DeltaTypes: { [key: string]: DeltaType } = {
   Increase: "increase",
@@ -47,17 +39,6 @@ export const Sizes: { [key: string]: Size } = {
   MD: "md",
   LG: "lg",
   XL: "xl",
-};
-
-export const Importances: { [key: string]: Importance } = {
-  Primary: "primary",
-  Secondary: "secondary",
-};
-
-export const ButtonVariants: { [key: string]: ButtonVariant } = {
-  Primary: "primary",
-  Secondary: "secondary",
-  Light: "light",
 };
 
 export const HorizontalPositions: { [key: string]: HorizontalPosition } = {

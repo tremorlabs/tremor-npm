@@ -3,17 +3,9 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import {
-  border,
-  defaultColors,
-  fontSize,
-  fontWeight,
-  getColor,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { border, colorClassNames, fontSize, fontWeight, sizing, spacing } from "lib";
 import { textElem } from "lib/baseStyles";
+import { colorPalette, TRANSPARENT, DEFAULT_COLOR } from "lib/theme";
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -30,15 +22,15 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const Icon = icon;
 
   const activeClassNames = twMerge(
-    getColorVariantsFromColorThemeValue(getColor(color).text).textColor,
-    getColorVariantsFromColorThemeValue(getColor(color).darkBorder).borderColor,
+    colorClassNames[color][colorPalette.text].textColor,
+    colorClassNames[color][colorPalette.darkBorder].borderColor,
     border.md.bottom,
   );
   const inActiveClassNames = twMerge(
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
-    getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.text).hoverTextColor,
-    getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
+    colorClassNames[TRANSPARENT]["none"].borderColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.text].hoverTextColor,
+    colorClassNames[DEFAULT_COLOR][colorPalette.border].hoverBorderColor,
     "hover:border-b-2",
   );
 
@@ -71,8 +63,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
             sizing.lg.width,
             spacing.sm.marginRight,
             isActive
-              ? getColorVariantsFromColorThemeValue(getColor(color).text).textColor
-              : getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
+              ? colorClassNames[color][colorPalette.text].textColor
+              : colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
           )}
           aria-hidden="true"
         />
