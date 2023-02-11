@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes, borderRadius, colorClassNames, spacing } from "lib";
+import { BaseColors, Sizes, borderRadius, colorClassNames, mergeRefs, spacing } from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { colorPalette } from "lib/theme";
@@ -34,32 +34,32 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
-      <span ref={ref} className={className} {...other}>
-        <span
-          ref={tooltipProps.refs.setReference}
-          className={twMerge(
-            "flex-shrink-0 inline-flex justify-center items-center",
-            colorClassNames[color][colorPalette.darkText].textColor,
-            colorClassNames[color][colorPalette.lightBackground].bgColor,
-            borderRadius.full.all,
-            badgeProportions[size].paddingX,
-            badgeProportions[size].paddingY,
-            badgeProportions[size].fontSize,
-          )}
-          {...getReferenceProps}
-        >
-          {Icon ? (
-            <Icon
-              className={twMerge(
-                spacing.twoXs.negativeMarginLeft,
-                spacing.xs.marginRight,
-                iconSizes[size].height,
-                iconSizes[size].width,
-              )}
-            />
-          ) : null}
-          <p className="text-sm whitespace-nowrap">{children ?? text}</p>
-        </span>
+      <span
+        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+        className={twMerge(
+          "w-max flex-shrink-0 inline-flex justify-center items-center",
+          colorClassNames[color][colorPalette.darkText].textColor,
+          colorClassNames[color][colorPalette.lightBackground].bgColor,
+          borderRadius.full.all,
+          badgeProportions[size].paddingX,
+          badgeProportions[size].paddingY,
+          badgeProportions[size].fontSize,
+          className,
+        )}
+        {...getReferenceProps}
+        {...other}
+      >
+        {Icon ? (
+          <Icon
+            className={twMerge(
+              spacing.twoXs.negativeMarginLeft,
+              spacing.xs.marginRight,
+              iconSizes[size].height,
+              iconSizes[size].width,
+            )}
+          />
+        ) : null}
+        <p className="text-sm whitespace-nowrap">{children ?? text}</p>
       </span>
     </>
   );

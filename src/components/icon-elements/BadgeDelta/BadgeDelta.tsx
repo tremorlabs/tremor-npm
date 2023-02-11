@@ -34,28 +34,29 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
   const badgeProportions = children || text ? badgeProportionsWithText : badgeProportionsIconOnly;
 
   return (
-    <span ref={ref} className={className} {...other}>
-      <span
+    <span
+      ref={ref}
+      className={twMerge(
+        "w-max flex-shrink-0 inline-flex justify-center items-center",
+        borderRadius.full.all,
+        colors[mappedDeltaType].bgColor,
+        colors[mappedDeltaType].textColor,
+        badgeProportions[size].paddingX,
+        badgeProportions[size].paddingY,
+        badgeProportions[size].fontSize,
+        className,
+      )}
+      {...other}
+    >
+      <Icon
         className={twMerge(
-          "flex-shrink-0 inline-flex justify-center items-center",
-          borderRadius.full.all,
-          colors[mappedDeltaType].bgColor,
-          colors[mappedDeltaType].textColor,
-          badgeProportions[size].paddingX,
-          badgeProportions[size].paddingY,
-          badgeProportions[size].fontSize,
+          text
+            ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+            : iconSizes[size].height,
+          iconSizes[size].width,
         )}
-      >
-        <Icon
-          className={twMerge(
-            text
-              ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-              : iconSizes[size].height,
-            iconSizes[size].width,
-          )}
-        />
-        {children || text ? <p className="text-sm whitespace-nowrap">{children ?? text}</p> : null}
-      </span>
+      />
+      {children || text ? <p className="text-sm whitespace-nowrap">{children ?? text}</p> : null}
     </span>
   );
 });
