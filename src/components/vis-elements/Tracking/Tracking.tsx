@@ -9,7 +9,7 @@ const Tracking = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     return (
       <div
         ref={ref}
-        className={twMerge("w-full flex items-center", spacing.threeXs.spaceX, className)}
+        className={twMerge("w-full flex items-center h-10", spacing.threeXs.spaceX, className)}
         {...other}
       >
         {children}

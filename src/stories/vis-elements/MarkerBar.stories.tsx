@@ -18,7 +18,7 @@ export default {
 const Template: ComponentStory<typeof MarkerBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card className="mt-5">
         <Metric>$23.456</Metric>
         <MarkerBar {...args} color={color} />
       </Card>

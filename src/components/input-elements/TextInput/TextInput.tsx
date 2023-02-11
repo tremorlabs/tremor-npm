@@ -1,7 +1,5 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
 
 import {
   BaseColors,
@@ -53,67 +51,71 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     : colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor;
 
   return (
-    <div
-      className={twMerge(
-        "relative w-full flex items-center overflow-hidden min-w-[10rem]",
-        bgColor,
-        boderColor,
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm,
-        className,
-      )}
-    >
-      {Icon ? (
-        <Icon
-          className={twMerge(
-            "shrink-0",
-            sizing.lg.height,
-            sizing.lg.width,
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
-            spacing.xl.marginLeft,
-          )}
-          aria-hidden="true"
-        />
-      ) : null}
-      <input
-        ref={ref}
-        type="text"
+    <>
+      <div
         className={twMerge(
-          "input-elem",
-          "w-full focus:outline-0 focus:ring-0 bg-inherit",
-          textColor,
-          Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
-          error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
-          spacing.sm.paddingY,
-          fontSize.sm,
-          fontWeight.md,
-          border.none.all,
-          "placeholder:text-gray-500",
+          "relative w-full flex items-center overflow-hidden min-w-[10rem]",
+          bgColor,
+          boderColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+          className,
         )}
-        placeholder={placeholder}
-        disabled={disabled}
-        {...other}
-      />
-      {error ? (
-        <Tooltip
-          content={errorMessage}
-          className={errorMessage ? "" : "hidden"}
-          showOnCreate={true}
+      >
+        {Icon ? (
+          <Icon
+            className={twMerge(
+              "shrink-0",
+              sizing.lg.height,
+              sizing.lg.width,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              spacing.xl.marginLeft,
+            )}
+            aria-hidden="true"
+          />
+        ) : null}
+        <input
+          ref={ref}
+          type="text"
+          className={twMerge(
+            "input-elem",
+            "w-full focus:outline-0 focus:ring-0 bg-inherit",
+            textColor,
+            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
+            spacing.sm.paddingY,
+            fontSize.sm,
+            fontWeight.md,
+            border.none.all,
+            "placeholder:text-gray-500",
+          )}
+          placeholder={placeholder}
+          disabled={disabled}
+          {...other}
+        />
+        <div className={twMerge(spacing.xl.marginRight)}>
+          <ExclamationFilledIcon
+            className={twMerge(
+              sizing.lg.height,
+              sizing.lg.width,
+              colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+            )}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+      {errorMessage ? (
+        <p
+          className={twMerge(
+            "text-sm",
+            colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+          )}
         >
-          <div className={twMerge(spacing.xl.marginRight)}>
-            <ExclamationFilledIcon
-              className={twMerge(
-                sizing.lg.height,
-                sizing.lg.width,
-                colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
-              )}
-              aria-hidden="true"
-            />
-          </div>
-        </Tooltip>
+          {errorMessage}
+        </p>
       ) : null}
-    </div>
+    </>
   );
 });
 

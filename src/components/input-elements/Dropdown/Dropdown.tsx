@@ -20,7 +20,7 @@ import {
   spacing,
 } from "lib";
 import { DropdownItemProps } from "./DropdownItem";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {

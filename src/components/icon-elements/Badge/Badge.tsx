@@ -6,6 +6,7 @@ import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { iconElem, textElem } from "lib/baseStyles";
 import { colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string;
@@ -21,31 +22,40 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
     color = BaseColors.Blue,
     icon,
     size = Sizes.SM,
+    tooltip,
     className,
     children,
     ...other
   } = props;
 
   const Icon = icon ? icon : null;
+
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <span ref={ref} className={className} {...other}>
-      <span
-        className={twMerge(
-          "flex-shrink-0 inline-flex justify-center items-center",
-          colorClassNames[color][colorPalette.darkText].textColor,
-          colorClassNames[color][colorPalette.lightBackground].bgColor,
-          borderRadius.full.all,
-          badgeProportions[size].paddingX,
-          badgeProportions[size].paddingY,
-          badgeProportions[size].fontSize,
-        )}
-      >
-        {Icon ? (
-          <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
-        ) : null}
-        <p className={textElem}>{children ?? text}</p>
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
+      <span ref={ref} className={className} {...other}>
+        <span
+          ref={tooltipProps.refs.setReference}
+          className={twMerge(
+            "flex-shrink-0 inline-flex justify-center items-center",
+            colorClassNames[color][colorPalette.darkText].textColor,
+            colorClassNames[color][colorPalette.lightBackground].bgColor,
+            borderRadius.full.all,
+            badgeProportions[size].paddingX,
+            badgeProportions[size].paddingY,
+            badgeProportions[size].fontSize,
+          )}
+          {...getReferenceProps}
+        >
+          {Icon ? (
+            <Icon className={twMerge(iconElem(), iconSizes[size].height, iconSizes[size].width)} />
+          ) : null}
+          <p className={textElem}>{children ?? text}</p>
+        </span>
       </span>
-    </span>
+    </>
   );
 });
 

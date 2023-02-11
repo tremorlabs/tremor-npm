@@ -21,7 +21,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 

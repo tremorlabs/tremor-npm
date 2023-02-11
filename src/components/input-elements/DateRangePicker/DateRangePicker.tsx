@@ -21,7 +21,7 @@ import {
 import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 
 export type Locale = typeof enUS;
 

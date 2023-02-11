@@ -20,7 +20,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 

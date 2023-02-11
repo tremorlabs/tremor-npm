@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { Color, colorClassNames } from "../../../lib";
 import { borderRadius, fontSize, sizing, spacing, sumNumericArray, themeColorRange } from "lib";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const getMarkerBgColor = (
   percentageValue: number | undefined,
@@ -85,6 +86,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     colors = themeColorRange,
     percentageValue,
     showLabels = true,
+    tooltip,
     showAnimation = true,
     className,
     ...other
@@ -92,54 +94,58 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
 
   const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <div ref={ref} className={className} {...other}>
-      {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
-      <div className={twMerge("relative w-full flex items-center", sizing.xs.height)}>
-        <div
-          className={twMerge(
-            "flex-1 flex items-center h-full overflow-hidden",
-            borderRadius.md.all,
-          )}
-        >
-          {categoryPercentageValues.map((percentageValue, idx) => {
-            return (
-              <div
-                key={`item-${idx}`}
-                className={twMerge(
-                  "h-full",
-                  colorClassNames[colors[idx]][colorPalette.background].bgColor,
-                )}
-                style={{ width: `${percentageValue}%` }}
-              />
-            );
-          })}
-        </div>
-        {percentageValue !== undefined ? (
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
+      <div ref={ref} className={className} {...other}>
+        {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
+        <div className={twMerge("relative w-full flex items-center", sizing.xs.height)}>
           <div
             className={twMerge(
-              "absolute right-1/2 -translate-x-1/2",
-              sizing.lg.width, // wide transparent wrapper for tooltip activation
+              "flex-1 flex items-center h-full overflow-hidden",
+              borderRadius.md.all,
             )}
-            style={{
-              left: `${percentageValue}%`,
-              transition: showAnimation ? "all 2s" : "",
-            }}
           >
-            <div
-              className={twMerge(
-                "ring-2 mx-auto",
-                markerBgColor,
-                colorClassNames[WHITE]["none"].ringColor,
-                sizing.md.height,
-                sizing.twoXs.width,
-                borderRadius.lg.all,
-              )}
-            />
+            {categoryPercentageValues.map((percentageValue, idx) => {
+              return (
+                <div
+                  key={`item-${idx}`}
+                  className={twMerge(
+                    "h-full",
+                    colorClassNames[colors[idx]][colorPalette.background].bgColor,
+                  )}
+                  style={{ width: `${percentageValue}%` }}
+                />
+              );
+            })}
           </div>
-        ) : null}
+          {percentageValue !== undefined ? (
+            <div
+              ref={tooltipProps.refs.setReference}
+              className={twMerge("absolute right-1/2 -translate-x-1/2", sizing.lg.width)}
+              style={{
+                left: `${percentageValue}%`,
+                transition: showAnimation ? "all 2s" : "",
+              }}
+              {...getReferenceProps}
+            >
+              <div
+                className={twMerge(
+                  "ring-2 mx-auto",
+                  markerBgColor,
+                  colorClassNames[WHITE]["none"].ringColor,
+                  sizing.md.height,
+                  sizing.twoXs.width,
+                  borderRadius.lg.all,
+                )}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 

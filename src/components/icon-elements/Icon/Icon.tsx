@@ -1,9 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes } from "lib";
+import { BaseColors, Sizes, mergeRefs } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export const IconVariants: { [key: string]: IconVariant } = {
   Simple: "simple",
@@ -25,6 +26,7 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
   const {
     icon,
     variant = IconVariants.Simple,
+    tooltip,
     size = Sizes.SM,
     color = BaseColors.Blue,
     className,
@@ -33,27 +35,33 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
   const Icon = icon;
   const iconColorStyles = getIconColors(variant, color);
 
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <div
-      ref={ref}
-      className={twMerge(
-        "inline-flex flex-shrink-0 items-center",
-        iconColorStyles.bgColor,
-        iconColorStyles.textColor,
-        iconColorStyles.borderColor,
-        iconColorStyles.ringColor,
-        shape[variant].rounded,
-        shape[variant].border,
-        shape[variant].shadow,
-        shape[variant].ring,
-        wrapperProportions[size].paddingX,
-        wrapperProportions[size].paddingY,
-        className,
-      )}
-      {...other}
-    >
-      <Icon className={twMerge(iconSizes[size].height, iconSizes[size].width)} />
-    </div>
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
+      <div
+        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+        className={twMerge(
+          "inline-flex flex-shrink-0 items-center",
+          iconColorStyles.bgColor,
+          iconColorStyles.textColor,
+          iconColorStyles.borderColor,
+          iconColorStyles.ringColor,
+          shape[variant].rounded,
+          shape[variant].border,
+          shape[variant].shadow,
+          shape[variant].ring,
+          wrapperProportions[size].paddingX,
+          wrapperProportions[size].paddingY,
+          className,
+        )}
+        {...getReferenceProps}
+        {...other}
+      >
+        <Icon className={twMerge(iconSizes[size].height, iconSizes[size].width)} />
+      </div>
+    </>
   );
 });
 

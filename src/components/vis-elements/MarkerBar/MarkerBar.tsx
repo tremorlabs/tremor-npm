@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { BaseColors, borderRadius, colorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette, WHITE } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -16,6 +17,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
   const {
     percentageValue,
     color = BaseColors.Blue,
+    tooltip,
     showAnimation = true,
     className,
     ...other
@@ -24,40 +26,47 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
   const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
   const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
 
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <div
-      ref={ref}
-      className={twMerge(
-        "relative flex items-center w-full",
-        secondaryBgColor,
-        sizing.xs.height,
-        borderRadius.lg.all,
-        className,
-      )}
-      {...other}
-    >
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
       <div
+        ref={ref}
         className={twMerge(
-          "absolute right-1/2 -translate-x-1/2",
-          sizing.lg.width, // wide transparent wrapper for tooltip activation
+          "relative flex items-center w-full",
+          secondaryBgColor,
+          sizing.xs.height,
+          borderRadius.lg.all,
+          className,
         )}
-        style={{
-          left: `${percentageValue}%`,
-          transition: showAnimation ? "all 2s" : "",
-        }}
+        {...other}
       >
         <div
+          ref={tooltipProps.refs.setReference}
           className={twMerge(
-            "ring-2 mx-auto",
-            primaryBgColor,
-            colorClassNames[WHITE]["none"].ringColor,
-            sizing.md.height,
-            sizing.twoXs.width,
-            borderRadius.lg.all,
+            "absolute right-1/2 -translate-x-1/2",
+            sizing.lg.width, // wide transparent wrapper for tooltip activation
           )}
-        />
+          style={{
+            left: `${percentageValue}%`,
+            transition: showAnimation ? "all 2s" : "",
+          }}
+          {...getReferenceProps}
+        >
+          <div
+            className={twMerge(
+              "ring-2 mx-auto",
+              primaryBgColor,
+              colorClassNames[WHITE]["none"].ringColor,
+              sizing.md.height,
+              sizing.twoXs.width,
+              borderRadius.lg.all,
+            )}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 

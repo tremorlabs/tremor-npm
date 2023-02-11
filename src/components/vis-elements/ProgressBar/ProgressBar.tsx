@@ -12,6 +12,7 @@ import {
 } from "lib";
 import { Color } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -25,8 +26,9 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
   const {
     percentageValue,
     label,
-    showAnimation = true,
     color = BaseColors.Blue,
+    tooltip,
+    showAnimation = true,
     className,
     ...other
   } = props;
@@ -34,38 +36,47 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
   const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
   const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
 
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <div ref={ref} className={twMerge("flex items-center w-full", className)} {...other}>
-      <div
-        className={twMerge(
-          "relative flex items-center w-full",
-          secondaryBgColor,
-          sizing.xs.height,
-          borderRadius.lg.all,
-        )}
-      >
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
+      <div ref={ref} className={twMerge("flex items-center w-full", className)} {...other}>
         <div
-          className={twMerge(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
-          style={{
-            width: `${percentageValue}%`,
-            transition: showAnimation ? "all 2s" : "",
-          }}
-        />
-      </div>
-      {label ? (
-        <div
+          ref={tooltipProps.refs.setReference}
           className={twMerge(
-            "w-16 truncate text-right",
-            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
-            spacing.sm.marginLeft,
+            "relative flex items-center w-full",
+            secondaryBgColor,
+            sizing.xs.height,
+            borderRadius.lg.all,
           )}
+          {...getReferenceProps}
         >
-          <p className={twMerge("shrink-0 whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
-            {label}
-          </p>
+          <div
+            className={twMerge(primaryBgColor, "flex-col h-full", borderRadius.lg.all)}
+            style={{
+              width: `${percentageValue}%`,
+              transition: showAnimation ? "all 2s" : "",
+            }}
+          />
         </div>
-      ) : null}
-    </div>
+        {label ? (
+          <div
+            className={twMerge(
+              "w-16 truncate text-right",
+              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              spacing.sm.marginLeft,
+            )}
+          >
+            <p
+              className={twMerge("shrink-0 whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}
+            >
+              {label}
+            </p>
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 });
 

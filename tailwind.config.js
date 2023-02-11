@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 module.exports = {
-  content: ["./src/components/**/*.{html,js,jsx,ts,tsx}", "./src/lib/**/*.{html,js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     transparent: "transparent",
     current: "currentColor",

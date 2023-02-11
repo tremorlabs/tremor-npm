@@ -25,7 +25,7 @@ const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
           <Title>{variant}</Title>
           {Object.values(InputSizes).map((size) => (
             <Block className="mt-2">
-              <Icon icon={args.icon} variant={variant} size={size} />
+              <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
             </Block>
           ))}
         </Block>

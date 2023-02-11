@@ -31,6 +31,7 @@ export const Decrease = Template.bind({});
 Decrease.args = {
   percentageValue: -50,
   className: "mt-5",
+  tooltip: "-50%",
 };
 
 export const IncreaseReversed = Template.bind({});
