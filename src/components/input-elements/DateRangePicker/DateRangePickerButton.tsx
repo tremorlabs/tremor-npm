@@ -118,10 +118,10 @@ const DateRangePickerButton = ({
         onClick={() => setShowCalendar(!showCalendar)}
         onKeyDown={onCalendarKeyDown}
         className={twMerge(
-          `flex items-center w-full truncate focus:ring-0
-                     focus:outline-0`,
+          "flex items-center w-full truncate focus:outline-none focus:ring-2",
           enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           spacing.twoXl.paddingX,
           spacing.sm.paddingY,
@@ -159,10 +159,10 @@ const DateRangePickerButton = ({
           ref={dropdownRef}
           onClick={() => setShowDropdown(!showDropdown)}
           className={twMerge(
-            "inline-flex justify-between w-48 truncate",
-            "focus:ring-0 focus:outline-0",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            "inline-flex justify-between w-48 truncate focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             spacing.px.negativeMarginLeft,

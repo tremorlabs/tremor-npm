@@ -42,10 +42,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     icon,
     children,
     className,
-    onClick,
     onKeyDown,
-    onMouseEnter,
-    onMouseLeave,
     ...other
   } = props;
 
@@ -53,7 +50,6 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +72,8 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
       inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus();
     }
     setIsFocused(isFocused);
   };
@@ -106,48 +104,45 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   return (
     <div
       ref={mergeRefs([dropdownRef, ref])}
-      onClick={(e) => {
-        handleFocusChange(!isFocused);
-        onClick?.(e);
-      }}
       onKeyDown={(e) => {
         handleKeyDown(e);
         onKeyDown?.(e);
       }}
       className={twMerge(
         "relative w-full min-w-[10rem]",
-        !isSelectBoxHovered
-          ? colorClassNames[WHITE]["none"].bgColor
-          : colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm,
+        colorClassNames[WHITE]["none"].bgColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
         className,
       )}
-      onMouseEnter={(e) => {
-        setIsSelectBoxHovered(true);
-        onMouseEnter?.(e);
-      }}
-      onMouseLeave={(e) => {
-        setIsSelectBoxHovered(false);
-        onMouseLeave?.(e);
-      }}
       {...other}
     >
-      <div className="flex items-center overflow-hidden">
+      <button
+        className={twMerge(
+          "flex w-full items-center overflow-hidden focus:outline-none focus:ring-2",
+          isFocused &&
+            twMerge("ring-2", colorClassNames[DEFAULT_COLOR][colorPalette.border].ringColor),
+          colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+        )}
+        onClick={(e) => {
+          handleFocusChange(!isFocused);
+          e.preventDefault();
+        }}
+      >
         {Icon ? (
-          <button type="button" className={twMerge("p-0", spacing.xl.marginLeft)}>
-            <Icon
-              className={twMerge(
-                "shrink-0 bg-inherit",
-                sizing.lg.height,
-                sizing.lg.width,
-                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
-              )}
-              aria-hidden="true"
-            />
-          </button>
+          <Icon
+            className={twMerge(
+              "shrink-0 bg-inherit",
+              sizing.lg.height,
+              sizing.lg.width,
+              spacing.xl.marginLeft,
+              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            )}
+            aria-hidden="true"
+          />
         ) : null}
         <input
           ref={inputRef}
@@ -166,23 +161,21 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           placeholder={placeholder}
           value={inputValue}
           onChange={handleInputValueChange}
+          onFocus={() => handleFocusChange(true)}
+          onMouseDown={(e) => e.preventDefault()}
         />
-        <button
-          type="button"
-          className={twMerge("absolute top-1/2 -translate-y-1/2 bg-inherit", spacing.twoXl.right)}
-        >
-          <ArrowDownHeadIcon
-            className={twMerge(
-              "flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.twoXs.negativeMarginRight,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
-            )}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
+        <ArrowDownHeadIcon
+          className={twMerge(
+            "flex-none absolute top-1/2 -translate-y-1/2",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.twoXs.negativeMarginRight,
+            spacing.twoXl.right,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+          )}
+          aria-hidden="true"
+        />
+      </button>
       <Modal
         showModal={filteredOptions.length === 0 ? false : isFocused}
         setShowModal={handleFocusChange}

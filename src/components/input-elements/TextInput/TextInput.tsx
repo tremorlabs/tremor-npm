@@ -53,15 +53,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   return (
     <>
       <div
-        className={twMerge(
-          "relative w-full flex items-center overflow-hidden min-w-[10rem]",
-          bgColor,
-          boderColor,
-          borderRadius.md.all,
-          border.sm.all,
-          boxShadow.sm,
-          className,
-        )}
+        className={twMerge("relative w-full flex items-center min-w-[10rem]", bgColor, className)}
       >
         {Icon ? (
           <Icon
@@ -79,31 +71,35 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           ref={ref}
           type="text"
           className={twMerge(
-            "input-elem",
-            "w-full focus:outline-0 focus:ring-0 bg-inherit",
+            "w-full bg-inherit focus:outline-0 focus:ring-2",
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+            boderColor,
+            borderRadius.md.all,
+            border.sm.all,
+            boxShadow.sm,
             textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             fontSize.sm,
             fontWeight.md,
-            border.none.all,
             "placeholder:text-gray-500",
           )}
           placeholder={placeholder}
           disabled={disabled}
           {...other}
         />
-        <div className={twMerge(spacing.xl.marginRight)}>
+        {error ? (
           <ExclamationFilledIcon
             className={twMerge(
+              spacing.xl.marginRight,
               sizing.lg.height,
               sizing.lg.width,
               colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
             )}
             aria-hidden="true"
           />
-        </div>
+        ) : null}
       </div>
       {errorMessage ? (
         <p
