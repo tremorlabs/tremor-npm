@@ -5,7 +5,6 @@ import { border, borderRadius, boxShadow } from "lib";
 import { RootStylesContext } from "contexts";
 
 export interface AccordionListProps extends React.HTMLAttributes<HTMLDivElement> {
-  shadow?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
@@ -25,7 +24,6 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
                 border.sm.top,
                 border.sm.right,
                 border.sm.bottom,
-                boxShadow.none,
               )}
             >
               {React.cloneElement(child)}
@@ -40,7 +38,6 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
                 border.sm.left,
                 border.sm.right,
                 border.sm.bottom,
-                boxShadow.none,
               )}
             >
               {React.cloneElement(child)}
@@ -49,7 +46,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         }
         return (
           <RootStylesContext.Provider
-            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom, boxShadow.none)}
+            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom)}
           >
             {React.cloneElement(child)}
           </RootStylesContext.Provider>

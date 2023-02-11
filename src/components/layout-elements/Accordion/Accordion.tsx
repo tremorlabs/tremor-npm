@@ -15,7 +15,6 @@ export const ExpandedContext = createContext<ExpandedContextValue>({
 });
 
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
-  shadow?: boolean;
   expanded?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
