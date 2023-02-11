@@ -6,7 +6,6 @@ import typescript from "@rollup/plugin-typescript";
 
 import dts from "rollup-plugin-dts";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
 
@@ -29,19 +28,18 @@ export default [
     ],
     plugins: [
       peerDepsExternal(),
-      postcss({ extract: "tremor.css" }),
       resolve(),
       commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",
-        exclude: ["**/stories/**", "**/tests/**"],
+        exclude: ["**/stories/**", "**/tests/**", "./styles.css"],
       }),
       terser(),
       typescriptPaths(),
     ],
   },
   {
-    input: "dist/esm/types/index.d.ts",
+    input: "dist/esm/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
     external: [/\.css$/],

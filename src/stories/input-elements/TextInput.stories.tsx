@@ -40,7 +40,6 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
         </Button>
       </form>
       <Text>{value}</Text>
-      {/* <input value={ value } onChange={ (e) => setValue(e.target.value) } /> */}
     </Card>
   );
 };
