@@ -8,12 +8,15 @@ import {
   getColorTheme,
   getColorVariantsFromColorThemeValue,
   parseMarginTop,
+  parseTextAlignment,
   parseTruncateOption,
+  TextAlignments,
 } from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { Color, MarginTop, TextAlignment } from "../../../lib/inputTypes";
 
 export interface MetricProps {
   color?: Color;
+  textAlignment?: TextAlignment;
   truncate?: boolean;
   marginTop?: MarginTop;
   children: React.ReactNode;
@@ -21,6 +24,7 @@ export interface MetricProps {
 
 const Metric = ({
   color = BaseColors.Gray,
+  textAlignment = TextAlignments.Left,
   truncate = false,
   marginTop = "mt-0",
   children,
@@ -32,6 +36,7 @@ const Metric = ({
           "text-elem",
           truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
           parseTruncateOption(truncate),
+          parseTextAlignment(textAlignment),
           getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
             .textColor,
           fontSize.threeXl,
