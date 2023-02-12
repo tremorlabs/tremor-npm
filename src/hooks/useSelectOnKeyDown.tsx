@@ -18,13 +18,13 @@ const useSelectOnKeyDown = <T,>(
     return optionValues.at(hoveredIdx);
   };
 
-  const getIndexOfSelectedValue = () => {
-    if (!value) return BASE_HOVERED_IDX;
-    const indexOfValue = optionValues.indexOf(value);
-    return indexOfValue === -1 ? BASE_HOVERED_IDX : indexOfValue;
-  };
-
   useEffect(() => {
+    const getIndexOfSelectedValue = () => {
+      if (!value) return BASE_HOVERED_IDX;
+      const indexOfValue = optionValues.indexOf(value);
+      return indexOfValue === -1 ? BASE_HOVERED_IDX : indexOfValue;
+    };
+
     if (!isFocused) {
       setHoveredIdx(getIndexOfSelectedValue());
     }

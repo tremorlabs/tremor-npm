@@ -90,20 +90,27 @@ const Modal = ({
   });
 
   // Execute only when modal is of absolute size
-  if (width !== undefined) {
-    const widthInPixel = getPixelsFromTwClassName(width);
-    useEffect(() => {
+  useEffect(() => {
+    if (width) {
       setModalExceedsWindow(
-        checkModalExceedsWindow(widthInPixel, window.innerWidth)
+        checkModalExceedsWindow(
+          getPixelsFromTwClassName(width),
+          window.innerWidth
+        )
       );
-    }, [triggerRef]);
+    }
+  }, [triggerRef]);
 
-    useOnWindowResize(() =>
+  useOnWindowResize(() => {
+    if (width) {
       setModalExceedsWindow(
-        checkModalExceedsWindow(widthInPixel, window.innerWidth)
-      )
-    );
-  }
+        checkModalExceedsWindow(
+          getPixelsFromTwClassName(width),
+          window.innerWidth
+        )
+      );
+    }
+  });
 
   return showModal ? (
     <div
