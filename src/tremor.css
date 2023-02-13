@@ -248,6 +248,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
+/*
+  Remove outline when focus rechart sector
+*/
+.recharts-sector:focus {
+  outline: none;
+}
+
 *,
 ::before,
 ::after {
