@@ -90,10 +90,8 @@ export function mergeRefs<T = any>(
   };
 }
 
-export function makeClassName() {
-  return (componentName: string) => {
-    return (className: string) => {
-      return `tremor-${componentName}-${className}`;
-    };
+export function makeClassName(componentName: string) {
+  return (className: string) => {
+    return `tremor-${componentName}-${className}`;
   };
 }

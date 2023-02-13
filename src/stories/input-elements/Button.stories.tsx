@@ -101,7 +101,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
 
   return (
     <Card>
-      <Button onSelect={() => setLoading(!loading)}>Click to Load</Button>
+      <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
       <ColGrid numCols={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>

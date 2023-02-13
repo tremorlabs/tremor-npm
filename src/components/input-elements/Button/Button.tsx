@@ -10,12 +10,15 @@ import {
   borderRadius,
   boxShadow,
   fontWeight,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
 import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
+
+const makeButtonClassName = makeClassName("Button");
 
 export interface ButtonIconOrSpinnerProps {
   loading: boolean;
@@ -50,11 +53,17 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={twMerge("animate-spin", margin, spinnerSize.default, spinnerSize[transitionState])}
+      className={twMerge(
+        makeButtonClassName("icon"),
+        "animate-spin",
+        margin,
+        spinnerSize.default,
+        spinnerSize[transitionState],
+      )}
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={twMerge(iconSize, margin)} aria-hidden="true" />
+    <Icon className={twMerge(makeButtonClassName("icon"), iconSize, margin)} aria-hidden="true" />
   );
 };
 
@@ -102,6 +111,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
         <button
           ref={ref}
           className={twMerge(
+            makeButtonClassName("root"),
             "flex-shrink-0 inline-flex justify-center items-center group",
             "focus:outline-none focus:ring-2 focus:ring-offset-2",
             fontWeight.md,
@@ -134,7 +144,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               transitionState={state}
             />
           ) : null}
-          {<p className="text-sm whitespace-nowrap">{showLoadingText ? loadingText : children}</p>}
+          {
+            <p className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+              {showLoadingText ? loadingText : children}
+            </p>
+          }
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
               loading={loading}

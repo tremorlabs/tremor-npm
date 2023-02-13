@@ -1,10 +1,12 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes, mergeRefs } from "lib";
+import { BaseColors, Sizes, makeClassName, mergeRefs } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+
+const makeIconClassName = makeClassName("Icon");
 
 export const IconVariants: { [key: string]: IconVariant } = {
   Simple: "simple",
@@ -43,6 +45,7 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
       <div
         ref={mergeRefs([ref, tooltipProps.refs.setReference])}
         className={twMerge(
+          makeIconClassName("root"),
           "inline-flex flex-shrink-0 items-center",
           iconColorStyles.bgColor,
           iconColorStyles.textColor,
@@ -59,7 +62,13 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
         {...getReferenceProps}
         {...other}
       >
-        <Icon className={twMerge(iconSizes[size].height, iconSizes[size].width)} />
+        <Icon
+          className={twMerge(
+            makeIconClassName("icon"),
+            iconSizes[size].height,
+            iconSizes[size].width,
+          )}
+        />
       </div>
     </>
   );

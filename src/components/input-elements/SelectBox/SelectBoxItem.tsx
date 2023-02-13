@@ -32,7 +32,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
         onClick?.(e);
       }}
       className={twMerge(
-        "flex items-center justify-between w-full",
+        "flex items-center justify-start w-full truncate",
         spacing.twoXl.paddingX,
         spacing.md.paddingY,
         fontSize.sm,
@@ -49,21 +49,19 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
       )}
       {...other}
     >
-      <div className="flex items-center truncate">
-        {Icon ? (
-          <Icon
-            className={twMerge(
-              "flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.lg.marginRight,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
-            )}
-            aria-hidden="true"
-          />
-        ) : null}
-        <p className="whitespace-nowrap truncate">{text}</p>
-      </div>
+      {Icon ? (
+        <Icon
+          className={twMerge(
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.lg.marginRight,
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+          )}
+          aria-hidden="true"
+        />
+      ) : null}
+      <p className="text-sm whitespace-nowrap truncate">{text}</p>
     </button>
   );
 });

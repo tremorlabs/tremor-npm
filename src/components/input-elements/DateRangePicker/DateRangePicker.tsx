@@ -8,7 +8,7 @@ import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "con
 
 import { useInternalState, useSelectOnKeyDown } from "hooks";
 
-import { BaseColors } from "lib";
+import { BaseColors, makeClassName } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,
@@ -22,6 +22,8 @@ import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
 import Modal from "components/util-elements/Modal";
+
+export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
 export type Locale = typeof enUS;
 
@@ -137,7 +139,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
   return (
     <BaseColorContext.Provider value={color}>
-      <div ref={ref} className={twMerge("relative w-full", className)} {...other}>
+      <div
+        ref={ref}
+        className={twMerge(makeDateRangePickerClassName("root"), "relative w-full", className)}
+        {...other}
+      >
         <DateRangePickerButton
           value={[selectedStartDate, selectedEndDate, selectedDropdownValue]}
           options={dropdownOptions}
@@ -156,6 +162,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         />
         {/* Calendar Modal */}
         <Modal
+          className={makeDateRangePickerClassName("calendarModal")}
           showModal={showCalendar}
           setShowModal={setShowCalendar}
           parentRef={calendarRef}
@@ -175,7 +182,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           />
         </Modal>
         {/* Dropdpown Modal */}
-        <Modal showModal={showDropdown} setShowModal={setShowDropdown} parentRef={dropdownRef}>
+        <Modal
+          className={makeDateRangePickerClassName("dropdownModal")}
+          showModal={showDropdown}
+          setShowModal={setShowDropdown}
+          parentRef={dropdownRef}
+        >
           <SelectedValueContext.Provider
             value={{
               selectedValue: selectedDropdownValue,

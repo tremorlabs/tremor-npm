@@ -33,6 +33,7 @@ import {
 } from "lib";
 import { capitalize, getDateStyles, getWeekdays } from "./dateRangePickerUtils";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeDateRangePickerClassName } from "./DateRangePicker";
 
 export const colStartClasses = [
   "",
@@ -79,16 +80,23 @@ const CalendarHeader = ({
   return (
     <div
       className={twMerge(
+        makeDateRangePickerClassName("calendarHeader"),
         "flex justify-between items-center",
         spacing.twoXs.paddingX,
         spacing.sm.paddingY,
       )}
     >
-      <div className="flex items-center space-x-1">
+      <div
+        className={twMerge(
+          makeDateRangePickerClassName("calendarHeaderPrevSelection"),
+          "flex items-center space-x-1",
+        )}
+      >
         <button
           type="button"
           hidden={!enableYearPagination}
           className={twMerge(
+            makeDateRangePickerClassName("calendarHeaderPrevYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
@@ -104,6 +112,7 @@ const CalendarHeader = ({
         >
           <DoubleArrowLeftHeadIcon
             className={twMerge(
+              makeDateRangePickerClassName("calendarHeaderPrevYearIcon"),
               colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -115,6 +124,7 @@ const CalendarHeader = ({
           type="button"
           name="prevMonth"
           className={twMerge(
+            makeDateRangePickerClassName("calendarHeaderPrevMonthButton"),
             "inline-flex focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
@@ -130,6 +140,7 @@ const CalendarHeader = ({
         >
           <ArrowLeftHeadIcon
             className={twMerge(
+              makeDateRangePickerClassName("calendarHeaderPrevMonthIcon"),
               colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -140,6 +151,7 @@ const CalendarHeader = ({
       </div>
       <h2
         className={twMerge(
+          makeDateRangePickerClassName("calendarHeaderText"),
           "text-elem",
           colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
           fontSize.sm,
@@ -148,11 +160,17 @@ const CalendarHeader = ({
       >
         {displayedTitle}
       </h2>
-      <div className="flex items-center space-x-1">
+      <div
+        className={twMerge(
+          makeDateRangePickerClassName("calendarHeaderNextSelection"),
+          "flex items-center space-x-1",
+        )}
+      >
         <button
           type="button"
           name="nextMonth"
           className={twMerge(
+            makeDateRangePickerClassName("calendarHeaderNextMonthButton"),
             "inline-flex focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
@@ -168,6 +186,7 @@ const CalendarHeader = ({
         >
           <ArrowRightHeadIcon
             className={twMerge(
+              makeDateRangePickerClassName("calendarHeaderNextMonthIcon"),
               colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
               sizing.lg.width,
@@ -179,6 +198,7 @@ const CalendarHeader = ({
           type="button"
           hidden={!enableYearPagination}
           className={twMerge(
+            makeDateRangePickerClassName("calendarHeaderNextYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
@@ -194,6 +214,7 @@ const CalendarHeader = ({
         >
           <DoubleArrowRightHeadIcon
             className={twMerge(
+              makeDateRangePickerClassName("calendarHeaderNextYearIcon"),
               "shrink-0 flex-0",
               colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
               sizing.lg.height,
@@ -262,6 +283,7 @@ const CalendarBody = ({
     <>
       <div
         className={twMerge(
+          makeDateRangePickerClassName("calendarBodyWeekdays"),
           "grid grid-cols-7 text-center",
           colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
           fontSize.xs,
@@ -278,7 +300,12 @@ const CalendarBody = ({
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7">
+      <div
+        className={twMerge(
+          makeDateRangePickerClassName("calendarBodyDatesGrid"),
+          "grid grid-cols-7",
+        )}
+      >
         {displayedDates.map((date) => {
           const isCurrentDateDisabled = isDateDisabled(
             date,
@@ -289,7 +316,14 @@ const CalendarBody = ({
           );
 
           return (
-            <div key={date.toString()} className={twMerge(colStartClasses[getDay(date)], "w-full")}>
+            <div
+              key={date.toString()}
+              className={twMerge(
+                makeDateRangePickerClassName("calendarBodyDate"),
+                colStartClasses[getDay(date)],
+                "w-full",
+              )}
+            >
               <button
                 type="button"
                 onClick={() => onDateClick(date)}

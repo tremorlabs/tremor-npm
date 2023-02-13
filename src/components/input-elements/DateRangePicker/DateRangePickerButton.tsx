@@ -15,7 +15,11 @@ import {
   spacing,
 } from "lib";
 
-import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
+import {
+  DateRangePickerOption,
+  DateRangePickerValue,
+  makeDateRangePickerClassName,
+} from "./DateRangePicker";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
@@ -105,6 +109,7 @@ const DateRangePickerButton = ({
   return (
     <div
       className={twMerge(
+        makeDateRangePickerClassName("button"),
         "flex items-center justify-between",
         colorClassNames[WHITE]["none"].bgColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
@@ -118,6 +123,7 @@ const DateRangePickerButton = ({
         onClick={() => setShowCalendar(!showCalendar)}
         onKeyDown={onCalendarKeyDown}
         className={twMerge(
+          makeDateRangePickerClassName("calendarButton"),
           "flex items-center w-full truncate focus:outline-none focus:ring-2",
           enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
@@ -131,6 +137,7 @@ const DateRangePickerButton = ({
       >
         <CalendarIcon
           className={twMerge(
+            makeDateRangePickerClassName("calendarButtonIcon"),
             "flex-none",
             colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
             sizing.lg.height,
@@ -142,6 +149,7 @@ const DateRangePickerButton = ({
         />
         <p
           className={twMerge(
+            makeDateRangePickerClassName("calendarButtonText"),
             "whitespace-nowrap truncate",
             fontSize.sm,
             fontWeight.md,
@@ -159,6 +167,7 @@ const DateRangePickerButton = ({
           ref={dropdownRef}
           onClick={() => setShowDropdown(!showDropdown)}
           className={twMerge(
+            makeDateRangePickerClassName("dropdownButton"),
             "inline-flex justify-between w-48 truncate focus:outline-none focus:ring-2",
             colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
@@ -173,6 +182,7 @@ const DateRangePickerButton = ({
         >
           <p
             className={twMerge(
+              makeDateRangePickerClassName("dropdownButtonText"),
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -185,6 +195,7 @@ const DateRangePickerButton = ({
           </p>
           <ArrowDownHeadIcon
             className={twMerge(
+              makeDateRangePickerClassName("dropdownButtonIcon"),
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,

@@ -1,11 +1,21 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes, borderRadius, colorClassNames, mergeRefs, spacing } from "lib";
+import {
+  BaseColors,
+  Sizes,
+  borderRadius,
+  colorClassNames,
+  makeClassName,
+  mergeRefs,
+  spacing,
+} from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+
+const makeBadgeClassName = makeClassName("Badge");
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string;
@@ -37,6 +47,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       <span
         ref={mergeRefs([ref, tooltipProps.refs.setReference])}
         className={twMerge(
+          makeBadgeClassName("root"),
           "w-max flex-shrink-0 inline-flex justify-center items-center",
           colorClassNames[color][colorPalette.darkText].textColor,
           colorClassNames[color][colorPalette.lightBackground].bgColor,
@@ -52,6 +63,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         {Icon ? (
           <Icon
             className={twMerge(
+              makeBadgeClassName("icon"),
               spacing.twoXs.negativeMarginLeft,
               spacing.xs.marginRight,
               iconSizes[size].height,
@@ -59,7 +71,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
             )}
           />
         ) : null}
-        <p className="text-sm whitespace-nowrap">{children ?? text}</p>
+        <p className={twMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>
+          {children ?? text}
+        </p>
       </span>
     </>
   );

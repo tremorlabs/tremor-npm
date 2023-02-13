@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { DeltaType, DeltaTypes, Size, spacing } from "../../../lib";
+import { DeltaType, DeltaTypes, Size, makeClassName, spacing } from "../../../lib";
 import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
 import {
   badgeProportionsIconOnly,
@@ -10,6 +10,8 @@ import {
   deltaIcons,
   iconSizes,
 } from "./styles";
+
+const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
 
 export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
@@ -37,6 +39,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     <span
       ref={ref}
       className={twMerge(
+        makeBadgeDeltaClassName("root"),
         "w-max flex-shrink-0 inline-flex justify-center items-center",
         borderRadius.full.all,
         colors[mappedDeltaType].bgColor,
@@ -50,13 +53,18 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     >
       <Icon
         className={twMerge(
+          makeBadgeDeltaClassName("icon"),
           text
             ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
             : iconSizes[size].height,
           iconSizes[size].width,
         )}
       />
-      {children || text ? <p className="text-sm whitespace-nowrap">{children ?? text}</p> : null}
+      {children || text ? (
+        <p className={twMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
+          {children ?? text}
+        </p>
+      ) : null}
     </span>
   );
 });

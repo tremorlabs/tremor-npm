@@ -37,7 +37,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           onClick?.(e);
         }}
         className={twMerge(
-          "flex items-center justify-between w-full",
+          "flex items-center justify-start w-full",
           spacing.twoXl.paddingX,
           spacing.md.paddingY,
           fontSize.sm,
@@ -48,23 +48,21 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
         )}
         {...other}
       >
-        <div className="flex items-center truncate">
-          <input
-            type="checkbox"
-            className={twMerge(
-              "flex-none focus:ring-none focus:outline-none cursor-pointer",
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightRing].focusRingColor,
-              colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
-              colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
-              spacing.lg.marginRight,
-              borderRadius.sm.all,
-              border.sm.all,
-            )}
-            checked={isActive}
-            readOnly={true}
-          />
-          <p className="text-sm whitespace-nowrap">{text}</p>
-        </div>
+        <input
+          type="checkbox"
+          className={twMerge(
+            "flex-none focus:ring-none focus:outline-none cursor-pointer",
+            colorClassNames[DEFAULT_COLOR][colorPalette.lightRing].focusRingColor,
+            colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            spacing.lg.marginRight,
+            borderRadius.sm.all,
+            border.sm.all,
+          )}
+          checked={isActive}
+          readOnly={true}
+        />
+        <p className="text-sm whitespace-nowrap truncate">{text}</p>
       </button>
     );
   },

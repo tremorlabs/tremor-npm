@@ -15,6 +15,7 @@ import {
   constructValueToNameMapping,
   fontSize,
   fontWeight,
+  makeClassName,
   mergeRefs,
   sizing,
   spacing,
@@ -22,6 +23,8 @@ import {
 import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/util-elements/Modal";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+
+export const makeDropdownClassName = makeClassName("Dropdown");
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
@@ -74,6 +77,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
       ref={mergeRefs([dropdownRef, ref])}
       onKeyDown={handleKeyDown}
       className={twMerge(
+        makeDropdownClassName("root"),
         "relative w-full min-w-[10rem]",
         colorClassNames[WHITE]["none"].bgColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
@@ -84,6 +88,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
       <button
         type="button"
         className={twMerge(
+          makeDropdownClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
@@ -100,6 +105,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           {Icon ? (
             <Icon
               className={twMerge(
+                makeDropdownClassName("icon"),
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -111,6 +117,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           ) : null}
           <p
             className={twMerge(
+              makeDropdownClassName("text"),
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -124,6 +131,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
         </div>
         <ArrowDownHeadIcon
           className={twMerge(
+            makeDropdownClassName("arrowDownIcon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
