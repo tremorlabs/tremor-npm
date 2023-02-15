@@ -5,6 +5,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 3000,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 1'),
   },
   {
     month: "Feb 21'",
@@ -12,6 +13,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2000,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 2'),
   },
   {
     month: "Mar 21'",
@@ -19,6 +21,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 1700,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 3'),
   },
   {
     month: "Apr 21'",
@@ -26,6 +29,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2500,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 4'),
   },
   {
     month: "May 21",
@@ -33,6 +37,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 1000,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 5'),
   },
   {
     month: "Jun 21'",
@@ -40,6 +45,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2000,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 6'),
   },
   {
     month: "Jul 21'",
@@ -47,6 +53,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 3000,
     "This is an edge case": 100000000,
     Test: 5000,
+    onClick: () => alert('Onclick Event 7'),
   },
 ];
 

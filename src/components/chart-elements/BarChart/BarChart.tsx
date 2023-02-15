@@ -56,6 +56,7 @@ const BarChart = ({
   autoMinValue = false,
   minValue,
   maxValue,
+  onClick,
 }: BarChartProps) => {
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
@@ -192,6 +193,7 @@ const BarChart = ({
               key={category}
               name={category}
               type="linear"
+              onClick={onClick}
               stackId={stack || relative ? "a" : undefined}
               dataKey={category}
               fill={getHexFromColorThemeValue(
