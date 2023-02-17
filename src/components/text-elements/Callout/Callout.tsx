@@ -66,15 +66,15 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
         ) : null}
         <h4 className={twMerge("text-elem", fontWeight.lg)}>{title}</h4>
       </div>
-      <div
+      <p
         className={twMerge(
-          "overflow-y-scroll",
+          "overflow-y-auto",
           colorClassNames[color][colorPalette.darkText].textColor,
           spacing.sm.marginTop,
         )}
       >
         {children ?? text}
-      </div>
+      </p>
     </div>
   );
 });

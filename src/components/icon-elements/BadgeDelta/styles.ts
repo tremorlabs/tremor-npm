@@ -118,7 +118,7 @@ export const colors: { [key: string]: ColorTypes } = {
   },
   [DeltaTypes.ModerateDecrease]: {
     bgColor: colorClassNames[BaseColors.Rose][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
+    textColor: colorClassNames[BaseColors.Rose][colorPalette.darkText].textColor,
   },
   [DeltaTypes.Unchanged]: {
     bgColor: colorClassNames[BaseColors.Orange][colorPalette.lightBackground].bgColor,

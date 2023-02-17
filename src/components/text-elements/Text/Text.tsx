@@ -15,7 +15,6 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
     <p
       ref={ref}
       className={twMerge(
-        "overflow-y-auto",
         colorClassNames[color][colorPalette.text].textColor,
         fontSize.sm,
         fontWeight.sm,

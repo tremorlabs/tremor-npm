@@ -12,7 +12,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
         ref={ref}
         className={twMerge(
           "w-full mx-auto",
-          colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
           sizing.threeXs.height,
           spacing.threeXl.marginTop,
           spacing.threeXl.marginBottom,

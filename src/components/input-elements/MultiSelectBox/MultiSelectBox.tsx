@@ -16,6 +16,7 @@ import {
   fontWeight,
   getFilteredOptions,
   isValueInArray,
+  makeClassName,
   mergeRefs,
   removeValueFromArray,
   sizing,
@@ -24,6 +25,8 @@ import {
 import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
+
+export const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
 
 export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string[];
@@ -97,6 +100,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     <div
       ref={mergeRefs([dropdownRef, ref])}
       className={twMerge(
+        makeMultiSelectBoxClassName("root"),
         "relative w-full min-w-[10rem]",
         colorClassNames[WHITE]["none"].bgColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
@@ -111,6 +115,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
       <button
         type="button"
         className={twMerge(
+          makeMultiSelectBoxClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
           borderRadius.md.all,
@@ -126,6 +131,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           {Icon ? (
             <Icon
               className={twMerge(
+                makeMultiSelectBoxClassName("icon"),
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -137,6 +143,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           ) : null}
           <p
             className={twMerge(
+              makeMultiSelectBoxClassName("text"),
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
@@ -152,7 +159,10 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           {showResetButton ? (
             <div
               role="button"
-              className={twMerge(spacing.xs.marginRight)}
+              className={twMerge(
+                makeMultiSelectBoxClassName("resetButton"),
+                spacing.xs.marginRight,
+              )}
               onClick={(e) => {
                 e.stopPropagation(); // prevent firing parent button
                 handleReset();
