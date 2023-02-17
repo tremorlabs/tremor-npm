@@ -14,7 +14,7 @@ import {
 const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
 
 export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
-  text?: string;
+  text?: string; // Deprecated
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
@@ -30,6 +30,11 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     className,
     ...other
   } = props;
+
+  if (text)
+    console.log(
+      "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
+    );
 
   const Icon = deltaIcons[deltaType];
   const mappedDeltaType = mapInputsToDeltaType(deltaType, isIncreasePositive);

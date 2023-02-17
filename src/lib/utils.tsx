@@ -51,16 +51,16 @@ export const stringEndsWithNumber = (str: string): boolean => {
 };
 
 export interface SelectItemProps {
-  value: any;
-  text: string;
+  value: string;
+  text?: string;
 }
 
-export const constructValueToNameMapping = <T,>(
+export const constructValueToNameMapping = (
   children: React.ReactElement[] | React.ReactElement,
-): Map<T, string> => {
-  const valueToNameMapping = new Map<T, string>();
+) => {
+  const valueToNameMapping = new Map<string, string>();
   React.Children.map(children, (child: { props: SelectItemProps }) => {
-    valueToNameMapping.set(child.props.value, child.props.text);
+    valueToNameMapping.set(child.props.value, child.props.text ?? child.props.value);
   });
   return valueToNameMapping;
 };
@@ -72,7 +72,8 @@ export const getFilteredOptions = (
   return searchQuery === ""
     ? options
     : options.filter((option: SelectItemProps) => {
-        return option.text.toLowerCase().includes(searchQuery.toLowerCase());
+        const optionText = option.text ?? option.value;
+        return optionText.toLowerCase().includes(searchQuery.toLowerCase());
       });
 };
 

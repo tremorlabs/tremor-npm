@@ -62,7 +62,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     ...child.props,
   }));
   const filteredOptions = getFilteredOptions(searchQuery, options);
-  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text));
+  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
   const filteredOptionValues = filteredOptions.map((option) => option.value);
 
   const handleModalToggle = (show: boolean) => {
@@ -225,7 +225,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         >
           <HoveredValueContext.Provider value={{ hoveredValue }}>
             {React.Children.map(children, (child) => {
-              if (filteredOptionTexts.has(String(child.props.text))) {
+              const optionText = child.props.text ?? child.props.value;
+              if (filteredOptionTexts.has(String(optionText))) {
                 return React.cloneElement(child);
               }
             })}

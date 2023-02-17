@@ -16,7 +16,7 @@ import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
-  text: string;
+  text?: string;
 }
 
 const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxItemProps>(
@@ -62,7 +62,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           checked={isActive}
           readOnly={true}
         />
-        <p className="text-sm whitespace-nowrap truncate">{text}</p>
+        <p className="text-sm whitespace-nowrap truncate">{text ?? value}</p>
       </button>
     );
   },

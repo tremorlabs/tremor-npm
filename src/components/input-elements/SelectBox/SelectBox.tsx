@@ -57,7 +57,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const valueToNameMapping = constructValueToNameMapping(children);
 
   useEffect(() => {
-    setInputValue(valueToNameMapping.get(selectedValue) || "");
+    if (selectedValue) setInputValue(valueToNameMapping.get(selectedValue) || "");
   }, [selectedValue]);
 
   const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
@@ -66,7 +66,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
 
   const filteredOptions = getFilteredOptions(searchQuery, options);
 
-  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text));
+  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
   const filteredOptionValues = filteredOptions.map((option) => option.value);
 
   const handleFocusChange = (isFocused: boolean) => {
@@ -80,7 +80,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
 
   const handleValueChange = (value: string) => {
     setSearchQuery("");
-    setInputValue(valueToNameMapping.get(selectedValue) || "");
+    if (selectedValue) setInputValue(valueToNameMapping.get(selectedValue) || "");
     handleFocusChange(false);
     setSelectedValue(value);
     inputRef.current?.blur();
@@ -184,7 +184,8 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
           <HoveredValueContext.Provider value={{ hoveredValue }}>
             {React.Children.map(children, (child) => {
-              if (filteredOptionTexts.has(String(child.props.text))) {
+              const optionValue = child.props.text ?? child.props.value;
+              if (filteredOptionTexts.has(String(optionValue))) {
                 return React.cloneElement(child);
               }
               return null;

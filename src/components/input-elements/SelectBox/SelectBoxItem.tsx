@@ -11,7 +11,7 @@ import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface SelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
-  text: string;
+  text?: string;
   icon?: React.ElementType;
 }
 
@@ -61,7 +61,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
           aria-hidden="true"
         />
       ) : null}
-      <p className="text-sm whitespace-nowrap truncate">{text}</p>
+      <p className="text-sm whitespace-nowrap truncate">{text ?? value}</p>
     </button>
   );
 });

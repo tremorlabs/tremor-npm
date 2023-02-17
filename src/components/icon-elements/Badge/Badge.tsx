@@ -18,7 +18,7 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 const makeBadgeClassName = makeClassName("Badge");
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  text: string;
+  text: string; // Deprecated
   color?: Color;
   size?: Size;
   icon?: React.ElementType;
@@ -36,6 +36,11 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
     children,
     ...other
   } = props;
+
+  if (text)
+    console.log(
+      "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
+    );
 
   const Icon = icon ? icon : null;
 

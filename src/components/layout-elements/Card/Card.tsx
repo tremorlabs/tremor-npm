@@ -41,7 +41,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     <div
       ref={ref}
       className={twMerge(
-        "relative w-full mx-auto text-left ring-1",
+        "relative w-full text-left ring-1",
         colorClassNames[WHITE]["none"].bgColor,
         boxShadow.md,
         colorClassNames[decorationColor][colorPalette.border].borderColor,
