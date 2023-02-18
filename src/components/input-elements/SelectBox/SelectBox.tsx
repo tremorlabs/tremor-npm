@@ -109,12 +109,12 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         handleKeyDown(e);
         onKeyDown?.(e);
       }}
-      className={twMerge("w-full min-w-[10rem]", className)}
+      className={twMerge("relative w-full min-w-[10rem]", className)}
       {...other}
     >
       <div
         className={twMerge(
-          "flex w-full items-center overflow-hidden focus:outline-none focus:ring-2",
+          "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
           colorClassNames[WHITE]["none"].bgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           isFocused &&
