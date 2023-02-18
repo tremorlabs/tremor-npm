@@ -20,6 +20,7 @@ interface BaseChartProps {
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;
+  onClick?: any;
 }
 
 export default BaseChartProps;
