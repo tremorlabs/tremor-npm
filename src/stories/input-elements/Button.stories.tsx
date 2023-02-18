@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "assets";
 
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
-import { Card, ColGrid, Flex, Title } from "components";
+import { Card, Grid, Flex, Title } from "components";
 
 import { Button } from "components";
 
@@ -20,7 +20,7 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={5} className="gap-y-2">
+    <Grid numCols={5} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <Button {...args} size={size}>
@@ -40,13 +40,13 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
           </Button>
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={4} numColsLg={4} className="gap-y-2">
+    <Grid numCols={4} numColsLg={4} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <>
           <Button {...args} color={color}>
@@ -63,7 +63,7 @@ const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
           </Button>
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
@@ -102,7 +102,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
   return (
     <Card>
       <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
-      <ColGrid numCols={3} className="gap-y-2 mt-10">
+      <Grid numCols={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
             <Button size={size} loading={loading}>
@@ -119,9 +119,9 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
             </Button>
           </>
         ))}
-      </ColGrid>
+      </Grid>
       <Title>With Loading Text</Title>
-      <ColGrid numCols={4} className="gap-y-2">
+      <Grid numCols={4} className="gap-y-2">
         <Button loading={loading} loadingText="Loading">
           Button
         </Button>
@@ -134,7 +134,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
         <Button variant="secondary" loading={loading} loadingText="Loading">
           Button
         </Button>
-      </ColGrid>
+      </Grid>
     </Card>
   );
 };

@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/constants";
 
-import { BadgeDelta, Card, ColGrid, Flex, Title } from "components";
+import { BadgeDelta, Card, Grid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";
 import Badge from "components/icon-elements/Badge/Badge";
 
@@ -17,7 +17,7 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
   <Card className="max-w-lg">
-    <ColGrid numCols={4} className="gap-y-2">
+    <Grid numCols={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <BadgeDelta size={size} deltaType="increase" />
@@ -26,17 +26,17 @@ const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
           <Badge size={size} text={args.text!} />
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
 const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
   <Card className="max-w-sm">
-    <ColGrid className="gap-y-1">
+    <Grid className="gap-y-1">
       {Object.values(InputDeltaTypes).map((deltaType) => (
-        <BadgeDelta deltaType={deltaType} text={args.text} />
+        <BadgeDelta key={deltaType} deltaType={deltaType} text={args.text} />
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 

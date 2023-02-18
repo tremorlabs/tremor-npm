@@ -72,7 +72,7 @@ const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
     <Card>
       <Block className="space-y-2">
         {Object.values(BaseColors).map((color) => (
-          <SimpleTabList {...args} color={color} />
+          <SimpleTabList key={color} {...args} color={color} />
         ))}
       </Block>
     </Card>

@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { BaseColors } from "lib/constants";
 import { Sizes as InputSizes } from "lib/constants";
 
-import { BadgeDelta, Card, ColGrid, Flex, Title } from "components";
+import { BadgeDelta, Card, Grid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";
 import Badge from "components/icon-elements/Badge/Badge";
 
@@ -18,7 +18,7 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-md">
-    <ColGrid numCols={4} className="gap-y-2">
+    <Grid numCols={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <Badge size={size} text={args.text} tooltip={args.tooltip} />
@@ -27,17 +27,17 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
           <BadgeDelta size={size} deltaType="increase" />
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-sm">
-    <ColGrid numCols={5} className="gap-y-2">
+    <Grid numCols={5} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
-        <Badge color={color} text={args.text} icon={args.icon} />
+        <Badge key={color} color={color} text={args.text} icon={args.icon} />
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 

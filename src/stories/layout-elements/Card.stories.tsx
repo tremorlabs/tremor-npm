@@ -1,7 +1,7 @@
 import React from "react";
 
 import { BaseColors, HorizontalPosition, VerticalPosition } from "lib";
-import { Block, Card, ColGrid, Flex, Metric, Title } from "components";
+import { Block, Card, Grid, Flex, Metric, Title } from "components";
 import { SimpleCard } from "./helpers/SimpleCard";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
@@ -45,23 +45,27 @@ const FlexTemplate: ComponentStory<typeof Card> = (args) => (
 );
 
 const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
-  <ColGrid numCols={2} className="gap-x-2 gap-y-2">
+  <Grid numCols={2} className="gap-x-2 gap-y-2">
     {["left", "top", "right", "bottom", "mistyped"].map((position) => (
-      <Card {...args} decoration={position as HorizontalPosition | VerticalPosition | ""}>
+      <Card
+        {...args}
+        key={position}
+        decoration={position as HorizontalPosition | VerticalPosition | ""}
+      >
         <Title>{`Decoration ${position}`}</Title>
       </Card>
     ))}
-  </ColGrid>
+  </Grid>
 );
 
 const DecorationColorsTemplate: ComponentStory<typeof Card> = (args) => (
-  <ColGrid numCols={3} className="gap-x-2 gap-y-2">
+  <Grid numCols={3} className="gap-x-2 gap-y-2">
     {Object.values(BaseColors).map((color) => (
-      <Card {...args} decoration="top" decorationColor={color}>
+      <Card {...args} key={color} decoration="top" decorationColor={color}>
         <Title>{`Decoration Color: ${color}`}</Title>
       </Card>
     ))}
-  </ColGrid>
+  </Grid>
 );
 
 export const Default = ResponsiveTemplate.bind({});

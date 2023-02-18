@@ -10,7 +10,7 @@ const useOnWindowResize = (handler: { (): void }, initialWindowSize?: number) =>
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [windowSize]);
+  }, [handler, windowSize]);
 };
 
 export default useOnWindowResize;

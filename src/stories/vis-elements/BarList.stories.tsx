@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof BarList> = (args) => (
 const ColorsTemplate: ComponentStory<typeof BarList> = (args) => (
   <Block className="space-y-2">
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <BarList {...args} color={color} />
       </Card>
     ))}

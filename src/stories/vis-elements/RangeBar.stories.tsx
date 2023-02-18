@@ -18,7 +18,7 @@ export default {
 const Template: ComponentStory<typeof RangeBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <Metric>$23.456</Metric>
         <RangeBar {...args} color={color} />
       </Card>

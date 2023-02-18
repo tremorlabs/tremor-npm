@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { useOnClickOutside, useOnWindowResize } from "hooks";
@@ -32,13 +32,16 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const checkModalExceedsWindow = (modalWidth: number, windowWidth: number): boolean => {
-    if (!parentRef.current) {
-      return false;
-    }
-    const modalBoundingRight = parentRef.current.getBoundingClientRect().left + modalWidth;
-    return windowWidth - modalBoundingRight < 0;
-  };
+  const checkModalExceedsWindow = useCallback(
+    (modalWidth: number, windowWidth: number): boolean => {
+      if (!parentRef.current) {
+        return false;
+      }
+      const modalBoundingRight = parentRef.current.getBoundingClientRect().left + modalWidth;
+      return windowWidth - modalBoundingRight < 0;
+    },
+    [parentRef],
+  );
 
   const getAbsoluteSpacing = () => {
     if (!modalExceedsWindow) {
@@ -56,15 +59,17 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   });
 
   // Execute only when modal is of absolute size
-  if (width !== undefined) {
-    useEffect(() => {
+  useEffect(() => {
+    if (width) {
       setModalExceedsWindow(checkModalExceedsWindow(width, window.innerWidth));
-    }, [parentRef]);
+    }
+  }, [checkModalExceedsWindow, parentRef, width]);
 
-    useOnWindowResize(() =>
-      setModalExceedsWindow(checkModalExceedsWindow(width, window.innerWidth)),
-    );
-  }
+  useOnWindowResize(() => {
+    if (width) {
+      setModalExceedsWindow(checkModalExceedsWindow(width, window.innerWidth));
+    }
+  });
 
   return showModal ? (
     <div

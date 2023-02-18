@@ -14,7 +14,9 @@ export default {
 const Template: ComponentStory<typeof Metric> = () => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Metric color={color}>USD 70,000.00</Metric>
+      <Metric key={color} color={color}>
+        USD 70,000.00
+      </Metric>
     ))}
   </>
 );

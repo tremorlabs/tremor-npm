@@ -92,7 +92,7 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
     <Card>
       <Block className="space-y-2">
         {Object.values(BaseColors).map((color) => (
-          <div>
+          <div key={color}>
             <SimpleToggle {...args} color={color} />
           </div>
         ))}

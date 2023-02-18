@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowUpIcon } from "assets";
 
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
-import { Block, Card, ColGrid, Flex, Title } from "components";
+import { Block, Card, Grid, Flex, Title } from "components";
 
 import { IconVariants } from "components/icon-elements/Icon/Icon";
 
@@ -19,36 +19,36 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
   <Card>
-    <ColGrid numCols={5}>
+    <Grid numCols={5}>
       {Object.values(IconVariants).map((variant) => (
-        <Block>
+        <Block key={variant}>
           <Title>{variant}</Title>
           {Object.values(InputSizes).map((size) => (
-            <Block className="mt-2">
+            <Block key={size} className="mt-2">
               <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
             </Block>
           ))}
         </Block>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
-  <ColGrid numColsLg={2} className="gap-x-2 gap-y-2">
+  <Grid numColsLg={2} className="gap-x-2 gap-y-2">
     {Object.values(IconVariants).map((variant) => (
-      <Card className="max-w-lg">
+      <Card key={variant} className="max-w-lg">
         <Title>{variant}</Title>
-        <ColGrid numCols={5}>
+        <Grid numCols={5}>
           {Object.values(BaseColors).map((color) => (
-            <Block className="mt-2">
+            <Block key={color} className="mt-2">
               <Icon icon={args.icon} variant={variant} color={color} />
             </Block>
           ))}
-        </ColGrid>
+        </Grid>
       </Card>
     ))}
-  </ColGrid>
+  </Grid>
 );
 
 const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
@@ -58,7 +58,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
       <Card>
         <Block className="space-y-2">
           {Object.values(IconVariants).map((variant) => (
-            <Flex>
+            <Flex key={variant}>
               <Icon {...args} variant={variant} />
               <Icon {...args} variant={variant} />
             </Flex>
@@ -70,7 +70,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
     <Card>
       <Block className="space-y-2">
         {Object.values(IconVariants).map((variant) => (
-          <Flex>
+          <Flex key={variant}>
             <Icon {...args} variant={variant} />
             <Icon {...args} variant={variant} />
           </Flex>

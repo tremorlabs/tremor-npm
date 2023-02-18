@@ -19,7 +19,7 @@ export default {
 const Template: ComponentStory<typeof ProgressBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <Metric>$23.456</Metric>
         <Flex>
           <ProgressBar {...args} color={color} />

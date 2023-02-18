@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 
-export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   numCols?: number;
   numColsSm?: number;
   numColsMd?: number;
@@ -11,7 +11,7 @@ export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const Grid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
+const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   const { numCols = 1, numColsSm, numColsMd, numColsLg, children, className, ...other } = props;
 
   const getGridCols = (
