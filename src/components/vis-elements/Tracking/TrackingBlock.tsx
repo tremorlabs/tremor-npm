@@ -17,20 +17,19 @@ const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((prop
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
-    <>
+    <div
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      className={twMerge(
+        "w-full h-full",
+        colorClassNames[color][colorPalette.background].bgColor,
+        borderRadius.md.all,
+        className,
+      )}
+      {...other}
+      {...getReferenceProps}
+    >
       <Tooltip text={tooltip} {...tooltipProps} />
-      <div
-        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-        className={twMerge(
-          "w-full h-full",
-          colorClassNames[color][colorPalette.background].bgColor,
-          borderRadius.md.all,
-          className,
-        )}
-        {...getReferenceProps}
-        {...other}
-      />
-    </>
+    </div>
   );
 });
 
