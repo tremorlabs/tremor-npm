@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import {
@@ -9,11 +9,12 @@ import {
   colorClassNames,
   fontSize,
   fontWeight,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { ExclamationFilledIcon } from "assets";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
   if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
@@ -42,6 +43,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   } = props;
   const Icon = icon;
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
     ? colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor
@@ -50,10 +54,42 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     ? colorClassNames[BaseColors.Rose][colorPalette.border].borderColor
     : colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor;
 
+  const handleFocusChange = (isFocused: boolean) => {
+    if (isFocused === false) {
+      inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus();
+    }
+    setIsFocused(isFocused);
+  };
+
   return (
     <>
       <div
-        className={twMerge("relative w-full flex items-center min-w-[10rem]", bgColor, className)}
+        className={twMerge(
+          "relative w-full flex items-center min-w-[10rem] focus:outline-0 focus:ring-2",
+          bgColor,
+          className,
+          colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
+          boderColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+          textColor,
+          isFocused &&
+            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.border].ringColor),
+        )}
+        onClick={() => {
+          if (!disabled) {
+            handleFocusChange(true);
+          }
+        }}
+        onFocus={() => {
+          handleFocusChange(true);
+        }}
+        onBlur={() => {
+          handleFocusChange(false);
+        }}
       >
         {Icon ? (
           <Icon
@@ -68,21 +104,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           />
         ) : null}
         <input
-          ref={ref}
+          ref={mergeRefs([ref, inputRef])}
           type="text"
           className={twMerge(
-            "w-full bg-inherit focus:outline-0 focus:ring-2",
-            colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
-            boderColor,
-            borderRadius.md.all,
-            border.sm.all,
-            boxShadow.sm,
-            textColor,
+            "w-full focus:outline-0 focus:ring-0",
+            colorClassNames[TRANSPARENT]["none"].bgColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             fontSize.sm,
             fontWeight.md,
+            border.none.all,
             "placeholder:text-gray-500",
           )}
           placeholder={placeholder}
