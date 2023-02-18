@@ -8,6 +8,7 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 import { ArrowDownHeadIcon } from "assets";
 
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
@@ -76,13 +77,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     <div
       ref={mergeRefs([dropdownRef, ref])}
       onKeyDown={handleKeyDown}
-      className={twMerge(
-        makeDropdownClassName("root"),
-        "relative w-full min-w-[10rem]",
-        colorClassNames[WHITE]["none"].bgColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-        className,
-      )}
+      className={twMerge(makeDropdownClassName("root"), "relative w-full min-w-[10rem]", className)}
       {...other}
     >
       <button
@@ -90,6 +85,8 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
         className={twMerge(
           makeDropdownClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
+          colorClassNames[WHITE]["none"].bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
@@ -97,7 +94,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           border.sm.all,
           boxShadow.sm,
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+          colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
         )}
         onClick={() => setIsFocused(!isFocused)}
       >

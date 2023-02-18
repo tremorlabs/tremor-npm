@@ -8,6 +8,7 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
@@ -108,21 +109,18 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         handleKeyDown(e);
         onKeyDown?.(e);
       }}
-      className={twMerge(
-        "relative w-full min-w-[10rem]",
-        colorClassNames[WHITE]["none"].bgColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
-        className,
-      )}
+      className={twMerge("w-full min-w-[10rem]", className)}
       {...other}
     >
-      <button
+      <div
         className={twMerge(
           "flex w-full items-center overflow-hidden focus:outline-none focus:ring-2",
+          colorClassNames[WHITE]["none"].bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           isFocused &&
-            twMerge("ring-2", colorClassNames[DEFAULT_COLOR][colorPalette.border].ringColor),
+            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.border].ringColor),
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+          colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
@@ -156,7 +154,6 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
             fontWeight.md,
             border.none.all,
             "placeholder:text-gray-500",
-            "pr-10", // avoid text overflow at arrow down icon
           )}
           placeholder={placeholder}
           value={inputValue}
@@ -166,16 +163,15 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         />
         <ArrowDownHeadIcon
           className={twMerge(
-            "flex-none absolute top-1/2 -translate-y-1/2",
+            "flex-none",
             sizing.lg.height,
             sizing.lg.width,
-            spacing.twoXs.negativeMarginRight,
-            spacing.twoXl.right,
+            spacing.lg.marginRight,
             colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
           )}
           aria-hidden="true"
         />
-      </button>
+      </div>
       <Modal
         showModal={filteredOptions.length === 0 ? false : isFocused}
         setShowModal={handleFocusChange}

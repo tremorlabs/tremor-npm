@@ -11,7 +11,7 @@ export interface ColGridProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const ColGrid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
+const Grid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
   const { numCols = 1, numColsSm, numColsMd, numColsLg, children, className, ...other } = props;
 
   const getGridCols = (
@@ -39,4 +39,4 @@ const ColGrid = React.forwardRef<HTMLDivElement, ColGridProps>((props, ref) => {
   );
 });
 
-export default ColGrid;
+export default Grid;

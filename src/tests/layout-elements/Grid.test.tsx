@@ -2,13 +2,13 @@ import React from "react";
 import { render } from "@testing-library/react";
 
 import Card from "components/layout-elements/Card/Card";
-import Col from "components/layout-elements/ColGrid/Col";
-import ColGrid from "components/layout-elements/ColGrid/ColGrid";
+import Col from "components/layout-elements/Grid/Col";
+import Grid from "components/layout-elements/Grid/Grid";
 
-describe("ColGrid", () => {
-  test("renders the ColGrid component with default props", () => {
+describe("Grid", () => {
+  test("renders the Grid component with default props", () => {
     render(
-      <ColGrid>
+      <Grid>
         <Col numColSpan={2}>
           <Card>
             <div className="h-44" />
@@ -28,7 +28,7 @@ describe("ColGrid", () => {
         <Card>
           <div className="h-44" />
         </Card>
-      </ColGrid>,
+      </Grid>,
     );
   });
 });

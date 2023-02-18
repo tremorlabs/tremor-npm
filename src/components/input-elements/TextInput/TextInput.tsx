@@ -72,7 +72,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           type="text"
           className={twMerge(
             "w-full bg-inherit focus:outline-0 focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.border].focusRingColor,
+            colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
             boderColor,
             borderRadius.md.all,
             border.sm.all,

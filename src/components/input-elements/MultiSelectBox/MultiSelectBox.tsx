@@ -102,8 +102,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
       className={twMerge(
         makeMultiSelectBoxClassName("root"),
         "relative w-full min-w-[10rem]",
-        colorClassNames[WHITE]["none"].bgColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
         className,
       )}
       onKeyDown={(e) => {
@@ -117,6 +115,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         className={twMerge(
           makeMultiSelectBoxClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
+          colorClassNames[WHITE]["none"].bgColor,
+          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
           borderRadius.md.all,
           border.sm.all,

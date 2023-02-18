@@ -2,19 +2,19 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card, Col, ColGrid, Metric } from "components";
+import { Card, Col, Grid, Metric } from "components";
 import { SimpleCard } from "./helpers/SimpleCard";
 import { SimpleText } from "./helpers/SimpleText";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/LayoutElements/ColGrid",
-  component: ColGrid,
-} as ComponentMeta<typeof ColGrid>;
+  title: "Tremor/LayoutElements/Grid",
+  component: Grid,
+} as ComponentMeta<typeof Grid>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const Template: ComponentStory<typeof ColGrid> = (args) => (
-  <ColGrid {...args}>
+const Template: ComponentStory<typeof Grid> = (args) => (
+  <Grid {...args}>
     <Col numColSpanMd={2}>
       <SimpleCard />
     </Col>
@@ -25,7 +25,7 @@ const Template: ComponentStory<typeof ColGrid> = (args) => (
       <Metric>$ 40,000</Metric>
       <SimpleText />
     </Card>
-  </ColGrid>
+  </Grid>
 );
 
 export const Default = Template.bind({});
