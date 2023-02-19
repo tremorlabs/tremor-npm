@@ -33,7 +33,7 @@ import {
 } from "lib";
 import { capitalize, getDateStyles, getWeekdays } from "./dateRangePickerUtils";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
-import { makeDateRangePickerClassName } from "./DateRangePicker";
+import { makeDateRangePickerClassName } from "./dateRangePickerUtils";
 
 export const colStartClasses = [
   "",

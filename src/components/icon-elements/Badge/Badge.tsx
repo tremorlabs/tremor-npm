@@ -18,7 +18,6 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 const makeBadgeClassName = makeClassName("Badge");
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  text: string; // Deprecated
   color?: Color;
   size?: Size;
   icon?: React.ElementType;
@@ -27,7 +26,6 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   const {
-    text,
     color = BaseColors.Blue,
     icon,
     size = Sizes.SM,
@@ -36,11 +34,6 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
     children,
     ...other
   } = props;
-
-  if (text)
-    console.log(
-      "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
-    );
 
   const Icon = icon ? icon : null;
 
@@ -53,7 +46,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         ref={mergeRefs([ref, tooltipProps.refs.setReference])}
         className={twMerge(
           makeBadgeClassName("root"),
-          "w-max flex-shrink-0 inline-flex justify-center items-center",
+          "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
           colorClassNames[color][colorPalette.darkText].textColor,
           colorClassNames[color][colorPalette.lightBackground].bgColor,
           borderRadius.full.all,
@@ -77,7 +70,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
           />
         ) : null}
         <p className={twMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>
-          {children ?? text}
+          {children}
         </p>
       </span>
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import { useOnWindowResize } from "hooks";
 
@@ -10,23 +10,13 @@ const ChartLegend = (
   categoryColors: Map<string, Color>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
 ) => {
-  const calculateHeight = (height: number | undefined) =>
-    height
-      ? Number(height) + 20 // 20px extra padding
-      : 60; // default height
-
   const legendRef = useRef<HTMLDivElement>(null);
-  const [currentheight, setCurrentHeight] = useState(calculateHeight(undefined));
-
-  useEffect(() => {
-    setCurrentHeight(calculateHeight(currentheight));
-    // setLegendHeight setState action from Chart parent
-    setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
-  }, []);
 
   useOnWindowResize(() => {
-    setCurrentHeight(calculateHeight(currentheight));
-    // setLegendHeight setState action from Chart parent
+    const calculateHeight = (height: number | undefined) =>
+      height
+        ? Number(height) + 20 // 20px extra padding
+        : 60; // default height
     setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
   });
 

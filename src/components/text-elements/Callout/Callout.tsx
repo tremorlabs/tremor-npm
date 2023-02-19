@@ -16,18 +16,12 @@ import { colorPalette } from "lib/theme";
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
-  text?: string; // Deprecated
   icon?: React.ElementType;
   color?: Color;
 }
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
-  const { title, text, icon, color = BaseColors.Blue, className, children, ...other } = props;
-
-  if (text)
-    console.log(
-      "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
-    );
+  const { title, icon, color = BaseColors.Blue, className, children, ...other } = props;
 
   const Icon = icon;
   return (
@@ -73,7 +67,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
           spacing.sm.marginTop,
         )}
       >
-        {children ?? text}
+        {children}
       </p>
     </div>
   );

@@ -16,12 +16,9 @@ import {
   spacing,
 } from "lib";
 
-import {
-  DateRangePickerOption,
-  DateRangePickerValue,
-  makeDateRangePickerClassName,
-} from "./DateRangePicker";
+import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
 import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { makeDateRangePickerClassName } from "./dateRangePickerUtils";
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
   const localeCode = locale?.code || "en-US";

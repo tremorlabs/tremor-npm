@@ -14,6 +14,8 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
+import { twMerge } from "tailwind-merge";
+import { DEFAULT_COLOR, WHITE, borderRadius, colorClassNames, colorPalette, spacing } from "lib";
 
 export const useTooltip = () => {
   const [open, setOpen] = useState(false);
@@ -67,10 +69,16 @@ export interface TooltipProps {
 const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: TooltipProps) => {
   return open && text ? (
     <div
-      className="bg-gray-800 text-white px-2.5 py-1 rounded-md w-max z-20"
+      className={twMerge(
+        "w-max text-sm z-20",
+        colorClassNames[DEFAULT_COLOR][colorPalette.darkestBackground].bgColor,
+        colorClassNames[WHITE]["none"].textColor,
+        borderRadius.md.all,
+        spacing.md.paddingX,
+        spacing.twoXs.paddingY,
+      )}
       ref={refs.setFloating}
       style={{
-        // Positioning styles
         position: strategy,
         top: y ?? 0,
         left: x ?? 0,

@@ -15,8 +15,10 @@ import {
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
-import { borderRadius, colorClassNames, fontWeight } from "lib";
+import { borderRadius, colorClassNames, fontWeight, makeClassName } from "lib";
 import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
+
+export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
 export const getWeekdays = (locale: Locale) => {
   const firstDayOfWeek = startOfWeek(new Date());

@@ -21,10 +21,10 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
     <Grid numCols={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
-          <Badge size={size} text={args.text} tooltip={args.tooltip} />
-          <Badge size={size} text={args.text} tooltip={args.tooltip} icon={ArrowUpIcon} />
-          <BadgeDelta size={size} text={args.text} deltaType="increase" />
-          <BadgeDelta size={size} deltaType="increase" />
+          <Badge {...args} size={size} />
+          <Badge {...args} size={size} icon={ArrowUpIcon} />
+          <BadgeDelta {...args} size={size} deltaType="increase" />
+          <BadgeDelta {...args} size={size} deltaType="increase" />
         </>
       ))}
     </Grid>
@@ -35,7 +35,7 @@ const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-sm">
     <Grid numCols={5} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
-        <Badge key={color} color={color} text={args.text} icon={args.icon} />
+        <Badge {...args} key={color} color={color} icon={args.icon} />
       ))}
     </Grid>
   </Card>
@@ -65,14 +65,14 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Badge> = (args) => (
 export const Sizes = SizesTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Sizes.args = {
-  text: "Live",
+  children: "Live",
   tooltip: "Tooltip",
 };
 
 export const Colors = ColorsTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Colors.args = {
-  text: "Live",
+  children: "Live",
   tooltip: "Tooltip",
   icon: ArrowUpIcon,
 };
@@ -80,6 +80,6 @@ Colors.args = {
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithFlexParent.args = {
-  text: "Live",
+  children: "Live",
   icon: ArrowUpIcon,
 };

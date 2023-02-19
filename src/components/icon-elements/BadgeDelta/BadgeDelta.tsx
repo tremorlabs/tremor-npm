@@ -14,7 +14,6 @@ import {
 const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
 
 export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
-  text?: string; // Deprecated
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
@@ -22,7 +21,6 @@ export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, ref) => {
   const {
-    text,
     deltaType = DeltaTypes.Increase,
     isIncreasePositive = true,
     size = Sizes.SM,
@@ -31,21 +29,16 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     ...other
   } = props;
 
-  if (text)
-    console.log(
-      "DeprecationWarning: The `text` property is deprecated and will be removed in the next major release. Please use children instead",
-    );
-
   const Icon = deltaIcons[deltaType];
   const mappedDeltaType = mapInputsToDeltaType(deltaType, isIncreasePositive);
-  const badgeProportions = children || text ? badgeProportionsWithText : badgeProportionsIconOnly;
+  const badgeProportions = children ? badgeProportionsWithText : badgeProportionsIconOnly;
 
   return (
     <span
       ref={ref}
       className={twMerge(
         makeBadgeDeltaClassName("root"),
-        "w-max flex-shrink-0 inline-flex justify-center items-center",
+        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
         borderRadius.full.all,
         colors[mappedDeltaType].bgColor,
         colors[mappedDeltaType].textColor,
@@ -59,15 +52,15 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
       <Icon
         className={twMerge(
           makeBadgeDeltaClassName("icon"),
-          text
+          children
             ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
             : iconSizes[size].height,
           iconSizes[size].width,
         )}
       />
-      {children || text ? (
+      {children ? (
         <p className={twMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
-          {children ?? text}
+          {children}
         </p>
       ) : null}
     </span>

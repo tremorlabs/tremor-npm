@@ -21,20 +21,24 @@ const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
       {Object.values(InputSizes).map((size) => (
         <>
           <BadgeDelta size={size} deltaType="increase" />
-          <BadgeDelta size={size} text={args.text} deltaType="increase" />
-          <Badge size={size} text={args.text!} icon={ArrowUpIcon} />
-          <Badge size={size} text={args.text!} />
+          <BadgeDelta size={size} deltaType="increase">
+            {args.children}
+          </BadgeDelta>
+          <Badge size={size} icon={ArrowUpIcon}>
+            {args.children}
+          </Badge>
+          <Badge size={size}>{args.children}</Badge>
         </>
       ))}
     </Grid>
   </Card>
 );
 
-const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
+const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = () => (
   <Card className="max-w-sm">
     <Grid className="gap-y-1">
       {Object.values(InputDeltaTypes).map((deltaType) => (
-        <BadgeDelta key={deltaType} deltaType={deltaType} text={args.text} />
+        <BadgeDelta key={deltaType} deltaType={deltaType} />
       ))}
     </Grid>
   </Card>
@@ -64,18 +68,18 @@ const ResponsiveFlexTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
 export const Sizes = SizesTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Sizes.args = {
-  text: "12.5%",
+  children: "12.5%",
 };
 
 export const DeltaTypes = DeltaTypesTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DeltaTypes.args = {
-  text: "12.5%",
+  children: "12.5%",
 };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithFlexParent.args = {
-  text: "12.5%",
+  children: "12.5%",
   deltaType: "increase",
 };

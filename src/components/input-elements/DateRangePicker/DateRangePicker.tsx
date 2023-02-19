@@ -8,12 +8,13 @@ import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "con
 
 import { useInternalState, useSelectOnKeyDown } from "hooks";
 
-import { BaseColors, makeClassName } from "lib";
+import { BaseColors } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,
   getEndDateByDropdownValue,
   getStartDateByDropdownValue,
+  makeDateRangePickerClassName,
   parseEndDate,
   parseStartDate,
 } from "./dateRangePickerUtils";
@@ -22,8 +23,6 @@ import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
 import Modal from "components/util-elements/Modal";
-
-export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
 export type Locale = typeof enUS;
 
