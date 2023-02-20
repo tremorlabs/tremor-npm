@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+"use client";
+
+import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { startOfToday } from "date-fns";
+import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { BaseColorContext, HoveredValueContext, SelectedValueContext } from "contexts";
@@ -74,7 +76,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-  const [anchorDate, setAnchorDate] = useState(TODAY);
+  const [startOfCurrMonth, setStartOfCurrMonth] = useState<Date | null>(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -86,6 +88,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   const selectedEndDate = selectedValue
     ? parseEndDate(selectedValue[1], maxDate, selectedDropdownValue, dropdownOptions)
     : null;
+
+  const anchorDate = startOfCurrMonth ?? selectedEndDate ?? selectedStartDate ?? TODAY;
 
   const handleDateClick = (date: Date) => {
     if (!selectedStartDate) {
@@ -120,7 +124,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
     setSelectedValue([selectedStartDate, selectedEndDate, dropdownValue]);
     onValueChange?.([selectedStartDate, selectedEndDate, dropdownValue]);
-    setAnchorDate(selectedEndDate);
+    setStartOfCurrMonth(startOfMonth(selectedEndDate));
     setShowDropdown(false);
   };
 
@@ -131,10 +135,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     setShowDropdown,
     selectedDropdownValue as string,
   );
-
-  useEffect(() => {
-    setAnchorDate(selectedEndDate ?? selectedStartDate ?? TODAY);
-  }, [value]);
 
   return (
     <BaseColorContext.Provider value={color}>
@@ -171,13 +171,14 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           <Calendar
             enableYearPagination={enableYearPagination}
             anchorDate={anchorDate}
-            setAnchorDate={setAnchorDate}
+            // setAnchorDate={setAnchorDate}
             startDate={selectedStartDate}
             endDate={selectedEndDate}
             minDate={minDate}
             maxDate={maxDate}
             onDateClick={handleDateClick}
             locale={locale}
+            setStartOfCurrMonth={setStartOfCurrMonth}
           />
         </Modal>
         {/* Dropdpown Modal */}

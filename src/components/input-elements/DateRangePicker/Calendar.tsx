@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import {
@@ -48,34 +50,35 @@ export const colStartClasses = [
 interface CalendarHeaderProps {
   enableYearPagination: boolean;
   anchorDate: Date;
-  setAnchorDate: Dispatch<SetStateAction<Date>>;
+  setStartOfCurrMonth: Dispatch<SetStateAction<Date | null>>;
   locale: Locale;
 }
 
 const CalendarHeader = ({
   enableYearPagination,
   anchorDate,
-  setAnchorDate,
+  setStartOfCurrMonth,
   locale,
 }: CalendarHeaderProps) => {
+  const firstDayOfMonth = startOfMonth(anchorDate);
   const handlePaginationClick = (type: "nextMonth" | "prevMonth" | "nextYear" | "prevYear") => {
     switch (type) {
       case "nextMonth":
-        setAnchorDate(add(anchorDate, { months: 1 }));
+        setStartOfCurrMonth(add(firstDayOfMonth, { months: 1 }));
         break;
       case "prevMonth":
-        setAnchorDate(add(anchorDate, { months: -1 }));
+        setStartOfCurrMonth(add(firstDayOfMonth, { months: -1 }));
         break;
       case "nextYear":
-        setAnchorDate(add(anchorDate, { years: 1 }));
+        setStartOfCurrMonth(add(firstDayOfMonth, { years: 1 }));
         break;
       case "prevYear":
-        setAnchorDate(add(anchorDate, { years: -1 }));
+        setStartOfCurrMonth(add(firstDayOfMonth, { years: -1 }));
         break;
     }
   };
 
-  const displayedTitle = capitalize(format(anchorDate, "MMMM yyyy", { locale }), locale);
+  const displayedTitle = capitalize(format(firstDayOfMonth, "MMMM yyyy", { locale }), locale);
 
   return (
     <div
@@ -359,7 +362,7 @@ const CalendarBody = ({
 export interface CalendarProps {
   enableYearPagination: boolean;
   anchorDate: Date;
-  setAnchorDate: Dispatch<SetStateAction<Date>>;
+  setStartOfCurrMonth: Dispatch<SetStateAction<Date | null>>;
   startDate: Date | null;
   endDate: Date | null;
   minDate: Date | null;
@@ -371,7 +374,7 @@ export interface CalendarProps {
 const Calendar = ({
   enableYearPagination,
   anchorDate,
-  setAnchorDate,
+  setStartOfCurrMonth,
   startDate,
   endDate,
   minDate,
@@ -384,7 +387,7 @@ const Calendar = ({
       <CalendarHeader
         enableYearPagination={enableYearPagination}
         anchorDate={anchorDate}
-        setAnchorDate={setAnchorDate}
+        setStartOfCurrMonth={setStartOfCurrMonth}
         locale={locale}
       />
       <CalendarBody

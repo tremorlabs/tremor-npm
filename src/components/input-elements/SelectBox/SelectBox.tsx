@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -58,8 +60,8 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const valueToNameMapping = constructValueToNameMapping(children);
 
   useEffect(() => {
-    if (selectedValue) setInputValue(valueToNameMapping.get(selectedValue) || "");
-  }, [selectedValue]);
+    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
+  }, [selectedValue, valueToNameMapping]);
 
   const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
     ...child.props,
@@ -81,7 +83,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
 
   const handleValueChange = (value: string) => {
     setSearchQuery("");
-    if (selectedValue) setInputValue(valueToNameMapping.get(selectedValue) || "");
+    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
     handleFocusChange(false);
     setSelectedValue(value);
     inputRef.current?.blur();

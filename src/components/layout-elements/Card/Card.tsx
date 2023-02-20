@@ -23,8 +23,6 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
 };
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  hFull?: boolean;
-  shadow?: boolean;
   decoration?: HorizontalPosition | VerticalPosition | "";
   decorationColor?: Color;
 }

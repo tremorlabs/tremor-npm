@@ -10,8 +10,8 @@ const useSelectOnKeyDown = (
   string | null | undefined,
   (e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>) => void,
 ] => {
-  const BASE_HOVERED_IDX = -1;
-  const [hoveredIdx, setHoveredIdx] = useState(BASE_HOVERED_IDX);
+  const NO_SELECTION_IDX = -1;
+  const [hoveredIdx, setHoveredIdx] = useState(NO_SELECTION_IDX);
 
   const getHoveredValue = (hoveredIdx: number, optionValues: string[]) => {
     if (hoveredIdx < 0) return undefined;
@@ -20,15 +20,13 @@ const useSelectOnKeyDown = (
 
   useEffect(() => {
     const getIndexOfSelectedValue = () => {
-      if (!value) return BASE_HOVERED_IDX;
+      if (!value) return NO_SELECTION_IDX;
       const indexOfValue = optionValues.indexOf(value);
-      return indexOfValue === -1 ? BASE_HOVERED_IDX : indexOfValue;
+      return indexOfValue === -1 ? NO_SELECTION_IDX : indexOfValue;
     };
 
-    if (!isFocused) {
-      setHoveredIdx(getIndexOfSelectedValue());
-    }
-  }, [isFocused]);
+    setHoveredIdx(getIndexOfSelectedValue());
+  }, [value]);
 
   const hoveredValue = getHoveredValue(hoveredIdx, optionValues);
 
@@ -68,7 +66,7 @@ const useSelectOnKeyDown = (
       case "Escape": {
         e.preventDefault();
         handleFocusChange(false);
-        setHoveredIdx(BASE_HOVERED_IDX);
+        setHoveredIdx(NO_SELECTION_IDX);
         break;
       }
     }
