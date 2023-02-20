@@ -42,40 +42,36 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
-    <>
+    <span
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      className={twMerge(
+        makeBadgeClassName("root"),
+        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
+        colorClassNames[color][colorPalette.darkText].textColor,
+        colorClassNames[color][colorPalette.lightBackground].bgColor,
+        borderRadius.full.all,
+        badgeProportions[size].paddingX,
+        badgeProportions[size].paddingY,
+        badgeProportions[size].fontSize,
+        className,
+      )}
+      {...getReferenceProps}
+      {...other}
+    >
       <Tooltip text={tooltip} {...tooltipProps} />
-      <span
-        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-        className={twMerge(
-          makeBadgeClassName("root"),
-          "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
-          colorClassNames[color][colorPalette.darkText].textColor,
-          colorClassNames[color][colorPalette.lightBackground].bgColor,
-          borderRadius.full.all,
-          badgeProportions[size].paddingX,
-          badgeProportions[size].paddingY,
-          badgeProportions[size].fontSize,
-          className,
-        )}
-        {...getReferenceProps}
-        {...other}
-      >
-        {Icon ? (
-          <Icon
-            className={twMerge(
-              makeBadgeClassName("icon"),
-              spacing.twoXs.negativeMarginLeft,
-              spacing.xs.marginRight,
-              iconSizes[size].height,
-              iconSizes[size].width,
-            )}
-          />
-        ) : null}
-        <p className={twMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>
-          {children}
-        </p>
-      </span>
-    </>
+      {Icon ? (
+        <Icon
+          className={twMerge(
+            makeBadgeClassName("icon"),
+            spacing.twoXs.negativeMarginLeft,
+            spacing.xs.marginRight,
+            iconSizes[size].height,
+            iconSizes[size].width,
+          )}
+        />
+      ) : null}
+      <p className={twMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>{children}</p>
+    </span>
   );
 });
 

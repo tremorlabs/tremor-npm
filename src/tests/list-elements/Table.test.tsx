@@ -25,13 +25,13 @@ describe("List", () => {
             <TableCell>Peter Doe</TableCell>
             <TableCell>1.000.000</TableCell>
             <TableCell>Region A</TableCell>
-            <TableCell textAlignment="text-right">211</TableCell>
+            <TableCell>211</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Peter Doe</TableCell>
             <TableCell>1.000.000</TableCell>
             <TableCell>Region A</TableCell>
-            <TableCell textAlignment="text-right">211</TableCell>
+            <TableCell>211</TableCell>
           </TableRow>
         </TableBody>
       </Table>,

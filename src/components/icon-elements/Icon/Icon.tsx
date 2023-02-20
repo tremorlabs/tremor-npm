@@ -18,7 +18,7 @@ export const IconVariants: { [key: string]: IconVariant } = {
   Outlined: "outlined",
 };
 
-export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   icon: React.ElementType;
   variant?: IconVariant;
   tooltip?: string;
@@ -26,7 +26,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: Color;
 }
 
-const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
+const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
   const {
     icon,
     variant = IconVariants.Simple,
@@ -42,37 +42,35 @@ const Icon = React.forwardRef<HTMLDivElement, IconProps>((props, ref) => {
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
-    <>
+    <span
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      className={twMerge(
+        makeIconClassName("root"),
+        "inline-flex flex-shrink-0 items-center",
+        iconColorStyles.bgColor,
+        iconColorStyles.textColor,
+        iconColorStyles.borderColor,
+        iconColorStyles.ringColor,
+        shape[variant].rounded,
+        shape[variant].border,
+        shape[variant].shadow,
+        shape[variant].ring,
+        wrapperProportions[size].paddingX,
+        wrapperProportions[size].paddingY,
+        className,
+      )}
+      {...getReferenceProps}
+      {...other}
+    >
       <Tooltip text={tooltip} {...tooltipProps} />
-      <div
-        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      <Icon
         className={twMerge(
-          makeIconClassName("root"),
-          "inline-flex flex-shrink-0 items-center",
-          iconColorStyles.bgColor,
-          iconColorStyles.textColor,
-          iconColorStyles.borderColor,
-          iconColorStyles.ringColor,
-          shape[variant].rounded,
-          shape[variant].border,
-          shape[variant].shadow,
-          shape[variant].ring,
-          wrapperProportions[size].paddingX,
-          wrapperProportions[size].paddingY,
-          className,
+          makeIconClassName("icon"),
+          iconSizes[size].height,
+          iconSizes[size].width,
         )}
-        {...getReferenceProps}
-        {...other}
-      >
-        <Icon
-          className={twMerge(
-            makeIconClassName("icon"),
-            iconSizes[size].height,
-            iconSizes[size].width,
-          )}
-        />
-      </div>
-    </>
+      />
+    </span>
   );
 });
 
