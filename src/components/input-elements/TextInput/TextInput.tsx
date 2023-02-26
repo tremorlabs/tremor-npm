@@ -71,14 +71,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
           bgColor,
           className,
-          colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
+          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
           boderColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
           textColor,
           isFocused &&
-            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.ring].ringColor),
+            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
         )}
         onClick={() => {
           if (!disabled) {

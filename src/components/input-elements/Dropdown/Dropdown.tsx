@@ -12,7 +12,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  colorClassNames,
   constructValueToNameMapping,
   fontSize,
   fontWeight,
@@ -95,7 +94,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           border.sm.all,
           boxShadow.sm,
           getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
-          colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
+          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
         )}
         onClick={() => setIsFocused(!isFocused)}
       >
