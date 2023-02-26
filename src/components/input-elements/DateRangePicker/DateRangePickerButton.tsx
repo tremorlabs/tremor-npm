@@ -12,12 +12,13 @@ import {
   colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   sizing,
   spacing,
 } from "lib";
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { makeDateRangePickerClassName } from "./dateRangePickerUtils";
 
 const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
@@ -109,7 +110,7 @@ const DateRangePickerButton = ({
       className={twMerge(
         makeDateRangePickerClassName("button"),
         "flex items-center justify-between",
-        colorClassNames[WHITE]["none"].bgColor,
+        getColorClassNames("white").bgColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
         borderRadius.md.all,
         boxShadow.sm,

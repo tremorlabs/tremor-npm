@@ -17,7 +17,7 @@ export const colorClassNames: {
   [baseColor: string]: { [colorVariant: string]: ColorTypes };
 } = {
   transparent: {
-    none: {
+    500: {
       bgColor: "bg-transparent",
       hoverBgColor: "hover:bg-transparent",
       textColor: "text-transparent",
@@ -33,7 +33,7 @@ export const colorClassNames: {
     },
   },
   white: {
-    none: {
+    500: {
       bgColor: "bg-white",
       hoverBgColor: "hover:bg-white",
       textColor: "text-white",

@@ -3,9 +3,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, colorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, colorClassNames, getColorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
-import { colorPalette, WHITE } from "lib/theme";
+import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -60,7 +60,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             className={twMerge(
               "ring-2 mx-auto",
               primaryBgColor,
-              colorClassNames[WHITE]["none"].ringColor,
+              getColorClassNames("white").ringColor,
               sizing.md.height,
               sizing.twoXs.width,
               borderRadius.lg.all,

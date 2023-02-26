@@ -8,17 +8,18 @@ import {
   borderRadius,
   boxShadow,
   colorClassNames,
+  getColorClassNames,
   fontSize,
   fontWeight,
   sizing,
   spacing,
 } from "lib";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={twMerge(
-      colorClassNames[WHITE]["none"].bgColor,
+      getColorClassNames("white").bgColor,
       fontSize.sm,
       borderRadius.md.all,
       border.sm.all,
@@ -42,7 +43,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
         className={twMerge(
           "shrink-0",
           colorClassNames[color][colorPalette.background].bgColor,
-          colorClassNames[WHITE]["none"].borderColor,
+          getColorClassNames("white").borderColor,
           sizing.sm.height,
           sizing.sm.width,
           borderRadius.full.all,

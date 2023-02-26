@@ -3,9 +3,16 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { DeltaTypes, borderRadius, colorClassNames, mapInputsToDeltaType, sizing } from "lib";
+import {
+  DeltaTypes,
+  borderRadius,
+  colorClassNames,
+  getColorClassNames,
+  mapInputsToDeltaType,
+  sizing,
+} from "lib";
 import { colors } from "./styles";
-import { DEFAULT_COLOR, colorPalette, WHITE } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const getDeltaType = (value: number) => (value >= 0 ? DeltaTypes.Increase : DeltaTypes.Decrease);
@@ -61,7 +68,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           className={twMerge(
             "ring-2 z-10",
             colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
-            colorClassNames[WHITE]["none"].ringColor,
+            getColorClassNames("white").ringColor,
             sizing.md.height,
             sizing.twoXs.width,
             borderRadius.lg.all,

@@ -1,7 +1,8 @@
 import React from "react";
 
 import { DeltaTypes } from "./constants";
-import { ValueFormatter } from "./inputTypes";
+import { Color, ValueFormatter } from "./inputTypes";
+import { colorClassNames } from "lib/colorClassNames";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -55,27 +56,25 @@ export interface SelectItemProps {
   text?: string;
 }
 
-export const constructValueToNameMapping = (
-  children: React.ReactElement[] | React.ReactElement,
-) => {
+export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
   const valueToNameMapping = new Map<string, string>();
   React.Children.map(children, (child: { props: SelectItemProps }) => {
     valueToNameMapping.set(child.props.value, child.props.text ?? child.props.value);
   });
   return valueToNameMapping;
-};
+}
 
-export const getFilteredOptions = (
+export function getFilteredOptions(
   searchQuery: string,
   options: SelectItemProps[],
-): SelectItemProps[] => {
+): SelectItemProps[] {
   return searchQuery === ""
     ? options
     : options.filter((option: SelectItemProps) => {
         const optionText = option.text ?? option.value;
         return optionText.toLowerCase().includes(searchQuery.toLowerCase());
       });
-};
+}
 
 export function mergeRefs<T = any>(
   refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>,
@@ -95,4 +94,12 @@ export function makeClassName(componentName: string) {
   return (className: string) => {
     return `tremor-${componentName}-${className}`;
   };
+}
+
+export function getColorClassNames(color: Color | "transparent", shade?: number) {
+  if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
+  if (color === "white" || color === "black" || color === "transparent" || !shade) {
+    return colorClassNames[color][500];
+  }
+  return colorClassNames[color][shade];
 }

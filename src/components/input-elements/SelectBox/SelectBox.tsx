@@ -18,6 +18,7 @@ import {
   constructValueToNameMapping,
   fontSize,
   fontWeight,
+  getColorClassNames,
   getFilteredOptions,
   mergeRefs,
   sizing,
@@ -25,7 +26,7 @@ import {
 } from "lib";
 import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -117,7 +118,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       <div
         className={twMerge(
           "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
-          colorClassNames[WHITE]["none"].bgColor,
+          getColorClassNames("white").bgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           isFocused &&
             twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.ring].ringColor),

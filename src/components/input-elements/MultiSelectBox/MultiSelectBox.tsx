@@ -16,6 +16,7 @@ import {
   colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   getFilteredOptions,
   isValueInArray,
   makeClassName,
@@ -26,7 +27,7 @@ import {
 } from "lib";
 import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
-import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
 
@@ -117,7 +118,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         className={twMerge(
           makeMultiSelectBoxClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
-          colorClassNames[WHITE]["none"].bgColor,
+          getColorClassNames("white").bgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
           borderRadius.md.all,
@@ -221,7 +222,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             className={twMerge(
               "w-full focus:outline-none focus:ring-none",
               colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
-              colorClassNames[TRANSPARENT]["none"].bgColor,
+              getColorClassNames("transparent").bgColor,
               spacing.sm.paddingY,
               fontSize.sm,
               fontWeight.md,

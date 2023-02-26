@@ -18,6 +18,7 @@ import {
   constructValueToNameMapping,
   fontSize,
   fontWeight,
+  getColorClassNames,
   makeClassName,
   mergeRefs,
   sizing,
@@ -25,7 +26,7 @@ import {
 } from "lib";
 import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/util-elements/Modal";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const makeDropdownClassName = makeClassName("Dropdown");
 
@@ -87,7 +88,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
         className={twMerge(
           makeDropdownClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
-          colorClassNames[WHITE]["none"].bgColor,
+          getColorClassNames("white").bgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,

@@ -5,9 +5,17 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import { border, colorClassNames, fontSize, fontWeight, sizing, spacing } from "lib";
+import {
+  border,
+  colorClassNames,
+  fontSize,
+  fontWeight,
+  getColorClassNames,
+  sizing,
+  spacing,
+} from "lib";
 
-import { colorPalette, TRANSPARENT, DEFAULT_COLOR } from "lib/theme";
+import { colorPalette, DEFAULT_COLOR } from "lib/theme";
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -29,7 +37,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
     border.md.bottom,
   );
   const inActiveClassNames = twMerge(
-    colorClassNames[TRANSPARENT]["none"].borderColor,
+    getColorClassNames("transparent").borderColor,
     colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
     colorClassNames[DEFAULT_COLOR][colorPalette.text].hoverTextColor,
     colorClassNames[DEFAULT_COLOR][colorPalette.border].hoverBorderColor,

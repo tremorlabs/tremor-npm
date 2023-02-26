@@ -3,9 +3,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, colorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, colorClassNames, getColorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette, WHITE } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -80,7 +80,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
           className={twMerge(
             "ring-2 mx-auto",
             colorClassNames[color][colorPalette.background].bgColor,
-            colorClassNames[WHITE]["none"].ringColor,
+            getColorClassNames("white").ringColor,
             sizing.md.height,
             sizing.twoXs.width,
             borderRadius.lg.all,

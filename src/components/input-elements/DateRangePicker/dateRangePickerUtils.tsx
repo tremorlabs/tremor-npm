@@ -15,8 +15,8 @@ import {
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
-import { borderRadius, colorClassNames, fontWeight, makeClassName } from "lib";
-import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
+import { borderRadius, colorClassNames, fontWeight, getColorClassNames, makeClassName } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
@@ -249,7 +249,7 @@ const getDayBgColorClassName = (
   color: Color,
   isDayDisabled = false,
 ): string => {
-  if (isDayDisabled) return colorClassNames[TRANSPARENT]["none"].bgColor;
+  if (isDayDisabled) return getColorClassNames("transparent").bgColor;
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
     return colorClassNames[color][colorPalette.background].bgColor;
   }
@@ -268,7 +268,7 @@ const getDayBgColorClassName = (
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
     return colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor;
   }
-  return colorClassNames[TRANSPARENT]["none"].bgColor;
+  return getColorClassNames("transparent").bgColor;
 };
 
 const getDayTextClassNames = (
@@ -285,12 +285,12 @@ const getDayTextClassNames = (
       (selectedStartDay && isEqual(day, selectedStartDay)) ||
       (selectedEndDay && isEqual(day, selectedEndDay))
     ) {
-      return colorClassNames[WHITE]["none"].textColor;
+      return getColorClassNames("white").textColor;
     }
     return twMerge(colorClassNames[color][colorPalette.text].textColor, fontWeight.lg);
   }
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
-    return colorClassNames[WHITE]["none"].textColor;
+    return getColorClassNames("white").textColor;
   }
   if (
     selectedStartDay &&
@@ -302,7 +302,7 @@ const getDayTextClassNames = (
     return colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
-    return colorClassNames[WHITE]["none"].textColor;
+    return getColorClassNames("white").textColor;
   }
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
     return colorClassNames[color][colorPalette.text].textColor;

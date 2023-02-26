@@ -6,8 +6,16 @@ import { twMerge } from "tailwind-merge";
 import { useOnClickOutside, useOnWindowResize } from "hooks";
 
 import { HorizontalPosition } from "../../../lib/inputTypes";
-import { border, borderRadius, boxShadow, colorClassNames, mergeRefs, spacing } from "lib";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import {
+  border,
+  borderRadius,
+  boxShadow,
+  colorClassNames,
+  getColorClassNames,
+  mergeRefs,
+  spacing,
+} from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   showModal: boolean;
@@ -81,7 +89,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
         "w-full",
         getAbsoluteSpacing(),
         maxHeight,
-        colorClassNames[WHITE]["none"].bgColor,
+        getColorClassNames("white").bgColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
         colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].divideColor,
         spacing.twoXs.marginTop,

@@ -4,8 +4,16 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { Color, colorClassNames } from "../../../lib";
-import { borderRadius, fontSize, sizing, spacing, sumNumericArray, themeColorRange } from "lib";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import {
+  borderRadius,
+  fontSize,
+  getColorClassNames,
+  sizing,
+  spacing,
+  sumNumericArray,
+  themeColorRange,
+} from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const getMarkerBgColor = (
@@ -137,7 +145,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 className={twMerge(
                   "ring-2 mx-auto",
                   markerBgColor,
-                  colorClassNames[WHITE]["none"].ringColor,
+                  getColorClassNames("white").ringColor,
                   sizing.md.height,
                   sizing.twoXs.width,
                   borderRadius.lg.all,

@@ -1,7 +1,7 @@
-import { Sizing, fontSize, sizing, spacing, colorClassNames } from "lib";
+import { Sizing, fontSize, sizing, spacing, colorClassNames, getColorClassNames } from "lib";
 
 import { Color, ButtonVariant } from "../../../lib/inputTypes";
-import { WHITE, colorPalette, TRANSPARENT } from "lib/theme";
+import { colorPalette } from "lib/theme";
 
 export const iconSizes: { [size: string]: Sizing } = {
   xs: {
@@ -89,8 +89,8 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
   switch (variant) {
     case "primary":
       return {
-        textColor: colorClassNames[WHITE]["none"].textColor,
-        hoverTextColor: colorClassNames[WHITE]["none"].textColor,
+        textColor: getColorClassNames("white").textColor,
+        hoverTextColor: getColorClassNames("white").textColor,
         bgColor: colorClassNames[color][colorPalette.background].bgColor,
         hoverBgColor: colorClassNames[color][colorPalette.darkBackground].hoverBgColor,
         borderColor: colorClassNames[color][colorPalette.border].borderColor,
@@ -100,7 +100,7 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
       return {
         textColor: colorClassNames[color][colorPalette.text].textColor,
         hoverTextColor: colorClassNames[color][colorPalette.text].textColor,
-        bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
+        bgColor: getColorClassNames("transparent").bgColor,
         hoverBgColor: colorClassNames[color][colorPalette.lightBackground].hoverBgColor,
         borderColor: colorClassNames[color][colorPalette.border].borderColor,
         focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
@@ -109,7 +109,7 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
       return {
         textColor: colorClassNames[color][colorPalette.text].textColor,
         hoverTextColor: colorClassNames[color][colorPalette.darkText].hoverTextColor,
-        bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
+        bgColor: getColorClassNames("transparent").bgColor,
         borderColor: "",
         hoverBorderColor: "",
         focusRingColor: "",

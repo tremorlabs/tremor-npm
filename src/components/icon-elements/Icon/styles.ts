@@ -1,7 +1,16 @@
-import { Sizing, border, borderRadius, boxShadow, colorClassNames, sizing, spacing } from "lib";
+import {
+  Sizing,
+  border,
+  borderRadius,
+  boxShadow,
+  colorClassNames,
+  getColorClassNames,
+  sizing,
+  spacing,
+} from "lib";
 
 import { Color, IconVariant } from "../../../lib/inputTypes";
-import { DEFAULT_COLOR, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -113,21 +122,21 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
     case "shadow":
       return {
         textColor: colorClassNames[color][colorPalette.text].textColor,
-        bgColor: colorClassNames[WHITE]["none"].bgColor,
+        bgColor: getColorClassNames("white").bgColor,
         borderColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
         ringColor: "",
       };
     case "solid":
       return {
-        textColor: colorClassNames[WHITE]["none"].textColor,
+        textColor: getColorClassNames("white").textColor,
         bgColor: colorClassNames[color][colorPalette.background].bgColor,
-        borderColor: colorClassNames[WHITE]["none"].borderColor,
+        borderColor: getColorClassNames("white").borderColor,
         ringColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
       };
     case "outlined":
       return {
         textColor: colorClassNames[color][colorPalette.text].textColor,
-        bgColor: colorClassNames[WHITE]["none"].bgColor,
+        bgColor: getColorClassNames("white").bgColor,
         borderColor: colorClassNames[color][colorPalette.ring].borderColor,
         ringColor: colorClassNames[color][colorPalette.lightRing].ringColor,
       };

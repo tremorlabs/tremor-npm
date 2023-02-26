@@ -11,12 +11,13 @@ import {
   colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { ExclamationFilledIcon } from "assets";
-import { DEFAULT_COLOR, TRANSPARENT, WHITE, colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
   if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
@@ -51,7 +52,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
     ? colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor
-    : colorClassNames[WHITE]["none"].bgColor;
+    : getColorClassNames("white").bgColor;
   const boderColor = error
     ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
     : colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor;
@@ -110,7 +111,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           type="text"
           className={twMerge(
             "w-full focus:outline-none focus:ring-0",
-            colorClassNames[TRANSPARENT]["none"].bgColor,
+            getColorClassNames("transparent").bgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
