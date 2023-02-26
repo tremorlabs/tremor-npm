@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Block, Button, Card, Flex, Text, Title, Toggle, ToggleItem } from "components";
+import { Button, Card, Flex, Text, Title, Toggle, ToggleItem } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
@@ -44,18 +44,18 @@ const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <Block className="space-y-2">
+        <div className="space-y-2">
           <SimpleToggle {...args} />
           <SimpleToggleIconOnly {...args} />
-        </Block>
+        </div>
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
     <Card>
-      <Block className="space-y-2">
+      <div className="space-y-2">
         <SimpleToggle {...args} />
         <SimpleToggleIconOnly {...args} />
-      </Block>
+      </div>
     </Card>
   </>
 );
@@ -90,13 +90,13 @@ const FlexTemplate: ComponentStory<typeof Toggle> = (args) => (
 const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
   <>
     <Card>
-      <Block className="space-y-2">
+      <div className="space-y-2">
         {Object.values(BaseColors).map((color) => (
           <div key={color}>
             <SimpleToggle {...args} color={color} />
           </div>
         ))}
-      </Block>
+      </div>
     </Card>
   </>
 );

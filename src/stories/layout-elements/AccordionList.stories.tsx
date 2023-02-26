@@ -79,8 +79,5 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 export const WithFlexParent = FlexTemplate.bind({});
 
 export const WithNoShadow = ResponsiveTemplate.bind({});
-WithNoShadow.args = {
-  shadow: false,
-};
 
 export const WithLessThanThreeChildren = LessThanThreeChildrenTemplate.bind({});

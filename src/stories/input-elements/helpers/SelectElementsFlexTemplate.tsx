@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Block, Card, Flex, Text } from "components";
+import { Card, Flex, Text } from "components";
 import { ComponentStory } from "@storybook/react";
 import { SimpleDropdown } from "./SimpleDropdown";
 import { SimpleMultiSelectBox } from "stories/input-elements/helpers/SimpleMultiSelectBox";
@@ -12,38 +12,38 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
   <Card>
     <Text className="mt-2">Justify Start</Text>
     <Flex justifyContent="start" className="mt-2">
-      <Block className="space-y-2">
+      <div className="space-y-2">
         <SimpleDropdown maxWidth={maxWidth} />
         <SimpleSelectBox maxWidth={maxWidth} />
         <SimpleMultiSelectBox maxWidth={maxWidth} />
-      </Block>
+      </div>
     </Flex>
     <Text className="mt-2">Justify End</Text>
     <Flex justifyContent="end" className="mt-2">
-      <Block className={maxWidth + " space-y-2"}>
+      <div className={maxWidth + " space-y-2"}>
         <SimpleDropdown maxWidth={maxWidth} />
         <SimpleSelectBox maxWidth={maxWidth} />
         <SimpleMultiSelectBox maxWidth={maxWidth} />
-      </Block>
+      </div>
     </Flex>
     <Text className="mt-2">Justify End with inner div</Text>
     <Flex justifyContent="end" className="mt-2">
       <div>
-        <Block className="space-y-2">
+        <div className="space-y-2">
           <SimpleDropdown maxWidth={maxWidth} />
           <SimpleSelectBox maxWidth={maxWidth} />
           <SimpleMultiSelectBox maxWidth={maxWidth} />
-        </Block>
+        </div>
       </div>
     </Flex>
     <Text className="mt-2">Justify Start with inner div</Text>
     <Flex justifyContent="start" className="mt-2">
       <div>
-        <Block className="space-y-2">
+        <div className="space-y-2">
           <SimpleDropdown maxWidth={maxWidth} />
           <SimpleSelectBox maxWidth={maxWidth} />
           <SimpleMultiSelectBox maxWidth={maxWidth} />
-        </Block>
+        </div>
       </div>
     </Flex>
   </Card>

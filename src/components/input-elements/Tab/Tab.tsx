@@ -25,7 +25,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
 
   const activeClassNames = twMerge(
     colorClassNames[color][colorPalette.text].textColor,
-    colorClassNames[color][colorPalette.darkBorder].borderColor,
+    colorClassNames[color][colorPalette.border].borderColor,
     border.md.bottom,
   );
   const inActiveClassNames = twMerge(
@@ -41,7 +41,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "flex whitespace-nowrap max-w-xs truncate",
-        "focus:outline-0 focus:ring-0",
+        "focus:outline-none focus:ring-0",
         spacing.twoXs.paddingX,
         spacing.sm.paddingY,
         spacing.px.negativeMarginBottom,

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { BaseColors, HorizontalPosition, VerticalPosition } from "lib";
-import { Block, Card, Grid, Flex, Metric, Title } from "components";
+import { Card, Grid, Flex, Metric, Title } from "components";
 import { SimpleCard } from "./helpers/SimpleCard";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
@@ -34,11 +34,11 @@ const FlexTemplate: ComponentStory<typeof Card> = (args) => (
       </Card>
     </Flex>
     <Flex alignItems="stretch" className="mt-5 space-x-2">
-      <Block className="space-y-2">
+      <div className="space-y-2">
         <SimpleCard {...args} />
         <SimpleCard {...args} />
         <SimpleCard {...args} />
-      </Block>
+      </div>
       <SimpleCard {...args} />
     </Flex>
   </>

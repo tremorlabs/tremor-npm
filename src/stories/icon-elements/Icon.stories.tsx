@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowUpIcon } from "assets";
 
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
-import { Block, Card, Grid, Flex, Title } from "components";
+import { Card, Grid, Flex, Title } from "components";
 
 import { IconVariants } from "components/icon-elements/Icon/Icon";
 
@@ -21,14 +21,14 @@ const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
   <Card>
     <Grid numCols={5}>
       {Object.values(IconVariants).map((variant) => (
-        <Block key={variant}>
+        <div key={variant}>
           <Title>{variant}</Title>
           {Object.values(InputSizes).map((size) => (
-            <Block key={size} className="mt-2">
+            <div key={size} className="mt-2">
               <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
-            </Block>
+            </div>
           ))}
-        </Block>
+        </div>
       ))}
     </Grid>
   </Card>
@@ -41,9 +41,9 @@ const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
         <Title>{variant}</Title>
         <Grid numCols={5}>
           {Object.values(BaseColors).map((color) => (
-            <Block key={color} className="mt-2">
+            <div key={color} className="mt-2">
               <Icon icon={args.icon} variant={variant} color={color} />
-            </Block>
+            </div>
           ))}
         </Grid>
       </Card>
@@ -56,26 +56,26 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Icon> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <Block className="space-y-2">
+        <div className="space-y-2">
           {Object.values(IconVariants).map((variant) => (
             <Flex key={variant}>
               <Icon {...args} variant={variant} />
               <Icon {...args} variant={variant} />
             </Flex>
           ))}
-        </Block>
+        </div>
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
     <Card>
-      <Block className="space-y-2">
+      <div className="space-y-2">
         {Object.values(IconVariants).map((variant) => (
           <Flex key={variant}>
             <Icon {...args} variant={variant} />
             <Icon {...args} variant={variant} />
           </Flex>
         ))}
-      </Block>
+      </div>
     </Card>
   </>
 );

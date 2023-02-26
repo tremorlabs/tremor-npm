@@ -93,8 +93,7 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
         hoverTextColor: colorClassNames[WHITE]["none"].textColor,
         bgColor: colorClassNames[color][colorPalette.background].bgColor,
         hoverBgColor: colorClassNames[color][colorPalette.darkBackground].hoverBgColor,
-        borderColor: colorClassNames[TRANSPARENT]["none"].borderColor,
-        hoverBorderColor: colorClassNames[color][colorPalette.darkBorder].hoverBorderColor,
+        borderColor: colorClassNames[color][colorPalette.border].borderColor,
         focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
       };
     case "secondary":
@@ -104,7 +103,6 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
         bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
         hoverBgColor: colorClassNames[color][colorPalette.lightBackground].hoverBgColor,
         borderColor: colorClassNames[color][colorPalette.border].borderColor,
-        hoverBorderColor: colorClassNames[color][colorPalette.darkBorder].hoverBorderColor,
         focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
       };
     case "light":
@@ -112,7 +110,6 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
         textColor: colorClassNames[color][colorPalette.text].textColor,
         hoverTextColor: colorClassNames[color][colorPalette.darkText].hoverTextColor,
         bgColor: colorClassNames[TRANSPARENT]["none"].bgColor,
-        hoverBgColor: colorClassNames[TRANSPARENT]["none"].hoverBgColor,
         borderColor: "",
         hoverBorderColor: "",
         focusRingColor: "",

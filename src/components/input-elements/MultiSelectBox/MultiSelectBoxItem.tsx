@@ -56,7 +56,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
             "flex-none focus:ring-none focus:outline-none cursor-pointer",
             colorClassNames[DEFAULT_COLOR][colorPalette.lightRing].focusRingColor,
             colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
+            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
             spacing.lg.marginRight,
             borderRadius.sm.all,
             border.sm.all,

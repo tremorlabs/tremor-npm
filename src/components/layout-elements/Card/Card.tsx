@@ -43,7 +43,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         colorClassNames[WHITE]["none"].bgColor,
         boxShadow.md,
         colorClassNames[decorationColor][colorPalette.border].borderColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.ring].ringColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
         borderRadius.lg.all,

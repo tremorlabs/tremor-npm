@@ -128,7 +128,7 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
       return {
         textColor: colorClassNames[color][colorPalette.text].textColor,
         bgColor: colorClassNames[WHITE]["none"].bgColor,
-        borderColor: colorClassNames[color][colorPalette.border].borderColor,
+        borderColor: colorClassNames[color][colorPalette.ring].borderColor,
         ringColor: colorClassNames[color][colorPalette.lightRing].ringColor,
       };
   }

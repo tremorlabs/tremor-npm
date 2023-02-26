@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Block, Button, Card, Flex, Tab, TabList, Text, Title } from "components";
+import { Button, Card, Flex, Tab, TabList, Text, Title } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
@@ -70,11 +70,11 @@ const FlexTemplate: ComponentStory<typeof TabList> = (args) => (
 const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
   <>
     <Card>
-      <Block className="space-y-2">
+      <div className="space-y-2">
         {Object.values(BaseColors).map((color) => (
           <SimpleTabList key={color} {...args} color={color} />
         ))}
-      </Block>
+      </div>
     </Card>
   </>
 );

@@ -53,8 +53,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     ? colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor
     : colorClassNames[WHITE]["none"].bgColor;
   const boderColor = error
-    ? colorClassNames[BaseColors.Rose][colorPalette.border].borderColor
-    : colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor;
+    ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
+    : colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor;
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -69,17 +69,17 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     <>
       <div
         className={twMerge(
-          "relative w-full flex items-center min-w-[10rem] focus:outline-0 focus:ring-2",
+          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
           bgColor,
           className,
-          colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
+          colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
           boderColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
           textColor,
           isFocused &&
-            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.border].ringColor),
+            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.ring].ringColor),
         )}
         onClick={() => {
           if (!disabled) {
@@ -109,7 +109,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           ref={mergeRefs([ref, inputRef])}
           type="text"
           className={twMerge(
-            "w-full focus:outline-0 focus:ring-0",
+            "w-full focus:outline-none focus:ring-0",
             colorClassNames[TRANSPARENT]["none"].bgColor,
             colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,

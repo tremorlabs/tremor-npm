@@ -64,6 +64,3 @@ WithExpanded.args = {
 };
 
 export const WithShadow = ResponsiveTemplate.bind({});
-WithShadow.args = {
-  shadow: true,
-};

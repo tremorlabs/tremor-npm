@@ -120,9 +120,9 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           colorClassNames[WHITE]["none"].bgColor,
           colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
           isFocused &&
-            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.border].ringColor),
-          colorClassNames[DEFAULT_COLOR][colorPalette.border].borderColor,
-          colorClassNames[BaseColors.Blue][colorPalette.border].focusRingColor,
+            twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.ring].ringColor),
+          colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+          colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
@@ -148,7 +148,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           ref={inputRef}
           type="text"
           className={twMerge(
-            "w-full focus:outline-0 focus:ring-0 bg-inherit",
+            "w-full focus:outline-none focus:ring-0 bg-inherit",
             colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingY,

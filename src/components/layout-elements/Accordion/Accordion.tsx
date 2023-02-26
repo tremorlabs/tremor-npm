@@ -32,7 +32,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
       ref={ref}
       className={twMerge(
         "overflow-hidden",
-        colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
+        colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
         colorClassNames[WHITE]["none"].bgColor,
         rootStyles,
         className,
