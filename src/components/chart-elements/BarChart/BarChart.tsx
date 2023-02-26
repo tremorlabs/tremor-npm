@@ -171,7 +171,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               type="linear"
               stackId={stack || relative ? "a" : undefined}
               dataKey={category}
-              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray][500]}
+              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               isAnimationActive={showAnimation}
             />
           ))}

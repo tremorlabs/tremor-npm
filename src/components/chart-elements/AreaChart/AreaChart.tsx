@@ -117,7 +117,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           ) : null}
 
           {categories.map((category) => {
-            const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray][500];
+            const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
             return (
               <defs key={category}>
                 {showGradient ? (
@@ -140,7 +140,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               name={category}
               type="linear"
               dataKey={category}
-              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray][500]}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}
               strokeWidth={2}
               dot={false}

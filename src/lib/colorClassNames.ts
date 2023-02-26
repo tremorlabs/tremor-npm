@@ -49,7 +49,7 @@ export const colorClassNames: {
     },
   },
   black: {
-    none: {
+    500: {
       bgColor: "bg-black",
       hoverBgColor: "hover:bg-black",
       textColor: "text-black",

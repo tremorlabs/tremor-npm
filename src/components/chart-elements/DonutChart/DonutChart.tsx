@@ -53,7 +53,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               y="50%"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill={hexColors[DEFAULT_COLOR][500]}
+              fill={hexColors[DEFAULT_COLOR]}
             >
               {parsedLabelInput}
             </text>

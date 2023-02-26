@@ -58,7 +58,7 @@ WithValueFormatter.args = {
   categories: ["Sales", "Successful Payments"],
   dataKey: "month",
   valueFormatter: valueFormatter,
-  colors: ["blue", "green"],
+  colors: ["red", "green"],
 };
 
 export const WithAutoMinValue = ResponsiveTemplate.bind({});
