@@ -105,7 +105,7 @@ const TextInput = ({
         type="text"
         className={classNames(
           "tremor-base input-elem",
-          "tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit",
+          "tr-w-full focus:tr-outline-none focus:tr-ring-0 tr-bg-inherit",
           textColor,
           Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
           error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,

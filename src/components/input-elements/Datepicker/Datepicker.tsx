@@ -109,7 +109,7 @@ const DatepickerButton = ({
       ref={datePickerRef}
       onClick={() => setShowDatePickerModal(!showDatePickerModal)}
       className={classNames(
-        "input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0 focus:tr-outline-0",
+        "input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0 focus:tr-outline-none",
         enableRelativeDates
           ? border.none.right
           : classNames(borderRadius.md.right, border.sm.right),
@@ -157,7 +157,7 @@ const DatepickerButton = ({
         onClick={() => setShowDropdownModal(!showDropdownModal)}
         className={classNames(
           "input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate",
-          "focus:tr-ring-0 focus:tr-outline-0",
+          "focus:tr-ring-0 focus:tr-outline-none",
           getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
             .hoverBgColor,
           getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,

@@ -124,7 +124,7 @@ const DateRangePickerButton = ({
         onKeyDown={onCalendarKeyDown}
         className={classNames(
           `input-elem tr-flex tr-items-center tr-w-full tr-truncate focus:tr-ring-0
-                     focus:tr-outline-0`,
+                     focus:tr-outline-none`,
           enableDropdown
             ? border.none.right
             : classNames(borderRadius.md.right, border.sm.right),
@@ -173,7 +173,7 @@ const DateRangePickerButton = ({
           onClick={() => setShowDropdown(!showDropdown)}
           className={classNames(
             "input-elem tr-inline-flex tr-justify-between tr-w-48 tr-truncate",
-            "focus:tr-ring-0 focus:tr-outline-0",
+            "focus:tr-ring-0 focus:tr-outline-none",
             getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
               .hoverBgColor,
             getColorVariantsFromColorThemeValue(defaultColors.border)

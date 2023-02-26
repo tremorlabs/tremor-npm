@@ -159,7 +159,7 @@ const SelectBox = <T,>({
           ref={inputRef}
           type="text"
           className={classNames(
-            "input-elem tr-w-full focus:tr-outline-0 focus:tr-ring-0 tr-bg-inherit",
+            "input-elem tr-w-full focus:tr-outline-none focus:tr-ring-0 tr-bg-inherit",
             getColorVariantsFromColorThemeValue(defaultColors.darkText)
               .textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,

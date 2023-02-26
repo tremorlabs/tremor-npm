@@ -142,7 +142,7 @@ const MultiSelectBox = <T,>({
         type="button"
         className={classNames(
           "input-elem tr-flex tr-justify-between tr-items-center tr-w-full",
-          "focus:tr-ring-0 focus:tr-outline-0",
+          "focus:tr-ring-0 focus:tr-outline-none",
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingTop,
