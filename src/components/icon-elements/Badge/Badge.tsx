@@ -14,10 +14,20 @@ import {
 } from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
-import { colorPalette } from "lib/theme";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeBadgeClassName = makeClassName("Badge");
+
+const getTextColor = (color: Color) => {
+  if (color === "white") {
+    return getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
+  }
+  if (color === "black") {
+    return getColorClassNames("white").textColor;
+  }
+  return getColorClassNames(color, colorPalette.darkText).textColor;
+};
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: Color;
@@ -47,7 +57,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       className={twMerge(
         makeBadgeClassName("root"),
         "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
-        getColorClassNames(color, colorPalette.darkText).textColor,
+        getTextColor(color),
         getColorClassNames(color, colorPalette.lightBackground).bgColor,
         borderRadius.full.all,
         badgeProportions[size].paddingX,
