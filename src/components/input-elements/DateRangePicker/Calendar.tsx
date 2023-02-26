@@ -27,9 +27,9 @@ import {
   border,
   borderRadius,
   boxShadow,
-  colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   sizing,
   spacing,
 } from "lib";
@@ -101,9 +101,9 @@ const CalendarHeader = ({
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderPrevYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -116,7 +116,7 @@ const CalendarHeader = ({
           <DoubleArrowLeftHeadIcon
             className={twMerge(
               makeDateRangePickerClassName("calendarHeaderPrevYearIcon"),
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -129,9 +129,9 @@ const CalendarHeader = ({
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderPrevMonthButton"),
             "inline-flex focus:outline-none focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -144,7 +144,7 @@ const CalendarHeader = ({
           <ArrowLeftHeadIcon
             className={twMerge(
               makeDateRangePickerClassName("calendarHeaderPrevMonthIcon"),
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -156,7 +156,7 @@ const CalendarHeader = ({
         className={twMerge(
           makeDateRangePickerClassName("calendarHeaderText"),
           "text-elem",
-          colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor,
           fontSize.sm,
           fontWeight.lg,
         )}
@@ -175,9 +175,9 @@ const CalendarHeader = ({
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderNextMonthButton"),
             "inline-flex focus:outline-none focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -190,7 +190,7 @@ const CalendarHeader = ({
           <ArrowRightHeadIcon
             className={twMerge(
               makeDateRangePickerClassName("calendarHeaderNextMonthIcon"),
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -203,9 +203,9 @@ const CalendarHeader = ({
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderNextYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].focusRingColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).focusRingColor,
             spacing.twoXs.paddingAll,
             fontSize.sm,
             fontWeight.md,
@@ -219,7 +219,7 @@ const CalendarHeader = ({
             className={twMerge(
               makeDateRangePickerClassName("calendarHeaderNextYearIcon"),
               "shrink-0 flex-0",
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               sizing.lg.height,
               sizing.lg.width,
             )}
@@ -288,7 +288,7 @@ const CalendarBody = ({
         className={twMerge(
           makeDateRangePickerClassName("calendarBodyWeekdays"),
           "grid grid-cols-7 text-center",
-          colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           fontSize.xs,
           fontWeight.md,
         )}

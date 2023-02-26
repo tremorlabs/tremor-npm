@@ -7,7 +7,7 @@ import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { useInternalState } from "hooks";
 
-import { BaseColors, borderRadius, colorClassNames, spacing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, spacing } from "lib";
 import { Color } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
@@ -42,7 +42,7 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "flex-nowrap inline-flex justify-start",
-        colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
         spacing.twoXs.paddingAll,
         borderRadius.lg.all,
         className,

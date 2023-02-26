@@ -5,15 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import {
-  borderRadius,
-  boxShadow,
-  colorClassNames,
-  fontSize,
-  getColorClassNames,
-  sizing,
-  spacing,
-} from "lib";
+import { borderRadius, boxShadow, fontSize, getColorClassNames, sizing, spacing } from "lib";
 
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
@@ -32,14 +24,14 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
 
   const activeClassNames = twMerge(
     getColorClassNames("white").bgColor,
-    colorClassNames[color][colorPalette.text].textColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
+    getColorClassNames(color, colorPalette.text).textColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
     boxShadow.sm,
   );
   const inActiveClassNames = twMerge(
     getColorClassNames("transparent").bgColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.darkText].hoverTextColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).hoverTextColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
     getColorClassNames("transparent").ringColor,
   );
   const Icon = icon;

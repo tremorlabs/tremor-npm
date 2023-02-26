@@ -10,6 +10,7 @@ import {
   borderRadius,
   colorClassNames,
   fontSize,
+  getColorClassNames,
   isValueInArray,
   spacing,
 } from "lib";
@@ -43,9 +44,9 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           spacing.twoXl.paddingX,
           spacing.md.paddingY,
           fontSize.sm,
-          colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
-          isHovered ? colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor : "",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+          isHovered ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor : "",
           className,
         )}
         {...other}
@@ -54,9 +55,9 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           type="checkbox"
           className={twMerge(
             "flex-none focus:ring-none focus:outline-none cursor-pointer",
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightRing].focusRingColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).focusRingColor,
             colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
             spacing.lg.marginRight,
             borderRadius.sm.all,
             border.sm.all,

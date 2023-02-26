@@ -13,7 +13,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  colorClassNames,
   fontSize,
   fontWeight,
   getColorClassNames,
@@ -119,8 +118,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           makeMultiSelectBoxClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
           getColorClassNames("white").bgColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
@@ -138,7 +137,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 spacing.lg.marginRight,
               )}
               aria-hidden="true"
@@ -151,8 +150,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               fontSize.sm,
               fontWeight.md,
               selectedItems.length !== 0
-                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
-                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {displayText}
@@ -176,7 +175,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                   "flex-none",
                   sizing.md.height,
                   sizing.md.width,
-                  colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
                 aria-hidden="true"
               />
@@ -188,7 +187,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />
@@ -198,7 +197,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         <div
           className={twMerge(
             "flex items-center w-full",
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor,
             spacing.twoXl.paddingX,
           )}
         >
@@ -206,7 +205,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             <SearchIcon
               className={twMerge(
                 "flex-none",
-                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 spacing.threeXs.negativeMarginLeft,
                 spacing.lg.marginRight,
                 sizing.md.height,
@@ -221,7 +220,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             placeholder="Search"
             className={twMerge(
               "w-full focus:outline-none focus:ring-none",
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               getColorClassNames("transparent").bgColor,
               spacing.sm.paddingY,
               fontSize.sm,

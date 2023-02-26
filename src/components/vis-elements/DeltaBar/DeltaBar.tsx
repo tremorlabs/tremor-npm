@@ -3,14 +3,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  DeltaTypes,
-  borderRadius,
-  colorClassNames,
-  getColorClassNames,
-  mapInputsToDeltaType,
-  sizing,
-} from "lib";
+import { DeltaTypes, borderRadius, getColorClassNames, mapInputsToDeltaType, sizing } from "lib";
 import { colors } from "./styles";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -44,7 +37,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         ref={ref}
         className={twMerge(
           "relative flex items-center w-full",
-          colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
           sizing.xs.height,
           borderRadius.lg.all,
           className,
@@ -67,7 +60,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         <div
           className={twMerge(
             "ring-2 z-10",
-            colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
             getColorClassNames("white").ringColor,
             sizing.md.height,
             sizing.twoXs.width,

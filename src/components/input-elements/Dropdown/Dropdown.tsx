@@ -89,14 +89,14 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           makeDropdownClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
           getColorClassNames("white").bgColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
-          colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
         )}
         onClick={() => setIsFocused(!isFocused)}
@@ -109,7 +109,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
                 "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 spacing.lg.marginRight,
               )}
               aria-hidden="true"
@@ -122,8 +122,8 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
               fontSize.sm,
               fontWeight.md,
               selectedValue
-                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
-                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
@@ -136,7 +136,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             sizing.lg.height,
             sizing.lg.width,
             spacing.twoXs.negativeMarginRight,
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />

@@ -5,15 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import {
-  border,
-  colorClassNames,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  sizing,
-  spacing,
-} from "lib";
+import { border, fontSize, fontWeight, getColorClassNames, sizing, spacing } from "lib";
 
 import { colorPalette, DEFAULT_COLOR } from "lib/theme";
 
@@ -32,15 +24,15 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const Icon = icon;
 
   const activeClassNames = twMerge(
-    colorClassNames[color][colorPalette.text].textColor,
-    colorClassNames[color][colorPalette.border].borderColor,
+    getColorClassNames(color, colorPalette.text).textColor,
+    getColorClassNames(color, colorPalette.border).borderColor,
     border.md.bottom,
   );
   const inActiveClassNames = twMerge(
     getColorClassNames("transparent").borderColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.text].hoverTextColor,
-    colorClassNames[DEFAULT_COLOR][colorPalette.border].hoverBorderColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.text).hoverTextColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.border).hoverBorderColor,
     "hover:border-b-2",
   );
 
@@ -73,8 +65,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
             sizing.lg.width,
             spacing.sm.marginRight,
             isActive
-              ? colorClassNames[color][colorPalette.text].textColor
-              : colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              ? getColorClassNames(color, colorPalette.text).textColor
+              : getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />

@@ -9,7 +9,7 @@ import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 
-import { colorClassNames, makeClassName } from "lib";
+import { getColorClassNames, makeClassName } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const makeDropdownItemClassName = makeClassName("DropdownItem");
@@ -40,12 +40,12 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
         fontSize.sm,
         isActive
           ? twMerge(
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor,
             )
           : twMerge(
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             ),
         className,
       )}
@@ -59,7 +59,7 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
             sizing.lg.height,
             sizing.lg.width,
             spacing.lg.marginRight,
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />

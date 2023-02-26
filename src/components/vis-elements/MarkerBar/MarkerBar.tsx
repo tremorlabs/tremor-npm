@@ -3,7 +3,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, colorClassNames, getColorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -25,8 +25,8 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
     ...other
   } = props;
 
-  const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
-  const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
+  const primaryBgColor = getColorClassNames(color, colorPalette.background).bgColor;
+  const secondaryBgColor = getColorClassNames(color, colorPalette.lightBackground).bgColor;
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 

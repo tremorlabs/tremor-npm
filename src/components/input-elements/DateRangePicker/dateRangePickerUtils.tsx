@@ -15,7 +15,7 @@ import {
 } from "date-fns";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerOption } from "./DateRangePicker";
-import { borderRadius, colorClassNames, fontWeight, getColorClassNames, makeClassName } from "lib";
+import { borderRadius, fontWeight, getColorClassNames, makeClassName } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
@@ -251,7 +251,7 @@ const getDayBgColorClassName = (
 ): string => {
   if (isDayDisabled) return getColorClassNames("transparent").bgColor;
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
-    return colorClassNames[color][colorPalette.background].bgColor;
+    return getColorClassNames(color, colorPalette.background).bgColor;
   }
   if (
     selectedStartDay &&
@@ -260,13 +260,13 @@ const getDayBgColorClassName = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor;
+    return getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
-    return colorClassNames[color][colorPalette.background].bgColor;
+    return getColorClassNames(color, colorPalette.background).bgColor;
   }
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
-    return colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor;
+    return getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor;
   }
   return getColorClassNames("transparent").bgColor;
 };
@@ -279,7 +279,7 @@ const getDayTextClassNames = (
   color: Color,
   isDayDisabled = false,
 ): string => {
-  if (isDayDisabled) return colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor;
+  if (isDayDisabled) return getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor;
   if (isToday(day)) {
     if (
       (selectedStartDay && isEqual(day, selectedStartDay)) ||
@@ -287,7 +287,7 @@ const getDayTextClassNames = (
     ) {
       return getColorClassNames("white").textColor;
     }
-    return twMerge(colorClassNames[color][colorPalette.text].textColor, fontWeight.lg);
+    return twMerge(getColorClassNames(color, colorPalette.text).textColor, fontWeight.lg);
   }
   if (selectedStartDay && isEqual(day, selectedStartDay)) {
     return getColorClassNames("white").textColor;
@@ -299,15 +299,15 @@ const getDayTextClassNames = (
     day > selectedStartDay &&
     day < hoveredDay
   ) {
-    return colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor;
+    return getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor;
   }
   if (selectedEndDay && isEqual(day, selectedEndDay)) {
     return getColorClassNames("white").textColor;
   }
   if (selectedStartDay && selectedEndDay && day > selectedStartDay && day < selectedEndDay) {
-    return colorClassNames[color][colorPalette.text].textColor;
+    return getColorClassNames(color, colorPalette.text).textColor;
   }
-  return colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor;
+  return getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor;
 };
 
 const getDayHoverBgColorClassName = (

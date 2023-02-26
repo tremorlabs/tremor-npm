@@ -1,4 +1,4 @@
-import { Sizing, fontSize, sizing, spacing, colorClassNames, getColorClassNames } from "lib";
+import { Sizing, fontSize, sizing, spacing, getColorClassNames } from "lib";
 
 import { Color, ButtonVariant } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
@@ -91,24 +91,24 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
       return {
         textColor: getColorClassNames("white").textColor,
         hoverTextColor: getColorClassNames("white").textColor,
-        bgColor: colorClassNames[color][colorPalette.background].bgColor,
-        hoverBgColor: colorClassNames[color][colorPalette.darkBackground].hoverBgColor,
-        borderColor: colorClassNames[color][colorPalette.border].borderColor,
-        focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
+        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
+        hoverBgColor: getColorClassNames(color, colorPalette.darkBackground).hoverBgColor,
+        borderColor: getColorClassNames(color, colorPalette.border).borderColor,
+        focusRingColor: getColorClassNames(color, colorPalette.ring).focusRingColor,
       };
     case "secondary":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
-        hoverTextColor: colorClassNames[color][colorPalette.text].textColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        hoverTextColor: getColorClassNames(color, colorPalette.text).textColor,
         bgColor: getColorClassNames("transparent").bgColor,
-        hoverBgColor: colorClassNames[color][colorPalette.lightBackground].hoverBgColor,
-        borderColor: colorClassNames[color][colorPalette.border].borderColor,
-        focusRingColor: colorClassNames[color][colorPalette.ring].focusRingColor,
+        hoverBgColor: getColorClassNames(color, colorPalette.lightBackground).hoverBgColor,
+        borderColor: getColorClassNames(color, colorPalette.border).borderColor,
+        focusRingColor: getColorClassNames(color, colorPalette.ring).focusRingColor,
       };
     case "light":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
-        hoverTextColor: colorClassNames[color][colorPalette.darkText].hoverTextColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        hoverTextColor: getColorClassNames(color, colorPalette.darkText).hoverTextColor,
         bgColor: getColorClassNames("transparent").bgColor,
         borderColor: "",
         hoverBorderColor: "",

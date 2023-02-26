@@ -3,7 +3,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, colorClassNames, getColorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, sizing } from "lib";
 import { Color } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -41,7 +41,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       ref={ref}
       className={twMerge(
         "relative flex items-center w-full",
-        colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
         sizing.xs.height,
         borderRadius.lg.all,
         className,
@@ -53,7 +53,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         ref={rangeTooltipProps.refs.setReference}
         className={twMerge(
           "absolute h-full",
-          colorClassNames[DEFAULT_COLOR][colorPalette.background].bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
           borderRadius.lg.all,
         )}
         style={{
@@ -79,7 +79,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         <div
           className={twMerge(
             "ring-2 mx-auto",
-            colorClassNames[color][colorPalette.background].bgColor,
+            getColorClassNames(color, colorPalette.background).bgColor,
             getColorClassNames("white").ringColor,
             sizing.md.height,
             sizing.twoXs.width,

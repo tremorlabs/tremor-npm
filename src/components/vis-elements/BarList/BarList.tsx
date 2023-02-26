@@ -4,9 +4,9 @@ import { twMerge } from "tailwind-merge";
 import {
   BaseColors,
   borderRadius,
-  colorClassNames,
   defaultValueFormatter,
   fontSize,
+  getColorClassNames,
   sizing,
   spacing,
 } from "lib";
@@ -70,7 +70,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={twMerge(
                 "flex items-center",
                 rowHeight,
-                colorClassNames[color][colorPalette.lightBackground].bgColor,
+                getColorClassNames(color, colorPalette.lightBackground).bgColor,
                 borderRadius.sm.all,
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
@@ -87,7 +87,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
-                      colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+                      getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                     )}
                     aria-hidden="true"
                   />
@@ -109,7 +109,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   <p
                     className={twMerge(
                       "whitespace-nowrap truncate",
-                      colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+                      getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
                       fontSize.sm,
                     )}
                   >
@@ -134,7 +134,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
             <p
               className={twMerge(
                 "whitespace-nowrap truncate",
-                colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
                 fontSize.sm,
               )}
             >

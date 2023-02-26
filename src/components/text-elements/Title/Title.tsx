@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, colorClassNames, fontSize, fontWeight } from "lib";
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 
@@ -15,7 +15,7 @@ const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) =>
     <p
       ref={ref}
       className={twMerge(
-        colorClassNames[color][colorPalette.darkText].textColor,
+        getColorClassNames(color, colorPalette.darkText).textColor,
         fontSize.lg,
         fontWeight.md,
         className,

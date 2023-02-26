@@ -8,7 +8,7 @@ import { HoveredValueContext, SelectedValueContext } from "contexts";
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
-import { colorClassNames } from "lib";
+import { getColorClassNames } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export interface SelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -40,12 +40,12 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
         fontSize.sm,
         isActive
           ? twMerge(
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].bgColor,
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkestText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor,
             )
           : twMerge(
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightBackground].hoverBgColor,
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             ),
         className,
       )}
@@ -58,7 +58,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
             sizing.lg.height,
             sizing.lg.width,
             spacing.lg.marginRight,
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />

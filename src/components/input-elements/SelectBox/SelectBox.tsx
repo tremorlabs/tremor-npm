@@ -119,10 +119,10 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         className={twMerge(
           "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
           getColorClassNames("white").bgColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           isFocused &&
             twMerge("ring-2", colorClassNames[BaseColors.Blue][colorPalette.ring].ringColor),
-          colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
           borderRadius.md.all,
           border.sm.all,
@@ -140,7 +140,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
               sizing.lg.height,
               sizing.lg.width,
               spacing.xl.marginLeft,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />
@@ -150,7 +150,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           type="text"
           className={twMerge(
             "w-full focus:outline-none focus:ring-0 bg-inherit",
-            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingY,
             fontSize.sm,
@@ -170,7 +170,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
             sizing.lg.height,
             sizing.lg.width,
             spacing.lg.marginRight,
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />

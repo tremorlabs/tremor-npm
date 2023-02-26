@@ -4,7 +4,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { Color } from "../../../lib/inputTypes";
-import { borderRadius, colorClassNames, mergeRefs } from "lib";
+import { borderRadius, getColorClassNames, mergeRefs } from "lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
@@ -23,7 +23,7 @@ const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((prop
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={twMerge(
         "w-full h-full",
-        colorClassNames[color][colorPalette.background].bgColor,
+        getColorClassNames(color, colorPalette.background).bgColor,
         borderRadius.md.all,
         className,
       )}

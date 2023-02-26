@@ -1,13 +1,4 @@
-import {
-  Sizing,
-  border,
-  borderRadius,
-  boxShadow,
-  colorClassNames,
-  getColorClassNames,
-  sizing,
-  spacing,
-} from "lib";
+import { Sizing, border, borderRadius, boxShadow, getColorClassNames, sizing, spacing } from "lib";
 
 import { Color, IconVariant } from "../../../lib/inputTypes";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
@@ -107,38 +98,38 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
   switch (variant) {
     case "simple":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
         bgColor: "",
         borderColor: "",
         ringColor: "",
       };
     case "light":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
-        bgColor: colorClassNames[color][colorPalette.lightBackground].bgColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        bgColor: getColorClassNames(color, colorPalette.lightBackground).bgColor,
         borderColor: "",
         ringColor: "",
       };
     case "shadow":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
         bgColor: getColorClassNames("white").bgColor,
-        borderColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
+        borderColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
         ringColor: "",
       };
     case "solid":
       return {
         textColor: getColorClassNames("white").textColor,
-        bgColor: colorClassNames[color][colorPalette.background].bgColor,
+        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
         borderColor: getColorClassNames("white").borderColor,
-        ringColor: colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].ringColor,
+        ringColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
       };
     case "outlined":
       return {
-        textColor: colorClassNames[color][colorPalette.text].textColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
         bgColor: getColorClassNames("white").bgColor,
-        borderColor: colorClassNames[color][colorPalette.ring].borderColor,
-        ringColor: colorClassNames[color][colorPalette.lightRing].ringColor,
+        borderColor: getColorClassNames(color, colorPalette.ring).borderColor,
+        ringColor: getColorClassNames(color, colorPalette.lightRing).ringColor,
       };
   }
 };

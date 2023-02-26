@@ -21,8 +21,8 @@ import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const getTextColor = (error: boolean, disabled: boolean) => {
   if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
-  if (disabled) return colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor;
-  return colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor;
+  if (disabled) return getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor;
+  return getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
 };
 
 export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -51,11 +51,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
 
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
-    ? colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].bgColor
+    ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
     : getColorClassNames("white").bgColor;
   const boderColor = error
     ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
-    : colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor;
+    : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor;
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -100,7 +100,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
               "shrink-0",
               sizing.lg.height,
               sizing.lg.width,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               spacing.xl.marginLeft,
             )}
             aria-hidden="true"
@@ -112,7 +112,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           className={twMerge(
             "w-full focus:outline-none focus:ring-0",
             getColorClassNames("transparent").bgColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,

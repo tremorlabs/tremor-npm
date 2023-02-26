@@ -7,7 +7,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  colorClassNames,
   getColorClassNames,
   fontSize,
   fontWeight,
@@ -42,7 +41,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <span
         className={twMerge(
           "shrink-0",
-          colorClassNames[color][colorPalette.background].bgColor,
+          getColorClassNames(color, colorPalette.background).bgColor,
           getColorClassNames("white").borderColor,
           sizing.sm.height,
           sizing.sm.width,
@@ -54,7 +53,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <p
         className={twMerge(
           "font-medium tabular-nums text-right whitespace-nowrap",
-          colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
         )}
       >
         {value}
@@ -63,7 +62,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     <p
       className={twMerge(
         "text-right whitespace-nowrap",
-        colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
         fontWeight.sm,
       )}
     >
@@ -92,7 +91,7 @@ const ChartTooltip = ({
       <ChartTooltipFrame>
         <div
           className={twMerge(
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightBorder].borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             border.sm.bottom,
@@ -101,7 +100,7 @@ const ChartTooltip = ({
           <p
             className={twMerge(
               "text-elem",
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               fontWeight.md,
             )}
           >

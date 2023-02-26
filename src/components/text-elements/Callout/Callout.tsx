@@ -5,9 +5,9 @@ import {
   BaseColors,
   border,
   borderRadius,
-  colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   sizing,
   spacing,
 } from "lib";
@@ -29,8 +29,8 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={twMerge(
         "flex flex-col overflow-hidden",
-        colorClassNames[color][colorPalette.canvasBackground].bgColor,
-        colorClassNames[color][colorPalette.darkBorder].borderColor,
+        getColorClassNames(color, colorPalette.canvasBackground).bgColor,
+        getColorClassNames(color, colorPalette.darkBorder).borderColor,
         spacing.lg.paddingY,
         spacing.lg.paddingRight,
         spacing.twoXl.paddingLeft,
@@ -44,7 +44,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <div
         className={twMerge(
           "flex items-start",
-          colorClassNames[color][colorPalette.darkText].textColor,
+          getColorClassNames(color, colorPalette.darkText).textColor,
         )}
       >
         {Icon ? (
@@ -63,7 +63,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <p
         className={twMerge(
           "overflow-y-auto",
-          colorClassNames[color][colorPalette.darkText].textColor,
+          getColorClassNames(color, colorPalette.darkText).textColor,
           spacing.sm.marginTop,
         )}
       >

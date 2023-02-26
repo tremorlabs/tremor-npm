@@ -111,7 +111,7 @@ const DateRangePickerButton = ({
         makeDateRangePickerClassName("button"),
         "flex items-center justify-between",
         getColorClassNames("white").bgColor,
-        colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
         borderRadius.md.all,
         boxShadow.sm,
       )}
@@ -125,9 +125,9 @@ const DateRangePickerButton = ({
           makeDateRangePickerClassName("calendarButton"),
           "flex items-center w-full truncate focus:outline-none focus:ring-2",
           enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
-          colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
-          colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           spacing.twoXl.paddingX,
           spacing.sm.paddingY,
           borderRadius.md.left,
@@ -138,7 +138,7 @@ const DateRangePickerButton = ({
           className={twMerge(
             makeDateRangePickerClassName("calendarButtonIcon"),
             "flex-none",
-            colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             sizing.lg.height,
             sizing.lg.width,
             spacing.threeXs.negativeMarginLeft,
@@ -153,8 +153,8 @@ const DateRangePickerButton = ({
             fontSize.sm,
             fontWeight.md,
             hasSelection
-              ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
-              : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+              ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+              : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
           )}
         >
           {calendarText}
@@ -168,9 +168,9 @@ const DateRangePickerButton = ({
           className={twMerge(
             makeDateRangePickerClassName("dropdownButton"),
             "inline-flex justify-between w-48 truncate focus:outline-none focus:ring-2",
-            colorClassNames[DEFAULT_COLOR][colorPalette.ring].borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
             colorClassNames[BaseColors.Blue][colorPalette.ring].focusRingColor,
-            colorClassNames[DEFAULT_COLOR][colorPalette.canvasBackground].hoverBgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             spacing.px.negativeMarginLeft,
@@ -186,8 +186,8 @@ const DateRangePickerButton = ({
               fontSize.sm,
               fontWeight.md,
               dropdownValue
-                ? colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor
-                : colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {dropdownText}
@@ -199,7 +199,7 @@ const DateRangePickerButton = ({
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              colorClassNames[DEFAULT_COLOR][colorPalette.lightText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />

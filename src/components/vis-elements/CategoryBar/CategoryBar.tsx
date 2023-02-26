@@ -43,7 +43,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
     <div
       className={twMerge(
         "relative flex w-full",
-        colorClassNames[DEFAULT_COLOR][colorPalette.text].textColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
         spacing.sm.marginBottom,
         sizing.lg.height,
         fontSize.sm,

@@ -6,9 +6,9 @@ import { twMerge } from "tailwind-merge";
 import {
   BaseColors,
   borderRadius,
-  colorClassNames,
   fontSize,
   fontWeight,
+  getColorClassNames,
   sizing,
   spacing,
 } from "lib";
@@ -35,8 +35,8 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
     ...other
   } = props;
 
-  const primaryBgColor = colorClassNames[color][colorPalette.background].bgColor;
-  const secondaryBgColor = colorClassNames[color][colorPalette.lightBackground].bgColor;
+  const primaryBgColor = getColorClassNames(color, colorPalette.background).bgColor;
+  const secondaryBgColor = getColorClassNames(color, colorPalette.lightBackground).bgColor;
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -66,7 +66,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={twMerge(
               "w-16 truncate text-right",
-              colorClassNames[DEFAULT_COLOR][colorPalette.darkText].textColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
               spacing.sm.marginLeft,
             )}
           >
