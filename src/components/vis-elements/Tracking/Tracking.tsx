@@ -1,21 +1,32 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { spacing } from "lib";
+import { Color, spacing } from "lib";
+import TrackingBlock from "components/vis-elements/Tracking/TrackingBlock";
 
-const Tracking = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  (props, ref) => {
-    const { children, className, ...other } = props;
-    return (
-      <div
-        ref={ref}
-        className={twMerge("w-full flex items-center h-10", spacing.threeXs.spaceX, className)}
-        {...other}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+export interface TrackingBlockProps {
+  key?: string;
+  color?: Color;
+  tooltip?: string;
+}
+
+export interface TrackingProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: TrackingBlockProps[];
+}
+
+const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) => {
+  const { data, className, ...other } = props;
+  return (
+    <div
+      ref={ref}
+      className={twMerge("w-full flex items-center h-10", spacing.threeXs.spaceX, className)}
+      {...other}
+    >
+      {data.map((item, idx) => (
+        <TrackingBlock key={item.key ?? idx} color={item.color ?? "gray"} tooltip={item.tooltip} />
+      ))}
+    </div>
+  );
+});
 
 export default Tracking;
