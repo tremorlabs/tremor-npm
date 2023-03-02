@@ -21,6 +21,7 @@ type BarListData = {
   name: string;
   icon?: React.ElementType;
   href?: string;
+  target?: string;
 };
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -108,7 +109,7 @@ const BarList = ({
                 {item.href ? (
                   <a
                     href={item.href}
-                    target="_blank"
+                    target={item?.target ? item.target : "_blank"}
                     rel="noreferrer"
                     className={classNames(
                       "text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500",
