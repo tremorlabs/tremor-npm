@@ -109,7 +109,7 @@ const BarList = ({
                 {item.href ? (
                   <a
                     href={item.href}
-                    target={item?.target ? item.target : "_blank"}
+                    target={item.target ?? "_blank"}
                     rel="noreferrer"
                     className={classNames(
                       "text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500",

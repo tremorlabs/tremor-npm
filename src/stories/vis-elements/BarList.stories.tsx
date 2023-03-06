@@ -88,12 +88,12 @@ Colors.args = {
   data: [
     { name: "/home", value: 100000000, href: "https://www.tremor.so/" },
     { name: "/imprint", value: 351 },
-    { name: "/cancellation", value: 271, href: "https://www.tremor.so/" },
     {
       name: `/special-offer-august-getsahdkjhagskdfjhgakshjgdfkjahsgdfjkgasdjkhfgajkshgdfjkhagsdkjhfgajhksdgfjkhasdg
             fjkhagsdjhkgfasjkdgfjkasdhgkjgfdsk`,
       value: 191,
       href: "https://www.tremor.so/",
+      target: "_self",
     },
     { name: "/documentation", value: 0 },
   ],
