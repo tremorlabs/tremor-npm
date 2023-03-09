@@ -4,4 +4,4 @@ export { default as MarkerBar } from "./MarkerBar";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as RangeBar } from "./RangeBar";
 export { default as BarList } from "./BarList";
-export { default as Tracking } from "./Tracking";
+export * from "./Tracking";
