@@ -27,7 +27,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const {
     data = [],
     categories = [],
-    dataKey,
+    index,
     stack = false,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
@@ -60,9 +60,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           ) : null}
           <XAxis
             hide={!showXAxis}
-            dataKey={dataKey}
+            dataKey={index}
             tick={{ transform: "translate(0, 6)" }}
-            ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
+            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",

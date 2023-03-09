@@ -30,7 +30,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const {
     data = [],
     categories = [],
-    dataKey,
+    index,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
     layout = "horizontal",
@@ -74,10 +74,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
           {layout !== "vertical" ? (
             <XAxis
               hide={!showXAxis}
-              dataKey={dataKey}
+              dataKey={index}
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
-              ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
+              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               style={{
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
@@ -124,10 +124,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             <YAxis
               width={yAxisWidth}
               hide={!showYAxis}
-              dataKey={dataKey}
+              dataKey={index}
               axisLine={false}
               tickLine={false}
-              ticks={startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined}
+              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               type="category"
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }}

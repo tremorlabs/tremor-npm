@@ -96,7 +96,10 @@ export function makeClassName(componentName: string) {
   };
 }
 
-export function getColorClassNames(color: Color | "transparent", shade?: number) {
+export function getColorClassNames(
+  color: Color | "white" | "black" | "transparent",
+  shade?: number,
+) {
   if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
   if (color === "white" || color === "black" || color === "transparent" || !shade) {
     return colorClassNames[color][500];

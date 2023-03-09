@@ -51,10 +51,11 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
                 <Flex className="space-x-2" justifyContent="end">
                   <BadgeDelta
                     deltaType={item.deltaType as DeltaType}
-                    text={item.delta}
                     isIncreasePositive={true}
                     size="xs"
-                  />
+                  >
+                    {item.delta}
+                  </BadgeDelta>
                 </Flex>
               </ListItem>
             ))}
@@ -70,7 +71,7 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   data: data,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
@@ -79,7 +80,7 @@ WithValueFormatter.args = {
   data: data,
   valueFormatter: valueFormatter,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithCustomLabel = ResponsiveTemplate.bind({});
@@ -89,7 +90,7 @@ WithCustomLabel.args = {
   valueFormatter: valueFormatter,
   label: "Hello there",
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithLabelDisabled = ResponsiveTemplate.bind({});
@@ -100,7 +101,7 @@ WithLabelDisabled.args = {
   label: "Hello there",
   showLabel: false,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
@@ -109,7 +110,7 @@ WithCustomColors.args = {
   data: data,
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithMoreDatapointsThanColors = DefaultTemplate.bind({});
@@ -121,7 +122,7 @@ WithMoreDatapointsThanColors.args = {
   ],
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
@@ -132,7 +133,7 @@ WithLongValues.args = {
   })),
   valueFormatter: valueFormatter,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithVariantPie = DefaultTemplate.bind({});
@@ -140,7 +141,7 @@ WithVariantPie.args = {
   data: data,
   category: "sales",
   variant: "pie",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -152,6 +153,6 @@ export const BlockExample = BlockTemplate.bind({});
 BlockExample.args = {
   data: data,
   category: "sales",
-  dataKey: "city",
+  index: "city",
   valueFormatter: valueFormatter,
 };

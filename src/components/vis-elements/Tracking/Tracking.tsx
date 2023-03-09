@@ -2,7 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { Color, spacing } from "lib";
-import TrackingBlock from "components/vis-elements/Tracking/TrackingBlock";
+import TrackingBlock from "./TrackingBlock";
 
 export interface TrackingBlockProps {
   key?: string;

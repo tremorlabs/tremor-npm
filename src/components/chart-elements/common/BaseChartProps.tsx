@@ -3,7 +3,7 @@ import { Color, ValueFormatter } from "../../../lib";
 interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   categories: string[];
-  dataKey: string;
+  index: string;
   colors?: Color[];
   valueFormatter?: ValueFormatter;
   startEndOnly?: boolean;

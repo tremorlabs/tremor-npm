@@ -14,7 +14,7 @@ type DonutChartVariant = "donut" | "pie";
 export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   category?: string;
-  dataKey?: string;
+  index?: string;
   colors?: Color[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
@@ -28,7 +28,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   const {
     data = [],
     category = "value",
-    dataKey = "name",
+    index = "name",
     colors = themeColorRange,
     variant = "donut",
     valueFormatter = defaultValueFormatter,
@@ -68,7 +68,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             outerRadius="100%"
             paddingAngle={0}
             dataKey={category}
-            nameKey={dataKey}
+            nameKey={index}
             isAnimationActive={showAnimation}
           />
           {showTooltip ? (

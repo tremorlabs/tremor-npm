@@ -1,1 +1,1 @@
-export { default as Tracking } from "./Tracking";
+export { default } from "./Tracking";

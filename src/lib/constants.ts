@@ -9,8 +9,6 @@ export const DeltaTypes: { [key: string]: DeltaType } = {
 };
 
 export const BaseColors: { [key: string]: Color } = {
-  Black: "black",
-  White: "white",
   Slate: "slate",
   Gray: "gray",
   Zinc: "zinc",
