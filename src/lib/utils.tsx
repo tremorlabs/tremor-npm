@@ -2,7 +2,7 @@ import React from "react";
 
 import { DeltaTypes } from "./constants";
 import { Color, ValueFormatter } from "./inputTypes";
-import { colorClassNames } from "lib/colorClassNames";
+import { colorClassNames } from "./colorClassNames";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {

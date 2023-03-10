@@ -1,7 +1,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Color, spacing } from "lib";
+import { spacing } from "lib";
+import { Color } from "../../../lib/inputTypes";
 import TrackingBlock from "./TrackingBlock";
 
 export interface TrackingBlockProps {
