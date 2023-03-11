@@ -3,27 +3,27 @@ import { twMerge } from "tailwind-merge";
 
 import { makeClassName, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
-import TrackingBlock from "./TrackingBlock";
+import TrackerBlock from "./TrackerBlock";
 
-export const makeTrackingClassName = makeClassName("Tracking");
+export const makeTrackerClassName = makeClassName("Tracker");
 
-export interface TrackingBlockProps {
+export interface TrackerBlockProps {
   key?: string;
   color?: Color;
   tooltip?: string;
 }
 
-export interface TrackingProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: TrackingBlockProps[];
+export interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: TrackerBlockProps[];
 }
 
-const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) => {
+const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
   const { data, children, className, ...other } = props;
   return (
     <div
       ref={ref}
       className={twMerge(
-        makeTrackingClassName("root"),
+        makeTrackerClassName("root"),
         "w-full flex items-center h-10",
         spacing.threeXs.spaceX,
         className,
@@ -32,14 +32,10 @@ const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) =>
     >
       {children ??
         data.map((item, idx) => (
-          <TrackingBlock
-            key={item.key ?? idx}
-            color={item.color ?? "gray"}
-            tooltip={item.tooltip}
-          />
+          <TrackerBlock key={item.key ?? idx} color={item.color ?? "gray"} tooltip={item.tooltip} />
         ))}
     </div>
   );
 });
 
-export default Tracking;
+export default Tracker;
