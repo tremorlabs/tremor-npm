@@ -119,6 +119,18 @@ Finally, run the dev server
 ```bash
 npm run dev
 ```
+
+If you got error `TypeError: Super expression must either be null or a function`, then add the [`serverComponentsExternalPackages`](https://beta.nextjs.org/docs/api-reference/next.config.js#servercomponentsexternalpackages) in your `next.config.js`
+
+```diff
+const nextConfig = {
+  experimental: {
+    appDir: true,
++    serverComponentsExternalPackages: ['@tremor/react'],
+  },
+}
+```
+
 <br>
 <br>
 
