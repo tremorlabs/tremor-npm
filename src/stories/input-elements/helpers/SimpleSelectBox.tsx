@@ -7,12 +7,8 @@ const MyIcon = CalendarIcon;
 
 export const SimpleSelectBox = (args: any) => (
   <SelectBox {...args}>
-    <SelectBoxItem
-      value={5}
-      text={"Very Long DropdownItem Value as an edge case"}
-      icon={MyIcon}
-    />
-    <SelectBoxItem value={3} text={"Three"} icon={MyIcon} />
-    <SelectBoxItem value={1} text={"One"} icon={MyIcon} />
+    <SelectBoxItem value="5" text={"Very Long DropdownItem Value as an edge case"} icon={MyIcon} />
+    <SelectBoxItem value="Three" icon={MyIcon} />
+    <SelectBoxItem value="1" text={"One"} icon={MyIcon} />
   </SelectBox>
 );

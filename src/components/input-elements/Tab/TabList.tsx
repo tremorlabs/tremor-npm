@@ -1,77 +1,62 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { useInternalState } from "hooks";
 
-import {
-  BaseColors,
-  border,
-  classNames,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  spacing,
-} from "lib";
-import { Color, MarginTop } from "../../../lib";
+import { BaseColors, border, getColorClassNames, makeClassName, spacing } from "lib";
+import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface TabListProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void; // Deprecated
+const makeTabListClassName = makeClassName("TabList");
+
+export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
   color?: Color;
-  marginTop?: MarginTop;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const TabList = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-  children,
-}: TabListProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
-    );
-  }
-
-  const [selectedValue, setSelectedValue] = useInternalState(
+const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
+  const {
     defaultValue,
-    value
-  );
+    value,
+    onValueChange,
+    color = BaseColors.Blue,
+    children,
+    className,
+    ...other
+  } = props;
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     onValueChange?.(value);
-    handleSelect?.(value);
     setSelectedValue(value);
   };
 
   return (
-    <ol
+    <div
+      ref={ref}
       aria-label="Tabs"
-      className={classNames(
-        "tremor-base list-element tr-flex tr-justify-start tr-overflow-x-clip",
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .borderColor,
-        parseMarginTop(marginTop),
+      className={twMerge(
+        makeTabListClassName("root"),
+        "flex justify-start overflow-x-clip",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
         spacing.twoXl.spaceX,
-        border.sm.bottom
+        border.sm.bottom,
+        className,
       )}
+      {...other}
     >
-      <SelectedValueContext.Provider
-        value={{ selectedValue, handleValueChange }}
-      >
+      <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
         <BaseColorContext.Provider value={color}>
           {React.Children.map(children, (child) => React.cloneElement(child))}
         </BaseColorContext.Provider>
       </SelectedValueContext.Provider>
-    </ol>
+    </div>
   );
-};
+});
 
 export default TabList;

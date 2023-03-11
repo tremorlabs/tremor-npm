@@ -11,7 +11,7 @@ describe("SelectBox", () => {
         <Tab value={1} text="Option One" />
         <Tab value={2} text="Option Two" />
         <Tab value={3} text="Option Three" />
-      </TabList>
+      </TabList>,
     );
   });
 });

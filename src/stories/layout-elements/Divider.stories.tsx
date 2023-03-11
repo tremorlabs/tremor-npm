@@ -15,7 +15,7 @@ export default {
 const Template: ComponentStory<typeof Divider> = () => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <SimpleCard />
       <Divider />
       <SimpleCard />

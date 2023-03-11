@@ -1,41 +1,38 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
+import { Color } from "../../../lib/inputTypes";
+import { borderRadius, getColorClassNames, mergeRefs } from "lib";
+import { colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { makeTrackingClassName } from "./Tracking";
 
-import { Color, Height } from "../../../lib";
-import {
-  borderRadius,
-  classNames,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseHeight,
-} from "lib";
-
-export interface TrackingBlockProps {
+export interface TrackingBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   color: Color;
-  height?: Height;
   tooltip?: string;
 }
 
-const TrackingBlock = ({
-  color,
-  height = "h-10",
-  tooltip,
-}: TrackingBlockProps) => {
+const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((props, ref) => {
+  const { color, tooltip, className, ...other } = props;
+
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
   return (
-    <Tooltip content={tooltip} className={tooltip ? "" : "tr-hidden"}>
-      <div
-        className={classNames(
-          "tr-w-full",
-          getColorVariantsFromColorThemeValue(getColorTheme(color).background)
-            .bgColor,
-          parseHeight(height),
-          borderRadius.md.all
-        )}
-      />
-    </Tooltip>
+    <div
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      className={twMerge(
+        makeTrackingClassName("trackingBlock"),
+        "w-full h-full",
+        getColorClassNames(color, colorPalette.background).bgColor,
+        borderRadius.md.all,
+        className,
+      )}
+      {...other}
+      {...getReferenceProps}
+    >
+      <Tooltip text={tooltip} {...tooltipProps} />
+    </div>
   );
-};
+});
 
 export default TrackingBlock;

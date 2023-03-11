@@ -146,7 +146,6 @@ With tremor creating an analytical interface is easy.
 ```jsx
 //Card.tsx
 import { Card, Text, Metric, Flex, ProgressBar } from "@tremor/react";
-
 export default () => (
   <Card maxWidth="max-w-sm">
     <Text>Sales</Text>
