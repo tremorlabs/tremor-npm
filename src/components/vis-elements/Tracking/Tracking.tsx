@@ -1,25 +1,45 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { classNames, parseMarginTop, spacing } from "lib";
-import { MarginTop } from "../../../lib";
+import { makeClassName, spacing } from "lib";
+import { Color } from "../../../lib/inputTypes";
+import TrackingBlock from "./TrackingBlock";
 
-export interface TrackingProps {
-  marginTop?: MarginTop;
-  children: React.ReactNode;
+export const makeTrackingClassName = makeClassName("Tracking");
+
+export interface TrackingBlockProps {
+  key?: string;
+  color?: Color;
+  tooltip?: string;
 }
 
-const Tracking = ({ marginTop = "mt-0", children }: TrackingProps) => {
+export interface TrackingProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: TrackingBlockProps[];
+}
+
+const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) => {
+  const { data, children, className, ...other } = props;
   return (
     <div
-      className={classNames(
-        "tremor-base tr-w-full tr-flex tr-items-center",
-        parseMarginTop(marginTop),
-        spacing.threeXs.spaceX
+      ref={ref}
+      className={twMerge(
+        makeTrackingClassName("root"),
+        "w-full flex items-center h-10",
+        spacing.threeXs.spaceX,
+        className,
       )}
+      {...other}
     >
-      {children}
+      {children ??
+        data.map((item, idx) => (
+          <TrackingBlock
+            key={item.key ?? idx}
+            color={item.color ?? "gray"}
+            tooltip={item.tooltip}
+          />
+        ))}
     </div>
   );
-};
+});
 
 export default Tracking;

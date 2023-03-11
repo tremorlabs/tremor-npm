@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BarList, Block, Card } from "components";
+import { BarList, Card } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
@@ -20,13 +20,13 @@ const Template: ComponentStory<typeof BarList> = (args) => (
 );
 
 const ColorsTemplate: ComponentStory<typeof BarList> = (args) => (
-  <Block spaceY="space-y-2">
+  <div className="space-y-2">
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <BarList {...args} color={color} />
       </Card>
     ))}
-  </Block>
+  </div>
 );
 
 export const Default = Template.bind({});
@@ -88,12 +88,12 @@ Colors.args = {
   data: [
     { name: "/home", value: 100000000, href: "https://www.tremor.so/" },
     { name: "/imprint", value: 351 },
+    { name: "/cancellation", value: 271, href: "https://www.tremor.so/" },
     {
       name: `/special-offer-august-getsahdkjhagskdfjhgakshjgdfkjahsgdfjkgasdjkhfgajkshgdfjkhagsdkjhfgajhksdgfjkhasdg
             fjkhagsdjhkgfasjkdgfjkasdhgkjgfdsk`,
       value: 191,
       href: "https://www.tremor.so/",
-      target: "_self",
     },
     { name: "/documentation", value: 0 },
   ],

@@ -22,7 +22,7 @@ describe("AccordionList", () => {
           <AccordionHeader>Hello</AccordionHeader>
           <AccordionBody>World</AccordionBody>
         </Accordion>
-      </AccordionList>
+      </AccordionList>,
     );
   });
 });

@@ -1,24 +1,31 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { classNames, spacing } from "lib";
+import { makeClassName, spacing } from "lib";
 
-export interface AccordionBodyProps {
+const makeAccordionBodyClassName = makeClassName("AccordionBody");
+
+export interface AccordionBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const AccordionBody = ({ children }: AccordionBodyProps) => {
+const AccordionBody = React.forwardRef<HTMLDivElement, AccordionBodyProps>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <div
-      className={classNames(
-        "tr-w-full",
-        spacing.threeXl.paddingLeft,
-        spacing.threeXl.paddingRight,
-        spacing.lg.paddingBottom
+      ref={ref}
+      className={twMerge(
+        makeAccordionBodyClassName("root"),
+        "w-full",
+        spacing.threeXl.paddingX,
+        spacing.lg.paddingBottom,
+        className,
       )}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default AccordionBody;

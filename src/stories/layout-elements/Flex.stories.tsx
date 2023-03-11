@@ -20,7 +20,7 @@ const TemplateMaxWidth: ComponentStory<typeof Flex> = (args) => (
       <SimpleCard maxWidth="max-w-sm" />
     </div>
     <div>
-      <Card maxWidth="max-w-sm">
+      <Card className="max-w-sm">
         <Metric>$ 40,000</Metric>
         <SimpleText />
       </Card>
@@ -43,32 +43,32 @@ export const Default = TemplateMaxWidth.bind({});
 
 export const JustifyEnd = TemplateMaxWidth.bind({});
 JustifyEnd.args = {
-  justifyContent: "justify-end",
+  justifyContent: "end",
 };
 
 export const JustifyStart = TemplateMaxWidth.bind({});
 JustifyStart.args = {
-  justifyContent: "justify-start",
+  justifyContent: "start",
 };
 
 export const ItemsStart = TemplateMaxWidth.bind({});
 ItemsStart.args = {
-  alignItems: "items-start",
+  alignItems: "start",
 };
 
 export const ItemsEnd = TemplateMaxWidth.bind({});
 ItemsEnd.args = {
-  alignItems: "items-end",
+  alignItems: "end",
 };
 
 export const ItemsStretch = TemplateWFull.bind({});
 ItemsStretch.args = {
-  alignItems: "items-stretch",
+  alignItems: "stretch",
 };
 
 export const SpaceX = TemplateMaxWidth.bind({});
 SpaceX.args = {
-  justifyContent: "justify-start",
-  alignItems: "items-baseline",
-  spaceX: "space-x-8",
+  justifyContent: "start",
+  alignItems: "baseline",
+  className: "space-x-8",
 };

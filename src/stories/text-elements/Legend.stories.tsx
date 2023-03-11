@@ -12,7 +12,7 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Legend> = (args) => (
-  <Card maxWidth="max-w-md">
+  <Card className="max-w-md">
     <Legend {...args} />
   </Card>
 );

@@ -1,51 +1,30 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  TextAlignments,
-  classNames,
-  fontSize,
-  fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseTextAlignment,
-  parseTruncateOption,
-} from "lib";
-import { Color, MarginTop, TextAlignment } from "../../../lib";
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { Color } from "../../../lib";
+import { colorPalette } from "lib/theme";
 
-export interface TitleProps {
+export interface TitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  truncate?: boolean;
-  textAlignment?: TextAlignment;
-  marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Title = ({
-  color = BaseColors.Gray,
-  truncate = false,
-  textAlignment = TextAlignments.Left,
-  marginTop = "mt-0",
-  children,
-}: TitleProps) => {
+const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
   return (
     <p
-      className={classNames(
-        "text-elem tremor-base",
-        truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
-        parseTruncateOption(truncate),
-        parseTextAlignment(textAlignment),
-        parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(getColorTheme(color).darkText)
-          .textColor,
+      ref={ref}
+      className={twMerge(
+        getColorClassNames(color, colorPalette.darkText).textColor,
         fontSize.lg,
-        fontWeight.md
+        fontWeight.md,
+        className,
       )}
+      {...other}
     >
       {children}
     </p>
   );
-};
+});
 
 export default Title;

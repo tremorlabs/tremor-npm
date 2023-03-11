@@ -1,18 +1,19 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { Color, MarginTop } from "../../../lib";
+import { Color } from "../../../lib";
 import {
-  classNames,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
+  getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
   themeColorRange,
 } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeLegendClassName = makeClassName("Legend");
 
 export interface LegendItemProps {
   name: string;
@@ -21,63 +22,54 @@ export interface LegendItemProps {
 
 const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
-    className={classNames(
-      "termor-elem tr-inline-flex tr-items-center tr-truncate",
-      getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-      spacing.md.marginRight
+    className={twMerge(
+      makeLegendClassName("legendItem"),
+      "termor-elem inline-flex items-center truncate",
+      getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+      spacing.md.marginRight,
     )}
   >
     <svg
-      className={classNames(
-        "termor-elem tr-flex-none",
-        getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-          .textColor,
+      className={twMerge(
+        "termor-elem flex-none",
+        getColorClassNames(color, colorPalette.text).textColor,
         sizing.xs.height,
         sizing.xs.width,
-        spacing.xs.marginRight
+        spacing.xs.marginRight,
       )}
       fill="currentColor"
       viewBox="0 0 8 8"
     >
       <circle cx={4} cy={4} r={4} />
     </svg>
-    <p
-      className={classNames(
-        "text-elem termor-elem tr-whitespace-nowrap tr-truncate",
-        fontSize.sm,
-        fontWeight.sm
-      )}
-    >
+    <p className={twMerge("termor-elem whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
       {name}
     </p>
   </li>
 );
 
-export interface LegendProps {
+export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
-  marginTop?: MarginTop;
 }
 
-const Legend = ({
-  categories,
-  colors = themeColorRange,
-  marginTop = "mt-0",
-}: LegendProps) => {
+const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
+  const { categories, colors = themeColorRange, className, ...other } = props;
   return (
-    <div
-      className={classNames(
-        "tremor-base termor-elem",
-        parseMarginTop(marginTop)
+    <ol
+      ref={ref}
+      className={twMerge(
+        makeLegendClassName("root"),
+        "flex flex-wrap overflow-hidden truncate",
+        className,
       )}
+      {...other}
     >
-      <ol className="list-element tr-flex tr-flex-wrap tr-overflow-hidden tr-truncate">
-        {categories.map((category, idx) => (
-          <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
-        ))}
-      </ol>
-    </div>
+      {categories.map((category, idx) => (
+        <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
+      ))}
+    </ol>
   );
-};
+});
 
 export default Legend;

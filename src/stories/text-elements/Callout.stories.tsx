@@ -5,7 +5,7 @@ import { ArrowUpRightIcon } from "assets";
 
 import Callout from "../../components/text-elements/Callout/Callout";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,8 +17,8 @@ export default {
 const Template: ComponentStory<typeof Callout> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <div className="tr-mb-5 tr-max-w-lg">
-        <Callout {...args} color={color} />
+      <div key={color} className="mb-5 max-w-lg">
+        <Callout {...args} color={color} className="h-24 mt-5" />
       </div>
     ))}
   </>
@@ -27,17 +27,19 @@ const Template: ComponentStory<typeof Callout> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   title: "Performance Metric",
-  text: "You are outranking 83% of the sales representatives in your cohort. Sit repellendus qui ut at blanditis \
-           et quo et molestiae. Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus \
-           qui ut at blanditiis et quo et molestiae",
+  children:
+    "You are outranking 83% of the sales representatives in your cohort. Sit repellendus qui ut at blanditis \
+    et quo et molestiae. Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus \
+    qui ut at blanditiis et quo et molestiae",
 };
 
 export const WithIcon = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithIcon.args = {
   title: "Performance Metric",
-  text: "You are outranking 83% of the sales representatives in your cohort. Sit repellendus qui ut at blanditis \
-           et quo et molestiae. Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus \
-           qui ut at blanditiis et quo et molestiae",
+  children:
+    "You are outranking 83% of the sales representatives in your cohort. Sit repellendus qui ut at blanditis \
+    et quo et molestiae. Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus \
+    qui ut at blanditiis et quo et molestiae",
   icon: ArrowUpRightIcon,
 };

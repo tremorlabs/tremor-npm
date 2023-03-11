@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof CategoryBar> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   categoryPercentageValues: [60, 10, 20, 10],
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithMarker = Template.bind({});
@@ -33,7 +33,7 @@ WithMarker.args = {
   colors: ["emerald", "yellow", "orange", "rose"],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithMarkerOnLabel = Template.bind({});
@@ -43,7 +43,7 @@ WithMarkerOnLabel.args = {
   colors: ["emerald", "yellow", "orange", "rose"],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithSmallStartValue = Template.bind({});
@@ -53,7 +53,7 @@ WithSmallStartValue.args = {
   colors: ["emerald", "yellow", "orange", "rose"],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithCloseEndValue = Template.bind({});
@@ -63,7 +63,7 @@ WithCloseEndValue.args = {
   colors: ["emerald", "yellow", "orange", "rose"],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithZeroValues = Template.bind({});
@@ -73,7 +73,7 @@ WithZeroValues.args = {
   colors: ["emerald", "yellow", "orange", "rose"],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithConsecutiveSmallValues = Template.bind({});
@@ -82,7 +82,7 @@ WithConsecutiveSmallValues.args = {
   categoryPercentageValues: [10, 5, 5, 5, 5, 5, 50, 15, 0],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithNoLabelsInbetween = Template.bind({});
@@ -90,7 +90,7 @@ WithNoLabelsInbetween.args = {
   categoryPercentageValues: [5, 95],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };
 
 export const WithNoLabels = Template.bind({});
@@ -98,6 +98,6 @@ WithNoLabels.args = {
   categoryPercentageValues: [5, 95],
   percentageValue: 50,
   tooltip: "90%",
-  marginTop: "mt-5",
+  className: "mt-5",
   showLabels: false,
 };
