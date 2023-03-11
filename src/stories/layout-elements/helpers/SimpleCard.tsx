@@ -6,7 +6,9 @@ export const SimpleCard = (args: any) => (
   <Card {...args}>
     <Flex>
       <Metric>23,000</Metric>
-      <BadgeDelta deltaType="increase" text="19.14%" />
+      <BadgeDelta deltaType="increase">
+        19.14%
+      </BadgeDelta>
     </Flex>
     <Text>Sample Text</Text>
   </Card>
