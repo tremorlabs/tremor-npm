@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon, ArrowUpHeadIcon } from "assets";
+import { ArrowUpHeadIcon } from "assets";
 import { getColorClassNames, sizing, spacing } from "lib";
 import { ExpandedContext } from "components/layout-elements/Accordion/Accordion";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
@@ -34,6 +34,7 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
         {isExpanded ? (
           <ArrowUpHeadIcon
             className={twMerge(
+              "transition-all",
               getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,
@@ -41,8 +42,9 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
             )}
           />
         ) : (
-          <ArrowDownHeadIcon
+          <ArrowUpHeadIcon
             className={twMerge(
+              "transition-all -rotate-180",
               getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               spacing.twoXs.negativeMarginRight,
               sizing.xl.height,
