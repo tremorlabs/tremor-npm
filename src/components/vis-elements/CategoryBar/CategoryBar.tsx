@@ -1,8 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Color, colorClassNames } from "../../../lib";
+import { Color } from "../../../lib";
 import {
+  colorClassNames,
+  makeClassName,
   borderRadius,
   fontSize,
   getColorClassNames,
@@ -13,6 +15,8 @@ import {
 } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+
+const makeCategoryBarClassName = makeClassName("CategoryBar");
 
 const getMarkerBgColor = (
   percentageValue: number | undefined,
@@ -40,6 +44,7 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   return (
     <div
       className={twMerge(
+        makeCategoryBarClassName("labels"),
         "relative flex w-full",
         getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
         spacing.sm.marginBottom,
@@ -107,9 +112,15 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
-      <div ref={ref} className={className} {...other}>
+      <div ref={ref} className={twMerge(makeCategoryBarClassName("root"), className)} {...other}>
         {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
-        <div className={twMerge("relative w-full flex items-center", sizing.xs.height)}>
+        <div
+          className={twMerge(
+            makeCategoryBarClassName("barWrapper"),
+            "relative w-full flex items-center",
+            sizing.xs.height,
+          )}
+        >
           <div
             className={twMerge(
               "flex-1 flex items-center h-full overflow-hidden",
@@ -121,6 +132,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 <div
                   key={`item-${idx}`}
                   className={twMerge(
+                    makeCategoryBarClassName("categoryBar"),
                     "h-full",
                     colorClassNames[colors[idx]][colorPalette.background].bgColor,
                   )}
@@ -132,7 +144,11 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
           {percentageValue !== undefined ? (
             <div
               ref={tooltipProps.refs.setReference}
-              className={twMerge("absolute right-1/2 -translate-x-1/2", sizing.lg.width)}
+              className={twMerge(
+                makeCategoryBarClassName("markerWrapper"),
+                "absolute right-1/2 -translate-x-1/2",
+                sizing.lg.width,
+              )}
               style={{
                 left: `${percentageValue}%`,
                 transition: showAnimation ? "all 2s" : "",
@@ -141,6 +157,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
             >
               <div
                 className={twMerge(
+                  makeCategoryBarClassName("marker"),
                   "ring-2 mx-auto",
                   markerBgColor,
                   getColorClassNames("white").ringColor,

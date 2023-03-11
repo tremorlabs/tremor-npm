@@ -3,9 +3,19 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import { border, fontSize, fontWeight, getColorClassNames, sizing, spacing } from "lib";
+import {
+  border,
+  fontSize,
+  fontWeight,
+  getColorClassNames,
+  makeClassName,
+  sizing,
+  spacing,
+} from "lib";
 
 import { colorPalette, DEFAULT_COLOR } from "lib/theme";
+
+const makeTabClassName = makeClassName("Tab");
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -38,6 +48,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
     <button
       ref={ref}
       className={twMerge(
+        makeTabClassName("root"),
         "flex whitespace-nowrap max-w-xs truncate",
         "focus:outline-none focus:ring-0",
         spacing.twoXs.paddingX,
@@ -58,6 +69,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       {Icon ? (
         <Icon
           className={twMerge(
+            makeTabClassName("icon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
@@ -69,7 +81,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
           aria-hidden="true"
         />
       ) : null}
-      <p className="text-sm whitespace-nowrap">{text}</p>
+      <p className={twMerge(makeTabClassName("text"), "text-sm whitespace-nowrap")}>{text}</p>
     </button>
   );
 });

@@ -7,11 +7,14 @@ import {
   defaultValueFormatter,
   fontSize,
   getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
 import { Color, ValueFormatter } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeBarListClassName = makeClassName("BarList");
 
 type BarListData = {
   key?: string;
@@ -19,6 +22,7 @@ type BarListData = {
   name: string;
   icon?: React.ElementType;
   href?: string;
+  target?: string;
 };
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -57,10 +61,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge("flex justify-between", spacing.threeXl.spaceX, className)}
+      className={twMerge(
+        makeBarListClassName("root"),
+        "flex justify-between",
+        spacing.threeXl.spaceX,
+        className,
+      )}
       {...other}
     >
-      <div className="relative w-full">
+      <div className={twMerge(makeBarListClassName("bars"), "relative w-full")}>
         {data.map((item, idx) => {
           const Icon = item.icon;
 
@@ -68,6 +77,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
             <div
               key={item.key ?? item.name}
               className={twMerge(
+                makeBarListClassName("bar"),
                 "flex items-center",
                 rowHeight,
                 getColorClassNames(color, colorPalette.lightBackground).bgColor,
@@ -83,6 +93,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 {Icon ? (
                   <Icon
                     className={twMerge(
+                      makeBarListClassName("barIcon"),
                       "flex-none",
                       sizing.lg.height,
                       sizing.lg.width,
@@ -95,9 +106,10 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 {item.href ? (
                   <a
                     href={item.href}
-                    target="_blank"
+                    target={item.target ?? "_blank"}
                     rel="noreferrer"
                     className={twMerge(
+                      makeBarListClassName("barLink"),
                       "whitespace-nowrap truncate text-blue-500",
                       "no-underline hover:underline visited:text-blue-500",
                       fontSize.sm,
@@ -108,6 +120,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 ) : (
                   <p
                     className={twMerge(
+                      makeBarListClassName("barText"),
                       "whitespace-nowrap truncate",
                       getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
                       fontSize.sm,
@@ -121,11 +134,12 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
           );
         })}
       </div>
-      <div className="text-right min-w-min">
+      <div className={(makeBarListClassName("labels"), "text-right min-w-min")}>
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
             className={twMerge(
+              makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",
               rowHeight,
               idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
@@ -133,6 +147,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
           >
             <p
               className={twMerge(
+                makeBarListClassName("labelText"),
                 "whitespace-nowrap truncate",
                 getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
                 fontSize.sm,

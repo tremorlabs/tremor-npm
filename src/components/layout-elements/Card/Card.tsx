@@ -2,9 +2,19 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/constants";
-import { Color, HorizontalPosition, VerticalPosition, colorClassNames } from "../../../lib";
-import { border, borderRadius, boxShadow, getColorClassNames, spacing } from "lib";
+import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
+import {
+  border,
+  borderRadius,
+  boxShadow,
+  getColorClassNames,
+  spacing,
+  colorClassNames,
+  makeClassName,
+} from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeCardClassName = makeClassName("Card");
 
 const parseDecorationAlignment = (decorationAlignment: string) => {
   if (!decorationAlignment) return "";
@@ -39,6 +49,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     <div
       ref={ref}
       className={twMerge(
+        makeCardClassName("root"),
         "relative w-full text-left ring-1",
         getColorClassNames("white").bgColor,
         boxShadow.md,

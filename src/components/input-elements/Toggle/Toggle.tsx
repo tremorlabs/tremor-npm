@@ -5,9 +5,11 @@ import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { useInternalState } from "hooks";
 
-import { BaseColors, borderRadius, getColorClassNames, spacing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeToggleClassName = makeClassName("Toggle");
 
 export interface ToggleProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -39,6 +41,7 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
     <div
       ref={ref}
       className={twMerge(
+        makeToggleClassName("root"),
         "flex-nowrap inline-flex justify-start",
         getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
         spacing.twoXs.paddingAll,

@@ -1,7 +1,9 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { spacing } from "lib";
+import { makeClassName, spacing } from "lib";
+
+const makeAccordionBodyClassName = makeClassName("AccordionBody");
 
 export interface AccordionBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -12,7 +14,13 @@ const AccordionBody = React.forwardRef<HTMLDivElement, AccordionBodyProps>((prop
   return (
     <div
       ref={ref}
-      className={twMerge("w-full", spacing.threeXl.paddingX, spacing.lg.paddingBottom, className)}
+      className={twMerge(
+        makeAccordionBodyClassName("root"),
+        "w-full",
+        spacing.threeXl.paddingX,
+        spacing.lg.paddingBottom,
+        className,
+      )}
       {...other}
     >
       {children}

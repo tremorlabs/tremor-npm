@@ -1,8 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { border, borderRadius, boxShadow } from "lib";
+import { border, borderRadius, boxShadow, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
+
+const makeAccordionListClassName = makeClassName("AccordionList");
 
 export interface AccordionListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
@@ -13,7 +15,16 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
   const numChildren = React.Children.count(children);
 
   return (
-    <div ref={ref} className={twMerge(borderRadius.lg.all, boxShadow.md, className)} {...other}>
+    <div
+      ref={ref}
+      className={twMerge(
+        makeAccordionListClassName("root"),
+        borderRadius.lg.all,
+        boxShadow.md,
+        className,
+      )}
+      {...other}
+    >
       {React.Children.map(children, (child, idx) => {
         if (idx === 0) {
           return (

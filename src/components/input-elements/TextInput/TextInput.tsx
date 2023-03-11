@@ -10,12 +10,15 @@ import {
   fontSize,
   fontWeight,
   getColorClassNames,
+  makeClassName,
   mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { ExclamationFilledIcon } from "assets";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeTextInputClassName = makeClassName("TextInput");
 
 const getTextColor = (error: boolean, disabled: boolean) => {
   if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
@@ -68,6 +71,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     <>
       <div
         className={twMerge(
+          makeTextInputClassName("root"),
           "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
           bgColor,
           className,
@@ -95,6 +99,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         {Icon ? (
           <Icon
             className={twMerge(
+              makeTextInputClassName("icon"),
               "shrink-0",
               sizing.lg.height,
               sizing.lg.width,
@@ -108,6 +113,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           ref={mergeRefs([ref, inputRef])}
           type="text"
           className={twMerge(
+            makeTextInputClassName("input"),
             "w-full focus:outline-none focus:ring-0",
             getColorClassNames("transparent").bgColor,
             getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
@@ -126,6 +132,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         {error ? (
           <ExclamationFilledIcon
             className={twMerge(
+              makeTextInputClassName("errorIcon"),
               spacing.xl.marginRight,
               sizing.lg.height,
               sizing.lg.width,
@@ -138,6 +145,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       {errorMessage ? (
         <p
           className={twMerge(
+            makeTextInputClassName("errorMessage"),
             "text-sm",
             colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
           )}

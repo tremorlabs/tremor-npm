@@ -1,10 +1,12 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, getColorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, makeClassName, sizing } from "lib";
 import { Color } from "../../../lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+
+const makeRangeBarClassName = makeClassName("RangeBar");
 
 export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -38,6 +40,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
     <div
       ref={ref}
       className={twMerge(
+        makeRangeBarClassName("root"),
         "relative flex items-center w-full",
         getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
         sizing.xs.height,
@@ -50,6 +53,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       <div
         ref={rangeTooltipProps.refs.setReference}
         className={twMerge(
+          makeRangeBarClassName("rangeBar"),
           "absolute h-full",
           getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
           borderRadius.lg.all,
@@ -65,6 +69,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       <div
         ref={markerTooltipProps.refs.setReference}
         className={twMerge(
+          makeRangeBarClassName("markerWrapper"),
           "absolute right-1/2 -translate-x-1/2",
           sizing.lg.width, // wide transparent wrapper for tooltip activation
         )}
@@ -76,6 +81,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       >
         <div
           className={twMerge(
+            makeRangeBarClassName("marker"),
             "ring-2 mx-auto",
             getColorClassNames(color, colorPalette.background).bgColor,
             getColorClassNames("white").ringColor,

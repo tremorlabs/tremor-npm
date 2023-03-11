@@ -10,7 +10,7 @@ import { spacing } from "lib/spacing";
 import { getColorClassNames, makeClassName } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export const makeDropdownItemClassName = makeClassName("DropdownItem");
+const makeDropdownItemClassName = makeClassName("DropdownItem");
 
 export interface DropdownItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;

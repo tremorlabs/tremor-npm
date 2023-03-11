@@ -22,7 +22,7 @@
     </a>
   </div>
   <h3 align="center">
-    <a href="https://www.tremor.so/docs/getting-started/introduction">Documentation</a> &bull;
+    <a href="https://www.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
     <a href="https://demo.tremor.so/">Demo Dashboard</a> &bull;
     <a href="https://www.tremor.so">Website</a>
   </h3>
@@ -50,43 +50,7 @@ For new projects, we recommend using Next.js, as it also provides a simple deplo
 
 <br>
 
-## Option A: Using Create React App
-
-In your terminal, we create a new React project:
-
-```bash
-npx create-react-app my-project --template typescript
-cd my-project
-```
-*Using the `--template typescript` option is optional here.*
-
-<br>
-
-Install tremor from your command line via npm.
-
-```bash
-npm install @tremor/react
-```
-
-<br>
-
-Import the tremor stylesheet into the `App.js` / `App.tsx`  file:
-```tsx
-import '@tremor/react/dist/esm/tremor.css';
-```
-*Note, if you are importing other CSS files along with `tremor.css`, make sure to add the above import statement as the last one, in order to avoid unintentional CSS conflicts.*
-<br>
-
-Finally, run the dev server.
-```bash
-npm start
-```
-
-<br>
-
-
-## Option B: Using NextJS 
-**⚠️ Note:** Since we have not fully migrated to Next.js 13 yet, if you are using the `app` directory introduced in Next.js 13, wrap your tremor components in another component by using the `"use client"` directive. More infos on the directive and the usage of third-party libraries in Next.js 13 can be found in the [Next.js docs](https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages).
+## Using NextJS 
 
 In your terminal, we create a new Next project:
 
@@ -119,6 +83,53 @@ Finally, run the dev server
 ```bash
 npm run dev
 ```
+**⚠️ Note:** Since we have not fully migrated to Next.js 13 yet, if you are using the `app` directory introduced in Next.js 13, wrap your tremor components in another component by using the `"use client"` directive. More infos on the directive and the usage of third-party libraries in Next.js 13 can be found in the [Next.js docs](https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages).
+
+If you get the following error while using the `app` directory: `TypeError: Super expression must either be null or a function`, then add the [`serverComponentsExternalPackages`](https://beta.nextjs.org/docs/api-reference/next.config.js#servercomponentsexternalpackages) to your `next.config.js`
+
+```diff
+const nextConfig = {
+  experimental: {
+    appDir: true,
++    serverComponentsExternalPackages: ['@tremor/react'],
+  },
+}
+```
+
+<br>
+
+## Using Create React App
+
+In your terminal, we create a new React project:
+
+```bash
+npx create-react-app my-project --template typescript
+cd my-project
+```
+*Using the `--template typescript` option is optional here.*
+
+<br>
+
+Install tremor from your command line via npm.
+
+```bash
+npm install @tremor/react
+```
+
+<br>
+
+Import the tremor stylesheet into the `App.js` / `App.tsx`  file:
+```tsx
+import '@tremor/react/dist/esm/tremor.css';
+```
+*Note, if you are importing other CSS files along with `tremor.css`, make sure to add the above import statement as the last one, in order to avoid unintentional CSS conflicts.*
+<br>
+
+Finally, run the dev server.
+```bash
+npm start
+```
+
 <br>
 <br>
 
@@ -135,7 +146,6 @@ With tremor creating an analytical interface is easy.
 ```jsx
 //Card.tsx
 import { Card, Text, Metric, Flex, ProgressBar } from "@tremor/react";
-
 export default () => (
   <Card maxWidth="max-w-sm">
     <Text>Sales</Text>

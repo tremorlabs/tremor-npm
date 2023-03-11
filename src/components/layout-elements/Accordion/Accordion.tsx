@@ -1,9 +1,11 @@
 import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { border, borderRadius, getColorClassNames } from "lib";
+import { border, borderRadius, getColorClassNames, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeAccordionClassName = makeClassName("Accordion");
 
 interface ExpandedContextValue {
   isExpanded: boolean;
@@ -29,6 +31,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
     <div
       ref={ref}
       className={twMerge(
+        makeAccordionClassName("root"),
         "overflow-hidden",
         getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
         getColorClassNames("white").bgColor,
