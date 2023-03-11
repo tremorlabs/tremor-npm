@@ -1,7 +1,7 @@
 {
-  "name": "alpha-trm-v2",
-  "version": "1.0.26",
-  "description": "",
+  "name": "@tremor/react",
+  "version": "0.0.0-development",
+  "description": "The React library to build dashboards faster.",
   "scripts": {
     "rollup": "rollup -c",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
@@ -12,7 +12,16 @@
     "semantic-release": "semantic-release",
     "storybook": "start-storybook -p 6006"
   },
-  "author": "trm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tremorlabs/tremor.git"
+  },
+  "author": "tremor",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/tremorlabs/tremor/issues"
+  },
+  "homepage": "https://github.com/tremorlabs/tremor#readme",
   "dependencies": {
     "@floating-ui/react": "^0.19.1",
     "date-fns": "^2.28.0",
