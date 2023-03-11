@@ -1,48 +1,40 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  classNames,
-  parseMarginTop,
-} from "lib";
-import { MarginTop } from "../../../lib";
+import { border, borderRadius, boxShadow, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
 
-export interface AccordionListProps {
-  shadow?: boolean;
-  marginTop?: MarginTop;
+const makeAccordionListClassName = makeClassName("AccordionList");
+
+export interface AccordionListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const AccordionList = ({
-  shadow = true,
-  marginTop = "mt-0",
-  children,
-}: AccordionListProps) => {
+const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((props, ref) => {
+  const { children, className, ...other } = props;
   const numChildren = React.Children.count(children);
 
   return (
     <div
-      className={classNames(
-        "tremor-base",
-        parseMarginTop(marginTop),
+      ref={ref}
+      className={twMerge(
+        makeAccordionListClassName("root"),
         borderRadius.lg.all,
-        shadow ? boxShadow.md : ""
+        boxShadow.md,
+        className,
       )}
+      {...other}
     >
       {React.Children.map(children, (child, idx) => {
         if (idx === 0) {
           return (
             <RootStylesContext.Provider
-              value={classNames(
+              value={twMerge(
                 borderRadius.lg.top,
                 border.sm.left,
                 border.sm.top,
                 border.sm.right,
                 border.sm.bottom,
-                boxShadow.none
               )}
             >
               {React.cloneElement(child)}
@@ -52,12 +44,11 @@ const AccordionList = ({
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={classNames(
+              value={twMerge(
                 borderRadius.lg.bottom,
                 border.sm.left,
                 border.sm.right,
                 border.sm.bottom,
-                boxShadow.none
               )}
             >
               {React.cloneElement(child)}
@@ -66,12 +57,7 @@ const AccordionList = ({
         }
         return (
           <RootStylesContext.Provider
-            value={classNames(
-              border.sm.left,
-              border.sm.right,
-              border.sm.bottom,
-              boxShadow.none
-            )}
+            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom)}
           >
             {React.cloneElement(child)}
           </RootStylesContext.Provider>
@@ -79,6 +65,6 @@ const AccordionList = ({
       })}
     </div>
   );
-};
+});
 
 export default AccordionList;

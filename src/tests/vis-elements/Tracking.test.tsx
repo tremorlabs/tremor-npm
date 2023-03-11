@@ -10,7 +10,7 @@ describe("Tracking", () => {
       <Tracking>
         <TrackingBlock color="green" />
         <TrackingBlock color="green" />
-      </Tracking>
+      </Tracking>,
     );
   });
 });

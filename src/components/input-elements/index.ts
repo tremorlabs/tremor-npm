@@ -5,6 +5,5 @@ export * from "./Tab";
 export * from "./Toggle";
 
 export { default as Button } from "./Button";
-export { default as ButtonInline } from "./ButtonInline";
-export * from "./Datepicker";
+export * from "./DateRangePicker";
 export { default as TextInput } from "./TextInput";

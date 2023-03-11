@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import {
   Button,
   Card,
-  Datepicker,
+  DateRangePicker,
   Flex,
   MultiSelectBox,
   MultiSelectBoxItem,
@@ -28,20 +28,20 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
   <form>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
-        <Datepicker />
+        <DateRangePicker />
         <SimpleMultiSelectBox {...args} />
         <SimpleSelectBox icon={CalendarIcon} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <SimpleMultiSelectBox {...args} />
     </Card>
-    <Title marginTop="mt-5">With Black Background</Title>
+    <Title className="mt-5">With Black Background</Title>
     <Card>
-      <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+      <div className="flex items-center bg-black h-24">
         <SimpleMultiSelectBox {...args} />
       </div>
     </Card>
@@ -51,22 +51,22 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
 const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
   <>
     <Card>
-      <Text marginTop="mt-2">Justify Start</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-5">Justify Start</Text>
+      <Flex justifyContent="start" className="mt-2">
         <SimpleMultiSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-5">Justify End</Text>
+      <Flex justifyContent="end" className="mt-2">
         <SimpleMultiSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-2">Justify End with inner div</Text>
+      <Flex justifyContent="end" className="mt-2">
         <div>
           <SimpleMultiSelectBox {...args} />
         </div>
       </Flex>
-      <Text marginTop="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start with inner div</Text>
+      <Flex justifyContent="start" className="mt-2">
         <div>
           <SimpleMultiSelectBox {...args} />
         </div>
@@ -75,46 +75,45 @@ const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
   </>
 );
 
-const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> =
-  () => {
-    const [value, setValue] = useState<number[]>([]);
-    console.log("OUTER", value);
-    return (
-      <Card>
-        <MultiSelectBox
-          value={value}
-          onValueChange={(values) => {
-            setValue(values);
-            alert(values);
-          }}
-        >
-          <MultiSelectBoxItem value={5} text={"Five"} />
-          <MultiSelectBoxItem value={3} text={"Three"} />
-          <MultiSelectBoxItem value={1} text={"One"} />
-        </MultiSelectBox>
-        <Button text="Reset" onClick={() => setValue([])} />
-        <Button text="Set to One" onClick={() => setValue([1])} />
-      </Card>
-    );
-  };
+const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () => {
+  const [value, setValue] = useState<string[]>([]);
+  console.log("OUTER", value);
+  return (
+    <Card>
+      <MultiSelectBox
+        value={value}
+        onValueChange={(values) => {
+          setValue(values);
+          alert(values);
+        }}
+      >
+        <MultiSelectBoxItem value={"5"} text={"Five"} />
+        <MultiSelectBoxItem value={"3"} text={"Three"} />
+        <MultiSelectBoxItem value={"1"} text={"One"} />
+      </MultiSelectBox>
+      <Button onClick={() => setValue([])}>Reset</Button>
+      <Button onClick={() => setValue(["1"])}>Set to One</Button>
+    </Card>
+  );
+};
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-  maxWidth: "max-w-xs",
-  handleSelect: (values) => console.log(values),
+  className: "max-w-xs",
+  onValueChange: (values) => console.log(values),
 };
 
 export const WithDefaultValues = ResponsiveTemplate.bind({});
 WithDefaultValues.args = {
-  defaultValues: [5, 1],
+  defaultValue: ["5", "1"],
 };
 
 export const WithIcon = ResponsiveTemplate.bind({});
 WithIcon.args = {
   icon: CalendarIcon,
-  defaultValues: [5, 1],
+  defaultValue: ["5", "1"],
 };
 
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});

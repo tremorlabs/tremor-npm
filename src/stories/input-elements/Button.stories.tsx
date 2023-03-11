@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
 
-import { BaseColors, Sizes as InputSizes } from "lib/primitives";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
-import { Card, ColGrid, Flex, Title } from "components";
+import { Card, Grid, Flex, Title } from "components";
 
 import { Button } from "components";
 
@@ -20,52 +20,50 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={5} gapY="gap-y-2">
+    <Grid numCols={5} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
-          <Button {...args} size={size} text="Button" />
-          <Button {...args} size={size} text="Button" icon={MyIcon} />
-          <Button
-            {...args}
-            size={size}
-            text="Button"
-            icon={MyIcon}
-            iconPosition="right"
-          />
-          <Button
-            {...args}
-            size={size}
-            text="Button"
-            variant="secondary"
-            icon={MyIcon}
-            iconPosition="left"
-          />
-          <Button
-            {...args}
-            size={size}
-            text="Button"
-            variant="light"
-            icon={MyIcon}
-            iconPosition="right"
-          />
+          <Button {...args} size={size}>
+            Button
+          </Button>
+          <Button {...args} size={size} icon={MyIcon}>
+            Button
+          </Button>
+          <Button {...args} size={size} icon={MyIcon} iconPosition="right">
+            Button
+          </Button>
+          <Button {...args} size={size} variant="secondary" icon={MyIcon} iconPosition="left">
+            Button
+          </Button>
+          <Button {...args} size={size} variant="light" icon={MyIcon} iconPosition="right">
+            Button
+          </Button>
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <ColGrid numCols={4} numColsLg={4} gapY="gap-y-2">
+    <Grid numCols={4} numColsLg={4} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <>
-          <Button {...args} color={color} text={color} />
-          <Button {...args} color={color} text={color} icon={MyIcon} />
-          <Button {...args} color={color} text={color} variant="secondary" />
-          <Button {...args} color={color} text={color} variant="light" />
+          <Button {...args} color={color}>
+            Button
+          </Button>
+          <Button {...args} color={color} icon={MyIcon}>
+            Button
+          </Button>
+          <Button {...args} color={color} variant="secondary">
+            Button
+          </Button>
+          <Button {...args} color={color} variant="light">
+            Button
+          </Button>
         </>
       ))}
-    </ColGrid>
+    </Grid>
   </Card>
 );
 
@@ -75,26 +73,24 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
     <div className="tr-w-64">
       <Card>
         <Flex>
-          <Button {...args} text="Button" icon={MyIcon} />
-          <Button
-            {...args}
-            text="Button"
-            icon={MyIcon}
-            importance={"secondary"}
-          />
+          <Button {...args} icon={MyIcon}>
+            Button
+          </Button>
+          <Button {...args} icon={MyIcon} variant={"secondary"}>
+            Button
+          </Button>
         </Flex>
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <Flex>
-        <Button {...args} text="Very Long Button Text" icon={MyIcon} />
-        <Button
-          {...args}
-          text="Very Long Button Text"
-          icon={MyIcon}
-          importance={"secondary"}
-        />
+        <Button {...args} icon={MyIcon}>
+          Button
+        </Button>
+        <Button {...args} icon={MyIcon} variant={"secondary"}>
+          Very Long Button Text
+        </Button>
       </Flex>
     </Card>
   </>
@@ -105,76 +101,43 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
 
   return (
     <Card>
-      <Button text="Click to Load" handleClick={() => setLoading(!loading)} />
-      <ColGrid numCols={3} gapY="gap-y-2" marginTop="mt-10">
+      <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
+      <Grid numCols={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
-            <Button size={size} text="Button" loading={loading} />
-            <Button size={size} text="Button" icon={MyIcon} loading={loading} />
-            <Button
-              size={size}
-              text="Button"
-              icon={MyIcon}
-              iconPosition="right"
-              loading={loading}
-            />
-            <Button
-              size={size}
-              text="Button"
-              importance="secondary"
-              loading={loading}
-            />
+            <Button size={size} loading={loading}>
+              Button
+            </Button>
+            <Button size={size} icon={MyIcon} loading={loading}>
+              Button
+            </Button>
+            <Button size={size} icon={MyIcon} iconPosition="right" loading={loading}>
+              Button
+            </Button>
+            <Button size={size} variant="secondary" loading={loading}>
+              Button
+            </Button>
           </>
         ))}
-      </ColGrid>
+      </Grid>
       <Title>With Loading Text</Title>
-      <ColGrid numCols={4} gapY="gap-y-2">
-        <Button text="Button" loading={loading} loadingText="Loading" />
-        <Button
-          text="Button"
-          icon={MyIcon}
-          loading={loading}
-          loadingText="Loading"
-        />
-        <Button
-          text="Button"
-          icon={MyIcon}
-          iconPosition="right"
-          loading={loading}
-          loadingText="Loading"
-        />
-        <Button
-          text="Button"
-          importance="secondary"
-          loading={loading}
-          loadingText="Loading"
-        />
-      </ColGrid>
+      <Grid numCols={4} className="gap-y-2">
+        <Button loading={loading} loadingText="Loading">
+          Button
+        </Button>
+        <Button icon={MyIcon} loading={loading} loadingText="Loading">
+          Button
+        </Button>
+        <Button icon={MyIcon} iconPosition="right" loading={loading} loadingText="Loading">
+          Button
+        </Button>
+        <Button variant="secondary" loading={loading} loadingText="Loading">
+          Button
+        </Button>
+      </Grid>
     </Card>
   );
 };
-
-const ButtonWithChildren: ComponentStory<typeof Button> = () => (
-  <Card>
-    <ColGrid numCols={1} gapY="gap-y-3" marginTop="mt-10">
-      <Button>Children only</Button>
-      <Button text="Text only" />
-      <Button text="Text is prefered">Children are prefered</Button>
-      <Button text="Text is prefered">
-        <span style={{ color: "red" }}>Button with span and text prop</span>
-      </Button>
-      <Button text="Text is prefered">
-        <span style={{ color: "red" }}>Button with span and text prop</span>
-      </Button>
-      <Button text="Text is prefered" icon={MyIcon}>
-        <span style={{ color: "red" }}>Button with span and icon prop</span>
-      </Button>
-      <Button text="Text is prefered" icon={MyIcon} iconPosition="right">
-        <span style={{ color: "red" }}>Button with span and icon prop</span>
-      </Button>
-    </ColGrid>
-  </Card>
-);
 
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
@@ -183,7 +146,7 @@ Sizes.args = {
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
-  handleClick: () => console.log("clicked"),
+  onSelect: () => console.log("clicked"),
 };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
@@ -197,7 +160,5 @@ export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
   disabled: true,
 };
-
-export const WithChildren = ButtonWithChildren.bind({});
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

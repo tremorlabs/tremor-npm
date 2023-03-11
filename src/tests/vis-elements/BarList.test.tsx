@@ -19,7 +19,7 @@ describe("BarList", () => {
           },
           { name: "/documentation", value: 91 },
         ]}
-      />
+      />,
     );
   });
 });
