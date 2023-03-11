@@ -22,6 +22,7 @@ type BarListData = {
   name: string;
   icon?: React.ElementType;
   href?: string;
+  target?: string;
 };
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -105,7 +106,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 {item.href ? (
                   <a
                     href={item.href}
-                    target="_blank"
+                    target={item.target ?? "_blank"}
                     rel="noreferrer"
                     className={twMerge(
                       makeBarListClassName("barLink"),
