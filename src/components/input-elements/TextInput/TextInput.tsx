@@ -1,149 +1,160 @@
-import React from "react";
-
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
+import React, { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import {
   BaseColors,
   border,
   borderRadius,
   boxShadow,
-  classNames,
-  colorTheme,
-  defaultColors,
+  colorClassNames,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseMaxWidth,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import { ExclamationFilledIcon } from "assets";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeTextInputClassName = makeClassName("TextInput");
 
 const getTextColor = (error: boolean, disabled: boolean) => {
-  if (error)
-    return getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].text)
-      .textColor;
-  if (disabled)
-    return getColorVariantsFromColorThemeValue(defaultColors.lightText)
-      .textColor;
-  return getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor;
+  if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
+  if (disabled) return getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor;
+  return getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
 };
 
-export interface TextInputProps {
-  id?: string;
-  name?: string;
+export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   defaultValue?: string;
   value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
-  maxWidth?: MaxWidth;
-  marginTop?: MarginTop;
 }
 
-const TextInput = ({
-  id,
-  name,
-  defaultValue,
-  value,
-  onChange,
-  placeholder = "Type...",
-  icon,
-  error = false,
-  errorMessage,
-  disabled = false,
-  maxWidth = "max-w-none",
-  marginTop = "mt-0",
-}: TextInputProps) => {
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+  const {
+    placeholder = "Type...",
+    icon,
+    error = false,
+    errorMessage,
+    disabled = false,
+    className,
+    ...other
+  } = props;
   const Icon = icon;
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
 
   const textColor = getTextColor(error, disabled);
   const bgColor = disabled
-    ? getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-        .bgColor
-    : getColorVariantsFromColorThemeValue(defaultColors.white).bgColor;
+    ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
+    : getColorClassNames("white").bgColor;
   const boderColor = error
-    ? getColorVariantsFromColorThemeValue(colorTheme[BaseColors.Rose].border)
-        .borderColor
-    : getColorVariantsFromColorThemeValue(defaultColors.border).borderColor;
+    ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
+    : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor;
+
+  const handleFocusChange = (isFocused: boolean) => {
+    if (isFocused === false) {
+      inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus();
+    }
+    setIsFocused(isFocused);
+  };
 
   return (
-    <div
-      className={classNames(
-        "tr-relative tr-w-full tr-flex tr-items-center tr-overflow-hidden tr-min-w-[10rem]",
-        parseMaxWidth(maxWidth),
-        parseMarginTop(marginTop),
-        bgColor,
-        boderColor,
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm
-      )}
-    >
-      {Icon ? (
-        <Icon
-          className={classNames(
-            "tr-shrink-0",
-            sizing.lg.height,
-            sizing.lg.width,
-            getColorVariantsFromColorThemeValue(defaultColors.lightText)
-              .textColor,
-            spacing.xl.marginLeft
-          )}
-          aria-hidden="true"
-        />
-      ) : null}
-      <input
-        id={id}
-        name={name}
-        type="text"
-        className={classNames(
-          "tremor-base input-elem",
-          "tr-w-full focus:tr-outline-none focus:tr-ring-0 tr-bg-inherit",
+    <>
+      <div
+        className={twMerge(
+          makeTextInputClassName("root"),
+          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
+          bgColor,
+          className,
+          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
+          boderColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
           textColor,
-          Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
-          error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
-          fontSize.sm,
-          fontWeight.md,
-          border.none.all,
-          "placeholder:tr-text-gray-500"
+          isFocused &&
+            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
         )}
-        defaultValue={defaultValue}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        disabled={disabled}
-      />
-      {error ? (
-        <Tooltip
-          content={errorMessage}
-          className={errorMessage ? "" : "tr-hidden"}
-          showOnCreate={true}
+        onClick={() => {
+          if (!disabled) {
+            handleFocusChange(true);
+          }
+        }}
+        onFocus={() => {
+          handleFocusChange(true);
+        }}
+        onBlur={() => {
+          handleFocusChange(false);
+        }}
+      >
+        {Icon ? (
+          <Icon
+            className={twMerge(
+              makeTextInputClassName("icon"),
+              "shrink-0",
+              sizing.lg.height,
+              sizing.lg.width,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+              spacing.xl.marginLeft,
+            )}
+            aria-hidden="true"
+          />
+        ) : null}
+        <input
+          ref={mergeRefs([ref, inputRef])}
+          type="text"
+          className={twMerge(
+            makeTextInputClassName("input"),
+            "w-full focus:outline-none focus:ring-0",
+            getColorClassNames("transparent").bgColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
+            spacing.sm.paddingY,
+            fontSize.sm,
+            fontWeight.md,
+            border.none.all,
+            "placeholder:text-gray-500",
+          )}
+          placeholder={placeholder}
+          disabled={disabled}
+          {...other}
+        />
+        {error ? (
+          <ExclamationFilledIcon
+            className={twMerge(
+              makeTextInputClassName("errorIcon"),
+              spacing.xl.marginRight,
+              sizing.lg.height,
+              sizing.lg.width,
+              colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+            )}
+            aria-hidden="true"
+          />
+        ) : null}
+      </div>
+      {errorMessage ? (
+        <p
+          className={twMerge(
+            makeTextInputClassName("errorMessage"),
+            "text-sm",
+            colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+          )}
         >
-          <div className={classNames(spacing.xl.marginRight)}>
-            <ExclamationFilledIcon
-              className={classNames(
-                sizing.lg.height,
-                sizing.lg.width,
-                getColorVariantsFromColorThemeValue(
-                  colorTheme[BaseColors.Rose].text
-                ).textColor
-              )}
-              aria-hidden="true"
-            />
-          </div>
-        </Tooltip>
+          {errorMessage}
+        </p>
       ) : null}
-    </div>
+    </>
   );
-};
+});
 
 export default TextInput;

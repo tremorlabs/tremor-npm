@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
@@ -6,58 +7,47 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { ArrowDownHeadIcon } from "assets";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
-  classNames,
   constructValueToNameMapping,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseMaxWidth,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
 import { DropdownItemProps } from "./DropdownItem";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface DropdownProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void;
+const makeDropdownClassName = makeClassName("Dropdown");
+
+export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
   placeholder?: string;
-  icon?: React.ElementType | React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
+  icon?: React.JSXElementConstructor<any>;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Dropdown = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: DropdownProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
-    );
-  }
-
-  const [selectedValue, setSelectedValue] = useInternalState(
+const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
+  const {
     defaultValue,
-    value
-  );
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    ...other
+  } = props;
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [isFocused, setIsFocused] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -66,12 +56,11 @@ const Dropdown = <T,>({
   const valueToNameMapping = constructValueToNameMapping(children);
   const optionValues = React.Children.map(
     children,
-    (child: { props: DropdownItemProps }) => child.props.value
+    (child: { props: DropdownItemProps }) => child.props.value,
   );
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     setSelectedValue(value);
-    handleSelect?.(value);
     setIsFocused(false);
     onValueChange?.(value);
   };
@@ -81,98 +70,83 @@ const Dropdown = <T,>({
     optionValues,
     isFocused,
     setIsFocused,
-    selectedValue as T
+    selectedValue,
   );
 
   return (
     <div
-      ref={dropdownRef}
+      ref={mergeRefs([dropdownRef, ref])}
       onKeyDown={handleKeyDown}
-      className={classNames(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
-        parseMaxWidth(maxWidth),
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-          .hoverBgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-        parseMarginTop(marginTop),
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm
-      )}
+      className={twMerge(makeDropdownClassName("root"), "relative w-full min-w-[10rem]", className)}
+      {...other}
     >
       <button
         type="button"
-        className={classNames(
-          "input-elem tr-flex tr-justify-between tr-items-center tr-w-full",
-          "focus:tr-outline-none focus:tr-ring-0",
+        className={twMerge(
+          makeDropdownClassName("button"),
+          "flex justify-between items-center w-full focus:outline-none focus:ring-2",
+          getColorClassNames("white").bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom
+          spacing.sm.paddingY,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
         )}
         onClick={() => setIsFocused(!isFocused)}
       >
-        <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
+        <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
-              className={classNames(
-                "tr-shrink-0",
+              className={twMerge(
+                makeDropdownClassName("icon"),
+                "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                  .textColor,
-                spacing.lg.marginRight
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                spacing.lg.marginRight,
               )}
               aria-hidden="true"
             />
           ) : null}
           <p
-            className={classNames(
-              "text-elem tr-whitespace-nowrap tr-truncate",
+            className={twMerge(
+              makeDropdownClassName("text"),
+              "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedValue
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                    .textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text)
-                    .textColor
+                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
-            {selectedValue
-              ? valueToNameMapping.get(selectedValue)
-              : placeholder}
+            {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
           </p>
         </div>
         <ArrowDownHeadIcon
-          className={classNames(
-            "tr-flex-none",
+          className={twMerge(
+            makeDropdownClassName("arrowDownIcon"),
+            "flex-none",
             sizing.lg.height,
             sizing.lg.width,
             spacing.twoXs.negativeMarginRight,
-            getColorVariantsFromColorThemeValue(defaultColors.lightText)
-              .textColor
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />
       </button>
-      <Modal
-        showModal={isFocused}
-        setShowModal={setIsFocused}
-        triggerRef={dropdownRef}
-      >
-        <SelectedValueContext.Provider
-          value={{ selectedValue, handleValueChange }}
-        >
+      <Modal showModal={isFocused} setShowModal={setIsFocused} parentRef={dropdownRef}>
+        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
           <HoveredValueContext.Provider value={{ hoveredValue }}>
-            {React.Children.map(children, (child: React.ReactElement) =>
-              React.cloneElement(child)
-            )}
+            {React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child))}
           </HoveredValueContext.Provider>
         </SelectedValueContext.Provider>
       </Modal>
     </div>
   );
-};
+});
 
 export default Dropdown;

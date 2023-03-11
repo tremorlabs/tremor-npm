@@ -2,16 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  Block,
-  Button,
-  Card,
-  Flex,
-  Text,
-  Title,
-  Toggle,
-  ToggleItem,
-} from "components";
+import { Button, Card, Flex, Text, Title, Toggle, ToggleItem } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
@@ -28,12 +19,12 @@ const SimpleToggle = (args: any) => (
   <form>
     <Toggle {...args}>
       <ToggleItem
-        value={5}
+        value={"5"}
         text={"This is a very Long Toggle Value that is used as an edge case"}
         icon={Icon}
       />
-      <ToggleItem value={3} text={"Three"} icon={Icon} />
-      <ToggleItem value={1} text={"One"} icon={Icon} />
+      <ToggleItem value={"3"} text={"Three"} icon={Icon} />
+      <ToggleItem value={"1"} text={"One"} icon={Icon} />
     </Toggle>
   </form>
 );
@@ -41,9 +32,9 @@ const SimpleToggle = (args: any) => (
 const SimpleToggleIconOnly = (args: any) => (
   <form>
     <Toggle {...args}>
-      <ToggleItem value={5} icon={Icon} />
-      <ToggleItem value={3} icon={Icon} />
-      <ToggleItem value={1} icon={Icon} />
+      <ToggleItem value={"5"} icon={Icon} />
+      <ToggleItem value={"3"} icon={Icon} />
+      <ToggleItem value={"1"} icon={Icon} />
     </Toggle>
   </form>
 );
@@ -51,20 +42,20 @@ const SimpleToggleIconOnly = (args: any) => (
 const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
-        <Block spaceY="space-y-2">
+        <div className="space-y-2">
           <SimpleToggle {...args} />
           <SimpleToggleIconOnly {...args} />
-        </Block>
+        </div>
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
-      <Block spaceY="space-y-2">
+      <div className="space-y-2">
         <SimpleToggle {...args} />
         <SimpleToggleIconOnly {...args} />
-      </Block>
+      </div>
     </Card>
   </>
 );
@@ -72,22 +63,22 @@ const ResponsiveTemplate: ComponentStory<typeof Toggle> = (args) => (
 const FlexTemplate: ComponentStory<typeof Toggle> = (args) => (
   <>
     <Card>
-      <Text marginTop="mt-2">Justify Start</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start</Text>
+      <Flex justifyContent="start" className="mt-2">
         <SimpleToggle {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-2">Justify End</Text>
+      <Flex justifyContent="end" className="mt-2">
         <SimpleToggle {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-2">Justify End with inner div</Text>
+      <Flex justifyContent="end" className="mt-2">
         <div>
           <SimpleToggle {...args} />
         </div>
       </Flex>
-      <Text marginTop="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start with inner div</Text>
+      <Flex justifyContent="start" className="mt-2">
         <div>
           <SimpleToggle {...args} />
         </div>
@@ -99,19 +90,19 @@ const FlexTemplate: ComponentStory<typeof Toggle> = (args) => (
 const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
   <>
     <Card>
-      <Block spaceY="space-y-2">
+      <div className="space-y-2">
         {Object.values(BaseColors).map((color) => (
-          <div>
+          <div key={color}>
             <SimpleToggle {...args} color={color} />
           </div>
         ))}
-      </Block>
+      </div>
     </Card>
   </>
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof Toggle> = () => {
-  const [value, setValue] = useState<number | null>(5);
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <Toggle
@@ -121,35 +112,35 @@ const WithControlledStateTemplate: ComponentStory<typeof Toggle> = () => {
           alert(value);
         }}
       >
-        <ToggleItem value={5} text={"Five"} />
-        <ToggleItem value={3} text={"Three"} />
-        <ToggleItem value={1} text={"One"} />
+        <ToggleItem value={"5"} text={"Five"} />
+        <ToggleItem value={"3"} text={"Three"} />
+        <ToggleItem value={"1"} text={"One"} />
       </Toggle>
-      <Button text="Reset" onClick={() => setValue(null)} />
-      <Button text="Set to One" onClick={() => setValue(1)} />
+      <Button onClick={() => setValue("")}>Text</Button>
+      <Button onClick={() => setValue("1")}>Set to one</Button>
     </Card>
   );
 };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
-  defaultValue: 5,
-  handleSelect: (value) => console.log(value),
+  defaultValue: "5",
+  onValueChange: (value) => console.log(value),
 };
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-  defaultValue: 5,
+  defaultValue: "5",
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-  defaultValue: 5,
+  defaultValue: "5",
 };
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
-  defaultValue: 5,
+  defaultValue: "5",
 };
 
 export const WithControlledState = WithControlledStateTemplate.bind({});

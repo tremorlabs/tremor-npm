@@ -1,37 +1,20 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
+import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
-import {
-  Pie,
-  PieChart as ReChartsDonutChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
-
-import {
-  Color,
-  Height,
-  MarginTop,
-  ValueFormatter,
-} from "../../../lib/inputTypes";
-import {
-  classNames,
-  defaultColors,
-  defaultValueFormatter,
-  getHexFromColorThemeValue,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
+import { DEFAULT_COLOR } from "lib/theme";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps {
+export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   category?: string;
-  dataKey?: string;
+  index?: string;
   colors?: Color[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
@@ -39,41 +22,29 @@ export interface DonutChartProps {
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
-  height?: Height;
-  marginTop?: MarginTop;
 }
 
-const DonutChart = ({
-  data = [],
-  category = "value",
-  dataKey = "name",
-  colors = themeColorRange,
-  variant = "donut",
-  valueFormatter = defaultValueFormatter,
-  label,
-  showLabel = true,
-  showAnimation = true,
-  showTooltip = true,
-  height = "h-44",
-  marginTop = "mt-0",
-}: DonutChartProps) => {
+const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
+  const {
+    data = [],
+    category = "value",
+    index = "name",
+    colors = themeColorRange,
+    variant = "donut",
+    valueFormatter = defaultValueFormatter,
+    label,
+    showLabel = true,
+    showAnimation = true,
+    showTooltip = true,
+    className,
+    ...other
+  } = props;
   const isDonut = variant == "donut";
 
-  const parsedLabelInput = parseLabelInput(
-    label,
-    valueFormatter,
-    data,
-    category
-  );
+  const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (
@@ -82,7 +53,7 @@ const DonutChart = ({
               y="50%"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill={getHexFromColorThemeValue(defaultColors.text)}
+              fill={hexColors[DEFAULT_COLOR]}
             >
               {parsedLabelInput}
             </text>
@@ -97,9 +68,9 @@ const DonutChart = ({
             outerRadius="100%"
             paddingAngle={0}
             dataKey={category}
-            nameKey={dataKey}
+            nameKey={index}
             isAnimationActive={showAnimation}
-          ></Pie>
+          />
           {showTooltip ? (
             <Tooltip
               wrapperStyle={{ outline: "none" }}
@@ -116,6 +87,6 @@ const DonutChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default DonutChart;

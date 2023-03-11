@@ -5,7 +5,6 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Card } from "components";
 
 import Tracking from "components/vis-elements/Tracking/Tracking";
-import TrackingBlock from "components/vis-elements/Tracking/TrackingBlock";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -16,38 +15,32 @@ export default {
 
 const Template: ComponentStory<typeof Tracking> = () => (
   <Card>
-    <Tracking>
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="yellow" tooltip="Tracking Info" />
-      <TrackingBlock color="emerald" tooltip="Tracking Info" />
-      <TrackingBlock color="red" tooltip="Tracking Info" />
-    </Tracking>
+    <Tracking
+      data={[
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "yellow", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "red", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "yellow", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "red", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "yellow", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+        { color: "emerald", tooltip: "Tracking Info" },
+      ]}
+    />
   </Card>
 );
 
