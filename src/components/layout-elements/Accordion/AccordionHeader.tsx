@@ -42,29 +42,16 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
         {children}
       </div>
       <div>
-        {isExpanded ? (
-          <ArrowUpHeadIcon
-            className={twMerge(
-              "transition-all",
-              makeAccordionHeaderClassName("arrowIcon"),
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-              spacing.twoXs.negativeMarginRight,
-              sizing.xl.height,
-              sizing.xl.width,
-            )}
-          />
-        ) : (
-          <ArrowUpHeadIcon
-            className={twMerge(
-              "transition-all -rotate-180",
-              makeAccordionHeaderClassName("arrowIcon"),
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-              spacing.twoXs.negativeMarginRight,
-              sizing.xl.height,
-              sizing.xl.width,
-            )}
-          />
-        )}
+        <ArrowUpHeadIcon
+          className={twMerge(
+            makeAccordionHeaderClassName("arrowIcon"),
+            isExpanded ? "transition-all" : "transition-all -rotate-180",
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            spacing.twoXs.negativeMarginRight,
+            sizing.xl.height,
+            sizing.xl.width,
+          )}
+        />
       </div>
     </button>
   );
