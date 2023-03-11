@@ -102,7 +102,7 @@ const ColorsTemplate: ComponentStory<typeof Toggle> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof Toggle> = () => {
-  const [value, setValue] = useState<string | undefined>("5");
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <Toggle
@@ -116,7 +116,7 @@ const WithControlledStateTemplate: ComponentStory<typeof Toggle> = () => {
         <ToggleItem value={"3"} text={"Three"} />
         <ToggleItem value={"1"} text={"One"} />
       </Toggle>
-      <Button onClick={() => setValue(undefined)}>Text</Button>
+      <Button onClick={() => setValue("")}>Text</Button>
       <Button onClick={() => setValue("1")}>Set to one</Button>
     </Card>
   );

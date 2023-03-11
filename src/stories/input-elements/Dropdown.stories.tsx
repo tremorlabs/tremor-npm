@@ -76,7 +76,7 @@ const FlexTemplate: ComponentStory<typeof Dropdown> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
-  const [value, setValue] = useState<string | undefined>("5");
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <Dropdown
@@ -90,7 +90,7 @@ const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
         <DropdownItem value={"3"} text={"Three"} />
         <DropdownItem value={"1"} text={"One"} />
       </Dropdown>
-      <Button onClick={() => setValue(undefined)}>Reset</Button>
+      <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>Set to One</Button>
     </Card>
   );

@@ -80,7 +80,7 @@ const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof TabList> = () => {
-  const [value, setValue] = useState<string | undefined>("5");
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <TabList
@@ -94,7 +94,7 @@ const WithControlledStateTemplate: ComponentStory<typeof TabList> = () => {
         <Tab value={"3"} text={"Three"} />
         <Tab value={"1"} text={"One"} />
       </TabList>
-      <Button onClick={() => setValue(undefined)}>Reset</Button>
+      <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>
     </Card>
   );
