@@ -1,7 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
+import { makeClassName } from "lib";
 import { AlignItems, FlexDirection, JustifyContent } from "../../../lib";
+
+const makeFlexClassName = makeClassName("Flex");
 
 const justifyContentClassNames: { [key in JustifyContent]: string } = {
   start: "justify-start",
@@ -48,6 +51,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
     <div
       ref={ref}
       className={twMerge(
+        makeFlexClassName("root"),
         "flex w-full",
         flexDirectionClassNames[flexDirection],
         justifyContentClassNames[justifyContent],

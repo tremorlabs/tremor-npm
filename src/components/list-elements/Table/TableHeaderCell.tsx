@@ -1,8 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { fontWeight, getColorClassNames, spacing } from "lib";
+import { fontWeight, getColorClassNames, makeClassName, spacing } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
 const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
@@ -14,6 +16,7 @@ const TableHeaderCell = React.forwardRef<
       <th
         ref={ref}
         className={twMerge(
+          makeTableHeaderCellClassName("root"),
           "sticky whitespace-nowrap text-left",
           getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
           spacing.none.top,

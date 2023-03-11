@@ -2,6 +2,9 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { GridClassesMapping, colSpan, colSpanLg, colSpanMd, colSpanSm } from "./styles";
+import { makeClassName } from "lib";
+
+const makeColClassName = makeClassName("Col");
 
 export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
   numColSpan?: number;
@@ -39,7 +42,11 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>((props, ref) => {
   };
 
   return (
-    <div ref={ref} className={twMerge(getColSpanClassNames(), className)} {...other}>
+    <div
+      ref={ref}
+      className={twMerge(makeColClassName("root"), getColSpanClassNames(), className)}
+      {...other}
+    >
       {children}
     </div>
   );

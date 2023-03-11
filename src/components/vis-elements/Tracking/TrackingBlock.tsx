@@ -5,6 +5,7 @@ import { Color } from "../../../lib/inputTypes";
 import { borderRadius, getColorClassNames, mergeRefs } from "lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { makeTrackingClassName } from "./Tracking";
 
 export interface TrackingBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   color: Color;
@@ -20,6 +21,7 @@ const TrackingBlock = React.forwardRef<HTMLDivElement, TrackingBlockProps>((prop
     <div
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={twMerge(
+        makeTrackingClassName("trackingBlock"),
         "w-full h-full",
         getColorClassNames(color, colorPalette.background).bgColor,
         borderRadius.md.all,

@@ -1,10 +1,12 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, borderRadius, getColorClassNames, sizing } from "lib";
+import { BaseColors, borderRadius, getColorClassNames, makeClassName, sizing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+
+const makeMarkerBarClassName = makeClassName("MarkerBar");
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
@@ -34,6 +36,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       <div
         ref={ref}
         className={twMerge(
+          makeMarkerBarClassName("root"),
           "relative flex items-center w-full",
           secondaryBgColor,
           sizing.xs.height,
@@ -45,6 +48,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         <div
           ref={tooltipProps.refs.setReference}
           className={twMerge(
+            makeMarkerBarClassName("markerWrapper"),
             "absolute right-1/2 -translate-x-1/2",
             sizing.lg.width, // wide transparent wrapper for tooltip activation
           )}
@@ -56,6 +60,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         >
           <div
             className={twMerge(
+              makeMarkerBarClassName("marker"),
               "ring-2 mx-auto",
               primaryBgColor,
               getColorClassNames("white").ringColor,

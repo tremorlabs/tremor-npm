@@ -26,7 +26,7 @@ import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
+const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
 
 export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string[];

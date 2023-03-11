@@ -2,6 +2,9 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
+import { makeClassName } from "lib";
+
+const makeGridClassName = makeClassName("Grid");
 
 export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   numCols?: number;
@@ -33,7 +36,11 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   };
 
   return (
-    <div ref={ref} className={twMerge("grid", getColClassNames(), className)} {...other}>
+    <div
+      ref={ref}
+      className={twMerge(makeGridClassName("root"), "grid", getColClassNames(), className)}
+      {...other}
+    >
       {children}
     </div>
   );

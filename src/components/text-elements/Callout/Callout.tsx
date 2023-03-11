@@ -8,11 +8,14 @@ import {
   fontSize,
   fontWeight,
   getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
+
+const makeCalloutClassName = makeClassName("Callout");
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -28,6 +31,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
     <div
       ref={ref}
       className={twMerge(
+        makeCalloutClassName("root"),
         "flex flex-col overflow-hidden",
         getColorClassNames(color, colorPalette.canvasBackground).bgColor,
         getColorClassNames(color, colorPalette.darkBorder).borderColor,
@@ -43,6 +47,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
     >
       <div
         className={twMerge(
+          makeCalloutClassName("header"),
           "flex items-start",
           getColorClassNames(color, colorPalette.darkText).textColor,
         )}
@@ -50,6 +55,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
         {Icon ? (
           <Icon
             className={twMerge(
+              makeCalloutClassName("icon"),
               "flex-none",
               sizing.lg.height,
               sizing.lg.width,
@@ -58,10 +64,13 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
             aria-hidden="true"
           />
         ) : null}
-        <h4 className={twMerge("text-elem", fontWeight.lg)}>{title}</h4>
+        <h4 className={twMerge(makeCalloutClassName("title"), "text-elem", fontWeight.lg)}>
+          {title}
+        </h4>
       </div>
       <p
         className={twMerge(
+          makeCalloutClassName("body"),
           "overflow-y-auto",
           getColorClassNames(color, colorPalette.darkText).textColor,
           spacing.sm.marginTop,

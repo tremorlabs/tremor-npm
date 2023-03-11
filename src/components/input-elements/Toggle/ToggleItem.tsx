@@ -3,9 +3,19 @@ import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import { borderRadius, boxShadow, fontSize, getColorClassNames, sizing, spacing } from "lib";
+import {
+  borderRadius,
+  boxShadow,
+  fontSize,
+  getColorClassNames,
+  makeClassName,
+  sizing,
+  spacing,
+} from "lib";
 
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeToggleItemClassName = makeClassName("ToggleItem");
 
 export interface ToggleItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -38,6 +48,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
       ref={ref}
       type="button"
       className={twMerge(
+        makeToggleItemClassName("root"),
         "flex items-center ring-1",
         spacing.lg.paddingX,
         spacing.xs.paddingY,
@@ -55,6 +66,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
       {Icon ? (
         <Icon
           className={twMerge(
+            makeToggleItemClassName("icon"),
             "opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,
@@ -63,7 +75,11 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
           aria-hidden="true"
         />
       ) : null}
-      {text ? <span className="text-sm whitespace-nowrap">{text}</span> : null}
+      {text ? (
+        <span className={twMerge(makeToggleItemClassName(text), "text-sm whitespace-nowrap")}>
+          {text}
+        </span>
+      ) : null}
     </button>
   );
 });

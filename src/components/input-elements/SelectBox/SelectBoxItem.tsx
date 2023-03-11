@@ -6,8 +6,10 @@ import { HoveredValueContext, SelectedValueContext } from "contexts";
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
-import { getColorClassNames } from "lib";
+import { getColorClassNames, makeClassName } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeSelectBoxItemClassName = makeClassName("SelectBoxItem");
 
 export interface SelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -32,6 +34,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
         onClick?.(e);
       }}
       className={twMerge(
+        makeSelectBoxItemClassName("root"),
         "flex items-center justify-start w-full truncate",
         spacing.twoXl.paddingX,
         spacing.md.paddingY,
@@ -52,6 +55,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
       {Icon ? (
         <Icon
           className={twMerge(
+            makeSelectBoxItemClassName("icon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
@@ -61,7 +65,14 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
           aria-hidden="true"
         />
       ) : null}
-      <p className="text-sm whitespace-nowrap truncate">{text ?? value}</p>
+      <p
+        className={twMerge(
+          makeSelectBoxItemClassName("text"),
+          "text-sm whitespace-nowrap truncate",
+        )}
+      >
+        {text ?? value}
+      </p>
     </button>
   );
 });

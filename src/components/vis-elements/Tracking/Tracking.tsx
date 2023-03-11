@@ -1,9 +1,11 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { spacing } from "lib";
+import { makeClassName, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import TrackingBlock from "./TrackingBlock";
+
+export const makeTrackingClassName = makeClassName("Tracking");
 
 export interface TrackingBlockProps {
   key?: string;
@@ -20,7 +22,12 @@ const Tracking = React.forwardRef<HTMLDivElement, TrackingProps>((props, ref) =>
   return (
     <div
       ref={ref}
-      className={twMerge("w-full flex items-center h-10", spacing.threeXs.spaceX, className)}
+      className={twMerge(
+        makeTrackingClassName("root"),
+        "w-full flex items-center h-10",
+        spacing.threeXs.spaceX,
+        className,
+      )}
       {...other}
     >
       {children ??

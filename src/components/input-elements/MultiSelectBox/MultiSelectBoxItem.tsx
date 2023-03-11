@@ -10,10 +10,13 @@ import {
   fontSize,
   getColorClassNames,
   isValueInArray,
+  makeClassName,
   spacing,
 } from "lib";
 
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeMultiSelectBoxItenClassName = makeClassName("MultiSelectBoxItem");
 
 export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -38,6 +41,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           onClick?.(e);
         }}
         className={twMerge(
+          makeMultiSelectBoxItenClassName("root"),
           "flex items-center justify-start w-full",
           spacing.twoXl.paddingX,
           spacing.md.paddingY,
@@ -52,6 +56,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
         <input
           type="checkbox"
           className={twMerge(
+            makeMultiSelectBoxItenClassName("checkbox"),
             "flex-none focus:ring-none focus:outline-none cursor-pointer",
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).focusRingColor,
             colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
@@ -63,7 +68,14 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           checked={isActive}
           readOnly={true}
         />
-        <p className="text-sm whitespace-nowrap truncate">{text ?? value}</p>
+        <p
+          className={twMerge(
+            makeMultiSelectBoxItenClassName("text"),
+            "text-sm whitespace-nowrap truncate",
+          )}
+        >
+          {text ?? value}
+        </p>
       </button>
     );
   },

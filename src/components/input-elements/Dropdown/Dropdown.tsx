@@ -25,7 +25,7 @@ import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/util-elements/Modal";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export const makeDropdownClassName = makeClassName("Dropdown");
+const makeDropdownClassName = makeClassName("Dropdown");
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;

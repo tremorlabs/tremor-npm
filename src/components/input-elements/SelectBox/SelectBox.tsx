@@ -17,6 +17,7 @@ import {
   fontWeight,
   getColorClassNames,
   getFilteredOptions,
+  makeClassName,
   mergeRefs,
   sizing,
   spacing,
@@ -24,6 +25,8 @@ import {
 import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeSelectBoxClassName = makeClassName("SelectBox");
 
 export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -114,6 +117,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     >
       <div
         className={twMerge(
+          makeSelectBoxClassName("root"),
           "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
           getColorClassNames("white").bgColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
@@ -133,6 +137,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         {Icon ? (
           <Icon
             className={twMerge(
+              makeSelectBoxClassName("icon"),
               "shrink-0 bg-inherit",
               sizing.lg.height,
               sizing.lg.width,
@@ -146,6 +151,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           ref={inputRef}
           type="text"
           className={twMerge(
+            makeSelectBoxClassName("input"),
             "w-full focus:outline-none focus:ring-0 bg-inherit",
             getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
@@ -163,6 +169,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         />
         <ArrowDownHeadIcon
           className={twMerge(
+            makeSelectBoxClassName("arrowDownIcon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
