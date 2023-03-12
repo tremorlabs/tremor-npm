@@ -16,12 +16,12 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <AreaChart {...args} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <AreaChart {...args} />
     </Card>
@@ -39,7 +39,7 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
 };
 
 export const WithStacked = ResponsiveTemplate.bind({});
@@ -47,7 +47,7 @@ export const WithStacked = ResponsiveTemplate.bind({});
 WithStacked.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   stack: true,
 };
 
@@ -56,9 +56,9 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 WithValueFormatter.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   valueFormatter: valueFormatter,
-  colors: ["blue", "green"],
+  colors: ["red", "green"],
 };
 
 export const WithAutoMinValue = ResponsiveTemplate.bind({});
@@ -66,7 +66,7 @@ export const WithAutoMinValue = ResponsiveTemplate.bind({});
 WithAutoMinValue.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   autoMinValue: true,
 };
 
@@ -75,7 +75,7 @@ export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
 WithMinValueAndMaxValue.args = {
   data: data,
   categories: ["Sales", "Successfull Payments"],
-  dataKey: "month",
+  index: "month",
   minValue: -1000,
   maxValue: 4000,
 };
@@ -85,7 +85,7 @@ export const WithCustomColors = DefaultTemplate.bind({});
 WithCustomColors.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   colors: ["blue", "green"],
 };
 
@@ -94,7 +94,7 @@ export const WithNoGradient = DefaultTemplate.bind({});
 WithNoGradient.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   showGradient: false,
 };
 
@@ -102,14 +102,14 @@ export const WithChangedCategoriesOrder = DefaultTemplate.bind({});
 WithChangedCategoriesOrder.args = {
   data: data,
   categories: ["Successful Payments", "Sales"],
-  dataKey: "month",
+  index: "month",
 };
 
 export const WithLessColorsThanCategories = DefaultTemplate.bind({});
 WithLessColorsThanCategories.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
   colors: ["green"],
 };
 
@@ -117,7 +117,7 @@ export const WithLongValues = ResponsiveTemplate.bind({});
 WithLongValues.args = {
   data: data,
   categories: ["This is an edge case"],
-  dataKey: "month",
+  index: "month",
   valueFormatter: valueFormatter,
 };
 
@@ -125,7 +125,7 @@ export const WithMultipleCategories = ResponsiveTemplate.bind({});
 WithMultipleCategories.args = {
   data: data,
   categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
-  dataKey: "month",
+  index: "month",
   valueFormatter: valueFormatter,
 };
 
@@ -133,13 +133,13 @@ export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
   categories: ["Sales", "Successful Payments"],
-  dataKey: "month",
+  index: "month",
 };
 
 export const WithNoCategories = DefaultTemplate.bind({});
 WithNoCategories.args = {
   data: data,
-  dataKey: "month",
+  index: "month",
 };
 
 export const WithNoDataKey = DefaultTemplate.bind({});

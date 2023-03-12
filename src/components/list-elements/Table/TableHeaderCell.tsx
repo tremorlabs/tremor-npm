@@ -1,42 +1,36 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  TextAlignments,
-  classNames,
-  defaultColors,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseTextAlignment,
-  spacing,
-} from "lib";
-import { TextAlignment } from "../../../lib/inputTypes";
+import { fontWeight, getColorClassNames, makeClassName, spacing } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-interface TableHeaderCellProps {
-  textAlignment?: TextAlignment;
-  children: React.ReactNode;
-}
+const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
-const TableHeaderCell = ({
-  textAlignment = TextAlignments.Left,
-  children,
-}: TableHeaderCellProps) => (
-  <>
-    <th
-      className={classNames(
-        "tr-sticky tr-whitespace-nowrap",
-        parseTextAlignment(textAlignment),
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        spacing.none.top,
-        spacing.twoXl.paddingLeft,
-        spacing.twoXl.paddingRight,
-        spacing.xl.paddingTop,
-        spacing.xl.paddingBottom,
-        fontWeight.lg
-      )}
-    >
-      {children}
-    </th>
-  </>
-);
+const TableHeaderCell = React.forwardRef<
+  HTMLTableCellElement,
+  React.HTMLAttributes<HTMLTableCellElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
+  return (
+    <>
+      <th
+        ref={ref}
+        className={twMerge(
+          makeTableHeaderCellClassName("root"),
+          "sticky whitespace-nowrap text-left",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          spacing.none.top,
+          spacing.twoXl.paddingX,
+          spacing.xl.paddingY,
+          fontWeight.lg,
+          className,
+        )}
+        {...other}
+      >
+        {children}
+      </th>
+    </>
+  );
+});
 
 export default TableHeaderCell;

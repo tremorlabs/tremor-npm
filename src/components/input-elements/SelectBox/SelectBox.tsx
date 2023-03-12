@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { ArrowDownHeadIcon } from "assets";
 
@@ -6,63 +7,53 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
-  classNames,
   constructValueToNameMapping,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
+  getColorClassNames,
   getFilteredOptions,
-  parseMarginTop,
-  parseMaxWidth,
+  makeClassName,
+  mergeRefs,
   sizing,
   spacing,
 } from "lib";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface SelectBoxProps<T> {
-  defaultValue?: T;
-  value?: T;
-  onValueChange?: (value: T) => void;
-  handleSelect?: (value: any) => void; // Deprecated
+const makeSelectBoxClassName = makeClassName("SelectBox");
+
+export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const SelectBox = <T,>({
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: SelectBoxProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
-    );
-  }
-
-  const [selectedValue, setSelectedValue] = useInternalState(
+const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) => {
+  const {
     defaultValue,
-    value
-  );
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    onKeyDown,
+    ...other
+  } = props;
+
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [isSelectBoxHovered, setIsSelectBoxHovered] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -70,37 +61,35 @@ const SelectBox = <T,>({
   const valueToNameMapping = constructValueToNameMapping(children);
 
   useEffect(() => {
-    setInputValue(valueToNameMapping.get(selectedValue) || "");
-  }, [selectedValue]);
+    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
+  }, [selectedValue, valueToNameMapping]);
 
-  const options = React.Children.map(
-    children,
-    (child: { props: SelectBoxItemProps }) => ({ ...child.props })
-  );
+  const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
+    ...child.props,
+  }));
 
   const filteredOptions = getFilteredOptions(searchQuery, options);
 
-  const filteredOptionTexts = new Set(
-    filteredOptions.map((option) => option.text)
-  );
+  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
   const filteredOptionValues = filteredOptions.map((option) => option.value);
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
       inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus();
     }
     setIsFocused(isFocused);
   };
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     setSearchQuery("");
-    setInputValue(valueToNameMapping.get(selectedValue) || "");
+    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
     handleFocusChange(false);
     setSelectedValue(value);
     inputRef.current?.blur();
 
     onValueChange?.(value);
-    handleSelect?.(value);
   };
 
   const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,99 +102,93 @@ const SelectBox = <T,>({
     filteredOptionValues,
     isFocused,
     handleFocusChange,
-    selectedValue
+    selectedValue,
   );
 
   return (
     <div
-      ref={dropdownRef}
-      onClick={() => handleFocusChange(!isFocused)}
-      onKeyDown={handleKeyDown}
-      className={classNames(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
-        parseMaxWidth(maxWidth),
-        parseMarginTop(marginTop),
-        !isSelectBoxHovered
-          ? getColorVariantsFromColorThemeValue(defaultColors.white).bgColor
-          : getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-              .bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm
-      )}
-      onMouseEnter={() => setIsSelectBoxHovered(true)}
-      onMouseLeave={() => setIsSelectBoxHovered(false)}
+      ref={mergeRefs([dropdownRef, ref])}
+      onKeyDown={(e) => {
+        handleKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      className={twMerge("relative w-full min-w-[10rem]", className)}
+      {...other}
     >
-      <div className="tr-flex tr-items-center overflow-hidden">
+      <div
+        className={twMerge(
+          makeSelectBoxClassName("root"),
+          "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
+          getColorClassNames("white").bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+          isFocused &&
+            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+        )}
+        onClick={(e) => {
+          handleFocusChange(!isFocused);
+          e.preventDefault();
+        }}
+      >
         {Icon ? (
-          <button
-            type="button"
-            className={classNames("input-elem tr-p-0", spacing.xl.marginLeft)}
-          >
-            <Icon
-              className={classNames(
-                "tr-shrink-0 tr-bg-inherit",
-                sizing.lg.height,
-                sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                  .textColor
-              )}
-              aria-hidden="true"
-            />
-          </button>
+          <Icon
+            className={twMerge(
+              makeSelectBoxClassName("icon"),
+              "shrink-0 bg-inherit",
+              sizing.lg.height,
+              sizing.lg.width,
+              spacing.xl.marginLeft,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            )}
+            aria-hidden="true"
+          />
         ) : null}
         <input
           ref={inputRef}
           type="text"
-          className={classNames(
-            "input-elem tr-w-full focus:tr-outline-none focus:tr-ring-0 tr-bg-inherit",
-            getColorVariantsFromColorThemeValue(defaultColors.darkText)
-              .textColor,
+          className={twMerge(
+            makeSelectBoxClassName("input"),
+            "w-full focus:outline-none focus:ring-0 bg-inherit",
+            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
+            spacing.sm.paddingY,
             fontSize.sm,
             fontWeight.md,
             border.none.all,
-            "placeholder:tr-text-gray-500",
-            "tr-pr-10" // avoid text overflow at arrow down icon
+            "placeholder:text-gray-500",
           )}
           placeholder={placeholder}
           value={inputValue}
           onChange={handleInputValueChange}
+          onFocus={() => handleFocusChange(true)}
+          onMouseDown={(e) => e.preventDefault()}
         />
-        <button
-          type="button"
-          className={classNames(
-            "input-elem tr-absolute tr-top-1/2 -tr-translate-y-1/2 tr-bg-inherit",
-            spacing.twoXl.right
+        <ArrowDownHeadIcon
+          className={twMerge(
+            makeSelectBoxClassName("arrowDownIcon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.lg.marginRight,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
-        >
-          <ArrowDownHeadIcon
-            className={classNames(
-              "tr-flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor
-            )}
-            aria-hidden="true"
-          />
-        </button>
+          aria-hidden="true"
+        />
       </div>
       <Modal
         showModal={filteredOptions.length === 0 ? false : isFocused}
         setShowModal={handleFocusChange}
-        triggerRef={dropdownRef}
+        parentRef={dropdownRef}
       >
-        <SelectedValueContext.Provider
-          value={{ selectedValue, handleValueChange }}
-        >
+        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
           <HoveredValueContext.Provider value={{ hoveredValue }}>
             {React.Children.map(children, (child) => {
-              if (filteredOptionTexts.has(String(child.props.text))) {
+              const optionValue = child.props.text ?? child.props.value;
+              if (filteredOptionTexts.has(String(optionValue))) {
                 return React.cloneElement(child);
               }
               return null;
@@ -215,6 +198,6 @@ const SelectBox = <T,>({
       </Modal>
     </div>
   );
-};
+});
 
 export default SelectBox;

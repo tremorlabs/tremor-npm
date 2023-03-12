@@ -1,28 +1,33 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  classNames,
-  defaultColors,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { fontWeight, getColorClassNames, makeClassName } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-interface TableHeadProps {
-  children: React.ReactElement[] | React.ReactElement;
-}
+const makeTableHeadClassName = makeClassName("TableHead");
 
-const TableHead = ({ children }: TableHeadProps) => (
-  <>
-    <thead
-      className={classNames(
-        "tr-text-left",
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        fontWeight.lg
-      )}
-    >
-      {children}
-    </thead>
-  </>
-);
+const TableHead = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
+  return (
+    <>
+      <thead
+        ref={ref}
+        className={twMerge(
+          makeTableHeadClassName("root"),
+          "text-left",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          fontWeight.lg,
+          className,
+        )}
+        {...other}
+      >
+        {children}
+      </thead>
+    </>
+  );
+});
 
 export default TableHead;
