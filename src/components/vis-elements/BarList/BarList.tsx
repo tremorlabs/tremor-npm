@@ -1,19 +1,20 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 import {
   BaseColors,
   borderRadius,
-  classNames,
-  defaultColors,
   defaultValueFormatter,
   fontSize,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
+  getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
-import { Color, MarginTop, ValueFormatter } from "../../../lib";
+import { Color, ValueFormatter } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeBarListClassName = makeClassName("BarList");
 
 type BarListData = {
   key?: string;
@@ -36,72 +37,68 @@ const getWidthsFromValues = (dataValues: number[]) => {
   });
 };
 
-export interface BarListProps {
+export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
   data: BarListData[];
   valueFormatter?: ValueFormatter;
   color?: Color;
   showAnimation?: boolean;
-  marginTop?: MarginTop;
 }
 
-const BarList = ({
-  data = [],
-  color = BaseColors.Blue,
-  valueFormatter = defaultValueFormatter,
-  showAnimation = true,
-  marginTop = "mt-0",
-}: BarListProps) => {
+const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
+  const {
+    data = [],
+    color = BaseColors.Blue,
+    valueFormatter = defaultValueFormatter,
+    showAnimation = true,
+    className,
+    ...other
+  } = props;
+
   const widths = getWidthsFromValues(data.map((item) => item.value));
 
   const rowHeight = sizing.threeXl.height;
 
   return (
     <div
-      className={classNames(
-        "tremor-base tr-flex tr-justify-between",
-        parseMarginTop(marginTop),
-        spacing.threeXl.spaceX
+      ref={ref}
+      className={twMerge(
+        makeBarListClassName("root"),
+        "flex justify-between",
+        spacing.threeXl.spaceX,
+        className,
       )}
+      {...other}
     >
-      <div className="tr-relative tr-w-full">
+      <div className={twMerge(makeBarListClassName("bars"), "relative w-full")}>
         {data.map((item, idx) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.key ?? item.name}
-              className={classNames(
-                "tr-flex tr-items-center",
+              className={twMerge(
+                makeBarListClassName("bar"),
+                "flex items-center",
                 rowHeight,
-                getColorVariantsFromColorThemeValue(
-                  getColorTheme(color).lightBackground
-                ).bgColor,
+                getColorClassNames(color, colorPalette.lightBackground).bgColor,
                 borderRadius.sm.all,
-                idx === data.length - 1
-                  ? spacing.none.marginBottom
-                  : spacing.sm.marginBottom
+                idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{
                 width: `${widths[idx]}%`,
                 transition: showAnimation ? "all 2s" : "",
               }}
             >
-              <div
-                className={classNames(
-                  "tr-absolute tr-max-w-full tr-flex",
-                  spacing.sm.left
-                )}
-              >
+              <div className={twMerge("absolute max-w-full flex", spacing.sm.left)}>
                 {Icon ? (
                   <Icon
-                    className={classNames(
-                      "tr-flex-none",
+                    className={twMerge(
+                      makeBarListClassName("barIcon"),
+                      "flex-none",
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
-                      getColorVariantsFromColorThemeValue(
-                        defaultColors.lightText
-                      ).textColor
+                      getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                     )}
                     aria-hidden="true"
                   />
@@ -111,22 +108,22 @@ const BarList = ({
                     href={item.href}
                     target={item.target ?? "_blank"}
                     rel="noreferrer"
-                    className={classNames(
-                      "text-elem tr-whitespace-nowrap tr-truncate tr-text-blue-500",
-                      "tr-no-underline hover:tr-underline visited:tr-text-blue-500",
-                      fontSize.sm
+                    className={twMerge(
+                      makeBarListClassName("barLink"),
+                      "whitespace-nowrap truncate text-blue-500",
+                      "no-underline hover:underline visited:text-blue-500",
+                      fontSize.sm,
                     )}
                   >
                     {item.name}
                   </a>
                 ) : (
                   <p
-                    className={classNames(
-                      "text-elem tr-whitespace-nowrap tr-truncate",
-                      getColorVariantsFromColorThemeValue(
-                        defaultColors.darkText
-                      ).textColor,
-                      fontSize.sm
+                    className={twMerge(
+                      makeBarListClassName("barText"),
+                      "whitespace-nowrap truncate",
+                      getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+                      fontSize.sm,
                     )}
                   >
                     {item.name}
@@ -137,24 +134,23 @@ const BarList = ({
           );
         })}
       </div>
-      <div className="tr-text-right tr-min-w-min">
+      <div className={(makeBarListClassName("labels"), "text-right min-w-min")}>
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
-            className={classNames(
-              "tr-flex tr-justify-end tr-items-center",
+            className={twMerge(
+              makeBarListClassName("labelWrapper"),
+              "flex justify-end items-center",
               rowHeight,
-              idx === data.length - 1
-                ? spacing.none.marginBottom
-                : spacing.sm.marginBottom
+              idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
             )}
           >
             <p
-              className={classNames(
-                "text-elem tr-whitespace-nowrap tr-truncate",
-                getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                  .textColor,
-                fontSize.sm
+              className={twMerge(
+                makeBarListClassName("labelText"),
+                "whitespace-nowrap truncate",
+                getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+                fontSize.sm,
               )}
             >
               {valueFormatter(item.value)}
@@ -164,6 +160,6 @@ const BarList = ({
       </div>
     </div>
   );
-};
+});
 
 export default BarList;

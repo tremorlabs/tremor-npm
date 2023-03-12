@@ -1,61 +1,28 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  TextAlignments,
-  classNames,
-  fontSize,
-  fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseHeight,
-  parseMarginTop,
-  parseTextAlignment,
-  parseTruncateOption,
-} from "lib";
-import {
-  Color,
-  Height,
-  MarginTop,
-  TextAlignment,
-} from "../../../lib/inputTypes";
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { Color } from "../../../lib/inputTypes";
+import { colorPalette } from "lib/theme";
 
-export interface TextProps {
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  textAlignment?: TextAlignment;
-  truncate?: boolean;
-  height?: Height | "";
-  marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Text = ({
-  color = BaseColors.Gray,
-  textAlignment = TextAlignments.Left,
-  truncate = false,
-  height = "",
-  marginTop = "mt-0",
-  children,
-}: TextProps) => {
+const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
+  const { color = BaseColors.Gray, children } = props;
   return (
     <p
-      className={classNames(
-        "text-elem tremor-base",
-        parseTruncateOption(truncate),
-        truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
-        height ? parseHeight(height) : height,
-        height ? "tr-overflow-y-auto" : "",
-        parseMarginTop(marginTop),
-        parseTextAlignment(textAlignment),
-        getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-          .textColor,
+      ref={ref}
+      className={twMerge(
+        getColorClassNames(color, colorPalette.text).textColor,
         fontSize.sm,
-        fontWeight.sm
+        fontWeight.sm,
       )}
     >
       {children}
     </p>
   );
-};
+});
 
 export default Text;

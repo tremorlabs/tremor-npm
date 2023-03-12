@@ -1,32 +1,28 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 import { Color, ValueFormatter } from "../../../lib";
 import {
+  BaseColors,
   border,
   borderRadius,
   boxShadow,
-  classNames,
-  defaultColors,
+  getColorClassNames,
   fontSize,
   fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
   sizing,
   spacing,
 } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export const ChartTooltipFrame = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => (
+export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
-    className={classNames(
-      getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
+    className={twMerge(
+      getColorClassNames("white").bgColor,
       fontSize.sm,
       borderRadius.md.all,
       border.sm.all,
-      boxShadow.lg
+      boxShadow.lg,
     )}
   >
     {children}
@@ -36,43 +32,38 @@ export const ChartTooltipFrame = ({
 export interface ChartTooltipRowProps {
   value: string;
   name: string;
-  color: Color | null | undefined;
+  color: Color;
 }
 
-export const ChartTooltipRow = ({
-  value,
-  name,
-  color,
-}: ChartTooltipRowProps) => (
-  <div className="tr-flex tr-items-center tr-justify-between tr-space-x-8">
-    <div className="tr-flex tr-items-center tr-space-x-2">
+export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+  <div className="flex items-center justify-between space-x-8">
+    <div className="flex items-center space-x-2">
       <span
-        className={classNames(
-          "tr-shrink-0",
-          getColorVariantsFromColorThemeValue(getColorTheme(color).background)
-            .bgColor,
-          getColorVariantsFromColorThemeValue(defaultColors.white).borderColor,
+        className={twMerge(
+          "shrink-0",
+          getColorClassNames(color, colorPalette.background).bgColor,
+          getColorClassNames("white").borderColor,
           sizing.sm.height,
           sizing.sm.width,
           borderRadius.full.all,
           border.md.all,
-          boxShadow.md
+          boxShadow.md,
         )}
       />
       <p
-        className={classNames(
-          "text-elem tr-font-medium tr-tabular-nums tr-text-right tr-whitespace-nowrap",
-          getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
+        className={twMerge(
+          "font-medium tabular-nums text-right whitespace-nowrap",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
         )}
       >
         {value}
       </p>
     </div>
     <p
-      className={classNames(
-        "text-elem tr-text-right tr-whitespace-nowrap",
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        fontWeight.sm
+      className={twMerge(
+        "text-right whitespace-nowrap",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+        fontWeight.sm,
       )}
     >
       {name}
@@ -99,47 +90,33 @@ const ChartTooltip = ({
     return (
       <ChartTooltipFrame>
         <div
-          className={classNames(
-            getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-              .borderColor,
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
-            border.sm.bottom
+          className={twMerge(
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+            spacing.twoXl.paddingX,
+            spacing.sm.paddingY,
+            border.sm.bottom,
           )}
         >
           <p
-            className={classNames(
+            className={twMerge(
               "text-elem",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
-              fontWeight.md
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+              fontWeight.md,
             )}
           >
             {label}
           </p>
         </div>
 
-        <div
-          className={classNames(
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom,
-            "tr-space-y-1"
-          )}
-        >
-          {payload.map(
-            ({ value, name }: { value: number; name: string }, idx: number) => (
-              <ChartTooltipRow
-                key={`id-${idx}`}
-                value={valueFormatter(value)}
-                name={name}
-                color={categoryColors.get(name)}
-              />
-            )
-          )}
+        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+          {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
+            <ChartTooltipRow
+              key={`id-${idx}`}
+              value={valueFormatter(value)}
+              name={name}
+              color={categoryColors.get(name) ?? BaseColors.Blue}
+            />
+          ))}
         </div>
       </ChartTooltipFrame>
     );

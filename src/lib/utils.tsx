@@ -1,56 +1,10 @@
 import React from "react";
 
-import { BaseColorTheme, colorTheme } from "./colors";
-import {
-  BaseColors,
-  DeltaTypes,
-  Importances,
-  ButtonVariants,
-  Sizes,
-} from "./primitives";
-import {
-  Color,
-  DeltaType,
-  Importance,
-  ButtonVariant,
-  Size,
-  ValueFormatter,
-} from "./inputTypes";
+import { DeltaTypes } from "./constants";
+import { Color, ValueFormatter } from "./inputTypes";
+import { colorClassNames } from "./colorClassNames";
 
-export const isBaseColor = (baseColor: Color): boolean => {
-  return Object.values(BaseColors).includes(baseColor);
-};
-
-export const getColorTheme = (
-  baseColor: Color | null | undefined,
-  defaultColor: Color = BaseColors.Blue
-): BaseColorTheme => {
-  if (!baseColor || !isBaseColor(baseColor)) {
-    return colorTheme[defaultColor];
-  }
-  return colorTheme[baseColor];
-};
-
-export const isValidSize = (size: Size): boolean => {
-  return Object.values(Sizes).includes(size);
-};
-
-export const isValidDeltaType = (deltaType: DeltaType): boolean => {
-  return Object.values(DeltaTypes).includes(deltaType);
-};
-
-export const isValidImportance = (importance: Importance): boolean => {
-  return Object.values(Importances).includes(importance);
-};
-
-export const isValidVariant = (variant: ButtonVariant): boolean => {
-  return Object.values(ButtonVariants).includes(variant);
-};
-
-export const mapInputsToDeltaType = (
-  deltaType: string,
-  isIncreasePositive: boolean
-): string => {
+export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
     return deltaType;
   }
@@ -67,8 +21,7 @@ export const mapInputsToDeltaType = (
   return "";
 };
 
-export const defaultValueFormatter: ValueFormatter = (value: number) =>
-  value.toString();
+export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
 export const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0);
@@ -99,27 +52,57 @@ export const stringEndsWithNumber = (str: string): boolean => {
 };
 
 export interface SelectItemProps {
-  value: any;
-  text: string;
+  value: string;
+  text?: string;
 }
 
-export const constructValueToNameMapping = <T,>(
-  children: React.ReactElement[] | React.ReactElement
-): Map<T, string> => {
-  const valueToNameMapping = new Map<T, string>();
+export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
+  const valueToNameMapping = new Map<string, string>();
   React.Children.map(children, (child: { props: SelectItemProps }) => {
-    valueToNameMapping.set(child.props.value, child.props.text);
+    valueToNameMapping.set(child.props.value, child.props.text ?? child.props.value);
   });
   return valueToNameMapping;
-};
+}
 
-export const getFilteredOptions = (
+export function getFilteredOptions(
   searchQuery: string,
-  options: SelectItemProps[]
-): SelectItemProps[] => {
+  options: SelectItemProps[],
+): SelectItemProps[] {
   return searchQuery === ""
     ? options
     : options.filter((option: SelectItemProps) => {
-        return option.text.toLowerCase().includes(searchQuery.toLowerCase());
+        const optionText = option.text ?? option.value;
+        return optionText.toLowerCase().includes(searchQuery.toLowerCase());
       });
-};
+}
+
+export function mergeRefs<T = any>(
+  refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>,
+): React.RefCallback<T> {
+  return (value) => {
+    refs.forEach((ref) => {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref != null) {
+        (ref as React.MutableRefObject<T | null>).current = value;
+      }
+    });
+  };
+}
+
+export function makeClassName(componentName: string) {
+  return (className: string) => {
+    return `tremor-${componentName}-${className}`;
+  };
+}
+
+export function getColorClassNames(
+  color: Color | "white" | "black" | "transparent",
+  shade?: number,
+) {
+  if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
+  if (color === "white" || color === "black" || color === "transparent" || !shade) {
+    return colorClassNames[color][500];
+  }
+  return colorClassNames[color][shade];
+}

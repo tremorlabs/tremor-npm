@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
 
@@ -6,89 +7,65 @@ import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import { MarginTop, MaxWidth } from "../../../lib/inputTypes";
 import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorVariantsFromColorThemeValue,
+  getColorClassNames,
   getFilteredOptions,
   isValueInArray,
-  parseMarginTop,
-  parseMaxWidth,
+  makeClassName,
+  mergeRefs,
   removeValueFromArray,
   sizing,
   spacing,
 } from "lib";
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface MultiSelectBoxProps<T> {
-  defaultValues?: any;
-  defaultValue?: T[];
-  value?: T[];
-  onValueChange?: (value: T[]) => void;
-  handleSelect?: (values: any[]) => void; // Deprecated in next major release
+const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
+
+export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string[];
+  value?: string[];
+  onValueChange?: (value: string[]) => void;
   placeholder?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  marginTop?: MarginTop;
-  maxWidth?: MaxWidth;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const MultiSelectBox = <T,>({
-  defaultValues, // Deprecated
-  defaultValue,
-  value,
-  onValueChange,
-  handleSelect, // Deprecated
-  placeholder = "Select...",
-  icon,
-  marginTop = "mt-0",
-  maxWidth = "max-w-none",
-  children,
-}: MultiSelectBoxProps<T>) => {
-  if (handleSelect !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `handleSelect` property is deprecated and will be removed in the next major release. Please use `onValueChange` instead."
-    );
-  }
-
-  if (defaultValues !== undefined) {
-    console.warn(
-      "DeprecationWarning: The `defaultValues` property is deprecated and will be removed in the next major release. Please use `defaultValue` instead."
-    );
-  }
+const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((props, ref) => {
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    icon,
+    children,
+    className,
+    onKeyDown,
+    ...other
+  } = props;
 
   const Icon = icon;
   const dropdownRef = useRef(null);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedValue, setSelectedValue] = useInternalState(
-    defaultValues ?? defaultValue,
-    value
-  );
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
 
   const selectedItems = selectedValue ?? [];
-  const displayText =
-    selectedItems.length !== 0
-      ? `${selectedItems.length} Selected`
-      : placeholder;
+  const displayText = selectedItems.length !== 0 ? `${selectedItems.length} Selected` : placeholder;
   const showResetButton = selectedItems.length > 0;
 
-  const options = React.Children.map(
-    children,
-    (child: { props: MultiSelectBoxItemProps }) => ({ ...child.props })
-  );
+  const options = React.Children.map(children, (child: { props: MultiSelectBoxItemProps }) => ({
+    ...child.props,
+  }));
   const filteredOptions = getFilteredOptions(searchQuery, options);
-  const filteredOptionTexts = new Set(
-    filteredOptions.map((option) => option.text)
-  );
+  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
   const filteredOptionValues = filteredOptions.map((option) => option.value);
 
   const handleModalToggle = (show: boolean) => {
@@ -96,7 +73,7 @@ const MultiSelectBox = <T,>({
     setShowModal(show);
   };
 
-  const handleValueChange = (value: T) => {
+  const handleValueChange = (value: string) => {
     let newSelectedItems = [];
     if (!isValueInArray(value, selectedItems)) {
       newSelectedItems = [...selectedItems, value];
@@ -105,139 +82,132 @@ const MultiSelectBox = <T,>({
     }
     setSelectedValue(newSelectedItems);
     onValueChange?.(newSelectedItems);
-    handleSelect?.(newSelectedItems);
   };
 
   const handleReset = () => {
     setSelectedValue([]);
     onValueChange?.([]);
-    handleSelect?.([]);
   };
 
   const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
     handleValueChange,
     filteredOptionValues,
     showModal,
-    setShowModal
+    setShowModal,
   );
 
   return (
     <div
-      ref={dropdownRef}
-      className={classNames(
-        "tremor-base tr-relative tr-w-full tr-min-w-[10rem]",
-        parseMarginTop(marginTop),
-        parseMaxWidth(maxWidth),
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-          .hoverBgColor,
-        borderRadius.md.all,
-        border.sm.all,
-        boxShadow.sm
+      ref={mergeRefs([dropdownRef, ref])}
+      className={twMerge(
+        makeMultiSelectBoxClassName("root"),
+        "relative w-full min-w-[10rem]",
+        className,
       )}
-      onKeyDown={handleKeyDown}
+      onKeyDown={(e) => {
+        handleKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      {...other}
     >
       <button
         type="button"
-        className={classNames(
-          "input-elem tr-flex tr-justify-between tr-items-center tr-w-full",
-          "focus:tr-ring-0 focus:tr-outline-none",
+        className={twMerge(
+          makeMultiSelectBoxClassName("button"),
+          "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
+          getColorClassNames("white").bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom
+          spacing.sm.paddingY,
         )}
         onClick={() => handleModalToggle(!showModal)}
       >
-        <div className="tr-flex tr-justify-start tr-items-center tr-truncate">
+        <div className="flex justify-start items-center truncate">
           {Icon ? (
             <Icon
-              className={classNames(
-                "tr-shrink-0",
+              className={twMerge(
+                makeMultiSelectBoxClassName("icon"),
+                "shrink-0",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                  .textColor,
-                spacing.lg.marginRight
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                spacing.lg.marginRight,
               )}
               aria-hidden="true"
             />
           ) : null}
           <p
-            className={classNames(
-              "text-elem tr-whitespace-nowrap tr-truncate",
+            className={twMerge(
+              makeMultiSelectBoxClassName("text"),
+              "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
               selectedItems.length !== 0
-                ? getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                    .textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.text)
-                    .textColor
+                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
+                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {displayText}
           </p>
         </div>
-        <div className="tr-flex tr-items-center">
+        <div className="flex items-center">
           {showResetButton ? (
             <div
               role="button"
-              className={classNames(spacing.xs.marginRight)}
+              className={twMerge(
+                makeMultiSelectBoxClassName("resetButton"),
+                spacing.xs.marginRight,
+              )}
               onClick={(e) => {
                 e.stopPropagation(); // prevent firing parent button
                 handleReset();
               }}
             >
               <XCircleIcon
-                className={classNames(
-                  "tr-flex-none",
+                className={twMerge(
+                  "flex-none",
                   sizing.md.height,
                   sizing.md.width,
-                  getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                    .textColor
+                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
                 aria-hidden="true"
               />
             </div>
           ) : null}
           <ArrowDownHeadIcon
-            className={classNames(
-              "tr-flex-none",
+            className={twMerge(
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
               spacing.twoXs.negativeMarginRight,
-              getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                .textColor
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />
         </div>
       </button>
-      <Modal
-        showModal={showModal}
-        setShowModal={handleModalToggle}
-        triggerRef={dropdownRef}
-      >
+      <Modal showModal={showModal} setShowModal={handleModalToggle} parentRef={dropdownRef}>
         <div
-          className={classNames(
-            "tr-flex tr-items-center tr-w-full",
-            getColorVariantsFromColorThemeValue(defaultColors.canvasBackground)
-              .bgColor,
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight
+          className={twMerge(
+            "flex items-center w-full",
+            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor,
+            spacing.twoXl.paddingX,
           )}
         >
           <span>
             <SearchIcon
-              className={classNames(
-                "tr-flex-none",
-                getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                  .textColor,
+              className={twMerge(
+                "flex-none",
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 spacing.threeXs.negativeMarginLeft,
                 spacing.lg.marginRight,
                 sizing.md.height,
-                sizing.md.width
+                sizing.md.width,
               )}
               aria-hidden="true"
             />
@@ -246,16 +216,13 @@ const MultiSelectBox = <T,>({
             name="search"
             type="input"
             placeholder="Search"
-            className={classNames(
-              "input-elem tr-w-full focus:tr-outline-none focus:tr-ring-none",
-              getColorVariantsFromColorThemeValue(defaultColors.darkText)
-                .textColor,
-              getColorVariantsFromColorThemeValue(defaultColors.transparent)
-                .bgColor,
-              spacing.sm.paddingTop,
-              spacing.sm.paddingBottom,
+            className={twMerge(
+              "w-full focus:outline-none focus:ring-none",
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+              getColorClassNames("transparent").bgColor,
+              spacing.sm.paddingY,
               fontSize.sm,
-              fontWeight.md
+              fontWeight.md,
             )}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -268,7 +235,8 @@ const MultiSelectBox = <T,>({
         >
           <HoveredValueContext.Provider value={{ hoveredValue }}>
             {React.Children.map(children, (child) => {
-              if (filteredOptionTexts.has(String(child.props.text))) {
+              const optionText = child.props.text ?? child.props.value;
+              if (filteredOptionTexts.has(String(optionText))) {
                 return React.cloneElement(child);
               }
             })}
@@ -277,6 +245,6 @@ const MultiSelectBox = <T,>({
       </Modal>
     </div>
   );
-};
+});
 
 export default MultiSelectBox;

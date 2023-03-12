@@ -2,14 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  Button,
-  Card,
-  DateRangePicker,
-  DateRangePickerValue,
-  Text,
-  Title,
-} from "components";
+import { Button, Card, DateRangePicker, DateRangePickerValue, Text, Title } from "components";
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -34,10 +27,7 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
         {dateRangePickerData
           .filter(
             (datapoint) =>
-              startDate &&
-              endDate &&
-              datapoint.date >= startDate &&
-              datapoint.date <= endDate
+              startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
           )
           .map((datapoint) => (
             <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
@@ -55,23 +45,21 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 
   return (
     <Card>
-      <DateRangePicker
-        {...args}
-        value={value}
-        onValueChange={(v) => setValue(v)}
-      />
+      <DateRangePicker {...args} value={value} onValueChange={(v) => setValue(v)} />
       <Button
-        text="Reset"
         onClick={() => {
           setValue([null, null]);
         }}
-      />
+      >
+        Reset
+      </Button>
       <Button
-        text="Today"
         onClick={() => {
           setValue([null, null, "tdy"]);
         }}
-      />
+      >
+        Today
+      </Button>
       <Title>Filtered Data</Title>
       <Text>StartDate: {String(startDate)} </Text>
       <Text>EndDate: {String(endDate)} </Text>
@@ -79,10 +67,7 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
         {dateRangePickerData
           .filter(
             (datapoint) =>
-              startDate &&
-              endDate &&
-              datapoint.date >= startDate &&
-              datapoint.date <= endDate
+              startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
           )
           .map((datapoint) => (
             <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
@@ -106,9 +91,7 @@ UncontrolledWithDefaultFrLocale.args = {
   placeholder: "Sélectionnez...",
 };
 
-export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind(
-  {}
-);
+export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultSelectOption.args = {
   defaultValue: [undefined, undefined, "tdy"],
 };
@@ -135,8 +118,7 @@ UncontrolledWithDropdownOptions.args = {
   ],
 };
 
-export const UncontrolledWithDropdownOptionsWithEndDate =
-  UncontrolledTemplate.bind({});
+export const UncontrolledWithDropdownOptionsWithEndDate = UncontrolledTemplate.bind({});
 UncontrolledWithDropdownOptionsWithEndDate.args = {
   defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
   options: [
@@ -189,9 +171,7 @@ ControlledWithDropdownOptions.args = {
   ],
 };
 
-export const ControlledWithDropdownOptionsWithEndDate = ControlledTemplate.bind(
-  {}
-);
+export const ControlledWithDropdownOptionsWithEndDate = ControlledTemplate.bind({});
 ControlledWithDropdownOptionsWithEndDate.args = {
   value: [new Date(2022, 5, 1), new Date(), "tdy"],
   options: [

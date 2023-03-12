@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import {
   Button,
   Card,
-  Datepicker,
+  DateRangePicker,
   Flex,
   SelectBox,
   SelectBoxItem,
@@ -28,20 +28,20 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
   <form>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
-        <Datepicker />
+        <DateRangePicker />
         <SimpleSelectBox {...args} />
         <SimpleDropdown />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <SimpleSelectBox {...args} />
     </Card>
-    <Title marginTop="mt-5">With Black Background</Title>
+    <Title className="mt-5">With Black Background</Title>
     <Card>
-      <div className="tr-flex tr-items-center tr-bg-black tr-h-24">
+      <div className="flex items-center bg-black h-24">
         <SimpleSelectBox {...args} />
       </div>
     </Card>
@@ -51,22 +51,22 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
 const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
   <>
     <Card>
-      <Text marginTop="mt-2">Justify Start</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start</Text>
+      <Flex justifyContent="start" className="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-2">Justify End</Text>
+      <Flex justifyContent="end" className="mt-2">
         <SimpleSelectBox {...args} />
       </Flex>
-      <Text marginTop="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="justify-end" marginTop="mt-2">
+      <Text className="mt-2">Justify End with inner div</Text>
+      <Flex justifyContent="end" className="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
       </Flex>
-      <Text marginTop="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="justify-start" marginTop="mt-2">
+      <Text className="mt-2">Justify Start with inner div</Text>
+      <Flex justifyContent="start" className="mt-2">
         <div>
           <SimpleSelectBox {...args} />
         </div>
@@ -76,7 +76,7 @@ const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
-  const [value, setValue] = useState<number | null>(5);
+  const [value, setValue] = useState<string>("5");
   return (
     <Card>
       <SelectBox
@@ -86,14 +86,14 @@ const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
           alert(value);
         }}
       >
-        <SelectBoxItem value={5} text={"Five"} />
-        <SelectBoxItem value={3} text={"Three"} />
-        <SelectBoxItem value={1} text={"One"} />
-        <SelectBoxItem value={30} text={"Thirty"} />
-        <SelectBoxItem value={33} text={"Thirtythree"} />
+        <SelectBoxItem value={"5"} text={"Five"} />
+        <SelectBoxItem value={"3"} text={"Three"} />
+        <SelectBoxItem value={"1"} text={"One"} />
+        <SelectBoxItem value={"30"} text={"Thirty"} />
+        <SelectBoxItem value={"33"} text={"Thirtythree"} />
       </SelectBox>
-      <Button text="Reset" onClick={() => setValue(null)} />
-      <Button text="Set to One" onClick={() => setValue(1)} />
+      <Button onClick={() => setValue("")}>Reset</Button>
+      <Button onClick={() => setValue("1")}>One</Button>
     </Card>
   );
 };
@@ -105,17 +105,17 @@ DefaultResponsive.args = {
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
-  maxWidth: "max-w-xs",
+  className: "max-w-xs",
 };
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-  defaultValue: 5,
+  defaultValue: "5",
 };
 
 export const WithIcon = ResponsiveTemplate.bind({});
 WithIcon.args = {
-  defaultValue: 5,
+  defaultValue: "5",
   icon: CalendarIcon,
 };
 

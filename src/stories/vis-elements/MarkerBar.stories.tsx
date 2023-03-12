@@ -6,7 +6,7 @@ import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 import Card from "components/layout-elements/Card";
 import Metric from "components/text-elements/Metric";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -18,7 +18,7 @@ export default {
 const Template: ComponentStory<typeof MarkerBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color} className="mt-5">
         <Metric>$23.456</Metric>
         <MarkerBar {...args} color={color} />
       </Card>
@@ -31,5 +31,5 @@ export const Default = Template.bind({});
 Default.args = {
   percentageValue: 50,
   tooltip: "50%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };

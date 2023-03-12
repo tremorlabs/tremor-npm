@@ -2,15 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  BadgeDelta,
-  Card,
-  DonutChart,
-  Flex,
-  List,
-  ListItem,
-  Title,
-} from "components";
+import { BadgeDelta, Card, DonutChart, Flex, List, ListItem, Title } from "components";
 import { DeltaType } from "lib";
 
 import { simpleSingleCategoryData as data } from "stories/chart-elements/helpers/testData";
@@ -26,12 +18,12 @@ export default {
 const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="tr-w-64">
+    <div className="w-64">
       <Card>
         <DonutChart {...args} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <DonutChart {...args} />
     </Card>
@@ -47,22 +39,23 @@ const DefaultTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => (
 const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
   <>
     <Title>Base Layer (Beta)</Title>
-    <div className="tr-w-full tr-mt-4">
+    <div className="w-full mt-4">
       <Card>
         <Title>Sales</Title>
-        <DonutChart {...args} />
-        <div className="tr-mt-6">
+        <DonutChart className="mt-5" {...args} />
+        <div className="mt-6">
           <List>
             {data.map((item) => (
               <ListItem key={item.city}>
                 <span> {item.city} </span>
-                <Flex spaceX="space-x-2" justifyContent="justify-end">
+                <Flex className="space-x-2" justifyContent="end">
                   <BadgeDelta
                     deltaType={item.deltaType as DeltaType}
-                    text={item.delta}
                     isIncreasePositive={true}
                     size="xs"
-                  />
+                  >
+                    {item.delta}
+                  </BadgeDelta>
                 </Flex>
               </ListItem>
             ))}
@@ -78,7 +71,7 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   data: data,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
@@ -87,7 +80,7 @@ WithValueFormatter.args = {
   data: data,
   valueFormatter: valueFormatter,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithCustomLabel = ResponsiveTemplate.bind({});
@@ -97,7 +90,7 @@ WithCustomLabel.args = {
   valueFormatter: valueFormatter,
   label: "Hello there",
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithLabelDisabled = ResponsiveTemplate.bind({});
@@ -108,7 +101,7 @@ WithLabelDisabled.args = {
   label: "Hello there",
   showLabel: false,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
@@ -117,7 +110,7 @@ WithCustomColors.args = {
   data: data,
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithMoreDatapointsThanColors = DefaultTemplate.bind({});
@@ -129,7 +122,7 @@ WithMoreDatapointsThanColors.args = {
   ],
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
@@ -140,7 +133,7 @@ WithLongValues.args = {
   })),
   valueFormatter: valueFormatter,
   category: "sales",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithVariantPie = DefaultTemplate.bind({});
@@ -148,7 +141,7 @@ WithVariantPie.args = {
   data: data,
   category: "sales",
   variant: "pie",
-  dataKey: "city",
+  index: "city",
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -160,7 +153,6 @@ export const BlockExample = BlockTemplate.bind({});
 BlockExample.args = {
   data: data,
   category: "sales",
-  dataKey: "city",
+  index: "city",
   valueFormatter: valueFormatter,
-  marginTop: "mt-6",
 };

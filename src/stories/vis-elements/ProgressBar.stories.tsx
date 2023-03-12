@@ -6,7 +6,7 @@ import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 import Card from "components/layout-elements/Card";
 import Metric from "components/text-elements/Metric";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 import { Flex } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -19,7 +19,7 @@ export default {
 const Template: ComponentStory<typeof ProgressBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <Metric>$23.456</Metric>
         <Flex>
           <ProgressBar {...args} color={color} />
@@ -34,6 +34,6 @@ export const Default = Template.bind({});
 Default.args = {
   percentageValue: 50,
   tooltip: "50%",
-  marginTop: "mt-5",
+  className: "mt-5",
   label: "90% helloasjdakshgdkjhags akjhsgdkhjagsdjhakg",
 };

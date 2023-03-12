@@ -1,18 +1,14 @@
 import React, { useRef, useState } from "react";
 import { render } from "@testing-library/react";
 
-import Modal from "components/layout-elements/Modal";
+import Modal from "components/util-elements/Modal";
 
 const TestModalWrapper = () => {
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
 
   return (
-    <Modal
-      showModal={showModal}
-      setShowModal={setShowModal}
-      triggerRef={modalRef}
-    >
+    <Modal showModal={showModal} setShowModal={setShowModal} parentRef={modalRef}>
       <div>Hello</div>
     </Modal>
   );
