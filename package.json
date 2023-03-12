@@ -56,6 +56,7 @@
     "autoprefixer": "^10.4.4",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.5",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
