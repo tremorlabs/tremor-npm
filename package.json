@@ -98,20 +98,6 @@
         "name": "beta-*",
         "prerelease": true
       }
-    ],
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "angular",
-          "releaseRules": [
-            {
-              "type": "*!",
-              "release": "major"
-            }
-          ]
-        }
-      ]
     ]
   }
 }
