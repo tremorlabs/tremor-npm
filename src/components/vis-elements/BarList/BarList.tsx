@@ -16,11 +16,11 @@ import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeBarListClassName = makeClassName("BarList");
 
-type BarListData = {
+type Bar = {
   key?: string;
   value: number;
   name: string;
-  icon?: React.ElementType;
+  icon?: React.JSXElementConstructor<any>;
   href?: string;
   target?: string;
 };
@@ -38,7 +38,7 @@ const getWidthsFromValues = (dataValues: number[]) => {
 };
 
 export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: BarListData[];
+  data: Bar[];
   valueFormatter?: ValueFormatter;
   color?: Color;
   showAnimation?: boolean;
