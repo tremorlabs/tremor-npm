@@ -8,7 +8,7 @@ describe("Card", () => {
     render(
       <Card>
         <div>Hello</div>
-      </Card>
+      </Card>,
     );
   });
 });

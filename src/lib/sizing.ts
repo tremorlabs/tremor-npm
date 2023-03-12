@@ -5,43 +5,43 @@ export type Sizing = {
 
 export const sizing = {
   none: {
-    height: "tr-h-0",
-    width: "tr-w-0",
+    height: "h-0",
+    width: "w-0",
   },
   threeXs: {
-    height: "tr-h-0.5",
-    width: "tr-w-0.5",
+    height: "h-0.5",
+    width: "w-0.5",
   },
   twoXs: {
-    height: "tr-h-1",
-    width: "tr-w-1",
+    height: "h-1",
+    width: "w-1",
   },
   xs: {
-    height: "tr-h-2",
-    width: "tr-w-2",
+    height: "h-2",
+    width: "w-2",
   },
   sm: {
-    height: "tr-h-3",
-    width: "tr-w-3",
+    height: "h-3",
+    width: "w-3",
   },
   md: {
-    height: "tr-h-4",
-    width: "tr-w-4",
+    height: "h-4",
+    width: "w-4",
   },
   lg: {
-    height: "tr-h-5",
-    width: "tr-w-5",
+    height: "h-5",
+    width: "w-5",
   },
   xl: {
-    height: "tr-h-6",
-    width: "tr-w-6",
+    height: "h-6",
+    width: "w-6",
   },
   twoXl: {
-    height: "tr-h-7",
-    width: "tr-w-7",
+    height: "h-7",
+    width: "w-7",
   },
   threeXl: {
-    height: "tr-h-9",
-    width: "tr-w-9",
+    height: "h-9",
+    width: "w-9",
   },
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { twMerge } from "tailwind-merge";
 import {
   CartesianGrid,
   Legend,
@@ -16,70 +16,48 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import {
-  classNames,
-  defaultValueFormatter,
-  getColorTheme,
-  getHexFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
-const LineChart = ({
-  data = [],
-  categories = [],
-  dataKey,
-  colors = themeColorRange,
-  valueFormatter = defaultValueFormatter,
-  startEndOnly = false,
-  showXAxis = true,
-  showYAxis = true,
-  yAxisWidth = "w-14",
-  showAnimation = true,
-  showTooltip = true,
-  showLegend = true,
-  showGridLines = true,
-  height = "h-80",
-  marginTop = "mt-0",
-  autoMinValue = false,
-  minValue,
-  maxValue,
-}: BaseChartProps) => {
+const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) => {
+  const {
+    data = [],
+    categories = [],
+    index,
+    colors = themeColorRange,
+    valueFormatter = defaultValueFormatter,
+    startEndOnly = false,
+    showXAxis = true,
+    showYAxis = true,
+    yAxisWidth = 56,
+    showAnimation = true,
+    showTooltip = true,
+    showLegend = true,
+    showGridLines = true,
+    autoMinValue = false,
+    minValue,
+    maxValue,
+    className,
+    ...other
+  } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsLineChart data={data}>
           {showGridLines ? (
-            <CartesianGrid
-              strokeDasharray="3 3"
-              horizontal={true}
-              vertical={false}
-            />
+            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           ) : null}
           <XAxis
             hide={!showXAxis}
-            dataKey={dataKey}
+            dataKey={index}
             interval="preserveStartEnd"
             tick={{ transform: "translate(0, 6)" }}
-            ticks={
-              startEndOnly
-                ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                : undefined
-            }
+            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
@@ -90,7 +68,7 @@ const LineChart = ({
             minTickGap={5}
           />
           <YAxis
-            width={getPixelsFromTwClassName(yAxisWidth)}
+            width={yAxisWidth}
             hide={!showYAxis}
             axisLine={false}
             tickLine={false}
@@ -125,9 +103,7 @@ const LineChart = ({
             <Legend
               verticalAlign="top"
               height={legendHeight}
-              content={({ payload }) =>
-                ChartLegend({ payload }, categoryColors, setLegendHeight)
-              }
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
           {categories.map((category) => (
@@ -136,9 +112,7 @@ const LineChart = ({
               name={category}
               type="linear"
               dataKey={category}
-              stroke={getHexFromColorThemeValue(
-                getColorTheme(categoryColors.get(category)).background
-              )}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}
@@ -148,6 +122,6 @@ const LineChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default LineChart;

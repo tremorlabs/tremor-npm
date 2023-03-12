@@ -1,22 +1,15 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { classNames, fontSize } from "lib";
+import { fontSize } from "lib";
 
-export interface ItalicProps {
-  children: React.ReactNode;
-}
-
-const Italic = ({ children }: ItalicProps) => {
+const Italic = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
-    <span
-      className={classNames(
-        "tremor-base tr-italic tr-text-inherit",
-        fontSize.sm
-      )}
-    >
+    <i ref={ref} className={twMerge("italic text-inherit", fontSize.sm, className)} {...other}>
       {children}
-    </span>
+    </i>
   );
-};
+});
 
 export default Italic;

@@ -1,47 +1,68 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { AlignItems, JustifyContent, MarginTop, SpaceX } from "../../../lib";
-import {
-  classNames,
-  parseAlignItems,
-  parseJustifyContent,
-  parseMarginTop,
-  parseSpaceX,
-  parseTruncateOption,
-} from "lib";
+import { makeClassName } from "lib";
+import { AlignItems, FlexDirection, JustifyContent } from "../../../lib";
 
-export interface FlexProps {
+const makeFlexClassName = makeClassName("Flex");
+
+const justifyContentClassNames: { [key in JustifyContent]: string } = {
+  start: "justify-start",
+  end: "justify-end",
+  center: "justify-center",
+  between: "justify-between",
+  around: "justify-around",
+  evenly: "justify-evenly",
+};
+
+const alignItmesClassNames: { [key in AlignItems]: string } = {
+  start: "items-start",
+  end: "items-end",
+  center: "items-center",
+  baseline: "items-baseline",
+  stretch: "items-stretch",
+};
+
+const flexDirectionClassNames: { [key in FlexDirection]: string } = {
+  row: "flex-row",
+  col: "flex-col",
+  "row-reverse": "flex-row-reverse",
+  "col-reverse": "flex-col-reverse",
+};
+
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
+  flexDirection?: FlexDirection;
   justifyContent?: JustifyContent;
   alignItems?: AlignItems;
-  spaceX?: SpaceX | "";
-  truncate?: boolean;
-  marginTop?: MarginTop;
   children: React.ReactNode;
 }
 
-const Flex = ({
-  justifyContent = "justify-between",
-  alignItems = "items-center",
-  spaceX = "",
-  truncate = false,
-  marginTop = "mt-0",
-  children,
-}: FlexProps) => {
+const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
+  const {
+    flexDirection = "row",
+    justifyContent = "between",
+    alignItems = "center",
+    children,
+    className,
+    ...other
+  } = props;
+
   return (
     <div
-      className={classNames(
-        "tr-flex tr-w-full",
-        parseTruncateOption(truncate),
-        truncate ? "tr-whitespace-nowrap" : "",
-        parseJustifyContent(justifyContent),
-        parseAlignItems(alignItems),
-        spaceX ? parseSpaceX(spaceX) : spaceX,
-        parseMarginTop(marginTop)
+      ref={ref}
+      className={twMerge(
+        makeFlexClassName("root"),
+        "flex w-full",
+        flexDirectionClassNames[flexDirection],
+        justifyContentClassNames[justifyContent],
+        alignItmesClassNames[alignItems],
+        className,
       )}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default Flex;

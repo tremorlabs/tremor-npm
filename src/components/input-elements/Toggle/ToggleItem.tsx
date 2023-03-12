@@ -1,77 +1,87 @@
 import React, { useContext } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import {
   borderRadius,
   boxShadow,
-  classNames,
-  defaultColors,
   fontSize,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
+  getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
 
-export interface ToggleItemProps {
-  value: any;
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeToggleItemClassName = makeClassName("ToggleItem");
+
+export interface ToggleItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
   text?: string;
   icon?: React.ElementType;
 }
 
-const ToggleItem = ({ value, text, icon }: ToggleItemProps) => {
+const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, ref) => {
+  const { value, text, icon, className, onClick, ...other } = props;
   const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
   const color = useContext(BaseColorContext);
 
   const isActive = selectedValue === value;
 
-  const activeClassNames = classNames(
-    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.lightBorder).ringColor,
-    boxShadow.sm
+  const activeClassNames = twMerge(
+    getColorClassNames("white").bgColor,
+    getColorClassNames(color, colorPalette.text).textColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
+    boxShadow.sm,
   );
-  const inActiveClassNames = classNames(
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).bgColor,
-    getColorVariantsFromColorThemeValue(defaultColors.darkText).hoverTextColor,
-    getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).ringColor
+  const inActiveClassNames = twMerge(
+    getColorClassNames("transparent").bgColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).hoverTextColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+    getColorClassNames("transparent").ringColor,
   );
-  const Icon = icon ? icon : null;
+  const Icon = icon;
   return (
     <button
+      ref={ref}
       type="button"
-      className={classNames(
-        "input-elem tr-flex tr-items-center tr-ring-1",
-        spacing.lg.paddingLeft,
-        spacing.lg.paddingRight,
-        spacing.xs.paddingTop,
-        spacing.xs.paddingBottom,
+      className={twMerge(
+        makeToggleItemClassName("root"),
+        "flex items-center ring-1",
+        spacing.lg.paddingX,
+        spacing.xs.paddingY,
         fontSize.sm,
         borderRadius.md.all,
-        isActive ? activeClassNames : inActiveClassNames
+        isActive ? activeClassNames : inActiveClassNames,
+        className,
       )}
-      onClick={() => {
+      onClick={(e) => {
         handleValueChange?.(value);
+        onClick?.(e);
       }}
+      {...other}
     >
       {Icon ? (
         <Icon
-          className={classNames(
-            "tr-opacity-70",
+          className={twMerge(
+            makeToggleItemClassName("icon"),
+            "opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,
-            sizing.lg.width
+            sizing.lg.width,
           )}
           aria-hidden="true"
         />
       ) : null}
       {text ? (
-        <span className="tr-whitespace-nowrap tr-truncate">{text}</span>
+        <span className={twMerge(makeToggleItemClassName(text), "text-sm whitespace-nowrap")}>
+          {text}
+        </span>
       ) : null}
     </button>
   );
-};
+});
 
 export default ToggleItem;

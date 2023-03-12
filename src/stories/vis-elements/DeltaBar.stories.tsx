@@ -23,19 +23,20 @@ export const Increase = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Increase.args = {
   percentageValue: 30,
-  marginTop: "mt-5",
+  className: "mt-5",
   tooltip: "30%",
 };
 
 export const Decrease = Template.bind({});
 Decrease.args = {
   percentageValue: -50,
-  marginTop: "mt-5",
+  className: "mt-5",
+  tooltip: "-50%",
 };
 
 export const IncreaseReversed = Template.bind({});
 IncreaseReversed.args = {
   percentageValue: 50,
   isIncreasePositive: false,
-  marginTop: "mt-5",
+  className: "mt-5",
 };

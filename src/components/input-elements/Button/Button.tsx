@@ -1,36 +1,24 @@
 import React from "react";
-
+import { twMerge } from "tailwind-merge";
 import { Transition } from "react-transition-group";
 
 import {
   BaseColors,
   HorizontalPositions,
-  Importances,
-  ButtonVariants,
   Sizes,
   border,
   borderRadius,
   boxShadow,
-  classNames,
   fontWeight,
-  isValidSize,
-  parseMarginTop,
+  makeClassName,
   sizing,
   spacing,
-  isValidVariant,
-  isBaseColor,
 } from "lib";
-import {
-  ButtonType,
-  Color,
-  HorizontalPosition,
-  Importance,
-  ButtonVariant,
-  MarginTop,
-  Size,
-} from "../../../lib";
+import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
+
+const makeButtonClassName = makeClassName("Button");
 
 export interface ButtonIconOrSpinnerProps {
   loading: boolean;
@@ -51,10 +39,10 @@ export const ButtonIconOrSpinner = ({
 
   const margin =
     iconPosition === HorizontalPositions.Left
-      ? classNames(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-      : classNames(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+      ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+      : twMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
-  const defaultSpinnerSize = classNames(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = twMerge(sizing.none.width, sizing.none.height);
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -65,168 +53,115 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={classNames(
-        "tr-animate-spin",
+      className={twMerge(
+        makeButtonClassName("icon"),
+        "animate-spin",
         margin,
         spinnerSize.default,
-        spinnerSize[transitionState]
+        spinnerSize[transitionState],
       )}
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={classNames(iconSize, margin)} aria-hidden="true" />
+    <Icon className={twMerge(makeButtonClassName("icon"), iconSize, margin)} aria-hidden="true" />
   );
 };
 
-export interface ButtonProps {
-  type?: ButtonType;
-  text?: string;
-  value?: any;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
   size?: Size;
   color?: Color;
-  importance?: Importance;
   variant?: ButtonVariant;
-  handleClick?: () => void;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onSubmit?: React.FormEventHandler<HTMLButtonElement>;
-  onReset?: React.FormEventHandler<HTMLButtonElement>;
-  marginTop?: MarginTop;
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
-  children?: React.ReactNode;
 }
 
-const Button = ({
-  type = "button",
-  text,
-  value,
-  icon,
-  iconPosition = HorizontalPositions.Left,
-  handleClick, // Deprecated
-  onClick,
-  onSubmit,
-  onReset,
-  size = Sizes.SM,
-  color = BaseColors.Blue,
-  importance, // Deprecated
-  variant,
-  marginTop = "mt-0",
-  disabled = false,
-  loading = false,
-  loadingText,
-  children,
-}: ButtonProps) => {
-  if (handleClick) {
-    console.warn(
-      "DeprecationWarning: The `handleClick` property is deprecated and will be removed in the next major release. Please use `onClick` instead."
-    );
-  }
-  if (importance) {
-    console.warn(
-      "DeprecationWarning: The `importance` property is deprecated and will be removed in the next major release. Please use `variant` instead."
-    );
-  }
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {
+    icon,
+    iconPosition = HorizontalPositions.Left,
+    size = Sizes.SM,
+    color = BaseColors.Blue,
+    variant = "primary",
+    disabled,
+    loading = false,
+    loadingText,
+    children,
+    className,
+    ...other
+  } = props;
 
   const Icon = icon;
-  const buttonImportance = importance ?? Importances.Primary;
-  const buttonVariant = variant
-    ? isValidVariant(variant)
-      ? variant
-      : ButtonVariants.Primary
-    : buttonImportance;
 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const buttonSize = isValidSize(size) ? size : Sizes.SM;
-  const iconSize = classNames(
-    iconSizes[buttonSize].height,
-    iconSizes[buttonSize].width
-  );
+  const iconSize = twMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
-    variant !== "light"
-      ? classNames(borderRadius.md.all, border.sm.all, boxShadow.sm)
-      : "";
-  const buttonColorStyles = isBaseColor(color)
-    ? getButtonColors(buttonVariant, color)
-    : getButtonColors(buttonVariant, BaseColors.Blue);
-  const buttonProportionStyles =
-    getButtonProportions(buttonVariant)[buttonSize];
+    variant !== "light" ? twMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
+  const buttonColorStyles = getButtonColors(variant, color);
+  const buttonProportionStyles = getButtonProportions(variant)[size];
 
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
-        <div
-          className={classNames(
-            "tremor-base tr-flex tr-items-center",
-            parseMarginTop(marginTop)
+        <button
+          ref={ref}
+          className={twMerge(
+            makeButtonClassName("root"),
+            "flex-shrink-0 inline-flex justify-center items-center group",
+            "focus:outline-none focus:ring-2 focus:ring-offset-2",
+            fontWeight.md,
+            buttonShapeStyles,
+            buttonProportionStyles.paddingX,
+            buttonProportionStyles.paddingY,
+            buttonProportionStyles.fontSize,
+            buttonColorStyles.textColor,
+            buttonColorStyles.bgColor,
+            buttonColorStyles.borderColor,
+            buttonColorStyles.focusRingColor,
+            !isDisabled
+              ? twMerge(
+                  getButtonColors(variant, color).hoverTextColor,
+                  getButtonColors(variant, color).hoverBgColor,
+                  getButtonColors(variant, color).hoverBorderColor,
+                )
+              : "opacity-50",
+            className,
           )}
+          disabled={isDisabled}
+          {...other}
         >
-          <button
-            type={type}
-            value={value}
-            onClick={handleClick ?? onClick}
-            onSubmit={onSubmit}
-            onReset={onReset}
-            className={classNames(
-              "tremor-base input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group",
-              "focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2",
-              "focus:tr-ring-transparent",
-              fontWeight.md,
-              buttonShapeStyles,
-              buttonProportionStyles.paddingLeft,
-              buttonProportionStyles.paddingRight,
-              buttonProportionStyles.paddingTop,
-              buttonProportionStyles.paddingBottom,
-              buttonProportionStyles.fontSize,
-              buttonColorStyles.textColor,
-              buttonColorStyles.bgColor,
-              buttonColorStyles.borderColor,
-              buttonColorStyles.focusRingColor,
-              !isDisabled
-                ? classNames(
-                    getButtonColors(buttonVariant, color).hoverTextColor,
-                    getButtonColors(buttonVariant, color).hoverBgColor,
-                    getButtonColors(buttonVariant, color).hoverBorderColor
-                  )
-                : "tr-opacity-50"
-            )}
-            disabled={isDisabled}
-          >
-            {showButtonIconOrSpinner &&
-            iconPosition !== HorizontalPositions.Right ? (
-              <ButtonIconOrSpinner
-                loading={loading}
-                iconSize={iconSize}
-                iconPosition={iconPosition}
-                Icon={Icon}
-                transitionState={state}
-              />
-            ) : null}
-            {
-              <p className="text-elem tr-whitespace-nowrap">
-                {showLoadingText ? loadingText : !children ? text : children}
-              </p>
-            }
-            {showButtonIconOrSpinner &&
-            iconPosition === HorizontalPositions.Right ? (
-              <ButtonIconOrSpinner
-                loading={loading}
-                iconSize={iconSize}
-                iconPosition={iconPosition}
-                Icon={Icon}
-                transitionState={state}
-              />
-            ) : null}
-          </button>
-        </div>
+          {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+          {
+            <p className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+              {showLoadingText ? loadingText : children}
+            </p>
+          }
+          {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+        </button>
       )}
     </Transition>
   );
-};
+});
 
 export default Button;

@@ -9,7 +9,7 @@ describe("Flex", () => {
       <Flex>
         <div>Hello</div>
         <div>World</div>
-      </Flex>
+      </Flex>,
     );
   });
 });

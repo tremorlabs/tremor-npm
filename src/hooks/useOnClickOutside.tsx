@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const useOnClickOutside = (
   ref: React.RefObject<HTMLDivElement>,
-  handler: { (event: any): void }
+  handler: { (event: any): void },
 ) => {
   useEffect(() => {
     const listener = (event: any) => {

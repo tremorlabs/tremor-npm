@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { twMerge } from "tailwind-merge";
 import {
   Area,
   CartesianGrid,
@@ -16,78 +16,57 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import {
-  classNames,
-  defaultValueFormatter,
-  getColorTheme,
-  getHexFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
 }
 
-const AreaChart = ({
-  data = [],
-  categories = [],
-  dataKey,
-  stack = false,
-  colors = themeColorRange,
-  valueFormatter = defaultValueFormatter,
-  startEndOnly = false,
-  showXAxis = true,
-  showYAxis = true,
-  yAxisWidth = "w-14",
-  showAnimation = true,
-  showTooltip = true,
-  showLegend = true,
-  showGridLines = true,
-  showGradient = true,
-  height = "h-80",
-  marginTop = "mt-0",
-  autoMinValue = false,
-  minValue,
-  maxValue,
-}: AreaChartProps) => {
+const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
+  const {
+    data = [],
+    categories = [],
+    index,
+    stack = false,
+    colors = themeColorRange,
+    valueFormatter = defaultValueFormatter,
+    startEndOnly = false,
+    showXAxis = true,
+    showYAxis = true,
+    yAxisWidth = 56,
+    showAnimation = true,
+    showTooltip = true,
+    showLegend = true,
+    showGridLines = true,
+    showGradient = true,
+    autoMinValue = false,
+    minValue,
+    maxValue,
+    className,
+    ...other
+  } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer width="100%" height={"100%"}>
         <ReChartsAreaChart data={data}>
           {showGridLines ? (
-            <CartesianGrid
-              strokeDasharray="3 3"
-              horizontal={true}
-              vertical={false}
-            />
+            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           ) : null}
           <XAxis
             hide={!showXAxis}
-            dataKey={dataKey}
+            dataKey={index}
             tick={{ transform: "translate(0, 6)" }}
-            ticks={
-              startEndOnly
-                ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                : undefined
-            }
+            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
+              color: "red",
             }}
             interval="preserveStartEnd"
             tickLine={false}
@@ -96,7 +75,7 @@ const AreaChart = ({
             minTickGap={5}
           />
           <YAxis
-            width={getPixelsFromTwClassName(yAxisWidth)}
+            width={yAxisWidth}
             hide={!showYAxis}
             axisLine={false}
             tickLine={false}
@@ -131,55 +110,27 @@ const AreaChart = ({
             <Legend
               verticalAlign="top"
               height={legendHeight}
-              content={({ payload }) =>
-                ChartLegend({ payload }, categoryColors, setLegendHeight)
-              }
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
 
-          {categories.map((category) => (
-            <defs key={category}>
-              {showGradient ? (
-                <linearGradient
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  <stop
-                    offset="5%"
-                    stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
-                    )}
-                    stopOpacity={0.4}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
-                    )}
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              ) : (
-                <linearGradient
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  <stop
-                    stopColor={getHexFromColorThemeValue(
-                      getColorTheme(categoryColors.get(category)).background
-                    )}
-                    stopOpacity={0.3}
-                  />
-                </linearGradient>
-              )}
-            </defs>
-          ))}
+          {categories.map((category) => {
+            const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
+            return (
+              <defs key={category}>
+                {showGradient ? (
+                  <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={hexColor} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={hexColor} stopOpacity={0} />
+                  </linearGradient>
+                ) : (
+                  <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
+                    <stop stopColor={hexColor} stopOpacity={0.3} />
+                  </linearGradient>
+                )}
+              </defs>
+            );
+          })}
 
           {categories.map((category) => (
             <Area
@@ -187,9 +138,7 @@ const AreaChart = ({
               name={category}
               type="linear"
               dataKey={category}
-              stroke={getHexFromColorThemeValue(
-                getColorTheme(categoryColors.get(category)).background
-              )}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}
               strokeWidth={2}
               dot={false}
@@ -201,6 +150,6 @@ const AreaChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default AreaChart;

@@ -1,30 +1,20 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  HorizontalPositions,
-  VerticalPositions,
-} from "lib/primitives";
-import {
-  Color,
-  HorizontalPosition,
-  MarginTop,
-  MaxWidth,
-  VerticalPosition,
-} from "../../../lib";
+import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/constants";
+import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
 import {
   border,
   borderRadius,
   boxShadow,
-  classNames,
-  defaultColors,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseHFullOption,
-  parseMarginTop,
-  parseMaxWidth,
+  getColorClassNames,
   spacing,
+  colorClassNames,
+  makeClassName,
 } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeCardClassName = makeClassName("Card");
 
 const parseDecorationAlignment = (decorationAlignment: string) => {
   if (!decorationAlignment) return "";
@@ -42,50 +32,39 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
   }
 };
 
-export interface CardProps {
-  hFull?: boolean;
-  maxWidth?: MaxWidth;
-  shadow?: boolean;
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   decoration?: HorizontalPosition | VerticalPosition | "";
   decorationColor?: Color;
-  marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Card = ({
-  hFull = false,
-  maxWidth = "max-w-none",
-  shadow = true,
-  decoration = "",
-  decorationColor = BaseColors.Blue,
-  marginTop = "mt-0",
-  children,
-}: CardProps) => {
+const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+  const {
+    decoration = "",
+    decorationColor = BaseColors.Blue,
+    children,
+    className,
+    ...other
+  } = props;
   return (
     <div
-      className={classNames(
-        "tremor-base tr-relative tr-w-full tr-mx-auto tr-text-left tr-ring-1",
-        parseMarginTop(marginTop),
-        parseHFullOption(hFull),
-        parseMaxWidth(maxWidth),
-        getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-        shadow ? boxShadow.md : "",
-        getColorVariantsFromColorThemeValue(
-          getColorTheme(decorationColor).border
-        ).borderColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .ringColor,
+      ref={ref}
+      className={twMerge(
+        makeCardClassName("root"),
+        "relative w-full text-left ring-1",
+        getColorClassNames("white").bgColor,
+        boxShadow.md,
+        colorClassNames[decorationColor][colorPalette.border].borderColor,
+        getColorClassNames(DEFAULT_COLOR, colorPalette.ring).ringColor,
         parseDecorationAlignment(decoration),
-        spacing.threeXl.paddingLeft,
-        spacing.threeXl.paddingRight,
-        spacing.threeXl.paddingTop,
-        spacing.threeXl.paddingBottom,
-        borderRadius.lg.all
+        spacing.threeXl.paddingAll,
+        borderRadius.lg.all,
+        className,
       )}
+      {...other}
     >
       {children}
     </div>
   );
-};
+});
 
 export default Card;

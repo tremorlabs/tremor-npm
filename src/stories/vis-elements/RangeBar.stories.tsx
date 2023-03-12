@@ -6,7 +6,7 @@ import RangeBar from "components/vis-elements/RangeBar/RangeBar";
 import Card from "components/layout-elements/Card";
 import Metric from "components/text-elements/Metric";
 
-import { BaseColors } from "lib/primitives";
+import { BaseColors } from "lib/constants";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -18,7 +18,7 @@ export default {
 const Template: ComponentStory<typeof RangeBar> = (args) => (
   <>
     {Object.values(BaseColors).map((color) => (
-      <Card>
+      <Card key={color}>
         <Metric>$23.456</Metric>
         <RangeBar {...args} color={color} />
       </Card>
@@ -34,5 +34,5 @@ Default.args = {
   maxPercentageValue: 75,
   rangeTooltip: "Min: 25% Max: 75%",
   markerTooltip: "50%",
-  marginTop: "mt-5",
+  className: "mt-5",
 };

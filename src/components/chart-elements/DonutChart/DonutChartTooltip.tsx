@@ -1,10 +1,8 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  ChartTooltipFrame,
-  ChartTooltipRow,
-} from "components/chart-elements/common/ChartTooltip";
-import { classNames, spacing } from "lib";
+import { ChartTooltipFrame, ChartTooltipRow } from "components/chart-elements/common/ChartTooltip";
+import { spacing } from "lib";
 import { ValueFormatter } from "../../../lib/inputTypes";
 
 export interface DonutChartTooltipProps {
@@ -13,23 +11,12 @@ export interface DonutChartTooltipProps {
   valueFormatter: ValueFormatter;
 }
 
-export const DonutChartTooltip = ({
-  active,
-  payload,
-  valueFormatter,
-}: DonutChartTooltipProps) => {
+export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChartTooltipProps) => {
   if (active && payload[0]) {
     const payloadRow = payload[0];
     return (
       <ChartTooltipFrame>
-        <div
-          className={classNames(
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingTop,
-            spacing.sm.paddingBottom
-          )}
-        >
+        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY)}>
           <ChartTooltipRow
             value={valueFormatter(payloadRow.value)}
             name={payloadRow.name}

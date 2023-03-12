@@ -1,34 +1,33 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  classNames,
-  defaultColors,
-  fontSize,
-  fontWeight,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-} from "lib";
-import { MarginTop } from "../../../lib";
+import { fontSize, fontWeight, getColorClassNames, makeClassName } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface TableProps {
-  marginTop?: MarginTop;
-  children: React.ReactNode;
-}
+const makeTableClassName = makeClassName("Table");
 
-const Table = ({ marginTop = "mt-0", children }: TableProps) => (
-  <div className="tr-overflow-auto">
-    <table
-      className={classNames(
-        "tremor-base tr-w-full tr-tabular-nums",
-        parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        fontSize.sm,
-        fontWeight.sm
-      )}
-    >
-      {children}
-    </table>
-  </div>
+const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
+  (props, ref) => {
+    const { children, className, ...other } = props;
+
+    return (
+      <div className={twMerge(makeTableClassName("root"), "overflow-auto", className)}>
+        <table
+          ref={ref}
+          className={twMerge(
+            makeTableClassName("table"),
+            "w-full tabular-nums",
+            getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+            fontSize.sm,
+            fontWeight.sm,
+          )}
+          {...other}
+        >
+          {children}
+        </table>
+      </div>
+    );
+  },
 );
 
 export default Table;

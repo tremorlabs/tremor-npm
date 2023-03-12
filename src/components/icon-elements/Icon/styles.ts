@@ -1,54 +1,33 @@
-import {
-  Sizing,
-  border,
-  borderRadius,
-  boxShadow,
-  defaultColors,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  sizing,
-  spacing,
-} from "lib";
+import { Sizing, border, borderRadius, boxShadow, getColorClassNames, sizing, spacing } from "lib";
 
 import { Color, IconVariant } from "../../../lib/inputTypes";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 export type WrapperProportionTypes = {
-  paddingLeft: string;
-  paddingRight: string;
-  paddingTop: string;
-  paddingBottom: string;
+  paddingX: string;
+  paddingY: string;
 };
 
 export const wrapperProportions: { [size: string]: WrapperProportionTypes } = {
   xs: {
-    paddingLeft: spacing.xs.paddingLeft,
-    paddingRight: spacing.xs.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xs.paddingX,
+    paddingY: spacing.xs.paddingY,
   },
   sm: {
-    paddingLeft: spacing.xs.paddingLeft,
-    paddingRight: spacing.xs.paddingRight,
-    paddingTop: spacing.xs.paddingTop,
-    paddingBottom: spacing.xs.paddingBottom,
+    paddingX: spacing.xs.paddingX,
+    paddingY: spacing.xs.paddingY,
   },
   md: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.sm.paddingTop,
-    paddingBottom: spacing.sm.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.sm.paddingY,
   },
   lg: {
-    paddingLeft: spacing.sm.paddingLeft,
-    paddingRight: spacing.sm.paddingRight,
-    paddingTop: spacing.sm.paddingTop,
-    paddingBottom: spacing.sm.paddingBottom,
+    paddingX: spacing.sm.paddingX,
+    paddingY: spacing.sm.paddingY,
   },
   xl: {
-    paddingLeft: spacing.md.paddingLeft,
-    paddingRight: spacing.md.paddingRight,
-    paddingTop: spacing.md.paddingTop,
-    paddingBottom: spacing.md.paddingBottom,
+    paddingX: spacing.md.paddingX,
+    paddingY: spacing.md.paddingY,
   },
 };
 
@@ -104,13 +83,13 @@ export const shape: { [style: string]: ShapeTypes } = {
   solid: {
     rounded: borderRadius.lg.all,
     border: border.md.all,
-    ring: "tr-ring-1",
+    ring: "ring-1",
     shadow: "",
   },
   outlined: {
     rounded: borderRadius.lg.all,
     border: border.sm.all,
-    ring: "tr-ring-2",
+    ring: "ring-2",
     shadow: "",
   },
 };
@@ -119,62 +98,38 @@ export const getIconColors = (variant: IconVariant, color: Color) => {
   switch (variant) {
     case "simple":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
         bgColor: "",
         borderColor: "",
         ringColor: "",
       };
     case "light":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).lightBackground
-        ).bgColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        bgColor: getColorClassNames(color, colorPalette.lightBackground).bgColor,
         borderColor: "",
         ringColor: "",
       };
     case "shadow":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          defaultColors.lightBorder
-        ).borderColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        bgColor: getColorClassNames("white").bgColor,
+        borderColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
         ringColor: "",
       };
     case "solid":
       return {
-        textColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .textColor,
-        bgColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).background
-        ).bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(
-          defaultColors.lightBorder
-        ).ringColor,
+        textColor: getColorClassNames("white").textColor,
+        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
+        borderColor: getColorClassNames("white").borderColor,
+        ringColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
       };
     case "outlined":
       return {
-        textColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).text
-        ).textColor,
-        bgColor: getColorVariantsFromColorThemeValue(defaultColors.white)
-          .bgColor,
-        borderColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).border
-        ).borderColor,
-        ringColor: getColorVariantsFromColorThemeValue(
-          getColorTheme(color).lightRing
-        ).ringColor,
+        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        bgColor: getColorClassNames("white").bgColor,
+        borderColor: getColorClassNames(color, colorPalette.ring).borderColor,
+        ringColor: getColorClassNames(color, colorPalette.lightRing).ringColor,
       };
   }
 };
