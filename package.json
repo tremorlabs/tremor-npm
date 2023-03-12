@@ -43,6 +43,7 @@
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
+    "@semantic-release/commit-analyzer": "^9.0.2",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack4": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
@@ -60,6 +61,7 @@
     "autoprefixer": "^10.4.4",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.5",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -109,6 +111,20 @@
         "name": "beta-*",
         "prerelease": true
       }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "releaseRules": [
+            {
+              "type": "*!",
+              "release": "major"
+            }
+          ]
+        }
+      ]
     ]
   }
 }
