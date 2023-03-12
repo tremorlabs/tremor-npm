@@ -32,6 +32,15 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
     const isActive = isValueInArray(value, selectedItems as any[]);
     const isHovered = hoveredValue === value;
 
+    const bgColor = isActive
+      ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor
+      : isHovered
+      ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
+      : getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor;
+    const textColor = isActive
+      ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor
+      : getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
+
     return (
       <button
         ref={ref}
@@ -48,7 +57,8 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
           fontSize.sm,
           getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-          isHovered ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor : "",
+          bgColor,
+          textColor,
           className,
         )}
         {...other}
@@ -60,7 +70,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
             "flex-none focus:ring-none focus:outline-none cursor-pointer",
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).focusRingColor,
             colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
             spacing.lg.marginRight,
             borderRadius.sm.all,
             border.sm.all,

@@ -55,8 +55,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
     : getColorClassNames("white").bgColor;
   const boderColor = error
-    ? colorClassNames[BaseColors.Rose][colorPalette.lightRing].borderColor
-    : getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor;
+    ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
+    : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor;
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -74,7 +74,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           makeTextInputClassName("root"),
           "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
           bgColor,
-          getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
+          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
           boderColor,
           borderRadius.md.all,
           border.sm.all,

@@ -18,7 +18,7 @@ export interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
-  const { data, className, ...other } = props;
+  const { data = [], className, ...other } = props;
   return (
     <div
       ref={ref}

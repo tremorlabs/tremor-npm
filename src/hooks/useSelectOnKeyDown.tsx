@@ -20,13 +20,16 @@ const useSelectOnKeyDown = (
 
   useEffect(() => {
     const getIndexOfSelectedValue = () => {
+      if (!isFocused) {
+        setHoveredIdx(NO_SELECTION_IDX);
+      }
       if (!value) return NO_SELECTION_IDX;
       const indexOfValue = optionValues.indexOf(value);
       return indexOfValue === -1 ? NO_SELECTION_IDX : indexOfValue;
     };
 
     setHoveredIdx(getIndexOfSelectedValue());
-  }, [value]);
+  }, [value, isFocused]);
 
   const hoveredValue = getHoveredValue(hoveredIdx, optionValues);
 

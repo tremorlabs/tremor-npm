@@ -21,7 +21,16 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
   const { value, text, icon, className, onClick, ...other } = props;
   const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
   const { hoveredValue } = useContext(HoveredValueContext);
-  const isActive = selectedValue === value || hoveredValue === value;
+  const isActive = selectedValue === value;
+  const isHovered = hoveredValue === value;
+  const bgColor = isActive
+    ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor
+    : isHovered
+    ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
+    : getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor;
+  const textColor = isActive
+    ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor
+    : getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
 
   const Icon = icon;
 
@@ -39,15 +48,8 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
         spacing.twoXl.paddingX,
         spacing.md.paddingY,
         fontSize.sm,
-        isActive
-          ? twMerge(
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor,
-            )
-          : twMerge(
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-            ),
+        bgColor,
+        textColor,
         className,
       )}
       {...other}

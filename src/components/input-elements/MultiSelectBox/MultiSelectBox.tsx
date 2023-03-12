@@ -114,10 +114,11 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         type="button"
         className={twMerge(
           makeMultiSelectBoxClassName("button"),
-          "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
+          "flex justify-between items-center w-full focus:outline-none focus:ring-2",
           getColorClassNames("white").bgColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getColorClassNames("blue", colorPalette.lightRing).focusRingColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
