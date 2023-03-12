@@ -18,7 +18,7 @@ export interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
-  const { data, children, className, ...other } = props;
+  const { data, className, ...other } = props;
   return (
     <div
       ref={ref}
@@ -30,10 +30,9 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
       )}
       {...other}
     >
-      {children ??
-        data.map((item, idx) => (
-          <TrackerBlock key={item.key ?? idx} color={item.color ?? "gray"} tooltip={item.tooltip} />
-        ))}
+      {data.map((item, idx) => (
+        <TrackerBlock key={item.key ?? idx} color={item.color ?? "gray"} tooltip={item.tooltip} />
+      ))}
     </div>
   );
 });

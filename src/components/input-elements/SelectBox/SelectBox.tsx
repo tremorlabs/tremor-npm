@@ -123,7 +123,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           isFocused &&
             twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
           getColorClassNames(BaseColors.Blue, colorPalette.ring).focusRingColor,
           borderRadius.md.all,
           border.sm.all,

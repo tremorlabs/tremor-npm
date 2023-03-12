@@ -117,7 +117,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           "flex justify-between items-center w-full focus:outline-none focus:ring-2 focus:ring-gray-300",
           getColorClassNames("white").bgColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
