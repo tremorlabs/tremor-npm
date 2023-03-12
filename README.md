@@ -140,6 +140,7 @@ npm start
 ## Example
 
 With tremor creating an analytical interface is easy.
+
 <br>
 <br>
 
