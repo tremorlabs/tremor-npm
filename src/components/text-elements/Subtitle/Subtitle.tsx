@@ -1,51 +1,30 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  TextAlignments,
-  classNames,
-  fontSize,
-  fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  parseTextAlignment,
-  parseTruncateOption,
-} from "lib";
-import { Color, MarginTop, TextAlignment } from "../../../lib";
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { Color } from "../../../lib";
+import { colorPalette } from "lib/theme";
 
-export interface SubtitleProps {
+export interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
-  truncate?: boolean;
-  textAlignment?: TextAlignment;
-  marginTop?: MarginTop;
-  children: React.ReactNode;
 }
 
-const Subtitle = ({
-  color = BaseColors.Gray,
-  truncate = false,
-  textAlignment = TextAlignments.Left,
-  marginTop = "mt-0",
-  children,
-}: SubtitleProps) => {
+const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
   return (
     <p
-      className={classNames(
-        "text-elem tremor-base",
-        truncate ? "tr-whitespace-nowrap" : "tr-shrink-0",
-        parseTruncateOption(truncate),
-        parseTextAlignment(textAlignment),
-        parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(getColorTheme(color).lightText)
-          .textColor,
+      ref={ref}
+      className={twMerge(
+        getColorClassNames(color, colorPalette.lightText).textColor,
         fontSize.md,
-        fontWeight.sm
+        fontWeight.sm,
+        className,
       )}
+      {...other}
     >
       {children}
     </p>
   );
-};
+});
 
 export default Subtitle;

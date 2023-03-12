@@ -11,7 +11,7 @@ describe("SelectBox", () => {
         <SelectBoxItem value={1} text="Option One" />
         <SelectBoxItem value={2} text="Option Two" />
         <SelectBoxItem value={3} text="Option Three" />
-      </SelectBox>
+      </SelectBox>,
     );
   });
 });

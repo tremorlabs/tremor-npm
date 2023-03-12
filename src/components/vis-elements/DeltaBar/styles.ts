@@ -1,9 +1,5 @@
-import {
-  BaseColors,
-  DeltaTypes,
-  colorTheme,
-  getColorVariantsFromColorThemeValue,
-} from "lib";
+import { BaseColors, DeltaTypes, colorClassNames } from "lib";
+import { colorPalette } from "lib/theme";
 
 export type ColorTypes = {
   bgColor: string;
@@ -11,28 +7,18 @@ export type ColorTypes = {
 
 export const colors: { [key: string]: ColorTypes } = {
   [DeltaTypes.Increase]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      colorTheme[BaseColors.Emerald].background
-    ).bgColor,
+    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.background].bgColor,
   },
   [DeltaTypes.ModerateIncrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      colorTheme[BaseColors.Emerald].background
-    ).bgColor,
+    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.background].bgColor,
   },
   [DeltaTypes.Decrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      colorTheme[BaseColors.Rose].background
-    ).bgColor,
+    bgColor: colorClassNames[BaseColors.Rose][colorPalette.background].bgColor,
   },
   [DeltaTypes.ModerateDecrease]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      colorTheme[BaseColors.Rose].background
-    ).bgColor,
+    bgColor: colorClassNames[BaseColors.Rose][colorPalette.background].bgColor,
   },
   [DeltaTypes.Unchanged]: {
-    bgColor: getColorVariantsFromColorThemeValue(
-      colorTheme[BaseColors.Orange].background
-    ).bgColor,
+    bgColor: colorClassNames[BaseColors.Orange][colorPalette.background].bgColor,
   },
 };

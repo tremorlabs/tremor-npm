@@ -1,21 +1,14 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
+import { BaseColors, borderRadius, getColorClassNames, makeClassName, sizing } from "lib";
+import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
-import {
-  BaseColors,
-  borderRadius,
-  classNames,
-  defaultColors,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-  sizing,
-} from "lib";
-import { Color, MarginTop } from "../../../lib";
+const makeRangeBarClassName = makeClassName("RangeBar");
 
-export interface RangeBarProps {
+export interface RangeBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percentageValue: number;
   minPercentageValue: number;
   maxPercentageValue: number;
@@ -23,79 +16,83 @@ export interface RangeBarProps {
   rangeTooltip?: string;
   showAnimation?: boolean;
   color?: Color;
-  marginTop?: MarginTop;
 }
 
-const RangeBar = ({
-  percentageValue,
-  minPercentageValue,
-  maxPercentageValue,
-  markerTooltip,
-  rangeTooltip,
-  showAnimation = true,
-  color = BaseColors.Blue,
-  marginTop = "mt-0",
-}: RangeBarProps) => {
+const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) => {
+  const {
+    percentageValue,
+    minPercentageValue,
+    maxPercentageValue,
+    markerTooltip,
+    rangeTooltip,
+    showAnimation = true,
+    color = BaseColors.Blue,
+    className,
+    ...other
+  } = props;
+
+  const { tooltipProps: markerTooltipProps, getReferenceProps: getMarkerReferenceProps } =
+    useTooltip();
+  const { tooltipProps: rangeTooltipProps, getReferenceProps: getRangeReferenceProps } =
+    useTooltip();
+
   return (
     <div
-      className={classNames(
-        "tremor-base tr-relative tr-flex tr-items-center tr-w-full",
-        parseMarginTop(marginTop),
-        getColorVariantsFromColorThemeValue(defaultColors.lightBackground)
-          .bgColor,
+      ref={ref}
+      className={twMerge(
+        makeRangeBarClassName("root"),
+        "relative flex items-center w-full",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
         sizing.xs.height,
-        borderRadius.lg.all
+        borderRadius.lg.all,
+        className,
       )}
+      {...other}
     >
-      <Tooltip
-        content={rangeTooltip}
-        className={rangeTooltip ? "" : "tr-hidden"}
+      <Tooltip text={rangeTooltip} {...rangeTooltipProps} />
+      <div
+        ref={rangeTooltipProps.refs.setReference}
+        className={twMerge(
+          makeRangeBarClassName("rangeBar"),
+          "absolute h-full",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
+          borderRadius.lg.all,
+        )}
+        style={{
+          left: `${minPercentageValue}%`,
+          width: `${maxPercentageValue - minPercentageValue}%`,
+          transition: showAnimation ? "all 2s" : "",
+        }}
+        {...getRangeReferenceProps}
+      />
+      <Tooltip text={markerTooltip} {...markerTooltipProps} />
+      <div
+        ref={markerTooltipProps.refs.setReference}
+        className={twMerge(
+          makeRangeBarClassName("markerWrapper"),
+          "absolute right-1/2 -translate-x-1/2",
+          sizing.lg.width, // wide transparent wrapper for tooltip activation
+        )}
+        style={{
+          left: `${percentageValue}%`,
+          transition: showAnimation ? "all 2s" : "",
+        }}
+        {...getMarkerReferenceProps}
       >
         <div
-          className={classNames(
-            "tr-absolute tr-h-full",
-            getColorVariantsFromColorThemeValue(defaultColors.darkBackground)
-              .bgColor,
-            borderRadius.lg.all
+          className={twMerge(
+            makeRangeBarClassName("marker"),
+            "ring-2 mx-auto",
+            getColorClassNames(color, colorPalette.background).bgColor,
+            getColorClassNames("white").ringColor,
+            sizing.md.height,
+            sizing.twoXs.width,
+            borderRadius.lg.all,
           )}
-          style={{
-            left: `${minPercentageValue}%`,
-            width: `${maxPercentageValue - minPercentageValue}%`,
-            transition: showAnimation ? "all 2s" : "",
-          }}
         />
-      </Tooltip>
-      <Tooltip
-        content={markerTooltip}
-        className={markerTooltip ? "" : "tr-hidden"}
-      >
-        <div
-          className={classNames(
-            "tr-absolute tr-right-1/2 -tr-translate-x-1/2",
-            sizing.lg.width // wide transparent wrapper for tooltip activation
-          )}
-          style={{
-            left: `${percentageValue}%`,
-            transition: showAnimation ? "all 2s" : "",
-          }}
-        >
-          <div
-            className={classNames(
-              "tr-ring-2 tr-mx-auto",
-              getColorVariantsFromColorThemeValue(
-                getColorTheme(color).background
-              ).bgColor,
-              getColorVariantsFromColorThemeValue(defaultColors.white)
-                .ringColor,
-              sizing.md.height,
-              sizing.twoXs.width,
-              borderRadius.lg.all
-            )}
-          />
-        </div>
-      </Tooltip>
+      </div>
     </div>
   );
-};
+});
 
 export default RangeBar;

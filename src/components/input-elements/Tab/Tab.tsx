@@ -1,85 +1,89 @@
 import React, { useContext } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import {
   border,
-  classNames,
-  defaultColors,
   fontSize,
   fontWeight,
-  getColorTheme,
-  getColorVariantsFromColorThemeValue,
+  getColorClassNames,
+  makeClassName,
   sizing,
   spacing,
 } from "lib";
 
-export interface TabProps {
-  value: any;
+import { colorPalette, DEFAULT_COLOR } from "lib/theme";
+
+const makeTabClassName = makeClassName("Tab");
+
+export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
   text: string;
   icon?: React.ElementType;
 }
 
-const Tab = ({ value, text, icon }: TabProps) => {
+const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
+  const { value, text, icon, className, onClick, ...other } = props;
   const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
   const color = useContext(BaseColorContext);
 
   const isActive = selectedValue === value;
   const Icon = icon;
 
-  const activeClassNames = classNames(
-    getColorVariantsFromColorThemeValue(getColorTheme(color).text).textColor,
-    getColorVariantsFromColorThemeValue(getColorTheme(color).darkBorder)
-      .borderColor,
-    border.md.bottom
+  const activeClassNames = twMerge(
+    getColorClassNames(color, colorPalette.text).textColor,
+    getColorClassNames(color, colorPalette.border).borderColor,
+    border.md.bottom,
   );
-  const inActiveClassNames = classNames(
-    getColorVariantsFromColorThemeValue(defaultColors.transparent).borderColor,
-    getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-    getColorVariantsFromColorThemeValue(defaultColors.text).hoverTextColor,
-    getColorVariantsFromColorThemeValue(defaultColors.border).hoverBorderColor,
-    "hover:tr-border-b-2"
+  const inActiveClassNames = twMerge(
+    getColorClassNames("transparent").borderColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.text).hoverTextColor,
+    getColorClassNames(DEFAULT_COLOR, colorPalette.border).hoverBorderColor,
+    "hover:border-b-2",
   );
 
   return (
-    <li>
-      <button
-        type="button"
-        className={classNames(
-          "input-elem tr-flex tr-whitespace-nowrap tr-max-w-xs tr-truncate",
-          "focus:tr-outline-none focus:tr-ring-0",
-          spacing.twoXs.paddingRight,
-          spacing.twoXs.paddingLeft,
-          spacing.sm.paddingTop,
-          spacing.sm.paddingBottom,
-          spacing.px.negativeMarginBottom,
-          fontSize.sm,
-          fontWeight.md,
-          isActive ? activeClassNames : inActiveClassNames
-        )}
-        value={value}
-        onClick={() => handleValueChange?.(value)}
-      >
-        {Icon ? (
-          <Icon
-            className={classNames(
-              "tr-flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.sm.marginRight,
-              isActive
-                ? getColorVariantsFromColorThemeValue(getColorTheme(color).text)
-                    .textColor
-                : getColorVariantsFromColorThemeValue(defaultColors.lightText)
-                    .textColor
-            )}
-            aria-hidden="true"
-          />
-        ) : null}
-        <p className="text-elem tr-whitespace-nowrap tr-truncate">{text}</p>
-      </button>
-    </li>
+    <button
+      ref={ref}
+      className={twMerge(
+        makeTabClassName("root"),
+        "flex whitespace-nowrap max-w-xs truncate",
+        "focus:outline-none focus:ring-0",
+        spacing.twoXs.paddingX,
+        spacing.sm.paddingY,
+        spacing.px.negativeMarginBottom,
+        fontSize.sm,
+        fontWeight.md,
+        isActive ? activeClassNames : inActiveClassNames,
+        className,
+      )}
+      value={value}
+      onClick={(e) => {
+        handleValueChange?.(value);
+        onClick?.(e);
+      }}
+      {...other}
+    >
+      {Icon ? (
+        <Icon
+          className={twMerge(
+            makeTabClassName("icon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.sm.marginRight,
+            isActive
+              ? getColorClassNames(color, colorPalette.text).textColor
+              : getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+          )}
+          aria-hidden="true"
+        />
+      ) : null}
+      <p className={twMerge(makeTabClassName("text"), "text-sm whitespace-nowrap")}>{text}</p>
+    </button>
   );
-};
+});
 
 export default Tab;
