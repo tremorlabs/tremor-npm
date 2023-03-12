@@ -44,6 +44,8 @@
     "@storybook/addon-interactions": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
     "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "github:semantic-release/github",
+    "@semantic-release/npm": "github:semantic-release/npm",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack4": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
@@ -111,6 +113,22 @@
         "name": "beta-*",
         "prerelease": true
       }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "releaseRules": [
+            {
+              "type": "*!",
+              "release": "major"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github"
     ]
   }
 }
