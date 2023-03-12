@@ -1,33 +1,31 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { TextAlignments, classNames, parseTextAlignment, spacing } from "lib";
-import { TextAlignment } from "../../../lib/inputTypes";
+import { makeClassName, spacing } from "lib";
 
-export interface TableCellProps {
-  textAlignment?: TextAlignment;
-  children: React.ReactNode;
-}
+const makeTableCellClassName = makeClassName("TableCell");
 
-const TableCell = ({
-  textAlignment = TextAlignments.Left,
-  children,
-}: TableCellProps) => {
+const TableCell = React.forwardRef<
+  HTMLTableCellElement,
+  React.TdHTMLAttributes<HTMLTableCellElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
   return (
     <>
       <td
-        className={classNames(
-          "tr-align-middle tr-whitespace-nowrap tr-tabular-nums",
-          parseTextAlignment(textAlignment),
-          spacing.twoXl.paddingLeft,
-          spacing.twoXl.paddingRight,
-          spacing.twoXl.paddingTop,
-          spacing.twoXl.paddingBottom
+        ref={ref}
+        className={twMerge(
+          makeTableCellClassName("root"),
+          "align-middle whitespace-nowrap tabular-nums text-left",
+          spacing.twoXl.paddingAll,
+          className,
         )}
+        {...other}
       >
         {children}
       </td>
     </>
   );
-};
+});
 
 export default TableCell;

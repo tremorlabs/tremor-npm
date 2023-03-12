@@ -1,19 +1,8 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import "tippy.js/dist/tippy.css";
-import Tooltip from "@tippyjs/react";
-
-import { DeltaType, DeltaTypes, MarginTop, Size } from "../../../lib";
-import {
-  Sizes,
-  borderRadius,
-  classNames,
-  isValidDeltaType,
-  isValidSize,
-  mapInputsToDeltaType,
-  parseMarginTop,
-  spacing,
-} from "lib";
+import { DeltaType, DeltaTypes, Size, makeClassName, spacing } from "../../../lib";
+import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
 import {
   badgeProportionsIconOnly,
   badgeProportionsWithText,
@@ -22,70 +11,60 @@ import {
   iconSizes,
 } from "./styles";
 
-export interface BadgeDeltaProps {
-  text?: string;
+const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
+
+export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
-  tooltip?: string;
-  marginTop?: MarginTop;
 }
 
-const BadgeDelta = ({
-  text,
-  deltaType = DeltaTypes.Increase,
-  isIncreasePositive = true,
-  size = Sizes.SM,
-  tooltip,
-  marginTop = "mt-0",
-}: BadgeDeltaProps) => {
-  const parsedDeltaType = isValidDeltaType(deltaType)
-    ? deltaType
-    : DeltaTypes.Increase;
-  const Icon = deltaIcons[parsedDeltaType];
-  const mappedDeltaType = mapInputsToDeltaType(
-    parsedDeltaType,
-    isIncreasePositive
-  );
-  const badgeProportions = text
-    ? badgeProportionsWithText
-    : badgeProportionsIconOnly;
-  const badgeSize = isValidSize(size) ? size : Sizes.SM;
+const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, ref) => {
+  const {
+    deltaType = DeltaTypes.Increase,
+    isIncreasePositive = true,
+    size = Sizes.SM,
+    children,
+    className,
+    ...other
+  } = props;
+
+  const Icon = deltaIcons[deltaType];
+  const mappedDeltaType = mapInputsToDeltaType(deltaType, isIncreasePositive);
+  const badgeProportions = children ? badgeProportionsWithText : badgeProportionsIconOnly;
 
   return (
-    <span className={classNames("tremor-base", parseMarginTop(marginTop))}>
-      <Tooltip
-        content={tooltip}
-        className={classNames(tooltip ? "" : "tr-hidden")}
-      >
-        <span
-          className={classNames(
-            "tr-flex-shrink-0 tr-inline-flex tr-justify-center tr-items-center",
-            borderRadius.full.all,
-            colors[mappedDeltaType].bgColor,
-            colors[mappedDeltaType].textColor,
-            badgeProportions[badgeSize].paddingLeft,
-            badgeProportions[badgeSize].paddingRight,
-            badgeProportions[badgeSize].paddingTop,
-            badgeProportions[badgeSize].paddingBottom,
-            badgeProportions[badgeSize].fontSize
-          )}
-        >
-          <Icon
-            className={classNames(
-              text ? spacing.twoXs.negativeMarginLeft : "",
-              text ? spacing.xs.marginRight : "",
-              iconSizes[badgeSize].height,
-              iconSizes[badgeSize].width
-            )}
-          />
-          {text ? (
-            <p className="text-elem tr-whitespace-nowrap">{text}</p>
-          ) : null}
-        </span>
-      </Tooltip>
+    <span
+      ref={ref}
+      className={twMerge(
+        makeBadgeDeltaClassName("root"),
+        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
+        borderRadius.full.all,
+        colors[mappedDeltaType].bgColor,
+        colors[mappedDeltaType].textColor,
+        badgeProportions[size].paddingX,
+        badgeProportions[size].paddingY,
+        badgeProportions[size].fontSize,
+        className,
+      )}
+      {...other}
+    >
+      <Icon
+        className={twMerge(
+          makeBadgeDeltaClassName("icon"),
+          children
+            ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+            : iconSizes[size].height,
+          iconSizes[size].width,
+        )}
+      />
+      {children ? (
+        <p className={twMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
+          {children}
+        </p>
+      ) : null}
     </span>
   );
-};
+});
 
 export default BadgeDelta;

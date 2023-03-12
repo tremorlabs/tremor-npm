@@ -16,7 +16,7 @@ describe("List", () => {
           <div>Hello</div>
           <div>World</div>
         </ListItem>
-      </List>
+      </List>,
     );
   });
 });

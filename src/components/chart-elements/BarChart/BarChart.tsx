@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import {
   Bar,
@@ -16,16 +17,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import {
-  classNames,
-  defaultValueFormatter,
-  getColorTheme,
-  getHexFromColorThemeValue,
-  getPixelsFromTwClassName,
-  parseHeight,
-  parseMarginTop,
-  themeColorRange,
-} from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface BarChartProps extends BaseChartProps {
@@ -34,42 +26,37 @@ export interface BarChartProps extends BaseChartProps {
   relative?: boolean;
 }
 
-const BarChart = ({
-  data = [],
-  categories = [],
-  dataKey,
-  colors = themeColorRange,
-  valueFormatter = defaultValueFormatter,
-  layout = "horizontal",
-  stack = false,
-  relative = false,
-  startEndOnly = false,
-  showAnimation = true,
-  showXAxis = true,
-  showYAxis = true,
-  yAxisWidth = "w-14",
-  showTooltip = true,
-  showLegend = true,
-  showGridLines = true,
-  height = "h-80",
-  marginTop = "mt-0",
-  autoMinValue = false,
-  minValue,
-  maxValue,
-}: BarChartProps) => {
+const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
+  const {
+    data = [],
+    categories = [],
+    index,
+    colors = themeColorRange,
+    valueFormatter = defaultValueFormatter,
+    layout = "horizontal",
+    stack = false,
+    relative = false,
+    startEndOnly = false,
+    showAnimation = true,
+    showXAxis = true,
+    showYAxis = true,
+    yAxisWidth = 56,
+    showTooltip = true,
+    showLegend = true,
+    showGridLines = true,
+    autoMinValue = false,
+    minValue,
+    maxValue,
+    className,
+    ...other
+  } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div
-      className={classNames(
-        "tremor-base tr-w-full",
-        parseHeight(height),
-        parseMarginTop(marginTop)
-      )}
-    >
+    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
         <ReChartsBarChart
           data={data}
@@ -87,14 +74,10 @@ const BarChart = ({
           {layout !== "vertical" ? (
             <XAxis
               hide={!showXAxis}
-              dataKey={dataKey}
+              dataKey={index}
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
-              ticks={
-                startEndOnly
-                  ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                  : undefined
-              }
+              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               style={{
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
@@ -122,7 +105,7 @@ const BarChart = ({
           )}
           {layout !== "vertical" ? (
             <YAxis
-              width={getPixelsFromTwClassName(yAxisWidth)}
+              width={yAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
@@ -134,23 +117,17 @@ const BarChart = ({
                 fontFamily: "Inter; Helvetica",
               }}
               tickFormatter={
-                relative
-                  ? (value: number) => `${(value * 100).toString()} %`
-                  : valueFormatter
+                relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
               }
             />
           ) : (
             <YAxis
-              width={getPixelsFromTwClassName(yAxisWidth)}
+              width={yAxisWidth}
               hide={!showYAxis}
-              dataKey={dataKey}
+              dataKey={index}
               axisLine={false}
               tickLine={false}
-              ticks={
-                startEndOnly
-                  ? [data[0][dataKey], data[data.length - 1][dataKey]]
-                  : undefined
-              }
+              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               type="category"
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }}
@@ -182,9 +159,7 @@ const BarChart = ({
             <Legend
               verticalAlign="top"
               height={legendHeight}
-              content={({ payload }) =>
-                ChartLegend({ payload }, categoryColors, setLegendHeight)
-              }
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
           {categories.map((category) => (
@@ -194,9 +169,7 @@ const BarChart = ({
               type="linear"
               stackId={stack || relative ? "a" : undefined}
               dataKey={category}
-              fill={getHexFromColorThemeValue(
-                getColorTheme(categoryColors.get(category)).background
-              )}
+              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               isAnimationActive={showAnimation}
             />
           ))}
@@ -204,6 +177,6 @@ const BarChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default BarChart;

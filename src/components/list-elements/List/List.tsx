@@ -1,32 +1,30 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  classNames,
-  defaultColors,
-  getColorVariantsFromColorThemeValue,
-  parseMarginTop,
-} from "lib";
-import { MarginTop } from "../../../lib/inputTypes";
+import { getColorClassNames, makeClassName } from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface ListProps {
-  marginTop?: MarginTop;
-  children: React.ReactNode;
-}
+const makeListClassName = makeClassName("List");
 
-const List = ({ marginTop = "mt-0", children }: ListProps) => {
-  return (
-    <ul
-      className={classNames(
-        "tremor-base list-element tr-w-full tr-overflow-hidden tr-divide-y",
-        getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-        getColorVariantsFromColorThemeValue(defaultColors.lightBorder)
-          .divideColor,
-        parseMarginTop(marginTop)
-      )}
-    >
-      {children}
-    </ul>
-  );
-};
+const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
+  (props, ref) => {
+    const { children, className, ...other } = props;
+    return (
+      <ul
+        ref={ref}
+        className={twMerge(
+          makeListClassName("root"),
+          "w-full overflow-hidden divide-y",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+          className,
+        )}
+        {...other}
+      >
+        {children}
+      </ul>
+    );
+  },
+);
 
 export default List;

@@ -6,12 +6,6 @@ import RangeBar from "components/vis-elements/RangeBar";
 
 describe("RangeBar", () => {
   test("renders the RangeBar component with default props", () => {
-    render(
-      <RangeBar
-        percentageValue={50}
-        minPercentageValue={25}
-        maxPercentageValue={75}
-      />
-    );
+    render(<RangeBar percentageValue={50} minPercentageValue={25} maxPercentageValue={75} />);
   });
 });

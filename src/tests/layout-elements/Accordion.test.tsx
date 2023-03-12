@@ -15,7 +15,7 @@ describe("Accordion", () => {
         <AccordionBody>
           <div>World</div>
         </AccordionBody>
-      </Accordion>
+      </Accordion>,
     );
   });
 });
