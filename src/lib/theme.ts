@@ -15,7 +15,7 @@ export const colorPalette = {
   border: 500,
   darkBorder: 700,
   lightRing: 200,
-  ring: 200,
+  ring: 300,
   lightText: 400,
   text: 500,
   darkText: 700,

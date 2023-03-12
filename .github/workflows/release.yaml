@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
+      - name: install react
+        run: npm i react
       - name: install dependencies
         run: npm ci
       - name: build

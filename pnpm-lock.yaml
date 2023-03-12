@@ -11,6 +11,9 @@ specifiers:
   '@rollup/plugin-commonjs': ^21.1.0
   '@rollup/plugin-node-resolve': ^13.2.1
   '@rollup/plugin-typescript': ^8.3.2
+  '@semantic-release/commit-analyzer': ^9.0.2
+  '@semantic-release/github': github:semantic-release/github
+  '@semantic-release/npm': github:semantic-release/npm
   '@storybook/addon-actions': ^6.5.16
   '@storybook/addon-essentials': ^6.5.16
   '@storybook/addon-interactions': ^6.5.16
@@ -32,6 +35,7 @@ specifiers:
   autoprefixer: ^10.4.4
   babel-jest: ^27.5.1
   babel-loader: ^8.2.5
+  conventional-changelog-conventionalcommits: ^5.0.0
   date-fns: ^2.28.0
   eslint: ^8.13.0
   eslint-config-prettier: ^8.6.0
@@ -79,6 +83,9 @@ devDependencies:
   '@rollup/plugin-commonjs': 21.1.0_rollup@2.79.1
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
   '@rollup/plugin-typescript': 8.5.0_bhcmvni67fkldpaxrtldxbogce
+  '@semantic-release/commit-analyzer': 9.0.2_semantic-release@19.0.5
+  '@semantic-release/github': github.com/semantic-release/github/bc40403598627794a61b5dfdc52cc961e4bddb90_semantic-release@19.0.5
+  '@semantic-release/npm': github.com/semantic-release/npm/c6e74d46b899b93b13d70139abfd6e50202182e2_semantic-release@19.0.5
   '@storybook/addon-actions': 6.5.16_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.16_ludb4wetox2g5qwr6mmu3dkjji
   '@storybook/addon-interactions': 6.5.16_22w7zynjonpso4757xealkaezm
@@ -100,6 +107,7 @@ devDependencies:
   autoprefixer: 10.4.13_postcss@8.4.21
   babel-jest: 27.5.1_@babel+core@7.20.12
   babel-loader: 8.3.0_la66t7xldg4uecmyawueag5wkm
+  conventional-changelog-conventionalcommits: 5.0.0
   eslint: 8.33.0
   eslint-config-prettier: 8.6.0_eslint@8.33.0
   eslint-plugin-prettier: 4.2.1_qa2thblfovmfepmgrc7z2owbo4
@@ -6306,6 +6314,15 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       compare-func: 2.0.0
+      q: 1.5.1
+    dev: true
+
+  /conventional-changelog-conventionalcommits/5.0.0:
+    resolution: {integrity: sha512-lCDbA+ZqVFQGUj7h9QBKoIpLhl8iihkO0nCTyRNzuXtcd7ubODpYB04IFy31JloiJgG0Uovu8ot8oxRzn7Nwtw==}
+    engines: {node: '>=10'}
+    dependencies:
+      compare-func: 2.0.0
+      lodash: 4.17.21
       q: 1.5.1
     dev: true
 
@@ -16042,4 +16059,60 @@ packages:
 
   /zwitch/2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: true
+
+  github.com/semantic-release/github/bc40403598627794a61b5dfdc52cc961e4bddb90_semantic-release@19.0.5:
+    resolution: {tarball: https://codeload.github.com/semantic-release/github/tar.gz/bc40403598627794a61b5dfdc52cc961e4bddb90}
+    id: github.com/semantic-release/github/bc40403598627794a61b5dfdc52cc961e4bddb90
+    name: '@semantic-release/github'
+    version: 0.0.0-development
+    engines: {node: '>=14.17'}
+    peerDependencies:
+      semantic-release: '>=18.0.0-beta.1'
+    dependencies:
+      '@octokit/rest': 19.0.7
+      '@semantic-release/error': 3.0.0
+      aggregate-error: 3.1.0
+      bottleneck: 2.19.5
+      debug: 4.3.4
+      dir-glob: 3.0.1
+      fs-extra: 11.1.0
+      globby: 11.1.0
+      http-proxy-agent: 5.0.0
+      https-proxy-agent: 5.0.1
+      issue-parser: 6.0.0
+      lodash: 4.17.21
+      mime: 3.0.0
+      p-filter: 2.1.0
+      p-retry: 4.6.2
+      semantic-release: 19.0.5
+      url-join: 4.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  github.com/semantic-release/npm/c6e74d46b899b93b13d70139abfd6e50202182e2_semantic-release@19.0.5:
+    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/c6e74d46b899b93b13d70139abfd6e50202182e2}
+    id: github.com/semantic-release/npm/c6e74d46b899b93b13d70139abfd6e50202182e2
+    name: '@semantic-release/npm'
+    version: 0.0.0-development
+    engines: {node: '>=16 || ^14.17'}
+    peerDependencies:
+      semantic-release: '>=19.0.0'
+    dependencies:
+      '@semantic-release/error': 3.0.0
+      aggregate-error: 3.1.0
+      execa: 5.1.1
+      fs-extra: 11.1.0
+      lodash: 4.17.21
+      nerf-dart: 1.0.0
+      normalize-url: 6.1.0
+      npm: 8.19.3
+      rc: 1.2.8
+      read-pkg: 5.2.0
+      registry-auth-token: 5.0.1
+      semantic-release: 19.0.5
+      semver: 7.3.8
+      tempy: 1.0.1
     dev: true
