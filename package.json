@@ -39,6 +39,7 @@
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-typescript": "^8.3.2",
+    "@semantic-release/commit-analyzer": "^9.0.2",
     "@storybook/addon-actions": "^6.5.0-alpha.64",
     "@storybook/addon-essentials": "^6.5.0-alpha.64",
     "@storybook/addon-interactions": "^6.5.0-alpha.64",
@@ -96,6 +97,20 @@
         "name": "beta-*",
         "prerelease": true
       }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "releaseRules": [
+            {
+              "type": "*!",
+              "release": "major"
+            }
+          ]
+        }
+      ]
     ]
   }
 }
