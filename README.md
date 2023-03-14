@@ -129,8 +129,7 @@ const nextConfig = {
 <br>
 <br>
 
-**💡 Hint:** Since we are in beta, please be aware that there might be breaking changes in the future. If you want to see how you can build your first dashboard, have a look at our [documentation](https://tremor.so/docs/getting-started/demo-dashboard).
-
+**💡 Hint:** Since we are in beta, please be aware that there might be breaking changes in the future.
 <br>
 
 ## Example
