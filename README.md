@@ -137,7 +137,6 @@ const nextConfig = {
 With tremor creating an analytical interface is easy.
 
 <br>
-<br>
 
 ```jsx
 //Card.tsx
@@ -159,6 +158,8 @@ export default () => (
 ![Tremor Banner](images/example.png)
 
 <br>
+
+If you want to see how you can build your first dashboard, have a look at our [documentation](https://tremor.so/docs/getting-started/demo-dashboard).
 
 ## Community and Contribution
 
