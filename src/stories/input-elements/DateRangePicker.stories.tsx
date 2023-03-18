@@ -137,6 +137,12 @@ UncontrolledWithDropdownOptionsWithEndDate.args = {
   ],
 };
 
+export const UncontrolledWithYearPaginationEnabled = UncontrolledTemplate.bind({});
+UncontrolledWithYearPaginationEnabled.args = {
+  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
+  enableYearPagination: true,
+};
+
 export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDateRange = ControlledTemplate.bind({});

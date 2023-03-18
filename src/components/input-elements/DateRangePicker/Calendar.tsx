@@ -95,10 +95,10 @@ const CalendarHeader = ({
       >
         <button
           type="button"
-          hidden={!enableYearPagination}
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderPrevYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
+            !enableYearPagination && "hidden",
             getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
             getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
             getColorClassNames("blue", colorPalette.lightRing).focusRingColor,
@@ -198,10 +198,10 @@ const CalendarHeader = ({
         </button>
         <button
           type="button"
-          hidden={!enableYearPagination}
           className={twMerge(
             makeDateRangePickerClassName("calendarHeaderNextYearButton"),
             "inline-flex focus:outline-none focus:ring-2",
+            !enableYearPagination && "hidden",
             getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
             getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
             getColorClassNames("blue", colorPalette.lightRing).focusRingColor,
