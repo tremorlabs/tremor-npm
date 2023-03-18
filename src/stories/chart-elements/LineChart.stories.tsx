@@ -21,7 +21,7 @@ const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
         <LineChart {...args} />
       </Card>
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <Card>
       <LineChart {...args} />
     </Card>

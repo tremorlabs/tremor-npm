@@ -10,7 +10,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
-  const { color = BaseColors.Gray, children } = props;
+  const { color = BaseColors.Gray, className, children } = props;
   return (
     <p
       ref={ref}
@@ -18,6 +18,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
         getColorClassNames(color, colorPalette.text).textColor,
         fontSize.sm,
         fontWeight.sm,
+        className,
       )}
     >
       {children}
