@@ -1,17 +1,46 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { makeClassName, spacing } from "lib";
+import {
+  colorPalette,
+  makeClassName,
+  spacing,
+  borderRadius,
+  getColorClassNames,
+  mergeRefs,
+} from "lib";
 import { Color } from "../../../lib/inputTypes";
-import TrackerBlock from "./TrackerBlock";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 export const makeTrackerClassName = makeClassName("Tracker");
 
 export interface TrackerBlockProps {
-  key?: string;
+  key?: string | number;
   color?: Color;
   tooltip?: string;
 }
+
+const TrackerBlock = React.forwardRef<HTMLDivElement, TrackerBlockProps>((props, ref) => {
+  const { color, tooltip, ...other } = props;
+
+  const { tooltipProps, getReferenceProps } = useTooltip();
+
+  return (
+    <div
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+      className={twMerge(
+        makeTrackerClassName("trackingBlock"),
+        "w-full h-full",
+        getColorClassNames(color ?? "gray", colorPalette.background).bgColor,
+        borderRadius.md.all,
+      )}
+      {...other}
+      {...getReferenceProps}
+    >
+      <Tooltip text={tooltip} {...tooltipProps} />
+    </div>
+  );
+});
 
 export interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TrackerBlockProps[];
@@ -31,7 +60,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
       {...other}
     >
       {data.map((item, idx) => (
-        <TrackerBlock key={item.key ?? idx} color={item.color ?? "gray"} tooltip={item.tooltip} />
+        <TrackerBlock key={item.key ?? idx} color={item.color} tooltip={item.tooltip} />
       ))}
     </div>
   );
