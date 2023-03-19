@@ -15,7 +15,7 @@ const justifyContentClassNames: { [key in JustifyContent]: string } = {
   evenly: "justify-evenly",
 };
 
-const alignItmesClassNames: { [key in AlignItems]: string } = {
+const alignItemsClassNames: { [key in AlignItems]: string } = {
   start: "items-start",
   end: "items-end",
   center: "items-center",
@@ -55,7 +55,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
         "flex w-full",
         flexDirectionClassNames[flexDirection],
         justifyContentClassNames[justifyContent],
-        alignItmesClassNames[alignItems],
+        alignItemsClassNames[alignItems],
         className,
       )}
       {...other}
