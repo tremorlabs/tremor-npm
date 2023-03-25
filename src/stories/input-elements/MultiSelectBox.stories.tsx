@@ -116,6 +116,13 @@ WithIcon.args = {
   defaultValue: ["5", "1"],
 };
 
+export const WithDisabled = ResponsiveTemplate.bind({});
+WithDisabled.args = {
+  icon: CalendarIcon,
+  defaultValue: ["5", "1"],
+  disabled: true,
+};
+
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});

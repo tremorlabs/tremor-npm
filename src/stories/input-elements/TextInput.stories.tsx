@@ -29,8 +29,9 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
         <TextInput {...args} defaultValue="hello" />
         <Text>Conrolled without onChange</Text>
         <TextInput {...args} value={value} />
-        <Text>Controlled</Text>
-        <label htmlFor="a">Label</label>
+        <label htmlFor="a">
+          <Text>Controlled</Text>
+        </label>
         <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
         <Button type="submit" className="mt-2">
           Submit
@@ -86,4 +87,9 @@ WithDisabledAndError.args = {
   value: "Hello",
   error: true,
   disabled: true,
+};
+
+export const WithTypePassword = Template.bind({});
+WithTypePassword.args = {
+  type: "password",
 };

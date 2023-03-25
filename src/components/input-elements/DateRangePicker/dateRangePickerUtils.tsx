@@ -325,3 +325,49 @@ const getDayHoverBgColorClassName = (
   }
   return "hover:bg-gray-200";
 };
+
+export const formatSelectedDates = (
+  startDate: Date | null,
+  endDate: Date | null,
+  locale?: Locale,
+) => {
+  const localeCode = locale?.code || "en-US";
+  if (!startDate && !endDate) {
+    return "";
+  } else if (startDate && !endDate) {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    };
+    return startDate.toLocaleDateString(localeCode, options);
+  } else if (startDate && endDate) {
+    if (isEqual(startDate, endDate)) {
+      const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+      return startDate.toLocaleDateString(localeCode, options);
+    } else if (
+      startDate.getMonth() === endDate.getMonth() &&
+      startDate.getFullYear() === endDate.getFullYear()
+    ) {
+      const optionsStartDate: Intl.DateTimeFormatOptions = {
+        month: "short",
+        day: "numeric",
+      };
+      return `${startDate.toLocaleDateString(localeCode, optionsStartDate)} - 
+                    ${endDate.getDate()}, ${endDate.getFullYear()}`;
+    } else {
+      const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+      return `${startDate.toLocaleDateString(localeCode, options)} - 
+                    ${endDate.toLocaleDateString(localeCode, options)}`;
+    }
+  }
+  return "";
+};

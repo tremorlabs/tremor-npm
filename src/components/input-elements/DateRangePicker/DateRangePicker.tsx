@@ -46,6 +46,7 @@ export interface DateRangePickerProps
   placeholder?: string;
   dropdownPlaceholder?: string;
   enableYearPagination?: boolean;
+  disabled?: boolean;
   color?: Color;
   locale?: Locale;
 }
@@ -61,6 +62,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     maxDate = null,
     placeholder = "Select",
     dropdownPlaceholder = "Select",
+    disabled = false,
     color = BaseColors.Blue,
     enableYearPagination = false,
     locale = enUS,
@@ -145,6 +147,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           value={[selectedStartDate, selectedEndDate, selectedDropdownValue]}
           options={dropdownOptions}
           placeholder={placeholder}
+          disabled={disabled}
           calendarRef={calendarRef}
           showCalendar={showCalendar}
           setShowCalendar={setShowCalendar}

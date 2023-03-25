@@ -12,7 +12,6 @@ import {
   border,
   borderRadius,
   boxShadow,
-  constructValueToNameMapping,
   fontSize,
   fontWeight,
   getColorClassNames,
@@ -21,6 +20,7 @@ import {
   sizing,
   spacing,
 } from "lib";
+import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 import { DropdownItemProps } from "./DropdownItem";
 import Modal from "components/util-elements/Modal";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
@@ -32,6 +32,7 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
+  disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
   children: React.ReactElement[] | React.ReactElement;
 }
@@ -42,6 +43,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     value,
     onValueChange,
     placeholder = "Select...",
+    disabled = false,
     icon,
     children,
     className,
@@ -73,6 +75,8 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     selectedValue,
   );
 
+  const hasSelection = hasValue(selectedValue);
+
   return (
     <div
       ref={mergeRefs([dropdownRef, ref])}
@@ -85,18 +89,17 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
         className={twMerge(
           makeDropdownClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
-          getColorClassNames("white").bgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+          getSelectButtonColors(hasSelection, disabled),
+          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
           Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
         )}
         onClick={() => setIsFocused(!isFocused)}
+        disabled={disabled}
       >
         <div className="flex justify-start items-center truncate">
           {Icon ? (
@@ -118,9 +121,6 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
-              selectedValue
-                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
