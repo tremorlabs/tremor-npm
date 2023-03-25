@@ -18,9 +18,10 @@ const makeLegendClassName = makeClassName("Legend");
 export interface LegendItemProps {
   name: string;
   color: Color;
+  itemOnClick?: (category: string) => void;
 }
 
-const LegendItem = ({ name, color }: LegendItemProps) => (
+const LegendItem = ({ name, color, itemOnClick }: LegendItemProps) => (
   <li
     className={twMerge(
       makeLegendClassName("legendItem"),
@@ -28,6 +29,7 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
       getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
       spacing.md.marginRight,
     )}
+    onClick={() => (itemOnClick ? itemOnClick(name) : null)}
   >
     <svg
       className={twMerge(
@@ -51,10 +53,11 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
+  itemOnClick?: (category: string) => void;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
-  const { categories, colors = themeColorRange, className, ...other } = props;
+  const { categories, colors = themeColorRange, className, itemOnClick, ...other } = props;
   return (
     <ol
       ref={ref}
@@ -66,7 +69,12 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
       {...other}
     >
       {categories.map((category, idx) => (
-        <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
+        <LegendItem
+          key={`item-${idx}`}
+          name={category}
+          color={colors[idx]}
+          itemOnClick={itemOnClick}
+        />
       ))}
     </ol>
   );

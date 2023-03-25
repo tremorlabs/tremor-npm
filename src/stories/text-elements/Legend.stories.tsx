@@ -27,3 +27,16 @@ Default.args = {
     "Category D",
   ],
 };
+
+export const WithClickEvent = Template.bind({});
+WithClickEvent.args = {
+  categories: [
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+  ],
+  itemOnClick: (category: string) => {
+    alert(`You clicked: ${category}`);
+  },
+};
