@@ -22,7 +22,7 @@ import { getSelectButtonColors, hasValue } from "components/input-elements/selec
 const makeTextInputClassName = makeClassName("TextInput");
 
 export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type: "text" | "email" | "password";
+  type: "text" | "password";
   defaultValue?: string;
   value?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
