@@ -143,10 +143,6 @@ const DateRangePickerButton = ({
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
-              dropdownValue
-                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-              disabled && getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
           >
             {dropdownText}

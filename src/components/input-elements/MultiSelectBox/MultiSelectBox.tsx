@@ -155,7 +155,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           </p>
         </div>
         <div className="flex items-center">
-          {hasSelection ? (
+          {hasSelection && !disabled ? (
             <div
               role="button"
               className={twMerge(
