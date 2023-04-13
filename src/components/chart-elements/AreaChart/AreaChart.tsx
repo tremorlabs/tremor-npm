@@ -9,6 +9,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  YAxisProps,
+  XAxisProps,
 } from "recharts";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";
@@ -30,6 +32,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     index,
     stack = false,
     colors = themeColorRange,
+    yAxisConfig,
+    xAxisConfig,
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
@@ -73,6 +77,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             axisLine={false}
             padding={{ left: 10, right: 10 }}
             minTickGap={5}
+            {...xAxisConfig}
           />
           <YAxis
             width={yAxisWidth}
@@ -86,6 +91,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
             }}
+            {...yAxisConfig}
             tickFormatter={valueFormatter}
           />
           {showTooltip ? (

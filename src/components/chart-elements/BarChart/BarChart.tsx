@@ -48,6 +48,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     minValue,
     maxValue,
     className,
+    yAxisConfig,
+    xAxisConfig,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -85,6 +87,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               }}
               tickLine={false}
               axisLine={false}
+              {...xAxisConfig}
             />
           ) : (
             <XAxis
@@ -98,9 +101,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               }}
               tickLine={false}
               axisLine={false}
-              tickFormatter={valueFormatter}
               padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              {...xAxisConfig}
+              tickFormatter={valueFormatter}
             />
           )}
           {layout !== "vertical" ? (
@@ -116,6 +120,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
               }}
+              {...yAxisConfig}
               tickFormatter={
                 relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
               }
@@ -135,6 +140,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
               }}
+              {...yAxisConfig}
             />
           )}
           {showTooltip ? (
