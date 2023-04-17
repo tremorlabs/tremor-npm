@@ -9,8 +9,6 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  YAxisProps,
-  XAxisProps,
 } from "recharts";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";

@@ -1,5 +1,5 @@
 import { Color, ValueFormatter } from "../../../lib";
-import {XAxisProps, YAxisProps} from "recharts";
+import { XAxisProps, YAxisProps } from "recharts";
 
 interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
