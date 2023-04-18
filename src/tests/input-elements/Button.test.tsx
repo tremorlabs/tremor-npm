@@ -6,6 +6,6 @@ import Button from "components/input-elements/Button";
 
 describe("Button", () => {
   test("renders the Button component with default props", () => {
-    render(<Button text={"Button"} />);
+    render(<Button>Button</Button>);
   });
 });

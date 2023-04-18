@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof Divider> = () => (
       <Divider />
       <SimpleCard />
     </div>
-    <Title marginTop="mt-5">Desktop</Title>
+    <Title className="mt-5">Desktop</Title>
     <SimpleCard />
     <Divider />
     <SimpleCard />

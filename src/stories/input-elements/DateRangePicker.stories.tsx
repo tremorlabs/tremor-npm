@@ -143,6 +143,12 @@ UncontrolledWithYearPaginationEnabled.args = {
   enableYearPagination: true,
 };
 
+export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
+UncontrolledWithDisabled.args = {
+  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
+  disabled: true,
+};
+
 export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDateRange = ControlledTemplate.bind({});

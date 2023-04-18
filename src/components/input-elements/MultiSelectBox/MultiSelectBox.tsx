@@ -14,7 +14,6 @@ import {
   fontSize,
   fontWeight,
   getColorClassNames,
-  getFilteredOptions,
   isValueInArray,
   makeClassName,
   mergeRefs,
@@ -22,6 +21,7 @@ import {
   sizing,
   spacing,
 } from "lib";
+import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
@@ -33,6 +33,7 @@ export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement
   value?: string[];
   onValueChange?: (value: string[]) => void;
   placeholder?: string;
+  disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   children: React.ReactElement[] | React.ReactElement;
 }
@@ -43,6 +44,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     value,
     onValueChange,
     placeholder = "Select...",
+    disabled = false,
     icon,
     children,
     className,
@@ -58,8 +60,8 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
   const [searchQuery, setSearchQuery] = useState("");
 
   const selectedItems = selectedValue ?? [];
-  const displayText = selectedItems.length !== 0 ? `${selectedItems.length} Selected` : placeholder;
-  const showResetButton = selectedItems.length > 0;
+  const hasSelection = selectedItems.length > 0;
+  const displayText = hasSelection ? `${selectedItems.length} Selected` : placeholder;
 
   const options = React.Children.map(children, (child: { props: MultiSelectBoxItemProps }) => ({
     ...child.props,
@@ -115,9 +117,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         className={twMerge(
           makeMultiSelectBoxClassName("button"),
           "flex justify-between items-center w-full focus:outline-none focus:ring-2",
-          getColorClassNames("white").bgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+          getSelectButtonColors(hasSelection, disabled),
           getColorClassNames("blue", colorPalette.lightRing).focusRingColor,
           borderRadius.md.all,
           border.sm.all,
@@ -127,6 +127,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           spacing.sm.paddingY,
         )}
         onClick={() => handleModalToggle(!showModal)}
+        disabled={disabled}
       >
         <div className="flex justify-start items-center truncate">
           {Icon ? (
@@ -148,16 +149,13 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
-              selectedItems.length !== 0
-                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {displayText}
           </p>
         </div>
         <div className="flex items-center">
-          {showResetButton ? (
+          {hasSelection && !disabled ? (
             <div
               role="button"
               className={twMerge(

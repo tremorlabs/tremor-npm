@@ -12,16 +12,20 @@ import {
   border,
   borderRadius,
   boxShadow,
-  constructValueToNameMapping,
   fontSize,
   fontWeight,
   getColorClassNames,
-  getFilteredOptions,
   makeClassName,
   mergeRefs,
   sizing,
   spacing,
 } from "lib";
+import {
+  constructValueToNameMapping,
+  getFilteredOptions,
+  getSelectButtonColors,
+  hasValue,
+} from "../selectUtils";
 import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
@@ -33,6 +37,7 @@ export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
+  disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   children: React.ReactElement[] | React.ReactElement;
 }
@@ -43,6 +48,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     value,
     onValueChange,
     placeholder = "Select...",
+    disabled = false,
     icon,
     children,
     className,
@@ -59,6 +65,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const inputRef = useRef<HTMLInputElement>(null);
   const Icon = icon;
   const valueToNameMapping = constructValueToNameMapping(children);
+  const hasSelection = hasValue(selectedValue);
 
   useEffect(() => {
     if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
@@ -115,15 +122,13 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       className={twMerge("relative w-full min-w-[10rem]", className)}
       {...other}
     >
-      <div
+      <button
         className={twMerge(
           makeSelectBoxClassName("root"),
           "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
-          getColorClassNames("white").bgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+          getSelectButtonColors(hasSelection, disabled),
           isFocused &&
             twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
           borderRadius.md.all,
           border.sm.all,
@@ -133,6 +138,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           handleFocusChange(!isFocused);
           e.preventDefault();
         }}
+        disabled={disabled}
       >
         {Icon ? (
           <Icon
@@ -153,13 +159,12 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           className={twMerge(
             makeSelectBoxClassName("input"),
             "w-full focus:outline-none focus:ring-0 bg-inherit",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             spacing.sm.paddingY,
             fontSize.sm,
             fontWeight.md,
             border.none.all,
-            "placeholder:text-gray-500",
+            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
           )}
           placeholder={placeholder}
           value={inputValue}
@@ -178,7 +183,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           )}
           aria-hidden="true"
         />
-      </div>
+      </button>
       <Modal
         showModal={filteredOptions.length === 0 ? false : isFocused}
         setShowModal={handleFocusChange}

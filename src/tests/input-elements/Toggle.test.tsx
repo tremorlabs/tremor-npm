@@ -8,9 +8,9 @@ describe("Toggle", () => {
   test("renders the Toggle component with default props", () => {
     render(
       <Toggle>
-        <ToggleItem value={1} text="Option 1" />
-        <ToggleItem value={2} text="Option 2" />
-        <ToggleItem value={3} text="Option 3" />
+        <ToggleItem value="1" text="Option 1" />
+        <ToggleItem value="2" text="Option 2" />
+        <ToggleItem value="3" text="Option 3" />
       </Toggle>,
     );
   });

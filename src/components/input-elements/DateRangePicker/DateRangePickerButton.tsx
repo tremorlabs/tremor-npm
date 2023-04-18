@@ -1,6 +1,5 @@
 import React, { Dispatch, Ref, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
-import { isEqual } from "date-fns";
 
 import { ArrowDownHeadIcon, CalendarIcon } from "assets";
 
@@ -18,54 +17,14 @@ import {
 
 import { DateRangePickerOption, DateRangePickerValue } from "./DateRangePicker";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
-import { makeDateRangePickerClassName } from "./dateRangePickerUtils";
-
-const formatSelectedDates = (startDate: Date | null, endDate: Date | null, locale?: Locale) => {
-  const localeCode = locale?.code || "en-US";
-  if (!startDate && !endDate) {
-    return "";
-  } else if (startDate && !endDate) {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    return startDate.toLocaleDateString(localeCode, options);
-  } else if (startDate && endDate) {
-    if (isEqual(startDate, endDate)) {
-      const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      return startDate.toLocaleDateString(localeCode, options);
-    } else if (
-      startDate.getMonth() === endDate.getMonth() &&
-      startDate.getFullYear() === endDate.getFullYear()
-    ) {
-      const optionsStartDate: Intl.DateTimeFormatOptions = {
-        month: "short",
-        day: "numeric",
-      };
-      return `${startDate.toLocaleDateString(localeCode, optionsStartDate)} - 
-                    ${endDate.getDate()}, ${endDate.getFullYear()}`;
-    } else {
-      const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      return `${startDate.toLocaleDateString(localeCode, options)} - 
-                    ${endDate.toLocaleDateString(localeCode, options)}`;
-    }
-  }
-  return "";
-};
+import { formatSelectedDates, makeDateRangePickerClassName } from "./dateRangePickerUtils";
+import { getSelectButtonColors, hasValue } from "../selectUtils";
 
 interface DateRangePickerButtonProps {
   value: DateRangePickerValue;
   options: DateRangePickerOption[];
   placeholder: string;
+  disabled: boolean;
   calendarRef: Ref<HTMLButtonElement>;
   showCalendar: boolean;
   setShowCalendar: Dispatch<SetStateAction<boolean>>;
@@ -83,6 +42,7 @@ const DateRangePickerButton = ({
   value,
   options,
   placeholder,
+  disabled,
   calendarRef,
   showCalendar,
   setShowCalendar,
@@ -96,8 +56,11 @@ const DateRangePickerButton = ({
   dropdownPlaceholder = "Select",
 }: DateRangePickerButtonProps) => {
   const [startDate, endDate, dropdownValue] = value;
-  const hasSelection = (startDate || endDate) !== null;
-  const calendarText = hasSelection
+
+  const hasDateSelection = (startDate || endDate) !== null && (startDate || endDate) !== undefined;
+  const hasDropdownSelection = hasValue(dropdownValue);
+
+  const calendarText = hasDateSelection
     ? formatSelectedDates(startDate as Date, endDate as Date, locale)
     : placeholder;
   const dropdownText = dropdownValue
@@ -110,7 +73,6 @@ const DateRangePickerButton = ({
         makeDateRangePickerClassName("button"),
         "flex items-center justify-between",
         getColorClassNames("white").bgColor,
-        getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
         borderRadius.md.all,
         boxShadow.sm,
       )}
@@ -123,15 +85,15 @@ const DateRangePickerButton = ({
         className={twMerge(
           makeDateRangePickerClassName("calendarButton"),
           "flex items-center w-full truncate focus:outline-none focus:ring-2",
+          getSelectButtonColors(hasDateSelection, disabled),
           enableDropdown ? border.none.right : twMerge(borderRadius.md.right, border.sm.right),
-          getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
           getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
           spacing.twoXl.paddingX,
           spacing.sm.paddingY,
           borderRadius.md.left,
           border.sm.all,
         )}
+        disabled={disabled}
       >
         <CalendarIcon
           className={twMerge(
@@ -151,9 +113,6 @@ const DateRangePickerButton = ({
             "whitespace-nowrap truncate",
             fontSize.sm,
             fontWeight.md,
-            hasSelection
-              ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-              : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
           )}
         >
           {calendarText}
@@ -167,9 +126,8 @@ const DateRangePickerButton = ({
           className={twMerge(
             makeDateRangePickerClassName("dropdownButton"),
             "inline-flex justify-between w-48 truncate focus:outline-none focus:ring-2",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            getSelectButtonColors(hasDropdownSelection, disabled),
             getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             spacing.px.negativeMarginLeft,
@@ -177,6 +135,7 @@ const DateRangePickerButton = ({
             border.sm.all,
           )}
           onKeyDown={onDropdownKeyDown}
+          disabled={disabled}
         >
           <p
             className={twMerge(
@@ -184,9 +143,6 @@ const DateRangePickerButton = ({
               "whitespace-nowrap truncate",
               fontSize.sm,
               fontWeight.md,
-              dropdownValue
-                ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-                : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
             )}
           >
             {dropdownText}

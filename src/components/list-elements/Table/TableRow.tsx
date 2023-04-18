@@ -10,7 +10,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     const { children, className, ...other } = props;
     return (
       <>
-        <tr ref={ref} className={twMerge(makeRowClassName("roow"), className)} {...other}>
+        <tr ref={ref} className={twMerge(makeRowClassName("row"), className)} {...other}>
           {children}
         </tr>
       </>

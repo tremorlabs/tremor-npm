@@ -119,6 +119,12 @@ WithIcon.args = {
   icon: CalendarIcon,
 };
 
+export const WithDisabled = ResponsiveTemplate.bind({});
+WithDisabled.args = {
+  onValueChange: (v) => alert(v),
+  disabled: true,
+};
+
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});

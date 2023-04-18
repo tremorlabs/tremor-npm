@@ -17,16 +17,12 @@ import {
 } from "lib";
 import { ExclamationFilledIcon } from "assets";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 
 const makeTextInputClassName = makeClassName("TextInput");
 
-const getTextColor = (error: boolean, disabled: boolean) => {
-  if (error) return colorClassNames[BaseColors.Rose][colorPalette.text].textColor;
-  if (disabled) return getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor;
-  return getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
-};
-
-export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  type?: "text" | "password";
   defaultValue?: string;
   value?: string;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -37,6 +33,7 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const {
+    type = "text",
     placeholder = "Type...",
     icon,
     error = false,
@@ -45,18 +42,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     className,
     ...other
   } = props;
-  const Icon = icon;
-
-  const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
 
-  const textColor = getTextColor(error, disabled);
-  const bgColor = disabled
-    ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
-    : getColorClassNames("white").bgColor;
-  const boderColor = error
-    ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
-    : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor;
+  const Icon = icon;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const hasSelection = hasValue(props.value || props.defaultValue);
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -73,15 +64,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         className={twMerge(
           makeTextInputClassName("root"),
           "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
-          bgColor,
+          getSelectButtonColors(hasSelection, disabled, error),
           getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-          boderColor,
+          isFocused &&
+            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
-          textColor,
-          isFocused &&
-            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
           className,
         )}
         onClick={() => {
@@ -111,19 +100,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         ) : null}
         <input
           ref={mergeRefs([ref, inputRef])}
-          type="text"
+          type={type}
           className={twMerge(
             makeTextInputClassName("input"),
             "w-full focus:outline-none focus:ring-0",
             getColorClassNames("transparent").bgColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             fontSize.sm,
             fontWeight.md,
             border.none.all,
-            "placeholder:text-gray-500",
+            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
           )}
           placeholder={placeholder}
           disabled={disabled}
