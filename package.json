@@ -91,7 +91,8 @@
     "webpack": "^5.75.0"
   },
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^18.0.0",
+    "react-dom": ">=16.6.0"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
