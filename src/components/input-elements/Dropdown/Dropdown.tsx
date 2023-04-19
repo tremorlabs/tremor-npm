@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
@@ -55,7 +55,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
   const dropdownRef = useRef(null);
 
   const Icon = icon;
-  const valueToNameMapping = constructValueToNameMapping(children);
+  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
   const optionValues = React.Children.map(
     children,
     (child: { props: DropdownItemProps }) => child.props.value,

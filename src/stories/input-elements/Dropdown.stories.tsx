@@ -92,11 +92,15 @@ const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
       </Dropdown>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>Set to One</Button>
+      <Text>{value}</Text>
     </Card>
   );
 };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
+DefaultResponsive.args = {
+  onValueChange: (v) => alert(v),
+};
 
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
