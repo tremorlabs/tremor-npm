@@ -41,6 +41,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showGridLines = true,
     showGradient = true,
     autoMinValue = false,
+    curveType = "linear",
     minValue,
     maxValue,
     className,
@@ -136,7 +137,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             <Area
               key={category}
               name={category}
-              type="linear"
+              type={curveType}
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}

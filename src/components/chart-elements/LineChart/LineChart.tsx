@@ -35,6 +35,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
     showLegend = true,
     showGridLines = true,
     autoMinValue = false,
+    curveType = "linear",
     minValue,
     maxValue,
     className,
@@ -110,7 +111,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
             <Line
               key={category}
               name={category}
-              type="linear"
+              type={curveType}
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               strokeWidth={2}
