@@ -94,6 +94,7 @@ const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
       </SelectBox>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>
+      <Text>{value}</Text>
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ArrowDownHeadIcon } from "assets";
@@ -55,16 +55,16 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     onKeyDown,
     ...other
   } = props;
+  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(valueToNameMapping.get(selectedValue || "") || "");
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const Icon = icon;
-  const valueToNameMapping = constructValueToNameMapping(children);
   const hasSelection = hasValue(selectedValue);
 
   useEffect(() => {
@@ -85,13 +85,17 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       inputRef.current?.blur();
     } else {
       inputRef.current?.focus();
+      if (inputRef.current) {
+        inputRef.current.selectionStart = inputRef.current.value.length;
+        inputRef.current.selectionEnd = inputRef.current.value.length;
+      }
     }
     setIsFocused(isFocused);
   };
 
   const handleValueChange = (value: string) => {
     setSearchQuery("");
-    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
+    if (value !== undefined) setInputValue(valueToNameMapping.get(value) || "");
     handleFocusChange(false);
     setSelectedValue(value);
     inputRef.current?.blur();
