@@ -121,8 +121,8 @@
           "preset": "conventionalcommits",
           "releaseRules": [
             {
-              "type": "*!",
-              "release": "major"
+              "type": "build",
+              "release": "minor"
             }
           ]
         }
