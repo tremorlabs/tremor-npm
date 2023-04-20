@@ -87,7 +87,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               }}
               tickLine={false}
               axisLine={false}
-              {...xAxisConfig}
+              allowDecimals={xAxisConfig?.allowDecimals}
             />
           ) : (
             <XAxis
@@ -103,7 +103,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               axisLine={false}
               padding={{ left: 10, right: 10 }}
               minTickGap={5}
-              {...xAxisConfig}
+              allowDecimals={xAxisConfig?.allowDecimals}
               tickFormatter={valueFormatter}
             />
           )}
@@ -120,7 +120,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
               }}
-              {...yAxisConfig}
+              allowDecimals={yAxisConfig?.allowDecimals}
               tickFormatter={
                 relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
               }
@@ -140,7 +140,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fontSize: "12px",
                 fontFamily: "Inter; Helvetica",
               }}
-              {...yAxisConfig}
+              allowDecimals={yAxisConfig?.allowDecimals}
             />
           )}
           {showTooltip ? (
