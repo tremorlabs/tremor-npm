@@ -41,7 +41,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     autoMinValue = false,
     minValue,
     maxValue,
-    connectNulls,
+    connectNulls = false,
     className,
     ...other
   } = props;
