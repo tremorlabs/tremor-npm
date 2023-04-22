@@ -50,6 +50,56 @@ export const simpleBaseChartData = [
   },
 ];
 
+export const simpleBaseChartDataWithNulls = [
+  {
+    month: "Jan 21'",
+    Sales: 4000,
+    "Successful Payments": 3000,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "Feb 21'",
+    Sales: 3000,
+    "Successful Payments": 2000,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "Mar 21'",
+    Sales: 2000,
+    "Successful Payments": 1700,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "Apr 21'",
+    "Successful Payments": 2500,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "May 21",
+    "Successful Payments": 1000,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "Jun 21'",
+    Sales: 2390,
+    "Successful Payments": 2000,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+  {
+    month: "Jul 21'",
+    Sales: 3490,
+    "Successful Payments": 3000,
+    "This is an edge case": 100000000,
+    Test: 5000,
+  },
+];
+
 export const simpleSingleCategoryData = [
   {
     city: "San Francisco",
