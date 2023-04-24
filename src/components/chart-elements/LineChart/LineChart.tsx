@@ -38,8 +38,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
     minValue,
     maxValue,
     className,
-    yAxisConfig,
-    xAxisConfig,
+    allowDecimals,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -68,7 +67,6 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
             axisLine={false}
             padding={{ left: 10, right: 10 }}
             minTickGap={5}
-            allowDecimals={xAxisConfig?.allowDecimals}
           />
           <YAxis
             width={yAxisWidth}
@@ -82,7 +80,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
             }}
-            allowDecimals={yAxisConfig?.allowDecimals}
+            allowDecimals={allowDecimals}
             tickFormatter={valueFormatter}
           />
           {showTooltip ? (

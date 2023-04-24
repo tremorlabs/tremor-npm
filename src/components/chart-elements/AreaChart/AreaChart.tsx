@@ -30,8 +30,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     index,
     stack = false,
     colors = themeColorRange,
-    yAxisConfig,
-    xAxisConfig,
+    allowDecimals,
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
@@ -75,7 +74,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             axisLine={false}
             padding={{ left: 10, right: 10 }}
             minTickGap={5}
-            allowDecimals={xAxisConfig?.allowDecimals}
           />
           <YAxis
             width={yAxisWidth}
@@ -89,7 +87,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
             }}
-            allowDecimals={yAxisConfig?.allowDecimals}
+            allowDecimals={allowDecimals}
             tickFormatter={valueFormatter}
           />
           {showTooltip ? (

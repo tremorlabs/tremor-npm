@@ -1,5 +1,4 @@
 import { Color, ValueFormatter } from "../../../lib";
-import type { XAxisProps, YAxisProps } from "recharts";
 
 interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[];
@@ -19,8 +18,7 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;
-  yAxisConfig?: Pick<YAxisProps, "allowDecimals">;
-  xAxisConfig?: Pick<XAxisProps, "allowDecimals">;
+  allowDecimals?: boolean;
 }
 
 export default BaseChartProps;
