@@ -21,6 +21,7 @@ import { AxisDomain } from "recharts/types/util/types";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
+  connectNulls?: boolean;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
@@ -43,6 +44,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     autoMinValue = false,
     minValue,
     maxValue,
+    connectNulls = false,
     className,
     ...other
   } = props;
@@ -144,6 +146,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dot={false}
               isAnimationActive={showAnimation}
               stackId={stack ? "a" : undefined}
+              connectNulls={connectNulls}
             />
           ))}
         </ReChartsAreaChart>

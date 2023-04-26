@@ -19,7 +19,11 @@ import ChartTooltip from "../common/ChartTooltip";
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
-const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) => {
+export interface LineChartProps extends BaseChartProps {
+  connectNulls?: boolean;
+}
+
+const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
   const {
     data = [],
     categories = [],
@@ -37,6 +41,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
     autoMinValue = false,
     minValue,
     maxValue,
+    connectNulls = false,
     className,
     ...other
   } = props;
@@ -116,6 +121,7 @@ const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) 
               strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}
+              connectNulls={connectNulls}
             />
           ))}
         </ReChartsLineChart>
