@@ -18,8 +18,13 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { CurveType } from "recharts/types/shape/Curve";
 
-const LineChart = React.forwardRef<HTMLDivElement, BaseChartProps>((props, ref) => {
+export interface LineChartProps extends BaseChartProps {
+  curveType?: CurveType;
+}
+
+const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
   const {
     data = [],
     categories = [],

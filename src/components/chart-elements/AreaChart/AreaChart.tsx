@@ -18,9 +18,11 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { CurveType } from "recharts/types/shape/Curve";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
+  curveType?: CurveType;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {

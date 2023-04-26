@@ -1,4 +1,3 @@
-import { CurveType } from "recharts/types/shape/Curve";
 import { Color, ValueFormatter } from "../../../lib";
 
 interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,7 +18,6 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;
-  curveType?: CurveType;
 }
 
 export default BaseChartProps;
