@@ -140,6 +140,7 @@ WithNoDataKey.args = {
 export const WithCurveTypeNatural = DefaultTemplate.bind({});
 WithCurveTypeNatural.args = {
   data: data,
+  categories: ["Sales", "Successful Payments"],
   curveType: "natural",
 };
 
