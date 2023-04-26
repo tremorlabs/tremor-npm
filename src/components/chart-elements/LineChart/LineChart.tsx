@@ -22,6 +22,7 @@ import { CurveType } from "recharts/types/shape/Curve";
 
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
+  connectNulls?: boolean;
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
@@ -43,6 +44,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     curveType = "linear",
     minValue,
     maxValue,
+    connectNulls = false,
     className,
     ...other
   } = props;
@@ -122,6 +124,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}
+              connectNulls={connectNulls}
             />
           ))}
         </ReChartsLineChart>

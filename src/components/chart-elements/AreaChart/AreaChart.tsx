@@ -23,6 +23,7 @@ import { CurveType } from "recharts/types/shape/Curve";
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
+  connectNulls?: boolean;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
@@ -46,6 +47,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     curveType = "linear",
     minValue,
     maxValue,
+    connectNulls = false,
     className,
     ...other
   } = props;
@@ -147,6 +149,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dot={false}
               isAnimationActive={showAnimation}
               stackId={stack ? "a" : undefined}
+              connectNulls={connectNulls}
             />
           ))}
         </ReChartsAreaChart>

@@ -84,8 +84,8 @@ devDependencies:
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
   '@rollup/plugin-typescript': 8.5.0_bhcmvni67fkldpaxrtldxbogce
   '@semantic-release/commit-analyzer': 9.0.2_semantic-release@21.0.0
-  '@semantic-release/github': github.com/semantic-release/github/766f89df7fe1c3ff7cc20eca970aeaee7e901bab_semantic-release@21.0.0
-  '@semantic-release/npm': github.com/semantic-release/npm/6f90cc65c6c1bef1435667d0cf8fd0c960a91b1d_semantic-release@21.0.0
+  '@semantic-release/github': github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479_semantic-release@21.0.0
+  '@semantic-release/npm': github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a_semantic-release@21.0.0
   '@storybook/addon-actions': 6.5.16_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.16_ludb4wetox2g5qwr6mmu3dkjji
   '@storybook/addon-interactions': 6.5.16_22w7zynjonpso4757xealkaezm
@@ -151,6 +151,13 @@ packages:
       '@babel/highlight': 7.18.6
     dev: true
 
+  /@babel/code-frame/7.21.4:
+    resolution: {integrity: sha512-LYvhNKfwWSPpocw8GI7gpK2nq3HSDuEPC/uSYaALSJu9xjsalaaYFOq0Pwt5KmVqwEbZlDu81aLXwBOmD/Fv9g==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/highlight': 7.18.6
+    dev: true
+
   /@babel/compat-data/7.20.14:
     resolution: {integrity: sha512-0YpKHD6ImkWMEINCyDAD0HLLUH/lPCefG8ld9it8DJB2wnApraKuhgYTvTY1z7UFIfBTGy5LwncZ+5HWWGbhFw==}
     engines: {node: '>=6.9.0'}
@@ -160,7 +167,7 @@ packages:
     resolution: {integrity: sha512-gTXYh3M5wb7FRXQy+FErKFAv90BnlOuNn1QkCK2lREoPAjrQCO49+HVSrFoe5uakFAF5eenS75KbO2vQiLrTMQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       '@babel/generator': 7.20.14
       '@babel/helper-module-transforms': 7.20.11
       '@babel/helpers': 7.20.13
@@ -8211,7 +8218,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       chalk: 2.4.2
       eslint: 8.33.0
       micromatch: 3.1.10
@@ -8239,7 +8246,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       '@types/json-schema': 7.0.11
       chalk: 4.1.2
       chokidar: 3.5.3
@@ -8271,7 +8278,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       '@types/json-schema': 7.0.11
       chalk: 4.1.2
       chokidar: 3.5.3
@@ -10032,7 +10039,7 @@ packages:
     resolution: {integrity: sha512-rMyFe1+jnyAAf+NHwTclDz0eAaLkVDdKVHHBFWsBWHnnh5YeJMNWWsv7AbFYXfK3oTqvL7VTWkhNLu1jX24D+g==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       '@jest/types': 27.5.1
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
@@ -10384,6 +10391,11 @@ packages:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
     dev: true
 
+  /json-parse-even-better-errors/3.0.0:
+    resolution: {integrity: sha512-iZbGHafX/59r39gPwVPRBGw0QQKnA7tte5pSMrhWOW7swGsVvVTjmfyAV9pNqk8YGT7tRCdxRu8uzcgZwoDooA==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dev: true
+
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
     dev: true
@@ -10513,6 +10525,11 @@ packages:
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+    dev: true
+
+  /lines-and-columns/2.0.3:
+    resolution: {integrity: sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /load-json-file/1.1.0:
@@ -11705,6 +11722,16 @@ packages:
       validate-npm-package-license: 3.0.4
     dev: true
 
+  /normalize-package-data/5.0.0:
+    resolution: {integrity: sha512-h9iPVIfrVZ9wVYQnxFgtw1ugSvGEMOlyPWWtm8BMJhnwyEL/FLbYbTY3V3PpjI/BUK67n9PEWDu6eHzu1fB15Q==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      hosted-git-info: 6.1.1
+      is-core-module: 2.11.0
+      semver: 7.3.8
+      validate-npm-package-license: 3.0.4
+    dev: true
+
   /normalize-path/2.1.1:
     resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==}
     engines: {node: '>=0.10.0'}
@@ -12280,10 +12307,21 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
+    dev: true
+
+  /parse-json/7.0.0:
+    resolution: {integrity: sha512-kP+TQYAzAiVnzOlWOe0diD6L35s9bJh0SCn95PIbZFKrOYuIRQsQkeWEYxzVDuHTt9V9YqvYCJ2Qo4z9wdfZPw==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@babel/code-frame': 7.21.4
+      error-ex: 1.3.2
+      json-parse-even-better-errors: 3.0.0
+      lines-and-columns: 2.0.3
+      type-fest: 3.8.0
     dev: true
 
   /parse5/6.0.1:
@@ -13503,6 +13541,16 @@ packages:
       type-fest: 2.19.0
     dev: true
 
+  /read-pkg/8.0.0:
+    resolution: {integrity: sha512-Ajb9oSjxXBw0YyOiwtQ2dKbAA/vMnUPnY63XcCk+mXo0BwIdQEMgZLZiMWGttQHcUhUgbK0mH85ethMPKXxziw==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@types/normalize-package-data': 2.4.1
+      normalize-package-data: 5.0.0
+      parse-json: 7.0.0
+      type-fest: 3.8.0
+    dev: true
+
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
     dependencies:
@@ -13917,7 +13965,7 @@ packages:
       rollup: 2.79.1
       typescript: 4.9.5
     optionalDependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.21.4
     dev: true
 
   /rollup-plugin-peer-deps-external/2.2.4_rollup@2.79.1:
@@ -15291,6 +15339,11 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
+  /type-fest/3.8.0:
+    resolution: {integrity: sha512-FVNSzGQz9Th+/9R6Lvv7WIAkstylfHN2/JYxkyhhmKFYh9At2DST8t6L6Lref9eYO8PXFTfG9Sg1Agg0K3vq3Q==}
+    engines: {node: '>=14.16'}
+    dev: true
+
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -16252,9 +16305,9 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  github.com/semantic-release/github/766f89df7fe1c3ff7cc20eca970aeaee7e901bab_semantic-release@21.0.0:
-    resolution: {tarball: https://codeload.github.com/semantic-release/github/tar.gz/766f89df7fe1c3ff7cc20eca970aeaee7e901bab}
-    id: github.com/semantic-release/github/766f89df7fe1c3ff7cc20eca970aeaee7e901bab
+  github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479_semantic-release@21.0.0:
+    resolution: {tarball: https://codeload.github.com/semantic-release/github/tar.gz/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479}
+    id: github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479
     name: '@semantic-release/github'
     version: 0.0.0-development
     engines: {node: '>=14.17'}
@@ -16283,9 +16336,9 @@ packages:
       - supports-color
     dev: true
 
-  github.com/semantic-release/npm/6f90cc65c6c1bef1435667d0cf8fd0c960a91b1d_semantic-release@21.0.0:
-    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/6f90cc65c6c1bef1435667d0cf8fd0c960a91b1d}
-    id: github.com/semantic-release/npm/6f90cc65c6c1bef1435667d0cf8fd0c960a91b1d
+  github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a_semantic-release@21.0.0:
+    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/9aa8c5e7874e4d550da395ffca4a4626dd001d2a}
+    id: github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a
     name: '@semantic-release/npm'
     version: 0.0.0-development
     engines: {node: '>=18'}
@@ -16301,7 +16354,7 @@ packages:
       normalize-url: 8.0.0
       npm: 9.6.2
       rc: 1.2.8
-      read-pkg: 7.1.0
+      read-pkg: 8.0.0
       registry-auth-token: 5.0.1
       semantic-release: 21.0.0
       semver: 7.3.8
