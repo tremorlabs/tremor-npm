@@ -148,6 +148,13 @@ WithNoDataKey.args = {
   categories: ["Sales", "Successful Payments"],
 };
 
+export const WithCurveTypeNatural = DefaultTemplate.bind({});
+WithCurveTypeNatural.args = {
+  data: data,
+  curveType: "natural",
+  categories: ["Sales", "Successful Payments"],
+};
+
 export const WithConnectNullsTrue = DefaultTemplate.bind({});
 WithConnectNullsTrue.args = {
   data: simpleBaseChartDataWithNulls,

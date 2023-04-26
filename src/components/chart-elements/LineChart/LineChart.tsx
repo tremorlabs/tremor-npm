@@ -18,8 +18,10 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { CurveType } from "recharts/types/shape/Curve";
 
 export interface LineChartProps extends BaseChartProps {
+  curveType?: CurveType;
   connectNulls?: boolean;
 }
 
@@ -39,6 +41,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showLegend = true,
     showGridLines = true,
     autoMinValue = false,
+    curveType = "linear",
     minValue,
     maxValue,
     connectNulls = false,
@@ -115,7 +118,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             <Line
               key={category}
               name={category}
-              type="linear"
+              type={curveType}
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               strokeWidth={2}

@@ -18,9 +18,11 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { CurveType } from "recharts/types/shape/Curve";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
+  curveType?: CurveType;
   connectNulls?: boolean;
 }
 
@@ -42,6 +44,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showGridLines = true,
     showGradient = true,
     autoMinValue = false,
+    curveType = "linear",
     minValue,
     maxValue,
     connectNulls = false,
@@ -138,7 +141,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             <Area
               key={category}
               name={category}
-              type="linear"
+              type={curveType}
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}
