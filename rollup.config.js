@@ -6,40 +6,47 @@ import typescript from "@rollup/plugin-typescript";
 
 import dts from "rollup-plugin-dts";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import { terser } from "rollup-plugin-terser";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
+import { terser } from "rollup-plugin-terser";
 
-const packageJson = require("./package.json");
+const outputOptions = {
+  sourcemap: false,
+  preserveModules: true,
+  preserveModulesRoot: "src",
+};
 
 export default [
   {
     input: "src/index.ts",
     output: [
       {
-        file: packageJson.main,
+        dir: "dist",
         format: "cjs",
-        sourcemap: false,
+        entryFileNames: "[name].cjs",
+        exports: "auto",
+        ...outputOptions,
       },
       {
-        file: packageJson.module,
+        dir: "dist",
         format: "esm",
-        sourcemap: false,
+        ...outputOptions,
       },
     ],
+    external: [/node_modules/],
     plugins: [
       peerDepsExternal(),
       resolve(),
       commonjs(),
+      terser(),
       typescript({
         tsconfig: "./tsconfig.json",
         exclude: ["**/stories/**", "**/tests/**", "./styles.css"],
       }),
-      terser(),
       typescriptPaths(),
     ],
   },
   {
-    input: "dist/esm/index.d.ts",
+    input: "dist/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
     external: [/\.css$/],
