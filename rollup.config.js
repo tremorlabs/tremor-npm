@@ -7,12 +7,12 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { terser } from "rollup-plugin-terser"
+import { terser } from "rollup-plugin-terser";
 
 const outputOptions = {
   sourcemap: false,
   preserveModules: true,
-  preserveModulesRoot: 'src',
+  preserveModulesRoot: "src",
 };
 
 export default [
