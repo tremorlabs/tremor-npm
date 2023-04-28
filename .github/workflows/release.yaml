@@ -24,7 +24,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: build
-        run: npm run rollup
+        run: npm run build
       - name: release
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
