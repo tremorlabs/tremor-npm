@@ -16,7 +16,8 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import { BaseColors, CurveType, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { CurveType } from "../../../lib/inputTypes";
 import { AxisDomain } from "recharts/types/util/types";
 
 export interface LineChartProps extends BaseChartProps {
