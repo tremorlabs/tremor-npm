@@ -11,11 +11,11 @@ import { DEFAULT_COLOR } from "lib/theme";
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 
-import type BaseAnimatedProps from "../common/BaseAnimatedProps";
+import type BaseAnimationProps from "../common/BaseAnimationProps";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps extends BaseAnimatedProps {
+export interface DonutChartProps extends BaseAnimationProps {
   data: any[];
   category?: string;
   index?: string;
