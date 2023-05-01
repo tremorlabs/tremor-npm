@@ -1,6 +1,6 @@
 import { Color, ValueFormatter } from "../../../lib";
-import type BaseAnimationProps from "./BaseAnimationProps";
-interface BaseChartProps extends BaseAnimationProps {
+import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
+interface BaseChartProps extends BaseAnimationTimingProps {
   data: any[];
   categories: string[];
   index: string;

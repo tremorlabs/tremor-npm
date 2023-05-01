@@ -262,3 +262,31 @@ WithShortAnimationBegin.args = {
   category: "sales",
   index: "city",
 };
+
+export const WithOnAnimationStart = DefaultTemplate.bind({});
+WithOnAnimationStart.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationStart: () => alert("Animation started"),
+  category: "sales",
+  index: "city",
+};
+
+export const WithOnAnimationEnd = DefaultTemplate.bind({});
+WithOnAnimationEnd.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationEnd: () => alert("Animation ended"),
+  category: "sales",
+  index: "city",
+};
+
+export const WithOnAnimationStartAndEnd = DefaultTemplate.bind({});
+WithOnAnimationStartAndEnd.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationStart: () => alert("Animation started"),
+  onAnimationEnd: () => alert("Animation ended"),
+  category: "sales",
+  index: "city",
+};

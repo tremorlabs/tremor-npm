@@ -42,6 +42,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     animationBegin = 0,
     animationDuration = 1500,
     animationEasing = "ease",
+    onAnimationStart = undefined,
+    onAnimationEnd = undefined,
     showAnimation = true,
     showXAxis = true,
     showYAxis = true,
@@ -181,6 +183,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 dataKey={category}
                 fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
                 isAnimationActive={showAnimation}
+                onAnimationStart={onAnimationStart}
+                onAnimationEnd={onAnimationEnd}
               />
             ))}
           </ReChartsBarChart>

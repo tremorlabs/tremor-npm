@@ -257,3 +257,31 @@ WithShortAnimationBegin.args = {
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
+
+export const WithOnAnimationStart = DefaultTemplate.bind({});
+WithOnAnimationStart.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationStart: () => alert("Animation started"),
+  categories: ["Sales"],
+  index: "month",
+};
+
+export const WithOnAnimationEnd = DefaultTemplate.bind({});
+WithOnAnimationEnd.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationEnd: () => alert("Animation ended"),
+  categories: ["Sales"],
+  index: "month",
+};
+
+export const WithOnAnimationStartAndEnd = DefaultTemplate.bind({});
+WithOnAnimationStartAndEnd.args = {
+  data: data,
+  showAnimation: true,
+  onAnimationStart: () => alert("Animation started"),
+  onAnimationEnd: () => alert("Animation ended"),
+  categories: ["Sales"],
+  index: "month",
+};
