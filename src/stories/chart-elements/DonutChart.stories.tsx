@@ -157,3 +157,108 @@ BlockExample.args = {
   data,
   valueFormatter: valueFormatter,
 };
+
+export const WithNoAnimation = DefaultTemplate.bind({});
+WithNoAnimation.args = {
+  data: data,
+  showAnimation: false,
+  category: "sales",
+  index: "city",
+};
+
+export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
+WithDefaultAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  category: "sales",
+  index: "city",
+};
+
+export const WithLongAnimationDuration = DefaultTemplate.bind({});
+WithLongAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 5000,
+  category: "sales",
+  index: "city",
+};
+
+export const WithShortAnimationDuration = DefaultTemplate.bind({});
+WithShortAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 100,
+  category: "sales",
+  index: "city",
+};
+
+export const WithAnimationEase = DefaultTemplate.bind({});
+WithAnimationEase.args = {
+  data: data,
+  showAnimation: true,
+  animationEasing: "ease",
+  category: "sales",
+  index: "city",
+};
+
+export const WithAnimationEaseIn = DefaultTemplate.bind({});
+WithAnimationEaseIn.args = {
+  data: data,
+  showAnimation: true,
+  animationEasing: "ease-in",
+  category: "sales",
+  index: "city",
+};
+
+export const WithAnimationEaseOut = DefaultTemplate.bind({});
+WithAnimationEaseOut.args = {
+  data: data,
+  showAnimation: true,
+  animationEasing: "ease-out",
+  category: "sales",
+  index: "city",
+};
+
+export const WithAnimationEaseInOut = DefaultTemplate.bind({});
+WithAnimationEaseInOut.args = {
+  data: data,
+  showAnimation: true,
+  animationEasing: "ease-in-out",
+  category: "sales",
+  index: "city",
+};
+
+export const WithAnimationLinear = DefaultTemplate.bind({});
+WithAnimationLinear.args = {
+  data: data,
+  showAnimation: true,
+  animationEasing: "linear",
+  category: "sales",
+  index: "city",
+};
+
+export const WithDefaultAnimationBegin = DefaultTemplate.bind({});
+WithDefaultAnimationBegin.args = {
+  data: data,
+  showAnimation: true,
+  category: "sales",
+  index: "city",
+};
+
+export const WithLongAnimationBegin = DefaultTemplate.bind({});
+WithLongAnimationBegin.args = {
+  data: data,
+  showAnimation: true,
+  animationBegin: 1000,
+  category: "sales",
+  index: "city",
+};
+
+export const WithShortAnimationBegin = DefaultTemplate.bind({});
+WithShortAnimationBegin.args = {
+  data: data,
+  showAnimation: true,
+  animationBegin: 100,
+  category: "sales",
+  index: "city",
+};

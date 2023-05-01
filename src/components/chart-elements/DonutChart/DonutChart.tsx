@@ -11,9 +11,11 @@ import { DEFAULT_COLOR } from "lib/theme";
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 
+import type BaseAnimatedProps from "../common/BaseAnimatedProps";
+
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DonutChartProps extends BaseAnimatedProps {
   data: any[];
   category?: string;
   index?: string;
@@ -22,7 +24,6 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   valueFormatter?: ValueFormatter;
   label?: string;
   showLabel?: boolean;
-  showAnimation?: boolean;
   showTooltip?: boolean;
   noDataText?: string;
 }
@@ -36,6 +37,9 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     variant = "donut",
     valueFormatter = defaultValueFormatter,
     label,
+    animationBegin = 0,
+    animationDuration = 1500,
+    animationEasing = "ease",
     showLabel = true,
     showAnimation = true,
     showTooltip = true,
