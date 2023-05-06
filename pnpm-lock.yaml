@@ -57,6 +57,7 @@ specifiers:
   rollup-plugin-dts: ^4.2.1
   rollup-plugin-peer-deps-external: ^2.2.4
   rollup-plugin-postcss: ^4.0.2
+  rollup-plugin-preserve-directives: ^0.1.0
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript-paths: ^1.3.1
   semantic-release: ^21.0.0
@@ -84,8 +85,8 @@ devDependencies:
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
   '@rollup/plugin-typescript': 8.5.0_bhcmvni67fkldpaxrtldxbogce
   '@semantic-release/commit-analyzer': 9.0.2_semantic-release@21.0.0
-  '@semantic-release/github': github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479_semantic-release@21.0.0
-  '@semantic-release/npm': github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a_semantic-release@21.0.0
+  '@semantic-release/github': github.com/semantic-release/github/8efe794bf3732d2cf4095c68170899ca8b001b76_semantic-release@21.0.0
+  '@semantic-release/npm': github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3_semantic-release@21.0.0
   '@storybook/addon-actions': 6.5.16_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.16_ludb4wetox2g5qwr6mmu3dkjji
   '@storybook/addon-interactions': 6.5.16_22w7zynjonpso4757xealkaezm
@@ -126,6 +127,7 @@ devDependencies:
   rollup-plugin-dts: 4.2.3_zptcx3kz3uwp66hzhyyt545weq
   rollup-plugin-peer-deps-external: 2.2.4_rollup@2.79.1
   rollup-plugin-postcss: 4.0.2_postcss@8.4.21
+  rollup-plugin-preserve-directives: 0.1.0_rollup@2.79.1
   rollup-plugin-terser: 7.0.2_rollup@2.79.1
   rollup-plugin-typescript-paths: 1.4.0_typescript@4.9.5
   semantic-release: 21.0.0
@@ -8389,7 +8391,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
+    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
@@ -14000,6 +14002,14 @@ packages:
       - ts-node
     dev: true
 
+  /rollup-plugin-preserve-directives/0.1.0_rollup@2.79.1:
+    resolution: {integrity: sha512-fgzIK3hwF/afa6L1Qdsvshn0JlCHZRx0Sh9l0jjUgz3VK0unMFuEB4uqL3Vdae4OXkn+MBYCeNEN9vm81IteiA==}
+    peerDependencies:
+      rollup: 2.x || 3.x
+    dependencies:
+      rollup: 2.79.1
+    dev: true
+
   /rollup-plugin-terser/7.0.2_rollup@2.79.1:
     resolution: {integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==}
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
@@ -16305,9 +16315,9 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479_semantic-release@21.0.0:
-    resolution: {tarball: https://codeload.github.com/semantic-release/github/tar.gz/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479}
-    id: github.com/semantic-release/github/f53fbf8dfb2d4dcc63ac67fe6d6fa0e00319d479
+  github.com/semantic-release/github/8efe794bf3732d2cf4095c68170899ca8b001b76_semantic-release@21.0.0:
+    resolution: {tarball: https://codeload.github.com/semantic-release/github/tar.gz/8efe794bf3732d2cf4095c68170899ca8b001b76}
+    id: github.com/semantic-release/github/8efe794bf3732d2cf4095c68170899ca8b001b76
     name: '@semantic-release/github'
     version: 0.0.0-development
     engines: {node: '>=14.17'}
@@ -16336,9 +16346,9 @@ packages:
       - supports-color
     dev: true
 
-  github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a_semantic-release@21.0.0:
-    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/9aa8c5e7874e4d550da395ffca4a4626dd001d2a}
-    id: github.com/semantic-release/npm/9aa8c5e7874e4d550da395ffca4a4626dd001d2a
+  github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3_semantic-release@21.0.0:
+    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/37e5635ef1f37eee2b2d6a6d376599fedc5768a3}
+    id: github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3
     name: '@semantic-release/npm'
     version: 0.0.0-development
     engines: {node: '>=18'}
