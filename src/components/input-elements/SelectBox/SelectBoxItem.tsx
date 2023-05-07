@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { HoveredValueContext, SelectedValueContext } from "contexts";
@@ -9,16 +9,18 @@ import { spacing } from "lib/spacing";
 import { getColorClassNames, makeClassName } from "lib";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
+import { Combobox } from "@headlessui/react";
+
 const makeSelectBoxItemClassName = makeClassName("SelectBoxItem");
 
-export interface SelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   text?: string;
   icon?: React.ElementType;
 }
 
-const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((props, ref) => {
-  const { value, text, icon, className, onClick, ...other } = props;
+const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props, ref) => {
+  const { value, text, icon, className, ...other } = props;
   const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
   const { hoveredValue } = useContext(HoveredValueContext);
   const isActive = selectedValue === value;
@@ -35,47 +37,15 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
   const Icon = icon;
 
   return (
-    <button
+    <Combobox.Option
+      className={twMerge(makeSelectBoxItemClassName("root"), "ui-active:bg-active", className)}
       ref={ref}
-      type="button"
-      onClick={(e) => {
-        handleValueChange?.(value);
-        onClick?.(e);
-      }}
-      className={twMerge(
-        makeSelectBoxItemClassName("root"),
-        "flex items-center justify-start w-full truncate",
-        spacing.twoXl.paddingX,
-        spacing.md.paddingY,
-        fontSize.sm,
-        bgColor,
-        textColor,
-        className,
-      )}
+      key={value}
+      value={value}
       {...other}
     >
-      {Icon ? (
-        <Icon
-          className={twMerge(
-            makeSelectBoxItemClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.lg.marginRight,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-          )}
-          aria-hidden="true"
-        />
-      ) : null}
-      <p
-        className={twMerge(
-          makeSelectBoxItemClassName("text"),
-          "text-sm whitespace-nowrap truncate",
-        )}
-      >
-        {text ?? value}
-      </p>
-    </button>
+      {text ?? value}
+    </Combobox.Option>
   );
 });
 

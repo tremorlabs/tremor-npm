@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { FormEventHandler, Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ArrowDownHeadIcon } from "assets";
@@ -29,6 +29,7 @@ import {
 import Modal from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Combobox } from "@headlessui/react";
 
 const makeSelectBoxClassName = makeClassName("SelectBox");
 
@@ -57,19 +58,12 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   } = props;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
-  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const [inputValue, setInputValue] = useState(valueToNameMapping.get(selectedValue || "") || "");
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const Icon = icon;
-  const hasSelection = hasValue(selectedValue);
-
-  useEffect(() => {
-    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
-  }, [selectedValue, valueToNameMapping]);
 
   const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
     ...child.props,
@@ -93,119 +87,33 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     setIsFocused(isFocused);
   };
 
-  const handleValueChange = (value: string) => {
-    setSearchQuery("");
-    if (value !== undefined) setInputValue(valueToNameMapping.get(value) || "");
-    handleFocusChange(false);
-    setSelectedValue(value);
-    inputRef.current?.blur();
-
-    onValueChange?.(value);
-  };
-
-  const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setInputValue(e.target.value);
-  };
-
-  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-    handleValueChange,
-    filteredOptionValues,
-    isFocused,
-    handleFocusChange,
-    selectedValue,
-  );
-
   return (
-    <div
+    <Combobox
+      as="div"
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onValueChange}
       ref={mergeRefs([dropdownRef, ref])}
-      onKeyDown={(e) => {
-        handleKeyDown(e);
-        onKeyDown?.(e);
-      }}
-      className={twMerge("relative w-full min-w-[10rem]", className)}
+      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
-      <button
+      <Combobox.Input
         className={twMerge(
-          makeSelectBoxClassName("root"),
-          "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
-          getSelectButtonColors(hasSelection, disabled),
-          isFocused &&
-            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
+          spacing.twoXl.paddingLeft,
+          spacing.twoXl.paddingRight,
+          spacing.sm.paddingY,
           borderRadius.md.all,
           border.sm.all,
           boxShadow.sm,
         )}
-        onClick={(e) => {
-          handleFocusChange(!isFocused);
-          e.preventDefault();
-        }}
-        disabled={disabled}
-      >
-        {Icon ? (
-          <Icon
-            className={twMerge(
-              makeSelectBoxClassName("icon"),
-              "shrink-0 bg-inherit",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.xl.marginLeft,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-            )}
-            aria-hidden="true"
-          />
-        ) : null}
-        <input
-          ref={inputRef}
-          type="text"
-          className={twMerge(
-            makeSelectBoxClassName("input"),
-            "w-full focus:outline-none focus:ring-0 bg-inherit",
-            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
-            spacing.sm.paddingY,
-            fontSize.sm,
-            fontWeight.md,
-            border.none.all,
-            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
-          )}
-          placeholder={placeholder}
-          value={inputValue}
-          onChange={handleInputValueChange}
-          onFocus={() => handleFocusChange(true)}
-          onMouseDown={(e) => e.preventDefault()}
-        />
-        <ArrowDownHeadIcon
-          className={twMerge(
-            makeSelectBoxClassName("arrowDownIcon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.lg.marginRight,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-          )}
-          aria-hidden="true"
-        />
-      </button>
-      <Modal
-        showModal={filteredOptions.length === 0 ? false : isFocused}
-        setShowModal={handleFocusChange}
-        parentRef={dropdownRef}
-      >
-        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
-          <HoveredValueContext.Provider value={{ hoveredValue }}>
-            {React.Children.map(children, (child) => {
-              const optionValue = child.props.text ?? child.props.value;
-              if (filteredOptionTexts.has(String(optionValue))) {
-                return React.cloneElement(child);
-              }
-              return null;
-            })}
-          </HoveredValueContext.Provider>
-        </SelectedValueContext.Provider>
-      </Modal>
-    </div>
+        placeholder="Select..."
+        onChange={(event) => setSearchQuery(event.target.value)}
+        displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
+      />
+      <Combobox.Options className="bg-white z-10 absolute border rounded-md divide-y">
+        {children}
+      </Combobox.Options>
+    </Combobox>
   );
 });
 
