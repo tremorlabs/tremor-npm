@@ -89,6 +89,12 @@ const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
         <DropdownItem value={"5"} text={"Five"} />
         <DropdownItem value={"3"} text={"Three"} />
         <DropdownItem value={"1"} text={"One"} />
+        <DropdownItem value={"6"} text={"Six"} />
+        <DropdownItem value={"7"} text={"Seven"} />
+        <DropdownItem value={"8"} text={"Eight"} />
+        <DropdownItem value={"9"} text={"Nine"} />
+        <DropdownItem value={"10"} text={"Ten"} />
+        <DropdownItem value={"11"} text={"Eleven"} />
       </Dropdown>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>Set to One</Button>

@@ -23,7 +23,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     setShowModal,
     parentRef,
     width,
-    maxHeight = "max-h-72",
+    maxHeight = "max-h-[228px]",
     children,
     className,
     ...other
@@ -75,7 +75,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     <div
       ref={mergeRefs([modalRef, ref])}
       className={twMerge(
-        "absolute z-10 divide-y overflow-y-auto",
+        "absolute z-10 divide-y overflow-y-scroll",
         width ? "" : "w-full",
         getAbsoluteSpacing(),
         maxHeight,
