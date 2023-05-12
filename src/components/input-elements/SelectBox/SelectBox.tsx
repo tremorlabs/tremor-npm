@@ -26,7 +26,7 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 

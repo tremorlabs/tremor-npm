@@ -22,7 +22,7 @@ import {
   spacing,
 } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 

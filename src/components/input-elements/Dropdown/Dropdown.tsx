@@ -22,7 +22,7 @@ import {
 } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 import { DropdownItemProps } from "./DropdownItem";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeDropdownClassName = makeClassName("Dropdown");
