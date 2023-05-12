@@ -59,4 +59,6 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
   );
 });
 
+Toggle.displayName = "Toggle";
+
 export default Toggle;

@@ -28,4 +28,6 @@ const TableCell = React.forwardRef<
   );
 });
 
+TableCell.displayName = "TableCell";
+
 export default TableCell;

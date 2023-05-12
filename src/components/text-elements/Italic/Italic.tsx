@@ -12,4 +12,6 @@ const Italic = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
   );
 });
 
+Italic.displayName = "Italic";
+
 export default Italic;

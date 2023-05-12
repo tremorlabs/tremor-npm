@@ -59,4 +59,6 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
   );
 });
 
+TabList.displayName = "TabList";
+
 export default TabList;

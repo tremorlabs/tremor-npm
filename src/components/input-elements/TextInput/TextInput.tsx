@@ -145,4 +145,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   );
 });
 
+TextInput.displayName = "TextInput";
+
 export default TextInput;

@@ -133,4 +133,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   );
 });
 
+LineChart.displayName = "LineChart";
+
 export default LineChart;

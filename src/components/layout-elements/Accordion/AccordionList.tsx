@@ -67,4 +67,6 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
   );
 });
 
+AccordionList.displayName = "AccordionList";
+
 export default AccordionList;

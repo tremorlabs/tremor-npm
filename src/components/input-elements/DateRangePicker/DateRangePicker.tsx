@@ -207,4 +207,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   );
 });
 
+DateRangePicker.displayName = "DateRangePicker";
+
 export default DateRangePicker;

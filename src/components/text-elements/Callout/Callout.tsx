@@ -82,4 +82,6 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
   );
 });
 
+Callout.displayName = "Callout";
+
 export default Callout;

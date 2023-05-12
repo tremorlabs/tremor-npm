@@ -72,4 +72,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
   );
 });
 
+Icon.displayName = "Icon";
+
 export default Icon;
