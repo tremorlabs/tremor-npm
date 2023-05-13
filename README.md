@@ -117,10 +117,6 @@ Start the dev server
 npm run dev
 ```
 
-**⚠️ Note:** Since we have not fully migrated to Next.js 13 yet, if you are using the `app` directory introduced in Next.js 13, wrap your tremor components in another component by using the `"use client"` directive. More infos on the directive and the usage of third-party libraries in Next.js 13 can be found in the [Next.js docs](https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages).
-
-If you get the following error while using the `app` directory: `TypeError: Super expression must either be null or a function`, then add the [`serverComponentsExternalPackages`](https://beta.nextjs.org/docs/api-reference/next.config.js#servercomponentsexternalpackages) to your `next.config.js`.
-
 ```diff
 const nextConfig = {
   experimental: {
