@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
-import { HoveredValueContext, SelectedValueContext } from "contexts";
+import { SelectedValueContext } from "contexts";
 
 import {
   BaseColors,
@@ -15,52 +15,36 @@ import {
 } from "lib";
 
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectBoxItenClassName = makeClassName("MultiSelectBoxItem");
 
-export interface MultiSelectBoxItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MultiSelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   text?: string;
 }
 
-const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxItemProps>(
+const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemProps>(
   (props, ref) => {
-    const { value, text, className, onClick, ...other } = props;
-    const { selectedValue: selectedItems, handleValueChange: handleValuesChange } =
-      useContext(SelectedValueContext);
-    const { hoveredValue } = useContext(HoveredValueContext);
-    const isActive = isValueInArray(value, selectedItems as any[]);
-    const isHovered = hoveredValue === value;
+    const { value, text, className, ...other } = props;
 
-    const bgColor = isActive
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor
-      : isHovered
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor;
-    const textColor = isActive
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
+    const { selectedValue } = useContext(SelectedValueContext);
+    const isSelected = isValueInArray(value, selectedValue);
 
     return (
-      <button
-        ref={ref}
-        type="button"
-        onClick={(e) => {
-          handleValuesChange?.(value);
-          onClick?.(e);
-        }}
+      <Listbox.Option
         className={twMerge(
           makeMultiSelectBoxItenClassName("root"),
-          "flex items-center justify-start w-full",
-          spacing.twoXl.paddingX,
+          "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
+          "text-gray-700 whitespace-nowrap truncate cursor-default",
+          spacing.md.paddingX,
           spacing.md.paddingY,
           fontSize.sm,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).hoverBgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-          bgColor,
-          textColor,
           className,
         )}
+        ref={ref}
+        key={value}
+        value={value}
         {...other}
       >
         <input
@@ -75,18 +59,11 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
             borderRadius.sm.all,
             border.sm.all,
           )}
-          checked={isActive}
+          checked={isSelected}
           readOnly={true}
         />
-        <p
-          className={twMerge(
-            makeMultiSelectBoxItenClassName("text"),
-            "text-sm whitespace-nowrap truncate",
-          )}
-        >
-          {text ?? value}
-        </p>
-      </button>
+        {text ?? value}
+      </Listbox.Option>
     );
   },
 );

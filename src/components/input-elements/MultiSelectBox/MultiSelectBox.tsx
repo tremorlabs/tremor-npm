@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { HoveredValueContext, SelectedValueContext } from "contexts";
+import { SelectedValueContext } from "contexts";
 
-import { useInternalState, useSelectOnKeyDown } from "hooks";
+import { useInternalState } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
@@ -14,17 +14,14 @@ import {
   fontSize,
   fontWeight,
   getColorClassNames,
-  isValueInArray,
   makeClassName,
-  mergeRefs,
-  removeValueFromArray,
   sizing,
   spacing,
 } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-import Modal from "components/util-elements/Modal";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
 
@@ -48,201 +45,177 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     icon,
     children,
     className,
-    onKeyDown,
     ...other
   } = props;
 
   const Icon = icon;
-  const dropdownRef = useRef(null);
 
-  const [showModal, setShowModal] = useState(false);
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const selectedItems = selectedValue ?? [];
-  const hasSelection = selectedItems.length > 0;
-  const displayText = hasSelection ? `${selectedItems.length} Selected` : placeholder;
 
   const options = React.Children.map(children, (child: { props: MultiSelectBoxItemProps }) => ({
     ...child.props,
   }));
   const filteredOptions = getFilteredOptions(searchQuery, options);
   const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
-  const filteredOptionValues = filteredOptions.map((option) => option.value);
-
-  const handleModalToggle = (show: boolean) => {
-    setSearchQuery("");
-    setShowModal(show);
-  };
-
-  const handleValueChange = (value: string) => {
-    let newSelectedItems = [];
-    if (!isValueInArray(value, selectedItems)) {
-      newSelectedItems = [...selectedItems, value];
-    } else {
-      newSelectedItems = [...removeValueFromArray(value, selectedItems!)];
-    }
-    setSelectedValue(newSelectedItems);
-    onValueChange?.(newSelectedItems);
-  };
 
   const handleReset = () => {
     setSelectedValue([]);
     onValueChange?.([]);
   };
 
-  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-    handleValueChange,
-    filteredOptionValues,
-    showModal,
-    setShowModal,
-  );
-
   return (
-    <div
-      ref={mergeRefs([dropdownRef, ref])}
-      className={twMerge(
-        makeMultiSelectBoxClassName("root"),
-        "relative w-full min-w-[10rem]",
-        className,
-      )}
-      onKeyDown={(e) => {
-        handleKeyDown(e);
-        onKeyDown?.(e);
-      }}
+    <Listbox
+      as="div"
+      defaultValue={selectedValue}
+      value={selectedValue}
+      onChange={
+        ((values: string[]) => {
+          onValueChange?.(values);
+          setSelectedValue(values);
+        }) as any
+      }
+      ref={ref}
+      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
+      multiple
     >
-      <button
-        type="button"
-        className={twMerge(
-          makeMultiSelectBoxClassName("button"),
-          "flex justify-between items-center w-full focus:outline-none focus:ring-2",
-          getSelectButtonColors(hasSelection, disabled),
-          getColorClassNames("blue", colorPalette.lightRing).focusRingColor,
-          borderRadius.md.all,
-          border.sm.all,
-          boxShadow.sm,
-          Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
-          spacing.twoXl.paddingRight,
-          spacing.sm.paddingY,
-        )}
-        onClick={() => handleModalToggle(!showModal)}
-        disabled={disabled}
-      >
-        <div className="flex justify-start items-center truncate">
-          {Icon ? (
-            <Icon
+      {({ value }) => (
+        <>
+          {Icon && (
+            <span
               className={twMerge(
-                makeMultiSelectBoxClassName("icon"),
-                "shrink-0",
-                sizing.lg.height,
-                sizing.lg.width,
-                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-                spacing.lg.marginRight,
+                "absolute inset-y-0 left-0 flex items-center",
+                spacing.md.paddingLeft,
               )}
-              aria-hidden="true"
-            />
-          ) : null}
-          <p
-            className={twMerge(
-              makeMultiSelectBoxClassName("text"),
-              "whitespace-nowrap truncate",
-              fontSize.sm,
-              fontWeight.md,
-            )}
-          >
-            {displayText}
-          </p>
-        </div>
-        <div className="flex items-center">
-          {hasSelection && !disabled ? (
-            <div
-              role="button"
-              className={twMerge(
-                makeMultiSelectBoxClassName("resetButton"),
-                spacing.xs.marginRight,
-              )}
-              onClick={(e) => {
-                e.stopPropagation(); // prevent firing parent button
-                handleReset();
-              }}
             >
-              <XCircleIcon
+              <Icon
                 className={twMerge(
+                  makeMultiSelectBoxClassName("Icon"),
                   "flex-none",
-                  sizing.md.height,
-                  sizing.md.width,
+                  sizing.lg.height,
+                  sizing.lg.width,
                   getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
                 aria-hidden="true"
               />
-            </div>
-          ) : null}
-          <ArrowDownHeadIcon
-            className={twMerge(
-              "flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.twoXs.negativeMarginRight,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-            )}
-            aria-hidden="true"
-          />
-        </div>
-      </button>
-      <Modal showModal={showModal} setShowModal={handleModalToggle} parentRef={dropdownRef}>
-        <div
-          className={twMerge(
-            "flex items-center w-full",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor,
-            spacing.twoXl.paddingX,
+            </span>
           )}
-        >
-          <span>
-            <SearchIcon
+          <Listbox.Button
+            className={twMerge(
+              "w-full outline-none focus:ring-2 cursor-default text-left",
+              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+              spacing.fourXl.paddingRight,
+              spacing.sm.paddingY,
+              fontWeight.md,
+              borderRadius.md.all,
+              border.sm.all,
+              boxShadow.sm,
+              getSelectButtonColors(true, disabled),
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+            )}
+            placeholder={placeholder}
+          >
+            {value.length > 0 ? `${value.length} selected` : placeholder}
+          </Listbox.Button>
+          <button
+            className={twMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.fourXl.marginRight,
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              handleReset();
+            }}
+          >
+            <XCircleIcon
               className={twMerge(
+                makeMultiSelectBoxClassName("arrowDownIcon"),
                 "flex-none",
-                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-                spacing.threeXs.negativeMarginLeft,
-                spacing.lg.marginRight,
                 sizing.md.height,
                 sizing.md.width,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+              )}
+              aria-hidden="true"
+            />
+          </button>
+          <span
+            className={twMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.md.marginRight,
+            )}
+          >
+            <ArrowDownHeadIcon
+              className={twMerge(
+                makeMultiSelectBoxClassName("arrowDownIcon"),
+                "flex-none",
+                sizing.lg.height,
+                sizing.lg.width,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               )}
               aria-hidden="true"
             />
           </span>
-          <input
-            name="search"
-            type="input"
-            placeholder="Search"
+          <Listbox.Options
             className={twMerge(
-              "w-full focus:outline-none focus:ring-none",
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-              getColorClassNames("transparent").bgColor,
-              spacing.sm.paddingY,
-              fontSize.sm,
-              fontWeight.md,
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
+              getColorClassNames("white").bgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+              spacing.twoXs.marginTop,
+              spacing.twoXs.marginBottom,
+              borderRadius.md.all,
+              border.sm.all,
+              boxShadow.lg,
             )}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <SelectedValueContext.Provider
-          value={{
-            selectedValue: selectedItems,
-            handleValueChange,
-          }}
-        >
-          <HoveredValueContext.Provider value={{ hoveredValue }}>
-            {React.Children.map(children, (child) => {
-              const optionText = child.props.text ?? child.props.value;
-              if (filteredOptionTexts.has(String(optionText))) {
-                return React.cloneElement(child);
-              }
-            })}
-          </HoveredValueContext.Provider>
-        </SelectedValueContext.Provider>
-      </Modal>
-    </div>
+          >
+            <div
+              className={twMerge(
+                "flex items-center w-full",
+                getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor,
+                spacing.twoXl.paddingX,
+              )}
+            >
+              <span>
+                <SearchIcon
+                  className={twMerge(
+                    "flex-none",
+                    getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                    spacing.threeXs.negativeMarginLeft,
+                    spacing.lg.marginRight,
+                    sizing.md.height,
+                    sizing.md.width,
+                  )}
+                  aria-hidden="true"
+                />
+              </span>
+              <input
+                name="search"
+                type="input"
+                placeholder="Search"
+                className={twMerge(
+                  "w-full focus:outline-none focus:ring-none",
+                  getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+                  getColorClassNames("transparent").bgColor,
+                  spacing.sm.paddingY,
+                  fontSize.sm,
+                  fontWeight.md,
+                )}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <SelectedValueContext.Provider value={{ selectedValue: value }}>
+              {React.Children.map(children, (child) => {
+                const optionText = child.props.text ?? child.props.value;
+                if (filteredOptionTexts.has(String(optionText))) {
+                  return React.cloneElement(child);
+                }
+              })}
+            </SelectedValueContext.Provider>
+          </Listbox.Options>
+        </>
+      )}
+    </Listbox>
   );
 });
 

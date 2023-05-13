@@ -69,10 +69,10 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
-      <Combobox.Button
-        className={twMerge("absolute inset-y-0 left-0 flex items-center", spacing.md.paddingLeft)}
-      >
-        {Icon && (
+      {Icon && (
+        <Combobox.Button
+          className={twMerge("absolute inset-y-0 left-0 flex items-center", spacing.md.paddingLeft)}
+        >
           <Icon
             className={twMerge(
               makeSelectBoxClassName("Icon"),
@@ -83,8 +83,8 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
             )}
             aria-hidden="true"
           />
-        )}
-      </Combobox.Button>
+        </Combobox.Button>
+      )}
       <Combobox.Input
         className={twMerge(
           "w-full outline-none focus:ring-2 cursor-default",
@@ -118,7 +118,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       </Combobox.Button>
       <Combobox.Options
         className={twMerge(
-          "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0",
+          "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
           getColorClassNames("white").bgColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
           getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
