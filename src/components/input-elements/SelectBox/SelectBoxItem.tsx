@@ -1,7 +1,5 @@
-import React, { Fragment, useContext } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
-
-import { HoveredValueContext, SelectedValueContext } from "contexts";
 
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
@@ -21,29 +19,37 @@ export interface SelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> 
 
 const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props, ref) => {
   const { value, text, icon, className, ...other } = props;
-  const { selectedValue, handleValueChange } = useContext(SelectedValueContext);
-  const { hoveredValue } = useContext(HoveredValueContext);
-  const isActive = selectedValue === value;
-  const isHovered = hoveredValue === value;
-  const bgColor = isActive
-    ? getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor
-    : isHovered
-    ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
-    : getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor;
-  const textColor = isActive
-    ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkestText).textColor
-    : getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor;
-
   const Icon = icon;
 
   return (
     <Combobox.Option
-      className={twMerge(makeSelectBoxItemClassName("root"), "ui-active:bg-active", className)}
+      className={twMerge(
+        makeSelectBoxItemClassName("root"),
+        "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
+        "text-gray-700 whitespace-nowrap truncate cursor-default",
+        spacing.md.paddingX,
+        spacing.md.paddingY,
+        fontSize.sm,
+        className,
+      )}
       ref={ref}
       key={value}
       value={value}
       {...other}
     >
+      {Icon && (
+        <Icon
+          className={twMerge(
+            makeSelectBoxItemClassName("icon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.lg.marginRight,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+          )}
+          aria-hidden="true"
+        />
+      )}
       {text ?? value}
     </Combobox.Option>
   );
