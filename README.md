@@ -117,15 +117,6 @@ Start the dev server
 npm run dev
 ```
 
-```diff
-const nextConfig = {
-  experimental: {
-    appDir: true,
-+    serverComponentsExternalPackages: ['@tremor/react'],
-  },
-}
-```
-<br>
 <br>
 
 **💡 Hint:** Since we are in beta, please be aware that there might be breaking changes in the future.
