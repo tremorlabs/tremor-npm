@@ -46,6 +46,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     minValue,
     maxValue,
     connectNulls = false,
+    allowDecimals = true,
     className,
     ...other
   } = props;
@@ -89,6 +90,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               fontFamily: "Inter; Helvetica",
             }}
             tickFormatter={valueFormatter}
+            allowDecimals={allowDecimals}
           />
           {showTooltip ? (
             <Tooltip
