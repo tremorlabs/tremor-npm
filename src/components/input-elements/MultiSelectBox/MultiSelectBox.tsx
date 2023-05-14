@@ -114,7 +114,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               getSelectButtonColors(true, disabled),
               getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             )}
-            placeholder={placeholder}
           >
             {value.length > 0 ? `${value.length} selected` : placeholder}
           </Listbox.Button>

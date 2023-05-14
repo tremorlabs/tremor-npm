@@ -36,7 +36,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
         className={twMerge(
           makeMultiSelectBoxItenClassName("root"),
           "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
-          "text-gray-700 whitespace-nowrap truncate cursor-default",
+          "text-gray-700 cursor-default",
           spacing.md.paddingX,
           spacing.md.paddingY,
           fontSize.sm,
@@ -62,7 +62,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
           checked={isSelected}
           readOnly={true}
         />
-        {text ?? value}
+        <p className="whitespace-nowrap truncate ">{text ?? value}</p>
       </Listbox.Option>
     );
   },

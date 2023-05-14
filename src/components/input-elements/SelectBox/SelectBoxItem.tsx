@@ -26,7 +26,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
       className={twMerge(
         makeSelectBoxItemClassName("root"),
         "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
-        "text-gray-700 whitespace-nowrap truncate cursor-default",
+        "text-gray-700 cursor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
         fontSize.sm,
@@ -50,7 +50,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
           aria-hidden="true"
         />
       )}
-      {text ?? value}
+      <p className="whitespace-nowrap truncate">{text ?? value}</p>
     </Combobox.Option>
   );
 });
