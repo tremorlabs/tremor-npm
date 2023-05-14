@@ -6,7 +6,6 @@ module.exports = {
     current: "currentColor",
     extend: {
       colors: {
-        active: "#000fff", //@achi?
         tremor: {
           brand: {
             muted: "#bae6fd", // disabled
@@ -43,33 +42,21 @@ module.exports = {
         },
       },
       boxShadow: {
-        tremor: {
-          shadow: {
-            sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-            DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-            md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-            lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-          },
-        },
+        "tremor-sm": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "tremor-default": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "tremor-md": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "tremor-lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
       },
       borderRadius: {
-        tremor: {
-          rounded: {
-            sm: "0.125rem",
-            DEFAULT: "0.25rem",
-          },
-        },
+        "tremor-sm": "0.125rem",
+        "tremor-default": "0.5rem",
       },
       fontSize: {
-        tremor: {
-          DEFAULT: ["1rem", { lineHeight: "1.5rem" }],
-        },
+        "tremor-default": ["1rem", { lineHeight: "1.5rem" }],
       },
       fontWeight: {
-        tremor: {
-          default: "400",
-          emphasis: "500",
-        },
+        "tremor-default": "400",
+        "tremor-emphasis": "500",
       },
     },
     plugins: [require("@headlessui/tailwindcss")],
