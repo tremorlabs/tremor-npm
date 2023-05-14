@@ -2,30 +2,44 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Button, Card, Flex, Tab, TabList, Text, Title } from "components";
+import {
+  Button,
+  Card,
+  Flex,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Text,
+  Title,
+} from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/InputElements/TabList",
-  component: TabList,
-} as ComponentMeta<typeof TabList>;
+  title: "Tremor/InputElements/TabGroup",
+  component: TabGroup,
+} as ComponentMeta<typeof TabGroup>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SimpleTabList = (args: any) => (
-  <TabList {...args}>
-    <Tab
-      value={"5"}
-      text={"This is a very Long Tab Value that is used as an edge case"}
-      icon={CalendarIcon}
-    />
-    <Tab value={"3"} text={"Three"} icon={CalendarIcon} />
-    <Tab value={"1"} text={"One"} />
-  </TabList>
+  <TabGroup defaultValue={0}>
+    <TabList {...args}>
+      <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
+      <Tab icon={CalendarIcon}>Three</Tab>
+      <Tab icon={CalendarIcon}>One</Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel>One</TabPanel>
+      <TabPanel>Two</TabPanel>
+      <TabPanel>Three</TabPanel>
+    </TabPanels>
+  </TabGroup>
 );
 
-const ResponsiveTemplate: ComponentStory<typeof TabList> = (args) => (
+const ResponsiveTemplate: ComponentStory<typeof TabGroup> = (args) => (
   <>
     <Title>Mobile</Title>
     <div className="w-64">
@@ -40,7 +54,7 @@ const ResponsiveTemplate: ComponentStory<typeof TabList> = (args) => (
   </>
 );
 
-const FlexTemplate: ComponentStory<typeof TabList> = (args) => (
+const FlexTemplate: ComponentStory<typeof TabGroup> = (args) => (
   <>
     <Card>
       <Text className="mt-2">Justify Start</Text>
@@ -67,7 +81,7 @@ const FlexTemplate: ComponentStory<typeof TabList> = (args) => (
   </>
 );
 
-const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
+const ColorsTemplate: ComponentStory<typeof TabGroup> = (args) => (
   <>
     <Card>
       <div className="space-y-2">
@@ -79,23 +93,19 @@ const ColorsTemplate: ComponentStory<typeof TabList> = (args) => (
   </>
 );
 
-const WithControlledStateTemplate: ComponentStory<typeof TabList> = () => {
-  const [value, setValue] = useState<string>("5");
+const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
+  const [value, setValue] = useState(0);
   return (
     <Card>
-      <TabList
-        value={value}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(value);
-        }}
-      >
-        <Tab value={"5"} text={"Five"} />
-        <Tab value={"3"} text={"Three"} />
-        <Tab value={"1"} text={"One"} />
-      </TabList>
-      <Button onClick={() => setValue("")}>Reset</Button>
-      <Button onClick={() => setValue("1")}>One</Button>
+      <TabGroup value={value} onValueChange={setValue}>
+        <TabList>
+          <Tab>Five</Tab>
+          <Tab>Three</Tab>
+          <Tab>One</Tab>
+        </TabList>
+      </TabGroup>
+      <Button onClick={() => setValue(0)}>Reset</Button>
+      <Button onClick={() => setValue(1)}>One</Button>
     </Card>
   );
 };
@@ -109,12 +119,12 @@ export const WithFlexParent = FlexTemplate.bind({});
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-  defaultValue: "5",
+  defaultValue: 3,
 };
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
-  defaultValue: "5",
+  defaultValue: 3,
 };
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
