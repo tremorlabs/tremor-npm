@@ -3,20 +3,22 @@ import { twMerge } from "tailwind-merge";
 
 import { ArrowUpHeadIcon } from "assets";
 import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { ExpandedContext } from "components/layout-elements/Accordion/Accordion";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Disclosure } from "@headlessui/react";
+import { OpenContext } from "components/layout-elements/Accordion/Accordion";
 
 const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
 
-export interface AccordionHeaderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-}
+const AccordionHeader = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
 
-const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps>((props, ref) => {
-  const { children, className, onClick, ...other } = props;
-  const { isExpanded, setIsExpanded } = useContext(ExpandedContext);
+  const { isOpen } = useContext(OpenContext);
+
   return (
-    <button
+    <Disclosure.Button
       ref={ref}
       className={twMerge(
         makeAccordionHeaderClassName("root"),
@@ -25,11 +27,6 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
         spacing.lg.paddingY,
         className,
       )}
-      onClick={(e) => {
-        setIsExpanded?.(!isExpanded);
-        onClick?.(e);
-      }}
-      type="button"
       {...other}
     >
       <div
@@ -45,15 +42,15 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
         <ArrowUpHeadIcon
           className={twMerge(
             makeAccordionHeaderClassName("arrowIcon"),
-            isExpanded ? "transition-all" : "transition-all -rotate-180",
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             spacing.twoXs.negativeMarginRight,
             sizing.xl.height,
             sizing.xl.width,
+            isOpen ? "transition-all" : "transition-all -rotate-180",
           )}
         />
       </div>
-    </button>
+    </Disclosure.Button>
   );
 });
 
