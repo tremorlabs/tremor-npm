@@ -59,6 +59,7 @@ specifiers:
   rollup-plugin-dts: ^4.2.1
   rollup-plugin-peer-deps-external: ^2.2.4
   rollup-plugin-postcss: ^4.0.2
+  rollup-plugin-preserve-directives: ^0.1.0
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript-paths: ^1.3.1
   semantic-release: ^21.0.0
@@ -130,6 +131,7 @@ devDependencies:
   rollup-plugin-dts: 4.2.3_zptcx3kz3uwp66hzhyyt545weq
   rollup-plugin-peer-deps-external: 2.2.4_rollup@2.79.1
   rollup-plugin-postcss: 4.0.2_postcss@8.4.21
+  rollup-plugin-preserve-directives: 0.1.0_rollup@2.79.1
   rollup-plugin-terser: 7.0.2_rollup@2.79.1
   rollup-plugin-typescript-paths: 1.4.0_typescript@4.9.5
   semantic-release: 21.0.0
@@ -13972,6 +13974,14 @@ packages:
       style-inject: 0.3.0
     transitivePeerDependencies:
       - ts-node
+    dev: true
+
+  /rollup-plugin-preserve-directives/0.1.0_rollup@2.79.1:
+    resolution: {integrity: sha512-fgzIK3hwF/afa6L1Qdsvshn0JlCHZRx0Sh9l0jjUgz3VK0unMFuEB4uqL3Vdae4OXkn+MBYCeNEN9vm81IteiA==}
+    peerDependencies:
+      rollup: 2.x || 3.x
+    dependencies:
+      rollup: 2.79.1
     dev: true
 
   /rollup-plugin-terser/7.0.2_rollup@2.79.1:
