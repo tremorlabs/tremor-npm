@@ -75,7 +75,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     <div
       ref={mergeRefs([modalRef, ref])}
       className={twMerge(
-        "absolute z-10 divide-y overflow-y-scroll",
+        "absolute z-10 divide-y overflow-y-auto",
         width ? "" : "w-full",
         getAbsoluteSpacing(),
         maxHeight,
