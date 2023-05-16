@@ -49,13 +49,16 @@ module.exports = {
         "tremor-full": "9999px",
       },
       fontSize: {
+        "tremor-xs": ["0.275rem", { lineHeight: "1.25rem" }],
         "tremor-sm": ["0.875rem", { lineHeight: "1.25rem" }],
         "tremor-default": ["1rem", { lineHeight: "1.5rem" }],
         "tremor-lg": ["1.125rem", { lineHeight: "1.75rem" }],
+        base: "1rem",
       },
       fontWeight: {
         "tremor-default": "400",
-        "tremor-emphasis": "500",
+        "tremor-emphasis": "600",
+        "tremor-strong": "800",
       },
     },
     plugins: [require("@headlessui/tailwindcss")],
