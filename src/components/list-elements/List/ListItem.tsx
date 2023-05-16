@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { fontSize, makeClassName, spacing } from "lib";
+import { makeClassName, spacing } from "lib";
 
 const makeListItemClassName = makeClassName("ListItem");
 
@@ -14,9 +14,8 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
           ref={ref}
           className={twMerge(
             makeListItemClassName("root"),
-            "w-full flex justify-between items-center truncate tabular-nums",
+            "w-full flex justify-between items-center truncate tabular-nums text-tremor-sm",
             spacing.sm.paddingY,
-            fontSize.sm,
             className,
           )}
           {...other}

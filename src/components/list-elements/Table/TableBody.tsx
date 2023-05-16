@@ -1,8 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { getColorClassNames, makeClassName } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName } from "lib";
 
 const makeTableBodyClassName = makeClassName("TableBody");
 
@@ -17,8 +16,7 @@ const TableBody = React.forwardRef<
         ref={ref}
         className={twMerge(
           makeTableBodyClassName("root"),
-          "align-top overflow-x-auto divide-y",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+          "align-top overflow-x-auto divide-y divide-tremor-border",
           className,
         )}
         {...other}

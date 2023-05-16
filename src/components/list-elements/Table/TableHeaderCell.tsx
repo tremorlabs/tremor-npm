@@ -17,12 +17,10 @@ const TableHeaderCell = React.forwardRef<
         ref={ref}
         className={twMerge(
           makeTableHeaderCellClassName("root"),
-          "sticky whitespace-nowrap text-left",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          "sticky whitespace-nowrap text-left text-tremor-content",
           spacing.none.top,
           spacing.twoXl.paddingX,
           spacing.xl.paddingY,
-          fontWeight.lg,
           className,
         )}
         {...other}

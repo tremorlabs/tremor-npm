@@ -17,9 +17,7 @@ const TableHead = React.forwardRef<
         ref={ref}
         className={twMerge(
           makeTableHeadClassName("root"),
-          "text-left",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-          fontWeight.lg,
+          "text-left text-tremor-content",
           className,
         )}
         {...other}
