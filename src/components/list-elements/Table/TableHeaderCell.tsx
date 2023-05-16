@@ -1,9 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { fontWeight, getColorClassNames, makeClassName, spacing } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
-
+import { makeClassName, spacing } from "lib";
 const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
 const TableHeaderCell = React.forwardRef<

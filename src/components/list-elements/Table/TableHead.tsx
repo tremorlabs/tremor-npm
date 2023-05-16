@@ -1,8 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { fontWeight, getColorClassNames, makeClassName } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName } from "lib";
 
 const makeTableHeadClassName = makeClassName("TableHead");
 
