@@ -16,21 +16,17 @@ module.exports = {
           },
           background: {
             muted: "#f9fafb", //canvasbackground 50
-            subtle: "#f3f4f6", // lightbackground 100
+            subtle: "#e2e8f0", // lightbackground 200
             DEFAULT: "#ffffff", // background
             emphasis: "#4b5563", // darkbackground
             strong: "#1f2937", // darkestbackground
             inverted: "#030712", // new
           },
           border: {
-            muted: "#f3f4f6", // new 100
-            subtle: "#e5e7eb", //lightBorder
-            DEFAULT: "#6b7280", //border
-            emphasis: "#374151", //darkborder
+            DEFAULT: "#e5e7eb", //border
           },
           ring: {
-            subtle: "#e5e7eb", //lightring
-            DEFAULT: "#d1d5db", //ring
+            DEFAULT: "#e5e7eb", //ring
           },
           content: {
             subtle: "#9ca3af", //lighttext
@@ -50,6 +46,7 @@ module.exports = {
       borderRadius: {
         "tremor-sm": "0.125rem",
         "tremor-default": "0.5rem",
+        "tremor-full": "9999px",
       },
       fontSize: {
         "tremor-default": ["1rem", { lineHeight: "1.5rem" }],

@@ -2,9 +2,8 @@
 import React, { createContext, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { border, borderRadius, getColorClassNames, makeClassName } from "lib";
+import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Disclosure } from "@headlessui/react";
 
 const makeAccordionClassName = makeClassName("Accordion");
@@ -23,7 +22,7 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
   const { defaultOpen = false, children, className, ...other } = props;
 
-  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all, borderRadius.lg.all);
+  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all);
 
   return (
     <Disclosure
@@ -31,9 +30,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
       ref={ref}
       className={twMerge(
         makeAccordionClassName("root"),
-        "overflow-hidden",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
-        getColorClassNames("white").bgColor,
+        "overflow-hidden bg-tremor-background border-tremor-border rounded-tremor-default",
         rootStyles,
         className,
       )}

@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/constants";
+import { HorizontalPositions, VerticalPositions } from "lib/constants";
 import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
 import { border, spacing, colorClassNames, makeClassName } from "lib";
 import { colorPalette } from "lib/theme";
@@ -30,20 +30,14 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-  const {
-    decoration = "",
-    decorationColor = BaseColors.Blue,
-    children,
-    className,
-    ...other
-  } = props;
+  const { decoration = "", decorationColor, children, className, ...other } = props;
   return (
     <div
       ref={ref}
       className={twMerge(
         makeCardClassName("root"),
-        "relative w-full text-left ring-1 bg-tremor-background rounded-tremor-default ring-tremor-ring-subtle shadow-tremor-default",
-        colorClassNames[decorationColor][colorPalette.border].borderColor,
+        "relative w-full text-left ring-1 bg-tremor-background rounded-tremor-default ring-tremor-ring shadow-tremor-default border-tremor-brand",
+        decorationColor && colorClassNames[decorationColor][colorPalette.border].borderColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
         className,

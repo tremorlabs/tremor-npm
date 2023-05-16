@@ -2,7 +2,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { border, borderRadius, boxShadow, makeClassName } from "lib";
+import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
 
 const makeAccordionListClassName = makeClassName("AccordionList");
@@ -20,8 +20,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
       ref={ref}
       className={twMerge(
         makeAccordionListClassName("root"),
-        borderRadius.lg.all,
-        boxShadow.md,
+        "rounded-tremor-default shadow-tremor-default",
         className,
       )}
       {...other}
@@ -31,7 +30,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
           return (
             <RootStylesContext.Provider
               value={twMerge(
-                borderRadius.lg.top,
+                "rounded-t-tremor-default",
                 border.sm.left,
                 border.sm.top,
                 border.sm.right,
@@ -46,7 +45,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
           return (
             <RootStylesContext.Provider
               value={twMerge(
-                borderRadius.lg.bottom,
+                "rounded-b-tremor-default",
                 border.sm.left,
                 border.sm.right,
                 border.sm.bottom,

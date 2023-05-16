@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ArrowUpHeadIcon } from "assets";
-import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName, sizing, spacing } from "lib";
 import { Disclosure } from "@headlessui/react";
 import { OpenContext } from "components/layout-elements/Accordion/Accordion";
 
@@ -43,7 +42,7 @@ const AccordionHeader = React.forwardRef<
         <ArrowUpHeadIcon
           className={twMerge(
             makeAccordionHeaderClassName("arrowIcon"),
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            "text-tremor-content-subtle",
             spacing.twoXs.negativeMarginRight,
             sizing.xl.height,
             sizing.xl.width,
