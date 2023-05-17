@@ -64,6 +64,6 @@ module.exports = {
         "tremor-bold": "700",
       },
     },
-    plugins: [require("@headlessui/tailwindcss")],
   },
+  plugins: [require("@headlessui/tailwindcss")],
 };
