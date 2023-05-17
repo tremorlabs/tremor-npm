@@ -1,18 +1,10 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "../../../lib";
 
-import { BaseColors, HorizontalPositions, VerticalPositions } from "lib/constants";
+import { HorizontalPositions, VerticalPositions } from "lib/constants";
 import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  getColorClassNames,
-  spacing,
-  colorClassNames,
-  makeClassName,
-} from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { border, spacing, colorClassNames, makeClassName } from "lib";
+import { colorPalette } from "lib/theme";
 
 const makeCardClassName = makeClassName("Card");
 
@@ -38,26 +30,16 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-  const {
-    decoration = "",
-    decorationColor = BaseColors.Blue,
-    children,
-    className,
-    ...other
-  } = props;
+  const { decoration = "", decorationColor, children, className, ...other } = props;
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeCardClassName("root"),
-        "relative w-full text-left ring-1",
-        getColorClassNames("white").bgColor,
-        boxShadow.md,
-        colorClassNames[decorationColor][colorPalette.border].borderColor,
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).ringColor,
+        "relative w-full text-left ring-1 bg-tremor-background rounded-tremor-default ring-tremor-ring shadow-tremor-default border-tremor-brand",
+        decorationColor && colorClassNames[decorationColor][colorPalette.border].borderColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
-        borderRadius.lg.all,
         className,
       )}
       {...other}

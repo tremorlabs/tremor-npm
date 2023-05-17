@@ -121,7 +121,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
             />
           ) : null}
-
           {categories.map((category) => {
             const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
             return (
@@ -139,7 +138,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               </defs>
             );
           })}
-
           {categories.map((category) => (
             <Area
               key={category}

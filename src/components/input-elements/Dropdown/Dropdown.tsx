@@ -1,15 +1,10 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
-
-import { HoveredValueContext, SelectedValueContext } from "contexts";
-
-import { useInternalState, useSelectOnKeyDown } from "hooks";
 
 import { ArrowDownHeadIcon } from "assets";
 
 import {
-  BaseColors,
   border,
   borderRadius,
   boxShadow,
@@ -17,14 +12,12 @@ import {
   fontWeight,
   getColorClassNames,
   makeClassName,
-  mergeRefs,
   sizing,
   spacing,
 } from "lib";
-import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
-import { DropdownItemProps } from "./DropdownItem";
-import Modal from "components/util-elements/Modal";
+import { constructValueToNameMapping, getSelectButtonColors } from "../selectUtils";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Listbox } from "@headlessui/react";
 
 const makeDropdownClassName = makeClassName("Dropdown");
 
@@ -50,103 +43,92 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     className,
     ...other
   } = props;
-  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const [isFocused, setIsFocused] = useState(false);
-
-  const dropdownRef = useRef(null);
 
   const Icon = icon;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
-  const optionValues = React.Children.map(
-    children,
-    (child: { props: DropdownItemProps }) => child.props.value,
-  );
-
-  const handleValueChange = (value: string) => {
-    setSelectedValue(value);
-    setIsFocused(false);
-    onValueChange?.(value);
-  };
-
-  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-    handleValueChange,
-    optionValues,
-    isFocused,
-    setIsFocused,
-    selectedValue,
-  );
-
-  const hasSelection = hasValue(selectedValue);
 
   return (
-    <div
-      ref={mergeRefs([dropdownRef, ref])}
-      onKeyDown={handleKeyDown}
-      className={twMerge(makeDropdownClassName("root"), "relative w-full min-w-[10rem]", className)}
+    <Listbox
+      as="div"
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onValueChange as any}
+      ref={ref}
+      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
-      <button
-        type="button"
-        className={twMerge(
-          makeDropdownClassName("button"),
-          "flex justify-between items-center w-full focus:outline-none focus:ring-2",
-          getSelectButtonColors(hasSelection, disabled),
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-          Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
-          spacing.twoXl.paddingRight,
-          spacing.sm.paddingY,
-          borderRadius.md.all,
-          border.sm.all,
-          boxShadow.sm,
-        )}
-        onClick={() => setIsFocused(!isFocused)}
-        disabled={disabled}
-      >
-        <div className="flex justify-start items-center truncate">
-          {Icon ? (
-            <Icon
+      {({ value }) => (
+        <>
+          {Icon && (
+            <span
               className={twMerge(
-                makeDropdownClassName("icon"),
-                "shrink-0",
+                "absolute inset-y-0 left-0 flex items-center",
+                spacing.md.paddingLeft,
+              )}
+            >
+              <Icon
+                className={twMerge(
+                  makeDropdownClassName("Icon"),
+                  "flex-none",
+                  sizing.lg.height,
+                  sizing.lg.width,
+                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                )}
+                aria-hidden="true"
+              />
+            </span>
+          )}
+          <Listbox.Button
+            className={twMerge(
+              "w-full outline-none focus:ring-2 cursor-default text-left whitespace-nowrap truncate",
+              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+              spacing.fourXl.paddingRight,
+              spacing.sm.paddingY,
+              fontWeight.md,
+              borderRadius.md.all,
+              border.sm.all,
+              boxShadow.sm,
+              getSelectButtonColors(true, disabled),
+              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+            )}
+          >
+            {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+          </Listbox.Button>
+          <span
+            className={twMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.md.marginRight,
+            )}
+          >
+            <ArrowDownHeadIcon
+              className={twMerge(
+                makeDropdownClassName("arrowDownIcon"),
+                "flex-none",
                 sizing.lg.height,
                 sizing.lg.width,
                 getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-                spacing.lg.marginRight,
               )}
               aria-hidden="true"
             />
-          ) : null}
-          <p
+          </span>
+          <Listbox.Options
             className={twMerge(
-              makeDropdownClassName("text"),
-              "whitespace-nowrap truncate",
-              fontSize.sm,
-              fontWeight.md,
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
+              getColorClassNames("white").bgColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+              spacing.twoXs.marginTop,
+              spacing.twoXs.marginBottom,
+              borderRadius.md.all,
+              border.sm.all,
+              boxShadow.lg,
             )}
           >
-            {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
-          </p>
-        </div>
-        <ArrowDownHeadIcon
-          className={twMerge(
-            makeDropdownClassName("arrowDownIcon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.twoXs.negativeMarginRight,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-          )}
-          aria-hidden="true"
-        />
-      </button>
-      <Modal showModal={isFocused} setShowModal={setIsFocused} parentRef={dropdownRef}>
-        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
-          <HoveredValueContext.Provider value={{ hoveredValue }}>
-            {React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child))}
-          </HoveredValueContext.Provider>
-        </SelectedValueContext.Provider>
-      </Modal>
-    </div>
+            {children}
+          </Listbox.Options>
+        </>
+      )}
+    </Listbox>
   );
 });
 

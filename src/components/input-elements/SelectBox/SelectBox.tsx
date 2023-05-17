@@ -1,15 +1,8 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon } from "assets";
-
-import { useInternalState, useSelectOnKeyDown } from "hooks";
-
-import { HoveredValueContext, SelectedValueContext } from "contexts";
-
 import {
-  BaseColors,
   border,
   borderRadius,
   boxShadow,
@@ -17,7 +10,6 @@ import {
   fontWeight,
   getColorClassNames,
   makeClassName,
-  mergeRefs,
   sizing,
   spacing,
 } from "lib";
@@ -27,9 +19,10 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import Modal from "components/util-elements/Modal";
-import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Combobox } from "@headlessui/react";
+import { SelectBoxItemProps } from "./SelectBoxItem";
+import { ArrowDownHeadIcon } from "assets";
 
 const makeSelectBoxClassName = makeClassName("SelectBox");
 
@@ -53,160 +46,99 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     icon,
     children,
     className,
-    onKeyDown,
     ...other
   } = props;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
-  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const [inputValue, setInputValue] = useState(valueToNameMapping.get(selectedValue || "") || "");
   const [searchQuery, setSearchQuery] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const Icon = icon;
-  const hasSelection = hasValue(selectedValue);
-
-  useEffect(() => {
-    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
-  }, [selectedValue, valueToNameMapping]);
-
   const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
     ...child.props,
   }));
-
   const filteredOptions = getFilteredOptions(searchQuery, options);
-
   const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
-  const filteredOptionValues = filteredOptions.map((option) => option.value);
-
-  const handleFocusChange = (isFocused: boolean) => {
-    if (isFocused === false) {
-      inputRef.current?.blur();
-    } else {
-      inputRef.current?.focus();
-      if (inputRef.current) {
-        inputRef.current.selectionStart = inputRef.current.value.length;
-        inputRef.current.selectionEnd = inputRef.current.value.length;
-      }
-    }
-    setIsFocused(isFocused);
-  };
-
-  const handleValueChange = (value: string) => {
-    setSearchQuery("");
-    if (value !== undefined) setInputValue(valueToNameMapping.get(value) || "");
-    handleFocusChange(false);
-    setSelectedValue(value);
-    inputRef.current?.blur();
-
-    onValueChange?.(value);
-  };
-
-  const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setInputValue(e.target.value);
-  };
-
-  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
-    handleValueChange,
-    filteredOptionValues,
-    isFocused,
-    handleFocusChange,
-    selectedValue,
-  );
+  const hasSelection = hasValue(value);
 
   return (
-    <div
-      ref={mergeRefs([dropdownRef, ref])}
-      onKeyDown={(e) => {
-        handleKeyDown(e);
-        onKeyDown?.(e);
-      }}
-      className={twMerge("relative w-full min-w-[10rem]", className)}
+    <Combobox
+      as="div"
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onValueChange as any}
+      ref={ref}
+      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
-      <button
-        className={twMerge(
-          makeSelectBoxClassName("root"),
-          "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
-          getSelectButtonColors(hasSelection, disabled),
-          isFocused &&
-            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-          borderRadius.md.all,
-          border.sm.all,
-          boxShadow.sm,
-        )}
-        onClick={(e) => {
-          handleFocusChange(!isFocused);
-          e.preventDefault();
-        }}
-        disabled={disabled}
-      >
-        {Icon ? (
+      {Icon && (
+        <Combobox.Button
+          className={twMerge("absolute inset-y-0 left-0 flex items-center", spacing.md.paddingLeft)}
+        >
           <Icon
             className={twMerge(
-              makeSelectBoxClassName("icon"),
-              "shrink-0 bg-inherit",
+              makeSelectBoxClassName("Icon"),
+              "flex-none",
               sizing.lg.height,
               sizing.lg.width,
-              spacing.xl.marginLeft,
               getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />
-        ) : null}
-        <input
-          ref={inputRef}
-          type="text"
-          className={twMerge(
-            makeSelectBoxClassName("input"),
-            "w-full focus:outline-none focus:ring-0 bg-inherit",
-            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
-            spacing.sm.paddingY,
-            fontSize.sm,
-            fontWeight.md,
-            border.none.all,
-            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
-          )}
-          placeholder={placeholder}
-          value={inputValue}
-          onChange={handleInputValueChange}
-          onFocus={() => handleFocusChange(true)}
-          onMouseDown={(e) => e.preventDefault()}
-        />
+        </Combobox.Button>
+      )}
+      <Combobox.Input
+        className={twMerge(
+          "w-full outline-none focus:ring-2 cursor-default",
+          Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+          spacing.fourXl.paddingRight,
+          spacing.sm.paddingY,
+          fontWeight.md,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+          disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
+          getSelectButtonColors(hasSelection, disabled),
+        )}
+        placeholder={placeholder}
+        onChange={(event) => setSearchQuery(event.target.value)}
+        displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
+      />
+      <Combobox.Button
+        className={twMerge("absolute inset-y-0 right-0 flex items-center", spacing.md.paddingRight)}
+      >
         <ArrowDownHeadIcon
           className={twMerge(
             makeSelectBoxClassName("arrowDownIcon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
-            spacing.lg.marginRight,
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />
-      </button>
-      <Modal
-        showModal={filteredOptions.length === 0 ? false : isFocused}
-        setShowModal={handleFocusChange}
-        parentRef={dropdownRef}
+      </Combobox.Button>
+      <Combobox.Options
+        className={twMerge(
+          "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
+          getColorClassNames("white").bgColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+          spacing.twoXs.marginTop,
+          spacing.twoXs.marginBottom,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.lg,
+        )}
       >
-        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
-          <HoveredValueContext.Provider value={{ hoveredValue }}>
-            {React.Children.map(children, (child) => {
-              const optionValue = child.props.text ?? child.props.value;
-              if (filteredOptionTexts.has(String(optionValue))) {
-                return React.cloneElement(child);
-              }
-              return null;
-            })}
-          </HoveredValueContext.Provider>
-        </SelectedValueContext.Provider>
-      </Modal>
-    </div>
+        {React.Children.map(children, (child) => {
+          const optionValue = child.props.text ?? child.props.value;
+          if (filteredOptionTexts.has(String(optionValue))) {
+            return React.cloneElement(child);
+          }
+          return null;
+        })}
+      </Combobox.Options>
+    </Combobox>
   );
 });
 

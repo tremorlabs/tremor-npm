@@ -1,40 +1,36 @@
 "use client";
 import React, { useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { ArrowUpHeadIcon } from "assets";
-import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { ExpandedContext } from "components/layout-elements/Accordion/Accordion";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName, sizing, spacing } from "lib";
+import { Disclosure } from "@headlessui/react";
+import { OpenContext } from "components/layout-elements/Accordion/Accordion";
 
 const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
 
-export interface AccordionHeaderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-}
+const AccordionHeader = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>((props, ref) => {
+  const { children, className, ...other } = props;
 
-const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps>((props, ref) => {
-  const { children, className, onClick, ...other } = props;
-  const { isExpanded, setIsExpanded } = useContext(ExpandedContext);
+  const { isOpen } = useContext(OpenContext);
+
   return (
-    <button
+    <Disclosure.Button
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionHeaderClassName("root"),
         "w-full flex items-center justify-between",
         spacing.threeXl.paddingX,
         spacing.lg.paddingY,
         className,
       )}
-      onClick={(e) => {
-        setIsExpanded?.(!isExpanded);
-        onClick?.(e);
-      }}
-      type="button"
       {...other}
     >
       <div
-        className={twMerge(
+        className={tremorTwMerge(
           makeAccordionHeaderClassName("children"),
           "flex flex-1",
           spacing.threeXl.marginRight,
@@ -44,17 +40,17 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
       </div>
       <div>
         <ArrowUpHeadIcon
-          className={twMerge(
+          className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
-            isExpanded ? "transition-all" : "transition-all -rotate-180",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            "text-tremor-content-subtle",
             spacing.twoXs.negativeMarginRight,
             sizing.xl.height,
             sizing.xl.width,
+            isOpen ? "transition-all" : "transition-all -rotate-180",
           )}
         />
       </div>
-    </button>
+    </Disclosure.Button>
   );
 });
 
