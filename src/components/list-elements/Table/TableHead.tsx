@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName } from "lib";
 
@@ -14,7 +14,7 @@ const TableHead = React.forwardRef<
     <>
       <thead
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeTableHeadClassName("root"),
           "text-left text-tremor-content",
           className,

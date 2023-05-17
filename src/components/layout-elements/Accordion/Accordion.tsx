@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
@@ -22,15 +22,16 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
   const { defaultOpen = false, children, className, ...other } = props;
 
-  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all);
+  const rootStyles =
+    useContext(RootStylesContext) ?? tremorTwMerge(border.sm.all, "rounded-tremor-default");
 
   return (
     <Disclosure
       as="div"
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionClassName("root"),
-        "overflow-hidden bg-tremor-background border-tremor-border rounded-tremor-default",
+        "overflow-hidden bg-tremor-background border-tremor-border",
         rootStyles,
         className,
       )}

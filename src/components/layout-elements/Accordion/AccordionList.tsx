@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
@@ -18,7 +18,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionListClassName("root"),
         "rounded-tremor-default shadow-tremor-default",
         className,
@@ -29,7 +29,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === 0) {
           return (
             <RootStylesContext.Provider
-              value={twMerge(
+              value={tremorTwMerge(
                 "rounded-t-tremor-default",
                 border.sm.left,
                 border.sm.top,
@@ -44,7 +44,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={twMerge(
+              value={tremorTwMerge(
                 "rounded-b-tremor-default",
                 border.sm.left,
                 border.sm.right,
@@ -57,7 +57,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         }
         return (
           <RootStylesContext.Provider
-            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom)}
+            value={tremorTwMerge(border.sm.left, border.sm.right, border.sm.bottom)}
           >
             {React.cloneElement(child)}
           </RootStylesContext.Provider>

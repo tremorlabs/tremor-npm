@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName, sizing, spacing } from "lib";
 
@@ -11,7 +11,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     return (
       <div
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeDividerClassName("root"),
           "w-full mx-auto bg-tremor-background-subtle",
           sizing.threeXs.height,

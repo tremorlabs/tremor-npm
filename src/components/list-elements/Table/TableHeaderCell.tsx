@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName, spacing } from "lib";
 const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
@@ -13,7 +13,7 @@ const TableHeaderCell = React.forwardRef<
     <>
       <th
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeTableHeaderCellClassName("root"),
           "sticky whitespace-nowrap text-left text-tremor-content",
           spacing.none.top,

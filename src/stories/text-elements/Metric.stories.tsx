@@ -13,6 +13,7 @@ export default {
 
 const Template: ComponentStory<typeof Metric> = () => (
   <>
+    <Metric className="text-8xl">USD 70,000.00</Metric>
     {Object.values(BaseColors).map((color) => (
       <Metric key={color} color={color}>
         USD 70,000.00

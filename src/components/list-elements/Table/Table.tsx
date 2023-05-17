@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName } from "lib";
 
@@ -10,12 +10,12 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
     const { children, className, ...other } = props;
 
     return (
-      <div className={twMerge(makeTableClassName("root"), "overflow-auto", className)}>
+      <div className={tremorTwMerge(makeTableClassName("root"), "overflow-auto", className)}>
         <table
           ref={ref}
-          className={twMerge(
+          className={tremorTwMerge(
             makeTableClassName("table"),
-            "w-full tabular-nums text-tremor-sm text-tremor-content font-tremor-default",
+            "w-full tabular-nums text-tremor-sm text-tremor-content font-tremor-normal",
           )}
           {...other}
         >

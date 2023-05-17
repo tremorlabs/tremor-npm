@@ -8,11 +8,11 @@ module.exports = {
       colors: {
         tremor: {
           brand: {
-            muted: "#bae6fd", // disabled
-            subtle: "#7dd3fc", // 300 zb hover
+            muted: "#eff6ff", // 50 eg. disabled
+            subtle: "#7dd3fc", // hover
             DEFAULT: "#3b82f6", // 500
             emphasis: "#1d4ed8", // 700
-            inverted: "#eff6ff", //
+            inverted: "#ffffff", // white
           },
           background: {
             muted: "#f9fafb", //canvasbackground 50
@@ -49,16 +49,19 @@ module.exports = {
         "tremor-full": "9999px",
       },
       fontSize: {
-        "tremor-xs": ["0.275rem", { lineHeight: "1.25rem" }],
+        "tremor-xs": ["0.75rem", { lineHeight: "1rem" }],
         "tremor-sm": ["0.875rem", { lineHeight: "1.25rem" }],
-        "tremor-default": ["1rem", { lineHeight: "1.5rem" }],
+        "tremor-base": ["1rem", { lineHeight: "1.5rem" }],
         "tremor-lg": ["1.125rem", { lineHeight: "1.75rem" }],
-        base: "1rem",
+        "tremor-xl": ["1.25rem", { lineHeight: "1.75rem  " }],
+        "tremor-2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "tremor-3xl": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       fontWeight: {
-        "tremor-default": "400",
-        "tremor-emphasis": "600",
-        "tremor-strong": "800",
+        "tremor-normal": "400",
+        "tremor-medium": "500",
+        "tremor-semibold": "600",
+        "tremor-bold": "700",
       },
     },
     plugins: [require("@headlessui/tailwindcss")],
