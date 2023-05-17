@@ -32,7 +32,7 @@ const AccordionHeader = React.forwardRef<
       <div
         className={tremorTwMerge(
           makeAccordionHeaderClassName("children"),
-          "flex flex-1",
+          "flex flex-1 text-tremor-content-emphasis",
           spacing.threeXl.marginRight,
         )}
       >
