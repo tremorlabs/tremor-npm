@@ -1,17 +1,9 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  DeltaTypes,
-  borderRadius,
-  getColorClassNames,
-  makeClassName,
-  mapInputsToDeltaType,
-  sizing,
-} from "lib";
+import { DeltaTypes, makeClassName, mapInputsToDeltaType, sizing } from "lib";
 import { colors } from "./styles";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeDeltaBarClassName = makeClassName("DeltaBar");
@@ -43,12 +35,10 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeDeltaBarClassName("root"),
-          "relative flex items-center w-full",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+          "relative flex items-center w-full rounded-tremor-full bg-tremor-background-subtle",
           sizing.xs.height,
-          borderRadius.lg.all,
           className,
         )}
         {...other}
@@ -61,10 +51,10 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           {percentageValue < 0 ? (
             <div
               ref={tooltipProps.refs.setReference}
-              className={twMerge(
+              className={tremorTwMerge(
                 makeDeltaBarClassName("negativeDeltaBar"),
-                colors[deltaType].bgColor,
-                borderRadius.full.left,
+                "rounded-l-tremor-full",
+                colors[deltaType].bgColor, // achi?
               )}
               style={{
                 width: `${Math.abs(percentageValue)}%`,
@@ -75,18 +65,15 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           ) : null}
         </div>
         <div
-          className={twMerge(
+          className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
-            "ring-2 z-10",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
-            getColorClassNames("white").ringColor,
+            "ring-2 z-10 rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-emphasis",
             sizing.md.height,
             sizing.twoXs.width,
-            borderRadius.lg.all,
           )}
         />
         <div
-          className={twMerge(
+          className={tremorTwMerge(
             makeDeltaBarClassName("positiveDeltaBarWrapper"),
             "flex justify-start h-full w-1/2",
           )}
@@ -94,10 +81,10 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           {percentageValue >= 0 ? (
             <div
               ref={tooltipProps.refs.setReference}
-              className={twMerge(
+              className={tremorTwMerge(
                 makeDeltaBarClassName("positiveDeltaBar"),
+                "rounded-r-tremor-full",
                 colors[deltaType].bgColor,
-                borderRadius.full.right,
               )}
               style={{
                 width: `${Math.abs(percentageValue)}%`,

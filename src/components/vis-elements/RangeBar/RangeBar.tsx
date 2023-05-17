@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, borderRadius, getColorClassNames, makeClassName, sizing } from "lib";
+import { getColorClassNames, makeClassName, sizing } from "lib";
 import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeRangeBarClassName = makeClassName("RangeBar");
@@ -27,7 +27,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
     markerTooltip,
     rangeTooltip,
     showAnimation = true,
-    color = BaseColors.Blue,
+    color,
     className,
     ...other
   } = props;
@@ -40,12 +40,10 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeRangeBarClassName("root"),
-        "relative flex items-center w-full",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+        "relative flex items-center w-full rounded-tremor-full bg-tremor-background-subtle",
         sizing.xs.height,
-        borderRadius.lg.all,
         className,
       )}
       {...other}
@@ -53,11 +51,9 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       <Tooltip text={rangeTooltip} {...rangeTooltipProps} />
       <div
         ref={rangeTooltipProps.refs.setReference}
-        className={twMerge(
+        className={tremorTwMerge(
           makeRangeBarClassName("rangeBar"),
-          "absolute h-full",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.background).bgColor,
-          borderRadius.lg.all,
+          "absolute h-full rounded-tremor-full bg-tremor-background-emphasis",
         )}
         style={{
           left: `${minPercentageValue}%`,
@@ -69,7 +65,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
       <Tooltip text={markerTooltip} {...markerTooltipProps} />
       <div
         ref={markerTooltipProps.refs.setReference}
-        className={twMerge(
+        className={tremorTwMerge(
           makeRangeBarClassName("markerWrapper"),
           "absolute right-1/2 -translate-x-1/2",
           sizing.lg.width, // wide transparent wrapper for tooltip activation
@@ -81,14 +77,12 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
         {...getMarkerReferenceProps}
       >
         <div
-          className={twMerge(
+          className={tremorTwMerge(
             makeRangeBarClassName("marker"),
-            "ring-2 mx-auto",
-            getColorClassNames(color, colorPalette.background).bgColor,
-            getColorClassNames("white").ringColor,
+            "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+            color && getColorClassNames(color, colorPalette.background).bgColor,
             sizing.md.height,
             sizing.twoXs.width,
-            borderRadius.lg.all,
           )}
         />
       </div>

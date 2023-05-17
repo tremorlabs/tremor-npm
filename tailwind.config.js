@@ -8,15 +8,16 @@ module.exports = {
       colors: {
         tremor: {
           brand: {
-            muted: "#eff6ff", // 50 eg. disabled
-            subtle: "#7dd3fc", // hover
+            faint: "#eff6ff", // 50
+            muted: "#bfdbfe", // 200 eg. disabled
+            subtle: "#60a5fa", // 400
             DEFAULT: "#3b82f6", // 500
             emphasis: "#1d4ed8", // 700
             inverted: "#ffffff", // white
           },
           background: {
             muted: "#f9fafb", //canvasbackground 50
-            subtle: "#e2e8f0", // lightbackground 200
+            subtle: "#f3f4f6", // lightbackground 100
             DEFAULT: "#ffffff", // background
             emphasis: "#4b5563", // darkbackground
             strong: "#1f2937", // darkestbackground

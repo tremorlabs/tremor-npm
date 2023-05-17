@@ -23,7 +23,7 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     <svg
       className={tremorTwMerge(
         "flex-none",
-        getColorClassNames(color, colorPalette.text).textColor, //@achi so lassen, oder?
+        getColorClassNames(color, colorPalette.text).textColor,
         sizing.xs.height,
         sizing.xs.width,
         spacing.xs.marginRight,

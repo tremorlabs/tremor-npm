@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, borderRadius, getColorClassNames, makeClassName, sizing } from "lib";
+import { getColorClassNames, makeClassName, sizing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -17,17 +17,7 @@ export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) => {
-  const {
-    percentageValue,
-    color = BaseColors.Blue,
-    tooltip,
-    showAnimation = true,
-    className,
-    ...other
-  } = props;
-
-  const primaryBgColor = getColorClassNames(color, colorPalette.background).bgColor;
-  const secondaryBgColor = getColorClassNames(color, colorPalette.lightBackground).bgColor;
+  const { percentageValue, color, tooltip, showAnimation = true, className, ...other } = props;
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -36,19 +26,18 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeMarkerBarClassName("root"),
-          "relative flex items-center w-full",
-          secondaryBgColor,
+          "relative flex items-center w-full rounded-tremor-full bg-tremor-brand-faint",
+          color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
           sizing.xs.height,
-          borderRadius.lg.all,
           className,
         )}
         {...other}
       >
         <div
           ref={tooltipProps.refs.setReference}
-          className={twMerge(
+          className={tremorTwMerge(
             makeMarkerBarClassName("markerWrapper"),
             "absolute right-1/2 -translate-x-1/2",
             sizing.lg.width, // wide transparent wrapper for tooltip activation
@@ -60,14 +49,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
           {...getReferenceProps}
         >
           <div
-            className={twMerge(
+            className={tremorTwMerge(
               makeMarkerBarClassName("marker"),
-              "ring-2 mx-auto",
-              primaryBgColor,
-              getColorClassNames("white").ringColor,
+              "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+              color && getColorClassNames(color, colorPalette.background).bgColor,
               sizing.md.height,
               sizing.twoXs.width,
-              borderRadius.lg.all,
             )}
           />
         </div>
