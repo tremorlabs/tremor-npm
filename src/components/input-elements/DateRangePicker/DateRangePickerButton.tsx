@@ -127,7 +127,6 @@ const DateRangePickerButton = ({
             className={twMerge(makeDateRangePickerClassName("resetButton"), spacing.xs.marginRight)}
             onClick={(e) => {
               e.stopPropagation(); // prevent firing parent button
-              // handleReset();
               onClear();
             }}
           >
