@@ -201,3 +201,9 @@ ControlledWithDropdownOptionsWithEndDate.args = {
     },
   ],
 };
+
+export const UncontrolledWithAllowClear = UncontrolledTemplate.bind({});
+UncontrolledWithAllowClear.args = {
+  defaultValue: [new Date(2022, 10, 1), new Date()],
+  allowClear: true,
+};
