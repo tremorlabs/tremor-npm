@@ -108,12 +108,12 @@ UncontrolledWithDropdownOptions.args = {
     {
       value: "tdy",
       text: "tdy",
-      startDate: new Date(2022, 11, 1),
+      from: new Date(2022, 11, 1),
     },
     {
       value: "a",
       text: "a",
-      startDate: new Date(2023, 0, 1),
+      from: new Date(2023, 0, 1),
     },
   ],
 };
@@ -125,14 +125,14 @@ UncontrolledWithDropdownOptionsWithEndDate.args = {
     {
       value: "tdy",
       text: "tdy",
-      startDate: new Date(2022, 11, 1),
-      endDate: new Date(2022, 11, 30),
+      from: new Date(2022, 11, 1),
+      to: new Date(2022, 11, 30),
     },
     {
       value: "a",
       text: "a",
-      startDate: new Date(2023, 0, 1),
-      endDate: new Date(2023, 0, 30),
+      from: new Date(2023, 0, 1),
+      to: new Date(2023, 0, 30),
     },
   ],
 };
@@ -173,12 +173,12 @@ ControlledWithDropdownOptions.args = {
     {
       value: "tdy",
       text: "tdy",
-      startDate: new Date(2022, 11, 1),
+      from: new Date(2022, 11, 1),
     },
     {
       value: "a",
       text: "a",
-      startDate: new Date(2023, 0, 1),
+      from: new Date(2023, 0, 1),
     },
   ],
 };
@@ -190,14 +190,14 @@ ControlledWithDropdownOptionsWithEndDate.args = {
     {
       value: "tdy",
       text: "tdy",
-      startDate: new Date(2022, 11, 1),
-      endDate: new Date(2022, 11, 30),
+      from: new Date(2022, 11, 1),
+      to: new Date(2022, 11, 30),
     },
     {
       value: "a",
       text: "a",
-      startDate: new Date(2023, 0, 1),
-      endDate: new Date(2023, 0, 30),
+      from: new Date(2023, 0, 1),
+      to: new Date(2023, 0, 30),
     },
   ],
 };
