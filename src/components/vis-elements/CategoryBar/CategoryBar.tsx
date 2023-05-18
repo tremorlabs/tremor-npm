@@ -1,20 +1,17 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "../../../lib";
 
 import { Color } from "../../../lib";
 import {
   colorClassNames,
   makeClassName,
-  borderRadius,
-  fontSize,
-  getColorClassNames,
   sizing,
   spacing,
   sumNumericArray,
   themeColorRange,
 } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeCategoryBarClassName = makeClassName("CategoryBar");
@@ -44,13 +41,11 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
   let sumConsecutveHiddenLabels = 0;
   return (
     <div
-      className={twMerge(
+      className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
-        "relative flex w-full",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+        "relative flex w-full text-tremor-sm text-tremor-content",
         spacing.sm.marginBottom,
         sizing.lg.height,
-        fontSize.sm,
       )}
     >
       {categoryPercentageValues
@@ -71,14 +66,21 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
               className="flex items-center justify-end"
               style={{ width: `${widthPercentage}%` }}
             >
-              <span className={twMerge(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}>
+              <span
+                className={tremorTwMerge(
+                  showLabel ? "block" : "hidden",
+                  "left-1/2 translate-x-1/2",
+                )}
+              >
                 {prefixSum}
               </span>
             </div>
           );
         })}
-      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.left)}>0</div>
-      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.left)}>
+        0
+      </div>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
         {sumValues}
       </div>
     </div>
@@ -113,26 +115,29 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
-      <div ref={ref} className={twMerge(makeCategoryBarClassName("root"), className)} {...other}>
+      <div
+        ref={ref}
+        className={tremorTwMerge(makeCategoryBarClassName("root"), className)}
+        {...other}
+      >
         {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
         <div
-          className={twMerge(
+          className={tremorTwMerge(
             makeCategoryBarClassName("barWrapper"),
             "relative w-full flex items-center",
             sizing.xs.height,
           )}
         >
           <div
-            className={twMerge(
-              "flex-1 flex items-center h-full overflow-hidden",
-              borderRadius.md.all,
+            className={tremorTwMerge(
+              "flex-1 flex items-center h-full overflow-hidden rounded-tremor-full",
             )}
           >
             {categoryPercentageValues.map((percentageValue, idx) => {
               return (
                 <div
                   key={`item-${idx}`}
-                  className={twMerge(
+                  className={tremorTwMerge(
                     makeCategoryBarClassName("categoryBar"),
                     "h-full",
                     colorClassNames[colors[idx]][colorPalette.background].bgColor,
@@ -145,7 +150,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
           {percentageValue !== undefined ? (
             <div
               ref={tooltipProps.refs.setReference}
-              className={twMerge(
+              className={tremorTwMerge(
                 makeCategoryBarClassName("markerWrapper"),
                 "absolute right-1/2 -translate-x-1/2",
                 sizing.lg.width,
@@ -157,14 +162,12 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               {...getReferenceProps}
             >
               <div
-                className={twMerge(
+                className={tremorTwMerge(
                   makeCategoryBarClassName("marker"),
-                  "ring-2 mx-auto",
+                  "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted",
                   markerBgColor,
-                  getColorClassNames("white").ringColor,
                   sizing.md.height,
                   sizing.twoXs.width,
-                  borderRadius.lg.all,
                 )}
               />
             </div>

@@ -8,15 +8,16 @@ module.exports = {
       colors: {
         tremor: {
           brand: {
-            muted: "#bae6fd", // disabled
-            subtle: "#7dd3fc", // 300 zb hover
+            faint: "#eff6ff", // 50
+            muted: "#bfdbfe", // 200 eg. disabled
+            subtle: "#60a5fa", // 400
             DEFAULT: "#3b82f6", // 500
             emphasis: "#1d4ed8", // 700
-            inverted: "#eff6ff", //
+            inverted: "#ffffff", // white
           },
           background: {
             muted: "#f9fafb", //canvasbackground 50
-            subtle: "#e2e8f0", // lightbackground 200
+            subtle: "#f3f4f6", // lightbackground 100
             DEFAULT: "#ffffff", // background
             emphasis: "#4b5563", // darkbackground
             strong: "#1f2937", // darkestbackground
@@ -49,11 +50,19 @@ module.exports = {
         "tremor-full": "9999px",
       },
       fontSize: {
-        "tremor-default": ["1rem", { lineHeight: "1.5rem" }],
+        "tremor-xs": ["0.75rem", { lineHeight: "1rem" }],
+        "tremor-sm": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-base": ["1rem", { lineHeight: "1.5rem" }],
+        "tremor-lg": ["1.125rem", { lineHeight: "1.75rem" }],
+        "tremor-xl": ["1.25rem", { lineHeight: "1.75rem  " }],
+        "tremor-2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "tremor-3xl": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       fontWeight: {
-        "tremor-default": "400",
-        "tremor-emphasis": "500",
+        "tremor-normal": "400",
+        "tremor-medium": "500",
+        "tremor-semibold": "600",
+        "tremor-bold": "700",
       },
     },
   },

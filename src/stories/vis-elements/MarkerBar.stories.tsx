@@ -17,6 +17,10 @@ export default {
 
 const Template: ComponentStory<typeof MarkerBar> = (args) => (
   <>
+    <Card className="mt-5">
+      <Metric>$23.456</Metric>
+      <MarkerBar percentageValue={50} className="mt-5" />
+    </Card>
     {Object.values(BaseColors).map((color) => (
       <Card key={color} className="mt-5">
         <Metric>$23.456</Metric>

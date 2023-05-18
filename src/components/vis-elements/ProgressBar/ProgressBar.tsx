@@ -1,19 +1,10 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  borderRadius,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { BaseColors, getColorClassNames, makeClassName, sizing, spacing } from "lib";
 import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeProgressBarClassName = makeClassName("ProgressBar");
@@ -37,9 +28,6 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
     ...other
   } = props;
 
-  const primaryBgColor = getColorClassNames(color, colorPalette.background).bgColor;
-  const secondaryBgColor = getColorClassNames(color, colorPalette.lightBackground).bgColor;
-
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
@@ -47,26 +35,28 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={ref}
-        className={twMerge(makeProgressBarClassName("root"), "flex items-center w-full", className)}
+        className={tremorTwMerge(
+          makeProgressBarClassName("root"),
+          "flex items-center w-full",
+          className,
+        )}
         {...other}
       >
         <div
           ref={tooltipProps.refs.setReference}
-          className={twMerge(
+          className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full",
-            secondaryBgColor,
+            "relative flex items-center w-full rounded-tremor-full bg-tremor-brand-faint",
+            color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
             sizing.xs.height,
-            borderRadius.lg.all,
           )}
           {...getReferenceProps}
         >
           <div
-            className={twMerge(
+            className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
-              primaryBgColor,
-              "flex-col h-full",
-              borderRadius.lg.all,
+              "flex-col h-full rounded-tremor-full",
+              color && getColorClassNames(color, colorPalette.background).bgColor,
             )}
             style={{
               width: `${percentageValue}%`,
@@ -76,19 +66,16 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
         </div>
         {label ? (
           <div
-            className={twMerge(
+            className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
-              "w-16 truncate text-right",
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+              "w-16 truncate text-right text-tremor-content-emphasis",
               spacing.sm.marginLeft,
             )}
           >
             <p
-              className={twMerge(
+              className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                "shrink-0 whitespace-nowrap truncate",
-                fontSize.sm,
-                fontWeight.sm,
+                "shrink-0 whitespace-nowrap truncate text-tremor-sm font-tremor-normal",
               )}
             >
               {label}

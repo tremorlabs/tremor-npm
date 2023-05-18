@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { ArrowUpHeadIcon } from "assets";
 import { makeClassName, sizing, spacing } from "lib";
@@ -20,7 +20,7 @@ const AccordionHeader = React.forwardRef<
   return (
     <Disclosure.Button
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionHeaderClassName("root"),
         "w-full flex items-center justify-between",
         spacing.threeXl.paddingX,
@@ -30,9 +30,9 @@ const AccordionHeader = React.forwardRef<
       {...other}
     >
       <div
-        className={twMerge(
+        className={tremorTwMerge(
           makeAccordionHeaderClassName("children"),
-          "flex flex-1",
+          "flex flex-1 text-tremor-content-emphasis",
           spacing.threeXl.marginRight,
         )}
       >
@@ -40,7 +40,7 @@ const AccordionHeader = React.forwardRef<
       </div>
       <div>
         <ArrowUpHeadIcon
-          className={twMerge(
+          className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
             "text-tremor-content-subtle",
             spacing.twoXs.negativeMarginRight,

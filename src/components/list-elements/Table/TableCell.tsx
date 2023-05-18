@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName, spacing } from "lib";
 
@@ -14,7 +14,7 @@ const TableCell = React.forwardRef<
     <>
       <td
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeTableCellClassName("root"),
           "align-middle whitespace-nowrap tabular-nums text-left",
           spacing.twoXl.paddingAll,

@@ -1,17 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { border, getColorClassNames, makeClassName, sizing, spacing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 
@@ -24,37 +14,35 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
-  const { title, icon, color = BaseColors.Blue, className, children, ...other } = props;
+  const { title, icon, color, className, children, ...other } = props;
 
   const Icon = icon;
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeCalloutClassName("root"),
-        "flex flex-col overflow-hidden",
-        getColorClassNames(color, colorPalette.canvasBackground).bgColor,
-        getColorClassNames(color, colorPalette.darkBorder).borderColor,
+        "flex flex-col overflow-hidden text-tremor-sm rounded-tremor-default bg-tremor-brand-faint border-tremor-brand-emphasis",
+        color && getColorClassNames(color, colorPalette.canvasBackground).bgColor,
+        color && getColorClassNames(color, colorPalette.darkBorder).borderColor,
         spacing.lg.paddingY,
         spacing.lg.paddingRight,
         spacing.twoXl.paddingLeft,
-        fontSize.sm,
-        borderRadius.md.all,
         border.lg.left,
         className,
       )}
       {...other}
     >
       <div
-        className={twMerge(
+        className={tremorTwMerge(
           makeCalloutClassName("header"),
-          "flex items-start",
-          getColorClassNames(color, colorPalette.darkText).textColor,
+          "flex items-start text-tremor-brand-emphasis",
+          color && getColorClassNames(color, colorPalette.darkText).textColor,
         )}
       >
         {Icon ? (
           <Icon
-            className={twMerge(
+            className={tremorTwMerge(
               makeCalloutClassName("icon"),
               "flex-none",
               sizing.lg.height,
@@ -64,15 +52,17 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
             aria-hidden="true"
           />
         ) : null}
-        <h4 className={twMerge(makeCalloutClassName("title"), "text-elem", fontWeight.lg)}>
+        <h4
+          className={tremorTwMerge(makeCalloutClassName("title"), "text-elem font-tremor-semibold")}
+        >
           {title}
         </h4>
       </div>
       <p
-        className={twMerge(
+        className={tremorTwMerge(
           makeCalloutClassName("body"),
-          "overflow-y-auto",
-          getColorClassNames(color, colorPalette.darkText).textColor,
+          "overflow-y-auto text-tremor-brand-emphasis",
+          color && getColorClassNames(color, colorPalette.darkText).textColor,
           spacing.sm.marginTop,
         )}
       >

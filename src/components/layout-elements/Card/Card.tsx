@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "../../../lib";
 
 import { HorizontalPositions, VerticalPositions } from "lib/constants";
 import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
@@ -34,7 +34,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeCardClassName("root"),
         "relative w-full text-left ring-1 bg-tremor-background rounded-tremor-default ring-tremor-ring shadow-tremor-default border-tremor-brand",
         decorationColor && colorClassNames[decorationColor][colorPalette.border].borderColor,

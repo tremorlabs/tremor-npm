@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName, spacing } from "lib";
 import { Disclosure } from "@headlessui/react";
@@ -12,7 +12,7 @@ const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
     return (
       <Disclosure.Panel
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeAccordionBodyClassName("root"),
           "w-full",
           spacing.threeXl.paddingX,
