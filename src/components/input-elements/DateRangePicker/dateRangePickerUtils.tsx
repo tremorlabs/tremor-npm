@@ -59,7 +59,7 @@ export const parseStartDate = (
   if (selectedDropdownValue) {
     startDate = getStartDateByDropdownValue(selectedDropdownValue, dropdownOptions);
   }
-  if (!startDate) return null;
+  if (!startDate) return undefined;
   if (startDate && !minDate) return startOfDay(startDate);
   return startOfDay(max([startDate as Date, minDate as Date]));
 };
@@ -73,7 +73,7 @@ export const parseEndDate = (
   if (selectedDropdownValue) {
     endDate = getEndDateByDropdownValue(selectedDropdownValue, dropdownOptions);
   }
-  if (!endDate) return null;
+  if (!endDate) return undefined;
   if (endDate && !maxDate) return startOfDay(endDate);
 
   return startOfDay(min([endDate as Date, maxDate as Date]));
@@ -327,8 +327,8 @@ const getDayHoverBgColorClassName = (
 };
 
 export const formatSelectedDates = (
-  startDate: Date | null,
-  endDate: Date | null,
+  startDate: Date | undefined,
+  endDate: Date | undefined,
   locale?: Locale,
 ) => {
   const localeCode = locale?.code || "en-US";

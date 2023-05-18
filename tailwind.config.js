@@ -56,6 +56,6 @@ module.exports = {
         "tremor-emphasis": "500",
       },
     },
-    plugins: [require("@headlessui/tailwindcss")],
   },
+  plugins: [require("@headlessui/tailwindcss")],
 };

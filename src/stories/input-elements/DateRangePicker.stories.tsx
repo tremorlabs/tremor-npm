@@ -40,8 +40,8 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
   const [value, setValue] = useState<DateRangePickerValue>(args.value!);
 
-  const startDate = value[0];
-  const endDate = value[1];
+  const startDate = value?.[0];
+  const endDate = value?.[1];
 
   return (
     <Card>

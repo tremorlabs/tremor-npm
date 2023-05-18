@@ -51,6 +51,7 @@ specifiers:
   prettier: ^2.8.3
   prop-types: ^15.8.1
   react: ^18.2.0
+  react-day-picker: ^8.7.1
   react-dom: ^18.0.0
   react-transition-group: ^4.4.5
   recharts: ^2.3.2
@@ -74,6 +75,7 @@ dependencies:
   '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
   '@headlessui/tailwindcss': 0.1.3_tailwindcss@3.2.6
   date-fns: 2.29.3
+  react-day-picker: 8.7.1_r6j3756ioqf5pjc2u22wj25rla
   react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
   recharts: 2.3.2_v2m5e27vhdewzwhryxwfaorcca
   tailwind-merge: 1.9.1
@@ -90,7 +92,7 @@ devDependencies:
   '@rollup/plugin-typescript': 8.5.0_bhcmvni67fkldpaxrtldxbogce
   '@semantic-release/commit-analyzer': 9.0.2_semantic-release@21.0.0
   '@semantic-release/github': github.com/semantic-release/github/8efe794bf3732d2cf4095c68170899ca8b001b76_semantic-release@21.0.0
-  '@semantic-release/npm': github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3_semantic-release@21.0.0
+  '@semantic-release/npm': github.com/semantic-release/npm/8753e4326b725045175eedac7822a7b19071779d_semantic-release@21.0.0
   '@storybook/addon-actions': 6.5.16_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.16_ludb4wetox2g5qwr6mmu3dkjji
   '@storybook/addon-interactions': 6.5.16_22w7zynjonpso4757xealkaezm
@@ -13319,6 +13321,16 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
+  /react-day-picker/8.7.1_r6j3756ioqf5pjc2u22wj25rla:
+    resolution: {integrity: sha512-Gv426AW8b151CZfh3aP5RUGztLwHB/EyJgWZ5iMgtzbFBkjHfG6Y66CIQFMWGLnYjsQ9DYSJRmJ5S0Pg5HWKjA==}
+    peerDependencies:
+      date-fns: ^2.28.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      date-fns: 2.29.3
+      react: 18.2.0
+    dev: false
+
   /react-docgen-typescript/2.2.2_typescript@4.9.5:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
     peerDependencies:
@@ -16312,9 +16324,9 @@ packages:
       - supports-color
     dev: true
 
-  github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3_semantic-release@21.0.0:
-    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/37e5635ef1f37eee2b2d6a6d376599fedc5768a3}
-    id: github.com/semantic-release/npm/37e5635ef1f37eee2b2d6a6d376599fedc5768a3
+  github.com/semantic-release/npm/8753e4326b725045175eedac7822a7b19071779d_semantic-release@21.0.0:
+    resolution: {tarball: https://codeload.github.com/semantic-release/npm/tar.gz/8753e4326b725045175eedac7822a7b19071779d}
+    id: github.com/semantic-release/npm/8753e4326b725045175eedac7822a7b19071779d
     name: '@semantic-release/npm'
     version: 0.0.0-development
     engines: {node: '>=18'}
