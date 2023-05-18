@@ -2,7 +2,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { BaseColors, Sizes, makeClassName, mergeRefs } from "lib";
+import { Sizes, makeClassName, mergeRefs } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -22,7 +22,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: IconVariant;
   tooltip?: string;
   size?: Size;
-  color?: Color;
+  color?: any; // @achi used to be Color
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
@@ -31,7 +31,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     variant = IconVariants.Simple,
     tooltip,
     size = Sizes.SM,
-    color = BaseColors.Blue,
+    color,
     className,
     ...other
   } = props;
