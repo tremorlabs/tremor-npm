@@ -113,6 +113,14 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     ? formatSelectedDates(selectedStartDate, selectedEndDate, locale)
     : placeholder;
 
+  const handleDropdownClick = (value: string) => {
+    const { from, to } = dropdownValues.get(value)!;
+    const toDate = to ?? TODAY;
+    onValueChange?.([from, toDate, value]);
+    setSelectedValue([from, toDate, value]);
+    console.log("set");
+  };
+
   return (
     <div
       ref={ref}
@@ -166,6 +174,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 setSelectedValue([v?.from, v?.to]);
               }) as any
             }
+            locale={locale}
             disabled={disabledDays}
             className={twMerge("p-3 text-gray-700", className)}
             classNames={{
@@ -203,19 +212,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         </Popover.Panel>
       </Popover>
       {enableDropdown && (
-        <Listbox
-          as="div"
-          className="w-48"
-          onChange={
-            ((value: string) => {
-              const { from, to } = dropdownValues.get(value)!;
-              const toDate = to ?? TODAY;
-              onValueChange?.([from, toDate, value]);
-              setSelectedValue([from, toDate, value]);
-              console.log("set");
-            }) as any
-          }
-        >
+        <Listbox as="div" className="w-48" onChange={handleDropdownClick}>
           {({ value }) => (
             <>
               <Listbox.Button
