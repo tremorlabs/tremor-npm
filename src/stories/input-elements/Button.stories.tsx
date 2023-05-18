@@ -20,7 +20,20 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numCols={5} className="gap-4">
+      <Button {...args}>Button</Button>
+      <Button {...args} icon={MyIcon}>
+        Button
+      </Button>
+      <Button {...args} icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
+      <Button {...args} variant="secondary" icon={MyIcon} iconPosition="left">
+        Button
+      </Button>
+      <Button {...args} variant="light" icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
       {Object.values(InputSizes).map((size) => (
         <>
           <Button {...args} size={size}>

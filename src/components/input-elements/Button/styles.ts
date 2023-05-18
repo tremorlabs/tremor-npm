@@ -89,12 +89,20 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
   switch (variant) {
     case "primary":
       return {
-        textColor: getColorClassNames("white").textColor,
-        hoverTextColor: getColorClassNames("white").textColor,
-        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
-        hoverBgColor: getColorClassNames(color, colorPalette.darkBackground).hoverBgColor,
-        borderColor: getColorClassNames(color, colorPalette.border).borderColor,
-        focusRingColor: getColorClassNames(color, colorPalette.ring).focusRingColor,
+        textColor: "text-tremor-brand-inverted",
+        hoverTextColor: "text-tremor-brand-inverted",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.background).bgColor
+          : "bg-tremor-brand",
+        hoverBgColor: color
+          ? getColorClassNames(color, colorPalette.darkBackground).hoverBgColor
+          : "hover:bg-tremor-brand-emphasis",
+        borderColor: color
+          ? getColorClassNames(color, colorPalette.border).borderColor
+          : "border-tremor-brand",
+        focusRingColor: color
+          ? getColorClassNames(color, colorPalette.ring).focusRingColor
+          : "focus:ring-tremor-brand-emphasis",
       };
     case "secondary":
       return {

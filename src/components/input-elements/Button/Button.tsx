@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import { Transition } from "react-transition-group";
 
 import {
@@ -40,10 +40,10 @@ export const ButtonIconOrSpinner = ({
 
   const margin =
     iconPosition === HorizontalPositions.Left
-      ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-      : twMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+      ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+      : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
-  const defaultSpinnerSize = twMerge(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = tremorTwMerge(sizing.none.width, sizing.none.height);
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -54,7 +54,7 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={twMerge(
+      className={tremorTwMerge(
         makeButtonClassName("icon"),
         "animate-spin",
         margin,
@@ -64,7 +64,10 @@ export const ButtonIconOrSpinner = ({
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={twMerge(makeButtonClassName("icon"), iconSize, margin)} aria-hidden="true" />
+    <Icon
+      className={tremorTwMerge(makeButtonClassName("icon"), iconSize, margin)}
+      aria-hidden="true"
+    />
   );
 };
 
@@ -72,7 +75,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
   size?: Size;
-  color?: Color;
+  color?: any; // @achi
   variant?: ButtonVariant;
   disabled?: boolean;
   loading?: boolean;
@@ -84,7 +87,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     icon,
     iconPosition = HorizontalPositions.Left,
     size = Sizes.SM,
-    color = BaseColors.Blue,
+    color, // = BaseColors.Blue,
     variant = "primary",
     disabled,
     loading = false,
@@ -100,9 +103,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
 
-  const iconSize = twMerge(iconSizes[size].height, iconSizes[size].width);
+  const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
-    variant !== "light" ? twMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
+    variant !== "light" ? tremorTwMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];
 
@@ -111,10 +114,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       {(state) => (
         <button
           ref={ref}
-          className={twMerge(
+          className={tremorTwMerge(
             makeButtonClassName("root"),
             "flex-shrink-0 inline-flex justify-center items-center group",
-            "focus:outline-none focus:ring-2 focus:ring-offset-2",
+            "focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all",
             fontWeight.md,
             buttonShapeStyles,
             buttonProportionStyles.paddingX,
@@ -125,7 +128,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             buttonColorStyles.borderColor,
             buttonColorStyles.focusRingColor,
             !isDisabled
-              ? twMerge(
+              ? tremorTwMerge(
                   getButtonColors(variant, color).hoverTextColor,
                   getButtonColors(variant, color).hoverBgColor,
                   getButtonColors(variant, color).hoverBorderColor,
@@ -146,7 +149,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             />
           ) : null}
           {
-            <p className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+            <p className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
               {showLoadingText ? loadingText : children}
             </p>
           }

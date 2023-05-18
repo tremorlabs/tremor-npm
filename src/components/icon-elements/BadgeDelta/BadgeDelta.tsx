@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
+import { tremorTwMerge } from "lib";
 
 import { DeltaType, DeltaTypes, Size, makeClassName, spacing } from "../../../lib";
 import { Sizes, mapInputsToDeltaType } from "lib";
