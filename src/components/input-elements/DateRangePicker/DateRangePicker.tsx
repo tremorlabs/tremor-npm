@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 import { DateRange, DayPicker } from "react-day-picker";
 
-import { startOfToday } from "date-fns";
+import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { useInternalState } from "hooks";
@@ -110,8 +110,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     ? parseEndDate(selectedValue![1], maxDate, selectedDropdownValue, dropdownValues)
     : undefined;
   const formattedSelection = hasSelectedValue
-    ? formatSelectedDates(selectedStartDate, selectedEndDate, locale)
+    ? !selectedStartDate && !selectedEndDate
+      ? placeholder
+      : formatSelectedDates(selectedStartDate, selectedEndDate, locale)
     : placeholder;
+  const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? TODAY);
 
   const handleDropdownClick = (value: string) => {
     const { from, to } = dropdownValues.get(value)!;
@@ -164,6 +167,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           <DayPicker
             mode="range"
             showOutsideDays={true}
+            defaultMonth={defaultMonth}
             selected={{
               from: selectedStartDate,
               to: selectedEndDate,
