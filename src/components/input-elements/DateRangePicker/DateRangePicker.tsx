@@ -50,7 +50,7 @@ export interface DateRangePickerProps
   disabled?: boolean;
   color?: Color;
   locale?: Locale;
-  allowClear?: boolean;
+  enableClear?: boolean;
 }
 
 const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
@@ -68,7 +68,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     color = BaseColors.Blue,
     enableYearPagination = false,
     locale = enUS,
-    allowClear = false,
+    enableClear = true,
     className,
     ...other
   } = props;
@@ -166,7 +166,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           onDropdownKeyDown={handleDropdownKeyDown}
           locale={locale}
           dropdownPlaceholder={dropdownPlaceholder}
-          allowClear={allowClear}
+          enableClear={enableClear}
           onClear={handleClear}
         />
         {/* Calendar Modal */}

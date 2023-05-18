@@ -36,7 +36,7 @@ interface DateRangePickerButtonProps {
   onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
   locale?: Locale;
   dropdownPlaceholder?: string;
-  allowClear?: boolean;
+  enableClear?: boolean;
   onClear: () => void;
 }
 
@@ -56,7 +56,7 @@ const DateRangePickerButton = ({
   onDropdownKeyDown,
   locale,
   dropdownPlaceholder = "Select",
-  allowClear,
+  enableClear,
   onClear,
 }: DateRangePickerButtonProps) => {
   const [startDate, endDate, dropdownValue] = value;
@@ -121,7 +121,7 @@ const DateRangePickerButton = ({
         >
           {calendarText}
         </p>
-        {allowClear && hasDateSelection ? (
+        {enableClear && hasDateSelection ? (
           <div
             role="button"
             className={twMerge(makeDateRangePickerClassName("resetButton"), spacing.xs.marginRight)}
