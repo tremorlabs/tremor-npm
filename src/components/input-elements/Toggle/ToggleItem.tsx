@@ -1,20 +1,12 @@
 "use client";
 import React, { useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
-import {
-  borderRadius,
-  boxShadow,
-  fontSize,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
 
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 
 const makeToggleItemClassName = makeClassName("ToggleItem");
 
@@ -31,30 +23,23 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
 
   const isActive = selectedValue === value;
 
-  const activeClassNames = twMerge(
-    getColorClassNames("white").bgColor,
-    getColorClassNames(color, colorPalette.text).textColor,
-    getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
-    boxShadow.sm,
+  const activeClassNames = tremorTwMerge(
+    "bg-tremor-background text-tremor-brand shadow-tremor-sm ring-tremor-ring",
+    color && getColorClassNames(color, colorPalette.text).textColor,
   );
-  const inActiveClassNames = twMerge(
-    getColorClassNames("transparent").bgColor,
-    getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).hoverTextColor,
-    getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-    getColorClassNames("transparent").ringColor,
+  const inActiveClassNames = tremorTwMerge(
+    "bg-transparent ring-transparent text-tremor-sm text-tremor-content-subtle hover:text-tremor-content",
   );
   const Icon = icon;
   return (
     <button
       ref={ref}
       type="button"
-      className={twMerge(
+      className={tremorTwMerge(
         makeToggleItemClassName("root"),
-        "flex items-center ring-1",
+        "flex items-center ring-1 transition duration-100 text-tremor-sm rounded-tremor-sm",
         spacing.lg.paddingX,
         spacing.xs.paddingY,
-        fontSize.sm,
-        borderRadius.md.all,
         isActive ? activeClassNames : inActiveClassNames,
         className,
       )}
@@ -66,9 +51,8 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
     >
       {Icon ? (
         <Icon
-          className={twMerge(
+          className={tremorTwMerge(
             makeToggleItemClassName("icon"),
-            "opacity-70",
             text ? spacing.xs.marginRight : "",
             sizing.lg.height,
             sizing.lg.width,
@@ -77,7 +61,12 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
         />
       ) : null}
       {text ? (
-        <span className={twMerge(makeToggleItemClassName(text), "text-sm whitespace-nowrap")}>
+        <span
+          className={tremorTwMerge(
+            makeToggleItemClassName(text),
+            "text-tremor-sm whitespace-nowrap",
+          )}
+        >
           {text}
         </span>
       ) : null}

@@ -6,7 +6,7 @@ export const tremorTwMerge = extendTailwindMerge({
       {
         rounded: [
           {
-            tremor: ["sm", "default", "full"],
+            tremor: ["sm", "default", "md", "full"],
           },
         ],
       },

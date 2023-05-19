@@ -45,8 +45,9 @@ module.exports = {
         "tremor-lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
       },
       borderRadius: {
-        "tremor-sm": "0.125rem",
+        "tremor-sm": "0.375rem",
         "tremor-default": "0.5rem",
+        "tremor-md": "0.75rem",
         "tremor-full": "9999px",
       },
       fontSize: {

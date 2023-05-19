@@ -2,24 +2,13 @@
 import React, { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import {
   constructValueToNameMapping,
   getFilteredOptions,
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Combobox } from "@headlessui/react";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { ArrowDownHeadIcon } from "assets";
@@ -77,10 +66,9 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
           <Icon
             className={twMerge(
               makeSelectBoxClassName("Icon"),
-              "flex-none",
+              "flex-none text-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
             )}
             aria-hidden="true"
           />
@@ -88,15 +76,12 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       )}
       <Combobox.Input
         className={twMerge(
-          "w-full outline-none focus:ring-2 cursor-default",
+          "w-full outline-none focus:ring-2 cursor-default font-tremor-default rounded-tremor-default shadow-tremor-sm",
           Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.fourXl.paddingRight,
           spacing.sm.paddingY,
-          fontWeight.md,
-          borderRadius.md.all,
           border.sm.all,
-          boxShadow.sm,
-          disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
+          disabled ? "placeholder:text-tremor-content-subtle" : "placeholder:text-tremor-content",
           getSelectButtonColors(hasSelection, disabled),
         )}
         placeholder={placeholder}
@@ -109,25 +94,19 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         <ArrowDownHeadIcon
           className={twMerge(
             makeSelectBoxClassName("arrowDownIcon"),
-            "flex-none",
+            "flex-none text-tremor-content-subtle",
             sizing.lg.height,
             sizing.lg.width,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
           aria-hidden="true"
         />
       </Combobox.Button>
       <Combobox.Options
         className={twMerge(
-          "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
-          getColorClassNames("white").bgColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+          "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-lg",
           spacing.twoXs.marginTop,
           spacing.twoXs.marginBottom,
-          borderRadius.md.all,
           border.sm.all,
-          boxShadow.lg,
         )}
       >
         {React.Children.map(children, (child) => {

@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { BaseColorContext, SelectedValueContext } from "contexts";
 
 import { useInternalState } from "hooks";
 
-import { BaseColors, borderRadius, getColorClassNames, makeClassName, spacing } from "lib";
+import { makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeToggleClassName = makeClassName("Toggle");
 
@@ -21,15 +20,7 @@ export interface ToggleProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
-  const {
-    defaultValue,
-    value,
-    onValueChange,
-    color = BaseColors.Blue,
-    children,
-    className,
-    ...other
-  } = props;
+  const { defaultValue, value, onValueChange, color, children, className, ...other } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
@@ -41,12 +32,10 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeToggleClassName("root"),
-        "flex-nowrap inline-flex justify-start",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+        "flex-nowrap inline-flex justify-start rounded-tremor-default bg-tremor-background-subtle",
         spacing.twoXs.paddingAll,
-        borderRadius.lg.all,
         className,
       )}
       {...other}
@@ -58,6 +47,6 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
       </SelectedValueContext.Provider>
     </div>
   );
-});
+}); // @achi type error line 44
 
 export default Toggle;

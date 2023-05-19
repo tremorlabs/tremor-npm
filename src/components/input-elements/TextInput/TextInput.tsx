@@ -52,7 +52,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           makeTextInputClassName("root"),
           "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2 rounded-tremor-default shadow-tremor-sm transition",
           getSelectButtonColors(hasSelection, disabled, error),
-          isFocused && tremorTwMerge("ring-2 ring-tremor-brand-subtle"),
+          isFocused && tremorTwMerge("ring-2 ring-offset-1 ring-tremor-brand-subtle"),
           border.sm.all,
           className,
         )}
