@@ -33,6 +33,7 @@ export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement
   defaultValue?: string[];
   value?: string[];
   onValueChange?: (value: string[]) => void;
+  onInputValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -44,6 +45,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     defaultValue,
     value,
     onValueChange,
+    onInputValueChange,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -85,6 +87,11 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     }
     setSelectedValue(newSelectedItems);
     onValueChange?.(newSelectedItems);
+  };
+
+  const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    onInputValueChange?.(e.target.value);
   };
 
   const handleReset = () => {
@@ -224,7 +231,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               fontSize.sm,
               fontWeight.md,
             )}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleInputValueChange}
           />
         </div>
         <SelectedValueContext.Provider

@@ -37,6 +37,7 @@ export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  onInputValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -48,6 +49,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     defaultValue,
     value,
     onValueChange,
+    onInputValueChange,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -56,6 +58,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     onKeyDown,
     ...other
   } = props;
+
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
@@ -107,6 +110,8 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setInputValue(e.target.value);
+
+    onInputValueChange?.(e.target.value);
   };
 
   const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
