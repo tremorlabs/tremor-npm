@@ -1,23 +1,9 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  boxShadow,
-  colorClassNames,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  mergeRefs,
-  sizing,
-  spacing,
-} from "lib";
+import { border, makeClassName, mergeRefs, sizing, spacing } from "lib";
 import { ExclamationFilledIcon } from "assets";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 
 const makeTextInputClassName = makeClassName("TextInput");
@@ -62,16 +48,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   return (
     <>
       <div
-        className={twMerge(
+        className={tremorTwMerge(
           makeTextInputClassName("root"),
-          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
+          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2 rounded-tremor-default shadow-tremor-sm transition",
           getSelectButtonColors(hasSelection, disabled, error),
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
-          isFocused &&
-            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          borderRadius.md.all,
+          isFocused && tremorTwMerge("ring-2 ring-tremor-brand-subtle"),
           border.sm.all,
-          boxShadow.sm,
           className,
         )}
         onClick={() => {
@@ -88,12 +70,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       >
         {Icon ? (
           <Icon
-            className={twMerge(
+            className={tremorTwMerge(
               makeTextInputClassName("icon"),
-              "shrink-0",
+              "shrink-0 text-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               spacing.xl.marginLeft,
             )}
             aria-hidden="true"
@@ -102,17 +83,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         <input
           ref={mergeRefs([ref, inputRef])}
           type={type}
-          className={twMerge(
+          className={tremorTwMerge(
             makeTextInputClassName("input"),
-            "w-full focus:outline-none focus:ring-0",
-            getColorClassNames("transparent").bgColor,
+            "w-full focus:outline-none focus:ring-0 border-none text-tremor-sm font-tremor-medium bg-transparent",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
-            fontSize.sm,
-            fontWeight.md,
-            border.none.all,
-            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
+            disabled ? "placeholder:text-tremor-content-subtle" : "placeholder:text-tremor-content",
           )}
           placeholder={placeholder}
           disabled={disabled}
@@ -120,12 +97,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         />
         {error ? (
           <ExclamationFilledIcon
-            className={twMerge(
+            className={tremorTwMerge(
               makeTextInputClassName("errorIcon"),
+              "text-rose-500",
               spacing.xl.marginRight,
               sizing.lg.height,
               sizing.lg.width,
-              colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
             )}
             aria-hidden="true"
           />
@@ -133,10 +110,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       </div>
       {errorMessage ? (
         <p
-          className={twMerge(
+          className={tremorTwMerge(
             makeTextInputClassName("errorMessage"),
-            "text-sm",
-            colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+            "text-sm text-rose-500 mt-1",
           )}
         >
           {errorMessage}

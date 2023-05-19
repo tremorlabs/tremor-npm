@@ -1,13 +1,6 @@
-import {
-  BaseColors,
-  DEFAULT_COLOR,
-  WHITE,
-  colorClassNames,
-  colorPalette,
-  getColorClassNames,
-} from "lib";
+import { DEFAULT_COLOR, colorPalette, getColorClassNames } from "lib";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 export interface SelectItemProps {
   value: string;
@@ -39,19 +32,15 @@ export const getSelectButtonColors = (
   isDisabled: boolean,
   hasError = false,
 ) => {
-  return twMerge(
-    isDisabled
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
-      : getColorClassNames(WHITE, colorPalette.background).bgColor,
-    !isDisabled && getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+  return tremorTwMerge(
+    isDisabled ? "bg-tremor-background-subtle" : "bg-tremor-background",
+    !isDisabled && "hover:bg-tremor-background-muted",
     hasSelection
       ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-    isDisabled && getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-    hasError && colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
-    hasError
-      ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+      : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor, //sev TBD
+    isDisabled && "text-tremor-content-subtle",
+    hasError && "text-rose-500",
+    hasError ? "border-rose-500" : "border-tremor-border",
   );
 };
 
