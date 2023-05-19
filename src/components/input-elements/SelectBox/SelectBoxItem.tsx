@@ -26,8 +26,8 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
     <Combobox.Option
       className={twMerge(
         makeSelectBoxItemClassName("root"),
-        "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-emphasis",
-        "text-tremor-content cursor-default",
+        "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
+        "text-tremor-content-emphasis cursor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
         fontSize.sm,

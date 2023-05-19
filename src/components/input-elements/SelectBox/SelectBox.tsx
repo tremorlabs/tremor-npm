@@ -76,7 +76,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       )}
       <Combobox.Input
         className={twMerge(
-          "w-full outline-none focus:ring-2 cursor-default font-tremor-default rounded-tremor-default shadow-tremor-sm",
+          "w-full outline-none focus:ring-2 cursor-default font-tremor-normal rounded-tremor-default shadow-tremor-sm",
           Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.fourXl.paddingRight,
           spacing.sm.paddingY,

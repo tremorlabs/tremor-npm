@@ -1,4 +1,3 @@
-import { DEFAULT_COLOR, colorPalette, getColorClassNames } from "lib";
 import React from "react";
 import { tremorTwMerge } from "lib";
 
@@ -35,9 +34,7 @@ export const getSelectButtonColors = (
   return tremorTwMerge(
     isDisabled ? "bg-tremor-background-subtle" : "bg-tremor-background",
     !isDisabled && "hover:bg-tremor-background-muted",
-    hasSelection
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor, //sev TBD
+    hasSelection ? "text-tremor-content" : "text-tremor-content-subtle",
     isDisabled && "text-tremor-content-subtle",
     hasError && "text-rose-500",
     hasError ? "border-rose-500" : "border-tremor-border",

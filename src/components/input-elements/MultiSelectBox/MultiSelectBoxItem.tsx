@@ -18,7 +18,7 @@ import {
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Listbox } from "@headlessui/react";
 
-const makeMultiSelectBoxItenClassName = makeClassName("MultiSelectBoxItem");
+const makeMultiSelectBoxItemClassName = makeClassName("MultiSelectBoxItem");
 
 export interface MultiSelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
@@ -35,12 +35,11 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
     return (
       <Listbox.Option
         className={twMerge(
-          makeMultiSelectBoxItenClassName("root"),
-          "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
-          "text-gray-700 cursor-default",
+          makeMultiSelectBoxItemClassName("root"),
+          "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
+          "text-tremor-content-emphasis cursor-default text-tremor-sm",
           spacing.md.paddingX,
           spacing.md.paddingY,
-          fontSize.sm,
           className,
         )}
         ref={ref}
@@ -51,14 +50,9 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
         <input
           type="checkbox"
           className={twMerge(
-            makeMultiSelectBoxItenClassName("checkbox"),
-            "flex-none focus:ring-none focus:outline-none cursor-pointer",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).focusRingColor,
-            colorClassNames[BaseColors.Blue][colorPalette.text].textColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+            makeMultiSelectBoxItemClassName("checkbox"),
+            "flex-none focus:ring-none focus:outline-none cursor-pointer accent-tremor-brand",
             spacing.lg.marginRight,
-            borderRadius.sm.all,
-            border.sm.all,
           )}
           checked={isSelected}
           readOnly={true}

@@ -20,7 +20,7 @@ module.exports = {
             subtle: "#f3f4f6", // lightbackground 100
             DEFAULT: "#ffffff", // background
             emphasis: "#4b5563", // darkbackground
-            strong: "#1f2937", // darkestbackground
+            strong: "#111827", // darkestbackground
             inverted: "#030712", // new
           },
           border: {
@@ -33,7 +33,7 @@ module.exports = {
             subtle: "#9ca3af", //lighttext
             DEFAULT: "#6b7280", //text, //icon
             emphasis: "#374151", //darktext
-            strong: "#1f2937", //darkesttext
+            strong: "#111827", //darkesttext
             inverted: "#ffffff", //new
           },
         },

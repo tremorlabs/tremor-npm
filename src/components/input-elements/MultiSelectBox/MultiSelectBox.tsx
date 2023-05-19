@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { SelectedValueContext } from "contexts";
 
@@ -8,20 +8,9 @@ import { useInternalState } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
@@ -77,7 +66,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         }) as any
       }
       ref={ref}
-      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
+      className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
       multiple
     >
@@ -85,41 +74,36 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
         <>
           {Icon && (
             <span
-              className={twMerge(
+              className={tremorTwMerge(
                 "absolute inset-y-0 left-0 flex items-center",
                 spacing.md.paddingLeft,
               )}
             >
               <Icon
-                className={twMerge(
+                className={tremorTwMerge(
                   makeMultiSelectBoxClassName("Icon"),
-                  "flex-none",
+                  "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
                 aria-hidden="true"
               />
             </span>
           )}
           <Listbox.Button
-            className={twMerge(
-              "w-full outline-none focus:ring-2 cursor-default text-left",
+            className={tremorTwMerge(
+              "w-full outline-none focus:ring-2 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm text-tremor-content",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
-              fontWeight.md,
-              borderRadius.md.all,
               border.sm.all,
-              boxShadow.sm,
               getSelectButtonColors(true, disabled),
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
             )}
           >
             {value.length > 0 ? `${value.length} selected` : placeholder}
           </Listbox.Button>
           <button
-            className={twMerge(
+            className={tremorTwMerge(
               "absolute inset-y-0 right-0 flex items-center",
               spacing.fourXl.marginRight,
             )}
@@ -129,58 +113,49 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             }}
           >
             <XCircleIcon
-              className={twMerge(
+              className={tremorTwMerge(
                 makeMultiSelectBoxClassName("arrowDownIcon"),
-                "flex-none",
+                "flex-none text-tremor-content-subtle",
                 sizing.md.height,
                 sizing.md.width,
-                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               )}
               aria-hidden="true"
             />
           </button>
           <span
-            className={twMerge(
+            className={tremorTwMerge(
               "absolute inset-y-0 right-0 flex items-center",
               spacing.md.marginRight,
             )}
           >
             <ArrowDownHeadIcon
-              className={twMerge(
+              className={tremorTwMerge(
                 makeMultiSelectBoxClassName("arrowDownIcon"),
-                "flex-none",
+                "flex-none text-tremor-content-subtle",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               )}
               aria-hidden="true"
             />
           </span>
           <Listbox.Options
-            className={twMerge(
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
-              getColorClassNames("white").bgColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+            className={tremorTwMerge(
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-lg",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
-              borderRadius.md.all,
               border.sm.all,
-              boxShadow.lg,
             )}
           >
             <div
-              className={twMerge(
-                "flex items-center w-full",
-                getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor,
+              className={tremorTwMerge(
+                "flex items-center w-full bg-tremor-background-muted",
                 spacing.twoXl.paddingX,
               )}
             >
               <span>
                 <SearchIcon
-                  className={twMerge(
-                    "flex-none",
-                    getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                  className={tremorTwMerge(
+                    "flex-none text-tremor-content-subtle",
                     spacing.threeXs.negativeMarginLeft,
                     spacing.lg.marginRight,
                     sizing.md.height,
@@ -193,13 +168,9 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                 name="search"
                 type="input"
                 placeholder="Search"
-                className={twMerge(
-                  "w-full focus:outline-none focus:ring-none",
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-                  getColorClassNames("transparent").bgColor,
+                className={tremorTwMerge(
+                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-sm text-tremor-content-emphasis",
                   spacing.sm.paddingY,
-                  fontSize.sm,
-                  fontWeight.md,
                 )}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
