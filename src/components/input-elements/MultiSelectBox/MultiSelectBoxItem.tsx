@@ -1,21 +1,10 @@
 "use client";
 import React, { useContext } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import { SelectedValueContext } from "contexts";
 
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  colorClassNames,
-  fontSize,
-  getColorClassNames,
-  isValueInArray,
-  makeClassName,
-  spacing,
-} from "lib";
+import { isValueInArray, makeClassName, spacing } from "lib";
 
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectBoxItemClassName = makeClassName("MultiSelectBoxItem");
@@ -34,7 +23,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
 
     return (
       <Listbox.Option
-        className={twMerge(
+        className={tremorTwMerge(
           makeMultiSelectBoxItemClassName("root"),
           "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
           "text-tremor-content-emphasis cursor-default text-tremor-sm",
@@ -49,7 +38,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
       >
         <input
           type="checkbox"
-          className={twMerge(
+          className={tremorTwMerge(
             makeMultiSelectBoxItemClassName("checkbox"),
             "flex-none focus:ring-none focus:outline-none cursor-pointer accent-tremor-brand",
             spacing.lg.marginRight,

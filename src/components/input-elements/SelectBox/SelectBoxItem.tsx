@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
@@ -24,7 +24,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
 
   return (
     <Combobox.Option
-      className={twMerge(
+      className={tremorTwMerge(
         makeSelectBoxItemClassName("root"),
         "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
         "text-tremor-content-emphasis cursor-default",
@@ -40,7 +40,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
     >
       {Icon && (
         <Icon
-          className={twMerge(
+          className={tremorTwMerge(
             makeSelectBoxItemClassName("icon"),
             "flex-none",
             sizing.lg.height,

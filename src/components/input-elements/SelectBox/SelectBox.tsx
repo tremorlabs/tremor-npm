@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import {
@@ -56,15 +56,18 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
       value={value}
       onChange={onValueChange as any}
       ref={ref}
-      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
+      className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
       {Icon && (
         <Combobox.Button
-          className={twMerge("absolute inset-y-0 left-0 flex items-center", spacing.md.paddingLeft)}
+          className={tremorTwMerge(
+            "absolute inset-y-0 left-0 flex items-center",
+            spacing.md.paddingLeft,
+          )}
         >
           <Icon
-            className={twMerge(
+            className={tremorTwMerge(
               makeSelectBoxClassName("Icon"),
               "flex-none text-tremor-content-subtle",
               sizing.lg.height,
@@ -75,7 +78,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         </Combobox.Button>
       )}
       <Combobox.Input
-        className={twMerge(
+        className={tremorTwMerge(
           "w-full outline-none focus:ring-2 cursor-default font-tremor-normal rounded-tremor-default shadow-tremor-sm",
           Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
           spacing.fourXl.paddingRight,
@@ -89,10 +92,13 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
       />
       <Combobox.Button
-        className={twMerge("absolute inset-y-0 right-0 flex items-center", spacing.md.paddingRight)}
+        className={tremorTwMerge(
+          "absolute inset-y-0 right-0 flex items-center",
+          spacing.md.paddingRight,
+        )}
       >
         <ArrowDownHeadIcon
-          className={twMerge(
+          className={tremorTwMerge(
             makeSelectBoxClassName("arrowDownIcon"),
             "flex-none text-tremor-content-subtle",
             sizing.lg.height,
@@ -102,7 +108,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
         />
       </Combobox.Button>
       <Combobox.Options
-        className={twMerge(
+        className={tremorTwMerge(
           "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-lg",
           spacing.twoXs.marginTop,
           spacing.twoXs.marginBottom,
