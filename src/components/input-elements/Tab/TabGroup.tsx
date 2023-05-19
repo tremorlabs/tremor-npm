@@ -1,7 +1,6 @@
 import React from "react";
-
+import { tremorTwMerge } from "lib";
 import { Tab } from "@headlessui/react";
-import { twMerge } from "tailwind-merge";
 import { makeClassName } from "lib";
 
 const makeTabGroupClassName = makeClassName("TabGroup");
@@ -23,7 +22,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) =>
       defaultIndex={defaultValue}
       selectedIndex={value}
       onChange={onValueChange as any}
-      className={twMerge(makeTabGroupClassName("root"), "w-full", className)}
+      className={tremorTwMerge(makeTabGroupClassName("root"), "w-full", className)}
       {...other}
     >
       {children}

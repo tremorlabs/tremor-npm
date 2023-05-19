@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { BaseColorContext } from "contexts";
 
-import { BaseColors, border, getColorClassNames, makeClassName, spacing } from "lib";
+import { BaseColors, border, makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Tab } from "@headlessui/react";
 
 const makeTabListClassName = makeClassName("TabList");
@@ -22,10 +21,9 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
   return (
     <Tab.List
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeTabListClassName("root"),
-        "flex justify-start overflow-x-clip",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+        "flex justify-start overflow-x-clip border-tremor-border",
         spacing.twoXl.spaceX,
         border.sm.bottom,
         className,
