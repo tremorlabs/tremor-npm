@@ -3,18 +3,7 @@ import React from "react";
 import { tremorTwMerge } from "lib";
 import { Transition } from "react-transition-group";
 
-import {
-  BaseColors,
-  HorizontalPositions,
-  Sizes,
-  border,
-  borderRadius,
-  boxShadow,
-  fontWeight,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { HorizontalPositions, Sizes, border, makeClassName, sizing, spacing } from "lib";
 import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
@@ -87,7 +76,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     icon,
     iconPosition = HorizontalPositions.Left,
     size = Sizes.SM,
-    color, // = BaseColors.Blue,
+    color,
     variant = "primary",
     disabled,
     loading = false,
@@ -105,7 +94,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
 
   const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
-    variant !== "light" ? tremorTwMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
+    variant !== "light"
+      ? tremorTwMerge(border.sm.all, "rounded-tremor-default shadow-tremor-sm")
+      : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];
 
@@ -117,8 +108,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           className={tremorTwMerge(
             makeButtonClassName("root"),
             "flex-shrink-0 inline-flex justify-center items-center group",
-            "focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all",
-            fontWeight.md,
+            "focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all font-tremor-medium",
             buttonShapeStyles,
             buttonProportionStyles.paddingX,
             buttonProportionStyles.paddingY,
