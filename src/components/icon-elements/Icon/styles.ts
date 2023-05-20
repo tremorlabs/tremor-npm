@@ -94,7 +94,7 @@ export const shape: { [style: string]: ShapeTypes } = {
   },
 };
 
-export const getIconColors = (variant: IconVariant, color: Color) => {
+export const getIconColors = (variant: IconVariant, color?: Color) => {
   switch (variant) {
     case "simple":
       return {

@@ -75,7 +75,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   icon?: React.ElementType;
   iconPosition?: HorizontalPosition;
   size?: Size;
-  color?: any; // @achi
+  color?: Color;
   variant?: ButtonVariant;
   disabled?: boolean;
   loading?: boolean;

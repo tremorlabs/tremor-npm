@@ -85,7 +85,7 @@ export const getButtonProportions = (variant: ButtonVariant) => {
   };
 };
 
-export const getButtonColors = (variant: ButtonVariant, color: Color) => {
+export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
   switch (variant) {
     case "primary":
       return {
@@ -123,4 +123,4 @@ export const getButtonColors = (variant: ButtonVariant, color: Color) => {
         focusRingColor: "",
       };
   }
-};
+}; // @severin

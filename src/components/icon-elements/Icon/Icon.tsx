@@ -22,7 +22,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: IconVariant;
   tooltip?: string;
   size?: Size;
-  color?: any; // @achi used to be Color
+  color?: Color;
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
