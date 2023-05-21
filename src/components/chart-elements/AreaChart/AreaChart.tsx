@@ -105,7 +105,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
-              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi theming how?
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi @severin
               content={({ active, payload, label }) => (
                 <ChartTooltip
                   active={active}
