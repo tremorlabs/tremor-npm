@@ -10,13 +10,13 @@ import { Tab } from "@headlessui/react";
 
 const makeTabListClassName = makeClassName("TabList");
 
-export type TabVariant = "border" | "outline";
+export type TabVariant = "line" | "solid";
 
-export const TabVariantContext = createContext<TabVariant>("border");
+export const TabVariantContext = createContext<TabVariant>("line");
 
 const variantStyles: { [key in TabVariant]: string } = {
-  border: tremorTwMerge("flex border-tremor-border", spacing.twoXl.spaceX, border.sm.bottom),
-  outline: tremorTwMerge(
+  line: tremorTwMerge("flex border-tremor-border", spacing.twoXl.spaceX, border.sm.bottom),
+  solid: tremorTwMerge(
     "inline-flex p-1 bg-tremor-background-subtle rounded-tremor-default",
     spacing.xs.spaceX,
   ),
@@ -29,7 +29,7 @@ export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const { color = BaseColors.Blue, variant = "border", children, className, ...other } = props;
+  const { color = BaseColors.Blue, variant = "line", children, className, ...other } = props;
 
   return (
     <Tab.List

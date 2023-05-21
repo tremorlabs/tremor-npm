@@ -24,9 +24,24 @@ export default {
 } as ComponentMeta<typeof TabGroup>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const SimpleTabList = (args: any) => (
+const TabLine = (args: any) => (
   <TabGroup defaultValue={0}>
     <TabList {...args}>
+      <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
+      <Tab icon={CalendarIcon}>Three</Tab>
+      <Tab icon={CalendarIcon}>One</Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel>One</TabPanel>
+      <TabPanel>Two</TabPanel>
+      <TabPanel>Three</TabPanel>
+    </TabPanels>
+  </TabGroup>
+);
+
+const TabSolid = (args: any) => (
+  <TabGroup defaultValue={0}>
+    <TabList variant="solid" {...args}>
       <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
       <Tab icon={CalendarIcon}>Three</Tab>
       <Tab icon={CalendarIcon}>One</Tab>
@@ -42,14 +57,20 @@ const SimpleTabList = (args: any) => (
 const ResponsiveTemplate: ComponentStory<typeof TabGroup> = (args) => (
   <>
     <Title>Mobile</Title>
-    <div className="w-64">
+    <div className="w-64 space-y-5">
       <Card>
-        <SimpleTabList {...args} />
+        <TabLine {...args} />
+      </Card>
+      <Card>
+        <TabSolid {...args} />
       </Card>
     </div>
-    <Title className="mt-5">Desktop</Title>
+    <Title className="mt-5 space-y-5">Desktop</Title>
     <Card>
-      <SimpleTabList {...args} />
+      <TabLine {...args} />
+    </Card>
+    <Card>
+      <TabSolid {...args} />
     </Card>
   </>
 );
@@ -59,22 +80,22 @@ const FlexTemplate: ComponentStory<typeof TabGroup> = (args) => (
     <Card>
       <Text className="mt-2">Justify Start</Text>
       <Flex justifyContent="start" className="mt-2">
-        <SimpleTabList {...args} />
+        <TabLine {...args} />
       </Flex>
       <Text className="mt-2">Justify End</Text>
       <Flex justifyContent="end" className="mt-2">
-        <SimpleTabList {...args} />
+        <TabLine {...args} />
       </Flex>
       <Text className="mt-2">Justify End with inner div</Text>
       <Flex justifyContent="end" className="mt-2">
         <div>
-          <SimpleTabList {...args} />
+          <TabLine {...args} />
         </div>
       </Flex>
       <Text className="mt-2">Justify Start with inner div</Text>
       <Flex justifyContent="start" className="mt-2">
         <div>
-          <SimpleTabList {...args} />
+          <TabLine {...args} />
         </div>
       </Flex>
     </Card>
@@ -86,7 +107,7 @@ const ColorsTemplate: ComponentStory<typeof TabGroup> = (args) => (
     <Card>
       <div className="space-y-2">
         {Object.values(BaseColors).map((color) => (
-          <SimpleTabList key={color} {...args} color={color} />
+          <TabLine key={color} {...args} color={color} />
         ))}
       </div>
     </Card>

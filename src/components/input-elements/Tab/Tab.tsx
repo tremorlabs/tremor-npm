@@ -9,14 +9,16 @@ import { TabVariant, TabVariantContext } from "components/input-elements/Tab/Tab
 const makeTabClassName = makeClassName("Tab");
 
 const variantStyles: { [key in TabVariant]: string } = {
-  border: tremorTwMerge(
-    "font-tremor-medium text-tremor-content-subtle hover:text-tremor-content hover:border-tremor-content",
-    "border-transparent ui-selected:border-tremor-brand ui-selected:border-b-2 hover:border-b-2",
+  line: tremorTwMerge(
+    "ui-selected:border-tremor-brand ui-selected:border-b-2 ",
+    "hover:border-b-2 hover:border-tremor-content hover:text-tremor-content-emphasis",
+    "border-transparent text-tremor-normal text-tremor-content",
     spacing.px.negativeMarginBottom,
   ),
-  outline: tremorTwMerge(
-    "ui-selected:bg-tremor-background ui-selected:rounded-tremor-sm text-tremor-content",
+  solid: tremorTwMerge(
+    "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-sm",
     "hover:text-tremor-content-emphasis",
+    "border-transparent border rounded-tremor-sm text-tremor-normal text-tremor-content",
     spacing.lg.paddingX,
     spacing.xs.paddingY,
   ),
@@ -40,7 +42,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring-0 text-tremor-sm",
         "ui-selected:text-tremor-brand transition",
         variantStyles[variant],
-        spacing.twoXs.paddingX,
+        spacing.sm.paddingX,
         spacing.sm.paddingY,
         className,
       )}
