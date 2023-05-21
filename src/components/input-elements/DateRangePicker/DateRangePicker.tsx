@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import { DateRange, DayPicker } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
@@ -15,7 +15,6 @@ import {
   borderRadius,
   boxShadow,
   colorPalette,
-  fontSize,
   fontWeight,
   getColorClassNames,
   spacing,
@@ -25,7 +24,6 @@ import {
   DateRangePickerOption,
   defaultOptions,
   formatSelectedDates,
-  makeDateRangePickerClassName,
   parseEndDate,
   parseStartDate,
 } from "./dateRangePickerUtils";
@@ -70,8 +68,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     placeholder = "Select",
     dropdownPlaceholder = "Select",
     disabled = false,
-    color = BaseColors.Blue,
-    enableYearPagination = false,
+    enableYearPagination = false, // @achi
     locale = enUS,
     className,
     ...other
@@ -127,39 +124,31 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   return (
     <div
       ref={ref}
-      className={twMerge(
-        "w-full min-w-[10rem] relative flex justify-between",
-        fontSize.sm,
+      className={tremorTwMerge(
+        "w-full min-w-[10rem] relative flex justify-between text-tremor-sm",
         className,
       )}
       {...other}
     >
       <Popover as="div" className="w-full">
         <Popover.Button
-          className={twMerge(
-            "w-full outline-none focus:ring-2 cursor-default text-left whitespace-nowrap truncate",
-            "rounded-l-md",
+          className={tremorTwMerge(
+            "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
+            "rounded-l-tremor-default font-tremor-medium shadow-tremor-sm text-tremor-content-emphasis",
             spacing.twoXl.paddingLeft,
             spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
-            fontWeight.md,
             border.sm.all,
-            boxShadow.sm,
             getSelectButtonColors(true, disabled),
-            getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
           )}
         >
           {formattedSelection}
         </Popover.Button>
         <Popover.Panel
-          className={twMerge(
-            "absolute z-10 divide-y overflow-y-auto w-fit left-0 outline-none",
-            getColorClassNames("white").bgColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+          className={tremorTwMerge(
+            "absolute z-10 divide-y overflow-y-auto w-fit left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
             spacing.twoXs.marginTop,
             spacing.twoXs.marginBottom,
-            borderRadius.md.all,
             border.sm.all,
             boxShadow.lg,
           )}
@@ -180,32 +169,33 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             }
             locale={locale}
             disabled={disabledDays}
-            className={twMerge("p-3 text-gray-700", className)}
+            className={tremorTwMerge("p-3 text-tremor-content-emphasis", className)}
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
-              caption: "flex justify-center pt-1 relative items-center",
-              caption_label: "text-sm font-medium",
+              caption:
+                "flex text-tremor-content-emphasis justify-center pt-1 relative items-center",
+              caption_label: "text-tremor-sm font-tremor-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
-                "flex items-center justify-center border border-gray-300 hover:bg-gray-50 h-7 w-7 bg-transparent rounded-md",
+                "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 bg-transparent rounded-tremor-sm focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100",
               nav_button_previous: "absolute left-1",
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
               head_row: "flex",
-              head_cell: "rounded-md w-9 font-normal text-[0.8rem] text-center",
+              head_cell: "rounded-md w-9 font-tremor-normal text-tremor-xs text-center",
               row: "flex w-full mt-0.5",
-              cell: "text-center text-sm p-0 relative focus-within:relative",
-              day: "h-9 w-9 p-0 font-normal hover:bg-gray-100 outline-blue-100 rounded-md",
-              day_selected: "aria-selected:bg-blue-500 text-white",
-              day_today: "text-blue-500",
-              day_disabled: "text-gray-300 hover:bg-transparent",
+              cell: "text-center text-tremor-sm p-0 relative focus-within:relative",
+              day: "h-9 w-9 p-0 font-tremor-normal hover:bg-tremor-background-subtle outline-tremor-brand rounded-md", //@achi weird if rounded is changed to tremor rounded, then also the selection roundness is affected
+              day_selected: "aria-selected:bg-blue-500 text-tremor-brand-inverted", // @achi everything else to bg-blue-500 does not work
+              day_today: "text-tremor-brand",
+              day_disabled: "text-tremor-content-subtle hover:bg-transparent",
               day_range_middle:
-                "aria-selected:bg-gray-100 aria-selected:text-blue-500 rounded-none",
+                "aria-selected:bg-tremor-background-subtle aria-selected:text-tremor-brand rounded-none",
               day_hidden: "invisible",
-              day_outside: "text-gray-300",
-              day_range_start: "rounded-none rounded-l-md",
-              day_range_end: "rounded-none rounded-r-md",
+              day_outside: "text-tremor-content-subtle",
+              day_range_start: "rounded-none rounded-l-tremor-sm",
+              day_range_end: "rounded-none rounded-r-tremor-sm",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
@@ -220,17 +210,14 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           {({ value }) => (
             <>
               <Listbox.Button
-                className={twMerge(
-                  "w-full outline-none focus:ring-2 cursor-default text-left whitespace-nowrap truncate",
-                  "rounded-r-md -ml-px",
+                className={tremorTwMerge(
+                  "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate",
+                  "rounded-r-tremor-default -ml-px font-tremor-medium shadow-tremor-sm transition duration-100 text-tremor-content-emphasis",
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,
-                  fontWeight.md,
                   border.sm.all,
-                  boxShadow.sm,
                   getSelectButtonColors(true, disabled),
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
                 )}
               >
                 {value
@@ -238,16 +225,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   : dropdownPlaceholder}
               </Listbox.Button>
               <Listbox.Options
-                className={twMerge(
-                  "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none",
-                  getColorClassNames("white").bgColor,
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+                className={tremorTwMerge(
+                  "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none shadow-tremor-md bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                   spacing.twoXs.marginTop,
                   spacing.twoXs.marginBottom,
-                  borderRadius.md.all,
                   border.sm.all,
-                  boxShadow.lg,
                 )}
               >
                 {dropdownOptions.map((option) => (
