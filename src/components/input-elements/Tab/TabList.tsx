@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { createContext } from "react";
 import { tremorTwMerge } from "lib";
 
 import { BaseColorContext } from "contexts";
@@ -10,27 +10,41 @@ import { Tab } from "@headlessui/react";
 
 const makeTabListClassName = makeClassName("TabList");
 
+export type TabVariant = "border" | "outline";
+
+export const TabVariantContext = createContext<TabVariant>("border");
+
+const variantStyles: { [key in TabVariant]: string } = {
+  border: tremorTwMerge("flex border-tremor-border", spacing.twoXl.spaceX, border.sm.bottom),
+  outline: tremorTwMerge(
+    "inline-flex p-1 bg-tremor-background-subtle rounded-tremor-default",
+    spacing.xs.spaceX,
+  ),
+};
+
 export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: Color;
+  variant?: TabVariant;
   children: React.ReactElement[] | React.ReactElement;
 }
 
 const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const { color = BaseColors.Blue, children, className, ...other } = props;
+  const { color = BaseColors.Blue, variant = "border", children, className, ...other } = props;
 
   return (
     <Tab.List
       ref={ref}
       className={tremorTwMerge(
         makeTabListClassName("root"),
-        "flex justify-start overflow-x-clip border-tremor-border",
-        spacing.twoXl.spaceX,
-        border.sm.bottom,
+        "justify-start overflow-x-clip",
+        variantStyles[variant],
         className,
       )}
       {...other}
     >
-      <BaseColorContext.Provider value={color}>{children}</BaseColorContext.Provider>
+      <TabVariantContext.Provider value={variant}>
+        <BaseColorContext.Provider value={color}>{children}</BaseColorContext.Provider>
+      </TabVariantContext.Provider>
     </Tab.List>
   );
 });
