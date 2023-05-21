@@ -71,7 +71,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             dataKey={category}
             nameKey={index}
             isAnimationActive={showAnimation}
-            animationDuration={1100}
+            animationDuration={900}
           />
           {showTooltip ? (
             <Tooltip

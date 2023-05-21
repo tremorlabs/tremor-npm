@@ -150,10 +150,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}
-              className="stroke-2" //strokeWidth={2}
+              strokeWidth={2}
+              strokeLinejoin="round"
+              strokeLinecap="round"
               dot={false}
               isAnimationActive={showAnimation}
-              animationDuration={1100}
+              animationDuration={900}
               stackId={stack ? "a" : undefined}
               connectNulls={connectNulls}
             />

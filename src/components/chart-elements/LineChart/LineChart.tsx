@@ -130,9 +130,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               strokeWidth={2}
+              strokeLinejoin="round"
+              strokeLinecap="round"
               dot={false}
               isAnimationActive={showAnimation}
-              animationDuration={1100}
+              animationDuration={900}
               connectNulls={connectNulls}
             />
           ))}
