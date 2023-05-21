@@ -46,7 +46,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
   return (
     <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer className="h-full w-full">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (
             <text
@@ -71,6 +71,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             dataKey={category}
             nameKey={index}
             isAnimationActive={showAnimation}
+            animationDuration={1100}
           />
           {showTooltip ? (
             <Tooltip

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import {
   Bar,
@@ -58,8 +58,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         <ReChartsBarChart
           data={data}
           stackOffset={relative ? "expand" : "none"}
@@ -67,6 +67,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         >
           {showGridLines ? (
             <CartesianGrid
+              className="stroke-1 stroke-tremor-content-muted"
               strokeDasharray="3 3"
               horizontal={layout !== "vertical" ? true : false}
               vertical={layout !== "vertical" ? false : true}
@@ -175,6 +176,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               dataKey={category}
               fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               isAnimationActive={showAnimation}
+              animationDuration={1100}
             />
           ))}
         </ReChartsBarChart>

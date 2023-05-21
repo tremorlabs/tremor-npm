@@ -33,7 +33,11 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     >
       <circle cx={4} cy={4} r={4} />
     </svg>
-    <p className={tremorTwMerge("whitespace-nowrap truncate text-tremor-sm font-tremor-normal")}>
+    <p
+      className={tremorTwMerge(
+        "whitespace-nowrap truncate text-tremor-sm font-tremor-normal text-tremor-content",
+      )}
+    >
       {name}
     </p>
   </li>

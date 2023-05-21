@@ -1,28 +1,15 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "../../../lib";
 
 import { Color, ValueFormatter } from "../../../lib";
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  boxShadow,
-  getColorClassNames,
-  fontSize,
-  fontWeight,
-  sizing,
-  spacing,
-} from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
+import { colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
-    className={twMerge(
-      getColorClassNames("white").bgColor,
-      fontSize.sm,
-      borderRadius.md.all,
+    className={tremorTwMerge(
+      "bg-tremor-background text-tremor-sm rounded-tremor-default shadow-tremor-md border-tremor-border",
       border.sm.all,
-      boxShadow.lg,
     )}
   >
     {children}
@@ -39,31 +26,25 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
-        className={twMerge(
-          "shrink-0",
+        className={tremorTwMerge(
+          "shrink-0 rounded-tremor-full border-tremor-background shadow-tremor-default",
           getColorClassNames(color, colorPalette.background).bgColor,
-          getColorClassNames("white").borderColor,
           sizing.sm.height,
           sizing.sm.width,
-          borderRadius.full.all,
           border.md.all,
-          boxShadow.md,
         )}
       />
       <p
-        className={twMerge(
-          "font-medium tabular-nums text-right whitespace-nowrap",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+        className={tremorTwMerge(
+          "font-medium tabular-nums text-right whitespace-nowrap text-tremor-content-emphasis",
         )}
       >
         {value}
       </p>
     </div>
     <p
-      className={twMerge(
-        "text-right whitespace-nowrap",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-        fontWeight.sm,
+      className={tremorTwMerge(
+        "text-right whitespace-nowrap text-tremor-content font-tremor-normal",
       )}
     >
       {name}
@@ -90,25 +71,19 @@ const ChartTooltip = ({
     return (
       <ChartTooltipFrame>
         <div
-          className={twMerge(
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+          className={tremorTwMerge(
+            "border-tremor-border",
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             border.sm.bottom,
           )}
         >
-          <p
-            className={twMerge(
-              "text-elem",
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-              fontWeight.md,
-            )}
-          >
+          <p className={tremorTwMerge("text-elem font-tremor-medium text-tremor-content-emphasis")}>
             {label}
           </p>
         </div>
 
-        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}

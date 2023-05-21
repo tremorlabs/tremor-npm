@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import {
   Area,
   CartesianGrid,
@@ -59,13 +59,19 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height={"100%"}>
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         <ReChartsAreaChart data={data}>
           {showGridLines ? (
-            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+            <CartesianGrid
+              className="stroke-1 stroke-tremor-content-muted"
+              strokeDasharray="3 3"
+              horizontal={true}
+              vertical={false}
+            />
           ) : null}
           <XAxis
+            className="" // @severin @achi
             hide={!showXAxis}
             dataKey={index}
             tick={{ transform: "translate(0, 6)" }}
@@ -73,7 +79,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             style={{
               fontSize: "12px",
               fontFamily: "Inter; Helvetica",
-              color: "red",
             }}
             interval="preserveStartEnd"
             tickLine={false}
@@ -98,10 +103,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           />
           {showTooltip ? (
             <Tooltip
-              // ongoing issue: https://github.com/recharts/recharts/issues/2920
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
-              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi theming how?
               content={({ active, payload, label }) => (
                 <ChartTooltip
                   active={active}
@@ -146,9 +150,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dataKey={category}
               stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
               fill={`url(#${categoryColors.get(category)})`}
-              strokeWidth={2}
+              className="stroke-2" //strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}
+              animationDuration={1100}
               stackId={stack ? "a" : undefined}
               connectNulls={connectNulls}
             />

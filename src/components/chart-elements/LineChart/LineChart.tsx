@@ -57,10 +57,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   return (
     <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer className="h-full w-full">
         <ReChartsLineChart data={data}>
           {showGridLines ? (
-            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+            <CartesianGrid
+              className="stroke-1 stroke-tremor-content-muted"
+              strokeDasharray="3 3"
+              horizontal={true}
+              vertical={false}
+            />
           ) : null}
           <XAxis
             hide={!showXAxis}
@@ -127,6 +132,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               strokeWidth={2}
               dot={false}
               isAnimationActive={showAnimation}
+              animationDuration={1100}
               connectNulls={connectNulls}
             />
           ))}
