@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
@@ -45,7 +45,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         <ReChartsDonutChart>
           {showLabel && isDonut ? (

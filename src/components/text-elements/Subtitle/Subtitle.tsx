@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { getColorClassNames } from "lib";
 import { Color } from "../../../lib";
@@ -14,7 +14,7 @@ const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, r
   return (
     <p
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         "font-tremor-normal text-tremor-base text-tremor-content-subtle",
         color && getColorClassNames(color, colorPalette.lightText).textColor,
         className,

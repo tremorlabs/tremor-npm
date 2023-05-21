@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import {
   CartesianGrid,
   Legend,
@@ -56,7 +56,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         <ReChartsLineChart data={data}>
           {showGridLines ? (

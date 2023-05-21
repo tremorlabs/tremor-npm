@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { useOnClickOutside, useOnWindowResize } from "hooks";
 
@@ -74,7 +74,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   return showModal ? (
     <div
       ref={mergeRefs([modalRef, ref])}
-      className={twMerge(
+      className={tremorTwMerge(
         "absolute z-10 divide-y overflow-y-scroll",
         width ? "" : "w-full",
         getAbsoluteSpacing(),

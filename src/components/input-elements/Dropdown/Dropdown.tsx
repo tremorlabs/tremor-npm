@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { ArrowDownHeadIcon } from "assets";
 
@@ -54,20 +54,20 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
       value={value}
       onChange={onValueChange as any}
       ref={ref}
-      className={twMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
+      className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
       {({ value }) => (
         <>
           {Icon && (
             <span
-              className={twMerge(
+              className={tremorTwMerge(
                 "absolute inset-y-0 left-0 flex items-center",
                 spacing.md.paddingLeft,
               )}
             >
               <Icon
-                className={twMerge(
+                className={tremorTwMerge(
                   makeDropdownClassName("Icon"),
                   "flex-none",
                   sizing.lg.height,
@@ -79,7 +79,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             </span>
           )}
           <Listbox.Button
-            className={twMerge(
+            className={tremorTwMerge(
               "w-full outline-none focus:ring-2 cursor-default text-left whitespace-nowrap truncate",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
@@ -95,13 +95,13 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
           </Listbox.Button>
           <span
-            className={twMerge(
+            className={tremorTwMerge(
               "absolute inset-y-0 right-0 flex items-center",
               spacing.md.marginRight,
             )}
           >
             <ArrowDownHeadIcon
-              className={twMerge(
+              className={tremorTwMerge(
                 makeDropdownClassName("arrowDownIcon"),
                 "flex-none",
                 sizing.lg.height,
@@ -112,7 +112,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             />
           </span>
           <Listbox.Options
-            className={twMerge(
+            className={tremorTwMerge(
               "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
               getColorClassNames("white").bgColor,
               getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
@@ -25,7 +25,7 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
 
   return (
     <Listbox.Option
-      className={twMerge(
+      className={tremorTwMerge(
         makeDropdownItemClassName("root"),
         "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
         "text-gray-700 cursor-default",
@@ -41,7 +41,7 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
     >
       {Icon && (
         <Icon
-          className={twMerge(
+          className={tremorTwMerge(
             makeDropdownItemClassName("icon"),
             "flex-none",
             sizing.lg.height,

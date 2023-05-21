@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 import { makeClassName } from "lib";
@@ -32,13 +32,13 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
     const colsMd = getGridCols(numColsMd, gridColsMd);
     const colsLg = getGridCols(numColsLg, gridColsLg);
 
-    return twMerge(colsBase, colsSm, colsMd, colsLg);
+    return tremorTwMerge(colsBase, colsSm, colsMd, colsLg);
   };
 
   return (
     <div
       ref={ref}
-      className={twMerge(makeGridClassName("root"), "grid", getColClassNames(), className)}
+      className={tremorTwMerge(makeGridClassName("root"), "grid", getColClassNames(), className)}
       {...other}
     >
       {children}
