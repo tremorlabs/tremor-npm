@@ -1,11 +1,26 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { Tab as HeadlessTab } from "@headlessui/react";
 import { tremorTwMerge } from "lib";
 
 import { makeClassName, sizing, spacing } from "lib";
+import { TabVariant, TabVariantContext } from "components/input-elements/Tab/TabList";
 
 const makeTabClassName = makeClassName("Tab");
+
+const variantStyles: { [key in TabVariant]: string } = {
+  border: tremorTwMerge(
+    "font-tremor-medium text-tremor-content-subtle hover:text-tremor-content hover:border-tremor-content",
+    "border-transparent ui-selected:border-tremor-brand ui-selected:border-b-2 hover:border-b-2",
+    spacing.px.negativeMarginBottom,
+  ),
+  outline: tremorTwMerge(
+    "ui-selected:bg-tremor-background ui-selected:rounded-tremor-sm text-tremor-content",
+    "hover:text-tremor-content-emphasis",
+    spacing.lg.paddingX,
+    spacing.xs.paddingY,
+  ),
+};
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ElementType;
@@ -14,6 +29,7 @@ export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const { icon, className, children, ...other } = props;
 
+  const variant = useContext(TabVariantContext);
   const Icon = icon;
 
   return (
@@ -21,16 +37,11 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeTabClassName("root"),
-        "flex whitespace-nowrap max-w-xs truncate",
-        "focus:outline-none focus:ring-0 text-tremor-sm font-tremor-medium text-tremor-content-subtle hover:text-tremor-content hover:border-tremor-content border-transparent",
+        "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring-0 text-tremor-sm",
+        "ui-selected:text-tremor-brand transition",
+        variantStyles[variant],
         spacing.twoXs.paddingX,
         spacing.sm.paddingY,
-        spacing.px.negativeMarginBottom,
-        "ui-selected:text-tremor-brand",
-        "ui-selected:border-tremor-brand",
-        "ui-selected:border-b-2",
-        "hover:border-b-2",
-        "transition",
         className,
       )}
       {...other}
