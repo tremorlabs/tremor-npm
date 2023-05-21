@@ -4,11 +4,10 @@ import { tremorTwMerge } from "lib";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { defaultValueFormatter, themeColorRange } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
-import { DEFAULT_COLOR } from "lib/theme";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -50,11 +49,11 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
         <ReChartsDonutChart>
           {showLabel && isDonut ? (
             <text
+              className="fill-tremor-content-emphasis"
               x="50%"
               y="50%"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill={hexColors[DEFAULT_COLOR]}
             >
               {parsedLabelInput}
             </text>
