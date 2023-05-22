@@ -77,7 +77,6 @@ const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
 
 const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () => {
   const [value, setValue] = useState<string[]>([]);
-  console.log("OUTER", value);
   return (
     <Card>
       <MultiSelectBox

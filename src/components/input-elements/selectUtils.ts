@@ -34,7 +34,7 @@ export const getSelectButtonColors = (
   return tremorTwMerge(
     isDisabled ? "bg-tremor-background-subtle" : "bg-tremor-background",
     !isDisabled && "hover:bg-tremor-background-muted",
-    hasSelection ? "text-tremor-content-emphasis" : "text-tremor-content-subtle",
+    hasSelection ? "text-tremor-content-emphasis" : "text-tremor-content",
     isDisabled && "text-tremor-content-subtle",
     hasError && "text-rose-500",
     hasError ? "border-rose-500" : "border-tremor-border",

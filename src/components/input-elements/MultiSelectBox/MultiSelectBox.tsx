@@ -57,6 +57,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
   return (
     <Listbox
       as="div"
+      ref={ref}
       defaultValue={selectedValue}
       value={selectedValue}
       onChange={
@@ -65,7 +66,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           setSelectedValue(values);
         }) as any
       }
-      ref={ref}
+      disabled={disabled}
       className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
       multiple
@@ -92,12 +93,12 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           )}
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm text-tremor-content",
+              "w-full outline-none focus:ring-2 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
               border.sm.all,
-              getSelectButtonColors(true, disabled),
+              getSelectButtonColors(value.length > 0, disabled),
             )}
           >
             {value.length > 0 ? `${value.length} selected` : placeholder}

@@ -15,7 +15,7 @@ import {
   sizing,
   spacing,
 } from "lib";
-import { constructValueToNameMapping, getSelectButtonColors } from "../selectUtils";
+import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Listbox } from "@headlessui/react";
 
@@ -50,10 +50,11 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
   return (
     <Listbox
       as="div"
+      ref={ref}
       defaultValue={defaultValue}
       value={value}
       onChange={onValueChange as any}
-      ref={ref}
+      disabled={disabled}
       className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
       {...other}
     >
@@ -88,8 +89,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
               borderRadius.md.all,
               border.sm.all,
               boxShadow.sm,
-              getSelectButtonColors(true, disabled),
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+              getSelectButtonColors(hasValue(value), disabled),
             )}
           >
             {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}

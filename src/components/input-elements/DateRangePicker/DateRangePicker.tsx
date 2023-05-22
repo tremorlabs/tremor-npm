@@ -96,8 +96,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     return dropdownValues;
   }, [dropdownOptions]);
 
-  console.log(dropdownValues);
-
   const hasSelectedValue = selectedValue ? selectedValue.length >= 2 : false;
   const selectedDropdownValue = hasSelectedValue ? selectedValue![2] ?? null : null;
   const selectedStartDate = hasSelectedValue
@@ -118,7 +116,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     const toDate = to ?? TODAY;
     onValueChange?.([from, toDate, value]);
     setSelectedValue([from, toDate, value]);
-    console.log("set");
   };
 
   return (
