@@ -25,7 +25,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
       <Listbox.Option
         className={tremorTwMerge(
           makeMultiSelectBoxItemClassName("root"),
-          "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
+          "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
           "text-tremor-content-emphasis cursor-default text-tremor-sm",
           spacing.md.paddingX,
           spacing.md.paddingY,
@@ -41,7 +41,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
           className={tremorTwMerge(
             makeMultiSelectBoxItemClassName("checkbox"),
             "flex-none focus:ring-none focus:outline-none cursor-pointer accent-tremor-brand",
-            spacing.lg.marginRight,
+            spacing.sm.marginRight,
           )}
           checked={isSelected}
           readOnly={true}

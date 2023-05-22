@@ -4,19 +4,8 @@ import { tremorTwMerge } from "lib";
 
 import { ArrowDownHeadIcon } from "assets";
 
-import {
-  border,
-  borderRadius,
-  boxShadow,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { Listbox } from "@headlessui/react";
 
 const makeDropdownClassName = makeClassName("Dropdown");
@@ -70,24 +59,20 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
               <Icon
                 className={tremorTwMerge(
                   makeDropdownClassName("Icon"),
-                  "flex-none",
+                  "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
-                  getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
               />
             </span>
           )}
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 cursor-default text-left whitespace-nowrap truncate",
+              "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left whitespace-nowrap truncate shadow-tremor-sm rounded-tremor-default",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
-              fontWeight.md,
-              borderRadius.md.all,
               border.sm.all,
-              boxShadow.sm,
               getSelectButtonColors(hasValue(value), disabled),
             )}
           >
@@ -102,24 +87,18 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             <ArrowDownHeadIcon
               className={tremorTwMerge(
                 makeDropdownClassName("arrowDownIcon"),
-                "flex-none",
+                "flex-none text-tremor-content-subtle",
                 sizing.lg.height,
                 sizing.lg.width,
-                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               )}
             />
           </span>
           <Listbox.Options
             className={tremorTwMerge(
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
-              getColorClassNames("white").bgColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).divideColor,
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-md",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
-              borderRadius.md.all,
               border.sm.all,
-              boxShadow.lg,
             )}
           >
             {children}

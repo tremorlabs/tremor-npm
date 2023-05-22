@@ -8,17 +8,7 @@ import { enUS } from "date-fns/locale";
 
 import { useInternalState } from "hooks";
 
-import {
-  BaseColors,
-  DEFAULT_COLOR,
-  border,
-  borderRadius,
-  boxShadow,
-  colorPalette,
-  fontWeight,
-  getColorClassNames,
-  spacing,
-} from "lib";
+import { border, boxShadow, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
   DateRangePickerOption,
@@ -132,7 +122,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           disabled={disabled}
           className={tremorTwMerge(
             "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
-            "rounded-l-tremor-default font-tremor-medium shadow-tremor-sm text-tremor-content-emphasis",
+            "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
             spacing.twoXl.paddingLeft,
             spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
@@ -184,16 +174,15 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               head_cell: "rounded-md w-9 font-tremor-normal text-tremor-xs text-center",
               row: "flex w-full mt-0.5",
               cell: "text-center text-tremor-sm p-0 relative focus-within:relative",
-              day: "h-9 w-9 p-0 font-tremor-normal hover:bg-tremor-background-subtle outline-tremor-brand rounded-md", //@achi weird if rounded is changed to tremor rounded, then also the selection roundness is affected
-              day_selected: "aria-selected:bg-blue-500 text-tremor-brand-inverted", // @achi everything else to bg-blue-500 does not work
-              day_today: "text-tremor-brand",
+              day: "h-9 w-9 p-0 font-tremor-normal hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
+              day_selected: "aria-selected:bg-tremor-brand text-tremor-brand-inverted",
               day_disabled: "text-tremor-content-subtle hover:bg-transparent",
               day_range_middle:
-                "aria-selected:bg-tremor-background-subtle aria-selected:text-tremor-brand rounded-none",
+                "aria-selected:!bg-tremor-background-subtle aria-selected:text-tremor-brand !rounded-none",
               day_hidden: "invisible",
               day_outside: "text-tremor-content-subtle",
-              day_range_start: "rounded-none rounded-l-tremor-sm",
-              day_range_end: "rounded-none rounded-r-tremor-sm",
+              day_range_start: "rounded-r-none rounded-l-tremor-sm",
+              day_range_end: "rounded-l-none rounded-r-tremor-sm",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
@@ -209,8 +198,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <>
               <Listbox.Button
                 className={tremorTwMerge(
-                  "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate",
-                  "rounded-r-tremor-default -ml-px font-tremor-medium shadow-tremor-sm transition duration-100 text-tremor-content-emphasis",
+                  "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left whitespace-nowrap truncate",
+                  "rounded-r-tremor-default -ml-px shadow-tremor-sm text-tremor-content-emphasis",
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,

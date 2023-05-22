@@ -50,9 +50,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       <div
         className={tremorTwMerge(
           makeTextInputClassName("root"),
-          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2 rounded-tremor-default shadow-tremor-sm transition",
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default shadow-tremor-sm",
           getSelectButtonColors(hasSelection, disabled, error),
-          isFocused && tremorTwMerge("ring-2 ring-offset-1 ring-tremor-brand-subtle"),
+          isFocused &&
+            tremorTwMerge("ring-2 ring-tremor-brand ring-offset-1 transition duration-100"),
           border.sm.all,
           className,
         )}
@@ -84,7 +85,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           type={type}
           className={tremorTwMerge(
             makeTextInputClassName("input"),
-            "w-full focus:outline-none focus:ring-0 border-none text-tremor-sm font-tremor-medium bg-transparent",
+            "w-full focus:outline-none focus:ring-0 border-none text-tremor-sm font-tremor-normal bg-transparent",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,

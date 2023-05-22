@@ -2,12 +2,9 @@
 import React from "react";
 import { tremorTwMerge } from "lib";
 
-import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
-
-import { getColorClassNames, makeClassName } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName } from "lib";
 import { Listbox } from "@headlessui/react";
 
 const makeDropdownItemClassName = makeClassName("DropdownItem");
@@ -27,11 +24,10 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
     <Listbox.Option
       className={tremorTwMerge(
         makeDropdownItemClassName("root"),
-        "flex justify-start items-center ui-active:bg-gray-100 ui-active:text-gray-900",
-        "text-gray-700 cursor-default",
+        "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
+        "text-tremor-content-emphasis cursor-default text-tremor-sm",
         spacing.md.paddingX,
         spacing.md.paddingY,
-        fontSize.sm,
         className,
       )}
       ref={ref}
@@ -43,11 +39,9 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
         <Icon
           className={tremorTwMerge(
             makeDropdownItemClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
+            "flex-none text-tremor-content-subtle",
             sizing.lg.width,
-            spacing.lg.marginRight,
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            spacing.xs.marginRight,
           )}
         />
       )}

@@ -92,7 +92,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           )}
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm",
+              "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,

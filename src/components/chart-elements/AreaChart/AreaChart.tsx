@@ -71,7 +71,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             />
           ) : null}
           <XAxis
-            className="" // @severin @achi
             hide={!showXAxis}
             dataKey={index}
             tick={{ transform: "translate(0, 6)" }}
