@@ -89,7 +89,6 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       sizing.lg.width,
                       spacing.md.marginRight,
                     )}
-                    aria-hidden="true"
                   />
                 ) : null}
                 {item.href ? (

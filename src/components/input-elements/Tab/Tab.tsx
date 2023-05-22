@@ -57,7 +57,6 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
             sizing.lg.width,
             spacing.sm.marginRight,
           )}
-          aria-hidden="true"
         />
       ) : null}
       <p>{children}</p>

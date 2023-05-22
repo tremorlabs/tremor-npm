@@ -87,7 +87,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                   sizing.lg.height,
                   sizing.lg.width,
                 )}
-                aria-hidden="true"
               />
             </span>
           )}
@@ -120,7 +119,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                 sizing.md.height,
                 sizing.md.width,
               )}
-              aria-hidden="true"
             />
           </button>
           <span
@@ -136,7 +134,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                 sizing.lg.height,
                 sizing.lg.width,
               )}
-              aria-hidden="true"
             />
           </span>
           <Listbox.Options
@@ -162,7 +159,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
                     sizing.md.height,
                     sizing.md.width,
                   )}
-                  aria-hidden="true"
                 />
               </span>
               <input

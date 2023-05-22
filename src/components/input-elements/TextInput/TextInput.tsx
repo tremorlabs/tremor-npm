@@ -77,7 +77,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
               sizing.lg.width,
               spacing.xl.marginLeft,
             )}
-            aria-hidden="true"
           />
         ) : null}
         <input
@@ -104,7 +103,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
               sizing.lg.height,
               sizing.lg.width,
             )}
-            aria-hidden="true"
           />
         ) : null}
       </div>

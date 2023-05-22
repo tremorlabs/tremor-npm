@@ -75,7 +75,6 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
                   sizing.lg.width,
                   getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                 )}
-                aria-hidden="true"
               />
             </span>
           )}
@@ -108,7 +107,6 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
                 sizing.lg.width,
                 getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               )}
-              aria-hidden="true"
             />
           </span>
           <Listbox.Options

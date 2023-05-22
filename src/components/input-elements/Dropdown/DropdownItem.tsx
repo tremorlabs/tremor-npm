@@ -49,7 +49,6 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
             spacing.lg.marginRight,
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
-          aria-hidden="true"
         />
       )}
       <p className="whitespace-nowrap truncate"> {text ?? value}</p>

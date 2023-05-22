@@ -49,7 +49,6 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
               sizing.lg.width,
               spacing.xs.marginRight,
             )}
-            aria-hidden="true"
           />
         ) : null}
         <h4

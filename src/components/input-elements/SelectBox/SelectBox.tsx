@@ -61,55 +61,55 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     >
       {({ value }) => (
         <>
-          {Icon && (
-            <Combobox.Button
+          <Combobox.Button className="w-full">
+            {Icon && (
+              <div
+                className={tremorTwMerge(
+                  "absolute inset-y-0 left-0 flex items-center",
+                  spacing.md.paddingLeft,
+                )}
+              >
+                <Icon
+                  className={tremorTwMerge(
+                    makeSelectBoxClassName("Icon"),
+                    "flex-none text-tremor-content-subtle",
+                    sizing.lg.height,
+                    sizing.lg.width,
+                  )}
+                />
+              </div>
+            )}
+            <Combobox.Input
               className={tremorTwMerge(
-                "absolute inset-y-0 left-0 flex items-center",
-                spacing.md.paddingLeft,
+                "w-full outline-none focus:ring-2 cursor-default font-tremor-normal rounded-tremor-default shadow-tremor-sm",
+                Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+                spacing.fourXl.paddingRight,
+                spacing.sm.paddingY,
+                border.sm.all,
+                disabled
+                  ? "placeholder:text-tremor-content-subtle"
+                  : "placeholder:text-tremor-content",
+                getSelectButtonColors(hasValue(value), disabled),
+              )}
+              placeholder={placeholder}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
+            />
+            <div
+              className={tremorTwMerge(
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.md.paddingRight,
               )}
             >
-              <Icon
+              <ArrowDownHeadIcon
                 className={tremorTwMerge(
-                  makeSelectBoxClassName("Icon"),
+                  makeSelectBoxClassName("arrowDownIcon"),
                   "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
                 )}
-                aria-hidden="true"
               />
-            </Combobox.Button>
-          )}
-          <Combobox.Input
-            className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 cursor-default font-tremor-normal rounded-tremor-default shadow-tremor-sm",
-              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
-              spacing.fourXl.paddingRight,
-              spacing.sm.paddingY,
-              border.sm.all,
-              disabled
-                ? "placeholder:text-tremor-content-subtle"
-                : "placeholder:text-tremor-content",
-              getSelectButtonColors(hasValue(value), disabled),
-            )}
-            placeholder={placeholder}
-            onChange={(event) => setSearchQuery(event.target.value)}
-            displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
-          />
-          <Combobox.Button
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.md.paddingRight,
-            )}
-          >
-            <ArrowDownHeadIcon
-              className={tremorTwMerge(
-                makeSelectBoxClassName("arrowDownIcon"),
-                "flex-none text-tremor-content-subtle",
-                sizing.lg.height,
-                sizing.lg.width,
-              )}
-              aria-hidden="true"
-            />
+            </div>
           </Combobox.Button>
           {filteredOptionTexts.size > 0 && (
             <Combobox.Options

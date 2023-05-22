@@ -53,10 +53,7 @@ export const ButtonIconOrSpinner = ({
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon
-      className={tremorTwMerge(makeButtonClassName("icon"), iconSize, margin)}
-      aria-hidden="true"
-    />
+    <Icon className={tremorTwMerge(makeButtonClassName("icon"), iconSize, margin)} />
   );
 };
 

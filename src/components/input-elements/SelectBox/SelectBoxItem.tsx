@@ -48,7 +48,6 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
             spacing.lg.marginRight,
             getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
           )}
-          aria-hidden="true"
         />
       )}
       <p className="whitespace-nowrap truncate">{text ?? value}</p>
