@@ -20,6 +20,7 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import NoData from "components/chart-elements/common/NoData";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -60,124 +61,128 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   return (
     <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
-        <ReChartsBarChart
-          data={data}
-          stackOffset={relative ? "expand" : "none"}
-          layout={layout === "vertical" ? "vertical" : "horizontal"}
-        >
-          {showGridLines ? (
-            <CartesianGrid
-              strokeDasharray="3 3"
-              horizontal={layout !== "vertical" ? true : false}
-              vertical={layout !== "vertical" ? false : true}
-            />
-          ) : null}
+        {data && data.length ? (
+          <ReChartsBarChart
+            data={data}
+            stackOffset={relative ? "expand" : "none"}
+            layout={layout === "vertical" ? "vertical" : "horizontal"}
+          >
+            {showGridLines ? (
+              <CartesianGrid
+                strokeDasharray="3 3"
+                horizontal={layout !== "vertical" ? true : false}
+                vertical={layout !== "vertical" ? false : true}
+              />
+            ) : null}
 
-          {layout !== "vertical" ? (
-            <XAxis
-              hide={!showXAxis}
-              dataKey={index}
-              interval="preserveStartEnd"
-              tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
-              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-                marginTop: "20px",
-              }}
-              tickLine={false}
-              axisLine={false}
-            />
-          ) : (
-            <XAxis
-              hide={!showXAxis}
-              type="number"
-              tick={{ transform: "translate(-3, 0)" }}
-              domain={yAxisDomain as AxisDomain}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={valueFormatter}
-              padding={{ left: 10, right: 10 }}
-              minTickGap={5}
-              allowDecimals={allowDecimals}
-            />
-          )}
-          {layout !== "vertical" ? (
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              axisLine={false}
-              tickLine={false}
-              type="number"
-              domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-              tickFormatter={
-                relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
-              }
-              allowDecimals={allowDecimals}
-            />
-          ) : (
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              dataKey={index}
-              axisLine={false}
-              tickLine={false}
-              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              type="category"
-              interval="preserveStartEnd"
-              tick={{ transform: "translate(0, 6)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-            />
-          )}
-          {showTooltip ? (
-            <Tooltip
-              // ongoing issue: https://github.com/recharts/recharts/issues/2920
-              wrapperStyle={{ outline: "none" }}
-              isAnimationActive={false}
-              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
-              content={({ active, payload, label }) => (
-                <ChartTooltip
-                  active={active}
-                  payload={payload}
-                  label={label}
-                  valueFormatter={valueFormatter}
-                  categoryColors={categoryColors}
-                />
-              )}
-              position={{ y: 0 }}
-            />
-          ) : null}
-          {showLegend ? (
-            <Legend
-              verticalAlign="top"
-              height={legendHeight}
-              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
-            />
-          ) : null}
-          {categories.map((category) => (
-            <Bar
-              key={category}
-              name={category}
-              type="linear"
-              stackId={stack || relative ? "a" : undefined}
-              dataKey={category}
-              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
-              isAnimationActive={showAnimation}
-            />
-          ))}
-        </ReChartsBarChart>
+            {layout !== "vertical" ? (
+              <XAxis
+                hide={!showXAxis}
+                dataKey={index}
+                interval="preserveStartEnd"
+                tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
+                ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
+                style={{
+                  fontSize: "12px",
+                  fontFamily: "Inter; Helvetica",
+                  marginTop: "20px",
+                }}
+                tickLine={false}
+                axisLine={false}
+              />
+            ) : (
+              <XAxis
+                hide={!showXAxis}
+                type="number"
+                tick={{ transform: "translate(-3, 0)" }}
+                domain={yAxisDomain as AxisDomain}
+                style={{
+                  fontSize: "12px",
+                  fontFamily: "Inter; Helvetica",
+                }}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={valueFormatter}
+                padding={{ left: 10, right: 10 }}
+                minTickGap={5}
+                allowDecimals={allowDecimals}
+              />
+            )}
+            {layout !== "vertical" ? (
+              <YAxis
+                width={yAxisWidth}
+                hide={!showYAxis}
+                axisLine={false}
+                tickLine={false}
+                type="number"
+                domain={yAxisDomain as AxisDomain}
+                tick={{ transform: "translate(-3, 0)" }}
+                style={{
+                  fontSize: "12px",
+                  fontFamily: "Inter; Helvetica",
+                }}
+                tickFormatter={
+                  relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
+                }
+                allowDecimals={allowDecimals}
+              />
+            ) : (
+              <YAxis
+                width={yAxisWidth}
+                hide={!showYAxis}
+                dataKey={index}
+                axisLine={false}
+                tickLine={false}
+                ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
+                type="category"
+                interval="preserveStartEnd"
+                tick={{ transform: "translate(0, 6)" }}
+                style={{
+                  fontSize: "12px",
+                  fontFamily: "Inter; Helvetica",
+                }}
+              />
+            )}
+            {showTooltip ? (
+              <Tooltip
+                // ongoing issue: https://github.com/recharts/recharts/issues/2920
+                wrapperStyle={{ outline: "none" }}
+                isAnimationActive={false}
+                cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+                content={({ active, payload, label }) => (
+                  <ChartTooltip
+                    active={active}
+                    payload={payload}
+                    label={label}
+                    valueFormatter={valueFormatter}
+                    categoryColors={categoryColors}
+                  />
+                )}
+                position={{ y: 0 }}
+              />
+            ) : null}
+            {showLegend ? (
+              <Legend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+              />
+            ) : null}
+            {categories.map((category) => (
+              <Bar
+                key={category}
+                name={category}
+                type="linear"
+                stackId={stack || relative ? "a" : undefined}
+                dataKey={category}
+                fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                isAnimationActive={showAnimation}
+              />
+            ))}
+          </ReChartsBarChart>
+        ) : (
+          <NoData />
+        )}
       </ResponsiveContainer>
     </div>
   );
