@@ -41,5 +41,6 @@ export const getSelectButtonColors = (
   );
 };
 
-export const hasValue = (value: string | null | undefined) =>
-  value !== null && value !== undefined && value !== "";
+export function hasValue<T>(value: T | null | undefined) {
+  return value !== null && value !== undefined && value !== "";
+}

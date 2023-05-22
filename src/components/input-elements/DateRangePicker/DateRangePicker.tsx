@@ -31,7 +31,7 @@ import {
 import { DropdownItem } from "components/input-elements/Dropdown";
 import { ArrowLeftHeadIcon, ArrowRightHeadIcon } from "assets";
 import { Listbox, Popover } from "@headlessui/react";
-import { getSelectButtonColors } from "components/input-elements/selectUtils";
+import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 
 const TODAY = startOfToday();
 
@@ -129,6 +129,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     >
       <Popover as="div" className="w-full">
         <Popover.Button
+          disabled={disabled}
           className={tremorTwMerge(
             "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
             "rounded-l-tremor-default font-tremor-medium shadow-tremor-sm text-tremor-content-emphasis",
@@ -136,7 +137,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             border.sm.all,
-            getSelectButtonColors(true, disabled),
+            getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
           )}
         >
           {formattedSelection}
@@ -203,7 +204,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         </Popover.Panel>
       </Popover>
       {enableDropdown && (
-        <Listbox as="div" className="w-48" onChange={handleDropdownClick}>
+        <Listbox as="div" className="w-48" onChange={handleDropdownClick} disabled={disabled}>
           {({ value }) => (
             <>
               <Listbox.Button
@@ -214,7 +215,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,
                   border.sm.all,
-                  getSelectButtonColors(true, disabled),
+                  getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >
                 {value
