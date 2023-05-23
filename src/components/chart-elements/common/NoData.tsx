@@ -1,10 +1,13 @@
 import React from "react";
 import { Flex, Text } from "components";
 
-const NoData = () => {
+type NoDataProps = {
+  noDataText?: string;
+};
+const NoData = ({ noDataText = "No data" }: NoDataProps) => {
   return (
     <Flex alignItems="center" justifyContent="center" className="w-full h-full">
-      <Text>No data</Text>
+      <Text>{noDataText}</Text>
     </Flex>
   );
 };

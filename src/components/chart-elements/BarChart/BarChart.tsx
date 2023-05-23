@@ -51,6 +51,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     maxValue,
     allowDecimals = true,
     className,
+    noDataText,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -181,7 +182,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             ))}
           </ReChartsBarChart>
         ) : (
-          <NoData />
+          <NoData noDataText={noDataText} />
         )}
       </ResponsiveContainer>
     </div>

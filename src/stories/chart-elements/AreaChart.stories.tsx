@@ -136,6 +136,13 @@ WithNoData.args = {
   index: "month",
 };
 
+export const WithNoDataText = DefaultTemplate.bind({});
+WithNoDataText.args = {
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+  noDataText: "No data, try again later.",
+};
+
 export const WithNoCategories = DefaultTemplate.bind({});
 WithNoCategories.args = {
   data: data,

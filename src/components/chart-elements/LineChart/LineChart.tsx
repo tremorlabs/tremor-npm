@@ -49,6 +49,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     connectNulls = false,
     allowDecimals = true,
     className,
+    noDataText,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -134,7 +135,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             ))}
           </ReChartsLineChart>
         ) : (
-          <NoData />
+          <NoData noDataText={noDataText} />
         )}
       </ResponsiveContainer>
     </div>

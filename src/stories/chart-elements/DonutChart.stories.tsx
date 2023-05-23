@@ -148,6 +148,11 @@ export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {};
 
+export const WithNoDataText = DefaultTemplate.bind({});
+WithNoDataText.args = {
+  noDataText: "No data, try again later.",
+};
+
 export const BlockExample = BlockTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 BlockExample.args = {

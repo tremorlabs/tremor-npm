@@ -24,6 +24,7 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
+  noDataText?: string;
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
@@ -39,6 +40,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     showAnimation = true,
     showTooltip = true,
     className,
+    noDataText,
     ...other
   } = props;
   const isDonut = variant == "donut";
@@ -88,7 +90,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             ) : null}
           </ReChartsDonutChart>
         ) : (
-          <NoData />
+          <NoData noDataText={noDataText} />
         )}
       </ResponsiveContainer>
     </div>
