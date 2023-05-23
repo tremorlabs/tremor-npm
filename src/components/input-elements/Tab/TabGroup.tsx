@@ -30,4 +30,6 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) =>
   );
 });
 
+TabGroup.displayName = "TabGroup";
+
 export default TabGroup;
