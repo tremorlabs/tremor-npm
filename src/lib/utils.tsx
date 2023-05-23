@@ -26,10 +26,11 @@ export const sumNumericArray = (arr: number[]) =>
 
 export const removeValueFromArray = (value: any, array: any[]): any[] => {
   const index = array.indexOf(value);
+  const newArray = [...array];
   if (index > -1) {
-    array.splice(index, 1);
+    newArray.splice(index, 1);
   }
-  return array;
+  return newArray;
 };
 
 export const isValueInArray = (value: any, array: any[]): boolean => {

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import List from "components/list-elements/List/List";
-import ListItem from "components/list-elements/List/ListItem";
+import { List, ListItem } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

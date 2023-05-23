@@ -46,4 +46,6 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   );
 });
 
+Grid.displayName = "Grid";
+
 export default Grid;

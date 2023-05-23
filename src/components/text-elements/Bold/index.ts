@@ -1,1 +1,1 @@
-export { default } from "./Bold";
+export { default as Bold } from "./Bold";

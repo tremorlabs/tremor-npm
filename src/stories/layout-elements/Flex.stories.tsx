@@ -2,8 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card, Metric } from "components";
-import Flex from "components/layout-elements/Flex/Flex";
+import { Card, Flex, Metric } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 

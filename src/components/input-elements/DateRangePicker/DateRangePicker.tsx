@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -22,7 +23,7 @@ import {
 import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 
 export type Locale = typeof enUS;
 
@@ -49,6 +50,7 @@ export interface DateRangePickerProps
   disabled?: boolean;
   color?: Color;
   locale?: Locale;
+  enableClear?: boolean;
 }
 
 const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
@@ -66,6 +68,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     color = BaseColors.Blue,
     enableYearPagination = false,
     locale = enUS,
+    enableClear = true,
     className,
     ...other
   } = props;
@@ -128,6 +131,10 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     setShowDropdown(false);
   };
 
+  const handleClear = () => {
+    setSelectedValue([null, null, null]);
+    onValueChange?.([null, null, null]);
+  };
   const [hoveredDropdownValue, handleDropdownKeyDown] = useSelectOnKeyDown(
     handleDropdownOptionClick,
     dropdownOptions.map((option: DateRangePickerOption) => option.value),
@@ -159,6 +166,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           onDropdownKeyDown={handleDropdownKeyDown}
           locale={locale}
           dropdownPlaceholder={dropdownPlaceholder}
+          enableClear={enableClear}
+          onClear={handleClear}
         />
         {/* Calendar Modal */}
         <Modal
@@ -206,5 +215,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     </BaseColorContext.Provider>
   );
 });
+
+DateRangePicker.displayName = "DateRangePicker";
 
 export default DateRangePicker;

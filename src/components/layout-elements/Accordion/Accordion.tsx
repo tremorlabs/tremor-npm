@@ -1,3 +1,4 @@
+"use client";
 import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -54,5 +55,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
     </div>
   );
 });
+
+Accordion.displayName = "Accordion";
 
 export default Accordion;

@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -78,5 +79,7 @@ const SelectBoxItem = React.forwardRef<HTMLButtonElement, SelectBoxItemProps>((p
     </button>
   );
 });
+
+SelectBoxItem.displayName = "SelectBoxItem";
 
 export default SelectBoxItem;

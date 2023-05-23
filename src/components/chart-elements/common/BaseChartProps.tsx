@@ -18,6 +18,7 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;
+  allowDecimals?: boolean;
 }
 
 export default BaseChartProps;

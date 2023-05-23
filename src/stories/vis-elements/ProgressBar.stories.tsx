@@ -1,10 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 
-import Card from "components/layout-elements/Card";
-import Metric from "components/text-elements/Metric";
+import { Card, Metric, ProgressBar } from "components";
 
 import { BaseColors } from "lib/constants";
 import { Flex } from "components";

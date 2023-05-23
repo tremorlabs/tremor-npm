@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -47,6 +48,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     autoMinValue = false,
     minValue,
     maxValue,
+    allowDecimals = true,
     className,
     ...other
   } = props;
@@ -101,6 +103,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               tickFormatter={valueFormatter}
               padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              allowDecimals={allowDecimals}
             />
           )}
           {layout !== "vertical" ? (
@@ -119,6 +122,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               tickFormatter={
                 relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
               }
+              allowDecimals={allowDecimals}
             />
           ) : (
             <YAxis
@@ -178,5 +182,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     </div>
   );
 });
+
+BarChart.displayName = "BarChart";
 
 export default BarChart;

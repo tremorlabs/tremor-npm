@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -66,5 +67,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
     </div>
   );
 });
+
+AccordionList.displayName = "AccordionList";
 
 export default AccordionList;

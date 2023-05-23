@@ -3,7 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ArrowUpRightIcon } from "assets";
 
-import Callout from "../../components/text-elements/Callout/Callout";
+import { Callout } from "components";
 
 import { BaseColors } from "lib/constants";
 

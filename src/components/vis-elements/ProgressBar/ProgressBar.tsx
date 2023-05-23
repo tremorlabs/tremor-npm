@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -98,5 +99,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
     </>
   );
 });
+
+ProgressBar.displayName = "ProgressBar";
 
 export default ProgressBar;
