@@ -136,9 +136,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             />
           ) : null}
           {
-            <p className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+            <span
+              className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}
+            >
               {showLoadingText ? loadingText : children}
-            </p>
+            </span>
           }
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
