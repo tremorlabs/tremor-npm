@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import Metric from "components/text-elements/Metric";
+import Metric from "components/text-elements/Metric/Metric";
 
 describe("Metric", () => {
   test("renders the Metric component with default props", () => {
