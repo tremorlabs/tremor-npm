@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { render } from "@testing-library/react";
 
-import Modal from "components/util-elements/Modal";
+import Modal from "components/util-elements/Modal/Modal";
 
 const TestModalWrapper = () => {
   const [showModal, setShowModal] = useState(false);

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -74,5 +75,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
     </>
   );
 });
+
+MarkerBar.displayName = "MarkerBar";
 
 export default MarkerBar;

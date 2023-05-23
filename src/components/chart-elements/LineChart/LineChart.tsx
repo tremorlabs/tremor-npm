@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import {
@@ -45,6 +46,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     minValue,
     maxValue,
     connectNulls = false,
+    allowDecimals = true,
     className,
     ...other
   } = props;
@@ -88,6 +90,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               fontFamily: "Inter; Helvetica",
             }}
             tickFormatter={valueFormatter}
+            allowDecimals={allowDecimals}
           />
           {showTooltip ? (
             <Tooltip
@@ -132,5 +135,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     </div>
   );
 });
+
+LineChart.displayName = "LineChart";
 
 export default LineChart;

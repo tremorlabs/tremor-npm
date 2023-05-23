@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -110,5 +111,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
     </>
   );
 });
+
+DeltaBar.displayName = "DeltaBar";
 
 export default DeltaBar;

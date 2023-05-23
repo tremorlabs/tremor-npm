@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { HoveredValueContext, SelectedValueContext } from "contexts";
@@ -90,5 +91,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLButtonElement, MultiSelectBoxIte
     );
   },
 );
+
+MultiSelectBoxItem.displayName = "MultiSelectBoxItem";
 
 export default MultiSelectBoxItem;

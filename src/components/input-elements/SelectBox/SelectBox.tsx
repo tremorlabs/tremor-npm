@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -26,7 +27,7 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 import { SelectBoxItemProps } from "./SelectBoxItem";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
@@ -208,5 +209,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     </div>
   );
 });
+
+SelectBox.displayName = "SelectBox";
 
 export default SelectBox;

@@ -1,3 +1,2 @@
 export { default as DateRangePicker } from "./DateRangePicker";
-
-export { DateRangePickerValue } from "./DateRangePicker";
+export type { DateRangePickerProps, DateRangePickerValue } from "./DateRangePicker";

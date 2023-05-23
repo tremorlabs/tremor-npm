@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -58,5 +59,7 @@ const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
     </div>
   );
 });
+
+Toggle.displayName = "Toggle";
 
 export default Toggle;

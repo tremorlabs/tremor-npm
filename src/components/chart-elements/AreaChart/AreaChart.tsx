@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import {
@@ -48,6 +49,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     minValue,
     maxValue,
     connectNulls = false,
+    allowDecimals = true,
     className,
     ...other
   } = props;
@@ -92,6 +94,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               fontFamily: "Inter; Helvetica",
             }}
             tickFormatter={valueFormatter}
+            allowDecimals={allowDecimals}
           />
           {showTooltip ? (
             <Tooltip
@@ -157,5 +160,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     </div>
   );
 });
+
+AreaChart.displayName = "AreaChart";
 
 export default AreaChart;

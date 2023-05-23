@@ -1,1 +1,2 @@
-export { default } from "./MarkerBar";
+export { default as MarkerBar } from "./MarkerBar";
+export type { MarkerBarProps } from "./MarkerBar";

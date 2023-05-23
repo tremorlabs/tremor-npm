@@ -23,7 +23,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     setShowModal,
     parentRef,
     width,
-    maxHeight = "max-h-72",
+    maxHeight = "max-h-[228px]",
     children,
     className,
     ...other
@@ -96,5 +96,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     </div>
   ) : null;
 });
+
+Modal.displayName = "Modal";
 
 export default Modal;

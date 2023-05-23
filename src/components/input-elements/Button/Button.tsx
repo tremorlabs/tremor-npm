@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Transition } from "react-transition-group";
@@ -163,5 +164,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     </Transition>
   );
 });
+
+Button.displayName = "Button";
 
 export default Button;
