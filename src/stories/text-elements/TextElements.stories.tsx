@@ -2,11 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import Bold from "components/text-elements/Bold/Bold";
-import Italic from "components/text-elements/Italic/Italic";
-
-import Text from "components/text-elements/Text/Text";
-import Title from "components/text-elements/Title/Title";
+import { Bold, Italic, Text, Title } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
