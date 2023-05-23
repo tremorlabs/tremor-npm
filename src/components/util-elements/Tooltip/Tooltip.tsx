@@ -87,4 +87,6 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
   ) : null;
 };
 
+Tooltip.displayName = "Tooltip";
+
 export default Tooltip;

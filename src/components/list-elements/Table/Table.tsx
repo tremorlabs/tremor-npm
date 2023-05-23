@@ -26,4 +26,6 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
   },
 );
 
+Table.displayName = "Table";
+
 export default Table;

@@ -18,4 +18,6 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   },
 );
 
+TableRow.displayName = "TableRow";
+
 export default TableRow;

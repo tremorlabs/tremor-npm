@@ -1,10 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 
-import Card from "components/layout-elements/Card";
-import Metric from "components/text-elements/Metric";
+import { MarkerBar, Metric, Card } from "components";
 
 import { BaseColors } from "lib/constants";
 

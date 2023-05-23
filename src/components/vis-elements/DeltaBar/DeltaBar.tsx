@@ -99,4 +99,6 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
   );
 });
 
+DeltaBar.displayName = "DeltaBar";
+
 export default DeltaBar;

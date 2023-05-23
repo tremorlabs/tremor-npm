@@ -44,6 +44,7 @@ export interface DateRangePickerProps
   disabled?: boolean;
   color?: Color;
   locale?: Locale;
+  enableClear?: boolean;
 }
 
 const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
@@ -60,6 +61,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     disabled = false,
     enableYearPagination = false, // @achi
     locale = enUS,
+    enableClear = true,
     className,
     ...other
   } = props;
@@ -230,5 +232,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     </div>
   );
 });
+
+DateRangePicker.displayName = "DateRangePicker";
 
 export default DateRangePicker;

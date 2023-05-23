@@ -24,4 +24,6 @@ const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListEl
   },
 );
 
+List.displayName = "List";
+
 export default List;

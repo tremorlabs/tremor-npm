@@ -25,4 +25,6 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
   );
 });
 
+Text.displayName = "Text";
+
 export default Text;

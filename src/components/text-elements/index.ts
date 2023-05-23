@@ -1,10 +1,8 @@
-export { default as Bold } from "./Bold";
-export { default as Italic } from "./Italic";
-
-export { default as Metric } from "./Metric";
-export { default as Subtitle } from "./Subtitle";
-export { default as Text } from "./Text";
-export { default as Title } from "./Title";
-
-export { default as Callout } from "./Callout";
-export { default as Legend } from "./Legend";
+export * from "./Text";
+export * from "./Bold";
+export * from "./Italic";
+export * from "./Title";
+export * from "./Subtitle";
+export * from "./Metric";
+export * from "./Callout";
+export * from "./Legend";

@@ -3,8 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import RangeBar from "components/vis-elements/RangeBar/RangeBar";
 
-import Card from "components/layout-elements/Card";
-import Metric from "components/text-elements/Metric";
+import { Card, Metric } from "components";
 
 import { BaseColors } from "lib/constants";
 

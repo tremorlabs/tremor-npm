@@ -26,4 +26,6 @@ const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, r
   );
 });
 
+Subtitle.displayName = "Subtitle";
+
 export default Subtitle;

@@ -1,9 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Divider from "components/layout-elements/Divider/Divider";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
-import { Title } from "components";
+import { Divider, Title } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

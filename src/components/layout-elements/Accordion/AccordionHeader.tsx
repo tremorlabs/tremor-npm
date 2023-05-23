@@ -54,4 +54,6 @@ const AccordionHeader = React.forwardRef<
   );
 });
 
+AccordionHeader.displayName = "AccordionHeader";
+
 export default AccordionHeader;

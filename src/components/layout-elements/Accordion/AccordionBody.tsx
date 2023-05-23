@@ -27,4 +27,6 @@ const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
   },
 );
 
+AccordionBody.displayName = "AccordionBody";
+
 export default AccordionBody;

@@ -52,4 +52,6 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
   },
 );
 
+MultiSelectBoxItem.displayName = "MultiSelectBoxItem";
+
 export default MultiSelectBoxItem;

@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useOnWindowResize } from "hooks";
 
 import { Color } from "../../../lib";
-import Legend from "components/text-elements/Legend";
+import { Legend } from "components/text-elements/Legend";
 
 const ChartLegend = (
   { payload }: any,

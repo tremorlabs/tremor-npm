@@ -37,20 +37,7 @@ const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => (
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
-  data: [
-    {
-      month: "Jan 21'",
-      Sales: 3,
-    },
-    {
-      month: "Feb 21'",
-      Sales: 1,
-    },
-    {
-      month: "Mar 21'",
-      Sales: 2,
-    },
-  ],
+  data: data,
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };

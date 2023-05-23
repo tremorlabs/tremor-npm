@@ -1,12 +1,17 @@
 import React from "react";
 
-import { Card, TableBody, TableHead, TableHeaderCell } from "components";
+import {
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "components";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
-import Table from "components/list-elements/Table/Table";
-import TableCell from "components/list-elements/Table/TableCell";
-import TableRow from "components/list-elements/Table/TableRow";
 import { DeltaType } from "lib";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

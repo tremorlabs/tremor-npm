@@ -178,4 +178,6 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
   );
 });
 
+CategoryBar.displayName = "CategoryBar";
+
 export default CategoryBar;

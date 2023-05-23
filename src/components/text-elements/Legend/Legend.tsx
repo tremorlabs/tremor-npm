@@ -67,4 +67,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   );
 });
 
+Legend.displayName = "Legend";
+
 export default Legend;

@@ -1,1 +1,2 @@
-export { default } from "./LineChart";
+export { default as LineChart } from "./LineChart";
+export type { LineChartProps } from "./LineChart";

@@ -135,4 +135,6 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   );
 });
 
+SelectBox.displayName = "SelectBox";
+
 export default SelectBox;

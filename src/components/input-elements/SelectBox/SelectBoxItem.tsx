@@ -55,4 +55,6 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
   );
 });
 
+SelectBoxItem.displayName = "SelectBoxItem";
+
 export default SelectBoxItem;
