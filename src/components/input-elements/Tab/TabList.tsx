@@ -1,57 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-    BaseColors,
-    border,
-    classNames,
-    defaultColors,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    spacing
-} from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { BaseColorContext, SelectedValueContext } from "contexts";
 
-export interface TabListProps {
-    defaultValue?: any,
-    color?: Color,
-    handleSelect?: { (value: any): void },
-    marginTop?: MarginTop,
-    children: React.ReactElement[] | React.ReactElement
+import { useInternalState } from "hooks";
+
+import { BaseColors, border, getColorClassNames, makeClassName, spacing } from "lib";
+import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeTabListClassName = makeClassName("TabList");
+
+export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
+  color?: Color;
+  children: React.ReactElement[] | React.ReactElement;
 }
 
-const TabList = ({
+const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
+  const {
     defaultValue,
+    value,
+    onValueChange,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
-    marginTop = 'mt-0',
     children,
-}: TabListProps) => {
-    const [selectedTab, setSelectedTab] = useState<any|null>(defaultValue);
+    className,
+    ...other
+  } = props;
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-    useEffect(() => {
-        handleSelect(selectedTab);
-    }, [selectedTab]);
+  const handleValueChange = (value: string) => {
+    onValueChange?.(value);
+    setSelectedValue(value);
+  };
 
-    return(
-        <ol aria-label="Tabs" className={ classNames(
-            'tremor-base tr-flex tr-justify-start tr-overflow-x-clip',
-            getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-            parseMarginTop(marginTop),
-            spacing.twoXl.spaceX,
-            border.sm.bottom,
-        ) }>
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        setSelectedTab: setSelectedTab,
-                        color: color,
-                        isActive: selectedTab === child.props.value,
-                    }
-                })
-            )) }
-        </ol>
-    );
-};
+  return (
+    <div
+      ref={ref}
+      aria-label="Tabs"
+      className={twMerge(
+        makeTabListClassName("root"),
+        "flex justify-start overflow-x-clip",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+        spacing.twoXl.spaceX,
+        border.sm.bottom,
+        className,
+      )}
+      {...other}
+    >
+      <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
+        <BaseColorContext.Provider value={color}>
+          {React.Children.map(children, (child) => React.cloneElement(child))}
+        </BaseColorContext.Provider>
+      </SelectedValueContext.Provider>
+    </div>
+  );
+});
 
 export default TabList;

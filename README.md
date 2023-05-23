@@ -17,9 +17,15 @@
     <a href="https://github.com/tremorlabs/tremor/blob/main/License">
       <img alt="License Apache 2.0" src="https://img.shields.io/badge/license-Apache 2.0-blue.svg?style=flat&color=5C9BA1" height="20" width="auto">
     </a>
+    <a href="https://join.slack.com/t/tremor-community/shared_invite/zt-1u8jqmcmq-Fdr9B6MbnO7u8FkGh~2Ylg">
+      <img src="https://img.shields.io/badge/Join-important.svg?color=4A154B&label=Slack&logo=slack" alt="Join Slack" />
+    </a>
+    <a href="https://twitter.com/intent/follow?screen_name=tremorlabs">
+      <img src="https://img.shields.io/twitter/follow/tremorlabs?style=social" alt="Follow on Twitter" />
+    </a>
   </div>
   <h3 align="center">
-    <a href="https://www.tremor.so/docs/getting-started/introduction">Documentation</a> &bull;
+    <a href="https://www.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
     <a href="https://demo.tremor.so/">Demo Dashboard</a> &bull;
     <a href="https://www.tremor.so">Website</a>
   </h3>
@@ -35,24 +41,29 @@
 <br>
 <br>
 
-![Tremor Banner](images/banner3.png)
+![Tremor Banner](images/banner1.png)
 
 <br>
 <br>
 
 ## Getting Started
 
-### 1. Create a React project
+You can use tremor either within a [React](https://reactjs.org/) or [Next.js](https://nextjs.org) Project.
+For new projects, we recommend using Next.js, as it also provides a simple deployment workflow through the [Vercel](https://vercel.com/docs) platform.
+For other Frameworks, see our [Installation Guide](https://www.tremor.so/docs/getting-started/installation).
 
-We start by creating a new React project with
-[Create React App]([url](https://create-react-app.dev/docs/getting-started/)).
+<br>
+
+## Using NextJS 
+
+In your terminal, we create a new Next project:
 
 ```bash
-npx create-react-app my-project
+npx create-next-app my-project --typescript 
 cd my-project
 ```
 
-### 2. Install the tremor library
+<br>
 
 Install tremor from your command line via npm.
 
@@ -60,41 +71,88 @@ Install tremor from your command line via npm.
 npm install @tremor/react
 ```
 
-Import our stylesheet into your `App.js` file.
-```tsx
-import '@tremor/react/dist/esm/tremor.css';
-```
-Since we are in beta, please be aware that there might be breaking changes in the future.
-
-Finally, run the dev server.
-```bash
-npm start
-```
-
-**💡 Hint:** If you want to see how you can build your first dashboard, have a look at our [documentation](https://tremor.so/docs/getting-started/demo-dashboard).
-
 <br>
+
+Install Tailwind CSS and its peer dependencies
+
+```bash
+npm install -D tailwindcss postcss autoprefixer 
+npx tailwindcss init -p
+```
+<br>
+
+Add the paths to all of your template files in your `tailwind.config.js` file.
+
+```diff
+/** @type {import('tailwindcss').Config} */
+
+module.exports = {
+    content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
++   './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
+    
+    // Or if using src directory:
+    "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+    extend: {},
+    },
+    plugins: [],
+}
+```
+
+Add the `@tailwind` directives for each Tailwind's layers to your `globals.css` file.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Start the dev server
+
+```bash
+npm run dev
+```
+
+**⚠️ Note:** Since we have not fully migrated to Next.js 13 yet, if you are using the `app` directory introduced in Next.js 13, wrap your tremor components in another component by using the `"use client"` directive. More infos on the directive and the usage of third-party libraries in Next.js 13 can be found in the [Next.js docs](https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages).
+
+If you get the following error while using the `app` directory: `TypeError: Super expression must either be null or a function`, then add the [`serverComponentsExternalPackages`](https://beta.nextjs.org/docs/api-reference/next.config.js#servercomponentsexternalpackages) to your `next.config.js`.
+
+```diff
+const nextConfig = {
+  experimental: {
+    appDir: true,
++    serverComponentsExternalPackages: ['@tremor/react'],
+  },
+}
+```
+<br>
+<br>
+
+**💡 Hint:** Since we are in beta, please be aware that there might be breaking changes in the future.
 <br>
 
 ## Example
 
 With tremor creating an analytical interface is easy.
-<br>
+
 <br>
 
 ```jsx
 //Card.tsx
 import { Card, Text, Metric, Flex, ProgressBar } from "@tremor/react";
-
 export default () => (
-  <Card maxWidth="max-w-sm">
+  <Card className="max-w-sm">
     <Text>Sales</Text>
     <Metric>$ 71,465</Metric>
-    <Flex marginTop='mt-4'>
+    <Flex className='mt-4'>
         <Text>32% of annual target</Text>
         <Text>$ 225,000</Text>
     </Flex>
-    <ProgressBar percentageValue={ 32 } marginTop="mt-2" />
+    <ProgressBar percentageValue={ 32 } className="mt-2" />
   </Card>
 );
 ```
@@ -103,6 +161,8 @@ export default () => (
 ![Tremor Banner](images/example.png)
 
 <br>
+
+If you want to see how you can build your first dashboard, have a look at our [documentation](https://tremor.so/docs/getting-started/demo-dashboard).
 
 ## Community and Contribution
 
@@ -114,4 +174,4 @@ We are always looking for new ideas or other ways to improve tremor. If you have
 
 [Apache License 2.0](https://github.com/tremorlabs/tremor/blob/main/License)
 
-Copyright &copy;  2022 Tremor. All rights reserved.
+Copyright &copy;  2023 Tremor. All rights reserved.

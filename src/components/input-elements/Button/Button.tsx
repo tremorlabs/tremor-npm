@@ -1,106 +1,167 @@
-import React from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
+import { Transition } from "react-transition-group";
 
 import {
-    BaseColors,
-    HorizontalPositions,
-    Importances,
-    Sizes,
-    border,
-    borderRadius,
-    boxShadow,
-    classNames,
-    fontWeight,
-    isBaseColor,
-    isValidImportance,
-    isValidSize,
-    parseMarginTop,
-    spacing,
-} from 'lib';
-import { Color, HorizontalPosition, Importance, MarginTop, Size } from '../../../lib';
-import {
-    buttonProportions,
-    colors,
-    iconSizes,
-} from './styles';
+  BaseColors,
+  HorizontalPositions,
+  Sizes,
+  border,
+  borderRadius,
+  boxShadow,
+  fontWeight,
+  makeClassName,
+  sizing,
+  spacing,
+} from "lib";
+import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
+import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
+import { LoadingSpinner } from "assets";
 
-export interface ButtonProps {
-    text: string,
-    icon?: React.ElementType,
-    iconPosition?: HorizontalPosition,
-    size?: Size,
-    color?: Color,
-    importance?: Importance,
-    handleClick?: { (): void },
-    marginTop?: MarginTop,
+const makeButtonClassName = makeClassName("Button");
+
+export interface ButtonIconOrSpinnerProps {
+  loading: boolean;
+  iconSize: string;
+  iconPosition: string;
+  Icon: React.ElementType | undefined;
+  transitionState: string;
 }
 
-const Button = ({
-    text,
+export const ButtonIconOrSpinner = ({
+  loading,
+  iconSize,
+  iconPosition,
+  Icon,
+  transitionState,
+}: ButtonIconOrSpinnerProps) => {
+  Icon = Icon!;
+
+  const margin =
+    iconPosition === HorizontalPositions.Left
+      ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+      : twMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+
+  const defaultSpinnerSize = twMerge(sizing.none.width, sizing.none.height);
+  const spinnerSize: { [key: string]: any } = {
+    default: defaultSpinnerSize,
+    entering: defaultSpinnerSize,
+    entered: iconSize,
+    exiting: iconSize,
+    exited: defaultSpinnerSize,
+  };
+
+  return loading ? (
+    <LoadingSpinner
+      className={twMerge(
+        makeButtonClassName("icon"),
+        "animate-spin",
+        margin,
+        spinnerSize.default,
+        spinnerSize[transitionState],
+      )}
+      style={{ transition: `width 150ms` }}
+    />
+  ) : (
+    <Icon className={twMerge(makeButtonClassName("icon"), iconSize, margin)} aria-hidden="true" />
+  );
+};
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: React.ElementType;
+  iconPosition?: HorizontalPosition;
+  size?: Size;
+  color?: Color;
+  variant?: ButtonVariant;
+  disabled?: boolean;
+  loading?: boolean;
+  loadingText?: string;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {
     icon,
     iconPosition = HorizontalPositions.Left,
-    handleClick,
     size = Sizes.SM,
     color = BaseColors.Blue,
-    importance = Importances.Primary,
-    marginTop = 'mt-0',
-}: ButtonProps) => {
-    const buttonColors = isBaseColor(color) ? colors[color] : colors[BaseColors.Blue];
-    const buttonSize = isValidSize(size) ? size : Sizes.SM;
-    const buttonImportance = isValidImportance(importance) ? importance : Importances.Primary;
-    const Icon = icon ? icon : null;
-    return (
-        <span className={classNames('tremor-base', parseMarginTop(marginTop))}>
-            <button
-                type="button"
-                onClick={handleClick}
-                className={classNames(
-                    'input-elem tr-flex-shrink-0 tr-inline-flex tr-items-center tr-group',
-                    'focus:tr-outline-none focus:tr-ring-2 focus:tr-ring-offset-2 focus:tr-ring-transparent',
-                    borderRadius.md.all,
-                    border.sm.all,
-                    boxShadow.sm,
-                    fontWeight.md,
-                    buttonProportions[buttonSize].paddingLeft,
-                    buttonProportions[buttonSize].paddingRight,
-                    buttonProportions[buttonSize].paddingTop,
-                    buttonProportions[buttonSize].paddingBottom,
-                    buttonProportions[buttonSize].fontSize,
-                    buttonColors[buttonImportance].bgColor,
-                    buttonColors[buttonImportance].borderColor,
-                    buttonColors[buttonImportance].focusRingColor,
-                    buttonColors[buttonImportance].hoverBgColor,
-                    buttonColors[buttonImportance].hoverBorderColor,
-                    buttonColors[buttonImportance].textColor,
-                )}
-            >
-                {Icon && (iconPosition !== HorizontalPositions.Right) ? ( // ensures that icon is rendered if iconPosition is misspelled
-                    <Icon
-                        className={classNames(
-                            spacing.twoXs.negativeMarginLeft,
-                            spacing.xs.marginRight,
-                            iconSizes[buttonSize].height,
-                            iconSizes[buttonSize].width,
-                        )}
-                        aria-hidden="true"
-                    />
-                ) : null}
-                <p className="text-elem tr-whitespace-nowrap">
-                    {text}
-                </p>
-                {Icon && (iconPosition === HorizontalPositions.Right) ? (
-                    <Icon
-                        className={classNames(
-                            spacing.twoXs.negativeMarginRight,
-                            spacing.xs.marginLeft,
-                            iconSizes[buttonSize].height,
-                            iconSizes[buttonSize].width,
-                        )}
-                        aria-hidden="true"
-                    />
-                ) : null}
-            </button>
-        </span>
-    );
-};
+    variant = "primary",
+    disabled,
+    loading = false,
+    loadingText,
+    children,
+    className,
+    ...other
+  } = props;
+
+  const Icon = icon;
+
+  const isDisabled = loading || disabled;
+  const showButtonIconOrSpinner = Icon !== undefined || loading;
+  const showLoadingText = loading && loadingText;
+
+  const iconSize = twMerge(iconSizes[size].height, iconSizes[size].width);
+  const buttonShapeStyles =
+    variant !== "light" ? twMerge(borderRadius.md.all, border.sm.all, boxShadow.sm) : "";
+  const buttonColorStyles = getButtonColors(variant, color);
+  const buttonProportionStyles = getButtonProportions(variant)[size];
+
+  return (
+    <Transition in={loading} timeout={50}>
+      {(state) => (
+        <button
+          ref={ref}
+          className={twMerge(
+            makeButtonClassName("root"),
+            "flex-shrink-0 inline-flex justify-center items-center group",
+            "focus:outline-none focus:ring-2 focus:ring-offset-2",
+            fontWeight.md,
+            buttonShapeStyles,
+            buttonProportionStyles.paddingX,
+            buttonProportionStyles.paddingY,
+            buttonProportionStyles.fontSize,
+            buttonColorStyles.textColor,
+            buttonColorStyles.bgColor,
+            buttonColorStyles.borderColor,
+            buttonColorStyles.focusRingColor,
+            !isDisabled
+              ? twMerge(
+                  getButtonColors(variant, color).hoverTextColor,
+                  getButtonColors(variant, color).hoverBgColor,
+                  getButtonColors(variant, color).hoverBorderColor,
+                )
+              : "opacity-50",
+            className,
+          )}
+          disabled={isDisabled}
+          {...other}
+        >
+          {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+          {
+            <p className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+              {showLoadingText ? loadingText : children}
+            </p>
+          }
+          {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
+            <ButtonIconOrSpinner
+              loading={loading}
+              iconSize={iconSize}
+              iconPosition={iconPosition}
+              Icon={Icon}
+              transitionState={state}
+            />
+          ) : null}
+        </button>
+      )}
+    </Transition>
+  );
+});
 
 export default Button;

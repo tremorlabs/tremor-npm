@@ -1,24 +1,19 @@
-import React from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import { classNames, fontSize, fontWeight } from 'lib';
+import { fontSize, fontWeight } from "lib";
 
-export interface BoldProps {
-    children: React.ReactNode
-}
-
-const Bold = ({
-    children,
-}: BoldProps) => {
-    return(
-        <span className={ classNames(
-            'tremor-base tr-text-inherit',
-            fontSize.sm,
-            fontWeight.lg,
-        ) }
-        >
-            { children }
-        </span>
-    );
-};
+const Bold = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
+  const { children, className, ...other } = props;
+  return (
+    <b
+      ref={ref}
+      className={twMerge("text-inherit", fontSize.sm, fontWeight.lg, className)}
+      {...other}
+    >
+      {children}
+    </b>
+  );
+});
 
 export default Bold;

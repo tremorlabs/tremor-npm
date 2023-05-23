@@ -1,119 +1,81 @@
-import React, { useEffect } from 'react';
-
-import { BaseColorTheme, colorTheme } from './colors';
-import { BaseColors, DeltaTypes, Importances, Sizes } from './primitives';
-import { Color, DeltaType, Importance, Size, ValueFormatter } from './inputTypes';
-
-export const isBaseColor = (baseColor: Color): boolean => {
-    return Object.values(BaseColors).includes(baseColor);
-};
-
-export const getColorTheme = (
-    baseColor: Color | null | undefined,
-    defaultColor: Color = BaseColors.Blue
-): BaseColorTheme => {
-    if (!baseColor || !isBaseColor(baseColor)) {
-        return colorTheme[defaultColor];
-    }
-    return colorTheme[baseColor];
-};
-
-export const isValidSize = (size: Size): boolean => {
-    return Object.values(Sizes).includes(size);
-};
-
-export const isValidDeltaType = (deltaType: DeltaType): boolean => {
-    return Object.values(DeltaTypes).includes(deltaType);
-};
-
-export const isValidImportance = (importance: Importance): boolean => {
-    return Object.values(Importances).includes(importance);
-};
+import { DeltaTypes } from "./constants";
+import { Color, ValueFormatter } from "./inputTypes";
+import { colorClassNames } from "./colorClassNames";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
-    if (isIncreasePositive || deltaType===DeltaTypes.Unchanged) {
-        return deltaType;
-    }
-    switch (deltaType) {
+  if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
+    return deltaType;
+  }
+  switch (deltaType) {
     case DeltaTypes.Increase:
-        return DeltaTypes.Decrease;
+      return DeltaTypes.Decrease;
     case DeltaTypes.ModerateIncrease:
-        return DeltaTypes.ModerateDecrease;
+      return DeltaTypes.ModerateDecrease;
     case DeltaTypes.Decrease:
-        return DeltaTypes.Increase;
+      return DeltaTypes.Increase;
     case DeltaTypes.ModerateDecrease:
-        return DeltaTypes.ModerateIncrease;
-    }
-    return '';
+      return DeltaTypes.ModerateIncrease;
+  }
+  return "";
 };
 
 export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
-export const useOnClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: {(event: any): void}) => {
-    useEffect(
-        () => {
-            const listener = (event: any) => {
-                if (!ref.current || ref.current.contains(event.target)) {
-                    return;
-                }
-                handler(event);
-            };
-            document.addEventListener('mousedown', listener);
-            document.addEventListener('touchstart', listener);
-            return () => {
-                document.removeEventListener('mousedown', listener);
-                document.removeEventListener('touchstart', listener);
-            };
-        },
-        [ref, handler]
-    );
-};
+export const sumNumericArray = (arr: number[]) =>
+  arr.reduce((prefixSum, num) => prefixSum + num, 0);
 
 export const removeValueFromArray = (value: any, array: any[]): any[] => {
-    const index = array.indexOf(value);
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    return array;
+  const index = array.indexOf(value);
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+  return array;
 };
 
 export const isValueInArray = (value: any, array: any[]): boolean => {
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] === value) {
-            return true;
-        }
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === value) {
+      return true;
     }
-    return false;
+  }
+  return false;
 };
 
-export const stringIsNumeric = (str: string|undefined): boolean => {
-    return !isNaN(Number(str)) && (str!==undefined);
+export const stringIsNumeric = (str: string | undefined): boolean => {
+  return !isNaN(Number(str)) && str !== undefined;
 };
 
 export const stringEndsWithNumber = (str: string): boolean => {
-    return stringIsNumeric(str.split('-').pop());
+  return stringIsNumeric(str.split("-").pop());
 };
 
-export const constructValueToNameMapping = (
-    children: React.ReactElement[] | React.ReactElement
-): Map<string, string> => {
-    const valueToNameMapping = new Map<string, string>();
-    React.Children.map(children, (child) => {
-        valueToNameMapping.set(child.props.value, child.props.text);
+export function mergeRefs<T = any>(
+  refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>,
+): React.RefCallback<T> {
+  return (value) => {
+    refs.forEach((ref) => {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref != null) {
+        (ref as React.MutableRefObject<T | null>).current = value;
+      }
     });
-    return valueToNameMapping;
-};
+  };
+}
 
-export const getOptionNamesFromChildren = (children: React.ReactElement[] | React.ReactElement): string[] => (
-    React.Children.map(children, (child) => {
-        return String(child.props.text);
-    })
-);
+export function makeClassName(componentName: string) {
+  return (className: string) => {
+    return `tremor-${componentName}-${className}`;
+  };
+}
 
-export const getFilteredOptionNames = (searchQuery: string, allOptionNames: string[]) => {
-    return searchQuery === ''
-        ? allOptionNames
-        : allOptionNames.filter((optionName: string) => {
-            return optionName.toLowerCase().includes(searchQuery.toLowerCase());
-        });
-};
+export function getColorClassNames(
+  color: Color | "white" | "black" | "transparent",
+  shade?: number,
+) {
+  if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
+  if (color === "white" || color === "black" || color === "transparent" || !shade) {
+    return colorClassNames[color][500];
+  }
+  return colorClassNames[color][shade];
+}

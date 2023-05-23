@@ -1,140 +1,212 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon } from 'assets';
+import { ArrowDownHeadIcon } from "assets";
 
-import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
+import { useInternalState, useSelectOnKeyDown } from "hooks";
+
+import { HoveredValueContext, SelectedValueContext } from "contexts";
+
 import {
-    border,
-    borderRadius,
-    boxShadow,
-    classNames,
-    constructValueToNameMapping,
-    defaultColors,
-    fontSize,
-    fontWeight,
-    getColorVariantsFromColorThemeValue,
-    getFilteredOptionNames,
-    getOptionNamesFromChildren,
-    parseMarginTop,
-    parseMaxWidth,
-    sizing,
-    spacing
-} from 'lib';
-import Modal from 'components/layout-elements/Modal';
+  BaseColors,
+  border,
+  borderRadius,
+  boxShadow,
+  fontSize,
+  fontWeight,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
+  sizing,
+  spacing,
+} from "lib";
+import {
+  constructValueToNameMapping,
+  getFilteredOptions,
+  getSelectButtonColors,
+  hasValue,
+} from "../selectUtils";
+import { Modal } from "components/util-elements/Modal";
+import { SelectBoxItemProps } from "./SelectBoxItem";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface SelectBoxProps {
-    defaultValue?: any,
-    handleSelect?: { (value: any): void },
-    placeholder?: string,
-    marginTop?: MarginTop,
-    maxWidth?: MaxWidth,
-    children: React.ReactElement[] | React.ReactElement,
+const makeSelectBoxClassName = makeClassName("SelectBox");
+
+export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  icon?: React.ElementType | React.JSXElementConstructor<any>;
+  children: React.ReactElement[] | React.ReactElement;
 }
 
-const SelectBox = ({
+const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) => {
+  const {
     defaultValue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
-    placeholder = 'Select...',
-    marginTop = 'mt-0',
-    maxWidth = 'max-w-none',
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    disabled = false,
+    icon,
     children,
-}: SelectBoxProps) => {
-    const dropdownRef = useRef(null);
+    className,
+    onKeyDown,
+    ...other
+  } = props;
+  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
-    const valueToNameMapping = constructValueToNameMapping(children);
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+  const [inputValue, setInputValue] = useState(valueToNameMapping.get(selectedValue || "") || "");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
-    const [showModal, setShowModal] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [inputText, setInputText] = useState(selectedItem ? valueToNameMapping.get(selectedItem) : '');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const Icon = icon;
+  const hasSelection = hasValue(selectedValue);
 
-    const allOptionNames = getOptionNamesFromChildren(children);
-    const filteredOptionNames = new Set(getFilteredOptionNames(searchQuery, allOptionNames));
+  useEffect(() => {
+    if (selectedValue !== undefined) setInputValue(valueToNameMapping.get(selectedValue) || "");
+  }, [selectedValue, valueToNameMapping]);
 
-    const handleSelectBoxItemClick = (value: any) => {
-        setInputText(valueToNameMapping.get(value));
-        setSelectedItem(value);
-        handleSelect(value);
-        setShowModal(false);
-    };
+  const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
+    ...child.props,
+  }));
 
-    return (
-        <div ref={ dropdownRef } className={ classNames(
-            'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
-            parseMaxWidth(maxWidth),
-            getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-            parseMarginTop(marginTop),
-            borderRadius.md.all,
-            border.sm.all,
-            boxShadow.sm,
-        ) }>
-            <input
-                className={ classNames(
-                    'input-elem tr-w-full focus:tr-ring-2 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor,
-                    spacing.twoXl.paddingLeft,
-                    spacing.sm.paddingTop,
-                    spacing.sm.paddingBottom,
-                    fontSize.sm,
-                    fontWeight.md,
-                    borderRadius.md.all,
-                    border.none.all,
-                    'placeholder:tr-text-gray-500',
-                    'tr-pr-10' // avoid text overflow at arrow down icon
-                ) }
-                type="text"
-                placeholder={ placeholder }
-                value={ inputText }
-                onChange={ (e) => { setSearchQuery(e.target.value); setInputText(e.target.value); } }
-                onClick={ () => setShowModal(!showModal) }
-            />
-            <button
-                type="button"
-                className={ classNames(
-                    'tr-absolute tr-top-1/2 -tr-translate-y-1/2',
-                    'tr-m-0 tr-p-0',
-                    spacing.twoXl.right,
-                ) }
-                onClick={ () => setShowModal(!showModal) }
-            >
-                <ArrowDownHeadIcon
-                    className={ classNames(
-                        'tr-flex-none',
-                        sizing.lg.height,
-                        sizing.lg.width,
-                        spacing.twoXs.negativeMarginRight,
-                        getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                    ) }
-                    aria-hidden="true"
-                />
-            </button>
-            <Modal
-                showModal={ filteredOptionNames.size === 0 ? false : showModal }
-                setShowModal={ setShowModal }
-                triggerRef={ dropdownRef }
-            >
-                { React.Children.map(children, (child) => {
-                    if (filteredOptionNames.has(String(child.props.text))) {
-                        return (
-                            <>
-                                { React.cloneElement(child, {
-                                    privateProps: {
-                                        handleSelectBoxItemClick: handleSelectBoxItemClick,
-                                        isActive: selectedItem === child.props.value,
-                                    }
-                                }) }
-                            </>
-                        );
-                    }
-                    return null;
-                }) }
-            </Modal>
-        </div>
-    );
-};
+  const filteredOptions = getFilteredOptions(searchQuery, options);
+
+  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
+  const filteredOptionValues = filteredOptions.map((option) => option.value);
+
+  const handleFocusChange = (isFocused: boolean) => {
+    if (isFocused === false) {
+      inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus();
+      if (inputRef.current) {
+        inputRef.current.selectionStart = inputRef.current.value.length;
+        inputRef.current.selectionEnd = inputRef.current.value.length;
+      }
+    }
+    setIsFocused(isFocused);
+  };
+
+  const handleValueChange = (value: string) => {
+    setSearchQuery("");
+    if (value !== undefined) setInputValue(valueToNameMapping.get(value) || "");
+    handleFocusChange(false);
+    setSelectedValue(value);
+    inputRef.current?.blur();
+
+    onValueChange?.(value);
+  };
+
+  const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setInputValue(e.target.value);
+  };
+
+  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
+    handleValueChange,
+    filteredOptionValues,
+    isFocused,
+    handleFocusChange,
+    selectedValue,
+  );
+
+  return (
+    <div
+      ref={mergeRefs([dropdownRef, ref])}
+      onKeyDown={(e) => {
+        handleKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      className={twMerge("relative w-full min-w-[10rem]", className)}
+      {...other}
+    >
+      <button
+        className={twMerge(
+          makeSelectBoxClassName("root"),
+          "flex w-full items-center overflow-hidden cursor-text focus:outline-none focus:ring-2",
+          getSelectButtonColors(hasSelection, disabled),
+          isFocused &&
+            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
+          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+        )}
+        onClick={(e) => {
+          handleFocusChange(!isFocused);
+          e.preventDefault();
+        }}
+        disabled={disabled}
+      >
+        {Icon ? (
+          <Icon
+            className={twMerge(
+              makeSelectBoxClassName("icon"),
+              "shrink-0 bg-inherit",
+              sizing.lg.height,
+              sizing.lg.width,
+              spacing.xl.marginLeft,
+              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            )}
+            aria-hidden="true"
+          />
+        ) : null}
+        <input
+          ref={inputRef}
+          type="text"
+          className={twMerge(
+            makeSelectBoxClassName("input"),
+            "w-full focus:outline-none focus:ring-0 bg-inherit",
+            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            spacing.sm.paddingY,
+            fontSize.sm,
+            fontWeight.md,
+            border.none.all,
+            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
+          )}
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={handleInputValueChange}
+          onFocus={() => handleFocusChange(true)}
+          onMouseDown={(e) => e.preventDefault()}
+        />
+        <ArrowDownHeadIcon
+          className={twMerge(
+            makeSelectBoxClassName("arrowDownIcon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.lg.marginRight,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+          )}
+          aria-hidden="true"
+        />
+      </button>
+      <Modal
+        showModal={filteredOptions.length === 0 ? false : isFocused}
+        setShowModal={handleFocusChange}
+        parentRef={dropdownRef}
+      >
+        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
+          <HoveredValueContext.Provider value={{ hoveredValue }}>
+            {React.Children.map(children, (child) => {
+              const optionValue = child.props.text ?? child.props.value;
+              if (filteredOptionTexts.has(String(optionValue))) {
+                return React.cloneElement(child);
+              }
+              return null;
+            })}
+          </HoveredValueContext.Provider>
+        </SelectedValueContext.Provider>
+      </Modal>
+    </div>
+  );
+});
 
 export default SelectBox;

@@ -1,67 +1,58 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-    border,
-    borderRadius,
-    boxShadow,
-    classNames,
-    defaultColors,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop
-} from 'lib';
-import { MarginTop } from '../../../lib';
+import { border, borderRadius, getColorClassNames, makeClassName } from "lib";
+import { RootStylesContext } from "contexts";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface AccordionProps {
-    shadow?: boolean,
-    expanded?: boolean,
-    marginTop?: MarginTop,
-    children: React.ReactElement[] | React.ReactElement,
-    privateProps?: {
-        shapeClassNames: string,
-    },
+const makeAccordionClassName = makeClassName("Accordion");
+
+interface ExpandedContextValue {
+  isExpanded: boolean;
+  setIsExpanded: Dispatch<SetStateAction<boolean>> | undefined;
+}
+export const ExpandedContext = createContext<ExpandedContextValue>({
+  isExpanded: false,
+  setIsExpanded: undefined,
+});
+
+export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+  expanded?: boolean;
+  children: React.ReactElement[] | React.ReactElement;
 }
 
-const Accordion = ({
-    shadow,
-    expanded = false,
-    marginTop = 'mt-0',
-    children,
-    privateProps = {
-        shapeClassNames: classNames(border.sm.all, borderRadius.lg.all),
-    },
-}: AccordionProps) => {
+const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
+  const { expanded = false, children, className, ...other } = props;
+  const [isExpanded, setIsExpanded] = useState(expanded);
 
-    const [isExpanded, setExpanded] = useState(expanded);
+  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all, borderRadius.lg.all);
 
-    return(
-        <div className={ classNames(
-            'tremor-base tr-overflow-hidden',
-            parseMarginTop(marginTop),
-            getColorVariantsFromColorThemeValue(defaultColors.lightBorder).borderColor,
-            getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-            privateProps!.shapeClassNames,
-            shadow ? boxShadow.md : '',
-        ) }>
-            { React.Children.map(children, (child, idx) => {
-                if (idx===0) return (
-                    <>
-                        { React.cloneElement(child, {
-                            privateProps: {
-                                isExpanded: isExpanded,
-                                setExpanded: setExpanded
-                            } })
-                        }
-                    </>
-                );
+  return (
+    <div
+      ref={ref}
+      className={twMerge(
+        makeAccordionClassName("root"),
+        "overflow-hidden",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
+        getColorClassNames("white").bgColor,
+        rootStyles,
+        className,
+      )}
+      {...other}
+    >
+      {React.Children.map(children, (child, idx) => {
+        if (idx === 0) {
+          return (
+            <ExpandedContext.Provider value={{ isExpanded, setIsExpanded }}>
+              {React.cloneElement(child)}
+            </ExpandedContext.Provider>
+          );
+        }
 
-                return (
-                    <div className={ isExpanded ? '' : 'tr-hidden' }>
-                        { child }
-                    </div>
-                );
-            }) }
-        </div>  
-    );
-};
+        return <div className={isExpanded ? "" : "hidden"}>{child}</div>;
+      })}
+    </div>
+  );
+});
 
 export default Accordion;

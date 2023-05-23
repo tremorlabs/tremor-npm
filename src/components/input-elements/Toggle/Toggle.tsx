@@ -1,61 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-    BaseColors,
-    borderRadius,
-    classNames,
-    defaultColors,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    spacing
-} from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { BaseColorContext, SelectedValueContext } from "contexts";
 
-export interface ToggleProps {
-    defaultValue?: any,
-    color?: Color,
-    handleSelect?: { (value: any): void },
-    children: React.ReactElement[] | React.ReactElement,
-    marginTop?: MarginTop,
+import { useInternalState } from "hooks";
+
+import { BaseColors, borderRadius, getColorClassNames, makeClassName, spacing } from "lib";
+import { Color } from "../../../lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+
+const makeToggleClassName = makeClassName("Toggle");
+
+export interface ToggleProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
+  color?: Color;
+  children: React.ReactElement[] | React.ReactElement;
 }
 
-const Toggle = ({
+const Toggle = React.forwardRef<HTMLDivElement, ToggleProps>((props, ref) => {
+  const {
     defaultValue,
+    value,
+    onValueChange,
     color = BaseColors.Blue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleSelect = (value) => null,
-    marginTop = 'mt-0',
     children,
-}: ToggleProps) => {
-    const [activeToggleItem, setActiveToggleItem] = useState<any|null>(defaultValue);
+    className,
+    ...other
+  } = props;
 
-    useEffect(() => {
-        handleSelect(activeToggleItem);
-    }, [activeToggleItem]);
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-    return (
-        <div className={ classNames(
-            'tremor-base tr-flex-nowrap tr-inline-flex tr-justify-start',
-            getColorVariantsFromColorThemeValue(defaultColors.lightBackground).bgColor,
-            parseMarginTop(marginTop),
-            spacing.twoXs.paddingLeft,
-            spacing.twoXs.paddingRight,
-            spacing.twoXs.paddingTop,
-            spacing.twoXs.paddingBottom,
-            borderRadius.lg.all
-        ) }
-        >
-            { React.Children.map(children, (child) => (
-                React.cloneElement(child, {
-                    privateProps: {
-                        setActiveToggleItem: setActiveToggleItem,
-                        isActive: activeToggleItem === child.props.value,
-                        color: color,
-                    }
-                })
-            )) }
-        </div>
-    );
-};
+  const handleValueChange = (value: string) => {
+    onValueChange?.(value);
+    setSelectedValue(value);
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={twMerge(
+        makeToggleClassName("root"),
+        "flex-nowrap inline-flex justify-start",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.lightBackground).bgColor,
+        spacing.twoXs.paddingAll,
+        borderRadius.lg.all,
+        className,
+      )}
+      {...other}
+    >
+      <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
+        <BaseColorContext.Provider value={color}>
+          {React.Children.map(children, (child) => React.cloneElement(child))}
+        </BaseColorContext.Provider>
+      </SelectedValueContext.Provider>
+    </div>
+  );
+});
 
 export default Toggle;

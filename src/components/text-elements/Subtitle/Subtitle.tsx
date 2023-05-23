@@ -1,44 +1,30 @@
-import React from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-    BaseColors,
-    classNames,
-    fontSize,
-    fontWeight,
-    getColorTheme,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    parseTruncateOption
-} from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { Color } from "../../../lib";
+import { colorPalette } from "lib/theme";
 
-export interface SubtitleProps {
-    color?: Color,
-    truncate?: boolean,
-    marginTop?: MarginTop,
-    children: React.ReactNode,
+export interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color;
 }
 
-const Subtitle = ({
-    color = BaseColors.Gray,
-    truncate = false,
-    marginTop = 'mt-0',
-    children
-}: SubtitleProps) => {
-    return(
-        <p className={ classNames(
-            'text-elem tremor-base',
-            truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
-            parseTruncateOption(truncate),
-            parseMarginTop(marginTop),
-            getColorVariantsFromColorThemeValue(getColorTheme(color).lightText).textColor,
-            fontSize.md,
-            fontWeight.sm,
-        ) }
-        >
-            { children }
-        </p>
-    );
-};
+const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
+  return (
+    <p
+      ref={ref}
+      className={twMerge(
+        getColorClassNames(color, colorPalette.lightText).textColor,
+        fontSize.md,
+        fontWeight.sm,
+        className,
+      )}
+      {...other}
+    >
+      {children}
+    </p>
+  );
+});
 
 export default Subtitle;

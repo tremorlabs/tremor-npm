@@ -1,141 +1,177 @@
-import React from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import 'tippy.js/dist/tippy.css';
-import Tooltip from '@tippyjs/react';
-
-import { Color, MarginTop } from '../../../lib';
+import { Color } from "../../../lib";
 import {
-    borderRadius,
-    classNames,
-    defaultColors,
-    fontSize,
-    getColorTheme,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    sizing,
-    spacing,
-    themeColorRange,
-} from 'lib';
+  colorClassNames,
+  makeClassName,
+  borderRadius,
+  fontSize,
+  getColorClassNames,
+  sizing,
+  spacing,
+  sumNumericArray,
+  themeColorRange,
+} from "lib";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
-const BarLabels = ({ categoryPercentageValues }: {categoryPercentageValues: number[]}) => {
-    let prefixSum = 0;
-    return (
-        <div className={ classNames(
-            'tremor-base tr-relative tr-flex tr-w-full',
-            getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-            spacing.twoXs.spaceX,
-            spacing.sm.marginBottom,
-            fontSize.sm,
-        ) }
-        >
-            { categoryPercentageValues.slice(0, categoryPercentageValues.length).map((widthPercentage, idx) => {
-                prefixSum += widthPercentage;
-                return (
-                    <div
-                        key={ `item-${idx}` }
-                        className="tr-flex tr-items-center tr-justify-end"
-                        style={ { 'width': `${widthPercentage}%` } }
-                    >
-                        <span className={
-                            classNames(idx === 0 && widthPercentage <= 10 ? 'tr-hidden sm:tr-inline-block' : '')
-                        }
-                        >
-                            { prefixSum }
-                        </span>
-                    </div>
-                );
-            }) }
-            <div className="tr-absolute -tr-left-1 tr-top-0 tr-flex tr-items-center">
-                0
-            </div>
-        </div>
-    );
+const makeCategoryBarClassName = makeClassName("CategoryBar");
+
+const getMarkerBgColor = (
+  percentageValue: number | undefined,
+  categoryPercentageValues: number[],
+  colors: Color[],
+): string => {
+  if (percentageValue === undefined) return "";
+
+  let prefixSum = 0;
+  for (let i = 0; i < categoryPercentageValues.length; i++) {
+    const currentWidthPercentage = categoryPercentageValues[i];
+    const currentBgColor = colorClassNames[colors[i]][colorPalette.background].bgColor;
+
+    prefixSum += currentWidthPercentage;
+    if (prefixSum >= percentageValue) return currentBgColor;
+  }
+
+  return "";
 };
 
-export interface CategoryBarProps {
-    categoryPercentageValues: number[],
-    colors?: Color[],
-    percentageValue?: number,
-    showLabels?: boolean,
-    tooltip?: string,
-    showAnimation?: boolean,
-    marginTop?: MarginTop,
+const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: number[] }) => {
+  const sumValues = sumNumericArray(categoryPercentageValues);
+  let prefixSum = 0;
+  let sumConsecutveHiddenLabels = 0;
+  return (
+    <div
+      className={twMerge(
+        makeCategoryBarClassName("labels"),
+        "relative flex w-full",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+        spacing.sm.marginBottom,
+        sizing.lg.height,
+        fontSize.sm,
+      )}
+    >
+      {categoryPercentageValues
+        .slice(0, categoryPercentageValues.length)
+        .map((widthPercentage, idx) => {
+          prefixSum += widthPercentage;
+          const showLabel =
+            (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
+            sumValues - prefixSum >= 0.15 * sumValues &&
+            prefixSum >= 0.1 * sumValues;
+          sumConsecutveHiddenLabels = showLabel
+            ? 0
+            : (sumConsecutveHiddenLabels += widthPercentage);
+
+          return (
+            <div
+              key={`item-${idx}`}
+              className="flex items-center justify-end"
+              style={{ width: `${widthPercentage}%` }}
+            >
+              <span className={twMerge(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}>
+                {prefixSum}
+              </span>
+            </div>
+          );
+        })}
+      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.left)}>0</div>
+      <div className={twMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+        {sumValues}
+      </div>
+    </div>
+  );
+};
+
+export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  categoryPercentageValues: number[];
+  colors?: Color[];
+  percentageValue?: number;
+  showLabels?: boolean;
+  tooltip?: string;
+  showAnimation?: boolean;
 }
 
-const CategoryBar = ({
+const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, ref) => {
+  const {
     categoryPercentageValues = [],
     colors = themeColorRange,
     percentageValue,
     showLabels = true,
     tooltip,
     showAnimation = true,
-    marginTop = 'mt-0',
-}: CategoryBarProps) => {
+    className,
+    ...other
+  } = props;
 
-    const getMarkerBgColor = (): string => {
-        if (percentageValue === undefined)
-            return '';
+  const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
 
-        let prefixSum = 0;
-        for (let i = 0; i < categoryPercentageValues.length; i++) {
-            const currentWidthPercentage = categoryPercentageValues[i];
-            const currentBgColor = getColorVariantsFromColorThemeValue(getColorTheme(colors[i]).background).bgColor;
+  const { tooltipProps, getReferenceProps } = useTooltip();
 
-            prefixSum += currentWidthPercentage;
-            if (prefixSum >= percentageValue)
-                return currentBgColor;
-        }
-
-        return '';
-    };
-
-    const markerBgColor = getMarkerBgColor();
-
-    return(
-        <div className={ classNames(parseMarginTop(marginTop)) }>
-            { showLabels ? <BarLabels categoryPercentageValues={ categoryPercentageValues } /> : null }
-            <div className={ classNames(
-                'tr-relative tr-flex tr-items-center tr-w-full',
-                sizing.xs.height,
-                spacing.threeXs.spaceX,
-                borderRadius.lg.all,
-            ) }
+  return (
+    <>
+      <Tooltip text={tooltip} {...tooltipProps} />
+      <div ref={ref} className={twMerge(makeCategoryBarClassName("root"), className)} {...other}>
+        {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
+        <div
+          className={twMerge(
+            makeCategoryBarClassName("barWrapper"),
+            "relative w-full flex items-center",
+            sizing.xs.height,
+          )}
+        >
+          <div
+            className={twMerge(
+              "flex-1 flex items-center h-full overflow-hidden",
+              borderRadius.md.all,
+            )}
+          >
+            {categoryPercentageValues.map((percentageValue, idx) => {
+              return (
+                <div
+                  key={`item-${idx}`}
+                  className={twMerge(
+                    makeCategoryBarClassName("categoryBar"),
+                    "h-full",
+                    colorClassNames[colors[idx]][colorPalette.background].bgColor,
+                  )}
+                  style={{ width: `${percentageValue}%` }}
+                />
+              );
+            })}
+          </div>
+          {percentageValue !== undefined ? (
+            <div
+              ref={tooltipProps.refs.setReference}
+              className={twMerge(
+                makeCategoryBarClassName("markerWrapper"),
+                "absolute right-1/2 -translate-x-1/2",
+                sizing.lg.width,
+              )}
+              style={{
+                left: `${percentageValue}%`,
+                transition: showAnimation ? "all 2s" : "",
+              }}
+              {...getReferenceProps}
             >
-                {categoryPercentageValues.map((percentageValue, idx) => {
-                    return(
-                        <div key={ `item-${idx}` } style={ { width: `${percentageValue}%` } } className={ classNames(
-                            'tr-h-full',
-                            getColorVariantsFromColorThemeValue(getColorTheme(colors[idx]).background).bgColor,
-                            borderRadius.md.all,
-                        ) }
-                        />
-                    );
-                })}
-                { percentageValue !== undefined ? (
-                    <Tooltip content={ tooltip } className={ tooltip ? '' : 'tr-hidden' }>
-                        <div
-                            className={ classNames(
-                                'tr-absolute tr-right-1/2 -tr-translate-x-1/2',
-                                sizing.lg.width, // wide transparant wrapper for tooltip activation
-                            ) }
-                            style={ { 'left': `${percentageValue}%`, 'transition': showAnimation ? 'all 2s' : '' } }
-                        >
-                            <div
-                                className={ classNames(
-                                    'tr-ring-2 tr-mx-auto',
-                                    markerBgColor,
-                                    getColorVariantsFromColorThemeValue(defaultColors.white).ringRolor,
-                                    sizing.md.height,
-                                    sizing.twoXs.width,
-                                    borderRadius.lg.all,
-                                ) }
-                            />
-                        </div>
-                    </Tooltip>
-                ) : null}
+              <div
+                className={twMerge(
+                  makeCategoryBarClassName("marker"),
+                  "ring-2 mx-auto",
+                  markerBgColor,
+                  getColorClassNames("white").ringColor,
+                  sizing.md.height,
+                  sizing.twoXs.width,
+                  borderRadius.lg.all,
+                )}
+              />
             </div>
+          ) : null}
         </div>
-    );
-};
+      </div>
+    </>
+  );
+});
 
 export default CategoryBar;

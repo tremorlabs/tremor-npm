@@ -1,63 +1,60 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon, ArrowUpHeadIcon } from 'assets';
-import { classNames, defaultColors, getColorVariantsFromColorThemeValue, sizing, spacing } from 'lib';
+import { ArrowUpHeadIcon } from "assets";
+import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
+import { ExpandedContext } from "components/layout-elements/Accordion/Accordion";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface AccordionHeaderProps {
-    privateProps?: {
-        isExpanded: boolean,
-        setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
-    }
-    children: React.ReactNode;
+const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
+
+export interface AccordionHeaderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
-const AccordionHeader = ({
-    privateProps,
-    children
-}: AccordionHeaderProps) => {
-    return(
-        <button
-            type="button"
-            className={ classNames(
-                'input-elem tr-w-full tr-flex tr-items-center tr-justify-between',
-                spacing.threeXl.paddingLeft,
-                spacing.threeXl.paddingRight,
-                spacing.lg.paddingTop,
-                spacing.lg.paddingBottom,
-            ) }
-            onClick={ () => privateProps!.setExpanded(!privateProps!.isExpanded) }
-        >
-            <div className={ classNames(
-                'tr-flex tr-flex-1',
-                spacing.threeXl.marginRight,
-            ) }>
-                { children }
-            </div>
-            <div>
-                { privateProps!.isExpanded
-                    ? (
-                        <ArrowUpHeadIcon
-                            className={ classNames(
-                                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                                spacing.twoXs.negativeMarginRight,
-                                sizing.xl.height,
-                                sizing.xl.width,
-                            ) }
-                        />
-                    )
-                    : (
-                        <ArrowDownHeadIcon
-                            className={ classNames(
-                                getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                                spacing.twoXs.negativeMarginRight,
-                                sizing.xl.height,
-                                sizing.xl.width,
-                            ) }
-                        />
-                    ) }
-            </div>
-        </button>
-    );
-};
+const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps>((props, ref) => {
+  const { children, className, onClick, ...other } = props;
+  const { isExpanded, setIsExpanded } = useContext(ExpandedContext);
+  return (
+    <button
+      ref={ref}
+      className={twMerge(
+        makeAccordionHeaderClassName("root"),
+        "w-full flex items-center justify-between",
+        spacing.threeXl.paddingX,
+        spacing.lg.paddingY,
+        className,
+      )}
+      onClick={(e) => {
+        setIsExpanded?.(!isExpanded);
+        onClick?.(e);
+      }}
+      type="button"
+      {...other}
+    >
+      <div
+        className={twMerge(
+          makeAccordionHeaderClassName("children"),
+          "flex flex-1",
+          spacing.threeXl.marginRight,
+        )}
+      >
+        {children}
+      </div>
+      <div>
+        <ArrowUpHeadIcon
+          className={twMerge(
+            makeAccordionHeaderClassName("arrowIcon"),
+            isExpanded ? "transition-all" : "transition-all -rotate-180",
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+            spacing.twoXs.negativeMarginRight,
+            sizing.xl.height,
+            sizing.xl.width,
+          )}
+        />
+      </div>
+    </button>
+  );
+});
 
 export default AccordionHeader;

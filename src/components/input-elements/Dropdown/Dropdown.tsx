@@ -1,130 +1,152 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon } from 'assets';
+import { HoveredValueContext, SelectedValueContext } from "contexts";
 
-import { MarginTop, MaxWidth } from '../../../lib/inputTypes';
+import { useInternalState, useSelectOnKeyDown } from "hooks";
+
+import { ArrowDownHeadIcon } from "assets";
+
 import {
-    border,
-    borderRadius,
-    boxShadow,
-    classNames,
-    defaultColors,
-    fontSize,
-    fontWeight,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    parseMaxWidth,
-    sizing,
-    spacing
-} from 'lib';
-import Modal from 'components/layout-elements/Modal';
+  BaseColors,
+  border,
+  borderRadius,
+  boxShadow,
+  fontSize,
+  fontWeight,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
+  sizing,
+  spacing,
+} from "lib";
+import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
+import { DropdownItemProps } from "./DropdownItem";
+import { Modal } from "components/util-elements/Modal";
+import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
-export interface DropdownProps {
-    placeholder?: string,
-    defaultValue?: any,
-    handleSelect?: { (value: any): void },
-    marginTop?: MarginTop,
-    maxWidth?: MaxWidth,
-    children: React.ReactElement[] | React.ReactElement,
+const makeDropdownClassName = makeClassName("Dropdown");
+
+export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  icon?: React.JSXElementConstructor<any>;
+  children: React.ReactElement[] | React.ReactElement;
 }
 
-const Dropwdown = ({
-    placeholder = 'Select...',
+const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
+  const {
     defaultValue,
-    handleSelect = (value: any) => { value; },
-    marginTop = 'mt-0',
-    maxWidth = 'max-w-none',
+    value,
+    onValueChange,
+    placeholder = "Select...",
+    disabled = false,
+    icon,
     children,
-}: DropdownProps) => {
-    const dropdownRef = useRef(null);
+    className,
+    ...other
+  } = props;
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+  const [isFocused, setIsFocused] = useState(false);
 
-    const constructValueToNameMapping = (): Map<string, string> => {
-        const valueToNameMapping = new Map<string, string>();
-        React.Children.map(children, (child) => {
-            valueToNameMapping.set(child.props.value, child.props.text);
-        });
-        return valueToNameMapping;
-    };
+  const dropdownRef = useRef(null);
 
-    const valueToNameMapping = constructValueToNameMapping();
+  const Icon = icon;
+  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+  const optionValues = React.Children.map(
+    children,
+    (child: { props: DropdownItemProps }) => child.props.value,
+  );
 
-    const [selectedItem, setSelectedItem] = useState(defaultValue);
-    const [showModal, setShowModal] = useState(false);
+  const handleValueChange = (value: string) => {
+    setSelectedValue(value);
+    setIsFocused(false);
+    onValueChange?.(value);
+  };
 
-    const handleDropdownItemClick = (value: any) => {
-        setSelectedItem(value);
-        handleSelect(value);
-        setShowModal(false);
-    };
+  const [hoveredValue, handleKeyDown] = useSelectOnKeyDown(
+    handleValueChange,
+    optionValues,
+    isFocused,
+    setIsFocused,
+    selectedValue,
+  );
 
-    return(
-        <div
-            ref={ dropdownRef }
-            className={ classNames(
-                'tremor-base tr-relative tr-w-full tr-min-w-[10rem]',
-                parseMaxWidth(maxWidth),
-                getColorVariantsFromColorThemeValue(defaultColors.border).borderColor,
-                parseMarginTop(marginTop),
-                borderRadius.md.all,
-                border.sm.all,
-                boxShadow.sm,
-            ) }
-        >
-            <button
-                type="button"
-                className={ classNames(
-                    'input-elem tr-flex tr-justify-between tr-items-center tr-w-full',
-                    'focus:tr-ring-2 focus:tr-outline-0',
-                    getColorVariantsFromColorThemeValue(defaultColors.white).bgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.canvasBackground).hoverBgColor,
-                    getColorVariantsFromColorThemeValue(defaultColors.ring).focusRingColor,
-                    spacing.twoXl.paddingLeft,
-                    spacing.twoXl.paddingRight,
-                    spacing.sm.paddingTop,
-                    spacing.sm.paddingBottom,
-                    borderRadius.md.all,
-                ) }
-                onClick={ () => setShowModal(!showModal) }
-            >
-                <p className={ classNames(
-                    'text-elem tr-whitespace-nowrap tr-truncate',
-                    fontSize.sm,
-                    fontWeight.md,
-                    selectedItem
-                        ? getColorVariantsFromColorThemeValue(defaultColors.darkText).textColor
-                        : getColorVariantsFromColorThemeValue(defaultColors.text).textColor,
-                ) }>
-                    { selectedItem ? valueToNameMapping.get(selectedItem) : placeholder }
-                </p>
-                <ArrowDownHeadIcon
-                    className={ classNames(
-                        'tr-flex-none',
-                        sizing.lg.height,
-                        sizing.lg.width,
-                        spacing.twoXs.negativeMarginRight,
-                        getColorVariantsFromColorThemeValue(defaultColors.lightText).textColor,
-                    ) }
-                    aria-hidden="true"
-                />
-            </button>
-            <Modal
-                showModal={ showModal }
-                setShowModal={ setShowModal }
-                triggerRef={ dropdownRef }
-            >
-                { React.Children.map(children, (child: React.ReactElement) => (
-                    <>
-                        { React.cloneElement(child, {
-                            privateProps: {
-                                handleDropdownItemClick,
-                                isActive: child?.props.value === selectedItem,
-                            },
-                        }) }
-                    </>
-                )) }
-            </Modal>
+  const hasSelection = hasValue(selectedValue);
+
+  return (
+    <div
+      ref={mergeRefs([dropdownRef, ref])}
+      onKeyDown={handleKeyDown}
+      className={twMerge(makeDropdownClassName("root"), "relative w-full min-w-[10rem]", className)}
+      {...other}
+    >
+      <button
+        type="button"
+        className={twMerge(
+          makeDropdownClassName("button"),
+          "flex justify-between items-center w-full focus:outline-none focus:ring-2",
+          getSelectButtonColors(hasSelection, disabled),
+          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
+          Icon ? spacing.xl.paddingLeft : spacing.twoXl.paddingLeft,
+          spacing.twoXl.paddingRight,
+          spacing.sm.paddingY,
+          borderRadius.md.all,
+          border.sm.all,
+          boxShadow.sm,
+        )}
+        onClick={() => setIsFocused(!isFocused)}
+        disabled={disabled}
+      >
+        <div className="flex justify-start items-center truncate">
+          {Icon ? (
+            <Icon
+              className={twMerge(
+                makeDropdownClassName("icon"),
+                "shrink-0",
+                sizing.lg.height,
+                sizing.lg.width,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+                spacing.lg.marginRight,
+              )}
+              aria-hidden="true"
+            />
+          ) : null}
+          <p
+            className={twMerge(
+              makeDropdownClassName("text"),
+              "whitespace-nowrap truncate",
+              fontSize.sm,
+              fontWeight.md,
+            )}
+          >
+            {selectedValue ? valueToNameMapping.get(selectedValue) : placeholder}
+          </p>
         </div>
-    );
-};
+        <ArrowDownHeadIcon
+          className={twMerge(
+            makeDropdownClassName("arrowDownIcon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.twoXs.negativeMarginRight,
+            getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+          )}
+          aria-hidden="true"
+        />
+      </button>
+      <Modal showModal={isFocused} setShowModal={setIsFocused} parentRef={dropdownRef}>
+        <SelectedValueContext.Provider value={{ selectedValue, handleValueChange }}>
+          <HoveredValueContext.Provider value={{ hoveredValue }}>
+            {React.Children.map(children, (child: React.ReactElement) => React.cloneElement(child))}
+          </HoveredValueContext.Provider>
+        </SelectedValueContext.Provider>
+      </Modal>
+    </div>
+  );
+});
 
-export default Dropwdown;
+export default Dropdown;

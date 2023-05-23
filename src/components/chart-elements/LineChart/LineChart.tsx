@@ -1,140 +1,136 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import {
-    CartesianGrid,
-    Legend,
-    Line,
-    LineChart as ReChartsLineChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from 'recharts';
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart as ReChartsLineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-import BaseChartProps from '../common/BaseChartProps';
-import ChartLegend from 'components/chart-elements/common/ChartLegend';
-import ChartTooltip from '../common/ChartTooltip';
-import { constructCategoryColors } from '../common/utils';
+import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import BaseChartProps from "../common/BaseChartProps";
+import ChartLegend from "components/chart-elements/common/ChartLegend";
+import ChartTooltip from "../common/ChartTooltip";
 
-import {
-    classNames,
-    defaultValueFormatter,
-    getColorTheme,
-    getHexFromColorThemeValue,
-    getPixelsFromTwClassName,
-    parseHeight,
-    parseMarginTop,
-    themeColorRange
-} from 'lib';
+import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { CurveType } from "../../../lib/inputTypes";
+import { AxisDomain } from "recharts/types/util/types";
 
-const LineChart = ({
+export interface LineChartProps extends BaseChartProps {
+  curveType?: CurveType;
+  connectNulls?: boolean;
+}
+
+const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
+  const {
     data = [],
     categories = [],
-    dataKey,
+    index,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
-    yAxisWidth = 'w-14',
+    yAxisWidth = 56,
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
-    height = 'h-80',
-    marginTop = 'mt-0',
-}: BaseChartProps) => {
-    const [legendHeight, setLegendHeight] = useState(60);
-    const categoryColors = constructCategoryColors(categories, colors);
+    autoMinValue = false,
+    curveType = "linear",
+    minValue,
+    maxValue,
+    connectNulls = false,
+    className,
+    ...other
+  } = props;
+  const [legendHeight, setLegendHeight] = useState(60);
+  const categoryColors = constructCategoryColors(categories, colors);
 
-    return (
-        <div className={ classNames(
-            'tremor-base tr-w-full',
-            parseHeight(height),
-            parseMarginTop(marginTop)
-        ) }
-        >
-            <ResponsiveContainer width="100%" height="100%">
-                <ReChartsLineChart data={ data }>
-                    { showGridLines ? (
-                        <CartesianGrid
-                            strokeDasharray="3 3"
-                            horizontal={ true }
-                            vertical={ false }
-                        />
-                    ) : null }
-                    <XAxis
-                        hide={ !showXAxis }
-                        dataKey={ dataKey }
-                        interval="preserveStartEnd"
-                        tick={{ transform: 'translate(0, 6)' }} 
-                        ticks={ startEndOnly ? [data[0][dataKey], data[data.length - 1][dataKey]] : undefined }
-                        style={{
-                            fontSize: '12px',
-                            fontFamily: 'Inter; Helvetica',
-                        }}
-                        tickLine={ false }
-                        axisLine={ false }
-                        padding={{ left: 10, right: 10 }}
-                        minTickGap={5}
-                    />
-                    <YAxis
-                        width={ getPixelsFromTwClassName(yAxisWidth) }
-                        hide={ !showYAxis }
-                        axisLine={ false }
-                        tickLine={ false }
-                        type="number"
-                        domain={ [0, 'auto'] }
-                        tick={ { transform: 'translate(-3, 0)' } } 
-                        style={ {
-                            fontSize: '12px',
-                            fontFamily: 'Inter; Helvetica',
-                        } }
-                        tickFormatter={ valueFormatter  }
-                    />
-                    { showTooltip ? (
-                        <Tooltip
-                            // ongoing issue: https://github.com/recharts/recharts/issues/2920
-                            wrapperStyle={{ outline: 'none' }}
-                            isAnimationActive={ false }
-                            cursor={ { stroke: '#d1d5db', strokeWidth: 1 } }
-                            content={ ({ active, payload, label }) => (
-                                <ChartTooltip
-                                    active={ active }
-                                    payload={ payload }
-                                    label={ label }
-                                    valueFormatter={ valueFormatter }
-                                    categoryColors={ categoryColors }
-                                />
-                            ) }
-                            position={{ y: 0 }}
-                        />
-                    ) : null }
-                    { showLegend ? (
-                        <Legend
-                            verticalAlign="top"
-                            height={ legendHeight }
-                            content={ ({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight) }
-                        />
-                    ) : null }
-                    { categories.map((category) => (
-                        <Line
-                            key={ category }
-                            name={ category }
-                            type="linear"
-                            dataKey={ category }
-                            stroke={ getHexFromColorThemeValue(getColorTheme(
-                                categoryColors.get(category)
-                            ).background) }
-                            strokeWidth={ 2 }
-                            dot={ false }
-                            isAnimationActive={ showAnimation }
-                        />
-                    )) }
-                </ReChartsLineChart>
-            </ResponsiveContainer>
-        </div>
-    );
-};
+  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+
+  return (
+    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ReChartsLineChart data={data}>
+          {showGridLines ? (
+            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          ) : null}
+          <XAxis
+            hide={!showXAxis}
+            dataKey={index}
+            interval="preserveStartEnd"
+            tick={{ transform: "translate(0, 6)" }}
+            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
+            style={{
+              fontSize: "12px",
+              fontFamily: "Inter; Helvetica",
+            }}
+            tickLine={false}
+            axisLine={false}
+            padding={{ left: 10, right: 10 }}
+            minTickGap={5}
+          />
+          <YAxis
+            width={yAxisWidth}
+            hide={!showYAxis}
+            axisLine={false}
+            tickLine={false}
+            type="number"
+            domain={yAxisDomain as AxisDomain}
+            tick={{ transform: "translate(-3, 0)" }}
+            style={{
+              fontSize: "12px",
+              fontFamily: "Inter; Helvetica",
+            }}
+            tickFormatter={valueFormatter}
+          />
+          {showTooltip ? (
+            <Tooltip
+              // ongoing issue: https://github.com/recharts/recharts/issues/2920
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={({ active, payload, label }) => (
+                <ChartTooltip
+                  active={active}
+                  payload={payload}
+                  label={label}
+                  valueFormatter={valueFormatter}
+                  categoryColors={categoryColors}
+                />
+              )}
+              position={{ y: 0 }}
+            />
+          ) : null}
+          {showLegend ? (
+            <Legend
+              verticalAlign="top"
+              height={legendHeight}
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+            />
+          ) : null}
+          {categories.map((category) => (
+            <Line
+              key={category}
+              name={category}
+              type={curveType}
+              dataKey={category}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+              strokeWidth={2}
+              dot={false}
+              isAnimationActive={showAnimation}
+              connectNulls={connectNulls}
+            />
+          ))}
+        </ReChartsLineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+});
 
 export default LineChart;

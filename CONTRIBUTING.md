@@ -41,4 +41,4 @@ We highly encourage that you do a self-review prior to requesting a review. To d
 ### Documentation
 
 - We generally encourage to document your changes through comments in your code.
-- If you alter user-facing behaviour you must provide documentation for such changes, for reference, check out [our documentation]([url](https://www.tremor.so/docs/getting-started/introduction)).
+- If you alter user-facing behavior you must provide documentation for such changes, for reference, check out [our documentation]([url](https://www.tremor.so/docs/getting-started/introduction)).

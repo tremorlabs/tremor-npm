@@ -1,45 +1,30 @@
-import React from 'react';
+import React from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-    BaseColors,
-    classNames,
-    fontSize,
-    fontWeight,
-    getColorTheme,
-    getColorVariantsFromColorThemeValue,
-    parseMarginTop,
-    parseTruncateOption,
-} from 'lib';
-import { Color, MarginTop } from '../../../lib';
+import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { Color } from "../../../lib";
+import { colorPalette } from "lib/theme";
 
-export interface MetricProps {
-    color?: Color,
-    truncate?: boolean,
-    marginTop?: MarginTop,
-    children: React.ReactNode,
+export interface MetricProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color;
 }
 
-const Metric = ({
-    color = BaseColors.Gray,
-    truncate = false,
-    marginTop = 'mt-0',
-    children,
-}: MetricProps) => {
-    return(
-        <div className={ classNames('tremor-base', parseMarginTop(marginTop)) }>
-            <p className={ classNames(
-                'text-elem',
-                truncate ? 'tr-whitespace-nowrap' : 'tr-shrink-0',
-                parseTruncateOption(truncate),
-                getColorVariantsFromColorThemeValue(getColorTheme(color).darkText).textColor,
-                fontSize.threeXl,
-                fontWeight.lg,
-            ) }
-            >
-                { children }
-            </p>
-        </div>
-    );
-};
+const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) => {
+  const { color = BaseColors.Gray, children, className, ...other } = props;
+  return (
+    <p
+      ref={ref}
+      className={twMerge(
+        getColorClassNames(color, colorPalette.darkText).textColor,
+        fontSize.threeXl,
+        fontWeight.lg,
+        className,
+      )}
+      {...other}
+    >
+      {children}
+    </p>
+  );
+});
 
 export default Metric;
