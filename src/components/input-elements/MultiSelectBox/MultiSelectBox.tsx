@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -245,5 +246,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
     </div>
   );
 });
+
+MultiSelectBox.displayName = "MultiSelectBox";
 
 export default MultiSelectBox;

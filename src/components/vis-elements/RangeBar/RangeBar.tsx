@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -94,5 +95,7 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
     </div>
   );
 });
+
+RangeBar.displayName = "RangeBar";
 
 export default RangeBar;

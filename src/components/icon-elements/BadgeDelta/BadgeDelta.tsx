@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -66,5 +67,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     </span>
   );
 });
+
+BadgeDelta.displayName = "BadgeDelta";
 
 export default BadgeDelta;

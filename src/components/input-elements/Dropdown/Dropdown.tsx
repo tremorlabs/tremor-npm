@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -148,5 +149,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     </div>
   );
 });
+
+Dropdown.displayName = "Dropdown";
 
 export default Dropdown;

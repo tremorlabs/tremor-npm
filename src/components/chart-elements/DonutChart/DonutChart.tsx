@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
@@ -88,5 +89,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     </div>
   );
 });
+
+DonutChart.displayName = "DonutChart";
 
 export default DonutChart;

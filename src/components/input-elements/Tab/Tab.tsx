@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -85,5 +86,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
     </button>
   );
 });
+
+Tab.displayName = "Tab";
 
 export default Tab;

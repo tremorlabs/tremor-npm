@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -71,5 +72,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     </span>
   );
 });
+
+Icon.displayName = "Icon";
 
 export default Icon;

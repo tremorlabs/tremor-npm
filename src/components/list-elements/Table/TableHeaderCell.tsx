@@ -33,4 +33,6 @@ const TableHeaderCell = React.forwardRef<
   );
 });
 
+TableHeaderCell.displayName = "TableHeaderCell";
+
 export default TableHeaderCell;
