@@ -43,6 +43,8 @@ const TrackerBlock = React.forwardRef<HTMLDivElement, TrackerBlockProps>((props,
   );
 });
 
+TrackerBlock.displayName = "TrackerBlock";
+
 export interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TrackerBlockProps[];
 }
@@ -66,5 +68,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
     </div>
   );
 });
+
+Tracker.displayName = "Tracker";
 
 export default Tracker;

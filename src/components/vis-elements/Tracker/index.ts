@@ -1,1 +1,2 @@
-export { default } from "./Tracker";
+export { default as Tracker } from "./Tracker";
+export type { TrackerProps } from "./Tracker";

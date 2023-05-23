@@ -96,4 +96,6 @@ const RangeBar = React.forwardRef<HTMLDivElement, RangeBarProps>((props, ref) =>
   );
 });
 
+RangeBar.displayName = "RangeBar";
+
 export default RangeBar;

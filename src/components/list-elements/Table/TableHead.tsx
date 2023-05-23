@@ -30,4 +30,6 @@ const TableHead = React.forwardRef<
   );
 });
 
+TableHead.displayName = "TableHead";
+
 export default TableHead;

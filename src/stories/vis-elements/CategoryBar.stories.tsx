@@ -3,8 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import CategoryBar from "components/vis-elements/CategoryBar/CategoryBar";
 
-import Card from "components/layout-elements/Card";
-import Metric from "components/text-elements/Metric";
+import { Card, Metric } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

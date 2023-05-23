@@ -68,4 +68,6 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
   );
 });
 
+BadgeDelta.displayName = "BadgeDelta";
+
 export default BadgeDelta;

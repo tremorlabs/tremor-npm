@@ -2,9 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card } from "components";
-
-import Tracker from "components/vis-elements/Tracker/Tracker";
+import { Card, Tracker } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

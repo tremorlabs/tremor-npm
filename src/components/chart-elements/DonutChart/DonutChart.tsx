@@ -95,4 +95,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   );
 });
 
+DonutChart.displayName = "DonutChart";
+
 export default DonutChart;

@@ -1,9 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Card from "components/layout-elements/Card";
-import DeltaBar from "components/vis-elements/DeltaBar/DeltaBar";
-import Metric from "components/text-elements/Metric";
+import { Card, DeltaBar, Metric } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

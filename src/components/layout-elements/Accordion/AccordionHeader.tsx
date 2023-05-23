@@ -58,4 +58,6 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
   );
 });
 
+AccordionHeader.displayName = "AccordionHeader";
+
 export default AccordionHeader;

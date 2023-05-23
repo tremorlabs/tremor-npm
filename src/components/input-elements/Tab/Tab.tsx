@@ -87,4 +87,6 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   );
 });
 
+Tab.displayName = "Tab";
+
 export default Tab;

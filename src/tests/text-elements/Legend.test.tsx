@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import Legend from "components/text-elements/Legend";
+import Legend from "components/text-elements/Legend/Legend";
 
 describe("Legend", () => {
   test("renders the Legend component with default props", () => {

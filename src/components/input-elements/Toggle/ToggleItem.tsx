@@ -85,4 +85,6 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
   );
 });
 
+ToggleItem.displayName = "ToggleItem";
+
 export default ToggleItem;

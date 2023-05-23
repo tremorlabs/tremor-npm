@@ -27,4 +27,6 @@ const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) 
   );
 });
 
+Metric.displayName = "Metric";
+
 export default Metric;

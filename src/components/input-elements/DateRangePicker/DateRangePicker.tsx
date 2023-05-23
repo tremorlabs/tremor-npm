@@ -23,7 +23,7 @@ import {
 import Calendar from "./Calendar";
 import DateRangePickerButton from "./DateRangePickerButton";
 import { DropdownItem } from "components/input-elements/Dropdown";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 
 export type Locale = typeof enUS;
 
@@ -215,5 +215,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     </BaseColorContext.Provider>
   );
 });
+
+DateRangePicker.displayName = "DateRangePicker";
 
 export default DateRangePicker;

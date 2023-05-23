@@ -100,4 +100,6 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
   );
 });
 
+ProgressBar.displayName = "ProgressBar";
+
 export default ProgressBar;

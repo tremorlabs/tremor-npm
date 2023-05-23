@@ -28,4 +28,6 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
   },
 );
 
+ListItem.displayName = "ListItem";
+
 export default ListItem;
