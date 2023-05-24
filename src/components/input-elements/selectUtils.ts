@@ -6,24 +6,28 @@ export interface SelectItemProps {
   text?: string;
 }
 
+const getNodeText = (node: React.ReactElement): string | React.ReactElement | undefined => {
+  if (["string", "number"].includes(typeof node)) return node;
+  if (node instanceof Array) return node.map(getNodeText).join("");
+  if (typeof node === "object" && node) return getNodeText(node.props.children);
+};
+
 export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
   const valueToNameMapping = new Map<string, string>();
-  React.Children.map(children, (child: { props: SelectItemProps }) => {
-    valueToNameMapping.set(child.props.value, child.props.text ?? child.props.value);
+  React.Children.map(children, (child: React.ReactElement<SelectItemProps>) => {
+    valueToNameMapping.set(child.props.value, (getNodeText(child) || child.props.value) as string);
   });
   return valueToNameMapping;
 }
 
 export function getFilteredOptions(
   searchQuery: string,
-  options: SelectItemProps[],
-): SelectItemProps[] {
-  return searchQuery === ""
-    ? options
-    : options.filter((option: SelectItemProps) => {
-        const optionText = option.text ?? option.value;
-        return optionText.toLowerCase().includes(searchQuery.toLowerCase());
-      });
+  children: React.ReactElement[],
+): React.ReactElement[] {
+  return React.Children.map(children, (child) => {
+    const optionText = (getNodeText(child) || child.props.value) as string;
+    if (optionText.toLowerCase().includes(searchQuery.toLowerCase())) return child;
+  });
 }
 
 export const getSelectButtonColors = (

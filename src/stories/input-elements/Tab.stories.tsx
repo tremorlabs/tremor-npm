@@ -115,37 +115,37 @@ const ColorsTemplate: ComponentStory<typeof TabGroup> = (args) => (
 );
 
 const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
-  const [value, setValue] = useState(0);
+  const [index, setIndex] = useState(0);
   return (
     <Card>
-      <TabGroup value={value} onValueChange={setValue}>
+      <TabGroup index={index} onIndexChange={setIndex}>
         <TabList>
           <Tab>Five</Tab>
           <Tab>Three</Tab>
           <Tab>One</Tab>
         </TabList>
       </TabGroup>
-      <Button onClick={() => setValue(0)}>Reset</Button>
-      <Button onClick={() => setValue(1)}>One</Button>
+      <Button onClick={() => setIndex(0)}>Reset</Button>
+      <Button onClick={() => setIndex(1)}>One</Button>
     </Card>
   );
 };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
-  onValueChange: (value) => console.log(value),
+  onIndexChange: (index) => console.log(index),
 };
 
 export const WithFlexParent = FlexTemplate.bind({});
 
 export const WithDefaultValue = ResponsiveTemplate.bind({});
 WithDefaultValue.args = {
-  defaultValue: 3,
+  defaultIndex: 3,
 };
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
-  defaultValue: 3,
+  defaultIndex: 3,
 };
 
 export const WithControlledState = WithControlledStateTemplate.bind({});

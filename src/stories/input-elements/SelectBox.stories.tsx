@@ -86,11 +86,11 @@ const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
           alert(value);
         }}
       >
-        <SelectBoxItem value={"5"} text={"Five"} />
-        <SelectBoxItem value={"3"} text={"Three"} />
-        <SelectBoxItem value={"1"} text={"One"} />
-        <SelectBoxItem value={"30"} text={"Thirty"} />
-        <SelectBoxItem value={"33"} text={"Thirtythree"} />
+        <SelectBoxItem value={"5"}>Five</SelectBoxItem>
+        <SelectBoxItem value={"3"}>Three</SelectBoxItem>
+        <SelectBoxItem value={"1"}>One</SelectBoxItem>
+        <SelectBoxItem value={"30"}>Thirty</SelectBoxItem>
+        <SelectBoxItem value={"33"}>Thirtythree</SelectBoxItem>
       </SelectBox>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>

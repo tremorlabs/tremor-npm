@@ -11,12 +11,11 @@ const makeDropdownItemClassName = makeClassName("DropdownItem");
 
 export interface DropdownItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  text?: string;
   icon?: React.ElementType;
 }
 
 const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, ref) => {
-  const { value, text, icon, className, ...other } = props;
+  const { value, icon, className, children, ...other } = props;
 
   const Icon = icon;
 
@@ -45,7 +44,7 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
           )}
         />
       )}
-      <p className="whitespace-nowrap truncate"> {text ?? value}</p>
+      <span className="whitespace-nowrap truncate">{children ?? value}</span>
     </Listbox.Option>
   );
 });

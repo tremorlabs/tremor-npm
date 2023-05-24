@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { tremorTwMerge } from "lib";
 
 import { SelectedValueContext } from "contexts";
@@ -10,7 +10,6 @@ import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
 import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-import { MultiSelectBoxItemProps } from "./MultiSelectBoxItem";
 import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
@@ -43,11 +42,10 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const options = React.Children.map(children, (child: { props: MultiSelectBoxItemProps }) => ({
-    ...child.props,
-  }));
-  const filteredOptions = getFilteredOptions(searchQuery, options);
-  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
+  const filteredOptions = useMemo(
+    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
+    [searchQuery, children],
+  );
 
   const handleReset = () => {
     setSelectedValue([]);
@@ -173,12 +171,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
               />
             </div>
             <SelectedValueContext.Provider value={{ selectedValue: value }}>
-              {React.Children.map(children, (child) => {
-                const optionText = child.props.text ?? child.props.value;
-                if (filteredOptionTexts.has(String(optionText))) {
-                  return React.cloneElement(child);
-                }
-              })}
+              {filteredOptions}
             </SelectedValueContext.Provider>
           </Listbox.Options>
         </>

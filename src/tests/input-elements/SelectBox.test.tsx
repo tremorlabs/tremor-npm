@@ -8,9 +8,9 @@ describe("SelectBox", () => {
   test("renders the SelectBox component with default props", () => {
     render(
       <SelectBox>
-        <SelectBoxItem value="1" text="Option One" />
-        <SelectBoxItem value="2" text="Option Two" />
-        <SelectBoxItem value="3" text="Option Three" />
+        <SelectBoxItem value="1" />
+        <SelectBoxItem value="2">Option Two</SelectBoxItem>
+        <SelectBoxItem value="3">Option Three</SelectBoxItem>
       </SelectBox>,
     );
   });

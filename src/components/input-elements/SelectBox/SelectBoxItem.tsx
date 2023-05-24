@@ -14,12 +14,11 @@ const makeSelectBoxItemClassName = makeClassName("SelectBoxItem");
 
 export interface SelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  text?: string;
   icon?: React.ElementType;
 }
 
 const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props, ref) => {
-  const { value, text, icon, className, ...other } = props;
+  const { value, icon, className, children, ...other } = props;
   const Icon = icon;
 
   return (
@@ -50,7 +49,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
           )}
         />
       )}
-      <p className="whitespace-nowrap truncate">{text ?? value}</p>
+      <span className="whitespace-nowrap truncate">{children ?? value}</span>
     </Combobox.Option>
   );
 });

@@ -6,22 +6,22 @@ import { makeClassName } from "lib";
 const makeTabGroupClassName = makeClassName("TabGroup");
 
 export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue?: number;
-  value?: number;
-  onValueChange?: (value: number) => void;
+  defaultIndex?: number;
+  index?: number;
+  onIndexChange?: (index: number) => void;
   children: React.ReactElement[] | React.ReactElement;
 }
 
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) => {
-  const { defaultValue, value, onValueChange, children, className, ...other } = props;
+  const { defaultIndex, index, onIndexChange, children, className, ...other } = props;
 
   return (
     <Tab.Group
       as="div"
       ref={ref}
-      defaultIndex={defaultValue}
-      selectedIndex={value}
-      onChange={onValueChange as any}
+      defaultIndex={defaultIndex}
+      selectedIndex={index}
+      onChange={onIndexChange as any}
       className={tremorTwMerge(makeTabGroupClassName("root"), "w-full", className)}
       {...other}
     >

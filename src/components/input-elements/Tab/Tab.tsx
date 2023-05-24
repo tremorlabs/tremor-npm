@@ -59,7 +59,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
           )}
         />
       ) : null}
-      <p>{children}</p>
+      <span>{children}</span>
     </HeadlessTab>
   );
 });

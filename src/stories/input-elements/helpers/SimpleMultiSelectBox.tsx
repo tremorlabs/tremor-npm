@@ -4,8 +4,10 @@ import { MultiSelectBox, MultiSelectBoxItem } from "components";
 
 export const SimpleMultiSelectBox = (args: any) => (
   <MultiSelectBox {...args}>
-    <MultiSelectBoxItem value={"5"} text={"Very Long DropdownItem Value as an edge case"} />
+    <MultiSelectBoxItem value={"5"}>
+      Very Long DropdownItem Value as an edge case
+    </MultiSelectBoxItem>
     <MultiSelectBoxItem value="Three" />
-    <MultiSelectBoxItem value={"1"} text={"One"} />
+    <MultiSelectBoxItem value={"1"}>One</MultiSelectBoxItem>
   </MultiSelectBox>
 );

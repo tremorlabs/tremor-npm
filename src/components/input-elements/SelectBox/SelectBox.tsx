@@ -10,7 +10,6 @@ import {
   hasValue,
 } from "../selectUtils";
 import { Combobox } from "@headlessui/react";
-import { SelectBoxItemProps } from "./SelectBoxItem";
 import { ArrowDownHeadIcon } from "assets";
 
 const makeSelectBoxClassName = makeClassName("SelectBox");
@@ -37,16 +36,15 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
     className,
     ...other
   } = props;
-  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
   const [searchQuery, setSearchQuery] = useState("");
 
   const Icon = icon;
-  const options = React.Children.map(children, (child: { props: SelectBoxItemProps }) => ({
-    ...child.props,
-  }));
-  const filteredOptions = getFilteredOptions(searchQuery, options);
-  const filteredOptionTexts = new Set(filteredOptions.map((option) => option.text ?? option.value));
+  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+  const filteredOptions = useMemo(
+    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
+    [searchQuery, children],
+  );
 
   return (
     <Combobox
@@ -111,7 +109,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
               />
             </div>
           </Combobox.Button>
-          {filteredOptionTexts.size > 0 && (
+          {filteredOptions.length > 0 && (
             <Combobox.Options
               className={tremorTwMerge(
                 "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-md",
@@ -120,13 +118,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
                 border.sm.all,
               )}
             >
-              {React.Children.map(children, (child) => {
-                const optionValue = child.props.text ?? child.props.value;
-                if (filteredOptionTexts.has(String(optionValue))) {
-                  return React.cloneElement(child);
-                }
-                return null;
-              })}
+              {filteredOptions}
             </Combobox.Options>
           )}
         </>

@@ -222,7 +222,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 )}
               >
                 {dropdownOptions.map((option) => (
-                  <DropdownItem key={option.value} value={option.value} text={option.text} />
+                  <DropdownItem key={option.value} value={option.value}>
+                    {option.text}
+                  </DropdownItem>
                 ))}
               </Listbox.Options>
             </>

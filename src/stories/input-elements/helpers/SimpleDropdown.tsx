@@ -7,8 +7,14 @@ const MyIcon = CalendarIcon;
 
 export const SimpleDropdown = (args: any) => (
   <Dropdown {...args}>
-    <DropdownItem value={"5"} text={"Very Long DropdownItem Value as an edge case"} icon={MyIcon} />
-    <DropdownItem value="Three" icon={MyIcon} />
-    <DropdownItem value={"1"} text={"One"} icon={MyIcon} />
+    <DropdownItem value={"5"} icon={MyIcon}>
+      Very Long DropdownItem Value as an edge case
+    </DropdownItem>
+    <DropdownItem value="3" icon={MyIcon}>
+      Three
+    </DropdownItem>
+    <DropdownItem value={"1"} icon={MyIcon}>
+      One
+    </DropdownItem>
   </Dropdown>
 );

@@ -11,12 +11,11 @@ const makeMultiSelectBoxItemClassName = makeClassName("MultiSelectBoxItem");
 
 export interface MultiSelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  text?: string;
 }
 
 const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemProps>(
   (props, ref) => {
-    const { value, text, className, ...other } = props;
+    const { value, className, children, ...other } = props;
 
     const { selectedValue } = useContext(SelectedValueContext);
     const isSelected = isValueInArray(value, selectedValue);
@@ -46,7 +45,7 @@ const MultiSelectBoxItem = React.forwardRef<HTMLLIElement, MultiSelectBoxItemPro
           checked={isSelected}
           readOnly={true}
         />
-        <p className="whitespace-nowrap truncate ">{text ?? value}</p>
+        <span className="whitespace-nowrap truncate ">{children ?? value}</span>
       </Listbox.Option>
     );
   },

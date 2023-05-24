@@ -86,9 +86,9 @@ const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () =>
           alert(values);
         }}
       >
-        <MultiSelectBoxItem value={"5"} text={"Five"} />
-        <MultiSelectBoxItem value={"3"} text={"Three"} />
-        <MultiSelectBoxItem value={"1"} text={"One"} />
+        <MultiSelectBoxItem value={"5"}>Five</MultiSelectBoxItem>
+        <MultiSelectBoxItem value={"3"}>Three</MultiSelectBoxItem>
+        <MultiSelectBoxItem value={"1"}>One</MultiSelectBoxItem>
       </MultiSelectBox>
       <Button onClick={() => setValue([])}>Reset</Button>
       <Button onClick={() => setValue(["1"])}>Set to One</Button>
