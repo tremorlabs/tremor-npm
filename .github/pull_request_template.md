@@ -1,6 +1,6 @@
 <!--
 Please make sure to read the Contribution Guidelines:
-LINK CONTRIBUTIONmd
+https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 -->
 
 <!-- PULL REQUEST TEMPLATE -->
@@ -33,7 +33,7 @@ If yes, please describe the impact and migration path for existing applications:
 
 **How has This been tested?**
 
-<!--- Please describe in how you tested your changes. -->
+<!--- Please describe how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
 <!--- see how your change affects other areas of the code, etc. -->
 
