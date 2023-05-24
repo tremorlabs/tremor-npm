@@ -1,0 +1,64 @@
+name: "\U0001F41E Bug report"
+description: Create a report to help us improve
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before submitting a bug report**
+
+        This form is only for submitting bug reports. If you have a usage question
+        or are unsure if this is really a bug, make sure to:
+
+        The issue list is reserved for bug reports and feature requests. If you have a usage question, you can:
+
+        - Read the [documentation](https://www.tremor.so/docs/getting-started/installation)
+        - Ask questions on [Slack](https://join.slack.com/t/tremor-community/shared_invite/zt-1u8jqmcmq-Fdr9B6MbnO7u8FkGh~2Ylg)
+
+  - type: input
+    id: version
+    attributes:
+      label: Tremor Version
+    validations:
+      required: true
+  - type: input
+    id: reproduction-link
+    attributes:
+      label: Link to minimal reproduction
+      description: |
+        The easiest way to provide a reproduction is provide a link to a public GitHub repository or a tools like [Stackblitz](https://stackblitz.com) or [Codesandbox](https://codesandbox.io).
+
+        The reproduction should be **minimal**. This means, it should contain only the bare minimum amount of code needed
+        to show the bug.
+      placeholder: Reproduction Link
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        What do we need to do after opening your repro in order to make the bug happen? Clear and concise reproduction instructions are important for us to be able to triage your issue in a timely manner. Note that you can use [Markdown](https://guides.github.com/features/mastering-markdown/) to format lists and code.
+      placeholder: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is expected?
+    validations:
+      required: true
+  - type: textarea
+    id: actually-happening
+    attributes:
+      label: What is actually happening?
+    validations:
+      required: true
+  - type: textarea
+    id: additional-comments
+    attributes:
+      label: Any additional comments?
+      description: E.g. some background/context of how you ran into this bug.
+  - type: markdown
+    attributes:
+      value: |
+        This bug report template was inspired by the issues template from [vuejs](https://github.com/vuejs/core)
