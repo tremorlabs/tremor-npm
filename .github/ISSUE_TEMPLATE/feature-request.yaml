@@ -1,5 +1,7 @@
 name: "\U0001F680 New feature proposal"
 description: Suggest an idea for this project
+title: "[Feature]: "
+labels: ["triage"]
 body:
   - type: markdown
       attributes:
@@ -34,4 +36,4 @@ body:
   - type: markdown
     attributes:
     value: |
-      This bug report template was inspired by the issues template from [vuejs](https://github.com/vuejs/core)
+      This bug report template was inspired by the feature template from [vuejs](https://github.com/vuejs/core)

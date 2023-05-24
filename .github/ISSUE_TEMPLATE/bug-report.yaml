@@ -1,5 +1,7 @@
 name: "\U0001F41E Bug report"
 description: Create a report to help us improve
+title: "[Bug]: "
+labels: ["Triage"]
 body:
   - type: markdown
     attributes:
@@ -52,6 +54,19 @@ body:
       label: What is actually happening?
     validations:
       required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Chrome
+        - Microsoft Edge
+        - Safari
+        - Firefox
+        - Vivaldi
+        - Brave
+        - Other
   - type: textarea
     id: additional-comments
     attributes:
@@ -60,4 +75,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        This bug report template was inspired by the issues template from [vuejs](https://github.com/vuejs/core)
+        This bug report template was inspired by the issue template from [vuejs](https://github.com/vuejs/core)
