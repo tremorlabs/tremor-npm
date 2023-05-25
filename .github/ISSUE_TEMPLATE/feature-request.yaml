@@ -1,13 +1,13 @@
 name: "\U0001F680 New feature proposal"
 description: Suggest an idea for this project
 title: "[Feature]: "
-labels: ["triage"]
+labels: ["Triage"]
 body:
   - type: markdown
-      attributes:
-        value: |
+    attributes:
+      value: |
         **Before submitting a feature request**
-
+        
         The issue list is reserved for bug reports and feature requests. If you have a usage question, you can:
 
         - Read the [documentation](https://www.tremor.so/docs/getting-started/installation)
@@ -35,5 +35,5 @@ body:
       placeholder: Assumed API
   - type: markdown
     attributes:
-    value: |
-      This bug report template was inspired by the feature template from [vuejs](https://github.com/vuejs/core)
+      value: |
+        This bug report template was inspired by the feature template from [vuejs](https://github.com/vuejs/core)
