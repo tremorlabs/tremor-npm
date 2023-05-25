@@ -1,6 +1,6 @@
 "use client";
-import React, { useMemo } from "react";
-import { tremorTwMerge } from "lib";
+import React, { ReactElement, useMemo } from "react";
+import { sizing, tremorTwMerge } from "lib";
 import { DateRange, DayPicker } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
@@ -11,7 +11,6 @@ import { useInternalState } from "hooks";
 import { border, boxShadow, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
-  DateRangePickerOption,
   defaultOptions,
   formatSelectedDates,
   parseEndDate,
@@ -19,15 +18,21 @@ import {
 } from "./dateRangePickerUtils";
 
 import { DropdownItem } from "components/input-elements/Dropdown";
-import { ArrowLeftHeadIcon, ArrowRightHeadIcon } from "assets";
+import { ArrowLeftHeadIcon, ArrowRightHeadIcon, XCircleIcon } from "assets";
 import { Listbox, Popover } from "@headlessui/react";
-import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import {
+  constructValueToNameMapping,
+  getNodeText,
+  getSelectButtonColors,
+  hasValue,
+} from "../selectUtils";
+import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 
 const TODAY = startOfToday();
 
 export type Locale = typeof enUS;
 
-export type DateRangePickerValue = [(Date | null)?, (Date | null)?, (string | null)?];
+export type DateRangePickerValue = { from?: Date; to?: Date; selectValue?: string };
 
 export interface DateRangePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
@@ -35,9 +40,8 @@ export interface DateRangePickerProps
   defaultValue?: DateRangePickerValue;
   onValueChange?: (value: DateRangePickerValue) => void;
   enableDropdown?: boolean;
-  options?: DateRangePickerOption[];
-  minDate?: Date | null;
-  maxDate?: Date | null;
+  minDate?: Date;
+  maxDate?: Date;
   placeholder?: string;
   dropdownPlaceholder?: string;
   enableYearPagination?: boolean;
@@ -45,6 +49,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  children?: React.ReactElement[] | React.ReactElement;
 }
 
 const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
@@ -53,22 +58,21 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     defaultValue,
     onValueChange,
     enableDropdown = true,
-    options,
-    minDate = null,
-    maxDate = null,
+    minDate,
+    maxDate,
     placeholder = "Select",
     dropdownPlaceholder = "Select",
     disabled = false,
     enableYearPagination = false, // @achi
     locale = enUS,
     enableClear = true,
+    children,
     className,
     ...other
   } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-  const dropdownOptions = options ?? defaultOptions;
   const disabledDays = useMemo(() => {
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
@@ -77,37 +81,67 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   }, [minDate, maxDate]);
 
   const dropdownValues = useMemo(() => {
-    const dropdownValues = new Map<string, Omit<DateRangePickerOption, "value">>();
-    dropdownOptions.map((option: DateRangePickerOption) => {
-      dropdownValues.set(option.value, {
-        text: option.text,
-        from: option.from,
-        to: option.to,
-      });
-    });
-    return dropdownValues;
-  }, [dropdownOptions]);
+    const dropdownValues = new Map<
+      string,
+      Omit<DateRangePickerItemProps, "value"> & { text: string }
+    >();
 
-  const hasSelectedValue = selectedValue ? selectedValue.length >= 2 : false;
-  const selectedDropdownValue = hasSelectedValue ? selectedValue![2] ?? null : null;
-  const selectedStartDate = hasSelectedValue
-    ? parseStartDate(selectedValue![0], minDate, selectedDropdownValue, dropdownValues)
-    : undefined;
-  const selectedEndDate = hasSelectedValue
-    ? parseEndDate(selectedValue![1], maxDate, selectedDropdownValue, dropdownValues)
-    : undefined;
-  const formattedSelection = hasSelectedValue
-    ? !selectedStartDate && !selectedEndDate
+    if (children) {
+      React.Children.forEach(
+        children as ReactElement[],
+        (child: React.ReactElement<DateRangePickerItemProps>) => {
+          dropdownValues.set(child.props.value, {
+            text: (getNodeText(child) ?? child.props.value) as string,
+            from: child.props.from,
+            to: child.props.to,
+          });
+        },
+      );
+    } else {
+      defaultOptions.forEach((option) => {
+        dropdownValues.set(option.value, {
+          text: option.text,
+          from: option.from,
+          to: TODAY,
+        });
+      });
+    }
+    return dropdownValues;
+  }, [children]);
+
+  const valueToNameMapping = useMemo(() => {
+    if (children) {
+      return constructValueToNameMapping(children);
+    }
+    const valueToNameMapping = new Map<string, string>();
+    defaultOptions.forEach((option) => valueToNameMapping.set(option.value, option.text));
+    return valueToNameMapping;
+  }, [children]);
+
+  const selectedDropdownValue = selectedValue?.selectValue;
+  const selectedStartDate = parseStartDate(
+    selectedValue?.from,
+    minDate,
+    selectedDropdownValue,
+    dropdownValues,
+  );
+  const selectedEndDate = parseEndDate(
+    selectedValue?.to,
+    maxDate,
+    selectedDropdownValue,
+    dropdownValues,
+  );
+  const formattedSelection =
+    !selectedStartDate && !selectedEndDate
       ? placeholder
-      : formatSelectedDates(selectedStartDate, selectedEndDate, locale)
-    : placeholder;
+      : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? TODAY);
 
   const handleDropdownClick = (value: string) => {
     const { from, to } = dropdownValues.get(value)!;
     const toDate = to ?? TODAY;
-    onValueChange?.([from, toDate, value]);
-    setSelectedValue([from, toDate, value]);
+    onValueChange?.({ from, to: toDate, selectValue: value });
+    setSelectedValue({ from, to: toDate, selectValue: value });
   };
 
   return (
@@ -120,20 +154,41 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
       {...other}
     >
       <Popover as="div" className="w-full">
-        <Popover.Button
-          disabled={disabled}
-          className={tremorTwMerge(
-            "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
-            "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
-            spacing.twoXl.paddingLeft,
-            spacing.twoXl.paddingRight,
-            spacing.sm.paddingY,
-            border.sm.all,
-            getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
-          )}
-        >
-          {formattedSelection}
-        </Popover.Button>
+        <div className="relative w-full">
+          <Popover.Button
+            disabled={disabled}
+            className={tremorTwMerge(
+              "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
+              "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
+              spacing.twoXl.paddingLeft,
+              spacing.twoXl.paddingRight,
+              spacing.sm.paddingY,
+              border.sm.all,
+              getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
+            )}
+          >
+            {formattedSelection}
+          </Popover.Button>
+          <button
+            className={tremorTwMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.twoXl.marginRight,
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              // handleReset();
+            }}
+          >
+            <XCircleIcon
+              className={tremorTwMerge(
+                // makeMultiSelectBoxClassName("arrowDownIcon"),
+                "flex-none text-tremor-content-subtle",
+                sizing.md.height,
+                sizing.md.width,
+              )}
+            />
+          </button>
+        </div>
         <Popover.Panel
           className={tremorTwMerge(
             "absolute z-10 divide-y overflow-y-auto w-fit left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
@@ -153,8 +208,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             }}
             onSelect={
               ((v: DateRange) => {
-                onValueChange?.([v?.from, v?.to]);
-                setSelectedValue([v?.from, v?.to]);
+                onValueChange?.({ from: v?.from, to: v?.to });
+                setSelectedValue({ from: v?.from, to: v?.to });
               }) as any
             }
             locale={locale}
@@ -195,7 +250,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         </Popover.Panel>
       </Popover>
       {enableDropdown && (
-        <Listbox as="div" className="w-48" onChange={handleDropdownClick} disabled={disabled}>
+        <Listbox
+          as="div"
+          className="w-48"
+          value={selectedDropdownValue}
+          onChange={handleDropdownClick}
+          disabled={disabled}
+        >
           {({ value }) => (
             <>
               <Listbox.Button
@@ -209,9 +270,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >
-                {value
-                  ? dropdownValues.get(value)?.text ?? dropdownPlaceholder
-                  : dropdownPlaceholder}
+                {value ? valueToNameMapping.get(value) ?? dropdownPlaceholder : dropdownPlaceholder}
               </Listbox.Button>
               <Listbox.Options
                 className={tremorTwMerge(
@@ -221,11 +280,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   border.sm.all,
                 )}
               >
-                {dropdownOptions.map((option) => (
-                  <DropdownItem key={option.value} value={option.value}>
-                    {option.text}
-                  </DropdownItem>
-                ))}
+                {children ??
+                  defaultOptions.map((option) => (
+                    <DropdownItem key={option.value} value={option.value}>
+                      {option.text}
+                    </DropdownItem>
+                  ))}
               </Listbox.Options>
             </>
           )}

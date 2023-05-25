@@ -3,10 +3,10 @@ import { tremorTwMerge } from "lib";
 
 export interface SelectItemProps {
   value: string;
-  text?: string;
+  children?: React.ReactNode;
 }
 
-const getNodeText = (node: React.ReactElement): string | React.ReactElement | undefined => {
+export const getNodeText = (node: React.ReactElement): string | React.ReactElement | undefined => {
   if (["string", "number"].includes(typeof node)) return node;
   if (node instanceof Array) return node.map(getNodeText).join("");
   if (typeof node === "object" && node) return getNodeText(node.props.children);
@@ -15,7 +15,7 @@ const getNodeText = (node: React.ReactElement): string | React.ReactElement | un
 export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
   const valueToNameMapping = new Map<string, string>();
   React.Children.map(children, (child: React.ReactElement<SelectItemProps>) => {
-    valueToNameMapping.set(child.props.value, (getNodeText(child) || child.props.value) as string);
+    valueToNameMapping.set(child.props.value, (getNodeText(child) ?? child.props.value) as string);
   });
   return valueToNameMapping;
 }
@@ -25,7 +25,7 @@ export function getFilteredOptions(
   children: React.ReactElement[],
 ): React.ReactElement[] {
   return React.Children.map(children, (child) => {
-    const optionText = (getNodeText(child) || child.props.value) as string;
+    const optionText = (getNodeText(child) ?? child.props.value) as string;
     if (optionText.toLowerCase().includes(searchQuery.toLowerCase())) return child;
   });
 }

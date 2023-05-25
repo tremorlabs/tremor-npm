@@ -21,9 +21,9 @@ export type DropdownValues = Map<string, Omit<DateRangePickerOption, "value">>;
 export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
 export const parseStartDate = (
-  startDate: Date | null | undefined,
-  minDate: Date | null | undefined,
-  selectedDropdownValue: string | null | undefined,
+  startDate: Date | undefined,
+  minDate: Date | undefined,
+  selectedDropdownValue: string | undefined,
   dropdownValues: DropdownValues,
 ) => {
   if (selectedDropdownValue) {
@@ -35,9 +35,9 @@ export const parseStartDate = (
 };
 
 export const parseEndDate = (
-  endDate: Date | null | undefined,
-  maxDate: Date | null | undefined,
-  selectedDropdownValue: string | null | undefined,
+  endDate: Date | undefined,
+  maxDate: Date | undefined,
+  selectedDropdownValue: string | undefined,
   dropdownValues: DropdownValues,
 ) => {
   if (selectedDropdownValue) {
