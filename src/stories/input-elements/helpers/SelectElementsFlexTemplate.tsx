@@ -2,7 +2,7 @@ import React from "react";
 
 import { Card, Flex, Text } from "components";
 import { ComponentStory } from "@storybook/react";
-import { SimpleDropdown } from "./SimpleDropdown";
+import { SimpleDropdown } from "./SimpleSelect";
 import { SimpleMultiSelectBox } from "stories/input-elements/helpers/SimpleMultiSelectBox";
 import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
 

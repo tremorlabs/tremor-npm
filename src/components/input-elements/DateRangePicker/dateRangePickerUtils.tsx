@@ -24,10 +24,10 @@ export const parseStartDate = (
   startDate: Date | undefined,
   minDate: Date | undefined,
   selectedDropdownValue: string | undefined,
-  dropdownValues: DropdownValues,
+  selectValues: DropdownValues,
 ) => {
   if (selectedDropdownValue) {
-    startDate = dropdownValues.get(selectedDropdownValue)?.from;
+    startDate = selectValues.get(selectedDropdownValue)?.from;
   }
   if (!startDate) return undefined;
   if (startDate && !minDate) return startOfDay(startDate);
@@ -38,10 +38,10 @@ export const parseEndDate = (
   endDate: Date | undefined,
   maxDate: Date | undefined,
   selectedDropdownValue: string | undefined,
-  dropdownValues: DropdownValues,
+  selectValues: DropdownValues,
 ) => {
   if (selectedDropdownValue) {
-    endDate = startOfDay(dropdownValues.get(selectedDropdownValue)?.to ?? startOfToday());
+    endDate = startOfDay(selectValues.get(selectedDropdownValue)?.to ?? startOfToday());
   }
   if (!endDate) return undefined;
   if (endDate && !maxDate) return startOfDay(endDate);

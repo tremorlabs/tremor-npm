@@ -2,100 +2,91 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import {
-  Button,
-  Card,
-  DateRangePicker,
-  Dropdown,
-  DropdownItem,
-  Flex,
-  Text,
-  Title,
-} from "components";
+import { Button, Card, DateRangePicker, Select, SelectItem, Flex, Text, Title } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
-import { SimpleDropdown } from "./helpers/SimpleDropdown";
+import { SimpleSelect } from "./helpers/SimpleSelect";
 import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
 
 import { CalendarIcon } from "assets";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/InputElements/Dropdown",
-  component: Dropdown,
-} as ComponentMeta<typeof Dropdown>;
+  title: "Tremor/InputElements/Select",
+  component: Select,
+} as ComponentMeta<typeof Select>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof Dropdown> = (args) => (
+const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
   <form>
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
         <DateRangePicker />
-        <SimpleDropdown {...args} />
+        <SimpleSelect {...args} />
         <SimpleSelectBox icon={CalendarIcon} />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
     <Card>
-      <SimpleDropdown {...args} />
+      <SimpleSelect {...args} />
     </Card>
     <Title className="mt-5">With Black Background</Title>
     <Card>
       <div className="flex items-center bg-black h-24">
-        <SimpleDropdown {...args} />
+        <SimpleSelect {...args} />
       </div>
     </Card>
   </form>
 );
 
-const FlexTemplate: ComponentStory<typeof Dropdown> = (args) => (
+const FlexTemplate: ComponentStory<typeof Select> = (args) => (
   <>
     <Card>
       <Text className="mt-2">Justify Start</Text>
       <Flex justifyContent="start" className="mt-2">
-        <SimpleDropdown {...args} />
+        <SimpleSelect {...args} />
       </Flex>
       <Text className="mt-2">Justify End</Text>
       <Flex justifyContent="end" className="mt-2">
-        <SimpleDropdown {...args} />
+        <SimpleSelect {...args} />
       </Flex>
       <Text className="mt-2">Justify End with inner div</Text>
       <Flex justifyContent="end" className="mt-2">
         <div>
-          <SimpleDropdown {...args} />
+          <SimpleSelect {...args} />
         </div>
       </Flex>
       <Text className="mt-2">Justify Start with inner div</Text>
       <Flex justifyContent="start" className="mt-2">
         <div>
-          <SimpleDropdown {...args} />
+          <SimpleSelect {...args} />
         </div>
       </Flex>
     </Card>
   </>
 );
 
-const WithControlledStateTemplate: ComponentStory<typeof Dropdown> = () => {
+const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
   const [value, setValue] = useState<string>("5");
   return (
     <Card>
-      <Dropdown
+      <Select
         value={value}
         onValueChange={(value) => {
           setValue(value);
           alert(value);
         }}
       >
-        <DropdownItem value={"5"}>Five</DropdownItem>
-        <DropdownItem value={"3"}>Three</DropdownItem>
-        <DropdownItem value={"1"}>One</DropdownItem>
-        <DropdownItem value={"6"}>Six</DropdownItem>
-        <DropdownItem value={"7"}>Seven</DropdownItem>
-        <DropdownItem value={"8"}>Eight</DropdownItem>
-        <DropdownItem value={"9"}>Nine</DropdownItem>
-        <DropdownItem value={"10"}>Ten</DropdownItem>
-        <DropdownItem value={"11"}>Eleven</DropdownItem>
-      </Dropdown>
+        <SelectItem value={"5"}>Five</SelectItem>
+        <SelectItem value={"3"}>Three</SelectItem>
+        <SelectItem value={"1"}>One</SelectItem>
+        <SelectItem value={"6"}>Six</SelectItem>
+        <SelectItem value={"7"}>Seven</SelectItem>
+        <SelectItem value={"8"}>Eight</SelectItem>
+        <SelectItem value={"9"}>Nine</SelectItem>
+        <SelectItem value={"10"}>Ten</SelectItem>
+        <SelectItem value={"11"}>Eleven</SelectItem>
+      </Select>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>Set to One</Button>
       <Text>{value}</Text>

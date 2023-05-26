@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DropdownItem } from "../Dropdown";
+import { SelectItem } from "../Select";
 
 export interface DateRangePickerItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
@@ -13,9 +13,9 @@ const DateRangePickerItem = React.forwardRef<HTMLLIElement, DateRangePickerItemP
     const { value, className, children, ...other } = props;
 
     return (
-      <DropdownItem ref={ref} className={className} value={value} {...other}>
+      <SelectItem ref={ref} className={className} value={value} {...other}>
         {value ?? children}
-      </DropdownItem>
+      </SelectItem>
     );
   },
 );

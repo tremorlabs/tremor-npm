@@ -132,7 +132,7 @@ UncontrolledWithDefaultDateRange.args = {
 export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultFrLocale.args = {
   locale: fr,
-  dropdownPlaceholder: "Sélectionnez",
+  selectPlaceholder: "Sélectionnez",
   placeholder: "Sélectionnez...",
 };
 

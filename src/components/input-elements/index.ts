@@ -1,4 +1,4 @@
-export * from "./Dropdown";
+export * from "./Select";
 export * from "./MultiSelectBox";
 export * from "./SelectBox";
 export * from "./Tab";

@@ -13,7 +13,7 @@ import {
   Title,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
-import { SimpleDropdown } from "stories/input-elements/helpers/SimpleDropdown";
+import { SimpleDropdown } from "stories/input-elements/helpers/SimpleSelect";
 import { SimpleSelectBox } from "./helpers/SimpleSelectBox";
 
 import { CalendarIcon } from "assets";

@@ -7,14 +7,14 @@ import { spacing } from "lib/spacing";
 import { makeClassName } from "lib";
 import { Listbox } from "@headlessui/react";
 
-const makeDropdownItemClassName = makeClassName("DropdownItem");
+const makeSelectItemClassName = makeClassName("SelectItem");
 
-export interface DropdownItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface SelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   icon?: React.ElementType;
 }
 
-const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, ref) => {
+const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
 
   const Icon = icon;
@@ -22,7 +22,7 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
   return (
     <Listbox.Option
       className={tremorTwMerge(
-        makeDropdownItemClassName("root"),
+        makeSelectItemClassName("root"),
         "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
         "text-tremor-content-emphasis cursor-default text-tremor-sm",
         spacing.md.paddingX,
@@ -37,7 +37,7 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
       {Icon && (
         <Icon
           className={tremorTwMerge(
-            makeDropdownItemClassName("icon"),
+            makeSelectItemClassName("icon"),
             "flex-none text-tremor-content-subtle",
             sizing.lg.width,
             spacing.xs.marginRight,
@@ -49,6 +49,6 @@ const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, 
   );
 });
 
-DropdownItem.displayName = "DropdownItem";
+SelectItem.displayName = "SelectItem";
 
-export default DropdownItem;
+export default SelectItem;

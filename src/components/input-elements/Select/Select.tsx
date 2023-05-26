@@ -8,9 +8,9 @@ import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 import { Listbox } from "@headlessui/react";
 
-const makeDropdownClassName = makeClassName("Dropdown");
+const makeSelectClassName = makeClassName("Select");
 
-export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -20,7 +20,7 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
+const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   const {
     defaultValue,
     value,
@@ -58,7 +58,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
             >
               <Icon
                 className={tremorTwMerge(
-                  makeDropdownClassName("Icon"),
+                  makeSelectClassName("Icon"),
                   "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
@@ -86,7 +86,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
           >
             <ArrowDownHeadIcon
               className={tremorTwMerge(
-                makeDropdownClassName("arrowDownIcon"),
+                makeSelectClassName("arrowDownIcon"),
                 "flex-none text-tremor-content-subtle",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -109,6 +109,6 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
   );
 });
 
-Dropdown.displayName = "Dropdown";
+Select.displayName = "Select";
 
-export default Dropdown;
+export default Select;
