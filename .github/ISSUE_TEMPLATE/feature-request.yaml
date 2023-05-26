@@ -1,0 +1,39 @@
+name: "\U0001F680 New feature proposal"
+description: Suggest an idea for this project
+title: "[Feature]: "
+labels: ["Triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before submitting a feature request**
+        
+        The issue list is reserved for bug reports and feature requests. If you have a usage question, you can:
+
+        - Read the [documentation](https://www.tremor.so/docs/getting-started/installation)
+        - Ask questions on [Slack](https://join.slack.com/t/tremor-community/shared_invite/zt-1u8jqmcmq-Fdr9B6MbnO7u8FkGh~2Ylg)
+
+        Also try to search for your issue/feature - another user may have already requested something similar, thanks!
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: What problem does this feature solve?
+      description: |
+        Explain your use case, context, and rationale behind this feature request.
+
+        An important design goal of Tremor is keeping the API small. The problem should be common enough to justify the addition.
+      placeholder: Problem description
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-API
+    attributes:
+      label: What does the proposed API look like?
+      description: |
+        Describe how you propose to solve the problem and provide code samples of how the API would work once implemented. Note that you can use [Markdown](https://guides.github.com/features/mastering-markdown/) to format your code blocks.
+      placeholder: Assumed API
+  - type: markdown
+    attributes:
+      value: |
+        This bug report template was inspired by the feature template from [vuejs](https://github.com/vuejs/core)
