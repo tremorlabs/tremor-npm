@@ -7,89 +7,89 @@ import {
   Card,
   DateRangePicker,
   Flex,
-  MultiSelectBox,
-  MultiSelectBoxItem,
+  MultiSelect,
+  MultiSelectItem,
   Text,
   Title,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
-import { SimpleMultiSelectBox } from "./helpers/SimpleMultiSelectBox";
+import { SimpleMultiSelect } from "./helpers/SimpleMultiSelect";
 
 import { CalendarIcon } from "assets";
 import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/InputElements/MultiSelectBox",
-  component: MultiSelectBox,
-} as ComponentMeta<typeof MultiSelectBox>;
+  title: "Tremor/InputElements/MultiSelect",
+  component: MultiSelect,
+} as ComponentMeta<typeof MultiSelect>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
+const ResponsiveTemplate: ComponentStory<typeof MultiSelect> = (args) => (
   <form>
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
         <DateRangePicker />
-        <SimpleMultiSelectBox {...args} />
+        <SimpleMultiSelect {...args} />
         <SimpleSelectBox icon={CalendarIcon} />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
     <Card>
-      <SimpleMultiSelectBox {...args} />
+      <SimpleMultiSelect {...args} />
     </Card>
     <Title className="mt-5">With Black Background</Title>
     <Card>
       <div className="flex items-center bg-black h-24">
-        <SimpleMultiSelectBox {...args} />
+        <SimpleMultiSelect {...args} />
       </div>
     </Card>
   </form>
 );
 
-const FlexTemplate: ComponentStory<typeof MultiSelectBox> = (args) => (
+const FlexTemplate: ComponentStory<typeof MultiSelect> = (args) => (
   <>
     <Card>
       <Text className="mt-5">Justify Start</Text>
       <Flex justifyContent="start" className="mt-2">
-        <SimpleMultiSelectBox {...args} />
+        <SimpleMultiSelect {...args} />
       </Flex>
       <Text className="mt-5">Justify End</Text>
       <Flex justifyContent="end" className="mt-2">
-        <SimpleMultiSelectBox {...args} />
+        <SimpleMultiSelect {...args} />
       </Flex>
       <Text className="mt-2">Justify End with inner div</Text>
       <Flex justifyContent="end" className="mt-2">
         <div>
-          <SimpleMultiSelectBox {...args} />
+          <SimpleMultiSelect {...args} />
         </div>
       </Flex>
       <Text className="mt-2">Justify Start with inner div</Text>
       <Flex justifyContent="start" className="mt-2">
         <div>
-          <SimpleMultiSelectBox {...args} />
+          <SimpleMultiSelect {...args} />
         </div>
       </Flex>
     </Card>
   </>
 );
 
-const WithControlledStateTemplate: ComponentStory<typeof MultiSelectBox> = () => {
+const WithControlledStateTemplate: ComponentStory<typeof MultiSelect> = () => {
   const [value, setValue] = useState<string[]>([]);
   return (
     <Card>
-      <MultiSelectBox
+      <MultiSelect
         value={value}
         onValueChange={(values) => {
           setValue(values);
           alert(values);
         }}
       >
-        <MultiSelectBoxItem value={"5"}>Five</MultiSelectBoxItem>
-        <MultiSelectBoxItem value={"3"}>Three</MultiSelectBoxItem>
-        <MultiSelectBoxItem value={"1"}>One</MultiSelectBoxItem>
-      </MultiSelectBox>
+        <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+        <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+      </MultiSelect>
       <Button onClick={() => setValue([])}>Reset</Button>
       <Button onClick={() => setValue(["1"])}>Set to One</Button>
     </Card>

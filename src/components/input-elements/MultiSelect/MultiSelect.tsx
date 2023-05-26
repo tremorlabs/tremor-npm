@@ -12,9 +12,9 @@ import { border, fontSize, makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 import { Listbox } from "@headlessui/react";
 
-const makeMultiSelectBoxClassName = makeClassName("MultiSelectBox");
+const makeMultiSelectClassName = makeClassName("MultiSelect");
 
-export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string[];
   value?: string[];
   onValueChange?: (value: string[]) => void;
@@ -24,7 +24,7 @@ export interface MultiSelectBoxProps extends React.HTMLAttributes<HTMLDivElement
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((props, ref) => {
+const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
   const {
     defaultValue,
     value,
@@ -80,7 +80,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
             >
               <Icon
                 className={tremorTwMerge(
-                  makeMultiSelectBoxClassName("Icon"),
+                  makeMultiSelectClassName("Icon"),
                   "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
@@ -112,7 +112,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           >
             <XCircleIcon
               className={tremorTwMerge(
-                makeMultiSelectBoxClassName("clearIcon"),
+                makeMultiSelectClassName("clearIcon"),
                 "flex-none text-tremor-content-subtle",
                 sizing.md.height,
                 sizing.md.width,
@@ -127,7 +127,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           >
             <ArrowDownHeadIcon
               className={tremorTwMerge(
-                makeMultiSelectBoxClassName("arrowDownIcon"),
+                makeMultiSelectClassName("arrowDownIcon"),
                 "flex-none text-tremor-content-subtle",
                 sizing.lg.height,
                 sizing.lg.width,
@@ -180,6 +180,6 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
   );
 });
 
-MultiSelectBox.displayName = "MultiSelectBox";
+MultiSelect.displayName = "MultiSelect";
 
-export default MultiSelectBox;
+export default MultiSelect;

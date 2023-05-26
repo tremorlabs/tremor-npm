@@ -1,5 +1,5 @@
 export * from "./Select";
-export * from "./MultiSelectBox";
+export * from "./MultiSelect";
 export * from "./SelectBox";
 export * from "./Tab";
 export * from "./Button";

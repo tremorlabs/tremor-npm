@@ -3,7 +3,7 @@ import React from "react";
 import { Card, Flex, Text } from "components";
 import { ComponentStory } from "@storybook/react";
 import { SimpleSelect } from "./SimpleSelect";
-import { SimpleMultiSelectBox } from "stories/input-elements/helpers/SimpleMultiSelectBox";
+import { SimpleMultiSelect } from "stories/input-elements/helpers/SimpleMultiSelect";
 import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
 
 const maxWidth = "max-w-xs";
@@ -15,7 +15,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
       <div className="space-y-2">
         <SimpleSelect maxWidth={maxWidth} />
         <SimpleSelectBox maxWidth={maxWidth} />
-        <SimpleMultiSelectBox maxWidth={maxWidth} />
+        <SimpleMultiSelect maxWidth={maxWidth} />
       </div>
     </Flex>
     <Text className="mt-2">Justify End</Text>
@@ -23,7 +23,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
       <div className={maxWidth + " space-y-2"}>
         <SimpleSelect maxWidth={maxWidth} />
         <SimpleSelectBox maxWidth={maxWidth} />
-        <SimpleMultiSelectBox maxWidth={maxWidth} />
+        <SimpleMultiSelect maxWidth={maxWidth} />
       </div>
     </Flex>
     <Text className="mt-2">Justify End with inner div</Text>
@@ -32,7 +32,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
         <div className="space-y-2">
           <SimpleSelect maxWidth={maxWidth} />
           <SimpleSelectBox maxWidth={maxWidth} />
-          <SimpleMultiSelectBox maxWidth={maxWidth} />
+          <SimpleMultiSelect maxWidth={maxWidth} />
         </div>
       </div>
     </Flex>
@@ -42,7 +42,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
         <div className="space-y-2">
           <SimpleSelect maxWidth={maxWidth} />
           <SimpleSelectBox maxWidth={maxWidth} />
-          <SimpleMultiSelectBox maxWidth={maxWidth} />
+          <SimpleMultiSelect maxWidth={maxWidth} />
         </div>
       </div>
     </Flex>
