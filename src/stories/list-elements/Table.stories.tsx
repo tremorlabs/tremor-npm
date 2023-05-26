@@ -86,7 +86,13 @@ const Template: ComponentStory<typeof Table> = (args) => {
 };
 
 export const Default = Template.bind({});
+export const TableWithClassName = Template.bind({});
+
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
   children: undefined,
+};
+
+TableWithClassName.args = {
+  tableClassName: "",
 };
