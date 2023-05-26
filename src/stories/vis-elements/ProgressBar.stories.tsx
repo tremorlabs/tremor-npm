@@ -36,7 +36,7 @@ const Template: ComponentStory<typeof ProgressBar> = (args) => (
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  percentageValue: 50,
+  value: 50,
   tooltip: "50%",
   className: "mt-5",
   label: "90%",

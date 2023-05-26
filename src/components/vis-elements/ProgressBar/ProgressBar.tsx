@@ -10,7 +10,7 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 const makeProgressBarClassName = makeClassName("ProgressBar");
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  percentageValue: number;
+  value: number;
   label?: string;
   tooltip?: string;
   showAnimation?: boolean;
@@ -19,7 +19,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
   const {
-    percentageValue,
+    value,
     label,
     color = BaseColors.Blue,
     tooltip,
@@ -59,7 +59,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
               color && getColorClassNames(color, colorPalette.background).bgColor,
             )}
             style={{
-              width: `${percentageValue}%`,
+              width: `${value}%`,
               transition: showAnimation ? "all 2s" : "",
             }}
           />

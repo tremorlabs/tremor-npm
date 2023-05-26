@@ -6,6 +6,6 @@ import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 
 describe("ProgressBar", () => {
   test("renders the ProgressBar component with default props", () => {
-    render(<ProgressBar percentageValue={50} />);
+    render(<ProgressBar value={50} />);
   });
 });
