@@ -112,7 +112,7 @@ const MultiSelectBox = React.forwardRef<HTMLDivElement, MultiSelectBoxProps>((pr
           >
             <XCircleIcon
               className={tremorTwMerge(
-                makeMultiSelectBoxClassName("arrowDownIcon"),
+                makeMultiSelectBoxClassName("clearIcon"),
                 "flex-none text-tremor-content-subtle",
                 sizing.md.height,
                 sizing.md.width,

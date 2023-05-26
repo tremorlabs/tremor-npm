@@ -13,6 +13,7 @@ import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,
   formatSelectedDates,
+  makeDateRangePickerClassName,
   parseEndDate,
   parseStartDate,
 } from "./dateRangePickerUtils";
@@ -39,7 +40,7 @@ export interface DateRangePickerProps
   value?: DateRangePickerValue;
   defaultValue?: DateRangePickerValue;
   onValueChange?: (value: DateRangePickerValue) => void;
-  enableDropdown?: boolean;
+  enableSelect?: boolean;
   minDate?: Date;
   maxDate?: Date;
   placeholder?: string;
@@ -57,7 +58,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     value,
     defaultValue,
     onValueChange,
-    enableDropdown = true,
+    enableSelect = true,
     minDate,
     maxDate,
     placeholder = "Select",
@@ -137,11 +138,18 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
       : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? TODAY);
 
+  const isClearEnabled = enableClear && !disabled;
+
   const handleDropdownClick = (value: string) => {
     const { from, to } = dropdownValues.get(value)!;
     const toDate = to ?? TODAY;
     onValueChange?.({ from, to: toDate, selectValue: value });
     setSelectedValue({ from, to: toDate, selectValue: value });
+  };
+
+  const handleReset = () => {
+    onValueChange?.({});
+    setSelectedValue({});
   };
 
   return (
@@ -161,7 +169,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
               "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
               spacing.twoXl.paddingLeft,
-              spacing.twoXl.paddingRight,
+              isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,
               border.sm.all,
               getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
@@ -169,25 +177,27 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           >
             {formattedSelection}
           </Popover.Button>
-          <button
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.twoXl.marginRight,
-            )}
-            onClick={(e) => {
-              e.preventDefault();
-              // handleReset();
-            }}
-          >
-            <XCircleIcon
+          {isClearEnabled && (
+            <button
               className={tremorTwMerge(
-                // makeMultiSelectBoxClassName("arrowDownIcon"),
-                "flex-none text-tremor-content-subtle",
-                sizing.md.height,
-                sizing.md.width,
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.twoXl.marginRight,
               )}
-            />
-          </button>
+              onClick={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <XCircleIcon
+                className={tremorTwMerge(
+                  makeDateRangePickerClassName("clearIcon"),
+                  "flex-none text-tremor-content-subtle",
+                  sizing.md.height,
+                  sizing.md.width,
+                )}
+              />
+            </button>
+          )}
         </div>
         <Popover.Panel
           className={tremorTwMerge(
@@ -218,12 +228,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
-              caption:
-                "flex text-tremor-content-emphasis justify-center pt-1 relative items-center",
+              caption: "flex justify-center pt-1 relative items-center",
               caption_label: "text-tremor-sm font-tremor-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
-                "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 bg-transparent rounded-tremor-sm focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100",
+                "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 rounded-tremor-sm focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100",
               nav_button_previous: "absolute left-1",
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
@@ -232,14 +241,15 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               row: "flex w-full mt-0.5",
               cell: "text-center text-tremor-sm p-0 relative focus-within:relative",
               day: "h-9 w-9 p-0 font-tremor-normal hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
-              day_selected: "aria-selected:bg-tremor-brand text-tremor-brand-inverted",
-              day_disabled: "text-tremor-content-subtle hover:bg-transparent",
+              day_selected: "aria-selected:bg-tremor-brand aria-selected:text-tremor-brand",
+              day_disabled: "text-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle:
                 "aria-selected:!bg-tremor-background-subtle aria-selected:text-tremor-brand !rounded-none",
-              day_hidden: "invisible",
               day_outside: "text-tremor-content-subtle",
-              day_range_start: "rounded-r-none rounded-l-tremor-sm",
-              day_range_end: "rounded-l-none rounded-r-tremor-sm",
+              day_range_start:
+                "rounded-r-none rounded-l-tremor-sm aria-selected:text-tremor-brand-inverted",
+              day_range_end:
+                "rounded-l-none rounded-r-tremor-sm aria-selected:text-tremor-brand-inverted",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
@@ -249,7 +259,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           />
         </Popover.Panel>
       </Popover>
-      {enableDropdown && (
+      {enableSelect && (
         <Listbox
           as="div"
           className="w-48"
