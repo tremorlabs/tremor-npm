@@ -17,26 +17,26 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 const makeCategoryBarClassName = makeClassName("CategoryBar");
 
 const getMarkerBgColor = (
-  percentageValue: number | undefined,
-  categoryPercentageValues: number[],
+  markerValue: number | undefined,
+  values: number[],
   colors: Color[],
 ): string => {
-  if (percentageValue === undefined) return "";
+  if (markerValue === undefined) return "";
 
   let prefixSum = 0;
-  for (let i = 0; i < categoryPercentageValues.length; i++) {
-    const currentWidthPercentage = categoryPercentageValues[i];
+  for (let i = 0; i < values.length; i++) {
+    const currentWidthPercentage = values[i];
     const currentBgColor = colorClassNames[colors[i]][colorPalette.background].bgColor;
 
     prefixSum += currentWidthPercentage;
-    if (prefixSum >= percentageValue) return currentBgColor;
+    if (prefixSum >= markerValue) return currentBgColor;
   }
 
   return "";
 };
 
-const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: number[] }) => {
-  const sumValues = sumNumericArray(categoryPercentageValues);
+const BarLabels = ({ values }: { values: number[] }) => {
+  const sumValues = sumNumericArray(values);
   let prefixSum = 0;
   let sumConsecutveHiddenLabels = 0;
   return (
@@ -48,35 +48,28 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
         sizing.lg.height,
       )}
     >
-      {categoryPercentageValues
-        .slice(0, categoryPercentageValues.length)
-        .map((widthPercentage, idx) => {
-          prefixSum += widthPercentage;
-          const showLabel =
-            (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
-            sumValues - prefixSum >= 0.15 * sumValues &&
-            prefixSum >= 0.1 * sumValues;
-          sumConsecutveHiddenLabels = showLabel
-            ? 0
-            : (sumConsecutveHiddenLabels += widthPercentage);
+      {values.slice(0, values.length).map((widthPercentage, idx) => {
+        prefixSum += widthPercentage;
+        const showLabel =
+          (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
+          sumValues - prefixSum >= 0.15 * sumValues &&
+          prefixSum >= 0.1 * sumValues;
+        sumConsecutveHiddenLabels = showLabel ? 0 : (sumConsecutveHiddenLabels += widthPercentage);
 
-          return (
-            <div
-              key={`item-${idx}`}
-              className="flex items-center justify-end"
-              style={{ width: `${widthPercentage}%` }}
+        return (
+          <div
+            key={`item-${idx}`}
+            className="flex items-center justify-end"
+            style={{ width: `${widthPercentage}%` }}
+          >
+            <span
+              className={tremorTwMerge(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}
             >
-              <span
-                className={tremorTwMerge(
-                  showLabel ? "block" : "hidden",
-                  "left-1/2 translate-x-1/2",
-                )}
-              >
-                {prefixSum}
-              </span>
-            </div>
-          );
-        })}
+              {prefixSum}
+            </span>
+          </div>
+        );
+      })}
       <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.left)}>
         0
       </div>
@@ -88,9 +81,9 @@ const BarLabels = ({ categoryPercentageValues }: { categoryPercentageValues: num
 };
 
 export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  categoryPercentageValues: number[];
+  values: number[];
   colors?: Color[];
-  percentageValue?: number;
+  markerValue?: number;
   showLabels?: boolean;
   tooltip?: string;
   showAnimation?: boolean;
@@ -98,9 +91,9 @@ export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, ref) => {
   const {
-    categoryPercentageValues = [],
+    values = [],
     colors = themeColorRange,
-    percentageValue,
+    markerValue,
     showLabels = true,
     tooltip,
     showAnimation = true,
@@ -108,7 +101,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     ...other
   } = props;
 
-  const markerBgColor = getMarkerBgColor(percentageValue, categoryPercentageValues, colors);
+  const markerBgColor = getMarkerBgColor(markerValue, values, colors);
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -120,7 +113,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         className={tremorTwMerge(makeCategoryBarClassName("root"), className)}
         {...other}
       >
-        {showLabels ? <BarLabels categoryPercentageValues={categoryPercentageValues} /> : null}
+        {showLabels ? <BarLabels values={values} /> : null}
         <div
           className={tremorTwMerge(
             makeCategoryBarClassName("barWrapper"),
@@ -133,21 +126,22 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               "flex-1 flex items-center h-full overflow-hidden rounded-tremor-full",
             )}
           >
-            {categoryPercentageValues.map((percentageValue, idx) => {
+            {values.map((value, idx) => {
+              const baseColor = colors[idx] ?? "gray";
               return (
                 <div
                   key={`item-${idx}`}
                   className={tremorTwMerge(
                     makeCategoryBarClassName("categoryBar"),
                     "h-full",
-                    colorClassNames[colors[idx]][colorPalette.background].bgColor,
+                    colorClassNames[baseColor][colorPalette.background].bgColor,
                   )}
-                  style={{ width: `${percentageValue}%` }}
+                  style={{ width: `${value}%` }}
                 />
               );
             })}
           </div>
-          {percentageValue !== undefined ? (
+          {markerValue !== undefined ? (
             <div
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
@@ -156,7 +150,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 sizing.lg.width,
               )}
               style={{
-                left: `${percentageValue}%`,
+                left: `${markerValue}%`,
                 transition: showAnimation ? "all 2s" : "",
               }}
               {...getReferenceProps}
