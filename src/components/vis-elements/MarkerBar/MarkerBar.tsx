@@ -60,7 +60,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             style={{
               left: `${minValue}%`,
               width: `${maxValue - minValue}%`,
-              transition: showAnimation ? "all 2s" : "",
+              transition: showAnimation ? "all 1s" : "",
             }}
             {...getRangeReferenceProps}
           />
@@ -76,7 +76,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         )}
         style={{
           left: `${value}%`,
-          transition: showAnimation ? "all 2s" : "",
+          transition: showAnimation ? "all 1s" : "",
         }}
         {...getMarkerReferenceProps}
       >

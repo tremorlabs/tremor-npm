@@ -76,7 +76,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               )}
               style={{
                 width: `${widths[idx]}%`,
-                transition: showAnimation ? "all 2s" : "",
+                transition: showAnimation ? "all 1s" : "",
               }}
             >
               <div className={tremorTwMerge("absolute max-w-full flex", spacing.sm.left)}>

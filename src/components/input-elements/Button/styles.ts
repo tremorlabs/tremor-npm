@@ -102,9 +102,6 @@ export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
         borderColor: color
           ? getColorClassNames(color, colorPalette.border).borderColor
           : "border-tremor-brand",
-        focusRingColor: color
-          ? getColorClassNames(color, colorPalette.ring).focusRingColor
-          : "focus:ring-tremor-brand",
       };
     case "secondary":
       return {
@@ -121,9 +118,6 @@ export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
         borderColor: color
           ? getColorClassNames(color, colorPalette.border).borderColor
           : "border-tremor-brand",
-        focusRingColor: color
-          ? getColorClassNames(color, colorPalette.ring).focusRingColor
-          : "focus:ring-tremor-brand",
       };
     case "light":
       return {

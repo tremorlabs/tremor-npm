@@ -151,7 +151,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               )}
               style={{
                 left: `${markerValue}%`,
-                transition: showAnimation ? "all 2s" : "",
+                transition: showAnimation ? "all 1s" : "",
               }}
               {...getReferenceProps}
             >

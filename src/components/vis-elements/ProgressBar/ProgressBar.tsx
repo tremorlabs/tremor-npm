@@ -60,7 +60,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             )}
             style={{
               width: `${value}%`,
-              transition: showAnimation ? "all 2s" : "",
+              transition: showAnimation ? "all 1s" : "",
             }}
           />
         </div>

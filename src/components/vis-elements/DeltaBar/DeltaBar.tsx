@@ -58,7 +58,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               )}
               style={{
                 width: `${Math.abs(percentageValue)}%`,
-                transition: showAnimation ? "all 2s" : "",
+                transition: showAnimation ? "all 1s" : "",
               }}
               {...getReferenceProps}
             />
@@ -67,7 +67,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         <div
           className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
-            "ring-2 z-10 rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-emphasis",
+            "ring-2 z-10 rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-strong",
             sizing.md.height,
             sizing.twoXs.width,
           )}
@@ -88,7 +88,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               )}
               style={{
                 width: `${Math.abs(percentageValue)}%`,
-                transition: showAnimation ? "all 2s" : "",
+                transition: showAnimation ? "all 1s" : "",
               }}
               {...getReferenceProps}
             />

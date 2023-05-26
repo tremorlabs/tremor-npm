@@ -166,8 +166,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           <Popover.Button
             disabled={disabled}
             className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
+              "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate",
               "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
+              "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.twoXl.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
@@ -182,6 +183,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <button
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
+                "outline-none focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
                 spacing.twoXl.marginRight,
               )}
               onClick={(e) => {
@@ -233,7 +235,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               caption_label: "text-tremor-sm font-tremor-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
-                "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 rounded-tremor-sm focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100",
+                "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 rounded-tremor-sm outline-none focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               nav_button_previous: "absolute left-1",
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
@@ -272,8 +274,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <>
               <Listbox.Button
                 className={tremorTwMerge(
-                  "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left whitespace-nowrap truncate",
+                  "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate",
                   "rounded-r-tremor-default -ml-px shadow-tremor-sm text-tremor-content-emphasis",
+                  "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,

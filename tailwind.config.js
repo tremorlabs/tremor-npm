@@ -19,7 +19,7 @@ module.exports = {
             muted: "#f9fafb",
             subtle: "#f3f4f6",
             DEFAULT: "#ffffff",
-            emphasis: "#4b5563",
+            emphasis: "#9ca3af",
             strong: "#111827",
             inverted: "#030712",
           },

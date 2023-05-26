@@ -32,7 +32,7 @@ const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
     </Card>
     <Title className="mt-5">With Black Background</Title>
     <Card>
-      <div className="flex items-center bg-black h-24">
+      <div className="flex items-center bg-black h-24 px-4">
         <SimpleSelect {...args} />
       </div>
     </Card>
