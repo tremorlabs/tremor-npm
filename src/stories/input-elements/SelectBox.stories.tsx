@@ -13,7 +13,7 @@ import {
   Title,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
-import { SimpleDropdown } from "stories/input-elements/helpers/SimpleSelect";
+import { SimpleSelect } from "stories/input-elements/helpers/SimpleSelect";
 import { SimpleSelectBox } from "./helpers/SimpleSelectBox";
 
 import { CalendarIcon } from "assets";
@@ -32,7 +32,7 @@ const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
       <Card>
         <DateRangePicker />
         <SimpleSelectBox {...args} />
-        <SimpleDropdown />
+        <SimpleSelect />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
