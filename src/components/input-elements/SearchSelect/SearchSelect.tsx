@@ -12,9 +12,9 @@ import {
 import { Combobox } from "@headlessui/react";
 import { ArrowDownHeadIcon } from "assets";
 
-const makeSelectBoxClassName = makeClassName("SelectBox");
+const makeSearchSelectClassName = makeClassName("SearchSelect");
 
-export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
@@ -24,7 +24,7 @@ export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) => {
+const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props, ref) => {
   const {
     defaultValue,
     value,
@@ -69,7 +69,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
               >
                 <Icon
                   className={tremorTwMerge(
-                    makeSelectBoxClassName("Icon"),
+                    makeSearchSelectClassName("Icon"),
                     "flex-none text-tremor-content-subtle",
                     sizing.lg.height,
                     sizing.lg.width,
@@ -101,7 +101,7 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
             >
               <ArrowDownHeadIcon
                 className={tremorTwMerge(
-                  makeSelectBoxClassName("arrowDownIcon"),
+                  makeSearchSelectClassName("arrowDownIcon"),
                   "flex-none text-tremor-content-subtle",
                   sizing.lg.height,
                   sizing.lg.width,
@@ -127,6 +127,6 @@ const SelectBox = React.forwardRef<HTMLDivElement, SelectBoxProps>((props, ref) 
   );
 });
 
-SelectBox.displayName = "SelectBox";
+SearchSelect.displayName = "SearchSelect";
 
-export default SelectBox;
+export default SearchSelect;

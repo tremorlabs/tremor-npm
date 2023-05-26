@@ -16,7 +16,7 @@ import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate
 import { SimpleMultiSelect } from "./helpers/SimpleMultiSelect";
 
 import { CalendarIcon } from "assets";
-import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
+import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -32,7 +32,7 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelect> = (args) => (
       <Card>
         <DateRangePicker />
         <SimpleMultiSelect {...args} />
-        <SimpleSelectBox icon={CalendarIcon} />
+        <SimpleSearchSelect icon={CalendarIcon} />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>

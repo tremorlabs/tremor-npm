@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import SelectBox from "components/input-elements/SelectBox/SelectBox";
-import SelectBoxItem from "components/input-elements/SelectBox/SelectBoxItem";
+import SelectBox from "components/input-elements/SearchSelect/SearchSelect";
+import SelectBoxItem from "components/input-elements/SearchSelect/SearchSelectItem";
 
 describe("SelectBox", () => {
   test("renders the SelectBox component with default props", () => {

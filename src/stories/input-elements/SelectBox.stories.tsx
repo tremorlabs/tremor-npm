@@ -7,91 +7,91 @@ import {
   Card,
   DateRangePicker,
   Flex,
-  SelectBox,
-  SelectBoxItem,
+  SearchSelect,
+  SearchSelectItem,
   Text,
   Title,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleSelect } from "stories/input-elements/helpers/SimpleSelect";
-import { SimpleSelectBox } from "./helpers/SimpleSelectBox";
+import { SimpleSearchSelect } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/InputElements/SelectBox",
-  component: SelectBox,
-} as ComponentMeta<typeof SelectBox>;
+  title: "Tremor/InputElements/SearchSelect",
+  component: SearchSelect,
+} as ComponentMeta<typeof SearchSelect>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof SelectBox> = (args) => (
+const ResponsiveTemplate: ComponentStory<typeof SearchSelect> = (args) => (
   <form>
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
         <DateRangePicker />
-        <SimpleSelectBox {...args} />
+        <SimpleSearchSelect {...args} />
         <SimpleSelect />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
     <Card>
-      <SimpleSelectBox {...args} />
+      <SimpleSearchSelect {...args} />
     </Card>
     <Title className="mt-5">With Black Background</Title>
     <Card>
       <div className="flex items-center bg-black h-24">
-        <SimpleSelectBox {...args} />
+        <SimpleSearchSelect {...args} />
       </div>
     </Card>
   </form>
 );
 
-const FlexTemplate: ComponentStory<typeof SelectBox> = (args) => (
+const FlexTemplate: ComponentStory<typeof SearchSelect> = (args) => (
   <>
     <Card>
       <Text className="mt-2">Justify Start</Text>
       <Flex justifyContent="start" className="mt-2">
-        <SimpleSelectBox {...args} />
+        <SimpleSearchSelect {...args} />
       </Flex>
       <Text className="mt-2">Justify End</Text>
       <Flex justifyContent="end" className="mt-2">
-        <SimpleSelectBox {...args} />
+        <SimpleSearchSelect {...args} />
       </Flex>
       <Text className="mt-2">Justify End with inner div</Text>
       <Flex justifyContent="end" className="mt-2">
         <div>
-          <SimpleSelectBox {...args} />
+          <SimpleSearchSelect {...args} />
         </div>
       </Flex>
       <Text className="mt-2">Justify Start with inner div</Text>
       <Flex justifyContent="start" className="mt-2">
         <div>
-          <SimpleSelectBox {...args} />
+          <SimpleSearchSelect {...args} />
         </div>
       </Flex>
     </Card>
   </>
 );
 
-const WithControlledStateTemplate: ComponentStory<typeof SelectBox> = () => {
+const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
   const [value, setValue] = useState<string>("5");
   return (
     <Card>
-      <SelectBox
+      <SearchSelect
         value={value}
         onValueChange={(value) => {
           setValue(value);
           alert(value);
         }}
       >
-        <SelectBoxItem value={"5"}>Five</SelectBoxItem>
-        <SelectBoxItem value={"3"}>Three</SelectBoxItem>
-        <SelectBoxItem value={"1"}>One</SelectBoxItem>
-        <SelectBoxItem value={"30"}>Thirty</SelectBoxItem>
-        <SelectBoxItem value={"33"}>Thirtythree</SelectBoxItem>
-      </SelectBox>
+        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+        <SearchSelectItem value={"1"}>One</SearchSelectItem>
+        <SearchSelectItem value={"30"}>Thirty</SearchSelectItem>
+        <SearchSelectItem value={"33"}>Thirtythree</SearchSelectItem>
+      </SearchSelect>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>
       <Text>{value}</Text>

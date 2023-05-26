@@ -10,21 +10,21 @@ import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 import { Combobox } from "@headlessui/react";
 
-const makeSelectBoxItemClassName = makeClassName("SelectBoxItem");
+const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
 
-export interface SelectBoxItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   icon?: React.ElementType;
 }
 
-const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props, ref) => {
+const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
   const Icon = icon;
 
   return (
     <Combobox.Option
       className={tremorTwMerge(
-        makeSelectBoxItemClassName("root"),
+        makeSearchSelectItemClassName("root"),
         "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
         "text-tremor-content-emphasis cursor-default",
         spacing.md.paddingX,
@@ -40,7 +40,7 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
       {Icon && (
         <Icon
           className={tremorTwMerge(
-            makeSelectBoxItemClassName("icon"),
+            makeSearchSelectItemClassName("icon"),
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
@@ -54,6 +54,6 @@ const SelectBoxItem = React.forwardRef<HTMLLIElement, SelectBoxItemProps>((props
   );
 });
 
-SelectBoxItem.displayName = "SelectBoxItem";
+SearchSelectItem.displayName = "SearchSelectItem";
 
-export default SelectBoxItem;
+export default SearchSelectItem;

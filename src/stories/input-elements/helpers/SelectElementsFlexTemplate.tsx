@@ -4,7 +4,7 @@ import { Card, Flex, Text } from "components";
 import { ComponentStory } from "@storybook/react";
 import { SimpleSelect } from "./SimpleSelect";
 import { SimpleMultiSelect } from "stories/input-elements/helpers/SimpleMultiSelect";
-import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
+import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
 
 const maxWidth = "max-w-xs";
 
@@ -14,7 +14,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
     <Flex justifyContent="start" className="mt-2">
       <div className="space-y-2">
         <SimpleSelect maxWidth={maxWidth} />
-        <SimpleSelectBox maxWidth={maxWidth} />
+        <SimpleSearchSelect maxWidth={maxWidth} />
         <SimpleMultiSelect maxWidth={maxWidth} />
       </div>
     </Flex>
@@ -22,7 +22,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
     <Flex justifyContent="end" className="mt-2">
       <div className={maxWidth + " space-y-2"}>
         <SimpleSelect maxWidth={maxWidth} />
-        <SimpleSelectBox maxWidth={maxWidth} />
+        <SimpleSearchSelect maxWidth={maxWidth} />
         <SimpleMultiSelect maxWidth={maxWidth} />
       </div>
     </Flex>
@@ -31,7 +31,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
       <div>
         <div className="space-y-2">
           <SimpleSelect maxWidth={maxWidth} />
-          <SimpleSelectBox maxWidth={maxWidth} />
+          <SimpleSearchSelect maxWidth={maxWidth} />
           <SimpleMultiSelect maxWidth={maxWidth} />
         </div>
       </div>
@@ -41,7 +41,7 @@ export const SelectElementsFlexTemplate: ComponentStory<any> = () => (
       <div>
         <div className="space-y-2">
           <SimpleSelect maxWidth={maxWidth} />
-          <SimpleSelectBox maxWidth={maxWidth} />
+          <SimpleSearchSelect maxWidth={maxWidth} />
           <SimpleMultiSelect maxWidth={maxWidth} />
         </div>
       </div>

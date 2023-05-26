@@ -4,7 +4,7 @@ import { Tab as HeadlessTab } from "@headlessui/react";
 import { tremorTwMerge } from "lib";
 
 import { makeClassName, sizing, spacing } from "lib";
-import { TabVariant, TabVariantContext } from "components/input-elements/Tab/TabList";
+import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
 
 const makeTabClassName = makeClassName("Tab");
 

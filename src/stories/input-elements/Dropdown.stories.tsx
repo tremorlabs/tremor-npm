@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button, Card, DateRangePicker, Select, SelectItem, Flex, Text, Title } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleSelect } from "./helpers/SimpleSelect";
-import { SimpleSelectBox } from "stories/input-elements/helpers/SimpleSelectBox";
+import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
@@ -23,7 +23,7 @@ const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
       <Card>
         <DateRangePicker />
         <SimpleSelect {...args} />
-        <SimpleSelectBox icon={CalendarIcon} />
+        <SimpleSearchSelect icon={CalendarIcon} />
       </Card>
     </div>
     <Title className="mt-5">Desktop</Title>
