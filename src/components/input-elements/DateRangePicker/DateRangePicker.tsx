@@ -168,6 +168,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             className={tremorTwMerge(
               "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 cursor-default text-left whitespace-nowrap truncate transition duration-100",
               "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
+              enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.twoXl.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,

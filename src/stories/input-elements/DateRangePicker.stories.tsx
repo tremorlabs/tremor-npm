@@ -146,6 +146,12 @@ UncontrolledWithDefaultValue.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
 };
 
+export const UncontrolledWithSelectDisabled = UncontrolledTemplate.bind({});
+UncontrolledWithSelectDisabled.args = {
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  enableSelect: false,
+};
+
 export const UncontrolledWithMinMax = UncontrolledTemplate.bind({});
 UncontrolledWithMinMax.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date() },

@@ -49,23 +49,6 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     >
       {({ value }) => (
         <>
-          {Icon && (
-            <span
-              className={tremorTwMerge(
-                "absolute inset-y-0 left-0 flex items-center",
-                spacing.md.paddingLeft,
-              )}
-            >
-              <Icon
-                className={tremorTwMerge(
-                  makeSelectClassName("Icon"),
-                  "flex-none text-tremor-content-subtle",
-                  sizing.lg.height,
-                  sizing.lg.width,
-                )}
-              />
-            </span>
-          )}
           <Listbox.Button
             className={tremorTwMerge(
               "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left whitespace-nowrap truncate shadow-tremor-sm rounded-tremor-default",
@@ -76,23 +59,40 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               getSelectButtonColors(hasValue(value), disabled),
             )}
           >
-            {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
-          </Listbox.Button>
-          <span
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.md.marginRight,
+            {Icon && (
+              <span
+                className={tremorTwMerge(
+                  "absolute inset-y-0 left-0 flex items-center",
+                  spacing.md.paddingLeft,
+                )}
+              >
+                <Icon
+                  className={tremorTwMerge(
+                    makeSelectClassName("Icon"),
+                    "flex-none text-tremor-content-subtle",
+                    sizing.lg.height,
+                    sizing.lg.width,
+                  )}
+                />
+              </span>
             )}
-          >
-            <ArrowDownHeadIcon
+            {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+            <span
               className={tremorTwMerge(
-                makeSelectClassName("arrowDownIcon"),
-                "flex-none text-tremor-content-subtle",
-                sizing.lg.height,
-                sizing.lg.width,
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.md.marginRight,
               )}
-            />
-          </span>
+            >
+              <ArrowDownHeadIcon
+                className={tremorTwMerge(
+                  makeSelectClassName("arrowDownIcon"),
+                  "flex-none text-tremor-content-subtle",
+                  sizing.lg.height,
+                  sizing.lg.width,
+                )}
+              />
+            </span>
+          </Listbox.Button>
           <Listbox.Options
             className={tremorTwMerge(
               "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-md",

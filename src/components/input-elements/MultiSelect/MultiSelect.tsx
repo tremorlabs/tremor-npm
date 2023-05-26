@@ -71,26 +71,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     >
       {({ value }) => (
         <>
-          {Icon && (
-            <span
-              className={tremorTwMerge(
-                "absolute inset-y-0 left-0 flex items-center",
-                spacing.md.paddingLeft,
-              )}
-            >
-              <Icon
-                className={tremorTwMerge(
-                  makeMultiSelectClassName("Icon"),
-                  "flex-none text-tremor-content-subtle",
-                  sizing.lg.height,
-                  sizing.lg.width,
-                )}
-              />
-            </span>
-          )}
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm",
+              "w-full relative outline-none focus:ring-2 focus:ring-tremor-brand focus:ring-offset-1 transition duration-100 cursor-default text-left font-tremor-normal rounded-tremor-default shadow-tremor-sm",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
@@ -98,42 +81,59 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               getSelectButtonColors(value.length > 0, disabled),
             )}
           >
+            {Icon && (
+              <span
+                className={tremorTwMerge(
+                  "absolute inset-y-0 left-0 flex items-center",
+                  spacing.md.paddingLeft,
+                )}
+              >
+                <Icon
+                  className={tremorTwMerge(
+                    makeMultiSelectClassName("Icon"),
+                    "flex-none text-tremor-content-subtle",
+                    sizing.lg.height,
+                    sizing.lg.width,
+                  )}
+                />
+              </span>
+            )}
             {value.length > 0 ? `${value.length} selected` : placeholder}
+            <button
+              className={tremorTwMerge(
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.fourXl.marginRight,
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <XCircleIcon
+                className={tremorTwMerge(
+                  makeMultiSelectClassName("clearIcon"),
+                  "flex-none text-tremor-content-subtle",
+                  sizing.md.height,
+                  sizing.md.width,
+                )}
+              />
+            </button>
+            <span
+              className={tremorTwMerge(
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.md.marginRight,
+              )}
+            >
+              <ArrowDownHeadIcon
+                className={tremorTwMerge(
+                  makeMultiSelectClassName("arrowDownIcon"),
+                  "flex-none text-tremor-content-subtle",
+                  sizing.lg.height,
+                  sizing.lg.width,
+                )}
+              />
+            </span>
           </Listbox.Button>
-          <button
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.fourXl.marginRight,
-            )}
-            onClick={(e) => {
-              e.preventDefault();
-              handleReset();
-            }}
-          >
-            <XCircleIcon
-              className={tremorTwMerge(
-                makeMultiSelectClassName("clearIcon"),
-                "flex-none text-tremor-content-subtle",
-                sizing.md.height,
-                sizing.md.width,
-              )}
-            />
-          </button>
-          <span
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.md.marginRight,
-            )}
-          >
-            <ArrowDownHeadIcon
-              className={tremorTwMerge(
-                makeMultiSelectClassName("arrowDownIcon"),
-                "flex-none text-tremor-content-subtle",
-                sizing.lg.height,
-                sizing.lg.width,
-              )}
-            />
-          </span>
           <Listbox.Options
             className={tremorTwMerge(
               "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-md",
