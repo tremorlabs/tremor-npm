@@ -10,56 +10,87 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 const makeMarkerBarClassName = makeClassName("MarkerBar");
 
 export interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  percentageValue: number;
-  color?: Color;
-  tooltip?: string;
+  value: number;
+  minValue?: number;
+  maxValue?: number;
+  markerTooltip?: string;
+  rangeTooltip?: string;
   showAnimation?: boolean;
+  color?: Color;
 }
 
 const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) => {
-  const { percentageValue, color, tooltip, showAnimation = true, className, ...other } = props;
+  const {
+    value,
+    minValue,
+    maxValue,
+    markerTooltip,
+    rangeTooltip,
+    showAnimation = true,
+    color,
+    className,
+    ...other
+  } = props;
 
-  const { tooltipProps, getReferenceProps } = useTooltip();
+  const { tooltipProps: markerTooltipProps, getReferenceProps: getMarkerReferenceProps } =
+    useTooltip();
+  const { tooltipProps: rangeTooltipProps, getReferenceProps: getRangeReferenceProps } =
+    useTooltip();
 
   return (
-    <>
-      <Tooltip text={tooltip} {...tooltipProps} />
+    <div
+      ref={ref}
+      className={tremorTwMerge(
+        makeMarkerBarClassName("root"),
+        "relative flex items-center w-full rounded-tremor-full bg-tremor-background-subtle",
+        sizing.xs.height,
+        className,
+      )}
+      {...other}
+    >
+      {minValue && maxValue && (
+        <>
+          <Tooltip text={rangeTooltip} {...rangeTooltipProps} />
+          <div
+            ref={rangeTooltipProps.refs.setReference}
+            className={tremorTwMerge(
+              makeMarkerBarClassName("rangeBar"),
+              "absolute h-full rounded-tremor-full bg-tremor-background-emphasis",
+            )}
+            style={{
+              left: `${minValue}%`,
+              width: `${maxValue - minValue}%`,
+              transition: showAnimation ? "all 2s" : "",
+            }}
+            {...getRangeReferenceProps}
+          />
+        </>
+      )}
+      <Tooltip text={markerTooltip} {...markerTooltipProps} />
       <div
-        ref={ref}
+        ref={markerTooltipProps.refs.setReference}
         className={tremorTwMerge(
-          makeMarkerBarClassName("root"),
-          "relative flex items-center w-full rounded-tremor-full bg-tremor-brand-faint",
-          color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
-          sizing.xs.height,
-          className,
+          makeMarkerBarClassName("markerWrapper"),
+          "absolute right-1/2 -translate-x-1/2",
+          sizing.lg.width, // wide transparent wrapper for tooltip activation
         )}
-        {...other}
+        style={{
+          left: `${value}%`,
+          transition: showAnimation ? "all 2s" : "",
+        }}
+        {...getMarkerReferenceProps}
       >
         <div
-          ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
-            makeMarkerBarClassName("markerWrapper"),
-            "absolute right-1/2 -translate-x-1/2",
-            sizing.lg.width, // wide transparent wrapper for tooltip activation
+            makeMarkerBarClassName("marker"),
+            "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+            color && getColorClassNames(color, colorPalette.background).bgColor,
+            sizing.md.height,
+            sizing.twoXs.width,
           )}
-          style={{
-            left: `${percentageValue}%`,
-            transition: showAnimation ? "all 2s" : "",
-          }}
-          {...getReferenceProps}
-        >
-          <div
-            className={tremorTwMerge(
-              makeMarkerBarClassName("marker"),
-              "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
-              color && getColorClassNames(color, colorPalette.background).bgColor,
-              sizing.md.height,
-              sizing.twoXs.width,
-            )}
-          />
-        </div>
+        />
       </div>
-    </>
+    </div>
   );
 });
 

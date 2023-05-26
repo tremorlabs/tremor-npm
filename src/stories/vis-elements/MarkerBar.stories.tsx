@@ -1,8 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 
-import { MarkerBar, Metric, Card } from "components";
+import { Card, Metric } from "components";
 
 import { BaseColors } from "lib/constants";
 
@@ -17,7 +18,7 @@ const Template: ComponentStory<typeof MarkerBar> = (args) => (
   <>
     <Card className="mt-5">
       <Metric>$23.456</Metric>
-      <MarkerBar percentageValue={50} className="mt-5" />
+      <MarkerBar {...args} />
     </Card>
     {Object.values(BaseColors).map((color) => (
       <Card key={color} className="mt-5">
@@ -31,7 +32,19 @@ const Template: ComponentStory<typeof MarkerBar> = (args) => (
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  percentageValue: 50,
-  tooltip: "50%",
+  value: 50,
+  rangeTooltip: "Min: 25% Max: 75%",
+  markerTooltip: "50%",
+  className: "mt-5",
+};
+
+export const WithRange = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithRange.args = {
+  value: 50,
+  minValue: 25,
+  maxValue: 75,
+  rangeTooltip: "Min: 25% Max: 75%",
+  markerTooltip: "50%",
   className: "mt-5",
 };
