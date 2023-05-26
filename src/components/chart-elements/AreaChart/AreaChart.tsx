@@ -20,7 +20,7 @@ import ChartTooltip from "../common/ChartTooltip";
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import { AxisDomain } from "recharts/types/util/types";
-import NoData from "components/chart-elements/common/NoData";
+import NoData from "../common/NoData";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
@@ -63,7 +63,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   return (
     <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height={"100%"}>
-        {data && data.length ? (
+        {data?.length ? (
           <ReChartsAreaChart data={data}>
             {showGridLines ? (
               <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />

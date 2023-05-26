@@ -9,7 +9,7 @@ import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 import { DEFAULT_COLOR } from "lib/theme";
-import NoData from "components/chart-elements/common/NoData";
+import NoData from "../common/NoData";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -50,7 +50,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   return (
     <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
-        {data && data.length ? (
+        {data?.length ? (
           <ReChartsDonutChart>
             {showLabel && isDonut ? (
               <text

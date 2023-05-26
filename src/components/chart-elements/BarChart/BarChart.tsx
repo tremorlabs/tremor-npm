@@ -20,7 +20,7 @@ import ChartTooltip from "../common/ChartTooltip";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
-import NoData from "components/chart-elements/common/NoData";
+import NoData from "../common/NoData";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -62,7 +62,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   return (
     <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer width="100%" height="100%">
-        {data && data.length ? (
+        {data?.length ? (
           <ReChartsBarChart
             data={data}
             stackOffset={relative ? "expand" : "none"}
