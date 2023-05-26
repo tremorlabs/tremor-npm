@@ -54,7 +54,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           getSelectButtonColors(hasSelection, disabled, error),
           isFocused &&
             tremorTwMerge(
-              "border-tremor-brand-subtle ring-2 ring-white ring-opacity-75 ring-offset-2 ring-offset-tremor-brand-muted transition duration-100",
+              "border-tremor-brand-subtle ring-2 ring-tremor-brand-muted transition duration-100",
             ),
           border.sm.all,
           className,

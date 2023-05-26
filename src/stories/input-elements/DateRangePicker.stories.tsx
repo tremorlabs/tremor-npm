@@ -26,22 +26,40 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
   const endDate = value.to;
 
   return (
-    <Card>
-      <DateRangePicker {...args} onValueChange={(value) => setValue(value)} />
-      <Title>Filtered Data</Title>
-      <Text>StartDate: {String(startDate)} </Text>
-      <Text>EndDate: {String(endDate)} </Text>
-      <div>
-        {dateRangePickerData
-          .filter(
-            (datapoint) =>
-              startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
-          )
-          .map((datapoint) => (
-            <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
-          ))}
-      </div>
-    </Card>
+    <div className="space-y-4">
+      <Card>
+        <DateRangePicker {...args} onValueChange={(value) => setValue(value)} />
+        <Title>Filtered Data</Title>
+        <Text>StartDate: {String(startDate)} </Text>
+        <Text>EndDate: {String(endDate)} </Text>
+        <div>
+          {dateRangePickerData
+            .filter(
+              (datapoint) =>
+                startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
+            )
+            .map((datapoint) => (
+              <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
+            ))}
+        </div>
+      </Card>
+      <Card className="bg-gray-950">
+        <DateRangePicker {...args} onValueChange={(value) => setValue(value)} />
+        <Title>Filtered Data</Title>
+        <Text>StartDate: {String(startDate)} </Text>
+        <Text>EndDate: {String(endDate)} </Text>
+        <div>
+          {dateRangePickerData
+            .filter(
+              (datapoint) =>
+                startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
+            )
+            .map((datapoint) => (
+              <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
+            ))}
+        </div>
+      </Card>
+    </div>
   );
 };
 

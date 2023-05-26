@@ -27,6 +27,10 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
     <Card>
       <DonutChart {...args} />
     </Card>
+    <Title className="mt-5">Desktop Dark</Title>
+    <Card className="bg-gray-900">
+      <DonutChart {...args} />
+    </Card>
   </>
 );
 
