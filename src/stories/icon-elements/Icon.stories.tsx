@@ -19,7 +19,7 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
   <Card>
-    <Grid numCols={5}>
+    <Grid numItems={5}>
       {Object.values(IconVariants).map((variant) => (
         <div key={variant}>
           <Title>{variant}</Title>
@@ -35,11 +35,11 @@ const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
 );
 
 const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
-  <Grid numColsLg={2} className="gap-x-2 gap-y-2">
+  <Grid numItemsLg={2} className="gap-x-2 gap-y-2">
     {Object.values(IconVariants).map((variant) => (
       <Card key={variant} className="max-w-lg">
         <Title>{variant}</Title>
-        <Grid numCols={5}>
+        <Grid numItems={5}>
           {Object.values(BaseColors).map((color) => (
             <div key={color} className="mt-2">
               <Icon icon={args.icon} variant={variant} color={color} />

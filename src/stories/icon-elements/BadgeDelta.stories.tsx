@@ -17,7 +17,7 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
   <Card className="max-w-lg">
-    <Grid numCols={4} className="gap-y-2">
+    <Grid numItems={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
           <BadgeDelta size={size} deltaType="increase" />

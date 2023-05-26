@@ -18,7 +18,7 @@ export default {
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-2xl">
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numItems={5} className="gap-y-2">
       <p className="text-xs">Size</p>
       <p className="text-xs">Badge</p>
       <p className="text-xs">Badge + Icon</p>
@@ -44,7 +44,7 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
 
 const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-sm">
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numItems={5} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <Badge {...args} key={color} color={color} icon={args.icon} />
       ))}
