@@ -6,3 +6,4 @@ export * from "./Toggle";
 export * from "./Button";
 export * from "./DateRangePicker";
 export * from "./TextInput";
+export * from "./CheckBox";
