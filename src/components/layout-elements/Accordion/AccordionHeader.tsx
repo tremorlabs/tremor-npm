@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -56,5 +57,7 @@ const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps
     </button>
   );
 });
+
+AccordionHeader.displayName = "AccordionHeader";
 
 export default AccordionHeader;

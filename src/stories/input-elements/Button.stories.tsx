@@ -96,7 +96,7 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
   </>
 );
 
-const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
+const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
   const [loading, setLoading] = useState(false);
 
   return (
@@ -105,16 +105,16 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
       <Grid numCols={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
-            <Button size={size} loading={loading}>
+            <Button {...args} size={size} loading={loading}>
               Button
             </Button>
-            <Button size={size} icon={MyIcon} loading={loading}>
+            <Button {...args} size={size} icon={MyIcon} loading={loading}>
               Button
             </Button>
-            <Button size={size} icon={MyIcon} iconPosition="right" loading={loading}>
+            <Button {...args} size={size} icon={MyIcon} iconPosition="right" loading={loading}>
               Button
             </Button>
-            <Button size={size} variant="secondary" loading={loading}>
+            <Button {...args} size={size} variant="secondary" loading={loading}>
               Button
             </Button>
           </>
@@ -122,16 +122,22 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
       </Grid>
       <Title>With Loading Text</Title>
       <Grid numCols={4} className="gap-y-2">
-        <Button loading={loading} loadingText="Loading">
+        <Button {...args} loading={loading} loadingText="Loading">
           Button
         </Button>
-        <Button icon={MyIcon} loading={loading} loadingText="Loading">
+        <Button {...args} icon={MyIcon} loading={loading} loadingText="Loading">
           Button
         </Button>
-        <Button icon={MyIcon} iconPosition="right" loading={loading} loadingText="Loading">
+        <Button
+          {...args}
+          icon={MyIcon}
+          iconPosition="right"
+          loading={loading}
+          loadingText="Loading"
+        >
           Button
         </Button>
-        <Button variant="secondary" loading={loading} loadingText="Loading">
+        <Button {...args} variant="secondary" loading={loading} loadingText="Loading">
           Button
         </Button>
       </Grid>
@@ -142,11 +148,13 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
+  className: "max-w-fit",
 };
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
   onSelect: () => console.log("clicked"),
+  className: "max-w-fit",
 };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
@@ -158,7 +166,7 @@ WithDisabled.args = {
 
 export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
-  disabled: true,
+  className: "max-w-fit",
 };
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

@@ -16,4 +16,6 @@ const Bold = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>((p
   );
 });
 
+Bold.displayName = "Bold";
+
 export default Bold;

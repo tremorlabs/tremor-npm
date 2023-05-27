@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -83,5 +84,7 @@ const ToggleItem = React.forwardRef<HTMLButtonElement, ToggleItemProps>((props, 
     </button>
   );
 });
+
+ToggleItem.displayName = "ToggleItem";
 
 export default ToggleItem;

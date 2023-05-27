@@ -1,7 +1,7 @@
 import React, { Dispatch, Ref, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { ArrowDownHeadIcon, CalendarIcon } from "assets";
+import { ArrowDownHeadIcon, CalendarIcon, XCircleIcon } from "assets";
 
 import {
   BaseColors,
@@ -36,6 +36,8 @@ interface DateRangePickerButtonProps {
   onDropdownKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
   locale?: Locale;
   dropdownPlaceholder?: string;
+  enableClear?: boolean;
+  onClear: () => void;
 }
 
 const DateRangePickerButton = ({
@@ -54,6 +56,8 @@ const DateRangePickerButton = ({
   onDropdownKeyDown,
   locale,
   dropdownPlaceholder = "Select",
+  enableClear,
+  onClear,
 }: DateRangePickerButtonProps) => {
   const [startDate, endDate, dropdownValue] = value;
 
@@ -110,13 +114,33 @@ const DateRangePickerButton = ({
         <p
           className={twMerge(
             makeDateRangePickerClassName("calendarButtonText"),
-            "whitespace-nowrap truncate",
+            "whitespace-nowrap truncate w-full text-start",
             fontSize.sm,
             fontWeight.md,
           )}
         >
           {calendarText}
         </p>
+        {enableClear && hasDateSelection ? (
+          <div
+            role="button"
+            className={twMerge(makeDateRangePickerClassName("resetButton"), spacing.xs.marginRight)}
+            onClick={(e) => {
+              e.stopPropagation(); // prevent firing parent button
+              onClear();
+            }}
+          >
+            <XCircleIcon
+              className={twMerge(
+                "flex-none",
+                sizing.md.height,
+                sizing.md.width,
+                getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
+              )}
+              aria-hidden="true"
+            />
+          </div>
+        ) : null}
       </button>
       {enableDropdown ? (
         <button

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -173,5 +174,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     </>
   );
 });
+
+CategoryBar.displayName = "CategoryBar";
 
 export default CategoryBar;

@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -22,7 +23,7 @@ import {
 } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 import { DropdownItemProps } from "./DropdownItem";
-import Modal from "components/util-elements/Modal";
+import { Modal } from "components/util-elements/Modal";
 import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeDropdownClassName = makeClassName("Dropdown");
@@ -148,5 +149,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) =>
     </div>
   );
 });
+
+Dropdown.displayName = "Dropdown";
 
 export default Dropdown;

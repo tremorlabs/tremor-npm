@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Transition } from "react-transition-group";
@@ -145,9 +146,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             />
           ) : null}
           {
-            <p className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
+            <span className={twMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}>
               {showLoadingText ? loadingText : children}
-            </p>
+            </span>
           }
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
@@ -163,5 +164,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     </Transition>
   );
 });
+
+Button.displayName = "Button";
 
 export default Button;

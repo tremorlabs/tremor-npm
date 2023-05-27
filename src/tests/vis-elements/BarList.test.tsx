@@ -2,7 +2,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import BarList from "components/vis-elements/BarList";
+import BarList from "components/vis-elements/BarList/BarList";
 
 describe("BarList", () => {
   test("renders the BarList component with default props", () => {

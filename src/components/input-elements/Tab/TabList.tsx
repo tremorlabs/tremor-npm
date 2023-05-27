@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -58,5 +59,7 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
     </div>
   );
 });
+
+TabList.displayName = "TabList";
 
 export default TabList;

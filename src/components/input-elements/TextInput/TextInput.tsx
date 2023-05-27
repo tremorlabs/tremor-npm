@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -144,5 +145,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     </>
   );
 });
+
+TextInput.displayName = "TextInput";
 
 export default TextInput;

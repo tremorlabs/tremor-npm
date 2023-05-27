@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -72,5 +73,7 @@ const DropdownItem = React.forwardRef<HTMLButtonElement, DropdownItemProps>((pro
     </button>
   );
 });
+
+DropdownItem.displayName = "DropdownItem";
 
 export default DropdownItem;

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Card from "components/layout-elements/Card";
-import Legend from "components/text-elements/Legend/Legend";
+import { Card, Legend } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

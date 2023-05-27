@@ -1,1 +1,2 @@
-export { default } from "./DeltaBar";
+export { default as DeltaBar } from "./DeltaBar";
+export type { DeltaBarProps } from "./DeltaBar";

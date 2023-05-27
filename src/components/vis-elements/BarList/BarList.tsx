@@ -162,4 +162,6 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
   );
 });
 
+BarList.displayName = "BarList";
+
 export default BarList;
