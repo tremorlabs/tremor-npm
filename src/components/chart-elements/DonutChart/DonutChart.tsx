@@ -3,13 +3,13 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
-import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import NoData from "../common/NoData";
 import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { DEFAULT_COLOR } from "lib/theme";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
-import { DEFAULT_COLOR } from "lib/theme";
-import NoData from "../common/NoData";
 
 type DonutChartVariant = "donut" | "pie";
 

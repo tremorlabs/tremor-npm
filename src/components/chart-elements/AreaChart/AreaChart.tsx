@@ -11,16 +11,16 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { AxisDomain } from "recharts/types/util/types";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
-import { AxisDomain } from "recharts/types/util/types";
-import NoData from "../common/NoData";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;

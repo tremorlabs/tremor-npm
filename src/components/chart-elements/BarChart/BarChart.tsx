@@ -12,15 +12,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { AxisDomain } from "recharts/types/util/types";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
-import { AxisDomain } from "recharts/types/util/types";
-import NoData from "../common/NoData";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
