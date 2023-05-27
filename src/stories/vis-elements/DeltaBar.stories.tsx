@@ -20,21 +20,21 @@ const Template: ComponentStory<typeof DeltaBar> = (args) => (
 export const Increase = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Increase.args = {
-  percentageValue: 30,
+  value: 30,
   className: "mt-5",
   tooltip: "30%",
 };
 
 export const Decrease = Template.bind({});
 Decrease.args = {
-  percentageValue: -50,
+  value: -50,
   className: "mt-5",
   tooltip: "-50%",
 };
 
 export const IncreaseReversed = Template.bind({});
 IncreaseReversed.args = {
-  percentageValue: 50,
+  value: 50,
   isIncreasePositive: false,
   className: "mt-5",
 };
