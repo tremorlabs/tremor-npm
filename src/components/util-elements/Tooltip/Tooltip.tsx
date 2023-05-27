@@ -70,7 +70,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
   return open && text ? (
     <div
       className={tremorTwMerge(
-        "w-max text-sm z-20 rounded-tremor-default text-tremor-content-inverted bg-tremor-background-strong",
+        "max-w-xs text-sm z-20 rounded-tremor-default text-tremor-content-inverted bg-tremor-background-strong",
         spacing.md.paddingX,
         spacing.twoXs.paddingY,
       )}
