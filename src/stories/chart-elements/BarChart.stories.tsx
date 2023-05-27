@@ -33,64 +33,57 @@ const DefaultTemplate: ComponentStory<typeof BarChart> = ({ ...args }) => (
     <BarChart {...args} />
   </Card>
 );
-
+const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
 };
 
 export const WithStacked = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithStacked.args = {
-  data: data,
+  ...args,
+  data,
   stack: true,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
 };
 
 export const WithRelative = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithRelative.args = {
-  data: data,
+  ...args,
+  data,
   relative: true,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
 };
 
 export const WithLayoutVertical = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithLayoutVertical.args = {
-  data: data,
+  ...args,
+  data,
   layout: "vertical",
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
 };
 
 export const WithAutoMinValue = ResponsiveTemplate.bind({});
 WithAutoMinValue.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   autoMinValue: true,
 };
 
 export const WithAutoMinValueAndLayoutVertical = ResponsiveTemplate.bind({});
 WithAutoMinValueAndLayoutVertical.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   layout: "vertical",
   autoMinValue: true,
 };
 
 export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
 WithMinValueAndMaxValue.args = {
-  data: data,
-  categories: ["Sales", "Successfull Payments"],
-  index: "month",
+  ...args,
+  data,
   minValue: -1000,
   maxValue: 5000,
 };
@@ -98,9 +91,8 @@ WithMinValueAndMaxValue.args = {
 export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   valueFormatter: valueFormatter,
   colors: ["blue", "green"],
 };
@@ -108,39 +100,35 @@ WithValueFormatter.args = {
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   colors: ["blue", "green"],
 };
 
 export const WithNoGradient = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoGradient.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   showGradient: false,
 };
 
 export const WithChangedCategoriesOrder = DefaultTemplate.bind({});
 WithChangedCategoriesOrder.args = {
-  data: data,
-  categories: ["Successful Payments", "Sales"],
-  index: "month",
+  ...args,
+  data,
 };
 
 export const WithLessColorsThanCategories = DefaultTemplate.bind({});
 WithLessColorsThanCategories.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+  ...args,
+  data,
   colors: ["green"],
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
 WithLongValues.args = {
-  data: data,
+  data,
   categories: ["This is an edge case"],
   index: "month",
   valueFormatter: valueFormatter,
@@ -148,7 +136,7 @@ WithLongValues.args = {
 
 export const WithMultipleCategories = ResponsiveTemplate.bind({});
 WithMultipleCategories.args = {
-  data: data,
+  data,
   categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
   index: "month",
   valueFormatter: valueFormatter,
@@ -156,19 +144,22 @@ WithMultipleCategories.args = {
 
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoData.args = {
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+WithNoData.args = args;
+
+export const WithNoDataText = DefaultTemplate.bind({});
+WithNoDataText.args = {
+  ...args,
+  noDataText: "No data, try again later.",
 };
 
 export const WithNoCategories = DefaultTemplate.bind({});
 WithNoCategories.args = {
-  data: data,
-  index: "month",
+  ...args,
+  data,
 };
 
 export const WithNoDataKey = DefaultTemplate.bind({});
 WithNoDataKey.args = {
-  data: data,
-  categories: ["Sales", "Successful Payments"],
+  ...args,
+  data,
 };
