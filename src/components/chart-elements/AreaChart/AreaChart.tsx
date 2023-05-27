@@ -78,10 +78,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis")}
               interval="preserveStartEnd"
               tickLine={false}
               axisLine={false}
@@ -96,10 +95,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               type="number"
               domain={yAxisDomain as AxisDomain}
               tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis")}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />

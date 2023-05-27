@@ -76,10 +76,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis")}
               tickLine={false}
               axisLine={false}
               padding={{ left: 10, right: 10 }}
@@ -93,10 +92,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               type="number"
               domain={yAxisDomain as AxisDomain}
               tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis")}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
