@@ -11,15 +11,16 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { AxisDomain } from "recharts/types/util/types";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
-import { AxisDomain } from "recharts/types/util/types";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
@@ -50,6 +51,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    noDataText,
     className,
     ...other
   } = props;
@@ -61,105 +63,109 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
-        <ReChartsAreaChart data={data}>
-          {showGridLines ? (
-            <CartesianGrid
-              className="stroke-1 stroke-tremor-content-muted"
-              strokeDasharray="3 3"
-              horizontal={true}
-              vertical={false}
+        {data?.length ? (
+          <ReChartsAreaChart data={data}>
+            {showGridLines ? (
+              <CartesianGrid
+                className="stroke-1 stroke-tremor-content-muted"
+                strokeDasharray="3 3"
+                horizontal={true}
+                vertical={false}
+              />
+            ) : null}
+            <XAxis
+              hide={!showXAxis}
+              dataKey={index}
+              tick={{ transform: "translate(0, 6)" }}
+              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
+              style={{
+                fontSize: "12px",
+                fontFamily: "Inter; Helvetica",
+              }}
+              interval="preserveStartEnd"
+              tickLine={false}
+              axisLine={false}
+              padding={{ left: 10, right: 10 }}
+              minTickGap={5}
             />
-          ) : null}
-          <XAxis
-            hide={!showXAxis}
-            dataKey={index}
-            tick={{ transform: "translate(0, 6)" }}
-            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-            style={{
-              fontSize: "12px",
-              fontFamily: "Inter; Helvetica",
-            }}
-            interval="preserveStartEnd"
-            tickLine={false}
-            axisLine={false}
-            padding={{ left: 10, right: 10 }}
-            minTickGap={5}
-          />
-          <YAxis
-            width={yAxisWidth}
-            hide={!showYAxis}
-            axisLine={false}
-            tickLine={false}
-            type="number"
-            domain={yAxisDomain as AxisDomain}
-            tick={{ transform: "translate(-3, 0)" }}
-            style={{
-              fontSize: "12px",
-              fontFamily: "Inter; Helvetica",
-            }}
-            tickFormatter={valueFormatter}
-            allowDecimals={allowDecimals}
-          />
-          {showTooltip ? (
-            <Tooltip
-              wrapperStyle={{ outline: "none" }}
-              isAnimationActive={false}
-              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi @severin
-              content={({ active, payload, label }) => (
-                <ChartTooltip
-                  active={active}
-                  payload={payload}
-                  label={label}
-                  valueFormatter={valueFormatter}
-                  categoryColors={categoryColors}
-                />
-              )}
-              position={{ y: 0 }}
+            <YAxis
+              width={yAxisWidth}
+              hide={!showYAxis}
+              axisLine={false}
+              tickLine={false}
+              type="number"
+              domain={yAxisDomain as AxisDomain}
+              tick={{ transform: "translate(-3, 0)" }}
+              style={{
+                fontSize: "12px",
+                fontFamily: "Inter; Helvetica",
+              }}
+              tickFormatter={valueFormatter}
+              allowDecimals={allowDecimals}
             />
-          ) : null}
-          {showLegend ? (
-            <Legend
-              verticalAlign="top"
-              height={legendHeight}
-              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
-            />
-          ) : null}
-          {categories.map((category) => {
-            const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
-            return (
-              <defs key={category}>
-                {showGradient ? (
-                  <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={hexColor} stopOpacity={0.4} />
-                    <stop offset="95%" stopColor={hexColor} stopOpacity={0} />
-                  </linearGradient>
-                ) : (
-                  <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                    <stop stopColor={hexColor} stopOpacity={0.3} />
-                  </linearGradient>
+            {showTooltip ? (
+              <Tooltip
+                wrapperStyle={{ outline: "none" }}
+                isAnimationActive={false}
+                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi @severin
+                content={({ active, payload, label }) => (
+                  <ChartTooltip
+                    active={active}
+                    payload={payload}
+                    label={label}
+                    valueFormatter={valueFormatter}
+                    categoryColors={categoryColors}
+                  />
                 )}
-              </defs>
-            );
-          })}
-          {categories.map((category) => (
-            <Area
-              key={category}
-              name={category}
-              type={curveType}
-              dataKey={category}
-              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
-              fill={`url(#${categoryColors.get(category)})`}
-              strokeWidth={2}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              dot={false}
-              isAnimationActive={showAnimation}
-              animationDuration={900}
-              stackId={stack ? "a" : undefined}
-              connectNulls={connectNulls}
-            />
-          ))}
-        </ReChartsAreaChart>
+                position={{ y: 0 }}
+              />
+            ) : null}
+            {showLegend ? (
+              <Legend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+              />
+            ) : null}
+            {categories.map((category) => {
+              const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
+              return (
+                <defs key={category}>
+                  {showGradient ? (
+                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={hexColor} stopOpacity={0.4} />
+                      <stop offset="95%" stopColor={hexColor} stopOpacity={0} />
+                    </linearGradient>
+                  ) : (
+                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
+                      <stop stopColor={hexColor} stopOpacity={0.3} />
+                    </linearGradient>
+                  )}
+                </defs>
+              );
+            })}
+            {categories.map((category) => (
+              <Area
+                key={category}
+                name={category}
+                type={curveType}
+                dataKey={category}
+                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                fill={`url(#${categoryColors.get(category)})`}
+                strokeWidth={2}
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                dot={false}
+                isAnimationActive={showAnimation}
+                animationDuration={900}
+                stackId={stack ? "a" : undefined}
+                connectNulls={connectNulls}
+              />
+            ))}
+          </ReChartsAreaChart>
+        ) : (
+          <NoData noDataText={noDataText} />
+        )}
       </ResponsiveContainer>
     </div>
   );

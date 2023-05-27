@@ -3,6 +3,7 @@ import React from "react";
 import { tremorTwMerge } from "lib";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
+import NoData from "../common/NoData";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 import { defaultValueFormatter, themeColorRange } from "lib";
 
@@ -22,6 +23,7 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
+  noDataText?: string;
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
@@ -36,6 +38,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     showLabel = true,
     showAnimation = true,
     showTooltip = true,
+    noDataText,
     className,
     ...other
   } = props;
@@ -46,47 +49,51 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
-        <ReChartsDonutChart>
-          {showLabel && isDonut ? (
-            <text
-              className="fill-tremor-content-emphasis"
-              x="50%"
-              y="50%"
-              textAnchor="middle"
-              dominantBaseline="middle"
-            >
-              {parsedLabelInput}
-            </text>
-          ) : null}
-          <Pie
-            data={parseData(data, colors)}
-            cx="50%"
-            cy="50%"
-            startAngle={90}
-            endAngle={-270}
-            innerRadius={isDonut ? "75%" : "0%"}
-            outerRadius="100%"
-            paddingAngle={1}
-            cornerRadius={2}
-            stroke="none"
-            dataKey={category}
-            nameKey={index}
-            isAnimationActive={showAnimation}
-            animationDuration={900}
-          />
-          {showTooltip ? (
-            <Tooltip
-              wrapperStyle={{ outline: "none" }}
-              content={({ active, payload }) => (
-                <DonutChartTooltip
-                  active={active}
-                  payload={payload}
-                  valueFormatter={valueFormatter}
-                />
-              )}
+        {data?.length ? (
+          <ReChartsDonutChart>
+            {showLabel && isDonut ? (
+              <text
+                className="fill-tremor-content-emphasis"
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+              >
+                {parsedLabelInput}
+              </text>
+            ) : null}
+            <Pie
+              data={parseData(data, colors)}
+              cx="50%"
+              cy="50%"
+              startAngle={90}
+              endAngle={-270}
+              innerRadius={isDonut ? "75%" : "0%"}
+              outerRadius="100%"
+              paddingAngle={1}
+              cornerRadius={2}
+              stroke="none"
+              dataKey={category}
+              nameKey={index}
+              isAnimationActive={showAnimation}
+              animationDuration={900}
             />
-          ) : null}
-        </ReChartsDonutChart>
+            {showTooltip ? (
+              <Tooltip
+                wrapperStyle={{ outline: "none" }}
+                content={({ active, payload }) => (
+                  <DonutChartTooltip
+                    active={active}
+                    payload={payload}
+                    valueFormatter={valueFormatter}
+                  />
+                )}
+              />
+            ) : null}
+          </ReChartsDonutChart>
+        ) : (
+          <NoData noDataText={noDataText} />
+        )}
       </ResponsiveContainer>
     </div>
   );
