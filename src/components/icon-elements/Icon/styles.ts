@@ -78,7 +78,7 @@ export const shape: { [style: string]: ShapeTypes } = {
     rounded: "rounded-tremor-default",
     border: border.sm.all,
     ring: "",
-    shadow: "shadow-tremor-default",
+    shadow: "shadow-tremor-card",
   },
   solid: {
     rounded: "rounded-tremor-default",

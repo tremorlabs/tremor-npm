@@ -16,7 +16,7 @@ const variantStyles: { [key in TabVariant]: string } = {
     spacing.px.negativeMarginBottom,
   ),
   solid: tremorTwMerge(
-    "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-sm",
+    "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input",
     "hover:text-tremor-content-emphasis",
     "border-transparent border rounded-tremor-sm text-tremor-normal text-tremor-content",
     spacing.lg.paddingX,

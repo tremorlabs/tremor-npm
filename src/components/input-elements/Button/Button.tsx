@@ -92,7 +92,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
     variant !== "light"
-      ? tremorTwMerge(border.sm.all, "rounded-tremor-default shadow-tremor-sm")
+      ? tremorTwMerge(border.sm.all, "rounded-tremor-default shadow-tremor-input")
       : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];

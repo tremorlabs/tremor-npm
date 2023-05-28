@@ -167,7 +167,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate",
-              "rounded-l-tremor-default shadow-tremor-sm text-tremor-content-emphasis",
+              "rounded-l-tremor-default shadow-tremor-input text-tremor-content-emphasis",
               "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.twoXl.paddingLeft,
@@ -275,7 +275,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               <Listbox.Button
                 className={tremorTwMerge(
                   "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate",
-                  "rounded-r-tremor-default -ml-px shadow-tremor-sm text-tremor-content-emphasis",
+                  "rounded-r-tremor-default -ml-px shadow-tremor-input text-tremor-content-emphasis",
                   "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
@@ -288,7 +288,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               </Listbox.Button>
               <Listbox.Options
                 className={tremorTwMerge(
-                  "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none shadow-tremor-md bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
+                  "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                   spacing.twoXs.marginTop,
                   spacing.twoXs.marginBottom,
                   border.sm.all,

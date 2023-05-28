@@ -51,7 +51,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         <>
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate shadow-tremor-sm rounded-tremor-default",
+              "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate shadow-tremor-input rounded-tremor-default",
               "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
@@ -96,7 +96,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           </Listbox.Button>
           <Listbox.Options
             className={tremorTwMerge(
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-md",
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
               border.sm.all,

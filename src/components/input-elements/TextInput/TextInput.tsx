@@ -50,7 +50,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       <div
         className={tremorTwMerge(
           makeTextInputClassName("root"),
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default shadow-tremor-sm",
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default shadow-tremor-input",
           getSelectButtonColors(hasSelection, disabled, error),
           isFocused &&
             tremorTwMerge(
