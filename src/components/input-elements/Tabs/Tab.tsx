@@ -18,7 +18,7 @@ const variantStyles: { [key in TabVariant]: string } = {
   solid: tremorTwMerge(
     "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input",
     "hover:text-tremor-content-emphasis",
-    "border-transparent border rounded-tremor-sm text-tremor-normal text-tremor-content",
+    "border-transparent border rounded-tremor-small text-tremor-normal text-tremor-content",
     spacing.lg.paddingX,
     spacing.xs.paddingY,
   ),
@@ -39,7 +39,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeTabClassName("root"),
-        "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring-0 text-tremor-sm",
+        "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring-0 text-tremor-default",
         "ui-selected:text-tremor-brand transition",
         variantStyles[variant],
         spacing.sm.paddingX,

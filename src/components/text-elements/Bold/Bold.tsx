@@ -6,7 +6,7 @@ const Bold = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>((p
   return (
     <b
       ref={ref}
-      className={tremorTwMerge("text-inherit text-tremor-sm font-bold", className)}
+      className={tremorTwMerge("text-inherit text-tremor-default font-bold", className)}
       {...other}
     >
       {children}

@@ -75,7 +75,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             <p
               className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                "shrink-0 whitespace-nowrap truncate text-tremor-sm",
+                "shrink-0 whitespace-nowrap truncate text-tremor-default",
               )}
             >
               {label}

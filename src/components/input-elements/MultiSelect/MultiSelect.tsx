@@ -165,7 +165,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 type="input"
                 placeholder="Search"
                 className={tremorTwMerge(
-                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-sm text-tremor-content-emphasis",
+                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default text-tremor-content-emphasis",
                   spacing.sm.paddingY,
                 )}
                 onChange={(e) => setSearchQuery(e.target.value)}

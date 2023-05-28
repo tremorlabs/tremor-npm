@@ -43,7 +43,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
     <div
       className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
-        "relative flex w-full text-tremor-sm text-tremor-content",
+        "relative flex w-full text-tremor-default text-tremor-content",
         spacing.sm.marginBottom,
         sizing.lg.height,
       )}

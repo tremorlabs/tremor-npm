@@ -8,7 +8,7 @@ import { colorPalette } from "lib/theme";
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
-      "bg-tremor-background text-tremor-sm rounded-tremor-default shadow-tremor-dropdown border-tremor-border",
+      "bg-tremor-background text-tremor-default rounded-tremor-default shadow-tremor-dropdown border-tremor-border",
       border.sm.all,
     )}
   >

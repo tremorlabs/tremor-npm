@@ -14,7 +14,7 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
           ref={ref}
           className={tremorTwMerge(
             makeListItemClassName("root"),
-            "w-full flex justify-between items-center truncate tabular-nums text-tremor-sm",
+            "w-full flex justify-between items-center truncate tabular-nums text-tremor-default",
             spacing.sm.paddingY,
             className,
           )}

@@ -15,7 +15,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
     <p
       ref={ref}
       className={tremorTwMerge(
-        "text-tremor-sm text-tremor-content",
+        "text-tremor-default text-tremor-content",
         color && getColorClassNames(color, colorPalette.text).textColor,
         className,
       )}

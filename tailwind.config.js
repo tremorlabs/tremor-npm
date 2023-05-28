@@ -42,18 +42,14 @@ module.exports = {
         "tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
       },
       borderRadius: {
-        "tremor-sm": "0.375rem",
+        "tremor-small": "0.375rem",
         "tremor-default": "0.5rem",
         "tremor-full": "9999px",
       },
       fontSize: {
-        "tremor-xs": ["0.75rem", { lineHeight: "1rem" }], //1x used, maybe changeable
-        "tremor-sm": ["0.875rem", { lineHeight: "1.25rem" }],
-        "tremor-base": ["1rem", { lineHeight: "1.5rem" }],
-        "tremor-lg": ["1.125rem", { lineHeight: "1.75rem" }],
-        "tremor-xl": ["1.25rem", { lineHeight: "1.75rem  " }], //never used
-        "tremor-2xl": ["1.5rem", { lineHeight: "2rem" }], // never used
-        "tremor-3xl": ["1.875rem", { lineHeight: "2.25rem" }],
+        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
+        "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
     },
   },

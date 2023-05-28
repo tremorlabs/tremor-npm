@@ -69,7 +69,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               key={item.key ?? item.name}
               className={tremorTwMerge(
                 makeBarListClassName("bar"),
-                "flex items-center rounded-tremor-sm bg-tremor-brand-muted",
+                "flex items-center rounded-tremor-small bg-tremor-brand-muted",
                 rowHeight,
                 color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
@@ -99,7 +99,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     className={tremorTwMerge(
                       makeBarListClassName("barLink"),
                       "whitespace-nowrap truncate text-blue-500",
-                      "no-underline hover:underline visited:text-blue-500 text-tremor-sm",
+                      "no-underline hover:underline visited:text-blue-500 text-tremor-default",
                     )}
                   >
                     {item.name}
@@ -108,7 +108,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   <p
                     className={tremorTwMerge(
                       makeBarListClassName("barText"),
-                      "whitespace-nowrap truncate text-tremor-sm text-tremor-content-emphasis",
+                      "whitespace-nowrap truncate text-tremor-default text-tremor-content-emphasis",
                     )}
                   >
                     {item.name}
@@ -133,7 +133,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
             <p
               className={tremorTwMerge(
                 makeBarListClassName("labelText"),
-                "whitespace-nowrap truncate text-tremor-sm text-tremor-content-emphasis",
+                "whitespace-nowrap truncate text-tremor-default text-tremor-content-emphasis",
               )}
             >
               {valueFormatter(item.value)}

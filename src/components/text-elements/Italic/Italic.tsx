@@ -6,7 +6,7 @@ const Italic = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
   return (
     <i
       ref={ref}
-      className={tremorTwMerge("italic text-inherit text-tremor-sm", className)}
+      className={tremorTwMerge("italic text-inherit text-tremor-default", className)}
       {...other}
     >
       {children}

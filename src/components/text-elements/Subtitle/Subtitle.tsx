@@ -15,7 +15,7 @@ const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, r
     <p
       ref={ref}
       className={tremorTwMerge(
-        "text-tremor-base text-tremor-content-subtle",
+        "text-tremor-content-subtle",
         color && getColorClassNames(color, colorPalette.lightText).textColor,
         className,
       )}
