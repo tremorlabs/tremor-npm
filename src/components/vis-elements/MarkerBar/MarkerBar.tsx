@@ -55,7 +55,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             ref={rangeTooltipProps.refs.setReference}
             className={tremorTwMerge(
               makeMarkerBarClassName("rangeBar"),
-              "absolute h-full rounded-tremor-full bg-tremor-background-emphasis",
+              "absolute h-full rounded-tremor-full bg-tremor-content-subtle",
             )}
             style={{
               left: `${minValue}%`,

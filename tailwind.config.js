@@ -19,7 +19,7 @@ module.exports = {
             muted: "#f9fafb",
             subtle: "#f3f4f6",
             DEFAULT: "#ffffff",
-            emphasis: "#111827",
+            emphasis: "#374151",
           },
           border: {
             DEFAULT: "#e5e7eb",
