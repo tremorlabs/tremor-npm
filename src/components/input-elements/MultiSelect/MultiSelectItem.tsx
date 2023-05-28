@@ -23,7 +23,7 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
     <Listbox.Option
       className={tremorTwMerge(
         makeMultiSelectItemClassName("root"),
-        "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
+        "flex justify-start items-center hover:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
         "text-tremor-content-emphasis cursor-default text-tremor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
