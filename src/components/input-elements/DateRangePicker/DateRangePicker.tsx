@@ -240,7 +240,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
               head_row: "flex",
-              head_cell: "rounded-md w-9 text-xs text-center",
+              head_cell: "w-9 text-xs text-center",
               row: "flex w-full mt-0.5",
               cell: "text-center text-tremor-default p-0 relative focus-within:relative",
               day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
@@ -250,9 +250,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "aria-selected:!bg-tremor-background-subtle aria-selected:text-tremor-brand !rounded-none",
               day_outside: "text-tremor-content-subtle",
               day_range_start:
-                "rounded-r-none rounded-l-tremor-sm aria-selected:text-tremor-brand-inverted",
+                "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted",
               day_range_end:
-                "rounded-l-none rounded-r-tremor-sm aria-selected:text-tremor-brand-inverted",
+                "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
