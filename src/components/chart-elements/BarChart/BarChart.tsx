@@ -86,7 +86,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
-                className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis mt-4")}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-emphasis mt-4")}
                 tickLine={false}
                 axisLine={false}
               />
@@ -119,7 +119,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
                 stroke=""
-                className={tremorTwMerge("text-[12px] fill-tremor-content-emphasis")}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-emphasis")}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
