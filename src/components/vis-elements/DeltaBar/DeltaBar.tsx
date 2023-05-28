@@ -54,7 +54,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               className={tremorTwMerge(
                 makeDeltaBarClassName("negativeDeltaBar"),
                 "rounded-l-tremor-full",
-                colors[deltaType].bgColor, // achi?
+                colors[deltaType].bgColor,
               )}
               style={{
                 width: `${Math.abs(value)}%`,
@@ -67,7 +67,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         <div
           className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
-            "ring-2 z-10 rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-strong",
+            "ring-2 z-10 rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-emphasis",
             sizing.md.height,
             sizing.twoXs.width,
           )}

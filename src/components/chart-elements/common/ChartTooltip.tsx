@@ -42,13 +42,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
         {value}
       </p>
     </div>
-    <p
-      className={tremorTwMerge(
-        "text-right whitespace-nowrap text-tremor-content font-tremor-normal",
-      )}
-    >
-      {name}
-    </p>
+    <p className={tremorTwMerge("text-right whitespace-nowrap text-tremor-content")}>{name}</p>
   </div>
 );
 
@@ -78,7 +72,7 @@ const ChartTooltip = ({
             border.sm.bottom,
           )}
         >
-          <p className={tremorTwMerge("text-elem font-tremor-medium text-tremor-content-emphasis")}>
+          <p className={tremorTwMerge("text-elem font-medium text-tremor-content-emphasis")}>
             {label}
           </p>
         </div>

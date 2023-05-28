@@ -15,7 +15,7 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
           ref={ref}
           className={tremorTwMerge(
             makeTableClassName("table"),
-            "w-full tabular-nums text-tremor-sm text-tremor-content font-tremor-normal",
+            "w-full tabular-nums text-tremor-sm text-tremor-content",
           )}
           {...other}
         >

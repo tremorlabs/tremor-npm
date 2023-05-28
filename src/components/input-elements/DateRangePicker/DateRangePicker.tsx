@@ -232,7 +232,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
               caption: "flex justify-center pt-1 relative items-center",
-              caption_label: "text-tremor-sm font-tremor-medium",
+              caption_label: "text-tremor-sm font-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
                 "flex items-center justify-center border border-tremor-border hover:bg-tremor-background-muted h-7 w-7 rounded-tremor-sm outline-none focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
@@ -240,10 +240,10 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
               head_row: "flex",
-              head_cell: "rounded-md w-9 font-tremor-normal text-tremor-xs text-center",
+              head_cell: "rounded-md w-9 text-tremor-xs text-center",
               row: "flex w-full mt-0.5",
               cell: "text-center text-tremor-sm p-0 relative focus-within:relative",
-              day: "h-9 w-9 p-0 font-tremor-normal hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
+              day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
               day_selected: "aria-selected:bg-tremor-brand aria-selected:text-tremor-brand",
               day_disabled: "text-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle:

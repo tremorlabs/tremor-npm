@@ -51,9 +51,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
             )}
           />
         ) : null}
-        <h4
-          className={tremorTwMerge(makeCalloutClassName("title"), "text-elem font-tremor-semibold")}
-        >
+        <h4 className={tremorTwMerge(makeCalloutClassName("title"), "text-elem font-semibold")}>
           {title}
         </h4>
       </div>

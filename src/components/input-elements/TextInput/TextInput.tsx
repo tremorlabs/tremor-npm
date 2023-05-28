@@ -87,7 +87,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           type={type}
           className={tremorTwMerge(
             makeTextInputClassName("input"),
-            "w-full focus:outline-none focus:ring-0 border-none text-tremor-sm font-tremor-normal bg-transparent",
+            "w-full focus:outline-none focus:ring-0 border-none text-tremor-sm bg-transparent",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
