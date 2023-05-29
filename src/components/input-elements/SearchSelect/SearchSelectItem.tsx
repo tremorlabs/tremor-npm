@@ -25,7 +25,7 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
     <Combobox.Option
       className={tremorTwMerge(
         makeSearchSelectItemClassName("root"),
-        "flex justify-start items-center hover:bg-tremor-background-muted ui-active:text-tremor-content-strong",
+        "flex justify-start items-center hover:bg-tremor-background-muted ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong",
         "text-tremor-content-emphasis cursor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
