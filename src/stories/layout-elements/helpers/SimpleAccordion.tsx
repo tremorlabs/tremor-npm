@@ -11,6 +11,8 @@ export const SimpleAccordion = (args: any) => (
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod. Sit amet,
         consetetur sadipscing elitr. Per aspera ad astra.
       </Callout>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue
+      blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.
     </AccordionBody>
   </Accordion>
 );
