@@ -100,25 +100,6 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               </span>
             )}
             {value.length > 0 ? `${value.length} selected` : placeholder}
-            <button
-              className={tremorTwMerge(
-                "absolute inset-y-0 right-0 flex items-center",
-                spacing.fourXl.marginRight,
-              )}
-              onClick={(e) => {
-                e.preventDefault();
-                handleReset();
-              }}
-            >
-              <XCircleIcon
-                className={tremorTwMerge(
-                  makeMultiSelectClassName("clearIcon"),
-                  "flex-none text-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
-                )}
-              />
-            </button>
             <span
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
@@ -135,6 +116,25 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               />
             </span>
           </Listbox.Button>
+          <button
+            className={tremorTwMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.fourXl.marginRight,
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              handleReset();
+            }}
+          >
+            <XCircleIcon
+              className={tremorTwMerge(
+                makeMultiSelectClassName("clearIcon"),
+                "flex-none text-tremor-content-subtle",
+                sizing.md.height,
+                sizing.md.width,
+              )}
+            />
+          </button>
           <Listbox.Options
             className={tremorTwMerge(
               "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
