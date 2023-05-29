@@ -23,7 +23,7 @@ const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref)
     <Listbox.Option
       className={tremorTwMerge(
         makeSelectItemClassName("root"),
-        "flex justify-start items-center hover:bg-tremor-background-muted ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong",
+        "flex justify-start items-center hover:bg-tremor-background-muted ui-active:bg-tremor-background-muted  ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted",
         "text-tremor-content-emphasis cursor-default text-tremor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
