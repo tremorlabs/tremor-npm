@@ -44,14 +44,14 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       value={value}
       onChange={onValueChange as any}
       disabled={disabled}
-      className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
+      className={tremorTwMerge("text-tremor-default w-full min-w-[10rem] relative", className)}
       {...other}
     >
       {({ value }) => (
         <>
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full outline-none border-tremor-border cursor-default text-left whitespace-nowrap truncate shadow-tremor-input rounded-tremor-default",
+              "w-full outline-none border-tremor-border text-left whitespace-nowrap truncate shadow-tremor-input rounded-tremor-default",
               "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
@@ -88,8 +88,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 className={tremorTwMerge(
                   makeSelectClassName("arrowDownIcon"),
                   "flex-none text-tremor-content-subtle",
-                  sizing.lg.height,
-                  sizing.lg.width,
+                  sizing.md.height,
+                  sizing.md.width,
                 )}
               />
             </span>

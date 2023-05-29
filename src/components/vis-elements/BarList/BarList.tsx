@@ -98,8 +98,8 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     rel="noreferrer"
                     className={tremorTwMerge(
                       makeBarListClassName("barLink"),
-                      "whitespace-nowrap truncate text-blue-500",
-                      "no-underline hover:underline visited:text-blue-500 text-tremor-default",
+                      "whitespace-nowrap truncate text-tremor-content-emphasis",
+                      "hover:underline text-tremor-default",
                     )}
                   >
                     {item.name}

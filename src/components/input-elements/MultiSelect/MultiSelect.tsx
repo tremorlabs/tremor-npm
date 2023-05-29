@@ -65,7 +65,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
         }) as any
       }
       disabled={disabled}
-      className={tremorTwMerge("w-full min-w-[10rem] relative", fontSize.sm, className)}
+      className={tremorTwMerge("text-tremor-default w-full min-w-[10rem] relative", className)}
       {...other}
       multiple
     >
@@ -73,7 +73,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
         <>
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full relative outline-none border-tremor-border cursor-default text-left rounded-tremor-default shadow-tremor-input",
+              "w-full relative outline-none border-tremor-border text-left rounded-tremor-default shadow-tremor-input",
               "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
@@ -110,8 +110,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 className={tremorTwMerge(
                   makeMultiSelectClassName("arrowDownIcon"),
                   "flex-none text-tremor-content-subtle",
-                  sizing.lg.height,
-                  sizing.lg.width,
+                  sizing.md.height,
+                  sizing.md.width,
                 )}
               />
             </span>

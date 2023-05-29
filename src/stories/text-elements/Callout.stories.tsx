@@ -17,7 +17,7 @@ export default {
 const TemplateDefault: ComponentStory<typeof Callout> = (args) => (
   <>
     <div className="mb-5 max-w-lg">
-      <Callout {...args} className="h-24 mt-5" />
+      <Callout {...args} className="mt-5" />
     </div>
     <div className="mb-5 max-w-lg">
       {Object.values(BaseColors).map((color) => (

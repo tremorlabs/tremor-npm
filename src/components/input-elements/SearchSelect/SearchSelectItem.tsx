@@ -26,10 +26,9 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
       className={tremorTwMerge(
         makeSearchSelectItemClassName("root"),
         "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:bg-tremor-background-muted",
-        "text-tremor-content-emphasis cursor-default",
+        "text-tremor-content-emphasis cursor-default text-tremor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
-        fontSize.sm,
         className,
       )}
       ref={ref}

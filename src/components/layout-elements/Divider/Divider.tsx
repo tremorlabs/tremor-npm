@@ -13,7 +13,12 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
         ref={ref}
         className={tremorTwMerge(
           makeDividerClassName("root"),
-          "w-full mx-auto bg-tremor-background-subtle",
+          // common
+          "w-full mx-auto",
+          // light
+          "bg-tremor-background-subtle",
+          // dark
+          "dark:bg-dark-tremor-background-subtle",
           sizing.threeXs.height,
           spacing.threeXl.marginTop,
           spacing.threeXl.marginBottom,

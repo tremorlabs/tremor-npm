@@ -60,7 +60,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
           makeCalloutClassName("body"),
           "overflow-y-auto text-tremor-brand-emphasis",
           color && getColorClassNames(color, colorPalette.darkText).textColor,
-          spacing.sm.marginTop,
+          children ? spacing.sm.marginTop : "",
         )}
       >
         {children}
