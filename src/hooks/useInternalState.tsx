@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 const useInternalState = <T,>(defaultValueProp: T, valueProp: T) => {
