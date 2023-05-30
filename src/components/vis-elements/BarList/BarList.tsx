@@ -23,6 +23,7 @@ type Bar = {
   icon?: React.JSXElementConstructor<any>;
   href?: string;
   target?: string;
+  color?: Color;
 };
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -80,7 +81,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 makeBarListClassName("bar"),
                 "flex items-center",
                 rowHeight,
-                getColorClassNames(color, colorPalette.lightBackground).bgColor,
+                getColorClassNames(item.color ?? color, colorPalette.lightBackground).bgColor,
                 borderRadius.sm.all,
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
