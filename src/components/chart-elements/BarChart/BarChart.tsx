@@ -179,118 +179,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 dataKey={category}
                 fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
                 isAnimationActive={showAnimation}
-                onAnimationStart={onAnimationStart}
-                onAnimationEnd={onAnimationEnd}
+                animationDuration={animationDuration}
               />
             ))}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />
         )}
-          {layout !== "vertical" ? (
-            <XAxis
-              hide={!showXAxis}
-              dataKey={index}
-              interval="preserveStartEnd"
-              tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
-              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-                marginTop: "20px",
-              }}
-              tickLine={false}
-              axisLine={false}
-            />
-          ) : (
-            <XAxis
-              hide={!showXAxis}
-              type="number"
-              tick={{ transform: "translate(-3, 0)" }}
-              domain={yAxisDomain as AxisDomain}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={valueFormatter}
-              padding={{ left: 10, right: 10 }}
-              minTickGap={5}
-            />
-          )}
-          {layout !== "vertical" ? (
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              axisLine={false}
-              tickLine={false}
-              type="number"
-              domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-              tickFormatter={
-                relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
-              }
-            />
-          ) : (
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              dataKey={index}
-              axisLine={false}
-              tickLine={false}
-              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              type="category"
-              interval="preserveStartEnd"
-              tick={{ transform: "translate(0, 6)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
-            />
-          )}
-          {showTooltip ? (
-            <Tooltip
-              // ongoing issue: https://github.com/recharts/recharts/issues/2920
-              wrapperStyle={{ outline: "none" }}
-              isAnimationActive={false}
-              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
-              content={({ active, payload, label }) => (
-                <ChartTooltip
-                  active={active}
-                  payload={payload}
-                  label={label}
-                  valueFormatter={valueFormatter}
-                  categoryColors={categoryColors}
-                />
-              )}
-              position={{ y: 0 }}
-            />
-          ) : null}
-          {showLegend ? (
-            <Legend
-              verticalAlign="top"
-              height={legendHeight}
-              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
-            />
-          ) : null}
-          {categories.map((category) => (
-            <Bar
-              key={category}
-              name={category}
-              type="linear"
-              stackId={stack || relative ? "a" : undefined}
-              dataKey={category}
-              fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
-              isAnimationActive={showAnimation}
-              animationDuration={animationDuration}
-            />
-          ))}
-        </ReChartsBarChart>
       </ResponsiveContainer>
     </div>
   );

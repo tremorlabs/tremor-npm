@@ -40,8 +40,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
-    animationDuration = 1500,
     showAnimation = true,
+    animationDuration = 1500,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -144,23 +144,26 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               );
             })}
 
-          {categories.map((category) => (
-            <Area
-              key={category}
-              name={category}
-              type={curveType}
-              dataKey={category}
-              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
-              fill={`url(#${categoryColors.get(category)})`}
-              strokeWidth={2}
-              dot={false}
-              isAnimationActive={showAnimation}
-              animationDuration={animationDuration}
-              stackId={stack ? "a" : undefined}
-              connectNulls={connectNulls}
-            />
-          ))}
-        </ReChartsAreaChart>
+            {categories.map((category) => (
+              <Area
+                key={category}
+                name={category}
+                type={curveType}
+                dataKey={category}
+                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                fill={`url(#${categoryColors.get(category)})`}
+                strokeWidth={2}
+                dot={false}
+                isAnimationActive={showAnimation}
+                animationDuration={animationDuration}
+                stackId={stack ? "a" : undefined}
+                connectNulls={connectNulls}
+              />
+            ))}
+          </ReChartsAreaChart>
+        ) : (
+          <NoData noDataText={noDataText} />
+        )}
       </ResponsiveContainer>
     </div>
   );
