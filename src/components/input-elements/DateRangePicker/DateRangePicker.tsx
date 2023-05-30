@@ -278,9 +278,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "!rounded-none dark:!rounded-none aria-selected:!bg-tremor-background-subtle dark:aria-selected:!bg-dark-tremor-background-subtle aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
-                "rounded-r-none dark:rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+                "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
               day_range_end:
-                "rounded-l-none dark:rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+                "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
