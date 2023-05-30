@@ -23,11 +23,11 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       className={tremorTwMerge(
         makeCalloutClassName("root"),
         // common
-        "flex flex-col overflow-hidden",
+        "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default",
         // light
-        "text-tremor-default rounded-tremor-default bg-tremor-brand-faint border-tremor-brand-emphasis",
+        "bg-tremor-brand-faint border-tremor-brand-emphasis",
         // dark
-        "dark:text-dark-tremor-default dark:rounded-dark-tremor-default dark:bg-dark-tremor-brand-faint dark:border-dark-tremor-brand-emphasis",
+        "dark:bg-dark-tremor-brand-faint dark:border-dark-tremor-brand-emphasis",
         color && getColorClassNames(color, colorPalette.canvasBackground).bgColor,
         color && getColorClassNames(color, colorPalette.darkBorder).borderColor,
         spacing.lg.paddingY,

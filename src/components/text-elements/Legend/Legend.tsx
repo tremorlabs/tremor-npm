@@ -41,11 +41,11 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     <p
       className={tremorTwMerge(
         // common
-        "whitespace-nowrap truncate",
+        "whitespace-nowrap truncate text-tremor-default",
         // light
-        "text-tremor-default text-tremor-content",
+        "text-tremor-content",
         // dark
-        "dark:text-dark-tremor-default dark:text-dark-tremor-content",
+        "dark:text-dark-tremor-content",
       )}
     >
       {name}

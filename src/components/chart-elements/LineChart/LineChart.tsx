@@ -86,10 +86,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               fill=""
               stroke=""
               className={tremorTwMerge(
+                // common
+                "text-tremor-label",
                 // light
-                "text-tremor-label fill-tremor-content",
+                "fill-tremor-content",
                 // dark
-                "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                "dark:fill-dark-tremor-content",
               )}
               tickLine={false}
               axisLine={false}
@@ -107,10 +109,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               fill=""
               stroke=""
               className={tremorTwMerge(
+                // common
+                "text-tremor-label",
                 // light
-                "text-tremor-label fill-tremor-content",
+                "fill-tremor-content",
                 // dark
-                "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                "dark:fill-dark-tremor-content",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}

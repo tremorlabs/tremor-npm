@@ -37,11 +37,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       className={tremorTwMerge(
         makeCardClassName("root"),
         // common
-        "relative w-full text-left ring-1",
+        "relative w-full text-left ring-1 rounded-tremor-default",
         // light
-        "bg-tremor-background ring-tremor-ring rounded-tremor-default shadow-tremor-card border-tremor-brand",
+        "bg-tremor-background ring-tremor-ring shadow-tremor-card border-tremor-brand",
         // dark
-        "dark:bg-dark-tremor-background dark:ring-dark-tremor-ring dark:rounded-dark-tremor-default dark:shadow-dark-tremor-card dark:border-dark-tremor-brand",
+        "dark:bg-dark-tremor-background dark:ring-dark-tremor-ring dark:shadow-dark-tremor-card dark:border-dark-tremor-brand",
         decorationColor && colorClassNames[decorationColor][colorPalette.border].borderColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,

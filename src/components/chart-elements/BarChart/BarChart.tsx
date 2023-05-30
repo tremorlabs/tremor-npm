@@ -95,11 +95,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 stroke=""
                 className={tremorTwMerge(
                   // common
-                  "mt-4",
+                  "mt-4 text-tremor-label",
                   // light
-                  "text-tremor-label fill-tremor-content",
+                  "fill-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                  "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
                 axisLine={false}
@@ -111,10 +111,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(-3, 0)" }}
                 domain={yAxisDomain as AxisDomain}
                 className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
                   // light
-                  "text-tremor-label fill-tremor-content",
+                  "fill-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                  "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
                 axisLine={false}
@@ -136,10 +138,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 stroke=""
                 className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
                   // light
-                  "text-tremor-label fill-tremor-content",
+                  "fill-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                  "dark:fill-dark-tremor-content",
                 )}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
@@ -158,10 +162,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }}
                 className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
                   // light
-                  "text-tremor-label fill-tremor-content",
+                  "fill-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                  "dark:fill-dark-tremor-content",
                 )}
               />
             )}

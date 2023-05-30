@@ -88,10 +88,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               fill=""
               stroke=""
               className={tremorTwMerge(
+                // common
+                "text-tremor-label",
                 // light
-                "text-tremor-label fill-tremor-content",
+                "fill-tremor-content",
                 // dark
-                "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                "dark:fill-dark-tremor-content",
               )}
               interval="preserveStartEnd"
               tickLine={false}
@@ -110,10 +112,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               fill=""
               stroke=""
               className={tremorTwMerge(
+                // common
+                "text-tremor-label",
                 // light
-                "text-tremor-label fill-tremor-content",
+                "fill-tremor-content",
                 // dark
-                "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                "dark:fill-dark-tremor-content",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}

@@ -16,11 +16,11 @@ const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) =>
       ref={ref}
       className={tremorTwMerge(
         // common
-        "font-medium",
+        "font-medium text-tremor-title",
         // light
-        "text-tremor-content-emphasis text-tremor-title",
+        "text-tremor-content-emphasis",
         // dark
-        "dark:text-dark-tremor-content-emphasis dark:text-dark-tremor-title",
+        "dark:text-dark-tremor-content-emphasis",
         color && getColorClassNames(color, colorPalette.darkText).textColor,
         className,
       )}

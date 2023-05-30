@@ -67,11 +67,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
       disabled={disabled}
       className={tremorTwMerge(
         // common
-        "w-full min-w-[10rem] relative",
-        // light
-        "text-tremor-default",
-        // dark
-        "dark:text-dark-tremor-default",
+        "w-full min-w-[10rem] relative text-tremor-default",
         className,
       )}
       {...other}
@@ -82,11 +78,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           <Listbox.Button
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100",
+              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
               // light
-              "border-tremor-border shadow-tremor-input rounded-tremor-default focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+              "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:rounded-dark-tremor-default dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
@@ -165,11 +161,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           <Listbox.Options
             className={tremorTwMerge(
               // common
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default",
               // light
-              "bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
+              "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
-              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:rounded-dark-tremor-default dark:shadow-dark-tremor-dropdown",
+              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
               border.sm.all,
@@ -208,11 +204,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 placeholder="Search"
                 className={tremorTwMerge(
                   // common
-                  "w-full focus:outline-none focus:ring-none bg-transparent",
+                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default",
                   // light
-                  "text-tremor-default text-tremor-content-emphasis",
+                  "text-tremor-content-emphasis",
                   // dark
-                  "dark:text-dark-tremor-default dark:text-dark-tremor-content-emphasis",
+                  "dark:text-dark-tremor-content-emphasis",
                   spacing.sm.paddingY,
                 )}
                 onChange={(e) => setSearchQuery(e.target.value)}

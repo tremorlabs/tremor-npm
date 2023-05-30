@@ -43,11 +43,11 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       className={tremorTwMerge(
         makeMarkerBarClassName("root"),
         // common
-        "relative flex items-center w-full",
+        "relative flex items-center w-full rounded-tremor-full",
         // light
-        "rounded-tremor-full bg-tremor-background-subtle",
+        "bg-tremor-background-subtle",
         // dark
-        "dark:rounded-dark-tremor-full dark:bg-dark-tremor-background-subtle",
+        "dark:bg-dark-tremor-background-subtle",
         sizing.xs.height,
         className,
       )}
@@ -61,11 +61,11 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             className={tremorTwMerge(
               makeMarkerBarClassName("rangeBar"),
               // common
-              "absolute h-full",
+              "absolute h-full rounded-tremor-full",
               // light
-              "rounded-tremor-full bg-tremor-content-subtle",
+              "bg-tremor-content-subtle",
               // dark
-              "dark:rounded-dark-tremor-full dark:bg-dark-tremor-content-subtle",
+              "dark:bg-dark-tremor-content-subtle",
             )}
             style={{
               left: `${minValue}%`,
@@ -94,11 +94,11 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
           className={tremorTwMerge(
             makeMarkerBarClassName("marker"),
             // common
-            "ring-2 mx-auto",
+            "ring-2 mx-auto rounded-tremor-full",
             // light
-            "rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+            "ring-tremor-brand-inverted bg-tremor-brand",
             // dark
-            "dark:rounded-dark-tremor-full dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-brand",
+            "dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-brand",
             color && getColorClassNames(color, colorPalette.background).bgColor,
             sizing.md.height,
             sizing.twoXs.width,

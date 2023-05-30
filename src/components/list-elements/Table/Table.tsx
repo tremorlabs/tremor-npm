@@ -16,11 +16,11 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
           className={tremorTwMerge(
             makeTableClassName("table"),
             // common
-            "w-full tabular-nums",
+            "w-full tabular-nums text-tremor-default",
             // light
-            "text-tremor-default text-tremor-content",
+            "text-tremor-content",
             // dark
-            "dark:text-dark-tremor-default dark:text-dark-tremor-content",
+            "dark:text-dark-tremor-content",
           )}
           {...other}
         >

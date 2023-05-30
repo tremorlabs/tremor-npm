@@ -157,11 +157,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
       ref={ref}
       className={tremorTwMerge(
         // common
-        "w-full min-w-[10rem] relative flex justify-between",
-        // light
-        "text-tremor-default",
-        // dark
-        "dark:text-dark-tremor-default",
+        "w-full min-w-[10rem] relative flex justify-between text-tremor-default",
         className,
       )}
       {...other}
@@ -172,14 +168,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100",
+              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default",
               // light
               "rounded-l-tremor-default border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle  focus:ring-tremor-brand-muted",
               // dark
-              "dark:rounded-l-dark-tremor-default dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle  dark:focus:ring-dark-tremor-brand-muted",
-              enableSelect
-                ? "rounded-l-tremor-default dark:rounded-l-dark-tremor-default"
-                : "rounded-tremor-default dark:rounded-dark-tremor-default",
+              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle  dark:focus:ring-dark-tremor-brand-muted",
+              enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.twoXl.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,
@@ -224,11 +218,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         <Popover.Panel
           className={tremorTwMerge(
             // common
-            "absolute z-10 divide-y overflow-y-auto w-fit left-0 outline-none",
+            "absolute z-10 divide-y overflow-y-auto w-fit left-0 outline-none rounded-tremor-default",
             // light
-            "bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
+            "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark
-            "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:rounded-dark-tremor-default dark:shadow-dark-tremor-dropdown",
+            "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
             spacing.twoXs.marginTop,
             spacing.twoXs.marginBottom,
             border.sm.all,
@@ -263,10 +257,10 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
               caption: "flex justify-center pt-1 relative items-center",
-              caption_label: "text-tremor-default dark:text-dark-tremor-default font-medium",
+              caption_label: "text-tremor-default font-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
-                "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small dark:rounded-dark-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
+                "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
               nav_button_previous: "absolute left-1",
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
@@ -274,8 +268,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               head_cell:
                 "w-9 font-normal text-center text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               row: "flex w-full mt-0.5",
-              cell: "text-center p-0 relative focus-within:relative text-tremor-default dark:text-dark-tremor-default",
-              day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default dark:rounded-dark-tremor-default",
+              cell: "text-center p-0 relative focus-within:relative text-tremor-default",
+              day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
               day_selected:
                 "aria-selected:bg-tremor-brand aria-selected:text-tremor-brand dark:aria-selected:bg-dark-tremor-brand dark:aria-selected:text-dark-tremor-brand",
               day_disabled:
@@ -284,9 +278,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "!rounded-none dark:!rounded-none aria-selected:!bg-tremor-background-subtle dark:aria-selected:!bg-dark-tremor-background-subtle aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
-                "rounded-r-none dark:rounded-r-none rounded-l-tremor-small dark:rounded-l-dark-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+                "rounded-r-none dark:rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
               day_range_end:
-                "rounded-l-none dark:rounded-l-none rounded-r-tremor-small dark:rounded-r-dark-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+                "rounded-l-none dark:rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
             }}
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
@@ -309,11 +303,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               <Listbox.Button
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate -ml-px focus:ring-2 transition duration-100",
+                  "w-full outline-none text-left whitespace-nowrap truncate -ml-px rounded-r-tremor-default focus:ring-2 transition duration-100",
                   // light
-                  "rounded-r-tremor-default border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+                  "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                   // dark
-                  "dark:rounded-r-dark-tremor-default dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                  "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,

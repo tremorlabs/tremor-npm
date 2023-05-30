@@ -47,11 +47,11 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
             // common
-            "relative flex items-center w-full",
+            "relative flex items-center w-full rounded-tremor-full",
             // light
-            "rounded-tremor-full bg-tremor-brand-faint",
+            "bg-tremor-brand-faint",
             // dark
-            "dark:rounded-dark-tremor-full dark:bg-dark-tremor-brand-faint",
+            "dark:bg-dark-tremor-brand-faint",
             color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
             sizing.xs.height,
           )}
@@ -61,11 +61,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
               // common
-              "flex-col h-full ",
-              // light
-              "rounded-tremor-full",
-              // dark
-              "dark:rounded-dark-tremor-full",
+              "flex-col h-full rounded-tremor-full",
               color && getColorClassNames(color, colorPalette.background).bgColor,
             )}
             style={{
@@ -91,11 +87,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
               className={tremorTwMerge(
                 makeProgressBarClassName("label"),
                 // common
-                "shrink-0 whitespace-nowrap truncate",
-                // light
-                "text-tremor-default",
-                // dark
-                "dark:text-dark-tremor-default",
+                "shrink-0 whitespace-nowrap truncate text-tremor-default",
               )}
             >
               {label}

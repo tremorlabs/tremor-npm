@@ -12,11 +12,11 @@ const NoData = ({ noDataText = "No data" }: NoDataProps) => {
       justifyContent="center"
       className={tremorTwMerge(
         // common
-        "w-full h-full border border-dashed",
+        "w-full h-full border border-dashed rounded-tremor-default",
         // light
-        "rounded-tremor-default border-tremor-border",
+        "border-tremor-border",
         // dark
-        "dark:rounded-dark-tremor-default dark:border-tdark-remor-border",
+        "dark:border-tdark-remor-border",
       )}
     >
       <Text

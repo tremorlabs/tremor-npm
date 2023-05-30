@@ -38,11 +38,11 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         className={tremorTwMerge(
           makeDeltaBarClassName("root"),
           // common
-          "relative flex items-center w-full",
+          "relative flex items-center w-full rounded-tremor-full",
           // light
-          "rounded-tremor-full bg-tremor-background-subtle",
+          "bg-tremor-background-subtle",
           // dark
-          "dark:rounded-dark-tremor-full dark:bg-dark-tremor-background-subtle",
+          "dark:bg-dark-tremor-background-subtle",
           sizing.xs.height,
           className,
         )}
@@ -58,10 +58,8 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
                 makeDeltaBarClassName("negativeDeltaBar"),
-                // light
+                // common
                 "rounded-l-tremor-full",
-                // dark
-                "dark:rounded-l-dark-tremor-full",
                 colors[deltaType].bgColor,
               )}
               style={{
@@ -76,11 +74,11 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
             // common
-            "ring-2 z-10",
+            "ring-2 z-10 rounded-tremor-full",
             // light
-            "rounded-tremor-full ring-tremor-brand-inverted bg-tremor-background-emphasis",
+            "ring-tremor-brand-inverted bg-tremor-background-emphasis",
             // dark
-            "dark:rounded-dark-tremor-full dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-background-emphasis",
+            "dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-background-emphasis",
             sizing.md.height,
             sizing.twoXs.width,
           )}
@@ -96,10 +94,8 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
                 makeDeltaBarClassName("positiveDeltaBar"),
-                // light
+                // common
                 "rounded-r-tremor-full",
-                // dark
-                "dark:rounded-r-dark-tremor-full",
                 colors[deltaType].bgColor,
               )}
               style={{

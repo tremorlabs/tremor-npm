@@ -70,11 +70,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={tremorTwMerge(
                 makeBarListClassName("bar"),
                 // common
-                "flex items-center",
+                "flex items-center rounded-tremor-small",
                 // light
-                "rounded-tremor-small bg-tremor-brand-muted",
+                "bg-tremor-brand-muted",
                 // dark
-                "dark:rounded-dark-tremor-small dark:bg-dark-tremor-brand-muted",
+                "dark:bg-dark-tremor-brand-muted",
                 rowHeight,
                 color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
@@ -109,11 +109,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     className={tremorTwMerge(
                       makeBarListClassName("barLink"),
                       // common
-                      "whitespace-nowrap hover:underline truncate",
+                      "whitespace-nowrap hover:underline truncate text-tremor-default",
                       // light
-                      "text-tremor-content-emphasis text-tremor-default",
+                      "text-tremor-content-emphasis",
                       // dark
-                      "dark:text-dark-tremor-content-emphasis dark:text-dark-tremor-default",
+                      "dark:text-dark-tremor-content-emphasis",
                     )}
                   >
                     {item.name}
@@ -123,11 +123,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     className={tremorTwMerge(
                       makeBarListClassName("barText"),
                       // common
-                      "whitespace-nowrap truncate",
+                      "whitespace-nowrap truncate text-tremor-default",
                       // light
-                      "text-tremor-default text-tremor-content-emphasis",
+                      "text-tremor-content-emphasis",
                       // dark
-                      "dark:text-dark-tremor-default dark:text-dark-tremor-content-emphasis",
+                      "dark:text-dark-tremor-content-emphasis",
                     )}
                   >
                     {item.name}
@@ -153,11 +153,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={tremorTwMerge(
                 makeBarListClassName("labelText"),
                 // common
-                "whitespace-nowrap truncate",
+                "whitespace-nowrap truncate text-tremor-default",
                 // light
-                "text-tremor-default text-tremor-content-emphasis",
+                "text-tremor-content-emphasis",
                 // dark
-                "dark:text-dark-tremor-default dark:text-dark-tremor-content-emphasis",
+                "dark:text-dark-tremor-content-emphasis",
               )}
             >
               {valueFormatter(item.value)}

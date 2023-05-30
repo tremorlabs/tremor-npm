@@ -24,12 +24,7 @@ const TrackerBlock = React.forwardRef<HTMLDivElement, TrackerBlockProps>((props,
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={tremorTwMerge(
         makeTrackerClassName("trackingBlock"),
-        // common
-        "w-full h-full",
-        // light
-        "rounded-tremor-small",
-        // dark
-        "dark:rounded-dark-tremor-small",
+        "w-full h-full rounded-tremor-small",
         getColorClassNames(color ?? "gray", colorPalette.background).bgColor,
       )}
       {...other}

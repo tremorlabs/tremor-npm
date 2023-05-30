@@ -93,11 +93,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const buttonShapeStyles =
     variant !== "light"
       ? tremorTwMerge(
-          border.sm.all,
+          // common
+          "rounded-tremor-default",
           // light
-          "rounded-tremor-default shadow-tremor-input",
+          "shadow-tremor-input",
           // dark
-          "dark:rounded-dark-tremor-default dark:shadow-dark-tremor-input",
+          "dark:shadow-dark-tremor-input",
+          border.sm.all,
         )
       : "";
   const buttonColorStyles = getButtonColors(variant, color);
