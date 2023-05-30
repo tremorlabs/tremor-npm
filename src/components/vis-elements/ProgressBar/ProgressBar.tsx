@@ -46,7 +46,12 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full rounded-tremor-full bg-tremor-brand-faint",
+            // common
+            "relative flex items-center w-full",
+            // light
+            "rounded-tremor-full bg-tremor-brand-faint",
+            // dark
+            "dark:rounded-dark-tremor-full dark:bg-dark-tremor-brand-faint",
             color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
             sizing.xs.height,
           )}
@@ -55,7 +60,12 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
-              "flex-col h-full rounded-tremor-full",
+              // common
+              "flex-col h-full ",
+              // light
+              "rounded-tremor-full",
+              // dark
+              "dark:rounded-dark-tremor-full",
               color && getColorClassNames(color, colorPalette.background).bgColor,
             )}
             style={{
@@ -68,14 +78,24 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
-              "w-16 truncate text-right text-tremor-content-emphasis",
+              // common
+              "w-16 truncate text-right",
+              // light
+              "text-tremor-content-emphasis",
+              // dark
+              "dark:text-dark-tremor-content-emphasis",
               spacing.sm.marginLeft,
             )}
           >
             <p
               className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                "shrink-0 whitespace-nowrap truncate text-tremor-default",
+                // common
+                "shrink-0 whitespace-nowrap truncate",
+                // light
+                "text-tremor-default",
+                // dark
+                "dark:text-dark-tremor-default",
               )}
             >
               {label}

@@ -42,7 +42,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       ref={ref}
       className={tremorTwMerge(
         makeMarkerBarClassName("root"),
-        "relative flex items-center w-full rounded-tremor-full bg-tremor-background-subtle",
+        // common
+        "relative flex items-center w-full",
+        // light
+        "rounded-tremor-full bg-tremor-background-subtle",
+        // dark
+        "dark:rounded-dark-tremor-full dark:bg-dark-tremor-background-subtle",
         sizing.xs.height,
         className,
       )}
@@ -55,7 +60,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             ref={rangeTooltipProps.refs.setReference}
             className={tremorTwMerge(
               makeMarkerBarClassName("rangeBar"),
-              "absolute h-full rounded-tremor-full bg-tremor-content-subtle",
+              // common
+              "absolute h-full",
+              // light
+              "rounded-tremor-full bg-tremor-content-subtle",
+              // dark
+              "dark:rounded-dark-tremor-full dark:bg-dark-tremor-content-subtle",
             )}
             style={{
               left: `${minValue}%`,
@@ -83,7 +93,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         <div
           className={tremorTwMerge(
             makeMarkerBarClassName("marker"),
-            "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+            // common
+            "ring-2 mx-auto",
+            // light
+            "rounded-tremor-full ring-tremor-brand-inverted bg-tremor-brand",
+            // dark
+            "dark:rounded-dark-tremor-full dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-brand",
             color && getColorClassNames(color, colorPalette.background).bgColor,
             sizing.md.height,
             sizing.twoXs.width,

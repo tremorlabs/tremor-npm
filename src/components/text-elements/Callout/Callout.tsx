@@ -22,7 +22,12 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeCalloutClassName("root"),
-        "flex flex-col overflow-hidden text-tremor-default rounded-tremor-default bg-tremor-brand-faint border-tremor-brand-emphasis",
+        // common
+        "flex flex-col overflow-hidden",
+        // light
+        "text-tremor-default rounded-tremor-default bg-tremor-brand-faint border-tremor-brand-emphasis",
+        // dark
+        "dark:text-dark-tremor-default dark:rounded-dark-tremor-default dark:bg-dark-tremor-brand-faint dark:border-dark-tremor-brand-emphasis",
         color && getColorClassNames(color, colorPalette.canvasBackground).bgColor,
         color && getColorClassNames(color, colorPalette.darkBorder).borderColor,
         spacing.lg.paddingY,
@@ -36,7 +41,12 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <div
         className={tremorTwMerge(
           makeCalloutClassName("header"),
-          "flex items-start text-tremor-brand-emphasis",
+          // common
+          "flex items-start",
+          // light
+          "text-tremor-brand-emphasis",
+          // dark
+          "dark:text-dark-tremor-brand-emphasis",
           color && getColorClassNames(color, colorPalette.darkText).textColor,
         )}
       >
@@ -51,14 +61,17 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
             )}
           />
         ) : null}
-        <h4 className={tremorTwMerge(makeCalloutClassName("title"), "text-elem font-semibold")}>
-          {title}
-        </h4>
+        <h4 className={tremorTwMerge(makeCalloutClassName("title"), "font-semibold")}>{title}</h4>
       </div>
       <p
         className={tremorTwMerge(
           makeCalloutClassName("body"),
-          "overflow-y-auto text-tremor-brand-emphasis",
+          // common
+          "overflow-y-auto",
+          // light
+          "text-tremor-brand-emphasis",
+          // dark
+          "dark:text-dark-tremor-brand-emphasis",
           color && getColorClassNames(color, colorPalette.darkText).textColor,
           children ? spacing.sm.marginTop : "",
         )}

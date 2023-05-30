@@ -13,7 +13,12 @@ const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListEl
         ref={ref}
         className={tremorTwMerge(
           makeListClassName("root"),
-          "w-full overflow-hidden divide-y divide-tremor-border text-tremor-content",
+          // common
+          "w-full overflow-hidden divide-y",
+          // light
+          "divide-tremor-border text-tremor-content",
+          // dark
+          "dark:divide-dark-tremor-border dark:text-dark-tremor-content",
           className,
         )}
         {...other}

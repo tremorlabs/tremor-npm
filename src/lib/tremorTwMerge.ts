@@ -7,6 +7,7 @@ export const tremorTwMerge = extendTailwindMerge({
         shadow: [
           {
             tremor: ["input", "card", "dropdown"],
+            "dark-tremor": ["input", "card", "dropdown"],
           },
         ],
       },
@@ -16,6 +17,7 @@ export const tremorTwMerge = extendTailwindMerge({
         rounded: [
           {
             tremor: ["small", "default", "full"],
+            "dark-tremor": ["small", "default", "full"],
           },
         ],
       },
@@ -25,6 +27,7 @@ export const tremorTwMerge = extendTailwindMerge({
         text: [
           {
             tremor: ["default", "title", "metric"],
+            "dark-tremor": ["default", "title", "metric"],
           },
         ],
       },

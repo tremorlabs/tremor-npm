@@ -70,7 +70,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
           >
             {showGridLines ? (
               <CartesianGrid
-                className="stroke-1 stroke-tremor-content-muted"
+                className={tremorTwMerge(
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-content-subtle",
+                  // dark
+                  "dark:stroke-dark-tremor-content-subtle",
+                )}
                 strokeDasharray="3 3"
                 horizontal={layout !== "vertical" ? true : false}
                 vertical={layout !== "vertical" ? false : true}
@@ -86,7 +93,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
-                className={tremorTwMerge("text-tremor-label fill-tremor-content-emphasis mt-4")}
+                className={tremorTwMerge(
+                  // common
+                  "mt-4",
+                  // light
+                  "text-tremor-label fill-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                )}
                 tickLine={false}
                 axisLine={false}
               />
@@ -96,10 +110,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="number"
                 tick={{ transform: "translate(-3, 0)" }}
                 domain={yAxisDomain as AxisDomain}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                }}
+                className={tremorTwMerge(
+                  // light
+                  "text-tremor-label fill-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                )}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
@@ -119,7 +135,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
                 stroke=""
-                className={tremorTwMerge("text-tremor-label fill-tremor-content-emphasis")}
+                className={tremorTwMerge(
+                  // light
+                  "text-tremor-label fill-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                )}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
@@ -136,10 +157,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="category"
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                }}
+                className={tremorTwMerge(
+                  // light
+                  "text-tremor-label fill-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-label dark:fill-dark-tremor-content",
+                )}
               />
             )}
             {showTooltip ? (

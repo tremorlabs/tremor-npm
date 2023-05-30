@@ -2,7 +2,6 @@
 import React from "react";
 import { tremorTwMerge } from "lib";
 
-import { fontSize } from "lib/font";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 import { getColorClassNames, makeClassName } from "lib";
@@ -25,8 +24,12 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
     <Combobox.Option
       className={tremorTwMerge(
         makeSearchSelectItemClassName("root"),
-        "flex justify-start items-center ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:bg-tremor-background-muted",
-        "text-tremor-content-emphasis cursor-default text-tremor-default",
+        // common
+        "flex justify-start items-center cursor-default",
+        // light
+        "ui-active:bg-tremor-background-muted  ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted text-tremor-content-emphasis text-tremor-default",
+        // dark
+        "dark:ui-active:bg-dark-tremor-background-muted  dark:ui-active:text-dark-tremor-content-strong dark:ui-selected:text-dark-tremor-content-strong dark:ui-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis dark:text-dark-tremor-default",
         spacing.md.paddingX,
         spacing.md.paddingY,
         className,

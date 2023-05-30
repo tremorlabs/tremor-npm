@@ -39,12 +39,6 @@ const ResponsiveTemplate: ComponentStory<typeof SearchSelect> = (args) => (
     <Card>
       <SimpleSearchSelect {...args} />
     </Card>
-    <Title className="mt-5">With Black Background</Title>
-    <Card>
-      <div className="flex items-center bg-black h-24">
-        <SimpleSearchSelect {...args} />
-      </div>
-    </Card>
   </form>
 );
 

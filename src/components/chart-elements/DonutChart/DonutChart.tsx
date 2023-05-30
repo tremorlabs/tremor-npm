@@ -53,7 +53,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
           <ReChartsDonutChart>
             {showLabel && isDonut ? (
               <text
-                className="fill-tremor-content-emphasis"
+                className={tremorTwMerge(
+                  // light
+                  "fill-tremor-content-emphasis",
+                  // dark
+                  "dark:fill-dark-tremor-content-emphasis",
+                )}
                 x="50%"
                 y="50%"
                 textAnchor="middle"

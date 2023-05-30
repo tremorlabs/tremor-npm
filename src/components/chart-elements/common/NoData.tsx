@@ -11,10 +11,24 @@ const NoData = ({ noDataText = "No data" }: NoDataProps) => {
       alignItems="center"
       justifyContent="center"
       className={tremorTwMerge(
-        "w-full h-full rounded-tremor-default border border-dashed border-tremor-border",
+        // common
+        "w-full h-full border border-dashed",
+        // light
+        "rounded-tremor-default border-tremor-border",
+        // dark
+        "dark:rounded-dark-tremor-default dark:border-tdark-remor-border",
       )}
     >
-      <Text className={tremorTwMerge("text-tremor-content")}>{noDataText}</Text>
+      <Text
+        className={tremorTwMerge(
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
+        )}
+      >
+        {noDataText}
+      </Text>
     </Flex>
   );
 };

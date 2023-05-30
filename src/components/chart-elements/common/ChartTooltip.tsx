@@ -8,7 +8,10 @@ import { colorPalette } from "lib/theme";
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
+      // light
       "bg-tremor-background text-tremor-default rounded-tremor-default shadow-tremor-dropdown border-tremor-border",
+      // dark
+      "dark:bg-dark-tremor-background dark:text-dark-tremor-default dark:rounded-dark-tremor-default dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
       border.sm.all,
     )}
   >
@@ -27,7 +30,12 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     <div className="flex items-center space-x-2">
       <span
         className={tremorTwMerge(
-          "shrink-0 rounded-tremor-full border-tremor-background shadow-tremor-card",
+          // common
+          "shrink-0",
+          // light
+          "rounded-tremor-full border-tremor-background shadow-tremor-card",
+          // dark
+          "dark:rounded-dark-tremor-full dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
           getColorClassNames(color, colorPalette.background).bgColor,
           sizing.sm.height,
           sizing.sm.width,
@@ -36,13 +44,29 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       />
       <p
         className={tremorTwMerge(
-          "font-medium tabular-nums text-right whitespace-nowrap text-tremor-content-emphasis",
+          // common
+          "font-medium tabular-nums text-right whitespace-nowrap",
+          // light
+          "text-tremor-content-emphasis",
+          // dark
+          "dark:text-dark-tremor-content-emphasis",
         )}
       >
         {value}
       </p>
     </div>
-    <p className={tremorTwMerge("text-right whitespace-nowrap text-tremor-content")}>{name}</p>
+    <p
+      className={tremorTwMerge(
+        // commmon
+        "text-right whitespace-nowrap",
+        // light
+        "text-tremor-content",
+        // dark
+        "dark:text-dark-tremor-content",
+      )}
+    >
+      {name}
+    </p>
   </div>
 );
 
@@ -66,13 +90,25 @@ const ChartTooltip = ({
       <ChartTooltipFrame>
         <div
           className={tremorTwMerge(
+            // light
             "border-tremor-border",
+            // dark
+            "dark:border-dark-tremor-border",
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             border.sm.bottom,
           )}
         >
-          <p className={tremorTwMerge("text-elem font-medium text-tremor-content-emphasis")}>
+          <p
+            className={tremorTwMerge(
+              // common
+              "font-medium",
+              // light
+              "text-tremor-content-emphasis",
+              // dark
+              "dark:text-dark-tremor-content-emphasis",
+            )}
+          >
             {label}
           </p>
         </div>

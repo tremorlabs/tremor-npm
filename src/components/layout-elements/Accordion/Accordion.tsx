@@ -30,7 +30,12 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
       ref={ref}
       className={tremorTwMerge(
         makeAccordionClassName("root"),
-        "overflow-hidden bg-tremor-background border-tremor-border",
+        // common
+        "overflow-hidden",
+        // light
+        "bg-tremor-background border-tremor-border",
+        // dark
+        "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
         rootStyles,
         className,
       )}

@@ -16,7 +16,12 @@ const TableHead = React.forwardRef<
         ref={ref}
         className={tremorTwMerge(
           makeTableHeadClassName("root"),
-          "text-left text-tremor-content",
+          // common
+          "text-left",
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
           className,
         )}
         {...other}

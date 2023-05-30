@@ -16,7 +16,12 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
     className={tremorTwMerge(
       makeLegendClassName("legendItem"),
-      "inline-flex items-center truncate text-tremor-content",
+      // common
+      "inline-flex items-center truncate",
+      // light
+      "text-tremor-content",
+      // dark
+      "dark:text-dark-tremor-content",
       spacing.md.marginRight,
     )}
   >
@@ -35,7 +40,12 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     </svg>
     <p
       className={tremorTwMerge(
-        "whitespace-nowrap truncate text-tremor-default text-tremor-content",
+        // common
+        "whitespace-nowrap truncate",
+        // light
+        "text-tremor-default text-tremor-content",
+        // dark
+        "dark:text-dark-tremor-default dark:text-dark-tremor-content",
       )}
     >
       {name}

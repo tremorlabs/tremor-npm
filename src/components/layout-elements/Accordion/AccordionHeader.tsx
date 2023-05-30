@@ -22,7 +22,12 @@ const AccordionHeader = React.forwardRef<
       ref={ref}
       className={tremorTwMerge(
         makeAccordionHeaderClassName("root"),
-        "w-full flex items-center justify-between text-tremor-content-emphasis",
+        // common
+        "w-full flex items-center justify-between",
+        // light
+        "text-tremor-content-emphasis",
+        // dark
+        "dark:text-dark-tremor-content-emphasis",
         spacing.twoXl.paddingX,
         spacing.lg.paddingY,
         className,
@@ -42,7 +47,10 @@ const AccordionHeader = React.forwardRef<
         <ArrowUpHeadIcon
           className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
+            // light
             "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
             spacing.twoXs.negativeMarginRight,
             sizing.md.height,
             sizing.md.width,

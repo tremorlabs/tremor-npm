@@ -92,7 +92,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
     variant !== "light"
-      ? tremorTwMerge(border.sm.all, "rounded-tremor-default shadow-tremor-input")
+      ? tremorTwMerge(
+          border.sm.all,
+          // light
+          "rounded-tremor-default shadow-tremor-input",
+          // dark
+          "dark:rounded-dark-tremor-default dark:shadow-dark-tremor-input",
+        )
       : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];
@@ -104,8 +110,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           ref={ref}
           className={tremorTwMerge(
             makeButtonClassName("root"),
-            "flex-shrink-0 inline-flex justify-center items-center group font-medium outline-none",
-            "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-white focus:ring-opacity-75 focus:ring-offset-2 focus:ring-offset-tremor-brand-muted transition duration-100",
+            // common
+            "flex-shrink-0 inline-flex justify-center items-center group font-medium outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-offset-2 transition duration-100",
+            // light
+            "focus:border-tremor-brand-subtle focus:ring-tremor-content-inverted focus:ring-offset-tremor-brand-muted",
+            // dark
+            "dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-content-inverted dark:focus:ring-offset-dark-tremor-brand-muted",
             buttonShapeStyles,
             buttonProportionStyles.paddingX,
             buttonProportionStyles.paddingY,

@@ -8,7 +8,7 @@ import { useInternalState } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import { border, fontSize, makeClassName, sizing, spacing } from "lib";
+import { border, makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 import { Listbox } from "@headlessui/react";
 
@@ -65,7 +65,15 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
         }) as any
       }
       disabled={disabled}
-      className={tremorTwMerge("text-tremor-default w-full min-w-[10rem] relative", className)}
+      className={tremorTwMerge(
+        // common
+        "w-full min-w-[10rem] relative",
+        // light
+        "text-tremor-default",
+        // dark
+        "dark:text-dark-tremor-default",
+        className,
+      )}
       {...other}
       multiple
     >
@@ -73,8 +81,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
         <>
           <Listbox.Button
             className={tremorTwMerge(
-              "w-full relative outline-none border-tremor-border text-left rounded-tremor-default shadow-tremor-input",
-              "focus:border-tremor-brand-subtle focus:ring-2 focus:ring-tremor-brand-muted transition duration-100",
+              // common
+              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100",
+              // light
+              "border-tremor-border shadow-tremor-input rounded-tremor-default focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+              // dark
+              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:rounded-dark-tremor-default dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
@@ -92,7 +104,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 <Icon
                   className={tremorTwMerge(
                     makeMultiSelectClassName("Icon"),
-                    "flex-none text-tremor-content-subtle",
+                    // common
+                    "flex-none",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
                     sizing.lg.height,
                     sizing.lg.width,
                   )}
@@ -109,7 +126,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               <ArrowDownHeadIcon
                 className={tremorTwMerge(
                   makeMultiSelectClassName("arrowDownIcon"),
-                  "flex-none text-tremor-content-subtle",
+                  // common
+                  "flex-none",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
                   sizing.md.height,
                   sizing.md.width,
                 )}
@@ -129,7 +151,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <XCircleIcon
               className={tremorTwMerge(
                 makeMultiSelectClassName("clearIcon"),
-                "flex-none text-tremor-content-subtle",
+                // common
+                "flex-none",
+                // light
+                "text-tremor-content-subtle",
+                // dark
+                "dark:text-dark-tremor-content-subtle",
                 sizing.md.height,
                 sizing.md.width,
               )}
@@ -137,7 +164,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           </button>
           <Listbox.Options
             className={tremorTwMerge(
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
+              // common
+              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none",
+              // light
+              "bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default shadow-tremor-dropdown",
+              // dark
+              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:rounded-dark-tremor-default dark:shadow-dark-tremor-dropdown",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
               border.sm.all,
@@ -145,14 +177,24 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           >
             <div
               className={tremorTwMerge(
-                "flex items-center w-full bg-tremor-background-muted",
+                // common
+                "flex items-center w-full",
+                // light
+                "bg-tremor-background-muted",
+                // dark
+                "dark:bg-dark-tremor-background-muted",
                 spacing.twoXl.paddingX,
               )}
             >
               <span>
                 <SearchIcon
                   className={tremorTwMerge(
-                    "flex-none text-tremor-content-subtle",
+                    // common
+                    "flex-none",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
                     spacing.threeXs.negativeMarginLeft,
                     spacing.lg.marginRight,
                     sizing.md.height,
@@ -165,7 +207,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 type="input"
                 placeholder="Search"
                 className={tremorTwMerge(
-                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default text-tremor-content-emphasis",
+                  // common
+                  "w-full focus:outline-none focus:ring-none bg-transparent",
+                  // light
+                  "text-tremor-default text-tremor-content-emphasis",
+                  // dark
+                  "dark:text-dark-tremor-default dark:text-dark-tremor-content-emphasis",
                   spacing.sm.paddingY,
                 )}
                 onChange={(e) => setSearchQuery(e.target.value)}

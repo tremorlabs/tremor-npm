@@ -16,7 +16,12 @@ const TableBody = React.forwardRef<
         ref={ref}
         className={tremorTwMerge(
           makeTableBodyClassName("root"),
-          "align-top overflow-x-auto divide-y divide-tremor-border",
+          // common
+          "align-top overflow-x-auto divide-y",
+          // light
+          "divide-tremor-border",
+          // dark
+          "dark:divide-dark-tremor-border",
           className,
         )}
         {...other}

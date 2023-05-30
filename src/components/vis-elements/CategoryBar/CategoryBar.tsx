@@ -43,7 +43,12 @@ const BarLabels = ({ values }: { values: number[] }) => {
     <div
       className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
-        "relative flex w-full text-tremor-default text-tremor-content",
+        // common
+        "relative flex w-full",
+        // light
+        "text-tremor-default text-tremor-content",
+        // dark
+        "dark:text-dark-tremor-default dark:text-dark-tremor-content",
         spacing.sm.marginBottom,
         sizing.lg.height,
       )}
@@ -123,7 +128,12 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         >
           <div
             className={tremorTwMerge(
-              "flex-1 flex items-center h-full overflow-hidden rounded-tremor-full",
+              // common
+              "flex-1 flex items-center h-full overflow-hidden",
+              // light
+              "rounded-tremor-full",
+              // dark
+              "dark:rounded-dark-tremor-full",
             )}
           >
             {values.map((value, idx) => {
@@ -158,7 +168,12 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               <div
                 className={tremorTwMerge(
                   makeCategoryBarClassName("marker"),
-                  "ring-2 mx-auto rounded-tremor-full ring-tremor-brand-inverted",
+                  // common
+                  "ring-2 mx-auto",
+                  // light
+                  "rounded-tremor-full ring-tremor-brand-inverted",
+                  // dark
+                  "dark:rounded-dark-tremor-full dark:ring-dark-tremor-brand-inverted",
                   markerBgColor,
                   sizing.md.height,
                   sizing.twoXs.width,

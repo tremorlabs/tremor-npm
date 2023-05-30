@@ -14,7 +14,12 @@ const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
         ref={ref}
         className={tremorTwMerge(
           makeAccordionBodyClassName("root"),
-          "w-full text-tremor-default text-tremor-content",
+          // common
+          "w-full",
+          // light
+          "text-tremor-default text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-default dark:text-dark-tremor-content",
           spacing.twoXl.paddingX,
           spacing.lg.paddingBottom,
           className,

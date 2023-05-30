@@ -69,25 +69,25 @@ export const shape: { [style: string]: ShapeTypes } = {
     shadow: "",
   },
   light: {
-    rounded: "rounded-tremor-default",
+    rounded: "rounded-tremor-default dark:rounded-dark-tremor-default",
     border: "",
     ring: "",
     shadow: "",
   },
   shadow: {
-    rounded: "rounded-tremor-default",
+    rounded: "rounded-tremor-default dark:rounded-dark-tremor-default",
     border: border.sm.all,
     ring: "",
-    shadow: "shadow-tremor-card",
+    shadow: "shadow-tremor-card dark:shadow-dark-tremor-card",
   },
   solid: {
-    rounded: "rounded-tremor-default",
+    rounded: "rounded-tremor-default dark:rounded-dark-tremor-default",
     border: border.md.all,
     ring: "ring-1",
     shadow: "",
   },
   outlined: {
-    rounded: "rounded-tremor-default",
+    rounded: "rounded-tremor-default dark:rounded-dark-tremor-default",
     border: border.sm.all,
     ring: "ring-2",
     shadow: "",
@@ -100,7 +100,7 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
       return {
         textColor: color
           ? getColorClassNames(color, colorPalette.text).textColor
-          : "text-tremor-brand",
+          : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: "",
         borderColor: "",
         ringColor: "",
@@ -109,10 +109,10 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
       return {
         textColor: color
           ? getColorClassNames(color, colorPalette.text).textColor
-          : "text-tremor-brand",
+          : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
           ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-          : "bg-tremor-brand-muted",
+          : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
         borderColor: "",
         ringColor: "",
       };
@@ -120,38 +120,38 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
       return {
         textColor: color
           ? getColorClassNames(color, colorPalette.text).textColor
-          : "text-tremor-brand",
+          : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
           ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-          : "bg-tremor-background",
-        borderColor: "border-tremor",
+          : "bg-tremor-background dark:bg-dark-tremor-background",
+        borderColor: "border-tremor-border dark:border-dark-tremor-border",
         ringColor: "",
       };
     case "solid":
       return {
         textColor: color
           ? getColorClassNames(color, colorPalette.text).textColor
-          : "text-tremor-brand-inverted",
+          : "text-tremor-brand-inverted dark:text-dark-tremor-brand-inverted",
         bgColor: color
           ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-          : "bg-tremor-brand",
-        borderColor: "border-tremor-brand-inverted",
-        ringColor: "ring-tremor-ring",
+          : "bg-tremor-brand dark:bg-dark-tremor-brand",
+        borderColor: "border-tremor-brand-inverted dark:border-dark-tremor-brand-inverted",
+        ringColor: "ring-tremor-ring dark:ring-dark-tremor-ring",
       };
     case "outlined":
       return {
         textColor: color
           ? getColorClassNames(color, colorPalette.text).textColor
-          : "text-tremor-brand",
+          : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
           ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-          : "bg-tremor-background",
+          : "bg-tremor-background dark:bg-dark-tremor-background",
         borderColor: color
           ? getColorClassNames(color, colorPalette.ring).borderColor
-          : "border-tremor-brand-subtle",
+          : "border-tremor-brand-subtle dark:border-dark-tremor-brand-subtle",
         ringColor: color
           ? getColorClassNames(color, colorPalette.lightRing).ringColor
-          : "ring-tremor-brand-muted",
+          : "ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted",
       };
   }
 };

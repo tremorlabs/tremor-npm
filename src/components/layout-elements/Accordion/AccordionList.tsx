@@ -20,7 +20,10 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
       ref={ref}
       className={tremorTwMerge(
         makeAccordionListClassName("root"),
+        // light
         "rounded-tremor-default shadow-tremor-card",
+        // dark
+        "dark:rounded-dark-tremor-default dark:shadow-dark-tremor-card",
         className,
       )}
       {...other}

@@ -50,11 +50,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       <div
         className={tremorTwMerge(
           makeTextInputClassName("root"),
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default shadow-tremor-input",
+          // common
+          "relative w-full flex items-center min-w-[10rem] outline-none",
+          // light
+          "rounded-tremor-default shadow-tremor-input",
+          // dark
+          "dark:rounded-dark-tremor-default dark:shadow-dark-tremor-input",
           getSelectButtonColors(hasSelection, disabled, error),
           isFocused &&
             tremorTwMerge(
-              "border-tremor-brand-subtle ring-2 ring-tremor-brand-muted transition duration-100",
+              // common
+              "ring-2 transition duration-100",
+              // light
+              "border-tremor-brand-subtle ring-tremor-brand-muted",
+              // light
+              "dark:border-dark-tremor-brand-subtle dark:ring-dark-tremor-brand-muted",
             ),
           border.sm.all,
           className,
@@ -75,7 +85,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           <Icon
             className={tremorTwMerge(
               makeTextInputClassName("icon"),
-              "shrink-0 text-tremor-content-subtle",
+              // common
+              "shrink-0",
+              // light
+              "text-tremor-content-subtle",
+              // light
+              "dark:text-dark-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
               spacing.xl.marginLeft,
@@ -87,11 +102,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
           type={type}
           className={tremorTwMerge(
             makeTextInputClassName("input"),
-            "w-full focus:outline-none focus:ring-0 border-none text-tremor-default text-tremor-content-emphasis bg-transparent",
+            // common
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent",
+            // light
+            "text-tremor-default text-tremor-content-emphasis",
+            // dark
+            "dark:text-dark-tremor-default dark:text-dark-tremor-content-emphasis",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
-            disabled ? "placeholder:text-tremor-content-subtle" : "placeholder:text-tremor-content",
+            disabled
+              ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
+              : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
           )}
           placeholder={placeholder}
           disabled={disabled}
