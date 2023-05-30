@@ -275,7 +275,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               day_disabled:
                 "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle:
-                "!rounded-none dark:!rounded-none aria-selected:!bg-tremor-background-subtle dark:aria-selected:!bg-dark-tremor-background-subtle aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
+                "!rounded-none aria-selected:bg-tremor-background-subtle dark:aria-selected:bg-dark-tremor-background-subtle aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
@@ -324,7 +324,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   // light
                   "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                   // dark
-                  "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:roundeddark--tremor-default",
+                  "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border",
                   spacing.twoXs.marginTop,
                   spacing.twoXs.marginBottom,
                   border.sm.all,
