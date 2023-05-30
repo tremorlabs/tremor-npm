@@ -38,11 +38,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
-    animationBegin = 0,
     animationDuration = 1500,
-    animationEasing = "ease",
-    onAnimationStart = undefined,
-    onAnimationEnd = undefined,
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
@@ -142,6 +138,79 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         ) : (
           <NoData noDataText={noDataText} />
         )}
+        <ReChartsLineChart data={data}>
+          {showGridLines ? (
+            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          ) : null}
+          <XAxis
+            hide={!showXAxis}
+            dataKey={index}
+            interval="preserveStartEnd"
+            tick={{ transform: "translate(0, 6)" }}
+            ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
+            style={{
+              fontSize: "12px",
+              fontFamily: "Inter; Helvetica",
+            }}
+            tickLine={false}
+            axisLine={false}
+            padding={{ left: 10, right: 10 }}
+            minTickGap={5}
+          />
+          <YAxis
+            width={yAxisWidth}
+            hide={!showYAxis}
+            axisLine={false}
+            tickLine={false}
+            type="number"
+            domain={yAxisDomain as AxisDomain}
+            tick={{ transform: "translate(-3, 0)" }}
+            style={{
+              fontSize: "12px",
+              fontFamily: "Inter; Helvetica",
+            }}
+            tickFormatter={valueFormatter}
+          />
+          {showTooltip ? (
+            <Tooltip
+              // ongoing issue: https://github.com/recharts/recharts/issues/2920
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={({ active, payload, label }) => (
+                <ChartTooltip
+                  active={active}
+                  payload={payload}
+                  label={label}
+                  valueFormatter={valueFormatter}
+                  categoryColors={categoryColors}
+                />
+              )}
+              position={{ y: 0 }}
+            />
+          ) : null}
+          {showLegend ? (
+            <Legend
+              verticalAlign="top"
+              height={legendHeight}
+              content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+            />
+          ) : null}
+          {categories.map((category) => (
+            <Line
+              key={category}
+              name={category}
+              type={curveType}
+              dataKey={category}
+              stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+              strokeWidth={2}
+              dot={false}
+              isAnimationActive={showAnimation}
+              animationDuration={animationDuration}
+              connectNulls={connectNulls}
+            />
+          ))}
+        </ReChartsLineChart>
       </ResponsiveContainer>
     </div>
   );
