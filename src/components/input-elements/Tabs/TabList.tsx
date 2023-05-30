@@ -15,9 +15,23 @@ export type TabVariant = "line" | "solid";
 export const TabVariantContext = createContext<TabVariant>("line");
 
 const variantStyles: { [key in TabVariant]: string } = {
-  line: tremorTwMerge("flex border-tremor-border", spacing.twoXl.spaceX, border.sm.bottom),
+  line: tremorTwMerge(
+    // common
+    "flex",
+    // light
+    "border-tremor-border",
+    // dark
+    "dark:border-dark-tremor-border",
+    spacing.twoXl.spaceX,
+    border.sm.bottom,
+  ),
   solid: tremorTwMerge(
-    "inline-flex p-1 bg-tremor-background-subtle rounded-tremor-default",
+    // common
+    "inline-flex p-1 rounded-tremor-default",
+    // light
+    "bg-tremor-background-subtle",
+    // dark
+    "dark:bg-dark-tremor-background-subtle",
     spacing.xs.spaceX,
   ),
 };

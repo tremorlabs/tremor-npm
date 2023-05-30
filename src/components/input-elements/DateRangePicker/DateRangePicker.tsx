@@ -8,7 +8,7 @@ import { enUS } from "date-fns/locale";
 
 import { useInternalState } from "hooks";
 
-import { border, boxShadow, spacing } from "lib";
+import { border, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,

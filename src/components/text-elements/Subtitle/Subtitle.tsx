@@ -18,7 +18,7 @@ const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, r
         // light
         "text-tremor-content-subtle",
         // dark
-        "dakr:text-dark-tremor-content-subtle",
+        "dark:text-dark-tremor-content-subtle",
         color && getColorClassNames(color, colorPalette.lightText).textColor,
         className,
       )}
