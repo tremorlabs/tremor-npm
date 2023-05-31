@@ -113,11 +113,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           className={tremorTwMerge(
             makeButtonClassName("root"),
             // common
-            "flex-shrink-0 inline-flex justify-center items-center group font-medium outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-offset-2 transition duration-100",
-            // light
-            "focus:border-tremor-brand-subtle focus:ring-tremor-content-inverted focus:ring-offset-tremor-brand-muted",
-            // dark
-            "dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-content-inverted dark:focus:ring-offset-dark-tremor-brand-muted",
+            "flex-shrink-0 inline-flex justify-center items-center group font-medium outline-none",
             buttonShapeStyles,
             buttonProportionStyles.paddingX,
             buttonProportionStyles.paddingY,
@@ -125,7 +121,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             buttonColorStyles.textColor,
             buttonColorStyles.bgColor,
             buttonColorStyles.borderColor,
-            buttonColorStyles.focusRingColor,
+            buttonColorStyles.hoverBorderColor,
             !isDisabled
               ? tremorTwMerge(
                   getButtonColors(variant, color).hoverTextColor,

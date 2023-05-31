@@ -40,7 +40,7 @@ const TabLine = (args: any) => (
 );
 
 const TabSolid = (args: any) => (
-  <TabGroup defaultValue={0}>
+  <TabGroup defaultIndex={1}>
     <TabList variant="solid" {...args}>
       <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
       <Tab icon={CalendarIcon}>Three</Tab>

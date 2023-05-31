@@ -104,6 +104,9 @@ export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
         borderColor: color
           ? getColorClassNames(color, colorPalette.border).borderColor
           : "border-tremor-brand dark:border-dark-tremor-brand",
+        hoverBorderColor: color
+          ? getColorClassNames(color, colorPalette.darkBorder).hoverBorderColor
+          : "hover:border-tremor-brand-emphasis dark:hover:border-dark-tremor-brand-emphasis",
       };
     case "secondary":
       return {
@@ -132,7 +135,6 @@ export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
         bgColor: getColorClassNames("transparent").bgColor,
         borderColor: "",
         hoverBorderColor: "",
-        focusRingColor: "",
       };
   }
 };
