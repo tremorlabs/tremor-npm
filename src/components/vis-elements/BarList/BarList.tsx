@@ -71,12 +71,10 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 makeBarListClassName("bar"),
                 // common
                 "flex items-center rounded-tremor-small",
-                // light
-                "bg-tremor-brand-muted",
-                // dark
-                "dark:bg-dark-tremor-brand-muted",
                 rowHeight,
-                color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
+                color
+                  ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+                  : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{

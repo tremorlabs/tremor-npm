@@ -31,12 +31,17 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         makeBadgeClassName("root"),
         // common
         "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
-        // light
-        "bg-tremor-brand-muted text-tremor-brand-emphasis",
-        // dark
-        "dark:bg-dark-tremor-brand-muted dark:text-dark-tremor-brand-emphasis",
-        color && getColorClassNames(color, colorPalette.darkText).textColor,
-        color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
+        color
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.lightBackground).bgColor,
+              getColorClassNames(color, colorPalette.darkText).textColor,
+            )
+          : tremorTwMerge(
+              // light
+              "bg-tremor-brand-muted text-tremor-brand-emphasis",
+              // dark
+              "dark:bg-dark-tremor-brand-muted dark:text-dark-tremor-brand-emphasis",
+            ),
         badgeProportions[size].paddingX,
         badgeProportions[size].paddingY,
         badgeProportions[size].fontSize,

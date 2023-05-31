@@ -15,13 +15,10 @@ const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) 
     <p
       ref={ref}
       className={tremorTwMerge(
-        // common
         "font-semibold text-tremor-metric",
-        // light
-        "text-tremor-content-emphasis",
-        // dark
-        "dark:text-dark-tremor-content-emphasis",
-        color && getColorClassNames(color, colorPalette.darkText).textColor,
+        color
+          ? getColorClassNames(color, colorPalette.darkText).textColor
+          : "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
         className,
       )}
       {...other}

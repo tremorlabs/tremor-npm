@@ -22,14 +22,19 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeCalloutClassName("root"),
-        // common
         "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default",
-        // light
-        "bg-tremor-brand-faint border-tremor-brand-emphasis",
-        // dark
-        "dark:bg-dark-tremor-brand-faint dark:border-dark-tremor-brand-emphasis",
-        color && getColorClassNames(color, colorPalette.canvasBackground).bgColor,
-        color && getColorClassNames(color, colorPalette.darkBorder).borderColor,
+        color
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.canvasBackground).bgColor,
+              getColorClassNames(color, colorPalette.darkBorder).borderColor,
+              getColorClassNames(color, colorPalette.darkText).textColor,
+            )
+          : tremorTwMerge(
+              // light
+              "bg-tremor-brand-faint border-tremor-brand-emphasis text-tremor-brand-emphasis",
+              // dark
+              "dark:bg-dark-tremor-brand-faint dark:border-dark-tremor-brand-emphasis dark:text-dark-tremor-brand-emphasis",
+            ),
         spacing.lg.paddingY,
         spacing.lg.paddingRight,
         spacing.twoXl.paddingLeft,
@@ -38,18 +43,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       )}
       {...other}
     >
-      <div
-        className={tremorTwMerge(
-          makeCalloutClassName("header"),
-          // common
-          "flex items-start",
-          // light
-          "text-tremor-brand-emphasis",
-          // dark
-          "dark:text-dark-tremor-brand-emphasis",
-          color && getColorClassNames(color, colorPalette.darkText).textColor,
-        )}
-      >
+      <div className={tremorTwMerge(makeCalloutClassName("header"), "flex items-start")}>
         {Icon ? (
           <Icon
             className={tremorTwMerge(
@@ -66,13 +60,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <p
         className={tremorTwMerge(
           makeCalloutClassName("body"),
-          // common
           "overflow-y-auto",
-          // light
-          "text-tremor-brand-emphasis",
-          // dark
-          "dark:text-dark-tremor-brand-emphasis",
-          color && getColorClassNames(color, colorPalette.darkText).textColor,
           children ? spacing.sm.marginTop : "",
         )}
       >

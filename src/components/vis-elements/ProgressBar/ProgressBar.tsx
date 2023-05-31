@@ -46,13 +46,10 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            // common
             "relative flex items-center w-full rounded-tremor-full",
-            // light
-            "bg-tremor-brand-faint",
-            // dark
-            "dark:bg-dark-tremor-brand-faint",
-            color && getColorClassNames(color, colorPalette.lightBackground).bgColor,
+            color
+              ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+              : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint",
             sizing.xs.height,
           )}
           {...getReferenceProps}
@@ -62,7 +59,9 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
               makeProgressBarClassName("progressBar"),
               // common
               "flex-col h-full rounded-tremor-full",
-              color && getColorClassNames(color, colorPalette.background).bgColor,
+              color
+                ? getColorClassNames(color, colorPalette.background).bgColor
+                : "bg-tremor-brand dark:bg-dark-tremor-brand",
             )}
             style={{
               width: `${value}%`,

@@ -6,6 +6,7 @@ import { getColorClassNames, makeClassName, sizing } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { twMerge } from "tailwind-merge";
 
 const makeMarkerBarClassName = makeClassName("MarkerBar");
 
@@ -93,13 +94,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         <div
           className={tremorTwMerge(
             makeMarkerBarClassName("marker"),
-            // common
             "ring-2 mx-auto rounded-tremor-full",
-            // light
-            "ring-tremor-brand-inverted bg-tremor-brand",
-            // dark
-            "dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-brand",
-            color && getColorClassNames(color, colorPalette.background).bgColor,
+            "ring-tremor-brand-inverte",
+            "dark:ring-dark-tremor-brand-inverted",
+            color
+              ? getColorClassNames(color, colorPalette.background).bgColor
+              : "dark:bg-dark-tremor-brand bg-tremor-brand",
             sizing.md.height,
             sizing.twoXs.width,
           )}
