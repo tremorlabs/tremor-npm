@@ -1,7 +1,6 @@
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
 
-import { Color } from "../../../lib";
+import { Color, tremorTwMerge } from "../../../lib";
 import { getColorClassNames, makeClassName, sizing, spacing, themeColorRange } from "lib";
 import { colorPalette } from "lib/theme";
 
