@@ -5,7 +5,6 @@ import { tremorTwMerge } from "lib";
 
 import { makeClassName, sizing, spacing } from "lib";
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
-import { BaseColorContext } from "contexts";
 
 const makeTabClassName = makeClassName("Tab");
 
@@ -14,8 +13,7 @@ const variantStyles: { [key in TabVariant]: string } = {
     // common
     "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100",
     // light
-    "ui-selected:border-tremor-brand hover:border-tremor-content hover:text-tremor-content-emphasis",
-    "text-tremor-content",
+    "ui-selected:border-tremor-brand hover:border-tremor-content hover:text-tremor-content-emphasis text-tremor-content",
     // dark
     "dark:ui-selected:border-dark-tremor-brand dark:hover:border-dark-tremor-content-emphasis dark:hover:text-dark-tremor-content-emphasis dark:text-dark-tremor-content",
     spacing.px.negativeMarginBottom,
@@ -40,7 +38,6 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const { icon, className, children, ...other } = props;
 
   const variant = useContext(TabVariantContext);
-  const color = useContext(BaseColorContext);
   const Icon = icon;
 
   return (
