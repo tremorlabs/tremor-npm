@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
@@ -25,6 +24,8 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showAnimation?: boolean;
   showTooltip?: boolean;
   noDataText?: string;
+  startAngle?: number;
+  percentage?: number; // New prop for the desired angle percentage
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
@@ -41,11 +42,15 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     showTooltip = true,
     className,
     noDataText,
+    startAngle = 90,
+    percentage = 100,
     ...other
   } = props;
   const isDonut = variant == "donut";
 
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
+
+  const calculatedEndAngle = startAngle - 360 * (percentage / 100);
 
   return (
     <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
@@ -67,8 +72,8 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               data={parseData(data, colors)}
               cx="50%"
               cy="50%"
-              startAngle={90}
-              endAngle={-270}
+              startAngle={startAngle}
+              endAngle={calculatedEndAngle}
               innerRadius={isDonut ? "75%" : "0%"}
               outerRadius="100%"
               paddingAngle={0}
