@@ -152,3 +152,37 @@ WithConnectNullsFalse.args = {
   ...args,
   data: simpleBaseChartDataWithNulls,
 };
+
+export const WithNoAnimation = DefaultTemplate.bind({});
+WithNoAnimation.args = {
+  data: data,
+  showAnimation: false,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
+WithDefaultAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithLongAnimationDuration = DefaultTemplate.bind({});
+WithLongAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 5000,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithShortAnimationDuration = DefaultTemplate.bind({});
+WithShortAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 100,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+};

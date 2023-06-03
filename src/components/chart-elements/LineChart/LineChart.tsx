@@ -38,6 +38,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    animationDuration = 1500,
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
@@ -156,7 +157,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 strokeLinecap="round"
                 dot={false}
                 isAnimationActive={showAnimation}
-                animationDuration={900}
+                animationDuration={animationDuration}
                 connectNulls={connectNulls}
               />
             ))}

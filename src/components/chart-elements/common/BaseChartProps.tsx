@@ -1,6 +1,6 @@
 import { Color, ValueFormatter } from "../../../lib";
-
-interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
+import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
+interface BaseChartProps extends BaseAnimationTimingProps {
   data: any[];
   categories: string[];
   index: string;
@@ -10,7 +10,6 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
-  showAnimation?: boolean;
   showTooltip?: boolean;
   showGradient?: boolean;
   showLegend?: boolean;

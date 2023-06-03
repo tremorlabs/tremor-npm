@@ -14,6 +14,7 @@ type Bar = {
   icon?: React.JSXElementConstructor<any>;
   href?: string;
   target?: string;
+  color?: Color;
 };
 
 const getWidthsFromValues = (dataValues: number[]) => {
@@ -72,8 +73,9 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 // common
                 "flex items-center rounded-tremor-small",
                 rowHeight,
-                color
-                  ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+                item.color || color
+                  ? getColorClassNames(item.color ?? (color as Color), colorPalette.lightBackground)
+                      .bgColor
                   : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
