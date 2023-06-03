@@ -1,14 +1,12 @@
 "use client";
 import React, { ReactElement, useMemo } from "react";
-import { sizing, tremorTwMerge } from "lib";
+import { sizing, tremorTwMerge, border, spacing } from "lib";
 import { DateRange, DayPicker } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { useInternalState } from "hooks";
-
-import { border, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import {
   defaultOptions,
@@ -246,16 +244,17 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // common
               "p-3",
               // light
-              "text-tremor-content-emphasis",
+              //"text-tremor-content-emphasis",
               // dark
-              "dark:text-dark-tremor-content-emphasis",
+              //"dark:text-dark-tremor-content-emphasis",
               className,
             )}
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
               caption: "flex justify-center pt-1 relative items-center",
-              caption_label: "text-tremor-default font-medium",
+              caption_label:
+                "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
               nav: "space-x-1 flex items-center",
               nav_button:
                 "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
@@ -266,14 +265,14 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               head_cell:
                 "w-9 font-normal text-center text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               row: "flex w-full mt-0.5",
-              cell: "text-center p-0 relative focus-within:relative text-tremor-default",
+              cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
               day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
               day_selected:
-                "aria-selected:bg-tremor-brand aria-selected:text-tremor-brand dark:aria-selected:bg-dark-tremor-brand dark:aria-selected:text-dark-tremor-brand",
+                "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
               day_disabled:
                 "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle:
-                "!rounded-none aria-selected:bg-tremor-background-subtle dark:aria-selected:bg-dark-tremor-background-subtle aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
+                "!rounded-none aria-selected:bg-tremor-background-subtle dark:aria-selected:bg-dark-tremor-background-subtle aria-selected:text-tremor-content dark:aria-selected:bg-dark-tremor-content",
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
