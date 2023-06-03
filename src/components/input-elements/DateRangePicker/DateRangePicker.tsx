@@ -132,7 +132,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     !selectedStartDate && !selectedEndDate
       ? placeholder
       : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
-  const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? TODAY);
+  const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;
 

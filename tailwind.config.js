@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable max-len */
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {

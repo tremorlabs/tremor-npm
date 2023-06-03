@@ -129,7 +129,7 @@ const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
         </TabList>
       </TabGroup>
       <Button onClick={() => setIndex(0)}>Reset</Button>
-      <Button onClick={() => setIndex(1)}>One</Button>
+      <Button onClick={() => setIndex(2)}>One</Button>
     </Card>
   );
 };
