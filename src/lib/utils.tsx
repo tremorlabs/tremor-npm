@@ -90,25 +90,25 @@ export function getColorClassNames(
     return {
       bgColor: `bg-${color}`,
       hoverBgColor: `hover:bg-${color}`,
-      selectBgColor: `ui-select:bg-${color}`,
+      selectBgColor: `ui-selected:bg-${color}`,
       textColor: `text-${color}`,
-      selectTextColor: `ui-select:text-${color}`,
+      selectTextColor: `ui-selected:text-${color}`,
       hoverTextColor: `hover:text-${color}`,
       borderColor: `border-${color}`,
-      selectBorderColor: `ui-select:border-${color}`,
+      selectBorderColor: `ui-selected:border-${color}`,
       hoverBorderColor: `hover:border-${color}`,
       ringColor: `ring-${color}`,
     };
   }
   return {
     bgColor: `bg-${color}-${shade}`,
-    selectBgColor: `ui-select:bg-${color}-${shade}`,
+    selectBgColor: `ui-selected:bg-${color}-${shade}`,
     hoverBgColor: `hover:bg-${color}-${shade}`,
     textColor: `text-${color}-${shade}`,
-    selectTextColor: `ui-select:text-${color}-${shade}`,
+    selectTextColor: `ui-selected:text-${color}-${shade}`,
     hoverTextColor: `hover:text-${color}-${shade}`,
     borderColor: `border-${color}-${shade}`,
-    selectBorderColor: `ui-select:border-${color}-${shade}`,
+    selectBorderColor: `ui-selected:border-${color}-${shade}`,
     hoverBorderColor: `hover:border-${color}-${shade}`,
     ringColor: `ring-${color}-${shade}`,
   };

@@ -4,7 +4,7 @@ import { tremorTwMerge } from "lib";
 
 import { BaseColorContext } from "contexts";
 
-import { BaseColors, border, makeClassName, spacing } from "lib";
+import { border, makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
 import { Tab } from "@headlessui/react";
 
@@ -43,7 +43,7 @@ export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const { color = BaseColors.Blue, variant = "line", children, className, ...other } = props;
+  const { color, variant = "line", children, className, ...other } = props;
 
   return (
     <Tab.List
