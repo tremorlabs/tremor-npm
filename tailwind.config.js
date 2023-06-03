@@ -1,28 +1,6 @@
 /* eslint-disable no-undef */
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
-  safelist: [
-    // colors
-    {
-      pattern:
-        /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
-      variants: ["hover", "ui-select"],
-    },
-    {
-      pattern:
-        /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
-      variants: ["hover", "ui-select"],
-    },
-    {
-      pattern:
-        /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
-      variants: ["hover", "ui-select"],
-    },
-    {
-      pattern:
-        /ring-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
-    },
-  ],
   theme: {
     transparent: "transparent",
     current: "currentColor",
@@ -112,5 +90,26 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    {
+      pattern:
+        /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+      variants: ["hover", "ui-select"],
+    },
+    {
+      pattern:
+        /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+      variants: ["hover", "ui-select"],
+    },
+    {
+      pattern:
+        /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+      variants: ["hover", "ui-select"],
+    },
+    {
+      pattern:
+        /ring-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+    },
+  ],
   plugins: [require("@headlessui/tailwindcss")],
 };
