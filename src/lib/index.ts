@@ -1,5 +1,4 @@
 export * from "./hexColors";
-export * from "./colorClassNames";
 export * from "./inputTypes";
 export * from "./constants";
 export * from "./shape";

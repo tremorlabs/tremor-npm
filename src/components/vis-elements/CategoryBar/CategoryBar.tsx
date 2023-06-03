@@ -4,7 +4,7 @@ import { tremorTwMerge } from "../../../lib";
 
 import { Color } from "../../../lib";
 import {
-  colorClassNames,
+  getColorClassNames,
   makeClassName,
   sizing,
   spacing,
@@ -26,7 +26,7 @@ const getMarkerBgColor = (
   let prefixSum = 0;
   for (let i = 0; i < values.length; i++) {
     const currentWidthPercentage = values[i];
-    const currentBgColor = colorClassNames[colors[i]][colorPalette.background].bgColor;
+    const currentBgColor = getColorClassNames(colors[i], colorPalette.background).bgColor;
 
     prefixSum += currentWidthPercentage;
     if (prefixSum >= markerValue) return currentBgColor;
@@ -140,7 +140,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                   className={tremorTwMerge(
                     makeCategoryBarClassName("categoryBar"),
                     "h-full",
-                    colorClassNames[baseColor][colorPalette.background].bgColor,
+                    getColorClassNames(baseColor, colorPalette.background).bgColor,
                   )}
                   style={{ width: `${value}%` }}
                 />

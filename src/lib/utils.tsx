@@ -1,6 +1,5 @@
 import { DeltaTypes } from "./constants";
 import { Color, ValueFormatter } from "./inputTypes";
-import { colorClassNames } from "./colorClassNames";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -70,13 +69,47 @@ export function makeClassName(componentName: string) {
   };
 }
 
+interface ColorClassNames {
+  bgColor: string;
+  hoverBgColor: string;
+  selectBgColor: string;
+  textColor: string;
+  selectTextColor: string;
+  hoverTextColor: string;
+  borderColor: string;
+  selectBorderColor: string;
+  hoverBorderColor: string;
+  ringColor: string;
+}
+
 export function getColorClassNames(
   color: Color | "white" | "black" | "transparent",
   shade?: number,
-) {
-  if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
+): ColorClassNames {
   if (color === "white" || color === "black" || color === "transparent" || !shade) {
-    return colorClassNames[color][500];
+    return {
+      bgColor: `bg-${color}`,
+      hoverBgColor: `hover:bg-${color}`,
+      selectBgColor: `ui-select:bg-${color}`,
+      textColor: `text-${color}`,
+      selectTextColor: `ui-select:text-${color}`,
+      hoverTextColor: `hover:text-${color}`,
+      borderColor: `border-${color}`,
+      selectBorderColor: `ui-select:border-${color}`,
+      hoverBorderColor: `hover:border-${color}`,
+      ringColor: `ring-${color}`,
+    };
   }
-  return colorClassNames[color][shade];
+  return {
+    bgColor: `bg-${color}-${shade}`,
+    selectBgColor: `ui-select:bg-${color}-${shade}`,
+    hoverBgColor: `hover:bg-${color}-${shade}`,
+    textColor: `text-${color}-${shade}`,
+    selectTextColor: `ui-select:text-${color}-${shade}`,
+    hoverTextColor: `hover:text-${color}-${shade}`,
+    borderColor: `border-${color}-${shade}`,
+    selectBorderColor: `ui-select:border-${color}-${shade}`,
+    hoverBorderColor: `hover:border-${color}-${shade}`,
+    ringColor: `ring-${color}-${shade}`,
+  };
 }

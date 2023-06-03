@@ -3,7 +3,7 @@ import { tremorTwMerge } from "../../../lib";
 
 import { HorizontalPositions, VerticalPositions } from "lib/constants";
 import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
-import { border, spacing, colorClassNames, makeClassName } from "lib";
+import { border, spacing, getColorClassNames, makeClassName } from "lib";
 import { colorPalette } from "lib/theme";
 
 const makeCardClassName = makeClassName("Card");
@@ -42,7 +42,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         "bg-tremor-background ring-tremor-ring shadow-tremor-card border-tremor-brand",
         // dark
         "dark:bg-dark-tremor-background dark:ring-dark-tremor-ring dark:shadow-dark-tremor-card dark:border-dark-tremor-brand",
-        decorationColor && colorClassNames[decorationColor][colorPalette.border].borderColor,
+        decorationColor && getColorClassNames(decorationColor, colorPalette.border).borderColor,
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
         className,

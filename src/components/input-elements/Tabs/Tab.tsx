@@ -5,6 +5,7 @@ import { tremorTwMerge } from "lib";
 
 import { makeClassName, sizing, spacing } from "lib";
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
+import { BaseColorContext } from "contexts";
 
 const makeTabClassName = makeClassName("Tab");
 
@@ -38,6 +39,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const { icon, className, children, ...other } = props;
 
   const variant = useContext(TabVariantContext);
+  const color = useContext(BaseColorContext);
   const Icon = icon;
 
   return (
