@@ -243,16 +243,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             className={tremorTwMerge(
               // common
               "p-3",
-              // light
-              //"text-tremor-content-emphasis",
-              // dark
-              //"dark:text-dark-tremor-content-emphasis",
               className,
             )}
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
-              caption: "flex justify-center pt-1 relative items-center",
+              caption: "flex justify-center pt-2 relative items-center",
               caption_label:
                 "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
               nav: "space-x-1 flex items-center",
@@ -272,7 +268,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               day_disabled:
                 "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle:
-                "!rounded-none aria-selected:bg-tremor-background-subtle dark:aria-selected:bg-dark-tremor-background-subtle aria-selected:text-tremor-content dark:aria-selected:bg-dark-tremor-content",
+                "!rounded-none aria-selected:!bg-tremor-background-subtle dark:aria-selected:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content dark:aria-selected:!bg-dark-tremor-content",
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
