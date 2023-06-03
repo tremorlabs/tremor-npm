@@ -23,15 +23,6 @@ export const defaultValueFormatter: ValueFormatter = (value: number) => value.to
 export const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0);
 
-export const removeValueFromArray = (value: any, array: any[]): any[] => {
-  const index = array.indexOf(value);
-  const newArray = [...array];
-  if (index > -1) {
-    newArray.splice(index, 1);
-  }
-  return newArray;
-};
-
 export const isValueInArray = (value: any, array: any[]): boolean => {
   for (let i = 0; i < array.length; i++) {
     if (array[i] === value) {
@@ -39,14 +30,6 @@ export const isValueInArray = (value: any, array: any[]): boolean => {
     }
   }
   return false;
-};
-
-export const stringIsNumeric = (str: string | undefined): boolean => {
-  return !isNaN(Number(str)) && str !== undefined;
-};
-
-export const stringEndsWithNumber = (str: string): boolean => {
-  return stringIsNumeric(str.split("-").pop());
 };
 
 export function mergeRefs<T = any>(
