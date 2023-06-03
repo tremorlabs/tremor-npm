@@ -182,12 +182,6 @@ UncontrolledWithDropdownOptions.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "one" },
 };
 
-export const UncontrolledWithYearPaginationEnabled = UncontrolledTemplate.bind({});
-UncontrolledWithYearPaginationEnabled.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },
-  enableYearPagination: true,
-};
-
 export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
 UncontrolledWithDisabled.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },

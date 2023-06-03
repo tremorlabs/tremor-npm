@@ -45,7 +45,6 @@ export interface DateRangePickerProps
   maxDate?: Date;
   placeholder?: string;
   selectPlaceholder?: string;
-  enableYearPagination?: boolean;
   disabled?: boolean;
   color?: Color;
   locale?: Locale;
@@ -64,7 +63,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     placeholder = "Select",
     selectPlaceholder = "Select",
     disabled = false,
-    enableYearPagination = false, // @achi
     locale = enUS,
     enableClear = true,
     children,
