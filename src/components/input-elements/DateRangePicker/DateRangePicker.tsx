@@ -243,16 +243,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             className={tremorTwMerge(
               // common
               "p-3",
-              // light
-              //"text-tremor-content-emphasis",
-              // dark
-              //"dark:text-dark-tremor-content-emphasis",
               className,
             )}
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
-              caption: "flex justify-center pt-1 relative items-center",
+              caption: "flex justify-center pt-2 relative items-center",
               caption_label:
                 "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
               nav: "space-x-1 flex items-center",
