@@ -41,6 +41,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showYAxis = true,
     yAxisWidth = 56,
     showAnimation = true,
+    animationDuration = 1500,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -154,6 +155,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 strokeWidth={2}
                 dot={false}
                 isAnimationActive={showAnimation}
+                animationDuration={animationDuration}
                 stackId={stack ? "a" : undefined}
                 connectNulls={connectNulls}
               />

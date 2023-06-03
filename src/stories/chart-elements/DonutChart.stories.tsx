@@ -157,3 +157,37 @@ BlockExample.args = {
   data,
   valueFormatter: valueFormatter,
 };
+
+export const WithNoAnimation = DefaultTemplate.bind({});
+WithNoAnimation.args = {
+  data: data,
+  showAnimation: false,
+  category: "sales",
+  index: "city",
+};
+
+export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
+WithDefaultAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  category: "sales",
+  index: "city",
+};
+
+export const WithLongAnimationDuration = DefaultTemplate.bind({});
+WithLongAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 5000,
+  category: "sales",
+  index: "city",
+};
+
+export const WithShortAnimationDuration = DefaultTemplate.bind({});
+WithShortAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 100,
+  category: "sales",
+  index: "city",
+};
