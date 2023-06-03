@@ -107,7 +107,10 @@ const ColorsTemplate: ComponentStory<typeof TabGroup> = (args) => (
     <Card>
       <div className="space-y-2">
         {Object.values(BaseColors).map((color) => (
-          <TabLine key={color} {...args} color={color} />
+          <Flex key={color} className="space-x-5">
+            <TabLine {...args} color={color} />
+            <TabSolid {...args} color={color} />
+          </Flex>
         ))}
       </div>
     </Card>
