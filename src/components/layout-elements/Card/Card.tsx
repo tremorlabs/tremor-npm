@@ -39,10 +39,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         // common
         "relative w-full text-left ring-1 rounded-tremor-default",
         // light
-        "bg-tremor-background ring-tremor-ring shadow-tremor-card border-tremor-brand",
+        "bg-tremor-background ring-tremor-ring shadow-tremor-card",
         // dark
-        "dark:bg-dark-tremor-background dark:ring-dark-tremor-ring dark:shadow-dark-tremor-card dark:border-dark-tremor-brand",
-        decorationColor && getColorClassNames(decorationColor, colorPalette.border).borderColor,
+        "dark:bg-dark-tremor-background dark:ring-dark-tremor-ring dark:shadow-dark-tremor-card",
+        // brand
+        decorationColor
+          ? getColorClassNames(decorationColor, colorPalette.border).borderColor
+          : "border-tremor-brand dark:border-dark-tremor-brand",
         parseDecorationAlignment(decoration),
         spacing.threeXl.paddingAll,
         className,
