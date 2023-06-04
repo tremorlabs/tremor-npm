@@ -9,61 +9,61 @@ module.exports = {
         // light mode
         tremor: {
           brand: {
-            faint: "#eff6ff",
-            muted: "#bfdbfe",
-            subtle: "#60a5fa",
-            DEFAULT: "#3b82f6",
-            emphasis: "#1d4ed8",
-            inverted: "#ffffff",
+            faint: "#eff6ff", // blue-50
+            muted: "#bfdbfe", // blue-200
+            subtle: "#60a5fa", // blue-400
+            DEFAULT: "#3b82f6", // blue-500
+            emphasis: "#1d4ed8", // blue-700
+            inverted: "#ffffff", // white
           },
           background: {
-            muted: "#f9fafb",
-            subtle: "#f3f4f6",
-            DEFAULT: "#ffffff",
-            emphasis: "#374151",
+            muted: "#f9fafb", // gray-50
+            subtle: "#f3f4f6", // gray-100
+            DEFAULT: "#ffffff", // white
+            emphasis: "#374151", // gray-700
           },
           border: {
-            DEFAULT: "#e5e7eb",
+            DEFAULT: "#e5e7eb", // gray-200
           },
           ring: {
-            DEFAULT: "#e5e7eb",
+            DEFAULT: "#e5e7eb", // gray-200
           },
           content: {
-            subtle: "#9ca3af",
-            DEFAULT: "#6b7280",
-            emphasis: "#374151",
-            strong: "#111827",
-            inverted: "#ffffff",
+            subtle: "#9ca3af", // gray-400
+            DEFAULT: "#6b7280", // gray-500
+            emphasis: "#374151", // gray-700
+            strong: "#111827", // gray-900
+            inverted: "#ffffff", // white
           },
         },
         // dark mode
         "dark-tremor": {
           brand: {
-            faint: "#0B1229",
-            muted: "#172554",
-            subtle: "#1e40af",
-            DEFAULT: "#2563eb",
-            emphasis: "#3b82f6",
-            inverted: "#030712",
+            faint: "#0B1229", // custom
+            muted: "#172554", // blue-950
+            subtle: "#1e40af", // blue-800
+            DEFAULT: "#3b82f6", // blue-600 maybe 500???
+            emphasis: "#60a5fa", // blue-500 maybe 400???
+            inverted: "#030712", // gray-950
           },
           background: {
-            muted: "#131A2B",
-            subtle: "#1f2937",
-            DEFAULT: "#111827",
-            emphasis: "#d1d5db",
+            muted: "#131A2B", // custom
+            subtle: "#1f2937", // gray-800
+            DEFAULT: "#111827", // gray-900
+            emphasis: "#d1d5db", // gray-300
           },
           border: {
-            DEFAULT: "#1f2937",
+            DEFAULT: "#1f2937", // gray-800
           },
           ring: {
-            DEFAULT: "#1f2937",
+            DEFAULT: "#1f2937", // gray-800
           },
           content: {
-            subtle: "#4b5563",
-            DEFAULT: "#6b7280",
-            emphasis: "#e5e7eb",
-            strong: "#f9fafb",
-            inverted: "#000000",
+            subtle: "#4b5563", // gray-600
+            DEFAULT: "#6b7280", // gray-600
+            emphasis: "#e5e7eb", // gray-200
+            strong: "#f9fafb", // gray-50
+            inverted: "#000000", // black
           },
         },
       },
@@ -93,17 +93,17 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+        /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
       variants: ["hover", "ui-selected"],
     },
     {
       pattern:
-        /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+        /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
       variants: ["hover", "ui-selected"],
     },
     {
       pattern:
-        /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)/,
+        /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
       variants: ["hover", "ui-selected"],
     },
     {
