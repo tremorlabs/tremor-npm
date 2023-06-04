@@ -15,7 +15,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
     case "line":
       return tremorTwMerge(
         // common
-        "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100",
+        "aria-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100",
         // light
         "hover:border-tremor-content hover:text-tremor-content-emphasis text-tremor-content",
         // dark
@@ -23,7 +23,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         // brand
         color
           ? getColorClassNames(color, colorPalette.border).selectBorderColor
-          : "ui-selected:border-tremor-brand dark:ui-selected:border-dark-tremor-brand",
+          : "aria-selected:border-tremor-brand dark:aria-selected:border-dark-tremor-brand",
         spacing.px.negativeMarginBottom,
       );
     case "solid":
@@ -31,9 +31,9 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         // common
         "border-transparent border rounded-tremor-small",
         // light
-        "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input hover:text-tremor-content-emphasis text-tremor-content",
+        "aria-selected:border-tremor-border aria-selected:bg-tremor-background aria-selected:shadow-tremor-input hover:text-tremor-content-emphasis text-tremor-content",
         // dark
-        "dark:ui-selected:border-dark-tremor-border dark:ui-selected:bg-dark-tremor-background dark:ui-selected:shadow-dark-tremor-input dark:hover:text-dark-tremor-content-emphasis dark:text-dark-tremor-content",
+        "dark:aria-selected:border-dark-tremor-border dark:aria-selected:bg-dark-tremor-background dark:aria-selected:shadow-dark-tremor-input dark:hover:text-dark-tremor-content-emphasis dark:text-dark-tremor-content",
         spacing.lg.paddingX,
         spacing.xs.paddingY,
       );
@@ -61,7 +61,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
-          : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
+          : "aria-selected:text-tremor-brand dark:aria-selected:text-dark-tremor-brand",
         getVariantStyles(variant, color),
         spacing.sm.paddingX,
         spacing.sm.paddingY,
