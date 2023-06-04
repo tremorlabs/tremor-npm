@@ -252,8 +252,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               caption_label:
                 "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
               nav: "space-x-1 flex items-center",
-              nav_button:
+              nav_button: tremorTwMerge(
                 "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
+              ),
               nav_button_previous: "absolute left-1",
               nav_button_next: "absolute right-1",
               table: "w-full border-collapse space-y-1",
@@ -267,8 +268,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
               day_disabled:
                 "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
-              day_range_middle:
-                "!rounded-none aria-selected:!bg-tremor-background-subtle dark:aria-selected:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content dark:aria-selected:!bg-dark-tremor-content",
+              day_range_middle: tremorTwMerge(
+                "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
+              ),
               day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
