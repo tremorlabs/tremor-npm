@@ -25,8 +25,8 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const TabLine = (args: any) => (
-  <TabGroup defaultIndex={0}>
-    <TabList {...args}>
+  <TabGroup defaultIndex={0} {...args}>
+    <TabList>
       <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
       <Tab icon={CalendarIcon}>Three</Tab>
       <Tab icon={CalendarIcon}>One</Tab>
@@ -40,8 +40,8 @@ const TabLine = (args: any) => (
 );
 
 const TabSolid = (args: any) => (
-  <TabGroup defaultIndex={1}>
-    <TabList variant="solid" {...args}>
+  <TabGroup defaultIndex={1} {...args}>
+    <TabList variant="solid">
       <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
       <Tab icon={CalendarIcon}>Three</Tab>
       <Tab icon={CalendarIcon}>One</Tab>
