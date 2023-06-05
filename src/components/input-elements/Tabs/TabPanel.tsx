@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { tremorTwMerge } from "lib";
-import { Tab } from "@headlessui/react";
 import { makeClassName } from "lib";
+import { IndexContext, SelectedValueContext } from "contexts";
 
 const makeTabPanelClassName = makeClassName("TabPanel");
 
@@ -9,15 +9,25 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   (props, ref) => {
     const { children, className, ...other } = props;
 
+    const { selectedValue: selectedIndex } = useContext(SelectedValueContext);
+    const index = useContext(IndexContext);
+
+    const isSelected = selectedIndex === index;
+
     return (
-      <Tab.Panel
-        as="div"
+      <div
         ref={ref}
-        className={tremorTwMerge(makeTabPanelClassName("root"), "w-full mt-2", className)}
+        className={tremorTwMerge(
+          makeTabPanelClassName("root"),
+          "w-full mt-2",
+          isSelected ? "" : "hidden",
+          className,
+        )}
+        aria-selected={isSelected ? "true" : "false"}
         {...other}
       >
         {children}
-      </Tab.Panel>
+      </div>
     );
   },
 );

@@ -26,9 +26,9 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
         // common
         "flex justify-start items-center cursor-default text-tremor-default",
         // light
-        "ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong aria-selected:text-tremor-content-strong aria-selected:bg-tremor-background-muted text-tremor-content-emphasis",
+        "ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted text-tremor-content-emphasis",
         // dark
-        "dark:ui-active:bg-dark-tremor-background-muted dark:ui-active:text-dark-tremor-content-strong dark:aria-selected:text-dark-tremor-content-strong dark:aria-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "dark:ui-active:bg-dark-tremor-background-muted dark:ui-active:text-dark-tremor-content-strong dark:ui-selected:text-dark-tremor-content-strong dark:ui-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
         spacing.md.paddingX,
         spacing.md.paddingY,
         className,
