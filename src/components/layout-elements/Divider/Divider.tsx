@@ -1,8 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { borderRadius, getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName, sizing, spacing } from "lib";
 
 const makeDividerClassName = makeClassName("Divider");
 
@@ -12,14 +11,17 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     return (
       <div
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeDividerClassName("root"),
+          // common
           "w-full mx-auto",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).bgColor,
+          // light
+          "bg-tremor-background-subtle",
+          // dark
+          "dark:bg-dark-tremor-background-subtle",
           sizing.threeXs.height,
           spacing.threeXl.marginTop,
           spacing.threeXl.marginBottom,
-          borderRadius.lg.all,
           className,
         )}
         {...other}

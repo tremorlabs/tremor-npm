@@ -1,7 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { getColorClassNames } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
 
@@ -10,14 +10,21 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
-  const { color = BaseColors.Gray, className, children } = props;
+  const { color, className, children } = props;
   return (
     <p
       ref={ref}
-      className={twMerge(
-        getColorClassNames(color, colorPalette.text).textColor,
-        fontSize.sm,
-        fontWeight.sm,
+      className={tremorTwMerge(
+        // common
+        "text-tremor-default",
+        color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : tremorTwMerge(
+              // light
+              "text-tremor-content",
+              // dark
+              "dark:text-dark-tremor-content",
+            ),
         className,
       )}
     >

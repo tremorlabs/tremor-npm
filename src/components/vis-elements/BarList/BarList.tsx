@@ -1,18 +1,9 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  borderRadius,
-  defaultValueFormatter,
-  fontSize,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { defaultValueFormatter, getColorClassNames, makeClassName, sizing, spacing } from "lib";
 import { Color, ValueFormatter } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -48,7 +39,7 @@ export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
 const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
   const {
     data = [],
-    color = BaseColors.Blue,
+    color,
     valueFormatter = defaultValueFormatter,
     showAnimation = true,
     className,
@@ -62,7 +53,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeBarListClassName("root"),
         "flex justify-between",
         spacing.threeXl.spaceX,
@@ -70,38 +61,44 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
       )}
       {...other}
     >
-      <div className={twMerge(makeBarListClassName("bars"), "relative w-full")}>
+      <div className={tremorTwMerge(makeBarListClassName("bars"), "relative w-full")}>
         {data.map((item, idx) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.key ?? item.name}
-              className={twMerge(
+              className={tremorTwMerge(
                 makeBarListClassName("bar"),
-                "flex items-center",
+                // common
+                "flex items-center rounded-tremor-small",
                 rowHeight,
-                getColorClassNames(item.color ?? color, colorPalette.lightBackground).bgColor,
-                borderRadius.sm.all,
+                item.color || color
+                  ? getColorClassNames(item.color ?? (color as Color), colorPalette.lightBackground)
+                      .bgColor
+                  : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{
                 width: `${widths[idx]}%`,
-                transition: showAnimation ? "all 2s" : "",
+                transition: showAnimation ? "all 1s" : "",
               }}
             >
-              <div className={twMerge("absolute max-w-full flex", spacing.sm.left)}>
+              <div className={tremorTwMerge("absolute max-w-full flex", spacing.sm.left)}>
                 {Icon ? (
                   <Icon
-                    className={twMerge(
+                    className={tremorTwMerge(
                       makeBarListClassName("barIcon"),
+                      // common
                       "flex-none",
+                      // light
+                      "text-tremor-content",
+                      // dark
+                      "dark:text-dark-tremor-content",
                       sizing.lg.height,
                       sizing.lg.width,
                       spacing.md.marginRight,
-                      getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
                     )}
-                    aria-hidden="true"
                   />
                 ) : null}
                 {item.href ? (
@@ -109,22 +106,28 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     href={item.href}
                     target={item.target ?? "_blank"}
                     rel="noreferrer"
-                    className={twMerge(
+                    className={tremorTwMerge(
                       makeBarListClassName("barLink"),
-                      "whitespace-nowrap truncate text-blue-500",
-                      "no-underline hover:underline visited:text-blue-500",
-                      fontSize.sm,
+                      // common
+                      "whitespace-nowrap hover:underline truncate text-tremor-default",
+                      // light
+                      "text-tremor-content-emphasis",
+                      // dark
+                      "dark:text-dark-tremor-content-emphasis",
                     )}
                   >
                     {item.name}
                   </a>
                 ) : (
                   <p
-                    className={twMerge(
+                    className={tremorTwMerge(
                       makeBarListClassName("barText"),
-                      "whitespace-nowrap truncate",
-                      getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-                      fontSize.sm,
+                      // common
+                      "whitespace-nowrap truncate text-tremor-default",
+                      // light
+                      "text-tremor-content-emphasis",
+                      // dark
+                      "dark:text-dark-tremor-content-emphasis",
                     )}
                   >
                     {item.name}
@@ -139,7 +142,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
         {data.map((item, idx) => (
           <div
             key={item.key ?? item.name}
-            className={twMerge(
+            className={tremorTwMerge(
               makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",
               rowHeight,
@@ -147,11 +150,14 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
             )}
           >
             <p
-              className={twMerge(
+              className={tremorTwMerge(
                 makeBarListClassName("labelText"),
-                "whitespace-nowrap truncate",
-                getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-                fontSize.sm,
+                // common
+                "whitespace-nowrap truncate text-tremor-default",
+                // light
+                "text-tremor-content-emphasis",
+                // dark
+                "dark:text-dark-tremor-content-emphasis",
               )}
             >
               {valueFormatter(item.value)}

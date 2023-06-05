@@ -1,32 +1,36 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName, spacing } from "lib";
+import { Disclosure } from "@headlessui/react";
 
 const makeAccordionBodyClassName = makeClassName("AccordionBody");
 
-export interface AccordionBodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-}
-
-const AccordionBody = React.forwardRef<HTMLDivElement, AccordionBodyProps>((props, ref) => {
-  const { children, className, ...other } = props;
-  return (
-    <div
-      ref={ref}
-      className={twMerge(
-        makeAccordionBodyClassName("root"),
-        "w-full",
-        spacing.threeXl.paddingX,
-        spacing.lg.paddingBottom,
-        className,
-      )}
-      {...other}
-    >
-      {children}
-    </div>
-  );
-});
+const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  (props, ref) => {
+    const { children, className, ...other } = props;
+    return (
+      <Disclosure.Panel
+        ref={ref}
+        className={tremorTwMerge(
+          makeAccordionBodyClassName("root"),
+          // common
+          "w-full text-tremor-default",
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
+          spacing.twoXl.paddingX,
+          spacing.lg.paddingBottom,
+          className,
+        )}
+        {...other}
+      >
+        {children}
+      </Disclosure.Panel>
+    );
+  },
+);
 
 AccordionBody.displayName = "AccordionBody";
 

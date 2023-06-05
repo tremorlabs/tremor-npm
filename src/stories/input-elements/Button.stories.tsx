@@ -20,7 +20,20 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numItems={5} className="gap-4">
+      <Button {...args}>Button</Button>
+      <Button {...args} icon={MyIcon}>
+        Button
+      </Button>
+      <Button {...args} icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
+      <Button {...args} variant="secondary" icon={MyIcon} iconPosition="left">
+        Button
+      </Button>
+      <Button {...args} variant="light" icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
       {Object.values(InputSizes).map((size) => (
         <>
           <Button {...args} size={size}>
@@ -46,7 +59,7 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
 
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <Grid numCols={4} numColsLg={4} className="gap-y-2">
+    <Grid numItems={4} numItemsLg={4} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <>
           <Button {...args} color={color}>
@@ -102,7 +115,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
   return (
     <Card>
       <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
-      <Grid numCols={3} className="gap-y-2 mt-10">
+      <Grid numItems={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
             <Button {...args} size={size} loading={loading}>
@@ -121,7 +134,7 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
         ))}
       </Grid>
       <Title>With Loading Text</Title>
-      <Grid numCols={4} className="gap-y-2">
+      <Grid numItems={4} className="gap-y-2">
         <Button {...args} loading={loading} loadingText="Loading">
           Button
         </Button>

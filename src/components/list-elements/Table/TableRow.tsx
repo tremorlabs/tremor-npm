@@ -1,7 +1,7 @@
 import React from "react";
 
 import { makeClassName } from "lib";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 const makeRowClassName = makeClassName("TableRow");
 
@@ -10,7 +10,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     const { children, className, ...other } = props;
     return (
       <>
-        <tr ref={ref} className={twMerge(makeRowClassName("row"), className)} {...other}>
+        <tr ref={ref} className={tremorTwMerge(makeRowClassName("row"), className)} {...other}>
           {children}
         </tr>
       </>

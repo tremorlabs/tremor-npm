@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { border, borderRadius, boxShadow, makeClassName } from "lib";
+import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
 
 const makeAccordionListClassName = makeClassName("AccordionList");
@@ -18,10 +18,14 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionListClassName("root"),
-        borderRadius.lg.all,
-        boxShadow.md,
+        // common
+        "rounded-tremor-default",
+        // light
+        "shadow-tremor-card",
+        // dark
+        "dark:shadow-dark-tremor-card",
         className,
       )}
       {...other}
@@ -30,8 +34,8 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === 0) {
           return (
             <RootStylesContext.Provider
-              value={twMerge(
-                borderRadius.lg.top,
+              value={tremorTwMerge(
+                "rounded-t-tremor-default",
                 border.sm.left,
                 border.sm.top,
                 border.sm.right,
@@ -45,8 +49,8 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={twMerge(
-                borderRadius.lg.bottom,
+              value={tremorTwMerge(
+                "rounded-b-tremor-default",
                 border.sm.left,
                 border.sm.right,
                 border.sm.bottom,
@@ -58,7 +62,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         }
         return (
           <RootStylesContext.Provider
-            value={twMerge(border.sm.left, border.sm.right, border.sm.bottom)}
+            value={tremorTwMerge(border.sm.left, border.sm.right, border.sm.bottom)}
           >
             {React.cloneElement(child)}
           </RootStylesContext.Provider>

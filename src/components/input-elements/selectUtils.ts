@@ -1,37 +1,33 @@
-import {
-  BaseColors,
-  DEFAULT_COLOR,
-  WHITE,
-  colorClassNames,
-  colorPalette,
-  getColorClassNames,
-} from "lib";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 export interface SelectItemProps {
   value: string;
-  text?: string;
+  children?: React.ReactNode;
 }
+
+export const getNodeText = (node: React.ReactElement): string | React.ReactElement | undefined => {
+  if (["string", "number"].includes(typeof node)) return node;
+  if (node instanceof Array) return node.map(getNodeText).join("");
+  if (typeof node === "object" && node) return getNodeText(node.props.children);
+};
 
 export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
   const valueToNameMapping = new Map<string, string>();
-  React.Children.map(children, (child: { props: SelectItemProps }) => {
-    valueToNameMapping.set(child.props.value, child.props.text ?? child.props.value);
+  React.Children.map(children, (child: React.ReactElement<SelectItemProps>) => {
+    valueToNameMapping.set(child.props.value, (getNodeText(child) ?? child.props.value) as string);
   });
   return valueToNameMapping;
 }
 
 export function getFilteredOptions(
   searchQuery: string,
-  options: SelectItemProps[],
-): SelectItemProps[] {
-  return searchQuery === ""
-    ? options
-    : options.filter((option: SelectItemProps) => {
-        const optionText = option.text ?? option.value;
-        return optionText.toLowerCase().includes(searchQuery.toLowerCase());
-      });
+  children: React.ReactElement[],
+): React.ReactElement[] {
+  return React.Children.map(children, (child) => {
+    const optionText = (getNodeText(child) ?? child.props.value) as string;
+    if (optionText.toLowerCase().includes(searchQuery.toLowerCase())) return child;
+  });
 }
 
 export const getSelectButtonColors = (
@@ -39,21 +35,20 @@ export const getSelectButtonColors = (
   isDisabled: boolean,
   hasError = false,
 ) => {
-  return twMerge(
+  return tremorTwMerge(
     isDisabled
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).bgColor
-      : getColorClassNames(WHITE, colorPalette.background).bgColor,
-    !isDisabled && getColorClassNames(DEFAULT_COLOR, colorPalette.canvasBackground).hoverBgColor,
+      ? "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle"
+      : "bg-tremor-background dark:bg-dark-tremor-background",
+    !isDisabled && "hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted",
     hasSelection
-      ? getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-    isDisabled && getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
-    hasError && colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
-    hasError
-      ? colorClassNames[BaseColors.Rose][colorPalette.ring].borderColor
-      : getColorClassNames(DEFAULT_COLOR, colorPalette.ring).borderColor,
+      ? "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis"
+      : "text-tremor-content dark:text-dark-tremor-content",
+    isDisabled && "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
+    hasError && "text-rose-500",
+    hasError ? "border-rose-500" : "border-tremor-border dark:border-dark-tremor-border",
   );
 };
 
-export const hasValue = (value: string | null | undefined) =>
-  value !== null && value !== undefined && value !== "";
+export function hasValue<T>(value: T | null | undefined) {
+  return value !== null && value !== undefined && value !== "";
+}

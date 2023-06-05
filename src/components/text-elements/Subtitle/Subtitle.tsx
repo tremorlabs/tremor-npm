@@ -1,7 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { getColorClassNames } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 
@@ -10,14 +10,14 @@ export interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement
 }
 
 const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, ref) => {
-  const { color = BaseColors.Gray, children, className, ...other } = props;
+  const { color, children, className, ...other } = props;
   return (
     <p
       ref={ref}
-      className={twMerge(
-        getColorClassNames(color, colorPalette.lightText).textColor,
-        fontSize.md,
-        fontWeight.sm,
+      className={tremorTwMerge(
+        color
+          ? getColorClassNames(color, colorPalette.lightText).textColor
+          : "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
         className,
       )}
       {...other}

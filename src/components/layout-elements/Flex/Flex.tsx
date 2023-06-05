@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { makeClassName } from "lib";
 import { AlignItems, FlexDirection, JustifyContent } from "../../../lib";
@@ -50,7 +50,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeFlexClassName("root"),
         "flex w-full",
         flexDirectionClassNames[flexDirection],

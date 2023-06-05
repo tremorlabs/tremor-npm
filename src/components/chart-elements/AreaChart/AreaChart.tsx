@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import {
   Area,
   CartesianGrid,
@@ -52,8 +52,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
-    className,
     noDataText,
+    className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -62,23 +62,40 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height={"100%"}>
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsAreaChart data={data}>
             {showGridLines ? (
-              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+              <CartesianGrid
+                className={tremorTwMerge(
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-content-subtle",
+                  // dark
+                  "dark:stroke-dark-tremor-content-subtle",
+                )}
+                strokeDasharray="3 3"
+                horizontal={true}
+                vertical={false}
+              />
             ) : null}
             <XAxis
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-                color: "red",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
               interval="preserveStartEnd"
               tickLine={false}
               axisLine={false}
@@ -93,19 +110,24 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               type="number"
               domain={yAxisDomain as AxisDomain}
               tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
             {showTooltip ? (
               <Tooltip
-                // ongoing issue: https://github.com/recharts/recharts/issues/2920
                 wrapperStyle={{ outline: "none" }}
                 isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi @severin
                 content={({ active, payload, label }) => (
                   <ChartTooltip
                     active={active}
@@ -125,7 +147,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
               />
             ) : null}
-
             {categories.map((category) => {
               const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
               return (
@@ -143,7 +164,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-
             {categories.map((category) => (
               <Area
                 key={category}
@@ -153,6 +173,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
                 fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
+                strokeLinejoin="round"
+                strokeLinecap="round"
                 dot={false}
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}

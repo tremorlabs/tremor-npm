@@ -1,7 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { fontSize, makeClassName, spacing } from "lib";
+import { makeClassName, spacing } from "lib";
 
 const makeListItemClassName = makeClassName("ListItem");
 
@@ -12,11 +12,11 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
       <>
         <li
           ref={ref}
-          className={twMerge(
+          className={tremorTwMerge(
             makeListItemClassName("root"),
-            "w-full flex justify-between items-center truncate tabular-nums",
+            // common
+            "w-full flex justify-between items-center truncate tabular-nums text-tremor-default",
             spacing.sm.paddingY,
-            fontSize.sm,
             className,
           )}
           {...other}

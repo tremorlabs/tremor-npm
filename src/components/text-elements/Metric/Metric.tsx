@@ -1,7 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, fontSize, fontWeight, getColorClassNames } from "lib";
+import { getColorClassNames } from "lib";
 import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
 
@@ -10,14 +10,15 @@ export interface MetricProps extends React.HTMLAttributes<HTMLParagraphElement> 
 }
 
 const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) => {
-  const { color = BaseColors.Gray, children, className, ...other } = props;
+  const { color, children, className, ...other } = props;
   return (
     <p
       ref={ref}
-      className={twMerge(
-        getColorClassNames(color, colorPalette.darkText).textColor,
-        fontSize.threeXl,
-        fontWeight.lg,
+      className={tremorTwMerge(
+        "font-semibold text-tremor-metric",
+        color
+          ? getColorClassNames(color, colorPalette.darkText).textColor
+          : "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
         className,
       )}
       {...other}

@@ -1,28 +1,20 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "../../../lib";
 
 import { Color, ValueFormatter } from "../../../lib";
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  boxShadow,
-  getColorClassNames,
-  fontSize,
-  fontWeight,
-  sizing,
-  spacing,
-} from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
+import { colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
-    className={twMerge(
-      getColorClassNames("white").bgColor,
-      fontSize.sm,
-      borderRadius.md.all,
+    className={tremorTwMerge(
+      // common
+      "rounded-tremor-default text-tremor-default",
+      // light
+      "bg-tremor-background shadow-tremor-dropdown border-tremor-border",
+      // dark
+      "dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
       border.sm.all,
-      boxShadow.lg,
     )}
   >
     {children}
@@ -39,31 +31,40 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
-        className={twMerge(
-          "shrink-0",
+        className={tremorTwMerge(
+          // common
+          "shrink-0 rounded-tremor-full",
+          // light
+          "border-tremor-background shadow-tremor-card",
+          // dark
+          "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
           getColorClassNames(color, colorPalette.background).bgColor,
-          getColorClassNames("white").borderColor,
           sizing.sm.height,
           sizing.sm.width,
-          borderRadius.full.all,
           border.md.all,
-          boxShadow.md,
         )}
       />
       <p
-        className={twMerge(
+        className={tremorTwMerge(
+          // commmon
           "text-right whitespace-nowrap",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-          fontWeight.sm,
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
         )}
       >
         {name}
       </p>
     </div>
     <p
-      className={twMerge(
+      className={tremorTwMerge(
+        // common
         "font-medium tabular-nums text-right whitespace-nowrap",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+        // light
+        "text-tremor-content-emphasis",
+        // dark
+        "dark:text-dark-tremor-content-emphasis",
       )}
     >
       {value}
@@ -90,25 +91,31 @@ const ChartTooltip = ({
     return (
       <ChartTooltipFrame>
         <div
-          className={twMerge(
-            getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+          className={tremorTwMerge(
+            // light
+            "border-tremor-border",
+            // dark
+            "dark:border-dark-tremor-border",
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
             border.sm.bottom,
           )}
         >
           <p
-            className={twMerge(
-              "text-elem",
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
-              fontWeight.md,
+            className={tremorTwMerge(
+              // common
+              "font-medium",
+              // light
+              "text-tremor-content-emphasis",
+              // dark
+              "dark:text-dark-tremor-content-emphasis",
             )}
           >
             {label}
           </p>
         </div>
 
-        <div className={twMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}
