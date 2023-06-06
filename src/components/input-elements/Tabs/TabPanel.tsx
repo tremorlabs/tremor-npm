@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { tremorTwMerge } from "lib";
 import { makeClassName } from "lib";
