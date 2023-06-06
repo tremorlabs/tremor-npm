@@ -53,16 +53,16 @@ For new projects, we recommend using Next.js 13.4+. For other frameworks, see ou
 
 ## Using NextJS
 
-In your terminal, we create a new Next project. When promted `Would you like to use Tailwind CSS with this project?`, select `Yes`.
+In your terminal, we create a new Next project. When prompted `Would you like to use Tailwind CSS with this project?`, select `Yes`.
 
 ```bash
 npx create-next-app@latest my-project
 cd my-project
 ```
 
-### Installatin using the Tremor CLI
+### Installation using the Tremor CLI
 
-You can setup Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the installation guide on our website.
+We recommend installing Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the installation guide on our website.
 
 ```bash
 npx @tremor/cli@latest init
