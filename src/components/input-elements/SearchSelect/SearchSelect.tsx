@@ -90,7 +90,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             <Combobox.Input
               className={tremorTwMerge(
                 // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default",
                 // light
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
@@ -100,8 +100,8 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 spacing.sm.paddingY,
                 border.sm.all,
                 disabled
-                  ? "placeholder:text-tremor-content-subtle"
-                  : "placeholder:text-tremor-content",
+                  ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
+                  : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
                 getSelectButtonColors(hasValue(value), disabled),
               )}
               placeholder={placeholder}
@@ -133,7 +133,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             <Combobox.Options
               className={tremorTwMerge(
                 // common
-                "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default",
+                "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default text-tremor-default",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
