@@ -24,7 +24,7 @@
       <img src="https://img.shields.io/twitter/follow/tremorlabs?style=social" alt="Follow on Twitter" />
     </a>
   </div>
-  <h3  align="center">
+  <h3 align="center">
     <a href="https://www.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
     <a href="https://www.tremor.so">Website</a>
   </h3>
