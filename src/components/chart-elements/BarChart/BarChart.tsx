@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { tremorTwMerge } from "lib";
+import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 
 import {
   Bar,
@@ -20,7 +20,7 @@ import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -199,12 +199,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             ) : null}
             {categories.map((category) => (
               <Bar
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.background,
+                  ).fillColor
+                }
                 key={category}
                 name={category}
                 type="linear"
                 stackId={stack || relative ? "a" : undefined}
                 dataKey={category}
-                fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
               />

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { tremorTwMerge } from "lib";
 import {
   Area,
   CartesianGrid,
@@ -19,7 +18,14 @@ import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import {
+  BaseColors,
+  defaultValueFormatter,
+  themeColorRange,
+  colorPalette,
+  getColorClassNames,
+  tremorTwMerge,
+} from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
 export interface AreaChartProps extends BaseChartProps {
@@ -148,17 +154,40 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             {categories.map((category) => {
-              const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
               return (
                 <defs key={category}>
                   {showGradient ? (
-                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={hexColor} stopOpacity={0.4} />
-                      <stop offset="95%" stopColor={hexColor} stopOpacity={0} />
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="currentColor" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
                     </linearGradient>
                   ) : (
-                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                      <stop stopColor={hexColor} stopOpacity={0.3} />
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop stopColor="currentColor" stopOpacity={0.3} />
                     </linearGradient>
                   )}
                 </defs>
@@ -166,11 +195,17 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             })}
             {categories.map((category) => (
               <Area
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.text,
+                  ).strokeColor
+                }
                 key={category}
                 name={category}
                 type={curveType}
                 dataKey={category}
-                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                stroke=""
                 fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
                 strokeLinejoin="round"
