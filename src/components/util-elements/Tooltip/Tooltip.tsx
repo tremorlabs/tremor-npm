@@ -70,7 +70,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
   return open && text ? (
     <div
       className={twMerge(
-        "w-max text-sm z-20",
+        "max-w-xs text-sm z-20",
         getColorClassNames(DEFAULT_COLOR, colorPalette.darkestBackground).bgColor,
         getColorClassNames("white").textColor,
         borderRadius.md.all,

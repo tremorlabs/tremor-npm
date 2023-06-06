@@ -52,21 +52,21 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       />
       <p
         className={twMerge(
-          "font-medium tabular-nums text-right whitespace-nowrap",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+          "text-right whitespace-nowrap",
+          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          fontWeight.sm,
         )}
       >
-        {value}
+        {name}
       </p>
     </div>
     <p
       className={twMerge(
-        "text-right whitespace-nowrap",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-        fontWeight.sm,
+        "font-medium tabular-nums text-right whitespace-nowrap",
+        getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
       )}
     >
-      {name}
+      {value}
     </p>
   </div>
 );

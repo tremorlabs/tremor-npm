@@ -66,93 +66,128 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
   </>
 );
 
+const args = { category: "sales", index: "city" };
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
-  data: data,
-  category: "sales",
-  index: "city",
+  ...args,
+  data,
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
-  data: data,
+  ...args,
+  data,
   valueFormatter: valueFormatter,
-  category: "sales",
-  index: "city",
 };
 
 export const WithCustomLabel = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomLabel.args = {
-  data: data,
+  ...args,
+  data,
   valueFormatter: valueFormatter,
   label: "Hello there",
-  category: "sales",
-  index: "city",
 };
 
 export const WithLabelDisabled = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithLabelDisabled.args = {
-  data: data,
+  ...args,
+  data,
   valueFormatter: valueFormatter,
   label: "Hello there",
   showLabel: false,
-  category: "sales",
-  index: "city",
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
-  data: data,
+  ...args,
+  data,
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
-  category: "sales",
-  index: "city",
 };
 
 export const WithMoreDatapointsThanColors = DefaultTemplate.bind({});
 WithMoreDatapointsThanColors.args = {
+  ...args,
   data: [
     // extra long data array
     ...data,
     ...data,
   ],
   colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
-  category: "sales",
-  index: "city",
 };
 
 export const WithLongValues = ResponsiveTemplate.bind({});
 WithLongValues.args = {
+  ...args,
   data: data.map((dataPoint) => ({
     ...dataPoint,
     sales: dataPoint.sales * 10000000,
   })),
   valueFormatter: valueFormatter,
-  category: "sales",
-  index: "city",
 };
 
 export const WithVariantPie = DefaultTemplate.bind({});
 WithVariantPie.args = {
-  data: data,
-  category: "sales",
+  ...args,
+  data,
   variant: "pie",
-  index: "city",
 };
 
 export const WithNoData = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoData.args = {};
+WithNoData.args = {
+  ...args,
+};
+
+export const WithNoDataText = DefaultTemplate.bind({});
+WithNoDataText.args = {
+  ...args,
+  noDataText: "No data, try again later.",
+};
 
 export const BlockExample = BlockTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 BlockExample.args = {
+  ...args,
+  data,
+  valueFormatter: valueFormatter,
+};
+
+export const WithNoAnimation = DefaultTemplate.bind({});
+WithNoAnimation.args = {
   data: data,
+  showAnimation: false,
   category: "sales",
   index: "city",
-  valueFormatter: valueFormatter,
+};
+
+export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
+WithDefaultAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  category: "sales",
+  index: "city",
+};
+
+export const WithLongAnimationDuration = DefaultTemplate.bind({});
+WithLongAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 5000,
+  category: "sales",
+  index: "city",
+};
+
+export const WithShortAnimationDuration = DefaultTemplate.bind({});
+WithShortAnimationDuration.args = {
+  data: data,
+  showAnimation: true,
+  animationDuration: 100,
+  category: "sales",
+  index: "city",
 };
