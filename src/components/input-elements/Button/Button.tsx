@@ -45,7 +45,7 @@ export const ButtonIconOrSpinner = ({
     <LoadingSpinner
       className={tremorTwMerge(
         makeButtonClassName("icon"),
-        "animate-spin",
+        "animate-spin shrink-0",
         margin,
         spinnerSize.default,
         spinnerSize[transitionState],
@@ -53,7 +53,7 @@ export const ButtonIconOrSpinner = ({
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={tremorTwMerge(makeButtonClassName("icon"), iconSize, margin)} />
+    <Icon className={tremorTwMerge(makeButtonClassName("icon"), "shrink-0", iconSize, margin)} />
   );
 };
 

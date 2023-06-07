@@ -65,6 +65,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
       <Icon
         className={tremorTwMerge(
           makeIconClassName("icon"),
+          "shrink-0",
           iconSizes[size].height,
           iconSizes[size].width,
         )}
