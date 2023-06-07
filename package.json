@@ -1,6 +1,7 @@
 {
   "name": "@tremor/react",
   "version": "0.0.0-development",
+  "type": "module",
   "description": "The React library to build dashboards faster.",
   "scripts": {
     "prebuild": "rm -rf dist",
