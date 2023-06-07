@@ -62,7 +62,7 @@ cd my-project
 
 ### Installation using the Tremor CLI
 
-We recommend installing Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the installation guide on our website.
+We recommend installing Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the [installation guide](https://www.tremor.so/docs/getting-started/installation) on our website.
 
 ```bash
 npx @tremor/cli@latest init
