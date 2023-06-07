@@ -1,188 +1,116 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Card, LineChart, Title } from "components";
 import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
 import { valueFormatter } from "stories/chart-elements/helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof LineChart> = {
   title: "Tremor/ChartElements/LineChart",
   component: LineChart,
-} as ComponentMeta<typeof LineChart>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <LineChart {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <LineChart {...args} />
-    </Card>
-  </>
-);
-
-const DefaultTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => (
-  <Card>
-    <LineChart {...args} />
-  </Card>
-);
-
-const args = { categories: ["Sales", "Successful Payments"], index: "month" };
-
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-DefaultResponsive.args = {
-  ...args,
-  data,
+  args: { categories: ["Sales", "Successful Payments"], index: "month", data },
+  decorators: [
+    (Story) => (
+      <>
+        <Title className="mt-5">Desktop</Title>
+        <Card>
+          <Story />
+        </Card>
+        <Title>Mobile</Title>
+        <div className="w-64">
+          <Card>
+            <Story />
+          </Card>
+        </div>
+      </>
+    ),
+  ],
 };
 
-export const WithAutoMinValue = ResponsiveTemplate.bind({});
-WithAutoMinValue.args = {
-  ...args,
-  data,
-  autoMinValue: true,
+export default meta;
+type Story = StoryObj<typeof LineChart>;
+
+export const DefaultResponsive: Story = {
+  args: {},
 };
 
-export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
-WithMinValueAndMaxValue.args = {
-  ...args,
-  data,
-  minValue: -1000,
-  maxValue: 5000,
+export const WithValueFormatter: Story = {
+  args: { valueFormatter: valueFormatter, colors: ["red", "green"], yAxisWidth: 60 },
 };
 
-export const WithValueFormatter = ResponsiveTemplate.bind({});
-WithValueFormatter.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-  colors: ["blue", "green"],
+export const WithAutoMinValue: Story = {
+  args: { autoMinValue: true },
 };
 
-export const WithCustomColors = DefaultTemplate.bind({});
-WithCustomColors.args = {
-  ...args,
-  data,
-  colors: ["blue", "green"],
+export const WithMinValueAndMaxValue: Story = {
+  args: { minValue: -1000, maxValue: 5000 },
 };
 
-export const WithNoGradient = DefaultTemplate.bind({});
-WithNoGradient.args = {
-  ...args,
-  data,
-  showGradient: false,
+export const WithCustomColors: Story = {
+  args: { colors: ["rose", "purple"] },
 };
 
-export const WithChangedCategoriesOrder = DefaultTemplate.bind({});
-WithChangedCategoriesOrder.args = {
-  ...args,
-  data,
+export const WithChangedCategoriesOrder: Story = {
+  args: { categories: ["Successful Payments", "Sales"] },
 };
 
-export const WithLessColorsThanCategories = DefaultTemplate.bind({});
-WithLessColorsThanCategories.args = {
-  ...args,
-  data,
-  colors: ["green"],
+export const WithLessColorsThanCategories: Story = {
+  args: { colors: ["green"] },
 };
 
-export const WithLongValues = ResponsiveTemplate.bind({});
-WithLongValues.args = {
-  ...args,
-  data,
-  categories: ["This is an edge case"],
-  valueFormatter: valueFormatter,
+export const WithLongValues: Story = {
+  args: { categories: ["This is an edge case"], valueFormatter: valueFormatter },
 };
 
-export const WithMultipleCategories = ResponsiveTemplate.bind({});
-WithMultipleCategories.args = {
-  ...args,
-  data,
-  categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
-  valueFormatter: valueFormatter,
+export const WithMultipleCategories: Story = {
+  args: {
+    categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
+    valueFormatter: valueFormatter,
+  },
 };
 
-export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoData.args = {
-  ...args,
+export const WithNoData: Story = {
+  args: { data: [] },
 };
 
-export const WithNoDataText = DefaultTemplate.bind({});
-WithNoDataText.args = {
-  ...args,
-  noDataText: "No data, try again later.",
+export const WithWithNoDataTextLessColorsThanCategories: Story = {
+  args: { data: [], noDataText: "No data, try again later." },
 };
 
-export const WithNoCategories = DefaultTemplate.bind({});
-WithNoCategories.args = {
-  ...args,
-  data,
+export const WithNoCategories: Story = {
+  args: { categories: undefined },
 };
 
-export const WithNoDataKey = DefaultTemplate.bind({});
-WithNoDataKey.args = {
-  ...args,
-  data,
+export const WithNoIndex: Story = {
+  args: { index: undefined },
 };
 
-export const WithCurveTypeNatural = DefaultTemplate.bind({});
-WithCurveTypeNatural.args = {
-  ...args,
-  data,
-  curveType: "natural",
+export const WithCurveTypeNatural: Story = {
+  args: { curveType: "natural" },
 };
 
-export const WithConnectNullsTrue = DefaultTemplate.bind({});
-WithConnectNullsTrue.args = {
-  ...args,
-  data: simpleBaseChartDataWithNulls,
-  connectNulls: true,
+export const WithConnectNullsTrue: Story = {
+  args: { data: simpleBaseChartDataWithNulls, connectNulls: true },
 };
 
-export const WithConnectNullsFalse = DefaultTemplate.bind({});
-WithConnectNullsFalse.args = {
-  ...args,
-  data: simpleBaseChartDataWithNulls,
+export const WithConnectNullsFalse: Story = {
+  args: { data: simpleBaseChartDataWithNulls, connectNulls: false },
 };
 
-export const WithNoAnimation = DefaultTemplate.bind({});
-WithNoAnimation.args = {
-  data: data,
-  showAnimation: false,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const WithNoAnimation: Story = {
+  args: { showAnimation: false },
 };
 
-export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
-WithDefaultAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const WithDefaultAnimationDuration: Story = {
+  args: {},
 };
 
-export const WithLongAnimationDuration = DefaultTemplate.bind({});
-WithLongAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 5000,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const WithLongAnimationDuration: Story = {
+  args: { animationDuration: 5000 },
 };
 
-export const WithShortAnimationDuration = DefaultTemplate.bind({});
-WithShortAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 100,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const WithShortAnimationDuration: Story = {
+  args: { animationDuration: 100 },
 };
