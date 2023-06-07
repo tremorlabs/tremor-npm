@@ -159,6 +159,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
+                activeDot={{
+                  className: tremorTwMerge(
+                    "stroke-red-500 dark:stroke-dark-tremor-background",
+                    getColorClassNames(
+                      categoryColors.get(category) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                  ),
+                }}
                 key={category}
                 name={category}
                 type={curveType}
@@ -167,7 +176,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
-                dot={false}
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}

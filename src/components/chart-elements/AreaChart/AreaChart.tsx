@@ -201,6 +201,15 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
+                activeDot={{
+                  className: tremorTwMerge(
+                    "stroke-tremor-background dark:stroke-dark-tremor-background",
+                    getColorClassNames(
+                      categoryColors.get(category) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                  ),
+                }}
                 key={category}
                 name={category}
                 type={curveType}
@@ -210,7 +219,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
-                dot={false}
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 stackId={stack ? "a" : undefined}
