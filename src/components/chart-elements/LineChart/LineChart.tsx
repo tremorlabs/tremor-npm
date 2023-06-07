@@ -161,7 +161,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 }
                 activeDot={{
                   className: tremorTwMerge(
-                    "stroke-red-500 dark:stroke-dark-tremor-background",
+                    "stroke-tremor-background dark:stroke-dark-tremor-background",
                     getColorClassNames(
                       categoryColors.get(category) ?? BaseColors.Gray,
                       colorPalette.text,
