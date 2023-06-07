@@ -168,6 +168,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     ).fillColor,
                   ),
                 }}
+                dot={false}
                 key={category}
                 name={category}
                 type={curveType}

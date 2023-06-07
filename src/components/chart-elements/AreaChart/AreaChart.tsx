@@ -210,6 +210,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     ).fillColor,
                   ),
                 }}
+                dot={false}
                 key={category}
                 name={category}
                 type={curveType}
