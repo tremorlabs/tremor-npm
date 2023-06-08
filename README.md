@@ -91,7 +91,7 @@ export default () => (
       <Text>32% of annual target</Text>
       <Text>$ 225,000</Text>
     </Flex>
-    <ProgressBar percentageValue={32} className="mt-2" />
+    <ProgressBar value={32} className="mt-2" />
   </Card>
 );
 ```
