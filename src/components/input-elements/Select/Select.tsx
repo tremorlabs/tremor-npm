@@ -1,12 +1,13 @@
 "use client";
+
+import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import React, { useMemo } from "react";
-import { tremorTwMerge } from "lib";
-
-import { ArrowDownHeadIcon } from "assets";
-
 import { border, makeClassName, sizing, spacing } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
+
 import { Listbox } from "@headlessui/react";
+import { tremorTwMerge } from "lib";
+import { useInternalState } from "hooks";
 
 const makeSelectClassName = makeClassName("Select");
 
@@ -33,16 +34,27 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     ...other
   } = props;
 
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const Icon = icon;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+
+  const handleReset = () => {
+    setSelectedValue("");
+    onValueChange?.("");
+  };
 
   return (
     <Listbox
       as="div"
       ref={ref}
-      defaultValue={defaultValue}
-      value={value}
-      onChange={onValueChange as any}
+      defaultValue={selectedValue}
+      value={selectedValue}
+      onChange={
+        ((value: string) => {
+          onValueChange?.(value);
+          setSelectedValue(value);
+        }) as any
+      }
       disabled={disabled}
       className={tremorTwMerge(
         // common
@@ -112,6 +124,30 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               />
             </span>
           </Listbox.Button>
+          <button
+            className={tremorTwMerge(
+              "absolute inset-y-0 right-0 flex items-center",
+              spacing.fourXl.marginRight,
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              handleReset();
+            }}
+          >
+            <XCircleIcon
+              className={tremorTwMerge(
+                makeSelectClassName("clearIcon"),
+                // common
+                "flex-none",
+                // light
+                "text-tremor-content-subtle",
+                // dark
+                "dark:text-dark-tremor-content-subtle",
+                sizing.md.height,
+                sizing.md.width,
+              )}
+            />
+          </button>
           <Listbox.Options
             className={tremorTwMerge(
               // common
