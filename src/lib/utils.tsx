@@ -63,6 +63,8 @@ interface ColorClassNames {
   selectBorderColor: string;
   hoverBorderColor: string;
   ringColor: string;
+  strokeColor: string;
+  fillColor: string;
 }
 
 export function getColorClassNames(
@@ -81,6 +83,8 @@ export function getColorClassNames(
       selectBorderColor: `ui-selected:border-${color}`,
       hoverBorderColor: `hover:border-${color}`,
       ringColor: `ring-${color}`,
+      strokeColor: `stroke-${color}`,
+      fillColor: `fill-${color}`,
     };
   }
   return {
@@ -94,5 +98,7 @@ export function getColorClassNames(
     selectBorderColor: `ui-selected:border-${color}-${shade}`,
     hoverBorderColor: `hover:border-${color}-${shade}`,
     ringColor: `ring-${color}-${shade}`,
+    strokeColor: `stroke-${color}-${shade}`,
+    fillColor: `fill-${color}-${shade}`,
   };
 }

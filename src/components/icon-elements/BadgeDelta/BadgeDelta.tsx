@@ -53,6 +53,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
       <Icon
         className={tremorTwMerge(
           makeBadgeDeltaClassName("icon"),
+          "shrink-0",
           children
             ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
             : iconSizes[size].height,

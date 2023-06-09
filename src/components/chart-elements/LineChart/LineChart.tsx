@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { tremorTwMerge } from "lib";
 import {
   CartesianGrid,
   Legend,
@@ -19,7 +18,14 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import {
+  BaseColors,
+  colorPalette,
+  defaultValueFormatter,
+  getColorClassNames,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
 export interface LineChartProps extends BaseChartProps {
@@ -147,15 +153,30 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             ) : null}
             {categories.map((category) => (
               <Line
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.text,
+                  ).strokeColor
+                }
+                activeDot={{
+                  className: tremorTwMerge(
+                    "stroke-tremor-background dark:stroke-dark-tremor-background",
+                    getColorClassNames(
+                      categoryColors.get(category) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                  ),
+                }}
+                dot={false}
                 key={category}
                 name={category}
                 type={curveType}
                 dataKey={category}
-                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                stroke=""
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
-                dot={false}
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}

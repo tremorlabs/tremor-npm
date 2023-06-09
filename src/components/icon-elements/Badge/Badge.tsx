@@ -55,6 +55,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeBadgeClassName("icon"),
+            "shrink-0",
             spacing.twoXs.negativeMarginLeft,
             spacing.xs.marginRight,
             iconSizes[size].height,

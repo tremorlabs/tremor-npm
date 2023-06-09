@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { tremorTwMerge } from "lib";
 import { makeClassName } from "lib";
@@ -15,6 +16,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     const isSelected = selectedIndex === index;
 
     return (
+      // Not using Tab.Panel because of https://github.com/tailwindlabs/headlessui/discussions/2366.
       <div
         ref={ref}
         className={tremorTwMerge(

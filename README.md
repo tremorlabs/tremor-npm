@@ -62,7 +62,7 @@ cd my-project
 
 ### Installation using the Tremor CLI
 
-We recommend installing Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the installation guide on our website.
+We recommend installing Tremor with our CLI. To do so, run this command and select Next as your framework. If you prefer a manual installation, check the [installation guide](https://www.tremor.so/docs/getting-started/installation) on our website.
 
 ```bash
 npx @tremor/cli@latest init
@@ -91,7 +91,7 @@ export default () => (
       <Text>32% of annual target</Text>
       <Text>$ 225,000</Text>
     </Flex>
-    <ProgressBar percentageValue={32} className="mt-2" />
+    <ProgressBar value={32} className="mt-2" />
   </Card>
 );
 ```
