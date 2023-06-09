@@ -102,7 +102,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 />
               </span>
             )}
-            {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+            <span className="w-[90%] block truncate">
+              {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+            </span>
             <span
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
