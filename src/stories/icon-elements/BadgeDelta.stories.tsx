@@ -1,86 +1,89 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
+import { BaseColors } from "lib/constants";
 import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/constants";
 
-import { BadgeDelta, Card, Grid, Flex, Title } from "components";
-import { ArrowUpIcon } from "assets";
-import Badge from "components/icon-elements/Badge/Badge";
+import { Card, Grid, Flex, Title } from "components";
+import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof BadgeDelta> = {
   title: "Tremor/IconElements/BadgeDelta",
-  component: Badge,
-} as ComponentMeta<typeof Badge>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  component: BadgeDelta,
+  decorators: [(Story) => <Story />],
+  args: {
+    children: "Live",
+  },
+};
 
-const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
-  <Card className="max-w-lg">
-    <Grid numItems={4} className="gap-y-2">
-      {Object.values(InputSizes).map((size) => (
-        <>
-          <BadgeDelta size={size} deltaType="increase" />
-          <BadgeDelta size={size} deltaType="increase">
-            {args.children}
-          </BadgeDelta>
+const BadgeDeltaResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Title>Mobile</Title>
+        <div className="w-64">
+          <Card>
+            <Flex>
+              <BadgeDelta {...args} />
+              <BadgeDelta {...args} />
+            </Flex>
+          </Card>
+        </div>
+        <Title className="mt-5">Desktop</Title>
+        <Card>
+          <Flex>
+            <BadgeDelta {...args} />
+            <BadgeDelta {...args} />
+          </Flex>
+        </Card>
+      </>
+    );
+  },
+};
 
-          <Badge size={size}>{args.children}</Badge>
-          <Badge size={size} icon={ArrowUpIcon}>
-            {args.children}
-          </Badge>
-        </>
-      ))}
-    </Grid>
-  </Card>
-);
-
-const DeltaTypesTemplate: ComponentStory<typeof BadgeDelta> = () => (
-  <Card className="max-w-sm">
-    <Grid className="gap-y-1">
-      {Object.values(InputDeltaTypes).map((deltaType) => (
-        <BadgeDelta key={deltaType} deltaType={deltaType} />
-      ))}
-    </Grid>
-  </Card>
-);
-
-const ResponsiveFlexTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <Flex>
-          <BadgeDelta {...args} />
-          <BadgeDelta {...args} />
-        </Flex>
+const BadgeDeltaTemplateSizes: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card className="max-w-lg">
+        <Grid numItems={2} className="gap-y-2">
+          {Object.values(InputSizes).map((size) => (
+            <>
+              <BadgeDelta size={size} deltaType="increase" {...args} />
+              <BadgeDelta size={size} deltaType="decrease" {...args} />
+            </>
+          ))}
+        </Grid>
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <Flex>
-        <BadgeDelta {...args} />
-        <BadgeDelta {...args} />
-      </Flex>
-    </Card>
-  </>
-);
-
-export const Sizes = SizesTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Sizes.args = {
-  children: "12.5%",
+    );
+  },
 };
 
-export const DeltaTypes = DeltaTypesTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-DeltaTypes.args = {
-  children: "12.5%",
+const BadgeDeltaTemplateTypes: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card className="max-w-sm">
+        <Grid className="gap-y-1">
+          {Object.values(InputDeltaTypes).map((deltaType) => (
+            <BadgeDelta key={deltaType} deltaType={deltaType} />
+          ))}
+        </Grid>
+      </Card>
+    );
+  },
 };
 
-export const WithFlexParent = ResponsiveFlexTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithFlexParent.args = {
-  children: "12.5%",
-  deltaType: "increase",
+export default meta;
+type Story = StoryObj<typeof BadgeDelta>;
+
+export const DefaultExample: Story = {
+  ...BadgeDeltaResponsiveFlexTemplate,
+};
+
+export const SizesExample: Story = {
+  ...BadgeDeltaTemplateSizes,
+};
+
+export const TypesExample: Story = {
+  ...BadgeDeltaTemplateTypes,
 };
