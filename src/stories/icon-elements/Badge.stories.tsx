@@ -2,6 +2,7 @@ import React from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
 
+import { Color } from "lib";
 import { BaseColors } from "lib/constants";
 import { Sizes as InputSizes } from "lib/constants";
 
@@ -13,6 +14,9 @@ import Badge from "components/icon-elements/Badge/Badge";
 const meta: Meta<typeof Badge> = {
   title: "Tremor/IconElements/Badge",
   component: Badge,
+  args: {
+    color: undefined,
+  },
   argTypes: {
     size: {
       options: ["sm", "md"], // @achi not ideal https://storybook.js.org/docs/react/writing-stories/args
@@ -20,6 +24,12 @@ const meta: Meta<typeof Badge> = {
     },
   },
 };
+
+const ColorExample: React.FC<{ color?: Color }> = ({ color }) => (
+  <Badge color={color} tooltip="Tooltip">
+    Live
+  </Badge>
+);
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
@@ -67,8 +77,9 @@ export const ColorsExample: Story = {
   },
   decorators: [
     (Story) => (
-      <Card className="max-w-sm">
-        <Grid numItems={5} className="gap-y-2">
+      <Card>
+        <Grid className="gap-y-2">
+          <ColorExample />
           {Object.values(BaseColors).map((color) => (
             <Story key={color} color={color} />
           ))}
