@@ -1,57 +1,56 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Text } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof Text> = {
   title: "Tremor/TextElements/Text",
   component: Text,
-} as ComponentMeta<typeof Text>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const Template: ComponentStory<typeof Text> = (args) => (
-  <Card>
-    <Text {...args} className="truncate">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer
-      took a galley of type and scrambled it to make a type specimen book.
-    </Text>
-  </Card>
-);
-
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  children: null,
+  args: {
+    children:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.",
+  },
+  decorators: [
+    (Story) => (
+      <Card>
+        <Story />
+      </Card>
+    ),
+  ],
 };
 
-export const TextCenter = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-TextCenter.args = {
-  className: "text-center",
-  children: null,
+export default meta;
+type Story = StoryObj<typeof Text>;
+
+export const DefaultExample: Story = {};
+
+export const TextCenter: Story = {
+  args: {
+    className: "text-center",
+  },
 };
 
-export const TextRight = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-TextRight.args = {
-  className: "text-right",
-  children: null,
+export const TextRight: Story = {
+  args: {
+    className: "text-right",
+  },
 };
 
-export const TextJustify = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-TextJustify.args = {
-  className: "text-justify",
-  children: null,
+export const TextLeft: Story = {
+  args: {
+    className: "text-left",
+  },
 };
 
-export const TextColor = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-TextColor.args = {
-  color: "green",
-  className: "text-left",
-  children: null,
+export const TextJustify: Story = {
+  args: {
+    className: "text-justify",
+  },
+};
+
+export const TextColor: Story = {
+  args: {
+    color: "green",
+  },
 };

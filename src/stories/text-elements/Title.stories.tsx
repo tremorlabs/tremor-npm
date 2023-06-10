@@ -1,16 +1,37 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Title } from "components";
+import { Meta, StoryObj } from "@storybook/react";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+import { Title, Card } from "components";
+
+const meta: Meta<typeof Title> = {
   title: "Tremor/TextElements/Title",
   component: Title,
-} as ComponentMeta<typeof Title>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const Template: ComponentStory<typeof Title> = () => <Title>Title</Title>;
+export default meta;
+type Story = StoryObj<typeof Title>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+const TitleResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card>
+        <Title {...args}>Title</Title>
+      </Card>
+    );
+  },
+};
+
+export const DefaultExample: Story = {
+  ...TitleResponsiveFlexTemplate,
+};
+
+export const ExampleColor: Story = {
+  ...TitleResponsiveFlexTemplate,
+  args: {
+    color: "green",
+    className: "text-left",
+    children: null,
+  },
+};
