@@ -1,43 +1,49 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import { Card, Metric, ProgressBar } from "components";
+import { Card, Metric, ProgressBar, Flex } from "components";
 
 import { BaseColors } from "lib/constants";
-import { Flex } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof ProgressBar> = {
   title: "Tremor/VisElements/ProgressBar",
   component: ProgressBar,
-} as ComponentMeta<typeof ProgressBar>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+  args: {
+    value: 50,
+    tooltip: "50%",
+    className: "mt-5",
+    label: "90%",
+  },
+};
 
-const Template: ComponentStory<typeof ProgressBar> = (args) => (
-  <>
-    <Card className="mt-5">
-      <Metric>$23.456</Metric>
-      <Flex>
-        <ProgressBar {...args} />
-      </Flex>
-    </Card>
-    {Object.values(BaseColors).map((color) => (
-      <Card key={color} className="mt-5">
-        <Metric>$23.456</Metric>
-        <Flex>
-          <ProgressBar {...args} color={color} />
-        </Flex>
-      </Card>
-    ))}
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof ProgressBar>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  value: 50,
-  tooltip: "50%",
-  className: "mt-5",
-  label: "90%",
+const ProgressBarResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Card className="mt-5 max-w-md">
+          <Metric>$23.456</Metric>
+          <Flex>
+            <ProgressBar {...args} />
+          </Flex>
+        </Card>
+        {Object.values(BaseColors).map((color) => (
+          <Card key={color} className="mt-5 max-w-md">
+            <Metric>$23.456</Metric>
+            <Flex>
+              <ProgressBar {...args} color={color} />
+            </Flex>
+          </Card>
+        ))}
+      </>
+    );
+  },
+};
+
+export const DefaultExample: Story = {
+  ...ProgressBarResponsiveFlexTemplate,
 };
