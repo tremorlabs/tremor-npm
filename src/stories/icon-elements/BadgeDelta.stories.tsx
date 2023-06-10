@@ -2,7 +2,6 @@ import React from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
 
-import { BaseColors } from "lib/constants";
 import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/constants";
 
 import { Card, Grid, Flex, Title } from "components";
@@ -16,6 +15,9 @@ const meta: Meta<typeof BadgeDelta> = {
     children: "Live",
   },
 };
+
+export default meta;
+type Story = StoryObj<typeof BadgeDelta>;
 
 const BadgeDeltaResponsiveFlexTemplate: Story = {
   render: ({ ...args }) => {
@@ -65,16 +67,13 @@ const BadgeDeltaTemplateTypes: Story = {
       <Card className="max-w-sm">
         <Grid className="gap-y-1">
           {Object.values(InputDeltaTypes).map((deltaType) => (
-            <BadgeDelta key={deltaType} deltaType={deltaType} />
+            <BadgeDelta key={deltaType} deltaType={deltaType} {...args} />
           ))}
         </Grid>
       </Card>
     );
   },
 };
-
-export default meta;
-type Story = StoryObj<typeof BadgeDelta>;
 
 export const DefaultExample: Story = {
   ...BadgeDeltaResponsiveFlexTemplate,

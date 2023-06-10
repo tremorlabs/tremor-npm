@@ -20,6 +20,9 @@ const meta: Meta<typeof Badge> = {
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof Badge>;
+
 const BadgeResponsiveFlexTemplate: Story = {
   render: ({ ...args }) => {
     return (
@@ -72,9 +75,6 @@ const BadgeTemplateSizes: Story = {
     );
   },
 };
-
-export default meta;
-type Story = StoryObj<typeof Badge>;
 
 export const DefaultExample: Story = {
   ...BadgeResponsiveFlexTemplate,
