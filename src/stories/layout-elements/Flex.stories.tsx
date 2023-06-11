@@ -1,73 +1,96 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Flex, Metric } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof Flex> = {
   title: "Tremor/LayoutElements/Flex",
   component: Flex,
-} as ComponentMeta<typeof Flex>;
-
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const TemplateMaxWidth: ComponentStory<typeof Flex> = (args) => (
-  <Flex {...args}>
-    <div>
-      <SimpleCard maxWidth="max-w-sm" />
-    </div>
-    <div>
-      <Card className="max-w-sm">
-        <Metric>$ 40,000</Metric>
-        <SimpleText />
-      </Card>
-    </div>
-  </Flex>
-);
-
-const TemplateWFull: ComponentStory<typeof Flex> = (args) => (
-  <Flex {...args}>
-    <SimpleCard />
-    <Card>
-      <Metric>$ 40,000</Metric>
-      <SimpleText />
-    </Card>
-  </Flex>
-);
-
-export const Default = TemplateMaxWidth.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-
-export const JustifyEnd = TemplateMaxWidth.bind({});
-JustifyEnd.args = {
-  justifyContent: "end",
+  decorators: [(Story) => <Story />],
 };
 
-export const JustifyStart = TemplateMaxWidth.bind({});
-JustifyStart.args = {
-  justifyContent: "start",
+export default meta;
+type Story = StoryObj<typeof Flex>;
+
+const TemplateMaxWidth: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Flex {...args}>
+        <div>
+          <SimpleCard maxWidth="max-w-sm" />
+        </div>
+        <div>
+          <Card className="max-w-sm">
+            <Metric>$ 40,000</Metric>
+            <SimpleText />
+          </Card>
+        </div>
+      </Flex>
+    );
+  },
 };
 
-export const ItemsStart = TemplateMaxWidth.bind({});
-ItemsStart.args = {
-  alignItems: "start",
+const TemplateWFull: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Flex {...args}>
+        <SimpleCard />
+        <Card>
+          <Metric>$ 40,000</Metric>
+          <SimpleText />
+        </Card>
+      </Flex>
+    );
+  },
 };
 
-export const ItemsEnd = TemplateMaxWidth.bind({});
-ItemsEnd.args = {
-  alignItems: "end",
+export const Default: Story = {
+  ...TemplateMaxWidth,
 };
 
-export const ItemsStretch = TemplateWFull.bind({});
-ItemsStretch.args = {
-  alignItems: "stretch",
+export const JustifyEnd: Story = {
+  ...TemplateMaxWidth,
+  args: {
+    justifyContent: "end",
+  },
 };
 
-export const SpaceX = TemplateMaxWidth.bind({});
-SpaceX.args = {
-  justifyContent: "start",
-  alignItems: "baseline",
-  className: "space-x-8",
+export const JustifyStart: Story = {
+  ...TemplateMaxWidth,
+  args: {
+    justifyContent: "start",
+  },
+};
+
+export const AlignEnd: Story = {
+  ...TemplateMaxWidth,
+  args: {
+    alignItems: "end",
+  },
+};
+
+export const AlignStart: Story = {
+  ...TemplateMaxWidth,
+  args: {
+    alignItems: "start",
+  },
+};
+
+export const ItemsStretch: Story = {
+  ...TemplateWFull,
+  args: {
+    alignItems: "stretch",
+  },
+};
+
+export const SpaceX: Story = {
+  ...TemplateMaxWidth,
+  args: {
+    justifyContent: "start",
+    alignItems: "baseline",
+    className: "space-x-8",
+  },
 };

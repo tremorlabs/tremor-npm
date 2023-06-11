@@ -1,29 +1,31 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { Divider, Title } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof Divider> = {
   title: "Tremor/LayoutElements/Divider",
   component: Divider,
-} as ComponentMeta<typeof Divider>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  render: () => {
+    return (
+      <>
+        <Title>Mobile</Title>
+        <div className="w-64">
+          <SimpleCard />
+          <Divider />
+          <SimpleCard />
+        </div>
+        <Title className="mt-5">Desktop</Title>
+        <SimpleCard />
+        <Divider />
+        <SimpleCard />
+      </>
+    );
+  },
+};
 
-const Template: ComponentStory<typeof Divider> = () => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <SimpleCard />
-      <Divider />
-      <SimpleCard />
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <SimpleCard />
-    <Divider />
-    <SimpleCard />
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof Divider>;
 
-export const Default = Template.bind({});
+export const DefaultExample: Story = {};
