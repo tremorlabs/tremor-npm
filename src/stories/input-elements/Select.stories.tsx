@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Button, Card, DateRangePicker, Select, SelectItem, Flex, Text, Title } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
@@ -9,64 +9,74 @@ import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchS
 
 import { CalendarIcon } from "assets";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/Select",
+const meta: Meta<typeof Select> = {
+  title: "Tremor/TextElements/Select",
   component: Select,
-} as ComponentMeta<typeof Select>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
-  <form>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <DateRangePicker />
-        <SimpleSelect {...args} />
-        <SimpleSearchSelect icon={CalendarIcon} />
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <SimpleSelect {...args} />
-    </Card>
-    <Title className="mt-5">With Black Background</Title>
-    <Card>
-      <div className="flex items-center bg-black h-24 px-4">
-        <SimpleSelect {...args} />
-      </div>
-    </Card>
-  </form>
-);
+export default meta;
+type Story = StoryObj<typeof Select>;
 
-const FlexTemplate: ComponentStory<typeof Select> = (args) => (
-  <>
-    <Card>
-      <Text className="mt-2">Justify Start</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <SimpleSelect {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <SimpleSelect {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <div>
-          <SimpleSelect {...args} />
+const ResponsiveTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <form>
+        <Title>Mobile</Title>
+        <div className="w-64">
+          <Card>
+            <DateRangePicker />
+            <SimpleSelect {...args} />
+            <SimpleSearchSelect icon={CalendarIcon} />
+          </Card>
         </div>
-      </Flex>
-      <Text className="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <div>
+        <Title className="mt-5">Desktop</Title>
+        <Card>
           <SimpleSelect {...args} />
-        </div>
-      </Flex>
-    </Card>
-  </>
-);
+        </Card>
+        <Title className="mt-5">With Black Background</Title>
+        <Card>
+          <div className="flex items-center bg-black h-24 px-4">
+            <SimpleSelect {...args} />
+          </div>
+        </Card>
+      </form>
+    );
+  },
+};
 
-const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
+const FlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Card>
+          <Text className="mt-2">Justify Start</Text>
+          <Flex justifyContent="start" className="mt-2">
+            <SimpleSelect {...args} />
+          </Flex>
+          <Text className="mt-2">Justify End</Text>
+          <Flex justifyContent="end" className="mt-2">
+            <SimpleSelect {...args} />
+          </Flex>
+          <Text className="mt-2">Justify End with inner div</Text>
+          <Flex justifyContent="end" className="mt-2">
+            <div>
+              <SimpleSelect {...args} />
+            </div>
+          </Flex>
+          <Text className="mt-2">Justify Start with inner div</Text>
+          <Flex justifyContent="start" className="mt-2">
+            <div>
+              <SimpleSelect {...args} />
+            </div>
+          </Flex>
+        </Card>
+      </>
+    );
+  },
+};
+
+function WithControlledState({ ...args }) {
   const [value, setValue] = useState<string>("5");
   return (
     <Card>
@@ -76,6 +86,7 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
           setValue(value);
           alert(value);
         }}
+        {...args}
       >
         <SelectItem value={"5"}>Five</SelectItem>
         <SelectItem value={"3"}>Three</SelectItem>
@@ -92,35 +103,52 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
       <Text>{value}</Text>
     </Card>
   );
+}
+
+const WithControlledStateTemplate: Story = {
+  render: ({ ...args }) => <WithControlledState {...args} />,
 };
 
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-DefaultResponsive.args = {
-  onValueChange: (v) => alert(v),
+export const DefaultResponsive: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    onValueChange: (v) => alert(v),
+  },
 };
 
-export const WithFlexParent = FlexTemplate.bind({});
-WithFlexParent.args = {
-  className: "max-w-xs",
+export const WithFlexParent: Story = {
+  ...FlexTemplate,
+  args: {
+    className: "max-w-xs",
+  },
 };
 
-export const WithDefaultValue = ResponsiveTemplate.bind({});
-WithDefaultValue.args = {
-  defaultValue: "5",
+export const WithDefaultValue: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    defaultValue: "5",
+  },
 };
 
-export const WithIcon = ResponsiveTemplate.bind({});
-WithIcon.args = {
-  defaultValue: "5",
-  icon: CalendarIcon,
+export const WithIcon: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    icon: CalendarIcon,
+  },
 };
 
-export const WithDisabled = ResponsiveTemplate.bind({});
-WithDisabled.args = {
-  icon: CalendarIcon,
-  disabled: true,
+export const WithDisabled: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    icon: CalendarIcon,
+    disabled: true,
+  },
 };
 
-export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
+export const SelectElementsComparison: Story = {
+  ...SelectElementsFlexTemplate,
+};
 
-export const WithControlledState = WithControlledStateTemplate.bind({});
+export const WithControlledStateExample: Story = {
+  ...WithControlledStateTemplate,
+};

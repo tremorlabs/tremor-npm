@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import {
   Button,
@@ -18,58 +18,66 @@ import { SimpleSearchSelect } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof SearchSelect> = {
   title: "Tremor/InputElements/SearchSelect",
   component: SearchSelect,
-} as ComponentMeta<typeof SearchSelect>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const ResponsiveTemplate: ComponentStory<typeof SearchSelect> = (args) => (
-  <form>
-    <Title>Mobile</Title>
-    <div className="w-64">
+export default meta;
+type Story = StoryObj<typeof SearchSelect>;
+
+const ResponsiveTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <form>
+        <Title>Mobile</Title>
+        <div className="w-64">
+          <Card>
+            <DateRangePicker />
+            <SimpleSearchSelect {...args} />
+            <SimpleSelect />
+          </Card>
+        </div>
+        <Title className="mt-5">Desktop</Title>
+        <Card>
+          <SimpleSearchSelect {...args} />
+        </Card>
+      </form>
+    );
+  },
+};
+
+const FlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
       <Card>
-        <DateRangePicker />
-        <SimpleSearchSelect {...args} />
-        <SimpleSelect />
+        <Text className="mt-2">Justify Start</Text>
+        <Flex justifyContent="start" className="mt-2">
+          <SimpleSearchSelect {...args} />
+        </Flex>
+        <Text className="mt-2">Justify End</Text>
+        <Flex justifyContent="end" className="mt-2">
+          <SimpleSearchSelect {...args} />
+        </Flex>
+        <Text className="mt-2">Justify End with inner div</Text>
+        <Flex justifyContent="end" className="mt-2">
+          <div>
+            <SimpleSearchSelect {...args} />
+          </div>
+        </Flex>
+        <Text className="mt-2">Justify Start with inner div</Text>
+        <Flex justifyContent="start" className="mt-2">
+          <div>
+            <SimpleSearchSelect {...args} />
+          </div>
+        </Flex>
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <SimpleSearchSelect {...args} />
-    </Card>
-  </form>
-);
+    );
+  },
+};
 
-const FlexTemplate: ComponentStory<typeof SearchSelect> = (args) => (
-  <>
-    <Card>
-      <Text className="mt-2">Justify Start</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <SimpleSearchSelect {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <SimpleSearchSelect {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <div>
-          <SimpleSearchSelect {...args} />
-        </div>
-      </Flex>
-      <Text className="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <div>
-          <SimpleSearchSelect {...args} />
-        </div>
-      </Flex>
-    </Card>
-  </>
-);
-
-const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
+function WithControlledState({ ...args }) {
   const [value, setValue] = useState<string>("5");
   return (
     <Card>
@@ -79,6 +87,7 @@ const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
           setValue(value);
           alert(value);
         }}
+        {...args}
       >
         <SearchSelectItem value={"5"}>Five</SearchSelectItem>
         <SearchSelectItem value={"3"}>Three</SearchSelectItem>
@@ -91,35 +100,52 @@ const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
       <Text>{value}</Text>
     </Card>
   );
+}
+
+const WithControlledStateTemplate: Story = {
+  render: ({ ...args }) => <WithControlledState {...args} />,
 };
 
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-DefaultResponsive.args = {
-  onValueChange: (v) => alert(v),
+export const DefaultResponsive: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    onValueChange: (v) => alert(v),
+  },
 };
 
-export const WithFlexParent = FlexTemplate.bind({});
-WithFlexParent.args = {
-  className: "max-w-xs",
+export const WithFlexParent: Story = {
+  ...FlexTemplate,
+  args: {
+    className: "max-w-xs",
+  },
 };
 
-export const WithDefaultValue = ResponsiveTemplate.bind({});
-WithDefaultValue.args = {
-  defaultValue: "5",
+export const WithDefaultValue: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    defaultValue: "5",
+  },
 };
 
-export const WithIcon = ResponsiveTemplate.bind({});
-WithIcon.args = {
-  defaultValue: "5",
-  icon: CalendarIcon,
+export const WithIcon: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    icon: CalendarIcon,
+  },
 };
 
-export const WithDisabled = ResponsiveTemplate.bind({});
-WithDisabled.args = {
-  onValueChange: (v) => alert(v),
-  disabled: true,
+export const WithDisabled: Story = {
+  ...ResponsiveTemplate,
+  args: {
+    onValueChange: (v) => alert(v),
+    disabled: true,
+  },
 };
 
-export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
+export const SelectElementsComparison: Story = {
+  ...SelectElementsFlexTemplate,
+};
 
-export const WithControlledState = WithControlledStateTemplate.bind({});
+export const WithControlledStateExample: Story = {
+  ...WithControlledStateTemplate,
+};

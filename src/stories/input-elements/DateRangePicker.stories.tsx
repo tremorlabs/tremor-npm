@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import {
   Button,
@@ -13,14 +13,17 @@ import {
 } from "components";
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+
+const meta: Meta<typeof DateRangePicker> = {
   title: "Tremor/InputElements/DateRangePicker",
   component: DateRangePicker,
-} as ComponentMeta<typeof DateRangePicker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+export default meta;
+type Story = StoryObj<typeof DateRangePicker>;
+
+function Uncontrolled({ ...args }) {
   const [value, setValue] = useState<DateRangePickerValue>({});
   const startDate = value.from;
   const endDate = value.to;
@@ -45,9 +48,13 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
       </Card>
     </div>
   );
+}
+
+const UncontrolledTemplate: Story = {
+  render: ({ ...args }) => <Uncontrolled {...args} />,
 };
 
-const UncontrolledWithChildrenTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+function UncontrolledWithChildren({ ...args }) {
   const [value, setValue] = useState<DateRangePickerValue>({});
   const startDate = value.from;
   const endDate = value.to;
@@ -82,9 +89,13 @@ const UncontrolledWithChildrenTemplate: ComponentStory<typeof DateRangePicker> =
       </div>
     </Card>
   );
+}
+
+const UncontrolledWithChildrenTemplate: Story = {
+  render: ({ ...args }) => <UncontrolledWithChildren {...args} />,
 };
 
-const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+function Controlled({ ...args }) {
   const [value, setValue] = useState<DateRangePickerValue>(args.value!);
 
   const startDate = value?.from;
@@ -122,75 +133,107 @@ const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
       </div>
     </Card>
   );
+}
+
+const ControlledTemplate: Story = {
+  render: ({ ...args }) => <Controlled {...args} />,
 };
 
-export const UncontrolledDefault = UncontrolledTemplate.bind({});
-
-export const UncontrolledWithDefaultDateRange = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultDateRange.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+export const UncontrolledDefaultExample: Story = {
+  ...UncontrolledTemplate,
 };
 
-export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultFrLocale.args = {
-  locale: fr,
-  selectPlaceholder: "Sélectionnez",
-  placeholder: "Sélectionnez...",
+export const UncontrolledWithDefaultDateRangeExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  },
 };
 
-export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultSelectOption.args = {
-  defaultValue: { selectValue: "tdy" },
+export const UncontrolledWithDefaultFrLocaleExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    locale: fr,
+    selectPlaceholder: "Sélectionnez",
+    placeholder: "Sélectionnez...",
+  },
 };
 
-export const UncontrolledWithDefaultValue = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultValue.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+export const UncontrolledWithDefaultSelectOptionExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { selectValue: "tdy" },
+  },
 };
 
-export const UncontrolledWithSelectDisabled = UncontrolledTemplate.bind({});
-UncontrolledWithSelectDisabled.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
-  enableSelect: false,
+export const UncontrolledWithDefaultValueExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  },
 };
 
-export const UncontrolledWithMinMax = UncontrolledTemplate.bind({});
-UncontrolledWithMinMax.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
-  minDate: new Date(2023, 4, 1),
-  maxDate: new Date(2023, 4, 15),
+export const UncontrolledWithSelectDisabledExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+    enableSelect: false,
+  },
 };
 
-export const UncontrolledWithDropdownOptions = UncontrolledWithChildrenTemplate.bind({});
-UncontrolledWithDropdownOptions.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "one" },
+export const UncontrolledWithMinMaxExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+    minDate: new Date(2023, 4, 1),
+    maxDate: new Date(2023, 4, 15),
+  },
 };
 
-export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
-UncontrolledWithDisabled.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },
-  disabled: true,
+export const UncontrolledWithDropdownOptionsExample: Story = {
+  ...UncontrolledWithChildrenTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "one" },
+  },
 };
 
-export const ControlledDefault = ControlledTemplate.bind({});
-
-export const ControlledWithDefaultDateRange = ControlledTemplate.bind({});
-ControlledWithDefaultDateRange.args = {
-  value: { from: new Date(2022, 10, 1), to: new Date() },
+export const UncontrolledWithDisabledExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },
+    disabled: true,
+  },
 };
 
-export const ControlledWithDefaultSelectOption = ControlledTemplate.bind({});
-ControlledWithDefaultSelectOption.args = {
-  value: { from: undefined, to: undefined, selectValue: "t" },
+export const UncontrolledWithoutAllowClearExample: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+    enableClear: false,
+  },
 };
 
-export const ControlledWithDefaultValue = ControlledTemplate.bind({});
-ControlledWithDefaultValue.args = {
-  value: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "t" },
+export const ControlledDefaultExample: Story = {
+  ...ControlledTemplate,
 };
 
-export const UncontrolledWithoutAllowClear = UncontrolledTemplate.bind({});
-UncontrolledWithoutAllowClear.args = {
-  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
-  enableClear: false,
+export const ControlledWithDefaultDateRangeExample: Story = {
+  ...ControlledTemplate,
+  args: {
+    value: { from: new Date(2022, 10, 1), to: new Date() },
+  },
+};
+
+export const ControlledWithDefaultSelectOptionExample: Story = {
+  ...ControlledTemplate,
+  args: {
+    value: { from: undefined, to: undefined, selectValue: "t" },
+  },
+};
+
+export const ControlledWithDefaultValueExample: Story = {
+  ...ControlledTemplate,
+  args: {
+    value: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "t" },
+  },
 };
