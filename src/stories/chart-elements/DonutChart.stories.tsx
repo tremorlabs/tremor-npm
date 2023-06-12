@@ -195,3 +195,18 @@ WithShortAnimationDuration.args = {
   category: "sales",
   index: "city",
 };
+
+export const CustomSizeTemplate = ResponsiveTemplate.bind({});
+const baseArgs = { data, category: "sales", index: "city", startAngle: 180 };
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+CustomSizeTemplate.args = {
+  ...baseArgs,
+  percentage: 100,
+};
+
+export const CustomPercentageTemplate = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+CustomPercentageTemplate.args = {
+  ...baseArgs,
+  percentage: 45,
+};
