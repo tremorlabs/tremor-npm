@@ -186,3 +186,18 @@ WithShortAnimationDuration.args = {
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
+
+export const WithCategoriesWithCustomNames = DefaultTemplate.bind({});
+WithCategoriesWithCustomNames.args = {
+  data,
+  categories: [
+    {
+      category: "Sales",
+      name: "Sales Completed",
+    },
+    {
+      category: "Successful Payments",
+      name: "Payments Completed",
+    },
+  ],
+};

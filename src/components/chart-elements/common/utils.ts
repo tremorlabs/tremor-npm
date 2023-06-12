@@ -20,3 +20,10 @@ export const getYAxisDomain = (
   const maxDomain = maxValue ?? "auto";
   return [minDomain, maxDomain];
 };
+
+export const parseCategory = (category: string | { category: string; name: string }) => {
+  return {
+    categoryKey: typeof category === "object" ? category.category : category,
+    categoryName: typeof category === "object" ? category.name : category,
+  };
+};

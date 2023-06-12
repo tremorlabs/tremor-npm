@@ -2,7 +2,7 @@ import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 interface BaseChartProps extends BaseAnimationTimingProps {
   data: any[];
-  categories: string[];
+  categories: string[] | { category: string; name: string }[];
   index: string;
   colors?: Color[];
   valueFormatter?: ValueFormatter;

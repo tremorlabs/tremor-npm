@@ -116,14 +116,19 @@ const ChartTooltip = ({
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
-            <ChartTooltipRow
-              key={`id-${idx}`}
-              value={valueFormatter(value)}
-              name={name}
-              color={categoryColors.get(name) ?? BaseColors.Blue}
-            />
-          ))}
+          {payload.map(
+            (
+              { value, name, dataKey }: { value: number; name: string; dataKey: string },
+              idx: number,
+            ) => (
+              <ChartTooltipRow
+                key={`id-${idx}`}
+                value={valueFormatter(value)}
+                name={name}
+                color={categoryColors.get(dataKey) ?? BaseColors.Blue}
+              />
+            ),
+          )}
         </div>
       </ChartTooltipFrame>
     );

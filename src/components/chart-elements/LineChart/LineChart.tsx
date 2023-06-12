@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, parseCategory } from "../common/utils";
 import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -60,7 +60,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
-  const categoryColors = constructCategoryColors(categories, colors);
+  const categoryColors = constructCategoryColors(
+    categories.map((category) => parseCategory(category).categoryKey),
+    colors,
+  );
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
@@ -151,37 +154,40 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
               />
             ) : null}
-            {categories.map((category) => (
-              <Line
-                className={
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor
-                }
-                activeDot={{
-                  className: tremorTwMerge(
-                    "stroke-tremor-background dark:stroke-dark-tremor-background",
+            {categories.map((category) => {
+              const { categoryKey, categoryName } = parseCategory(category);
+              return (
+                <Line
+                  className={
                     getColorClassNames(
-                      categoryColors.get(category) ?? BaseColors.Gray,
+                      categoryColors.get(categoryKey) ?? BaseColors.Gray,
                       colorPalette.text,
-                    ).fillColor,
-                  ),
-                }}
-                dot={false}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                connectNulls={connectNulls}
-              />
-            ))}
+                    ).strokeColor
+                  }
+                  activeDot={{
+                    className: tremorTwMerge(
+                      "stroke-tremor-background dark:stroke-dark-tremor-background",
+                      getColorClassNames(
+                        categoryColors.get(categoryKey) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).fillColor,
+                    ),
+                  }}
+                  dot={false}
+                  key={categoryKey}
+                  name={categoryName}
+                  type={curveType}
+                  dataKey={categoryKey}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  connectNulls={connectNulls}
+                />
+              );
+            })}
           </ReChartsLineChart>
         ) : (
           <NoData noDataText={noDataText} />

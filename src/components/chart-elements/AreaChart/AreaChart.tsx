@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, parseCategory } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
@@ -63,7 +63,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
-  const categoryColors = constructCategoryColors(categories, colors);
+  const categoryColors = constructCategoryColors(
+    categories.map((category) => parseCategory(category).categoryKey),
+    colors,
+  );
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
@@ -154,17 +157,18 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             {categories.map((category) => {
+              const { categoryKey } = parseCategory(category);
               return (
-                <defs key={category}>
+                <defs key={categoryKey}>
                   {showGradient ? (
                     <linearGradient
                       className={
                         getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
+                          categoryColors.get(categoryKey) ?? BaseColors.Gray,
                           colorPalette.text,
                         ).textColor
                       }
-                      id={categoryColors.get(category)}
+                      id={categoryColors.get(categoryKey)}
                       x1="0"
                       y1="0"
                       x2="0"
@@ -177,11 +181,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     <linearGradient
                       className={
                         getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
+                          categoryColors.get(categoryKey) ?? BaseColors.Gray,
                           colorPalette.text,
                         ).textColor
                       }
-                      id={categoryColors.get(category)}
+                      id={categoryColors.get(categoryKey)}
                       x1="0"
                       y1="0"
                       x2="0"
@@ -193,39 +197,42 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category) => (
-              <Area
-                className={
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor
-                }
-                activeDot={{
-                  className: tremorTwMerge(
-                    "stroke-tremor-background dark:stroke-dark-tremor-background",
+            {categories.map((category) => {
+              const { categoryKey, categoryName } = parseCategory(category);
+              return (
+                <Area
+                  className={
                     getColorClassNames(
-                      categoryColors.get(category) ?? BaseColors.Gray,
+                      categoryColors.get(categoryKey) ?? BaseColors.Gray,
                       colorPalette.text,
-                    ).fillColor,
-                  ),
-                }}
-                dot={false}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                fill={`url(#${categoryColors.get(category)})`}
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                stackId={stack ? "a" : undefined}
-                connectNulls={connectNulls}
-              />
-            ))}
+                    ).strokeColor
+                  }
+                  activeDot={{
+                    className: tremorTwMerge(
+                      "stroke-tremor-background dark:stroke-dark-tremor-background",
+                      getColorClassNames(
+                        categoryColors.get(categoryKey) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).fillColor,
+                    ),
+                  }}
+                  dot={false}
+                  key={categoryKey}
+                  name={categoryName}
+                  type={curveType}
+                  dataKey={categoryKey}
+                  stroke=""
+                  fill={`url(#${categoryColors.get(categoryKey)})`}
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  stackId={stack ? "a" : undefined}
+                  connectNulls={connectNulls}
+                />
+              );
+            })}
           </ReChartsAreaChart>
         ) : (
           <NoData noDataText={noDataText} />

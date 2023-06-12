@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, parseCategory } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
@@ -56,7 +56,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
-  const categoryColors = constructCategoryColors(categories, colors);
+  const categoryColors = constructCategoryColors(
+    categories.map((category) => parseCategory(category).categoryKey),
+    colors,
+  );
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
@@ -197,24 +200,27 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
               />
             ) : null}
-            {categories.map((category) => (
-              <Bar
-                className={
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.background,
-                  ).fillColor
-                }
-                key={category}
-                name={category}
-                type="linear"
-                stackId={stack || relative ? "a" : undefined}
-                dataKey={category}
-                fill=""
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-              />
-            ))}
+            {categories.map((category) => {
+              const { categoryKey, categoryName } = parseCategory(category);
+              return (
+                <Bar
+                  className={
+                    getColorClassNames(
+                      categoryColors.get(categoryKey) ?? BaseColors.Gray,
+                      colorPalette.background,
+                    ).fillColor
+                  }
+                  key={categoryKey}
+                  name={categoryName}
+                  type="linear"
+                  stackId={stack || relative ? "a" : undefined}
+                  dataKey={categoryKey}
+                  fill=""
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                />
+              );
+            })}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />
