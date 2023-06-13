@@ -1,13 +1,23 @@
 "use client";
+
+import {
+  ArrowLeftHeadIcon,
+  ArrowRightHeadIcon,
+  DoubleArrowLeftHeadIcon,
+  DoubleArrowRightHeadIcon,
+  XCircleIcon,
+} from "assets";
+import { DateRange, DayPicker, useNavigation } from "react-day-picker";
+import { Listbox, Popover } from "@headlessui/react";
 import React, { ReactElement, useMemo } from "react";
-import { sizing, tremorTwMerge, border, spacing } from "lib";
-import { DateRange, DayPicker } from "react-day-picker";
-
-import { startOfMonth, startOfToday } from "date-fns";
-import { enUS } from "date-fns/locale";
-
-import { useInternalState } from "hooks";
-import { Color } from "../../../lib/inputTypes";
+import { addYears, format, startOfMonth, startOfToday } from "date-fns";
+import { border, sizing, spacing, tremorTwMerge } from "lib";
+import {
+  constructValueToNameMapping,
+  getNodeText,
+  getSelectButtonColors,
+  hasValue,
+} from "../selectUtils";
 import {
   defaultOptions,
   formatSelectedDates,
@@ -16,16 +26,13 @@ import {
   parseStartDate,
 } from "./dateRangePickerUtils";
 
-import { SelectItem } from "components/input-elements/Select";
-import { ArrowLeftHeadIcon, ArrowRightHeadIcon, XCircleIcon } from "assets";
-import { Listbox, Popover } from "@headlessui/react";
-import {
-  constructValueToNameMapping,
-  getNodeText,
-  getSelectButtonColors,
-  hasValue,
-} from "../selectUtils";
+import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
+import { Icon } from "components/icon-elements";
+import { SelectItem } from "components/input-elements/Select";
+import { Text } from "components/text-elements";
+import { enUS } from "date-fns/locale";
+import { useInternalState } from "hooks";
 
 const TODAY = startOfToday();
 
@@ -47,6 +54,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  enableYearPagination?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -65,6 +73,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     enableClear = true,
     children,
     className,
+    enableYearPagination = false,
     ...other
   } = props;
 
@@ -280,6 +289,49 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             components={{
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
               IconRight: ({ ...props }) => <ArrowRightHeadIcon className="h-4 w-4" {...props} />,
+              Caption: ({ ...props }) => {
+                const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
+
+                return (
+                  <div className="flex justify-between items-center">
+                    {enableYearPagination && (
+                      <Icon
+                        className="cursor-pointer mr-2"
+                        onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
+                        icon={DoubleArrowLeftHeadIcon}
+                        variant="shadow"
+                        size="xs"
+                      />
+                    )}
+                    <Icon
+                      className="cursor-pointer mr-2"
+                      onClick={() => previousMonth && goToMonth(previousMonth)}
+                      icon={ArrowLeftHeadIcon}
+                      variant="shadow"
+                      size="xs"
+                    />
+                    <Text className="text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+                      {format(props.displayMonth, "MMM yyy")}
+                    </Text>
+                    <Icon
+                      className="cursor-pointer ml-2"
+                      onClick={() => nextMonth && goToMonth(nextMonth)}
+                      icon={ArrowRightHeadIcon}
+                      variant="shadow"
+                      size="xs"
+                    />
+                    {enableYearPagination && (
+                      <Icon
+                        className="cursor-pointer ml-2"
+                        onClick={() => currentMonth && goToMonth(addYears(currentMonth, 1))}
+                        icon={DoubleArrowRightHeadIcon}
+                        variant="shadow"
+                        size="xs"
+                      />
+                    )}
+                  </div>
+                );
+              },
             }}
             {...props}
           />
