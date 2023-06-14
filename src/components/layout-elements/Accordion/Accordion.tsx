@@ -1,58 +1,51 @@
 "use client";
-import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
-import { twMerge } from "tailwind-merge";
-
-import { border, borderRadius, getColorClassNames, makeClassName } from "lib";
+import React, { createContext, useContext } from "react";
+import { tremorTwMerge } from "lib";
+import { border, makeClassName } from "lib";
 import { RootStylesContext } from "contexts";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Disclosure } from "@headlessui/react";
 
 const makeAccordionClassName = makeClassName("Accordion");
 
-interface ExpandedContextValue {
-  isExpanded: boolean;
-  setIsExpanded: Dispatch<SetStateAction<boolean>> | undefined;
+interface OpenContextValue {
+  isOpen: boolean;
 }
-export const ExpandedContext = createContext<ExpandedContextValue>({
-  isExpanded: false,
-  setIsExpanded: undefined,
+export const OpenContext = createContext<OpenContextValue>({
+  isOpen: false,
 });
 
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
-  expanded?: boolean;
-  children: React.ReactElement[] | React.ReactElement;
+  defaultOpen?: boolean;
 }
 
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
-  const { expanded = false, children, className, ...other } = props;
-  const [isExpanded, setIsExpanded] = useState(expanded);
+  const { defaultOpen = false, children, className, ...other } = props;
 
-  const rootStyles = useContext(RootStylesContext) ?? twMerge(border.sm.all, borderRadius.lg.all);
+  const rootStyles =
+    useContext(RootStylesContext) ?? tremorTwMerge(border.sm.all, "rounded-tremor-default");
 
   return (
-    <div
+    <Disclosure
+      as="div"
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeAccordionClassName("root"),
+        // common
         "overflow-hidden",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.lightRing).borderColor,
-        getColorClassNames("white").bgColor,
+        // light
+        "bg-tremor-background border-tremor-border",
+        // dark
+        "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
         rootStyles,
         className,
       )}
+      defaultOpen={defaultOpen}
       {...other}
     >
-      {React.Children.map(children, (child, idx) => {
-        if (idx === 0) {
-          return (
-            <ExpandedContext.Provider value={{ isExpanded, setIsExpanded }}>
-              {React.cloneElement(child)}
-            </ExpandedContext.Provider>
-          );
-        }
-
-        return <div className={isExpanded ? "" : "hidden"}>{child}</div>;
-      })}
-    </div>
+      {({ open }) => (
+        <OpenContext.Provider value={{ isOpen: open }}>{children}</OpenContext.Provider>
+      )}
+    </Disclosure>
   );
 });
 

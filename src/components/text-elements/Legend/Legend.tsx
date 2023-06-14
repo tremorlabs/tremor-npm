@@ -1,17 +1,8 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
 
-import { Color } from "../../../lib";
-import {
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-  themeColorRange,
-} from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { Color, tremorTwMerge } from "../../../lib";
+import { getColorClassNames, makeClassName, sizing, spacing, themeColorRange } from "lib";
+import { colorPalette } from "lib/theme";
 
 const makeLegendClassName = makeClassName("Legend");
 
@@ -22,16 +13,20 @@ export interface LegendItemProps {
 
 const LegendItem = ({ name, color }: LegendItemProps) => (
   <li
-    className={twMerge(
+    className={tremorTwMerge(
       makeLegendClassName("legendItem"),
-      "termor-elem inline-flex items-center truncate",
-      getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+      // common
+      "inline-flex items-center truncate",
+      // light
+      "text-tremor-content",
+      // dark
+      "dark:text-dark-tremor-content",
       spacing.md.marginRight,
     )}
   >
     <svg
-      className={twMerge(
-        "termor-elem flex-none",
+      className={tremorTwMerge(
+        "flex-none",
         getColorClassNames(color, colorPalette.text).textColor,
         sizing.xs.height,
         sizing.xs.width,
@@ -42,7 +37,16 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
     >
       <circle cx={4} cy={4} r={4} />
     </svg>
-    <p className={twMerge("termor-elem whitespace-nowrap truncate", fontSize.sm, fontWeight.sm)}>
+    <p
+      className={tremorTwMerge(
+        // common
+        "whitespace-nowrap truncate text-tremor-default",
+        // light
+        "text-tremor-content",
+        // dark
+        "dark:text-dark-tremor-content",
+      )}
+    >
       {name}
     </p>
   </li>
@@ -58,7 +62,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   return (
     <ol
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeLegendClassName("root"),
         "flex flex-wrap overflow-hidden truncate",
         className,

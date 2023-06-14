@@ -1,9 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Card from "components/layout-elements/Card";
-import DeltaBar from "components/vis-elements/DeltaBar/DeltaBar";
-import Metric from "components/text-elements/Metric";
+import { Card, DeltaBar, Metric } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -22,21 +20,21 @@ const Template: ComponentStory<typeof DeltaBar> = (args) => (
 export const Increase = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Increase.args = {
-  percentageValue: 30,
+  value: 30,
   className: "mt-5",
   tooltip: "30%",
 };
 
 export const Decrease = Template.bind({});
 Decrease.args = {
-  percentageValue: -50,
+  value: -50,
   className: "mt-5",
   tooltip: "-50%",
 };
 
 export const IncreaseReversed = Template.bind({});
 IncreaseReversed.args = {
-  percentageValue: 50,
+  value: 50,
   isIncreasePositive: false,
   className: "mt-5",
 };

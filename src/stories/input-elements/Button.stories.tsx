@@ -20,7 +20,20 @@ const MyIcon = ArrowRightIcon;
 
 const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numItems={5} className="gap-4">
+      <Button {...args}>Button</Button>
+      <Button {...args} icon={MyIcon}>
+        Button
+      </Button>
+      <Button {...args} icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
+      <Button {...args} variant="secondary" icon={MyIcon} iconPosition="left">
+        Button
+      </Button>
+      <Button {...args} variant="light" icon={MyIcon} iconPosition="right">
+        Button
+      </Button>
       {Object.values(InputSizes).map((size) => (
         <>
           <Button {...args} size={size}>
@@ -46,7 +59,7 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
 
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
-    <Grid numCols={4} numColsLg={4} className="gap-y-2">
+    <Grid numItems={4} numItemsLg={4} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <>
           <Button {...args} color={color}>
@@ -96,42 +109,48 @@ const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
   </>
 );
 
-const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
+const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
   const [loading, setLoading] = useState(false);
 
   return (
     <Card>
       <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
-      <Grid numCols={3} className="gap-y-2 mt-10">
+      <Grid numItems={3} className="gap-y-2 mt-10">
         {Object.values(InputSizes).map((size) => (
           <>
-            <Button size={size} loading={loading}>
+            <Button {...args} size={size} loading={loading}>
               Button
             </Button>
-            <Button size={size} icon={MyIcon} loading={loading}>
+            <Button {...args} size={size} icon={MyIcon} loading={loading}>
               Button
             </Button>
-            <Button size={size} icon={MyIcon} iconPosition="right" loading={loading}>
+            <Button {...args} size={size} icon={MyIcon} iconPosition="right" loading={loading}>
               Button
             </Button>
-            <Button size={size} variant="secondary" loading={loading}>
+            <Button {...args} size={size} variant="secondary" loading={loading}>
               Button
             </Button>
           </>
         ))}
       </Grid>
       <Title>With Loading Text</Title>
-      <Grid numCols={4} className="gap-y-2">
-        <Button loading={loading} loadingText="Loading">
+      <Grid numItems={4} className="gap-y-2">
+        <Button {...args} loading={loading} loadingText="Loading">
           Button
         </Button>
-        <Button icon={MyIcon} loading={loading} loadingText="Loading">
+        <Button {...args} icon={MyIcon} loading={loading} loadingText="Loading">
           Button
         </Button>
-        <Button icon={MyIcon} iconPosition="right" loading={loading} loadingText="Loading">
+        <Button
+          {...args}
+          icon={MyIcon}
+          iconPosition="right"
+          loading={loading}
+          loadingText="Loading"
+        >
           Button
         </Button>
-        <Button variant="secondary" loading={loading} loadingText="Loading">
+        <Button {...args} variant="secondary" loading={loading} loadingText="Loading">
           Button
         </Button>
       </Grid>
@@ -142,11 +161,13 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = () => {
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
+  className: "max-w-fit",
 };
 
 export const Colors = ColorsTemplate.bind({});
 Colors.args = {
   onSelect: () => console.log("clicked"),
+  className: "max-w-fit",
 };
 
 export const WithFlexParent = ResponsiveFlexTemplate.bind({});
@@ -158,7 +179,7 @@ WithDisabled.args = {
 
 export const LoadingStates = LoadingStateTemplate.bind({});
 LoadingStates.args = {
-  disabled: true,
+  className: "max-w-fit",
 };
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

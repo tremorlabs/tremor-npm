@@ -1,10 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 
-import Card from "components/layout-elements/Card";
-import Metric from "components/text-elements/Metric";
+import { Card, Metric, ProgressBar } from "components";
 
 import { BaseColors } from "lib/constants";
 import { Flex } from "components";
@@ -18,8 +16,14 @@ export default {
 
 const Template: ComponentStory<typeof ProgressBar> = (args) => (
   <>
+    <Card className="mt-5">
+      <Metric>$23.456</Metric>
+      <Flex>
+        <ProgressBar {...args} />
+      </Flex>
+    </Card>
     {Object.values(BaseColors).map((color) => (
-      <Card key={color}>
+      <Card key={color} className="mt-5">
         <Metric>$23.456</Metric>
         <Flex>
           <ProgressBar {...args} color={color} />
@@ -32,8 +36,8 @@ const Template: ComponentStory<typeof ProgressBar> = (args) => (
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  percentageValue: 50,
+  value: 50,
   tooltip: "50%",
   className: "mt-5",
-  label: "90% helloasjdakshgdkjhags akjhsgdkhjagsdjhakg",
+  label: "90%",
 };

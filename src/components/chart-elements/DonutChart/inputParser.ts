@@ -1,15 +1,16 @@
-import { BaseColors, hexColors, sumNumericArray } from "lib";
+import { BaseColors, sumNumericArray, getColorClassNames, colorPalette } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
 export const parseData = (data: any[], colors: Color[]) =>
   data.map((dataPoint: any, idx: number) => {
     const baseColor = idx < colors.length ? colors[idx] : BaseColors.Gray;
-    const hexCode = hexColors[baseColor ?? BaseColors.Gray];
     return {
       ...dataPoint,
       // explicitly adding color key if not present for tooltip coloring
       color: baseColor,
-      fill: hexCode, // Hex Code
+      className: getColorClassNames(baseColor ?? BaseColors.Gray, colorPalette.background)
+        .fillColor,
+      fill: "",
     };
   });
 

@@ -31,6 +31,6 @@ const Template: ComponentStory<typeof Grid> = (args) => (
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  numColsMd: 3,
+  numItemsMd: 3,
   className: "gap-x-2 gap-y-2",
 };

@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
 import { DeltaType, DeltaTypes, Size, makeClassName, spacing } from "../../../lib";
-import { Sizes, borderRadius, mapInputsToDeltaType } from "lib";
+import { Sizes, mapInputsToDeltaType } from "lib";
 import {
   badgeProportionsIconOnly,
   badgeProportionsWithText,
@@ -37,10 +37,10 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
   return (
     <span
       ref={ref}
-      className={twMerge(
+      className={tremorTwMerge(
         makeBadgeDeltaClassName("root"),
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
-        borderRadius.full.all,
+        // common
+        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
         colors[mappedDeltaType].bgColor,
         colors[mappedDeltaType].textColor,
         badgeProportions[size].paddingX,
@@ -51,16 +51,17 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
       {...other}
     >
       <Icon
-        className={twMerge(
+        className={tremorTwMerge(
           makeBadgeDeltaClassName("icon"),
+          "shrink-0",
           children
-            ? twMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+            ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
             : iconSizes[size].height,
           iconSizes[size].width,
         )}
       />
       {children ? (
-        <p className={twMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
+        <p className={tremorTwMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
           {children}
         </p>
       ) : null}

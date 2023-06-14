@@ -1,6 +1,5 @@
 import { DeltaTypes } from "./constants";
 import { Color, ValueFormatter } from "./inputTypes";
-import { colorClassNames } from "./colorClassNames";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -24,15 +23,6 @@ export const defaultValueFormatter: ValueFormatter = (value: number) => value.to
 export const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0);
 
-export const removeValueFromArray = (value: any, array: any[]): any[] => {
-  const index = array.indexOf(value);
-  const newArray = [...array];
-  if (index > -1) {
-    newArray.splice(index, 1);
-  }
-  return newArray;
-};
-
 export const isValueInArray = (value: any, array: any[]): boolean => {
   for (let i = 0; i < array.length; i++) {
     if (array[i] === value) {
@@ -40,14 +30,6 @@ export const isValueInArray = (value: any, array: any[]): boolean => {
     }
   }
   return false;
-};
-
-export const stringIsNumeric = (str: string | undefined): boolean => {
-  return !isNaN(Number(str)) && str !== undefined;
-};
-
-export const stringEndsWithNumber = (str: string): boolean => {
-  return stringIsNumeric(str.split("-").pop());
 };
 
 export function mergeRefs<T = any>(
@@ -70,13 +52,53 @@ export function makeClassName(componentName: string) {
   };
 }
 
+interface ColorClassNames {
+  bgColor: string;
+  hoverBgColor: string;
+  selectBgColor: string;
+  textColor: string;
+  selectTextColor: string;
+  hoverTextColor: string;
+  borderColor: string;
+  selectBorderColor: string;
+  hoverBorderColor: string;
+  ringColor: string;
+  strokeColor: string;
+  fillColor: string;
+}
+
 export function getColorClassNames(
   color: Color | "white" | "black" | "transparent",
   shade?: number,
-) {
-  if (colorClassNames[color] === undefined) return colorClassNames["gray"][500];
+): ColorClassNames {
   if (color === "white" || color === "black" || color === "transparent" || !shade) {
-    return colorClassNames[color][500];
+    return {
+      bgColor: `bg-${color}`,
+      hoverBgColor: `hover:bg-${color}`,
+      selectBgColor: `ui-selected:bg-${color}`,
+      textColor: `text-${color}`,
+      selectTextColor: `ui-selected:text-${color}`,
+      hoverTextColor: `hover:text-${color}`,
+      borderColor: `border-${color}`,
+      selectBorderColor: `ui-selected:border-${color}`,
+      hoverBorderColor: `hover:border-${color}`,
+      ringColor: `ring-${color}`,
+      strokeColor: `stroke-${color}`,
+      fillColor: `fill-${color}`,
+    };
   }
-  return colorClassNames[color][shade];
+  return {
+    bgColor: `bg-${color}-${shade}`,
+    selectBgColor: `ui-selected:bg-${color}-${shade}`,
+    hoverBgColor: `hover:bg-${color}-${shade}`,
+    textColor: `text-${color}-${shade}`,
+    selectTextColor: `ui-selected:text-${color}-${shade}`,
+    hoverTextColor: `hover:text-${color}-${shade}`,
+    borderColor: `border-${color}-${shade}`,
+    selectBorderColor: `ui-selected:border-${color}-${shade}`,
+    hoverBorderColor: `hover:border-${color}-${shade}`,
+    ringColor: `ring-${color}-${shade}`,
+    strokeColor: `stroke-${color}-${shade}`,
+    fillColor: `fill-${color}-${shade}`,
+  };
 }

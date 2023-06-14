@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { BaseColors } from "lib/constants";
-import Metric from "../../components/text-elements/Metric/Metric";
+import { Metric } from "components";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,6 +13,7 @@ export default {
 
 const Template: ComponentStory<typeof Metric> = () => (
   <>
+    <Metric>USD 70,000.00</Metric>
     {Object.values(BaseColors).map((color) => (
       <Metric key={color} color={color}>
         USD 70,000.00

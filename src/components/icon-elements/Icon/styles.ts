@@ -1,7 +1,7 @@
-import { Sizing, border, borderRadius, boxShadow, getColorClassNames, sizing, spacing } from "lib";
+import { Sizing, border, getColorClassNames, sizing, spacing } from "lib";
 
 import { Color, IconVariant } from "../../../lib/inputTypes";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { colorPalette } from "lib/theme";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -69,67 +69,89 @@ export const shape: { [style: string]: ShapeTypes } = {
     shadow: "",
   },
   light: {
-    rounded: borderRadius.lg.all,
+    rounded: "rounded-tremor-default",
     border: "",
     ring: "",
     shadow: "",
   },
   shadow: {
-    rounded: borderRadius.lg.all,
+    rounded: "rounded-tremor-default",
     border: border.sm.all,
     ring: "",
-    shadow: boxShadow.md,
+    shadow: "shadow-tremor-card dark:shadow-dark-tremor-card",
   },
   solid: {
-    rounded: borderRadius.lg.all,
+    rounded: "rounded-tremor-default",
     border: border.md.all,
     ring: "ring-1",
     shadow: "",
   },
   outlined: {
-    rounded: borderRadius.lg.all,
+    rounded: "rounded-tremor-default",
     border: border.sm.all,
     ring: "ring-2",
     shadow: "",
   },
 };
 
-export const getIconColors = (variant: IconVariant, color: Color) => {
+export const getIconColors = (variant: IconVariant, color?: Color) => {
   switch (variant) {
     case "simple":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: "",
         borderColor: "",
         ringColor: "",
       };
     case "light":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
-        bgColor: getColorClassNames(color, colorPalette.lightBackground).bgColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
         borderColor: "",
         ringColor: "",
       };
     case "shadow":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
-        bgColor: getColorClassNames("white").bgColor,
-        borderColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).borderColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          : "bg-tremor-background dark:bg-dark-tremor-background",
+        borderColor: "border-tremor-border dark:border-dark-tremor-border",
         ringColor: "",
       };
     case "solid":
       return {
-        textColor: getColorClassNames("white").textColor,
-        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
-        borderColor: getColorClassNames("white").borderColor,
-        ringColor: getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).ringColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand-inverted dark:text-dark-tremor-brand-inverted",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          : "bg-tremor-brand dark:bg-dark-tremor-brand",
+        borderColor: "border-tremor-brand-inverted dark:border-dark-tremor-brand-inverted",
+        ringColor: "ring-tremor-ring dark:ring-dark-tremor-ring",
       };
     case "outlined":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
-        bgColor: getColorClassNames("white").bgColor,
-        borderColor: getColorClassNames(color, colorPalette.ring).borderColor,
-        ringColor: getColorClassNames(color, colorPalette.lightRing).ringColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          : "bg-tremor-background dark:bg-dark-tremor-background",
+        borderColor: color
+          ? getColorClassNames(color, colorPalette.ring).borderColor
+          : "border-tremor-brand-subtle dark:border-dark-tremor-brand-subtle",
+        ringColor: color
+          ? getColorClassNames(color, colorPalette.lightRing).ringColor
+          : "ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted",
       };
   }
 };

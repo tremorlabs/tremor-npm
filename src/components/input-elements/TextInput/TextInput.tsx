@@ -1,23 +1,9 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  border,
-  borderRadius,
-  boxShadow,
-  colorClassNames,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  mergeRefs,
-  sizing,
-  spacing,
-} from "lib";
+import { border, makeClassName, mergeRefs, sizing, spacing } from "lib";
 import { ExclamationFilledIcon } from "assets";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 
 const makeTextInputClassName = makeClassName("TextInput");
@@ -62,16 +48,25 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
   return (
     <>
       <div
-        className={twMerge(
+        className={tremorTwMerge(
           makeTextInputClassName("root"),
-          "relative w-full flex items-center min-w-[10rem] focus:outline-none focus:ring-2",
+          // common
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default",
+          // light
+          "shadow-tremor-input",
+          // dark
+          "dark:shadow-dark-tremor-input",
           getSelectButtonColors(hasSelection, disabled, error),
-          getColorClassNames(BaseColors.Blue, colorPalette.lightRing).focusRingColor,
           isFocused &&
-            twMerge("ring-2", getColorClassNames(BaseColors.Blue, colorPalette.ring).ringColor),
-          borderRadius.md.all,
+            tremorTwMerge(
+              // common
+              "ring-2 transition duration-100",
+              // light
+              "border-tremor-brand-subtle ring-tremor-brand-muted",
+              // light
+              "dark:border-dark-tremor-brand-subtle dark:ring-dark-tremor-brand-muted",
+            ),
           border.sm.all,
-          boxShadow.sm,
           className,
         )}
         onClick={() => {
@@ -88,31 +83,37 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       >
         {Icon ? (
           <Icon
-            className={twMerge(
+            className={tremorTwMerge(
               makeTextInputClassName("icon"),
+              // common
               "shrink-0",
+              // light
+              "text-tremor-content-subtle",
+              // light
+              "dark:text-dark-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              getColorClassNames(DEFAULT_COLOR, colorPalette.lightText).textColor,
               spacing.xl.marginLeft,
             )}
-            aria-hidden="true"
           />
         ) : null}
         <input
           ref={mergeRefs([ref, inputRef])}
           type={type}
-          className={twMerge(
+          className={tremorTwMerge(
             makeTextInputClassName("input"),
-            "w-full focus:outline-none focus:ring-0",
-            getColorClassNames("transparent").bgColor,
+            // common
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default",
+            // light
+            "text-tremor-content-emphasis",
+            // dark
+            "dark:text-dark-tremor-content-emphasis",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
-            fontSize.sm,
-            fontWeight.md,
-            border.none.all,
-            disabled ? "placeholder:text-gray-400" : "placeholder:text-gray-500",
+            disabled
+              ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
+              : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
           )}
           placeholder={placeholder}
           disabled={disabled}
@@ -120,23 +121,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
         />
         {error ? (
           <ExclamationFilledIcon
-            className={twMerge(
+            className={tremorTwMerge(
               makeTextInputClassName("errorIcon"),
+              "text-rose-500",
               spacing.xl.marginRight,
               sizing.lg.height,
               sizing.lg.width,
-              colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
             )}
-            aria-hidden="true"
           />
         ) : null}
       </div>
       {errorMessage ? (
         <p
-          className={twMerge(
+          className={tremorTwMerge(
             makeTextInputClassName("errorMessage"),
-            "text-sm",
-            colorClassNames[BaseColors.Rose][colorPalette.text].textColor,
+            "text-sm text-rose-500 mt-1",
           )}
         >
           {errorMessage}

@@ -2,7 +2,15 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Button, Card, DateRangePicker, DateRangePickerValue, Text, Title } from "components";
+import {
+  Button,
+  Card,
+  DateRangePicker,
+  DateRangePickerItem,
+  DateRangePickerValue,
+  Text,
+  Title,
+} from "components";
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -13,13 +21,52 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
-  const [value, setValue] = useState<DateRangePickerValue>([null, null]);
-  const startDate = value?.[0];
-  const endDate = value?.[1];
+  const [value, setValue] = useState<DateRangePickerValue>({});
+  const startDate = value.from;
+  const endDate = value.to;
+
+  return (
+    <div className="space-y-4">
+      <Card>
+        <DateRangePicker {...args} onValueChange={(value) => setValue(value)} />
+        <Title>Filtered Data</Title>
+        <Text>StartDate: {String(startDate)} </Text>
+        <Text>EndDate: {String(endDate)} </Text>
+        <div>
+          {dateRangePickerData
+            .filter(
+              (datapoint) =>
+                startDate && endDate && datapoint.date >= startDate && datapoint.date <= endDate,
+            )
+            .map((datapoint) => (
+              <p key={String(datapoint.date)}>{String(datapoint.date)}</p>
+            ))}
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+const UncontrolledWithChildrenTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
+  const [value, setValue] = useState<DateRangePickerValue>({});
+  const startDate = value.from;
+  const endDate = value.to;
 
   return (
     <Card>
-      <DateRangePicker {...args} onValueChange={(value) => setValue(value)} />
+      <DateRangePicker {...args} onValueChange={(value) => setValue(value)}>
+        <DateRangePickerItem key="one" value="one" from={new Date(2023, 0, 1)}>
+          2023/1/1 - Today
+        </DateRangePickerItem>
+        <DateRangePickerItem
+          key="two"
+          value="two"
+          from={new Date(2023, 0, 1)}
+          to={new Date(2023, 4, 1)}
+        >
+          2023/1/1 - 2023/5/1
+        </DateRangePickerItem>
+      </DateRangePicker>
       <Title>Filtered Data</Title>
       <Text>StartDate: {String(startDate)} </Text>
       <Text>EndDate: {String(endDate)} </Text>
@@ -40,22 +87,22 @@ const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
 const ControlledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
   const [value, setValue] = useState<DateRangePickerValue>(args.value!);
 
-  const startDate = value[0];
-  const endDate = value[1];
+  const startDate = value?.from;
+  const endDate = value?.to;
 
   return (
     <Card>
       <DateRangePicker {...args} value={value} onValueChange={(v) => setValue(v)} />
       <Button
         onClick={() => {
-          setValue([null, null]);
+          setValue({});
         }}
       >
         Reset
       </Button>
       <Button
         onClick={() => {
-          setValue([null, null, "tdy"]);
+          setValue({ selectValue: "tdy" });
         }}
       >
         Today
@@ -81,71 +128,47 @@ export const UncontrolledDefault = UncontrolledTemplate.bind({});
 
 export const UncontrolledWithDefaultDateRange = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultDateRange.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date()],
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
 };
 
 export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultFrLocale.args = {
   locale: fr,
-  dropdownPlaceholder: "Sélectionnez",
+  selectPlaceholder: "Sélectionnez",
   placeholder: "Sélectionnez...",
 };
 
 export const UncontrolledWithDefaultSelectOption = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultSelectOption.args = {
-  defaultValue: [undefined, undefined, "tdy"],
+  defaultValue: { selectValue: "tdy" },
 };
 
 export const UncontrolledWithDefaultValue = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultValue.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date()],
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
 };
 
-export const UncontrolledWithDropdownOptions = UncontrolledTemplate.bind({});
+export const UncontrolledWithSelectDisabled = UncontrolledTemplate.bind({});
+UncontrolledWithSelectDisabled.args = {
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  enableSelect: false,
+};
+
+export const UncontrolledWithMinMax = UncontrolledTemplate.bind({});
+UncontrolledWithMinMax.args = {
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  minDate: new Date(2023, 4, 1),
+  maxDate: new Date(2023, 4, 15),
+};
+
+export const UncontrolledWithDropdownOptions = UncontrolledWithChildrenTemplate.bind({});
 UncontrolledWithDropdownOptions.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
-  options: [
-    {
-      value: "tdy",
-      text: "tdy",
-      startDate: new Date(2022, 11, 1),
-    },
-    {
-      value: "a",
-      text: "a",
-      startDate: new Date(2023, 0, 1),
-    },
-  ],
-};
-
-export const UncontrolledWithDropdownOptionsWithEndDate = UncontrolledTemplate.bind({});
-UncontrolledWithDropdownOptionsWithEndDate.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
-  options: [
-    {
-      value: "tdy",
-      text: "tdy",
-      startDate: new Date(2022, 11, 1),
-      endDate: new Date(2022, 11, 30),
-    },
-    {
-      value: "a",
-      text: "a",
-      startDate: new Date(2023, 0, 1),
-      endDate: new Date(2023, 0, 30),
-    },
-  ],
-};
-
-export const UncontrolledWithYearPaginationEnabled = UncontrolledTemplate.bind({});
-UncontrolledWithYearPaginationEnabled.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
-  enableYearPagination: true,
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "one" },
 };
 
 export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
 UncontrolledWithDisabled.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date(), "tdy"],
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },
   disabled: true,
 };
 
@@ -153,57 +176,21 @@ export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDateRange = ControlledTemplate.bind({});
 ControlledWithDefaultDateRange.args = {
-  value: [new Date(2022, 10, 1), new Date()],
+  value: { from: new Date(2022, 10, 1), to: new Date() },
 };
 
 export const ControlledWithDefaultSelectOption = ControlledTemplate.bind({});
 ControlledWithDefaultSelectOption.args = {
-  value: [undefined, undefined, "t"],
+  value: { from: undefined, to: undefined, selectValue: "t" },
 };
 
 export const ControlledWithDefaultValue = ControlledTemplate.bind({});
 ControlledWithDefaultValue.args = {
-  value: [new Date(2022, 10, 1), new Date(), "t"],
-};
-
-export const ControlledWithDropdownOptions = ControlledTemplate.bind({});
-ControlledWithDropdownOptions.args = {
-  value: [new Date(2022, 10, 1), new Date(), "tdy"],
-  options: [
-    {
-      value: "tdy",
-      text: "tdy",
-      startDate: new Date(2022, 11, 1),
-    },
-    {
-      value: "a",
-      text: "a",
-      startDate: new Date(2023, 0, 1),
-    },
-  ],
-};
-
-export const ControlledWithDropdownOptionsWithEndDate = ControlledTemplate.bind({});
-ControlledWithDropdownOptionsWithEndDate.args = {
-  value: [new Date(2022, 5, 1), new Date(), "tdy"],
-  options: [
-    {
-      value: "tdy",
-      text: "tdy",
-      startDate: new Date(2022, 11, 1),
-      endDate: new Date(2022, 11, 30),
-    },
-    {
-      value: "a",
-      text: "a",
-      startDate: new Date(2023, 0, 1),
-      endDate: new Date(2023, 0, 30),
-    },
-  ],
+  value: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "t" },
 };
 
 export const UncontrolledWithoutAllowClear = UncontrolledTemplate.bind({});
 UncontrolledWithoutAllowClear.args = {
-  defaultValue: [new Date(2022, 10, 1), new Date()],
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
   enableClear: false,
 };
