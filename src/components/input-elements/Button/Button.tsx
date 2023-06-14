@@ -4,19 +4,7 @@ import { tremorTwMerge } from "lib";
 import { Transition } from "react-transition-group";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
-import {
-  BaseColors,
-  HorizontalPositions,
-  Sizes,
-  border,
-  borderRadius,
-  boxShadow,
-  fontWeight,
-  makeClassName,
-  mergeRefs,
-  sizing,
-  spacing,
-} from "lib";
+import { HorizontalPositions, Sizes, border, makeClassName, mergeRefs, sizing, spacing } from "lib";
 
 import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
