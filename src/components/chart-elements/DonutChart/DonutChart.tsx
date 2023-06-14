@@ -53,9 +53,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsDonutChart
-            className={tremorTwMerge("stroke-tremor-background dark:stroke-dark-tremor-background")}
-          >
+          <ReChartsDonutChart>
             {showLabel && isDonut ? (
               <text
                 className={tremorTwMerge(
@@ -73,6 +71,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               </text>
             ) : null}
             <Pie
+              className="stroke-tremor-background dark:stroke-dark-tremor-background"
               data={parseData(data, colors)}
               cx="50%"
               cy="50%"
@@ -80,7 +79,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               endAngle={-270}
               innerRadius={isDonut ? "75%" : "0%"}
               outerRadius="100%"
-              stroke="inherit"
+              stroke=""
               strokeLinejoin="round"
               dataKey={category}
               nameKey={index}
