@@ -39,7 +39,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     stack = false,
     relative = false,
     startEndOnly = false,
-    animationDuration = 1500,
+    animationDuration = 900,
     showAnimation = true,
     showXAxis = true,
     showYAxis = true,
