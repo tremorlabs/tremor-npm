@@ -1,8 +1,7 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { fontSize, fontWeight, getColorClassNames, makeClassName } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { makeClassName } from "lib";
 
 const makeTableClassName = makeClassName("Table");
 
@@ -11,15 +10,17 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
     const { children, className, ...other } = props;
 
     return (
-      <div className={twMerge(makeTableClassName("root"), "overflow-auto", className)}>
+      <div className={tremorTwMerge(makeTableClassName("root"), "overflow-auto", className)}>
         <table
           ref={ref}
-          className={twMerge(
+          className={tremorTwMerge(
             makeTableClassName("table"),
-            "w-full tabular-nums",
-            getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-            fontSize.sm,
-            fontWeight.sm,
+            // common
+            "w-full tabular-nums text-tremor-default",
+            // light
+            "text-tremor-content",
+            // dark
+            "dark:text-dark-tremor-content",
           )}
           {...other}
         >

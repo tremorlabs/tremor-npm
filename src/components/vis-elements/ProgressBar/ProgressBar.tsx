@@ -1,25 +1,15 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
 
-import {
-  BaseColors,
-  borderRadius,
-  fontSize,
-  fontWeight,
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
-import { Color } from "../../../lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
+import { BaseColors, getColorClassNames, makeClassName, sizing, spacing, tremorTwMerge } from "lib";
+import { Color } from "../../../lib/inputTypes";
+import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeProgressBarClassName = makeClassName("ProgressBar");
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  percentageValue: number;
+  value: number;
   label?: string;
   tooltip?: string;
   showAnimation?: boolean;
@@ -28,7 +18,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
   const {
-    percentageValue,
+    value,
     label,
     color = BaseColors.Blue,
     tooltip,
@@ -37,9 +27,6 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
     ...other
   } = props;
 
-  const primaryBgColor = getColorClassNames(color, colorPalette.background).bgColor;
-  const secondaryBgColor = getColorClassNames(color, colorPalette.lightBackground).bgColor;
-
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
@@ -47,48 +34,58 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={ref}
-        className={twMerge(makeProgressBarClassName("root"), "flex items-center w-full", className)}
+        className={tremorTwMerge(
+          makeProgressBarClassName("root"),
+          "flex items-center w-full",
+          className,
+        )}
         {...other}
       >
         <div
           ref={tooltipProps.refs.setReference}
-          className={twMerge(
+          className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full",
-            secondaryBgColor,
+            "relative flex items-center w-full rounded-tremor-full",
+            color
+              ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+              : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint",
             sizing.xs.height,
-            borderRadius.lg.all,
           )}
           {...getReferenceProps}
         >
           <div
-            className={twMerge(
+            className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
-              primaryBgColor,
-              "flex-col h-full",
-              borderRadius.lg.all,
+              // common
+              "flex-col h-full rounded-tremor-full",
+              color
+                ? getColorClassNames(color, colorPalette.background).bgColor
+                : "bg-tremor-brand dark:bg-dark-tremor-brand",
             )}
             style={{
-              width: `${percentageValue}%`,
-              transition: showAnimation ? "all 2s" : "",
+              width: `${value}%`,
+              transition: showAnimation ? "all 1s" : "",
             }}
           />
         </div>
         {label ? (
           <div
-            className={twMerge(
+            className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
+              // common
               "w-16 truncate text-right",
-              getColorClassNames(DEFAULT_COLOR, colorPalette.darkText).textColor,
+              // light
+              "text-tremor-content-emphasis",
+              // dark
+              "dark:text-dark-tremor-content-emphasis",
               spacing.sm.marginLeft,
             )}
           >
             <p
-              className={twMerge(
+              className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                "shrink-0 whitespace-nowrap truncate",
-                fontSize.sm,
-                fontWeight.sm,
+                // common
+                "shrink-0 whitespace-nowrap truncate text-tremor-default",
               )}
             >
               {label}

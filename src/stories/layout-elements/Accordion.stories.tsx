@@ -60,7 +60,7 @@ export const WithFlexParent = FlexTemplate.bind({});
 
 export const WithExpanded = ResponsiveTemplate.bind({});
 WithExpanded.args = {
-  expanded: true,
+  defaultOpen: true,
 };
 
 export const WithShadow = ResponsiveTemplate.bind({});

@@ -17,14 +17,25 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
-  <Card className="max-w-md">
-    <Grid numCols={4} className="gap-y-2">
+  <Card className="max-w-2xl">
+    <Grid numItems={5} className="gap-y-2">
+      <p className="text-xs">Size</p>
+      <p className="text-xs">Badge</p>
+      <p className="text-xs">Badge + Icon</p>
+      <p className="text-xs">BadgeDelta + Increase</p>
+      <p className="text-xs">BadgeDelta + Decrease</p>
+      <p className="text-xs">default</p>
+      <Badge {...args} />
+      <Badge {...args} icon={ArrowUpIcon} />
+      <BadgeDelta {...args} deltaType="increase" />
+      <BadgeDelta {...args} deltaType="decrease" />
       {Object.values(InputSizes).map((size) => (
         <>
+          <p className="text-xs">{size}</p>
           <Badge {...args} size={size} />
           <Badge {...args} size={size} icon={ArrowUpIcon} />
           <BadgeDelta {...args} size={size} deltaType="increase" />
-          <BadgeDelta {...args} size={size} deltaType="increase" />
+          <BadgeDelta {...args} size={size} deltaType="decrease" />
         </>
       ))}
     </Grid>
@@ -33,7 +44,7 @@ const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
 
 const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-sm">
-    <Grid numCols={5} className="gap-y-2">
+    <Grid numItems={5} className="gap-y-2">
       {Object.values(BaseColors).map((color) => (
         <Badge {...args} key={color} color={color} icon={args.icon} />
       ))}

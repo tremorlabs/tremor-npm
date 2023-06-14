@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import { BaseColors, Sizes, makeClassName, mergeRefs } from "lib";
+import { Sizes, makeClassName, mergeRefs } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -31,7 +31,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     variant = IconVariants.Simple,
     tooltip,
     size = Sizes.SM,
-    color = BaseColors.Blue,
+    color,
     className,
     ...other
   } = props;
@@ -43,7 +43,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
   return (
     <span
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-      className={twMerge(
+      className={tremorTwMerge(
         makeIconClassName("root"),
         "inline-flex flex-shrink-0 items-center",
         iconColorStyles.bgColor,
@@ -63,8 +63,9 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     >
       <Tooltip text={tooltip} {...tooltipProps} />
       <Icon
-        className={twMerge(
+        className={tremorTwMerge(
           makeIconClassName("icon"),
+          "shrink-0",
           iconSizes[size].height,
           iconSizes[size].width,
         )}

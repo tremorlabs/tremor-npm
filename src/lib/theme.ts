@@ -24,9 +24,9 @@ export const colorPalette = {
 };
 
 export const themeColorRange: Color[] = [
+  BaseColors.Blue,
   BaseColors.Cyan,
   BaseColors.Sky,
-  BaseColors.Blue,
   BaseColors.Indigo,
   BaseColors.Violet,
   BaseColors.Purple,

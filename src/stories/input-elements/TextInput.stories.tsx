@@ -15,33 +15,62 @@ export default {
 const Template: ComponentStory<typeof TextInput> = (args) => {
   const [value, setValue] = useState("");
   return (
-    <Card>
-      <form
-        onSubmit={(e) => {
-          alert(value);
-          e.preventDefault();
-        }}
-        onReset={() => setValue("")}
-      >
-        <Text>Uncontrolled</Text>
-        <TextInput {...args} />
-        <Text>Uncontrolled with defaultValue</Text>
-        <TextInput {...args} defaultValue="hello" />
-        <Text>Conrolled without onChange</Text>
-        <TextInput {...args} value={value} />
-        <label htmlFor="a">
-          <Text>Controlled</Text>
-        </label>
-        <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
-        <Button type="submit" className="mt-2">
-          Submit
-        </Button>
-        <Button type="reset" className="mt-2">
-          Reset Input
-        </Button>
-      </form>
-      <Text>{value}</Text>
-    </Card>
+    <div>
+      <Card>
+        <form
+          onSubmit={(e) => {
+            alert(value);
+            e.preventDefault();
+          }}
+          onReset={() => setValue("")}
+        >
+          <Text>Uncontrolled</Text>
+          <TextInput {...args} />
+          <Text>Uncontrolled with defaultValue</Text>
+          <TextInput {...args} defaultValue="hello" />
+          <Text>Conrolled without onChange</Text>
+          <TextInput {...args} value={value} />
+          <label htmlFor="a">
+            <Text>Controlled</Text>
+          </label>
+          <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
+          <Button type="submit" className="mt-2">
+            Submit
+          </Button>
+          <Button type="reset" className="mt-2">
+            Reset Input
+          </Button>
+        </form>
+        <Text>{value}</Text>
+      </Card>
+      <Card className="bg-gray-950">
+        <form
+          onSubmit={(e) => {
+            alert(value);
+            e.preventDefault();
+          }}
+          onReset={() => setValue("")}
+        >
+          <Text>Uncontrolled</Text>
+          <TextInput {...args} />
+          <Text>Uncontrolled with defaultValue</Text>
+          <TextInput {...args} defaultValue="hello" />
+          <Text>Conrolled without onChange</Text>
+          <TextInput {...args} value={value} />
+          <label htmlFor="a">
+            <Text>Controlled</Text>
+          </label>
+          <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
+          <Button type="submit" className="mt-2">
+            Submit
+          </Button>
+          <Button type="reset" className="mt-2">
+            Reset Input
+          </Button>
+        </form>
+        <Text>{value}</Text>
+      </Card>
+    </div>
   );
 };
 

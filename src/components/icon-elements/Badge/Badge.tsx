@@ -1,16 +1,8 @@
 "use client";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 
-import {
-  BaseColors,
-  Sizes,
-  borderRadius,
-  getColorClassNames,
-  makeClassName,
-  mergeRefs,
-  spacing,
-} from "lib";
+import { Sizes, getColorClassNames, makeClassName, mergeRefs, spacing } from "lib";
 import { Color, Size } from "../../../lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { colorPalette } from "lib/theme";
@@ -26,15 +18,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
-  const {
-    color = BaseColors.Blue,
-    icon,
-    size = Sizes.SM,
-    tooltip,
-    className,
-    children,
-    ...other
-  } = props;
+  const { color, icon, size = Sizes.SM, tooltip, className, children, ...other } = props;
 
   const Icon = icon ? icon : null;
 
@@ -43,12 +27,21 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   return (
     <span
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-      className={twMerge(
+      className={tremorTwMerge(
         makeBadgeClassName("root"),
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default",
-        getColorClassNames(color, colorPalette.darkText).textColor,
-        getColorClassNames(color, colorPalette.lightBackground).bgColor,
-        borderRadius.full.all,
+        // common
+        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
+        color
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.lightBackground).bgColor,
+              getColorClassNames(color, colorPalette.darkText).textColor,
+            )
+          : tremorTwMerge(
+              // light
+              "bg-tremor-brand-muted text-tremor-brand-emphasis",
+              // dark
+              "dark:bg-dark-tremor-brand-muted dark:text-dark-tremor-brand-emphasis",
+            ),
         badgeProportions[size].paddingX,
         badgeProportions[size].paddingY,
         badgeProportions[size].fontSize,
@@ -60,8 +53,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       <Tooltip text={tooltip} {...tooltipProps} />
       {Icon ? (
         <Icon
-          className={twMerge(
+          className={tremorTwMerge(
             makeBadgeClassName("icon"),
+            "shrink-0",
             spacing.twoXs.negativeMarginLeft,
             spacing.xs.marginRight,
             iconSizes[size].height,
@@ -69,7 +63,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
           )}
         />
       ) : null}
-      <p className={twMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>{children}</p>
+      <p className={tremorTwMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>
+        {children}
+      </p>
     </span>
   );
 });

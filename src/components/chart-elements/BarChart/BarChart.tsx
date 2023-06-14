@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 
 import {
   Bar,
@@ -20,7 +20,7 @@ import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -39,6 +39,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     stack = false,
     relative = false,
     startEndOnly = false,
+    animationDuration = 1500,
     showAnimation = true,
     showXAxis = true,
     showYAxis = true,
@@ -50,8 +51,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     minValue,
     maxValue,
     allowDecimals = true,
-    className,
     noDataText,
+    className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -60,8 +61,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart
             data={data}
@@ -70,6 +71,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
           >
             {showGridLines ? (
               <CartesianGrid
+                className={tremorTwMerge(
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-content-subtle",
+                  // dark
+                  "dark:stroke-dark-tremor-content-subtle",
+                )}
                 strokeDasharray="3 3"
                 horizontal={layout !== "vertical" ? true : false}
                 vertical={layout !== "vertical" ? false : true}
@@ -83,11 +92,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                  marginTop: "20px",
-                }}
+                fill=""
+                stroke=""
+                className={tremorTwMerge(
+                  // common
+                  "mt-4 text-tremor-label",
+                  // light
+                  "fill-tremor-content",
+                  // dark
+                  "dark:fill-dark-tremor-content",
+                )}
                 tickLine={false}
                 axisLine={false}
               />
@@ -97,10 +111,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="number"
                 tick={{ transform: "translate(-3, 0)" }}
                 domain={yAxisDomain as AxisDomain}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                }}
+                className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
+                  // light
+                  "fill-tremor-content",
+                  // dark
+                  "dark:fill-dark-tremor-content",
+                )}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
@@ -118,10 +136,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="number"
                 domain={yAxisDomain as AxisDomain}
                 tick={{ transform: "translate(-3, 0)" }}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                }}
+                fill=""
+                stroke=""
+                className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
+                  // light
+                  "fill-tremor-content",
+                  // dark
+                  "dark:fill-dark-tremor-content",
+                )}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
@@ -138,10 +162,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="category"
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }}
-                style={{
-                  fontSize: "12px",
-                  fontFamily: "Inter; Helvetica",
-                }}
+                className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
+                  // light
+                  "fill-tremor-content",
+                  // dark
+                  "dark:fill-dark-tremor-content",
+                )}
               />
             )}
             {showTooltip ? (
@@ -171,13 +199,20 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             ) : null}
             {categories.map((category) => (
               <Bar
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.background,
+                  ).fillColor
+                }
                 key={category}
                 name={category}
                 type="linear"
                 stackId={stack || relative ? "a" : undefined}
                 dataKey={category}
-                fill={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                fill=""
                 isAnimationActive={showAnimation}
+                animationDuration={animationDuration}
               />
             ))}
           </ReChartsBarChart>

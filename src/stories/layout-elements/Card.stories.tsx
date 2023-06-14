@@ -45,7 +45,7 @@ const FlexTemplate: ComponentStory<typeof Card> = (args) => (
 );
 
 const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
-  <Grid numCols={2} className="gap-x-2 gap-y-2">
+  <Grid numItems={2} className="gap-x-2 gap-y-2">
     {["left", "top", "right", "bottom", "mistyped"].map((position) => (
       <Card
         {...args}
@@ -59,7 +59,7 @@ const DecorationPositionsTemplate: ComponentStory<typeof Card> = (args) => (
 );
 
 const DecorationColorsTemplate: ComponentStory<typeof Card> = (args) => (
-  <Grid numCols={3} className="gap-x-2 gap-y-2">
+  <Grid numItems={3} className="gap-x-2 gap-y-2">
     {Object.values(BaseColors).map((color) => (
       <Card {...args} key={color} decoration="top" decorationColor={color}>
         <Title>{`Decoration Color: ${color}`}</Title>

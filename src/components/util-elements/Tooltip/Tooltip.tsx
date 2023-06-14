@@ -14,8 +14,8 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { twMerge } from "tailwind-merge";
-import { DEFAULT_COLOR, borderRadius, colorPalette, getColorClassNames, spacing } from "lib";
+import { tremorTwMerge } from "lib";
+import { spacing } from "lib";
 
 export const useTooltip = () => {
   const [open, setOpen] = useState(false);
@@ -69,11 +69,13 @@ export interface TooltipProps {
 const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: TooltipProps) => {
   return open && text ? (
     <div
-      className={twMerge(
-        "max-w-xs text-sm z-20",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.darkestBackground).bgColor,
-        getColorClassNames("white").textColor,
-        borderRadius.md.all,
+      className={tremorTwMerge(
+        // common
+        "max-w-xs text-sm z-20 rounded-tremor-default",
+        // light
+        "text-white bg-tremor-background-emphasis",
+        // dark
+        "dark:text text-white dark:bg-dark-tremor-background-subtle",
         spacing.md.paddingX,
         spacing.twoXs.paddingY,
       )}

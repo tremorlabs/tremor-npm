@@ -1,18 +1,19 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { tremorTwMerge } from "lib";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import NoData from "../common/NoData";
-import { defaultValueFormatter, hexColors, themeColorRange } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { DEFAULT_COLOR } from "lib/theme";
+import { defaultValueFormatter, themeColorRange } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 
+import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
@@ -38,12 +39,13 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     valueFormatter = defaultValueFormatter,
     label,
     showLabel = true,
+    animationDuration = 1500,
     showAnimation = true,
     showTooltip = true,
-    className,
     noDataText,
     startAngle = 90,
     percentage = 100,
+    className,
     ...other
   } = props;
   const isDonut = variant == "donut";
@@ -53,17 +55,22 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   const calculatedEndAngle = startAngle - 360 * (percentage / 100);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-44", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsDonutChart>
             {showLabel && isDonut ? (
               <text
+                className={tremorTwMerge(
+                  // light
+                  "fill-tremor-content-emphasis",
+                  // dark
+                  "dark:fill-dark-tremor-content-emphasis",
+                )}
                 x="50%"
                 y="50%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill={hexColors[DEFAULT_COLOR]}
               >
                 {parsedLabelInput}
               </text>
@@ -76,10 +83,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               endAngle={calculatedEndAngle}
               innerRadius={isDonut ? "75%" : "0%"}
               outerRadius="100%"
-              paddingAngle={0}
+              paddingAngle={1.5}
+              stroke="none"
               dataKey={category}
               nameKey={index}
               isAnimationActive={showAnimation}
+              animationDuration={animationDuration}
             />
             {showTooltip ? (
               <Tooltip

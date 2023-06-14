@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
 import {
   CartesianGrid,
   Legend,
@@ -14,12 +13,19 @@ import {
 import { AxisDomain } from "recharts/types/util/types";
 
 import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
-import NoData from "../common/NoData";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import {
+  BaseColors,
+  colorPalette,
+  defaultValueFormatter,
+  getColorClassNames,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
 export interface LineChartProps extends BaseChartProps {
@@ -38,6 +44,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    animationDuration = 1500,
     showAnimation = true,
     showTooltip = true,
     showLegend = true,
@@ -48,8 +55,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
-    className,
     noDataText,
+    className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -58,12 +65,24 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsLineChart data={data}>
             {showGridLines ? (
-              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+              <CartesianGrid
+                className={tremorTwMerge(
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-content-subtle",
+                  // dark
+                  "dark:stroke-dark-tremor-content-subtle",
+                )}
+                strokeDasharray="3 3"
+                horizontal={true}
+                vertical={false}
+              />
             ) : null}
             <XAxis
               hide={!showXAxis}
@@ -71,10 +90,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               interval="preserveStartEnd"
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
               tickLine={false}
               axisLine={false}
               padding={{ left: 10, right: 10 }}
@@ -88,10 +113,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               type="number"
               domain={yAxisDomain as AxisDomain}
               tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
@@ -122,14 +153,32 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             ) : null}
             {categories.map((category) => (
               <Line
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.text,
+                  ).strokeColor
+                }
+                activeDot={{
+                  className: tremorTwMerge(
+                    "stroke-tremor-background dark:stroke-dark-tremor-background",
+                    getColorClassNames(
+                      categoryColors.get(category) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                  ),
+                }}
+                dot={false}
                 key={category}
                 name={category}
                 type={curveType}
                 dataKey={category}
-                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                stroke=""
                 strokeWidth={2}
-                dot={false}
+                strokeLinejoin="round"
+                strokeLinecap="round"
                 isAnimationActive={showAnimation}
+                animationDuration={animationDuration}
                 connectNulls={connectNulls}
               />
             ))}

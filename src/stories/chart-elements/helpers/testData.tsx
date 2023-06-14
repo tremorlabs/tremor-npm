@@ -102,10 +102,10 @@ export const simpleBaseChartDataWithNulls = [
 
 export const simpleSingleCategoryData = [
   {
-    city: "San Francisco",
-    sales: 2400,
-    delta: "2.3%",
-    deltaType: "moderateIncrease",
+    city: "New York",
+    sales: 9800,
+    delta: "6.1%",
+    deltaType: "increase",
   },
   {
     city: "London",
@@ -114,22 +114,22 @@ export const simpleSingleCategoryData = [
     deltaType: "moderateDecrease",
   },
   {
-    city: "Zurich",
-    sales: 1398,
-    delta: "3.4%",
-    deltaType: "decrease",
-  },
-  {
-    city: "New York",
-    sales: 9800,
-    delta: "6.1%",
-    deltaType: "increase",
-  },
-  {
     city: "Hong Kong",
     sales: 3908,
     delta: "0.5%",
     deltaType: "moderateDecrease",
+  },
+  {
+    city: "San Francisco",
+    sales: 2400,
+    delta: "2.3%",
+    deltaType: "moderateIncrease",
+  },
+  {
+    city: "Zurich",
+    sales: 2198,
+    delta: "3.4%",
+    deltaType: "decrease",
   },
   {
     city: "Toronto",

@@ -18,28 +18,44 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
-  <Card>
-    <Grid numCols={5}>
-      {Object.values(IconVariants).map((variant) => (
-        <div key={variant}>
-          <Title>{variant}</Title>
-          {Object.values(InputSizes).map((size) => (
-            <div key={size} className="mt-2">
-              <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
-            </div>
-          ))}
-        </div>
-      ))}
-    </Grid>
-  </Card>
+  <div>
+    <Card>
+      <Grid numItems={5}>
+        {Object.values(IconVariants).map((variant) => (
+          <div key={variant}>
+            <text>{variant}</text>
+            {Object.values(InputSizes).map((size) => (
+              <div key={size} className="mt-2">
+                <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
+              </div>
+            ))}
+          </div>
+        ))}
+      </Grid>
+    </Card>
+    <Card className="bg-gray-950">
+      <Grid numItems={5}>
+        {Object.values(IconVariants).map((variant) => (
+          <div key={variant}>
+            <text>{variant}</text>
+            {Object.values(InputSizes).map((size) => (
+              <div key={size} className="mt-2">
+                <Icon icon={args.icon} variant={variant} size={size} tooltip="Tooltip" />
+              </div>
+            ))}
+          </div>
+        ))}
+      </Grid>
+    </Card>
+  </div>
 );
 
 const ColorsTemplate: ComponentStory<typeof Icon> = (args) => (
-  <Grid numColsLg={2} className="gap-x-2 gap-y-2">
+  <Grid numItemsLg={2} className="gap-x-2 gap-y-2">
     {Object.values(IconVariants).map((variant) => (
       <Card key={variant} className="max-w-lg">
-        <Title>{variant}</Title>
-        <Grid numCols={5}>
+        <text>{variant}</text>
+        <Grid numItems={5}>
           {Object.values(BaseColors).map((color) => (
             <div key={color} className="mt-2">
               <Icon icon={args.icon} variant={variant} color={color} />

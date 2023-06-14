@@ -85,34 +85,56 @@ export const getButtonProportions = (variant: ButtonVariant) => {
   };
 };
 
-export const getButtonColors = (variant: ButtonVariant, color: Color) => {
+export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
   switch (variant) {
     case "primary":
       return {
-        textColor: getColorClassNames("white").textColor,
-        hoverTextColor: getColorClassNames("white").textColor,
-        bgColor: getColorClassNames(color, colorPalette.background).bgColor,
-        hoverBgColor: getColorClassNames(color, colorPalette.darkBackground).hoverBgColor,
-        borderColor: getColorClassNames(color, colorPalette.border).borderColor,
-        focusRingColor: getColorClassNames(color, colorPalette.ring).focusRingColor,
+        textColor: color
+          ? getColorClassNames("white").textColor
+          : "text-tremor-brand-inverted dark:text-dark-tremor-brand-inverted",
+        hoverTextColor: color
+          ? getColorClassNames("white").textColor
+          : "text-tremor-brand-inverted dark:text-dark-tremor-brand-inverted",
+        bgColor: color
+          ? getColorClassNames(color, colorPalette.background).bgColor
+          : "bg-tremor-brand dark:bg-dark-tremor-brand",
+        hoverBgColor: color
+          ? getColorClassNames(color, colorPalette.darkBackground).hoverBgColor
+          : "hover:bg-tremor-brand-emphasis dark:hover:bg-dark-tremor-brand-emphasis",
+        borderColor: color
+          ? getColorClassNames(color, colorPalette.border).borderColor
+          : "border-tremor-brand dark:border-dark-tremor-brand",
+        hoverBorderColor: color
+          ? getColorClassNames(color, colorPalette.darkBorder).hoverBorderColor
+          : "hover:border-tremor-brand-emphasis dark:hover:border-dark-tremor-brand-emphasis",
       };
     case "secondary":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
-        hoverTextColor: getColorClassNames(color, colorPalette.text).textColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
+        hoverTextColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "hover:text-tremor-brand-emphasis dark:hover:text-dark-tremor-brand-emphasis",
         bgColor: getColorClassNames("transparent").bgColor,
-        hoverBgColor: getColorClassNames(color, colorPalette.lightBackground).hoverBgColor,
-        borderColor: getColorClassNames(color, colorPalette.border).borderColor,
-        focusRingColor: getColorClassNames(color, colorPalette.ring).focusRingColor,
+        hoverBgColor: color
+          ? getColorClassNames(color, colorPalette.lightBackground).hoverBgColor
+          : "hover:bg-tremor-brand-faint dark:hover:bg-dark-tremor-brand-faint",
+        borderColor: color
+          ? getColorClassNames(color, colorPalette.border).borderColor
+          : "border-tremor-brand dark:border-dark-tremor-brand",
       };
     case "light":
       return {
-        textColor: getColorClassNames(color, colorPalette.text).textColor,
-        hoverTextColor: getColorClassNames(color, colorPalette.darkText).hoverTextColor,
+        textColor: color
+          ? getColorClassNames(color, colorPalette.text).textColor
+          : "text-tremor-brand dark:text-dark-tremor-brand",
+        hoverTextColor: color
+          ? getColorClassNames(color, colorPalette.darkText).hoverTextColor
+          : "hover:text-tremor-brand-emphasis dark:hover:text-dark-tremor-brand-emphasis",
         bgColor: getColorClassNames("transparent").bgColor,
         borderColor: "",
         hoverBorderColor: "",
-        focusRingColor: "",
       };
   }
 };
