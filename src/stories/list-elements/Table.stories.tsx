@@ -8,18 +8,11 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
+  BadgeDelta,
 } from "components";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
 import { DeltaType } from "lib";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/ListElements/Table",
-  component: Table,
-} as ComponentMeta<typeof Table>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+import { Meta, StoryObj } from "@storybook/react";
 
 const data = [
   {
@@ -51,42 +44,51 @@ const data = [
   },
 ];
 
-const Template: ComponentStory<typeof Table> = (args) => {
-  return (
-    <Card>
-      <Table {...args}>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell>Sales ($)</TableHeaderCell>
-            <TableHeaderCell>Region</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
-            <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {data.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.sales}</TableCell>
-              <TableCell>{item.region}</TableCell>
-              <TableCell>
-                <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
-                  {item.status}
-                </BadgeDelta>
-              </TableCell>
-              <TableCell className="text-right">{item.hours}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Card>
-  );
+const meta: Meta<typeof Table> = {
+  title: "Tremor/ListElements/Table",
+  component: Table,
+  decorators: [(Story) => <Story />],
 };
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  children: undefined,
+export default meta;
+type Story = StoryObj<typeof Table>;
+
+const TableResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card>
+        <Table {...args}>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell>Name</TableHeaderCell>
+              <TableHeaderCell>Sales ($)</TableHeaderCell>
+              <TableHeaderCell>Region</TableHeaderCell>
+              <TableHeaderCell>Status</TableHeaderCell>
+              <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {data.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.sales}</TableCell>
+                <TableCell>{item.region}</TableCell>
+                <TableCell>
+                  <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
+                    {item.status}
+                  </BadgeDelta>
+                </TableCell>
+                <TableCell className="text-right">{item.hours}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Card>
+    );
+  },
+};
+
+export const DefaultExample: Story = {
+  ...TableResponsiveFlexTemplate,
 };

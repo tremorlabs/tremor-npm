@@ -1,33 +1,41 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Card, List, ListItem } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+import { Meta, StoryObj } from "@storybook/react";
+
+const meta: Meta<typeof List> = {
   title: "Tremor/ListElements/List",
   component: List,
-} as ComponentMeta<typeof List>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const Template: ComponentStory<typeof List> = (args) => (
-  <Card>
-    <List {...args}>
-      <ListItem>
-        <div>Hello</div>
-        <div>World</div>
-      </ListItem>
-      <ListItem>
-        <div>Hello</div>
-        <div>World</div>
-      </ListItem>
-    </List>
-  </Card>
-);
+export default meta;
+type Story = StoryObj<typeof List>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  className: "mt-5",
-  children: undefined,
+const ListResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card>
+        <List {...args}>
+          <ListItem>
+            <div>Hello</div>
+            <div>World</div>
+          </ListItem>
+          <ListItem>
+            <div>Hello</div>
+            <div>World</div>
+          </ListItem>
+        </List>
+      </Card>
+    );
+  },
+};
+
+export const DefaultExample: Story = {
+  ...ListResponsiveFlexTemplate,
+  args: {
+    className: "mt-5",
+    children: undefined,
+  },
 };

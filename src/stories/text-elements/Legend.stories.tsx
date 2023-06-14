@@ -1,28 +1,30 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card, Legend } from "components";
+import { Meta, StoryObj } from "@storybook/react";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+import { Legend, Card } from "components";
+
+const meta: Meta<typeof Legend> = {
   title: "Tremor/TextElements/Legend",
   component: Legend,
-} as ComponentMeta<typeof Legend>;
-
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Legend> = (args) => (
-  <Card className="max-w-md">
-    <Legend {...args} />
-  </Card>
-);
-
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
+  args: {
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
+  },
+  decorators: [
+    (Story) => (
+      <Card className="max-w-md">
+        <Story />
+      </Card>
+    ),
   ],
 };
+
+export default meta;
+type Story = StoryObj<typeof Legend>;
+
+export const DefaultExample: Story = {};

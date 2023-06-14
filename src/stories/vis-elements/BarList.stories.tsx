@@ -1,42 +1,57 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import { BarList, Card } from "components";
+import { Card, BarList } from "components";
+
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 import { BarListProps } from "components/vis-elements/BarList/BarList";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof BarList> = {
   title: "Tremor/VisElements/BarList",
   component: BarList,
-} as ComponentMeta<typeof BarList>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  decorators: [(Story) => <Story />],
+};
 
-const Template: ComponentStory<typeof BarList> = (args) => (
-  <Card>
-    <BarList {...args} />
-  </Card>
-);
+export default meta;
+type Story = StoryObj<typeof BarList>;
 
-const ColorsTemplate: ComponentStory<typeof BarList> = (args) => (
-  <div className="space-y-2">
-    {Object.values(BaseColors).map((color) => (
-      <Card key={color}>
-        <BarList {...args} color={color} />
+const BarListResponsiveFlexTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Card>
+        <BarList {...args} />
       </Card>
-    ))}
-  </div>
-);
+    );
+  },
+};
 
-const IndividualColorsTemplate: ComponentStory<typeof BarList> = (args) => (
-  <div className="space-y-2">
-    <Card>
-      <BarList {...args} />
-    </Card>
-  </div>
-);
+const BarListTemplateColors: Story = {
+  render: ({ ...args }) => {
+    return (
+      <div className="space-y-2">
+        {Object.values(BaseColors).map((color) => (
+          <Card key={color}>
+            <BarList {...args} color={color} />
+          </Card>
+        ))}
+      </div>
+    );
+  },
+};
+
+const BarListTemplateIndividualColors: Story = {
+  render: ({ ...args }) => {
+    return (
+      <div className="space-y-2">
+        <Card>
+          <BarList {...args} />
+        </Card>
+      </div>
+    );
+  },
+};
 
 const getData = (
   additionalProps: Array<Record<string, unknown>> = [],
@@ -60,37 +75,42 @@ const getData = (
   return [...updatedData, ...additionalItems];
 };
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  data: getData(),
-  valueFormatter: (value) => `${value} USD`,
+export const DefaultExample: Story = {
+  ...BarListResponsiveFlexTemplate,
+  args: {
+    data: getData(),
+    valueFormatter: (value) => `${value} USD`,
+  },
 };
 
-export const WithIcon = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithIcon.args = {
-  data: getData(Array(5).fill({ icon: CalendarIcon })),
-  valueFormatter: (value) => `${value} USD`,
+export const WithIconExample: Story = {
+  ...BarListResponsiveFlexTemplate,
+  args: {
+    data: getData(Array(5).fill({ icon: CalendarIcon })),
+    valueFormatter: (value) => `${value} USD`,
+  },
 };
 
-export const WithLinks = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithLinks.args = {
-  data: getData(Array(4).fill({ href: "https://www.tremor.so/" })),
-  valueFormatter: (value) => `${value} USD`,
+export const WithLinksExample: Story = {
+  ...BarListResponsiveFlexTemplate,
+  args: {
+    data: getData(Array(4).fill({ href: "https://www.tremor.so/" })),
+    valueFormatter: (value) => `${value} USD`,
+  },
 };
 
-export const Colors = ColorsTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Colors.args = {
-  data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
-  valueFormatter: (value) => `${value} USD`,
+export const ExampleColors: Story = {
+  ...BarListTemplateColors,
+  args: {
+    data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
+    valueFormatter: (value) => `${value} USD`,
+  },
 };
 
-export const IndividualColors = IndividualColorsTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-IndividualColors.args = {
-  data: getData(["blue", "amber", "cyan", "emerald", "indigo"].map((color) => ({ color }))),
-  valueFormatter: (value) => `${value} USD`,
+export const ExampleIndividualColors: Story = {
+  ...BarListTemplateIndividualColors,
+  args: {
+    data: getData(["blue", "amber", "cyan", "emerald", "indigo"].map((color) => ({ color }))),
+    valueFormatter: (value) => `${value} USD`,
+  },
 };
