@@ -122,3 +122,13 @@ export const WithTypePassword = Template.bind({});
 WithTypePassword.args = {
   type: "password",
 };
+
+export const WithTypeEmail = Template.bind({});
+WithTypeEmail.args = {
+  type: "email",
+};
+
+export const WithTypeUrl = Template.bind({});
+WithTypeUrl.args = {
+  type: "url",
+};
