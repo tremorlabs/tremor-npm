@@ -5,3 +5,4 @@ export * from "./Tabs";
 export * from "./Button";
 export * from "./DateRangePicker";
 export * from "./TextInput";
+export * from "./NumberInput";
