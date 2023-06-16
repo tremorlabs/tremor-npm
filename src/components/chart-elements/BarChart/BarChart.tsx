@@ -80,8 +80,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "dark:stroke-dark-tremor-content-subtle",
                 )}
                 strokeDasharray="3 3"
-                horizontal={layout !== "vertical" ? true : false}
-                vertical={layout !== "vertical" ? false : true}
+                horizontal={layout !== "vertical"}
+                vertical={layout === "vertical"}
               />
             ) : null}
 
