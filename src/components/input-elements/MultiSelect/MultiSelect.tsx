@@ -42,6 +42,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // checked if there are selected options
+  // used the same code from the previous version
   const selectedItems = selectedValue ?? [];
   const hasSelection = selectedItems.length > 0;
 
@@ -138,6 +140,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             </span>
           </Listbox.Button>
 
+          {/* coditionally showed XCircle */}
           {hasSelection && !disabled ? (
             <button
               className={tremorTwMerge(
