@@ -3,7 +3,7 @@ import React, { ReactElement, useMemo, useState } from "react";
 import { sizing, tremorTwMerge, border, spacing } from "lib";
 import { DateRange, DayPicker } from "react-day-picker";
 
-import { startOfMonth, startOfToday } from "date-fns";
+import { max, min, startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { useInternalState } from "hooks";
@@ -25,7 +25,7 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
+import { DateRangePickerItemProps } from "components/input-elements/DatePicker/DateRangePickerItem";
 
 const TODAY = startOfToday();
 
@@ -33,11 +33,11 @@ export type Locale = typeof enUS;
 
 export type DateRangePickerValue = { from?: Date; to?: Date; selectValue?: string };
 
-export interface DateRangePickerProps
+export interface BaseDatePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
-  value?: DateRangePickerValue;
-  defaultValue?: DateRangePickerValue;
-  onValueChange?: (value: DateRangePickerValue) => void;
+  value?: any;
+  defaultValue?: any;
+  onValueChange?: (value: any) => void;
   enableSelect?: boolean;
   minDate?: Date;
   maxDate?: Date;
@@ -48,9 +48,16 @@ export interface DateRangePickerProps
   locale?: Locale;
   enableClear?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
+  type?: "range" | "single";
 }
 
-const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+};
+
+const BaseDatePicker = React.forwardRef<HTMLDivElement, BaseDatePickerProps>((props, ref) => {
   const {
     value,
     defaultValue,
@@ -65,13 +72,15 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     enableClear = true,
     children,
     className,
+    type = "range",
     ...other
   } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [isCalendarButtonFocused, setIsCalendarButtonFocused] = useState(false);
   const [isSelectButtonFocused, setIsSelectButtonFocused] = useState(false);
-
+  const [singleValue, setSingleValue] = useState<Date | undefined>(defaultValue);
+  const isSingleDate = type === "single";
   const disabledDays = useMemo(() => {
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
@@ -130,10 +139,23 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     selectedSelectValue,
     selectValues,
   );
+
+  const singleDate = useMemo(() => {
+    if (!value && !singleValue) return;
+    const targetDate = value ?? singleValue;
+
+    return min([max([targetDate, minDate ?? targetDate]), maxDate ?? targetDate]);
+  }, [maxDate, minDate, singleValue, value]);
+
   const formattedSelection =
     !selectedStartDate && !selectedEndDate
       ? placeholder
       : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
+
+  const formattedSingleDate =
+    (isSingleDate && singleDate?.toLocaleDateString(locale?.code ?? "en-US", dateOptions)) ||
+    placeholder;
+
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;
@@ -146,8 +168,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   };
 
   const handleReset = () => {
-    onValueChange?.({});
+    onValueChange?.(isSingleDate ? undefined : {});
     setSelectedValue({});
+    setSingleValue(undefined);
   };
 
   return (
@@ -187,10 +210,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,
               border.sm.all,
-              getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
+              getSelectButtonColors(
+                hasValue<Date>(singleDate ?? selectedStartDate ?? selectedEndDate),
+                disabled,
+              ),
             )}
           >
-            {formattedSelection}
+            {isSingleDate ? formattedSingleDate : formattedSelection}
           </Popover.Button>
           {isClearEnabled && (
             <button
@@ -238,17 +264,27 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           )}
         >
           <DayPicker
-            mode="range"
+            mode={type as any}
             showOutsideDays={true}
             defaultMonth={defaultMonth}
-            selected={{
-              from: selectedStartDate,
-              to: selectedEndDate,
-            }}
+            selected={
+              isSingleDate
+                ? singleDate
+                : {
+                    from: selectedStartDate,
+                    to: selectedEndDate,
+                  }
+            }
             onSelect={
-              ((v: DateRange) => {
-                onValueChange?.({ from: v?.from, to: v?.to });
-                setSelectedValue({ from: v?.from, to: v?.to });
+              ((v: DateRange | Date) => {
+                if (isSingleDate) {
+                  setSingleValue(v as Date);
+                  onValueChange?.(v);
+                } else {
+                  const { from, to } = v as DateRange;
+                  onValueChange?.({ from, to });
+                  setSelectedValue({ from, to });
+                }
               }) as any
             }
             locale={locale}
@@ -355,6 +391,25 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   );
 });
 
+BaseDatePicker.displayName = "BaseDatePicker";
+
+export interface DateRangePickerProps extends BaseDatePickerProps {
+  value?: DateRangePickerValue;
+  defaultValue?: DateRangePickerValue;
+  onValueChange?: (value: DateRangePickerValue) => void;
+}
+export const DateRangePicker = (props: DateRangePickerProps) => (
+  <BaseDatePicker {...props} type="range" />
+);
 DateRangePicker.displayName = "DateRangePicker";
 
-export default DateRangePicker;
+export interface SingleDatePickerProps
+  extends Omit<BaseDatePickerProps, "enableSelect" | "selectPlaceholder" | "children"> {
+  value?: Date;
+  defaultValue?: Date;
+  onValueChange?: (value: Date) => void;
+}
+export const SingleDatePicker = (props: SingleDatePickerProps) => (
+  <BaseDatePicker {...props} type="single" enableSelect={false} />
+);
+SingleDatePicker.displayName = "SingleDatePicker";
