@@ -111,6 +111,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="number"
                 tick={{ transform: "translate(-3, 0)" }}
                 domain={yAxisDomain as AxisDomain}
+                fill=""
+                stroke=""
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
@@ -162,6 +164,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 type="category"
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }}
+                fill=""
+                stroke=""
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
