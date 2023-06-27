@@ -289,7 +289,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               IconLeft: ({ ...props }) => <ArrowLeftHeadIcon {...props} className="h-4 w-4" />,
               IconRight: ({ ...props }) => <ArrowRightHeadIcon {...props} className="h-4 w-4" />,
             }}
-            {...props}
           />
         </Popover.Panel>
       </Popover>
