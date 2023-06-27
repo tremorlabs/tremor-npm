@@ -227,7 +227,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         <Popover.Panel
           className={tremorTwMerge(
             // common
-            "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default",
+            "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark
@@ -253,7 +253,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             }
             locale={locale}
             disabled={disabledDays}
-            className="p-3"
             classNames={{
               months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
               month: "space-y-4",
@@ -287,8 +286,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
             }}
             components={{
-              IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
-              IconRight: ({ ...props }) => <ArrowRightHeadIcon className="h-4 w-4" {...props} />,
+              IconLeft: ({ ...props }) => <ArrowLeftHeadIcon {...props} />,
+              IconRight: ({ ...props }) => <ArrowRightHeadIcon {...props} />,
             }}
             {...props}
           />
