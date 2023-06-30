@@ -18,6 +18,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
+  enableClear?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
@@ -29,6 +30,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     placeholder = "Select...",
     disabled = false,
     icon,
+    enableClear = false,
     children,
     className,
     ...other
@@ -126,30 +128,32 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               />
             </span>
           </Listbox.Button>
-          <button
-            className={tremorTwMerge(
-              "absolute inset-y-0 right-0 flex items-center",
-              spacing.fourXl.marginRight,
-            )}
-            onClick={(e) => {
-              e.preventDefault();
-              handleReset();
-            }}
-          >
-            <XCircleIcon
+          {enableClear && selectedValue ? (
+            <button
               className={tremorTwMerge(
-                makeSelectClassName("clearIcon"),
-                // common
-                "flex-none",
-                // light
-                "text-tremor-content-subtle",
-                // dark
-                "dark:text-dark-tremor-content-subtle",
-                sizing.md.height,
-                sizing.md.width,
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.fourXl.marginRight,
               )}
-            />
-          </button>
+              onClick={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <XCircleIcon
+                className={tremorTwMerge(
+                  makeSelectClassName("clearIcon"),
+                  // common
+                  "flex-none",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
+                  sizing.md.height,
+                  sizing.md.width,
+                )}
+              />
+            </button>
+          ) : null}
           <Listbox.Options
             className={tremorTwMerge(
               // common

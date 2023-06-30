@@ -99,6 +99,12 @@ DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
 };
 
+export const WithClearEnabled = ResponsiveTemplate.bind({});
+WithClearEnabled.args = {
+  onValueChange: (v) => alert(v),
+  enableClear: true,
+};
+
 export const WithFlexParent = FlexTemplate.bind({});
 WithFlexParent.args = {
   className: "max-w-xs",
