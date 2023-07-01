@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactElement, useMemo, useState } from "react";
 import { sizing, tremorTwMerge, border, spacing } from "lib";
-import { DateRange, DayPicker } from "react-day-picker";
+import { DateRange, DayPickerRangeProps } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -17,7 +17,7 @@ import {
 } from "./dateRangePickerUtils";
 
 import { SelectItem } from "components/input-elements/Select";
-import { ArrowLeftHeadIcon, ArrowRightHeadIcon, XCircleIcon } from "assets";
+import { XCircleIcon } from "assets";
 import { Listbox, Popover } from "@headlessui/react";
 import {
   constructValueToNameMapping,
@@ -26,6 +26,7 @@ import {
   hasValue,
 } from "../selectUtils";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
+import { Calendar } from "components/input-elements/Calendar";
 
 const TODAY = startOfToday();
 
@@ -232,7 +233,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             border.sm.all,
           )}
         >
-          <DayPicker
+          <Calendar<DayPickerRangeProps>
             mode="range"
             showOutsideDays={true}
             defaultMonth={defaultMonth}
@@ -249,40 +250,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             locale={locale}
             disabled={disabledDays}
             classNames={{
-              months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-              month: "space-y-4",
-              caption: "flex justify-center pt-2 relative items-center",
-              caption_label:
-                "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
-              nav: "space-x-1 flex items-center",
-              nav_button: tremorTwMerge(
-                "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
-              ),
-              nav_button_previous: "absolute left-1",
-              nav_button_next: "absolute right-1",
-              table: "w-full border-collapse space-y-1",
-              head_row: "flex",
-              head_cell:
-                "w-9 font-normal text-center text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
-              row: "flex w-full mt-0.5",
-              cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
-              day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
-              day_selected:
-                "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
-              day_disabled:
-                "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
               day_range_middle: tremorTwMerge(
                 "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
               ),
-              day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
               day_range_start:
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
               day_range_end:
                 "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
-            }}
-            components={{
-              IconLeft: ({ ...props }) => <ArrowLeftHeadIcon {...props} className="h-4 w-4" />,
-              IconRight: ({ ...props }) => <ArrowRightHeadIcon {...props} className="h-4 w-4" />,
             }}
           />
         </Popover.Panel>
