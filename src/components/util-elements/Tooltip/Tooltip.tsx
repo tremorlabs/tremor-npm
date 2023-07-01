@@ -17,12 +17,25 @@ import {
 import { tremorTwMerge } from "lib";
 import { spacing } from "lib";
 
-export const useTooltip = () => {
+export const useTooltip = (delay?: number) => {
   const [open, setOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
+
+  const handleOpenChange = (isOpen: boolean) => {
+    if (isOpen && delay) {
+      const timer = setTimeout(() => {
+        setOpen(isOpen);
+      }, delay);
+      setTimeoutId(timer);
+      return;
+    }
+    clearTimeout(timeoutId);
+    setOpen(isOpen);
+  };
 
   const { x, y, refs, strategy, context } = useFloating({
     open,
-    onOpenChange: setOpen,
+    onOpenChange: handleOpenChange,
     placement: "top",
     whileElementsMounted: autoUpdate,
     middleware: [

@@ -12,6 +12,7 @@ import {
   TabPanel,
   TabPanels,
   Text,
+  TextInput,
   Title,
 } from "components";
 import { BaseColors } from "lib";
@@ -23,6 +24,31 @@ export default {
   component: TabGroup,
 } as ComponentMeta<typeof TabGroup>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
+const TabTest = (args: any) => (
+  <div className="max-w-2xl p-8">
+    <div className="flex flex-row gap-2">
+      <TextInput value={"50kg"} />
+      <TabGroup index={1}>
+        <TabList variant="solid">
+          <Tab>kg</Tab>
+          <Tab>lbs</Tab>
+        </TabList>
+      </TabGroup>
+      <div>
+        <TextInput value={"50kg"} />
+      </div>
+      <div>
+        <TabGroup index={1}>
+          <TabList variant="solid">
+            <Tab>kg</Tab>
+            <Tab>lbs</Tab>
+          </TabList>
+        </TabGroup>
+      </div>
+    </div>
+  </div>
+);
 
 const TabLine = (args: any) => (
   <TabGroup defaultIndex={0} {...args}>
@@ -133,6 +159,8 @@ const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
     </Card>
   );
 };
+
+export const Test = TabTest.bind({});
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {

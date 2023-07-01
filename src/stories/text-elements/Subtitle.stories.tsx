@@ -16,8 +16,8 @@ const Template: ComponentStory<typeof Subtitle> = (args) => (
   <Card>
     <Subtitle {...args} className="truncate">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer
-      took a galley of type andSubtitleambled it to make a type specimen book.
+      been the industry&apos;s standard dummy text ever since the 900s, when an unknown printer took
+      a galley of type andSubtitleambled it to make a type specimen book.
     </Subtitle>
   </Card>
 );

@@ -15,7 +15,7 @@ const DateRangePickerItem = React.forwardRef<HTMLLIElement, DateRangePickerItemP
 
     return (
       <SelectItem ref={ref} className={className} value={value} {...other}>
-        {value ?? children}
+        {children ?? value}
       </SelectItem>
     );
   },

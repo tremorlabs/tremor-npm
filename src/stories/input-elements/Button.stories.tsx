@@ -158,10 +158,13 @@ const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
   );
 };
 
+const tooltip = "Tooltip";
+
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
   onClick: () => alert(2),
   className: "max-w-fit",
+  tooltip,
 };
 
 export const Colors = ColorsTemplate.bind({});
