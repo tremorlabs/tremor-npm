@@ -24,11 +24,9 @@ export interface DatePickerProps
   value?: Date;
   defaultValue?: Date;
   onValueChange?: (value: Date | undefined) => void;
-  enableSelect?: boolean;
   minDate?: Date;
   maxDate?: Date;
   placeholder?: string;
-  selectPlaceholder?: string;
   disabled?: boolean;
   color?: Color;
   locale?: Locale;
@@ -41,7 +39,6 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     value,
     defaultValue,
     onValueChange,
-    enableSelect = true,
     minDate,
     maxDate,
     placeholder = "Select",
@@ -78,7 +75,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
       ref={ref}
       as="div"
       className={tremorTwMerge(
-        "relative w-full min-w-[10rem] rounded-tremor-default text-tremor-default",
+        "relative w-full min-w-[10rem] text-tremor-default",
         "focus:ring-2 focus:ring-tremor-brand-muted focus:dark:focus:ring-dark-tremor-brand-muted",
         className,
       )}
@@ -88,12 +85,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         disabled={disabled}
         className={tremorTwMerge(
           // common
-          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100",
+          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default",
           // light
           "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
           // dark
           "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
-          enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           spacing.twoXl.paddingLeft,
           isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
