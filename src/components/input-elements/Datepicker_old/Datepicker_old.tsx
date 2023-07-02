@@ -19,7 +19,7 @@ const TODAY = startOfToday();
 
 export type Locale = typeof enUS;
 
-export interface DatepickerProps
+export interface DatePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
   value?: Date;
   defaultValue?: Date;
@@ -36,7 +36,7 @@ export interface DatepickerProps
   children?: React.ReactElement[] | React.ReactElement;
 }
 
-const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>((props, ref) => {
+const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   const {
     value,
     defaultValue,
@@ -160,6 +160,6 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>((props, ref
   );
 });
 
-Datepicker.displayName = "DateRangePicker";
+DatePicker.displayName = "DatePicker";
 
-export default Datepicker;
+export default DatePicker;

@@ -2,22 +2,22 @@ import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Button, Card, Datepicker, Text, Title } from "components";
+import { Button, Card, DatePicker, Text, Title } from "components";
 import { fr } from "date-fns/locale";
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Tremor/InputElements/Datepicker",
-  component: Datepicker,
-} as ComponentMeta<typeof Datepicker>;
+  title: "Tremor/InputElements/DatePicker",
+  component: DatePicker,
+} as ComponentMeta<typeof DatePicker>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const UncontrolledTemplate: ComponentStory<typeof Datepicker> = (args) => {
+const UncontrolledTemplate: ComponentStory<typeof DatePicker> = (args) => {
   const [value, setValue] = useState<Date>();
 
   return (
     <div className="space-y-4">
       <Card>
-        <Datepicker {...args} onValueChange={(value: Date | undefined) => setValue(value)} />
+        <DatePicker {...args} onValueChange={(value: Date | undefined) => setValue(value)} />
         <Title>Filtered Data</Title>
         <Text>Date: {String(value)} </Text>
       </Card>
@@ -25,12 +25,12 @@ const UncontrolledTemplate: ComponentStory<typeof Datepicker> = (args) => {
   );
 };
 
-const ControlledTemplate: ComponentStory<typeof Datepicker> = (args) => {
+const ControlledTemplate: ComponentStory<typeof DatePicker> = (args) => {
   const [value, setValue] = useState<Date | undefined>(args.value!);
 
   return (
     <Card>
-      <Datepicker {...args} value={value} onValueChange={(v: Date | undefined) => setValue(v)} />
+      <DatePicker {...args} value={value} onValueChange={(v: Date | undefined) => setValue(v)} />
       <Button
         onClick={() => {
           setValue(undefined);
