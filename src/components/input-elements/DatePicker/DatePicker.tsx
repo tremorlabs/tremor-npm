@@ -137,20 +137,23 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           border.sm.all,
         )}
       >
-        <Calendar<DayPickerSingleProps>
-          showOutsideDays={true}
-          mode="single"
-          defaultMonth={defaultMonth}
-          selected={selectedValue}
-          onSelect={
-            ((v: Date) => {
-              onValueChange?.(v);
-              setSelectedValue(v);
-            }) as any
-          }
-          locale={locale}
-          disabled={disabledDays}
-        />
+        {({ close }) => (
+          <Calendar<DayPickerSingleProps>
+            showOutsideDays={true}
+            mode="single"
+            defaultMonth={defaultMonth}
+            selected={selectedValue}
+            onSelect={
+              ((v: Date) => {
+                onValueChange?.(v);
+                setSelectedValue(v);
+                close();
+              }) as any
+            }
+            locale={locale}
+            disabled={disabledDays}
+          />
+        )}
       </Popover.Panel>
     </Popover>
   );
