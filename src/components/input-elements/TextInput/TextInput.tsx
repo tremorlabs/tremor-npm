@@ -4,7 +4,7 @@ import BaseInput from "assets/BaseInput";
 import type { BaseInputProps } from "assets/BaseInput";
 import { makeClassName } from "lib";
 
-export interface TextInputProps extends BaseInputProps {
+export type TextInputProps = Omit<BaseInputProps, "numberControllers"> & {
   type?: "text" | "password" | "email" | "url";
   defaultValue?: string;
   value?: string;
@@ -12,7 +12,7 @@ export interface TextInputProps extends BaseInputProps {
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
-}
+};
 
 const makeTextInputClassName = makeClassName("TextInput");
 

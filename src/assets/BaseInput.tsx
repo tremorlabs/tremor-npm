@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
 import { ExclamationFilledIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
@@ -12,6 +12,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
+  numberControllers?: ReactNode;
 }
 
 const BaseInput = React.forwardRef<
@@ -119,6 +120,8 @@ const BaseInput = React.forwardRef<
           disabled={disabled}
           {...other}
         />
+        {props.numberControllers ?? null}
+
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(

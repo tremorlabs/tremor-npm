@@ -32,12 +32,7 @@ const Template: ComponentStory<typeof NumberInput> = (args) => {
         <label htmlFor="a">
           <Text>Controlled</Text>
         </label>
-        <NumberInput
-          {...args}
-          id={"a"}
-          value={value}
-          onChange={(e) => setValue(parseInt(e.target.value))}
-        />
+        <NumberInput {...args} id={"a"} value={value} onChange={(e) => setValue(e)} />
         <Button type="submit" className="mt-2">
           Submit
         </Button>
@@ -66,6 +61,17 @@ WithNoPlaceholder.args = {
 export const WithDefaultValue = Template.bind({});
 WithDefaultValue.args = {
   value: 123,
+};
+
+export const WithStepAttribute = Template.bind({});
+WithStepAttribute.args = {
+  step: ".1",
+};
+
+export const WithMinMaxAttribute = Template.bind({});
+WithMinMaxAttribute.args = {
+  min: "2",
+  max: "10",
 };
 
 export const WithError = Template.bind({});
