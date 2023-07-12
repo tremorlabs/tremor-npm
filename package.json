@@ -30,7 +30,7 @@
     "date-fns": "^2.28.0",
     "react-day-picker": "^8.7.1",
     "react-transition-group": "^4.4.5",
-    "recharts": "2.7.0-alpha.0",
+    "recharts": "^2.7.1",
     "tailwind-merge": "^1.9.1"
   },
   "devDependencies": {
