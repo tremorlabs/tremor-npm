@@ -18,21 +18,26 @@ const Template: ComponentStory<typeof NumberInput> = (args) => {
     <Card>
       <form
         onSubmit={(e) => {
-          alert(value);
           e.preventDefault();
         }}
         onReset={() => setValue(0)}
       >
         <Text>Uncontrolled</Text>
-        <NumberInput {...args} />
+        <NumberInput {...args} onSubmit={(value: number) => alert(value)} />
         <Text>Uncontrolled with defaultValue</Text>
-        <NumberInput {...args} defaultValue={123} />
+        <NumberInput {...args} defaultValue={123} onSubmit={(value: number) => alert(value)} />
         <Text>Conrolled without onChange</Text>
-        <NumberInput {...args} value={value} />
+        <NumberInput {...args} value={value} onSubmit={(value: number) => alert(value)} />
         <label htmlFor="a">
           <Text>Controlled</Text>
         </label>
-        <NumberInput {...args} id={"a"} value={value} onChange={(e) => setValue(e)} />
+        <NumberInput
+          {...args}
+          id={"a"}
+          value={value}
+          onValueChange={(e) => setValue(e)}
+          onSubmit={(value: number) => alert(value)}
+        />
         <Button type="submit" className="mt-2">
           Submit
         </Button>

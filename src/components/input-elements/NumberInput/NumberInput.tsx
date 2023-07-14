@@ -3,65 +3,72 @@ import BaseInput from "assets/BaseInput";
 import React, { useRef } from "react";
 import type { BaseInputProps } from "assets/BaseInput";
 import { makeClassName, tremorTwMerge } from "lib";
-import { ArrowDownIcon, ArrowUpIcon } from "assets";
+import { ArrowDownHeadIcon, ArrowUpHeadIcon } from "assets";
 
-export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers" | "onChange"> & {
+export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers" | "onSubmit"> & {
   min?: string;
   max?: string;
   step?: string;
-  onChange?: (value: number, evt?: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit?: (value: number) => void;
+  onValueChange?: (value: number) => void;
 };
 
 const makeNumberInputClassName = makeClassName("NumberInput");
 
-const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props) => {
-  const handleChange = (value: number, evt?: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChange?.(value, evt);
-  };
-  const inputRef = useRef<HTMLInputElement>(null);
-  return (
-    <BaseInput
-      type="number"
-      {...props}
-      makeInputClassName={makeNumberInputClassName}
-      numberControllers={
-        <div
-          className={tremorTwMerge(
-            "flex justify-center align-middle flex-col border-l px-2",
-            "border-tremor-border dark:border-dark-tremor-border",
-          )}
-        >
-          <ArrowUpIcon
-            onClick={() => {
-              inputRef.current?.stepUp();
-              handleChange(parseFloat(inputRef.current?.value ?? ""));
-            }}
-            data-testid="arrow-up"
-            width="15px"
-            height="15px"
-            className="cursor-pointer"
-          />
+const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
+  ({ onSubmit, ...restProps }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    return (
+      <BaseInput
+        type="number"
+        {...restProps}
+        makeInputClassName={makeNumberInputClassName}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+            const value = inputRef.current?.value;
+            onSubmit?.(parseFloat(value ?? ""));
+          }
+        }}
+        numberControllers={
+          <div
+            className={tremorTwMerge(
+              "flex justify-center align-middle flex-col border-l px-2",
+              "border-tremor-border dark:border-dark-tremor-border",
+            )}
+          >
+            <ArrowUpHeadIcon
+              onClick={() => {
+                inputRef.current?.stepUp();
+                restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+              }}
+              data-testid="arrow-up"
+              width="20px"
+              height="20px"
+              className="cursor-pointer"
+            />
 
-          <hr className="absolute w-10 right-0 border-tremor-border dark:border-dark-tremor-border" />
-          <ArrowDownIcon
-            onClick={() => {
-              inputRef.current?.stepDown();
-              handleChange(parseFloat(inputRef.current?.value ?? ""));
-            }}
-            data-testid="arrow-down"
-            width="15px"
-            height="15px"
-            className="cursor-pointer"
-          />
-        </div>
-      }
-      ref={inputRef}
-      onChange={(e) => {
-        handleChange(parseFloat(e.target.value), e);
-      }}
-    />
-  );
-});
+            <hr className="absolute w-8 right-0 border-tremor-border dark:border-dark-tremor-border" />
+            <ArrowDownHeadIcon
+              onClick={() => {
+                inputRef.current?.stepDown();
+                restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+              }}
+              data-testid="arrow-down"
+              width="20px"
+              height="20px"
+              className="cursor-pointer"
+            />
+          </div>
+        }
+        ref={inputRef}
+        onChange={(e) => {
+          restProps.onValueChange?.(parseFloat(e.target.value));
+          restProps.onChange?.(e);
+        }}
+      />
+    );
+  },
+);
 
 NumberInput.displayName = "NumberInput";
 
