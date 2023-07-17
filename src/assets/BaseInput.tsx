@@ -120,8 +120,6 @@ const BaseInput = React.forwardRef<
           disabled={disabled}
           {...other}
         />
-        {props.numberControllers ?? null}
-
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(
@@ -133,6 +131,7 @@ const BaseInput = React.forwardRef<
             )}
           />
         ) : null}
+        {props.numberControllers ?? null}
       </div>
       {errorMessage ? (
         <p

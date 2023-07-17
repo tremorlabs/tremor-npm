@@ -38,30 +38,34 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           >
             <ArrowUpHeadIcon
               onClick={() => {
+                if (restProps.disabled) return;
                 inputRef.current?.stepUp();
                 restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
               }}
               data-testid="arrow-up"
               width="20px"
               height="20px"
-              className="cursor-pointer"
+              className={restProps.disabled ? "" : "cursor-pointer"}
             />
 
-            <hr className="absolute w-8 right-0 border-tremor-border dark:border-dark-tremor-border" />
+            <hr className="absolute w-9 right-0 border-tremor-border dark:border-dark-tremor-border" />
             <ArrowDownHeadIcon
               onClick={() => {
+                if (restProps.disabled) return;
                 inputRef.current?.stepDown();
                 restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
               }}
               data-testid="arrow-down"
               width="20px"
               height="20px"
-              className="cursor-pointer"
+              className={restProps.disabled ? "" : "cursor-pointer"}
             />
           </div>
         }
         ref={inputRef}
         onChange={(e) => {
+          if (restProps.disabled) return;
+
           restProps.onValueChange?.(parseFloat(e.target.value));
           restProps.onChange?.(e);
         }}
