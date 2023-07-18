@@ -14,7 +14,8 @@ export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers"
 };
 
 const makeNumberInputClassName = makeClassName("NumberInput");
-
+const baseArrowClasses = "flex px-2 text-tremor-content-subtle";
+const enabledArrowClasses = "cursor-pointer hover:text-tremor-content";
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   ({ onSubmit, ...restProps }) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -32,34 +33,38 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         numberControllers={
           <div
             className={tremorTwMerge(
-              "flex justify-center align-middle flex-col border-l px-2",
+              "flex justify-center align-middle flex-col border-l",
               "border-tremor-border dark:border-dark-tremor-border",
             )}
           >
-            <ArrowUpHeadIcon
+            <div
               onClick={() => {
                 if (restProps.disabled) return;
                 inputRef.current?.stepUp();
                 restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
               }}
-              data-testid="arrow-up"
-              width="20px"
-              height="20px"
-              className={restProps.disabled ? "" : "cursor-pointer"}
-            />
+              className={tremorTwMerge(
+                !restProps.disabled && enabledArrowClasses,
+                baseArrowClasses,
+              )}
+            >
+              <ArrowUpHeadIcon data-testid="arrow-up" width="20px" height="20px" />
+            </div>
 
             <hr className="absolute w-9 right-0 border-tremor-border dark:border-dark-tremor-border" />
-            <ArrowDownHeadIcon
+            <div
               onClick={() => {
                 if (restProps.disabled) return;
                 inputRef.current?.stepDown();
                 restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
               }}
-              data-testid="arrow-down"
-              width="20px"
-              height="20px"
-              className={restProps.disabled ? "" : "cursor-pointer"}
-            />
+              className={tremorTwMerge(
+                !restProps.disabled && enabledArrowClasses,
+                baseArrowClasses,
+              )}
+            >
+              <ArrowDownHeadIcon data-testid="arrow-down" width="20px" height="20px" />
+            </div>
           </div>
         }
         ref={inputRef}
