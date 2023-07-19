@@ -29,6 +29,7 @@ import {
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 import { Icon } from "components/icon-elements";
+import { NavButton } from "components/input-elements/DateRangePicker/NavButton";
 import { SelectItem } from "components/input-elements/Select";
 import { Text } from "components/text-elements";
 import { enUS } from "date-fns/locale";
@@ -294,41 +295,35 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
                 return (
                   <div className="flex justify-between items-center">
-                    {enableYearPagination && (
-                      <Icon
-                        className="cursor-pointer mr-2"
-                        onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
-                        icon={DoubleArrowLeftHeadIcon}
-                        variant="shadow"
-                        size="xs"
+                    <div className="flex items-center space-x-3">
+                      {enableYearPagination && (
+                        <NavButton
+                          onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
+                          icon={DoubleArrowLeftHeadIcon}
+                        />
+                      )}
+                      <NavButton
+                        onClick={() => previousMonth && goToMonth(previousMonth)}
+                        icon={ArrowLeftHeadIcon}
                       />
-                    )}
-                    <Icon
-                      className="cursor-pointer mr-2"
-                      onClick={() => previousMonth && goToMonth(previousMonth)}
-                      icon={ArrowLeftHeadIcon}
-                      variant="shadow"
-                      size="xs"
-                    />
+                    </div>
+
                     <Text className="text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
                       {format(props.displayMonth, "MMM yyy")}
                     </Text>
-                    <Icon
-                      className="cursor-pointer ml-2"
-                      onClick={() => nextMonth && goToMonth(nextMonth)}
-                      icon={ArrowRightHeadIcon}
-                      variant="shadow"
-                      size="xs"
-                    />
-                    {enableYearPagination && (
-                      <Icon
-                        className="cursor-pointer ml-2"
-                        onClick={() => currentMonth && goToMonth(addYears(currentMonth, 1))}
-                        icon={DoubleArrowRightHeadIcon}
-                        variant="shadow"
-                        size="xs"
+
+                    <div className="flex items-center space-x-3">
+                      <NavButton
+                        onClick={() => nextMonth && goToMonth(nextMonth)}
+                        icon={ArrowRightHeadIcon}
                       />
-                    )}
+                      {enableYearPagination && (
+                        <NavButton
+                          onClick={() => currentMonth && goToMonth(addYears(currentMonth, 1))}
+                          icon={DoubleArrowRightHeadIcon}
+                        />
+                      )}
+                    </div>
                   </div>
                 );
               },
