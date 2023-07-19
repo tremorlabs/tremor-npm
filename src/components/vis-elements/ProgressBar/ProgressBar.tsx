@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { BaseColors, getColorClassNames, makeClassName, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, makeClassName, sizing, spacing, tremorTwMerge } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
@@ -17,16 +17,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
-  const {
-    value,
-    label,
-    color = BaseColors.Blue,
-    tooltip,
-    showAnimation = true,
-    className,
-    ...other
-  } = props;
-
+  const { value, label, color, tooltip, showAnimation = true, className, ...other } = props;
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (

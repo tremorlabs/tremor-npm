@@ -2,8 +2,10 @@
 import React from "react";
 import { tremorTwMerge } from "lib";
 import { Transition } from "react-transition-group";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
-import { HorizontalPositions, Sizes, border, makeClassName, sizing, spacing } from "lib";
+import { HorizontalPositions, Sizes, border, makeClassName, mergeRefs, sizing, spacing } from "lib";
+
 import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
 import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
@@ -66,6 +68,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
+  tooltip?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -80,6 +83,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     loadingText,
     children,
     className,
+    tooltip,
     ...other
   } = props;
 
@@ -104,12 +108,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       : "";
   const buttonColorStyles = getButtonColors(variant, color);
   const buttonProportionStyles = getButtonProportions(variant)[size];
+  const delay = 300;
+  const { tooltipProps, getReferenceProps } = useTooltip(delay);
 
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
         <button
-          ref={ref}
+          ref={mergeRefs([ref, tooltipProps.refs.setReference])}
           className={tremorTwMerge(
             makeButtonClassName("root"),
             // common
@@ -132,8 +138,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
             className,
           )}
           disabled={isDisabled}
+          {...getReferenceProps}
           {...other}
         >
+          <Tooltip text={tooltip} {...tooltipProps} />
           {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
               loading={loading}

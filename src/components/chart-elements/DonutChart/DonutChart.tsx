@@ -38,7 +38,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     valueFormatter = defaultValueFormatter,
     label,
     showLabel = true,
-    animationDuration = 1500,
+    animationDuration = 900,
     showAnimation = true,
     showTooltip = true,
     noDataText,
@@ -71,6 +71,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               </text>
             ) : null}
             <Pie
+              className="stroke-tremor-background dark:stroke-dark-tremor-background"
               data={parseData(data, colors)}
               cx="50%"
               cy="50%"
@@ -78,8 +79,8 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               endAngle={-270}
               innerRadius={isDonut ? "75%" : "0%"}
               outerRadius="100%"
-              paddingAngle={1.5}
-              stroke="none"
+              stroke=""
+              strokeLinejoin="round"
               dataKey={category}
               nameKey={index}
               isAnimationActive={showAnimation}

@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, Text } from "components";
+import { Flex } from "../../../components/layout-elements/Flex";
+import { Text } from "../../../components/text-elements/Text";
 import { tremorTwMerge } from "lib";
 
 interface NoDataProps {
