@@ -275,7 +275,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
                 return (
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1">
                       {enableYearPagination && (
                         <NavButton
                           onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
@@ -288,11 +288,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                       />
                     </div>
 
-                    <Text className="text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+                    <Text className="text-tremor-default tabular-nums text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
                       {format(props.displayMonth, "LLLL yyy")}
                     </Text>
 
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1">
                       <NavButton
                         onClick={() => nextMonth && goToMonth(nextMonth)}
                         icon={ArrowRightHeadIcon}

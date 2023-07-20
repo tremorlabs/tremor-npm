@@ -74,6 +74,11 @@ UncontrolledWithDisabled.args = {
   disabled: true,
 };
 
+export const UncontrolledDefaultWithYearNavigation = UncontrolledTemplate.bind({});
+UncontrolledDefaultWithYearNavigation.args = {
+  enableYearPagination: true,
+};
+
 export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDate = ControlledTemplate.bind({});
