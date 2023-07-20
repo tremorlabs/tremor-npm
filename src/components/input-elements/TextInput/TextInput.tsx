@@ -4,7 +4,7 @@ import BaseInput from "assets/BaseInput";
 import type { BaseInputProps } from "assets/BaseInput";
 import { makeClassName } from "lib";
 
-export type TextInputProps = Omit<BaseInputProps, "numberControllers"> & {
+export type TextInputProps = Omit<BaseInputProps, "stepper"> & {
   type?: "text" | "password" | "email" | "url";
   defaultValue?: string;
   value?: string;

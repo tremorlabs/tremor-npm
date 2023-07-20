@@ -12,7 +12,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
-  numberControllers?: ReactNode;
+  stepper?: ReactNode;
 }
 
 const BaseInput = React.forwardRef<
@@ -124,14 +124,14 @@ const BaseInput = React.forwardRef<
           <ExclamationFilledIcon
             className={tremorTwMerge(
               props.makeInputClassName("errorIcon"),
-              "text-rose-500",
-              spacing.xl.marginRight,
+              "text-rose-500 shrink-0",
+              spacing.md.marginRight,
               sizing.lg.height,
               sizing.lg.width,
             )}
           />
         ) : null}
-        {props.numberControllers ?? null}
+        {props.stepper ?? null}
       </div>
       {errorMessage ? (
         <p

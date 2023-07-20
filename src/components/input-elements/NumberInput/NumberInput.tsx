@@ -2,23 +2,27 @@ import BaseInput from "assets/BaseInput";
 import React, { useRef } from "react";
 import type { BaseInputProps } from "assets/BaseInput";
 import { makeClassName, tremorTwMerge } from "lib";
-import { ArrowDownHeadIcon, ArrowUpHeadIcon } from "assets";
+import { PlusIcon, MinusIcon } from "assets";
 
-export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers" | "onSubmit"> & {
+export type NumberInputProps = Omit<BaseInputProps, "type" | "stepper" | "onSubmit"> & {
   min?: string;
   max?: string;
   step?: string;
+  showStepper?: boolean; // Add the showStepper property
   onSubmit?: (value: number) => void;
   onValueChange?: (value: number) => void;
 };
 
-const makeNumberInputClassName = makeClassName("NumberInput");
+//const makeNumberInputClassName = makeClassName("NumberInput");
+
 const baseArrowClasses =
-  "flex px-[9px] py-0.5 mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
+  "flex mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
+
 const enabledArrowClasses =
   "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
+
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ onSubmit, ...restProps }) => {
+  ({ onSubmit, showStepper = true, ...restProps }) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isArrowDownPressed, setIsArrowDownPressed] = React.useState(false);
@@ -40,7 +44,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       <BaseInput
         type="number"
         {...restProps}
-        makeInputClassName={makeNumberInputClassName}
+        makeInputClassName={makeClassName("NumberInput")}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.ctrlKey && !e.altKey && !e.shiftKey) {
             const value = inputRef.current?.value;
@@ -61,56 +65,56 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             handleArrowUpRelease();
           }
         }}
-        numberControllers={
-          <div
-            className={tremorTwMerge(
-              "flex justify-center align-middle flex-col border-l -py-3",
-              "border-tremor-border dark:border-dark-tremor-border",
-            )}
-          >
+        stepper={
+          showStepper ? (
             <div
-              tabIndex={-1}
-              onClick={() => {
-                if (restProps.disabled) return;
-                inputRef.current?.stepUp();
-                restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
-              }}
               className={tremorTwMerge(
-                !restProps.disabled && enabledArrowClasses,
-                baseArrowClasses,
-                "group",
+                "flex justify-center align-middle",
+                "border-tremor-border dark:border-dark-tremor-border",
               )}
             >
-              <ArrowUpHeadIcon
-                data-testid="arrow-up"
-                className={`${
-                  isArrowUpPressed ? "-translate-y-[1px]" : ""
-                } h-[14px] w-[14px] duration-75 transition group-active:-translate-y-[1px]`}
-              />
+              <div
+                tabIndex={-1}
+                onClick={() => {
+                  if (restProps.disabled) return;
+                  inputRef.current?.stepDown();
+                  restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                }}
+                className={tremorTwMerge(
+                  !restProps.disabled && enabledArrowClasses,
+                  baseArrowClasses,
+                  "group py-[10px] px-2.5 border-l",
+                )}
+              >
+                <MinusIcon
+                  data-testid="step-down"
+                  className={`${
+                    isArrowDownPressed ? "scale-95" : ""
+                  } h-4 w-4 duration-75 transition group-active:scale-95`}
+                />
+              </div>
+              <div
+                tabIndex={-1}
+                onClick={() => {
+                  if (restProps.disabled) return;
+                  inputRef.current?.stepUp();
+                  restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                }}
+                className={tremorTwMerge(
+                  !restProps.disabled && enabledArrowClasses,
+                  baseArrowClasses,
+                  "group py-[10px] px-2.5 border-l",
+                )}
+              >
+                <PlusIcon
+                  data-testid="step-up"
+                  className={`${
+                    isArrowUpPressed ? "scale-95" : ""
+                  } h-4 w-4 duration-75 transition group-active:scale-95`}
+                />
+              </div>
             </div>
-
-            <hr className="absolute w-8 right-0 border-tremor-border dark:border-dark-tremor-border" />
-            <div
-              tabIndex={-1}
-              onClick={() => {
-                if (restProps.disabled) return;
-                inputRef.current?.stepDown();
-                restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
-              }}
-              className={tremorTwMerge(
-                !restProps.disabled && enabledArrowClasses,
-                baseArrowClasses,
-                "group",
-              )}
-            >
-              <ArrowDownHeadIcon
-                data-testid="arrow-down"
-                className={`${
-                  isArrowDownPressed ? "translate-y-[1px]" : ""
-                } h-[14px] w-[14px] duration-75 transition`}
-              />
-            </div>
-          </div>
+          ) : null
         }
         ref={inputRef}
         onChange={(e) => {

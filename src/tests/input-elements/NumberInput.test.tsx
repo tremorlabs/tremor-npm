@@ -20,20 +20,20 @@ describe("NumberInput", () => {
     render(<NumberInput defaultValue="2" step=".1" />);
     const inputEl: HTMLInputElement = screen.getByTestId("base-input");
     expect(inputEl.value).toBe("2");
-    const arrowUp = screen.getByTestId("arrow-up");
-    fireEvent.click(arrowUp);
+    const stepUp = screen.getByTestId("step-up");
+    fireEvent.click(stepUp);
     expect(inputEl.value).toBe("2.1");
   });
 
   test("min/max attribute", () => {
     render(<NumberInput defaultValue="1" min="1" max="2" />);
     const inputEl: HTMLInputElement = screen.getByTestId("base-input");
-    const arrowUp = screen.getByTestId("arrow-up");
-    const arrowDown = screen.getByTestId("arrow-down");
-    fireEvent.click(arrowDown);
+    const stepUp = screen.getByTestId("step-up");
+    const stepDown = screen.getByTestId("step-down");
+    fireEvent.click(stepDown);
     expect(inputEl.value).toBe("1");
-    fireEvent.click(arrowUp);
-    fireEvent.click(arrowUp);
+    fireEvent.click(stepUp);
+    fireEvent.click(stepUp);
     expect(inputEl.value).toBe("2");
   });
 });
