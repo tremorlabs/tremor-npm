@@ -14,7 +14,7 @@ export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers"
 
 const makeNumberInputClassName = makeClassName("NumberInput");
 const baseArrowClasses =
-  "flex px-2 py-px mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
+  "flex px-[9px] py-0.5 mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
 const enabledArrowClasses =
   "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
@@ -85,7 +85,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 data-testid="arrow-up"
                 className={`${
                   isArrowUpPressed ? "-translate-y-[1px]" : ""
-                } h-4 w-4 duration-75 transition group-active:-translate-y-[1px]`}
+                } h-[14px] w-[14px] duration-75 transition group-active:-translate-y-[1px]`}
               />
             </div>
 
@@ -100,14 +100,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               className={tremorTwMerge(
                 !restProps.disabled && enabledArrowClasses,
                 baseArrowClasses,
-                "active:translate-y-[1px]",
+                "group",
               )}
             >
               <ArrowDownHeadIcon
                 data-testid="arrow-down"
                 className={`${
                   isArrowDownPressed ? "translate-y-[1px]" : ""
-                } h-4 w-4 duration-75 transition`}
+                } h-[14px] w-[14px] duration-75 transition`}
               />
             </div>
           </div>
