@@ -1,4 +1,3 @@
-"use client";
 import BaseInput from "assets/BaseInput";
 import React, { useRef } from "react";
 import type { BaseInputProps } from "assets/BaseInput";
@@ -14,11 +13,29 @@ export type NumberInputProps = Omit<BaseInputProps, "type" | "numberControllers"
 };
 
 const makeNumberInputClassName = makeClassName("NumberInput");
-const baseArrowClasses = "flex px-2 text-tremor-content-subtle";
-const enabledArrowClasses = "cursor-pointer hover:text-tremor-content";
+const baseArrowClasses =
+  "flex px-2 py-px mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
+const enabledArrowClasses =
+  "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   ({ onSubmit, ...restProps }) => {
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const [isArrowDownPressed, setIsArrowDownPressed] = React.useState(false);
+    const handleArrowDownPress = React.useCallback(() => {
+      setIsArrowDownPressed(true);
+    }, []);
+    const handleArrowDownRelease = React.useCallback(() => {
+      setIsArrowDownPressed(false);
+    }, []);
+
+    const [isArrowUpPressed, setIsArrowUpPressed] = React.useState(false);
+    const handleArrowUpPress = React.useCallback(() => {
+      setIsArrowUpPressed(true);
+    }, []);
+    const handleArrowUpRelease = React.useCallback(() => {
+      setIsArrowUpPressed(false);
+    }, []);
     return (
       <BaseInput
         type="number"
@@ -29,15 +46,30 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             const value = inputRef.current?.value;
             onSubmit?.(parseFloat(value ?? ""));
           }
+          if (e.key === "ArrowDown") {
+            handleArrowDownPress();
+          }
+          if (e.key === "ArrowUp") {
+            handleArrowUpPress();
+          }
+        }}
+        onKeyUp={(e) => {
+          if (e.key === "ArrowDown") {
+            handleArrowDownRelease();
+          }
+          if (e.key === "ArrowUp") {
+            handleArrowUpRelease();
+          }
         }}
         numberControllers={
           <div
             className={tremorTwMerge(
-              "flex justify-center align-middle flex-col border-l",
+              "flex justify-center align-middle flex-col border-l -py-3",
               "border-tremor-border dark:border-dark-tremor-border",
             )}
           >
             <div
+              tabIndex={-1}
               onClick={() => {
                 if (restProps.disabled) return;
                 inputRef.current?.stepUp();
@@ -46,13 +78,20 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               className={tremorTwMerge(
                 !restProps.disabled && enabledArrowClasses,
                 baseArrowClasses,
+                "group",
               )}
             >
-              <ArrowUpHeadIcon data-testid="arrow-up" width="20px" height="20px" />
+              <ArrowUpHeadIcon
+                data-testid="arrow-up"
+                className={`${
+                  isArrowUpPressed ? "-translate-y-[1px]" : ""
+                } h-4 w-4 duration-75 transition group-active:-translate-y-[1px]`}
+              />
             </div>
 
-            <hr className="absolute w-9 right-0 border-tremor-border dark:border-dark-tremor-border" />
+            <hr className="absolute w-8 right-0 border-tremor-border dark:border-dark-tremor-border" />
             <div
+              tabIndex={-1}
               onClick={() => {
                 if (restProps.disabled) return;
                 inputRef.current?.stepDown();
@@ -61,9 +100,15 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               className={tremorTwMerge(
                 !restProps.disabled && enabledArrowClasses,
                 baseArrowClasses,
+                "active:translate-y-[1px]",
               )}
             >
-              <ArrowDownHeadIcon data-testid="arrow-down" width="20px" height="20px" />
+              <ArrowDownHeadIcon
+                data-testid="arrow-down"
+                className={`${
+                  isArrowDownPressed ? "translate-y-[1px]" : ""
+                } h-4 w-4 duration-75 transition`}
+              />
             </div>
           </div>
         }
