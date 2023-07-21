@@ -21,7 +21,7 @@ describe("NumberInput", () => {
     const inputEl: HTMLInputElement = screen.getByTestId("base-input");
     expect(inputEl.value).toBe("2");
     const stepUp = screen.getByTestId("step-up");
-    fireEvent.click(stepUp);
+    fireEvent.mouseUp(stepUp);
     expect(inputEl.value).toBe("2.1");
   });
 
@@ -30,10 +30,10 @@ describe("NumberInput", () => {
     const inputEl: HTMLInputElement = screen.getByTestId("base-input");
     const stepUp = screen.getByTestId("step-up");
     const stepDown = screen.getByTestId("step-down");
-    fireEvent.click(stepDown);
+    fireEvent.mouseUp(stepDown);
     expect(inputEl.value).toBe("1");
-    fireEvent.click(stepUp);
-    fireEvent.click(stepUp);
+    fireEvent.mouseUp(stepUp);
+    fireEvent.mouseUp(stepUp);
     expect(inputEl.value).toBe("2");
   });
 });
