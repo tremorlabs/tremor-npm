@@ -67,15 +67,13 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         }}
         stepper={
           showStepper ? (
-            <div
-              className={tremorTwMerge(
-                "flex justify-center align-middle",
-                "border-tremor-border dark:border-dark-tremor-border",
-              )}
-            >
+            <div className={tremorTwMerge("flex justify-center align-middle")}>
               <div
                 tabIndex={-1}
-                onClick={() => {
+                onClick={(e) => e.preventDefault()}
+                onMouseDown={(e) => e.preventDefault()}
+                onTouchStart={(e) => e.preventDefault()}
+                onMouseUp={() => {
                   if (restProps.disabled) return;
                   inputRef.current?.stepDown();
                   restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
@@ -83,7 +81,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 className={tremorTwMerge(
                   !restProps.disabled && enabledArrowClasses,
                   baseArrowClasses,
-                  "group py-[10px] px-2.5 border-l",
+                  "group py-[10px] px-2.5 border-l border-tremor-border dark:border-dark-tremor-border",
                 )}
               >
                 <MinusIcon
@@ -95,7 +93,10 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               </div>
               <div
                 tabIndex={-1}
-                onClick={() => {
+                onClick={(e) => e.preventDefault()}
+                onMouseDown={(e) => e.preventDefault()}
+                onTouchStart={(e) => e.preventDefault()}
+                onMouseUp={() => {
                   if (restProps.disabled) return;
                   inputRef.current?.stepUp();
                   restProps.onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
@@ -103,7 +104,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 className={tremorTwMerge(
                   !restProps.disabled && enabledArrowClasses,
                   baseArrowClasses,
-                  "group py-[10px] px-2.5 border-l",
+                  "group py-[10px] px-2.5 border-l border-tremor-border dark:border-dark-tremor-border",
                 )}
               >
                 <PlusIcon
