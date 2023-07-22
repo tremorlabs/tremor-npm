@@ -2,7 +2,7 @@ export type ValueFormatter = {
   (value: number): string;
 };
 
-export type CurveType = "linear" | "natural" | "step";
+export type CurveType = "linear" | "natural" | "monotone" | "step";
 
 const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as const;
 
