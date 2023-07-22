@@ -1,8 +1,7 @@
-import BaseInput from "assets/BaseInput";
 import React, { useRef } from "react";
-import type { BaseInputProps } from "assets/BaseInput";
 import { makeClassName, tremorTwMerge } from "lib";
 import { PlusIcon, MinusIcon } from "assets";
+import BaseInput, { BaseInputProps } from "components/input-elements/BaseInput";
 
 export type NumberInputProps = Omit<BaseInputProps, "type" | "stepper" | "onSubmit"> & {
   min?: string;
