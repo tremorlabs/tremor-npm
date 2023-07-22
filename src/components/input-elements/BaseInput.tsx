@@ -109,6 +109,7 @@ const BaseInput = React.forwardRef<
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
+            "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
             Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
