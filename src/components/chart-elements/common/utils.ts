@@ -20,3 +20,18 @@ export const getYAxisDomain = (
   const maxDomain = maxValue ?? "auto";
   return [minDomain, maxDomain];
 };
+
+export const constructCategories = (
+    data: any[],
+    color?: string,
+): string[] => {
+    if (!color) {
+        return [];
+    }
+
+    const categories = new Set<string>();
+    data.forEach((datum) => {
+      categories.add(datum[color]);
+    });
+    return Array.from(categories);
+};
