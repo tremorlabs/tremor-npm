@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { makeClassName } from "lib";
-import BaseInput, { BaseInputProps } from "components/input-elements/BaseInput";
+import BaseInput, { BaseInputProps } from "../BaseInput";
 
-export type TextInputProps = Omit<BaseInputProps, "stepper"> & {
+export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassName"> & {
   type?: "text" | "password" | "email" | "url";
   defaultValue?: string;
   value?: string;
@@ -16,15 +16,8 @@ export type TextInputProps = Omit<BaseInputProps, "stepper"> & {
 const makeTextInputClassName = makeClassName("TextInput");
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { type, ...other } = props;
-  return (
-    <BaseInput
-      ref={ref}
-      type={type || "text"}
-      makeInputClassName={makeTextInputClassName}
-      {...other}
-    />
-  );
+  const { type = "text", ...other } = props;
+  return <BaseInput ref={ref} type={type} makeInputClassName={makeTextInputClassName} {...other} />;
 });
 
 TextInput.displayName = "TextInput";

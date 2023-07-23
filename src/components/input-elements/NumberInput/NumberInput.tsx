@@ -1,18 +1,19 @@
 import React, { useRef } from "react";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import { PlusIcon, MinusIcon } from "assets";
-import BaseInput, { BaseInputProps } from "components/input-elements/BaseInput";
+import BaseInput, { BaseInputProps } from "../BaseInput";
 
-export type NumberInputProps = Omit<BaseInputProps, "type" | "stepper" | "onSubmit"> & {
+export type NumberInputProps = Omit<
+  BaseInputProps,
+  "type" | "stepper" | "onSubmit" | "makeInputClassName"
+> & {
   min?: string;
   max?: string;
   step?: string;
-  showStepper?: boolean; // Add the showStepper property
+  enableStepper?: boolean;
   onSubmit?: (value: number) => void;
   onValueChange?: (value: number) => void;
 };
-
-//const makeNumberInputClassName = makeClassName("NumberInput");
 
 const baseArrowClasses =
   "flex mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
@@ -21,7 +22,7 @@ const enabledArrowClasses =
   "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
-  const { onSubmit, showStepper = true, disabled, onValueChange, onChange, ...other } = props;
+  const { onSubmit, enableStepper = true, disabled, onValueChange, onChange, ...other } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,6 +46,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
     <BaseInput
       type="number"
       ref={mergeRefs([inputRef, ref])}
+      disabled={disabled}
       makeInputClassName={makeClassName("NumberInput")}
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.ctrlKey && !e.altKey && !e.shiftKey) {
@@ -73,7 +75,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
         onChange?.(e);
       }}
       stepper={
-        showStepper ? (
+        enableStepper ? (
           <div className={tremorTwMerge("flex justify-center align-middle")}>
             <div
               tabIndex={-1}
