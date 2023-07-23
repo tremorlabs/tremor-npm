@@ -20,9 +20,8 @@ const baseArrowClasses =
 const enabledArrowClasses =
   "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
 
-const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ onSubmit, showStepper = true, ...restProps }) => {
-    const inputRef = useRef<HTMLInputElement>(null);
+const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
+  const { onSubmit, showStepper = true, disabled, onValueChange, onChange, ...other } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
