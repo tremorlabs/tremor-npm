@@ -83,7 +83,7 @@ export const WithCustomValueFormatters = ResponsiveTemplate.bind({});
 WithCustomValueFormatters.args = {
   ...args,
   data,
-  valueFormatters: [(x) => `${x} cm`, (x) => `${x} yrs.`, valueFormatter],
+  valueFormatters: [(x) => `${x} cm`, (y) => `${y} yrs.`, valueFormatter],
 };
 
 export const WithAutoMinXValue = ResponsiveTemplate.bind({});
