@@ -39,6 +39,7 @@ export interface ScatterChartProps extends BaseAnimationTimingProps {
   valueFormatters?: ValueFormatter[];
   sizeRange?: number[];
   colors?: Color[];
+  opacity: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
@@ -64,6 +65,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     size,
     category,
     colors = themeColorRange,
+    opacity = false,
     sizeRange = [1, 1000],
     tooltip,
     valueFormatters,
@@ -177,6 +179,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     ).fillColor
                   }
                   fill={`url(#${categoryColors.get(cat)})`}
+                  fillOpacity={opacity ? 0.7 : 1}
                   key={cat}
                   name={cat}
                   data={category ? data.filter((d) => d[category] === cat) : data}
