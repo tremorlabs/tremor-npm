@@ -13,19 +13,21 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
+  makeInputClassName: (className: string) => string;
 }
 
-const BaseInput = React.forwardRef<
-  HTMLInputElement,
-  BaseInputProps & { makeInputClassName: (className: string) => string }
->((props, ref) => {
+const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
   const {
+    value,
+    defaultValue,
     type,
     placeholder = "Type...",
     icon,
     error = false,
     errorMessage,
     disabled = false,
+    stepper,
+    makeInputClassName,
     className,
     ...other
   } = props;
@@ -34,7 +36,7 @@ const BaseInput = React.forwardRef<
   const Icon = icon;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const hasSelection = hasValue(props.value || props.defaultValue);
+  const hasSelection = hasValue(value || defaultValue);
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -49,7 +51,7 @@ const BaseInput = React.forwardRef<
     <>
       <div
         className={tremorTwMerge(
-          props.makeInputClassName("root"),
+          makeInputClassName("root"),
           // common
           "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default",
           // light
@@ -84,7 +86,7 @@ const BaseInput = React.forwardRef<
         {Icon ? (
           <Icon
             className={tremorTwMerge(
-              props.makeInputClassName("icon"),
+              makeInputClassName("icon"),
               // common
               "shrink-0",
               // light
@@ -102,7 +104,7 @@ const BaseInput = React.forwardRef<
           type={type}
           data-testid="base-input"
           className={tremorTwMerge(
-            props.makeInputClassName("input"),
+            makeInputClassName("input"),
             // common
             "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default",
             // light
@@ -124,7 +126,7 @@ const BaseInput = React.forwardRef<
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(
-              props.makeInputClassName("errorIcon"),
+              makeInputClassName("errorIcon"),
               "text-rose-500 shrink-0",
               spacing.md.marginRight,
               sizing.lg.height,
@@ -132,12 +134,12 @@ const BaseInput = React.forwardRef<
             )}
           />
         ) : null}
-        {props.stepper ?? null}
+        {stepper ?? null}
       </div>
       {errorMessage ? (
         <p
           className={tremorTwMerge(
-            props.makeInputClassName("errorMessage"),
+            makeInputClassName("errorMessage"),
             "text-sm text-rose-500 mt-1",
           )}
         >
