@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { tremorTwMerge } from "../../../lib";
 
 import { Color, ValueFormatter } from "../../../lib";
@@ -78,6 +78,8 @@ export interface ChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
+  categories?: string[];
+  forecastCategories?: string[] | string[][];
 }
 
 const ChartTooltip = ({
@@ -86,6 +88,8 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  categories,
+  forecastCategories,
 }: ChartTooltipProps) => {
   if (active && payload) {
     return (
@@ -117,13 +121,32 @@ const ChartTooltip = ({
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
-            <ChartTooltipRow
-              key={`id-${idx}`}
-              value={valueFormatter(value)}
-              name={name}
-              color={categoryColors.get(name) ?? BaseColors.Blue}
-            />
-          ))}
+            <Fragment key={idx}>
+            {
+                forecastCategories?.flat()?.includes(name) ? (
+                    <>
+                        {(!categories?.includes(name) && (payload.length !== ((categories?.length ?? 0) + (forecastCategories?.flat()?.length ?? 0)))) ? (
+                            <ChartTooltipRow
+                                key={`id-${idx}`}
+                                value={valueFormatter(value)}
+                                name={name}
+                                color={categoryColors.get(categories?.[forecastCategories.findIndex(subArray => subArray.indexOf(name) !== -1)] ?? "") ?? BaseColors.Blue}
+                            />
+                        ) : (
+                            null
+                        )}
+                    </>
+                ) : (
+                    <ChartTooltipRow
+                      key={`id-${idx}`}
+                      value={valueFormatter(value)}
+                      name={name}
+                      color={categoryColors.get(name) ?? BaseColors.Blue}
+                    />
+                )
+            }
+            </Fragment>
+            ))}
         </div>
       </ChartTooltipFrame>
     );

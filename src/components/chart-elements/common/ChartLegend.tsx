@@ -9,7 +9,8 @@ const ChartLegend = (
   { payload }: any,
   categoryColors: Map<string, Color>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
-) => {
+  forecastCategories?: string[] | string[][]
+  ) => {
   const legendRef = useRef<HTMLDivElement>(null);
 
   useOnWindowResize(() => {
@@ -23,8 +24,8 @@ const ChartLegend = (
   return (
     <div ref={legendRef} className="flex items-center justify-end">
       <Legend
-        categories={payload.map((entry: any) => entry.value)}
-        colors={payload.map((entry: any) => categoryColors.get(entry.value))}
+        categories={payload.filter((e: any) => !forecastCategories?.flat()?.includes(e.value)).map((entry: any) => entry.value)}
+        colors={payload.filter((e: any) => !forecastCategories?.flat()?.includes(e.value)).map((entry: any) => categoryColors.get(entry.value))}
       />
     </div>
   );

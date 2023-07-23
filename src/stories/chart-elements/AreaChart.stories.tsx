@@ -3,7 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { AreaChart, Card, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import { simpleBaseChartData as data, simpleBaseChartDataWithForecast, simpleBaseChartDataWithNulls } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -198,5 +198,39 @@ WithShortAnimationDuration.args = {
   showAnimation: true,
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithSingleForecastArea = DefaultTemplate.bind({});
+WithSingleForecastArea.args = {
+  data: simpleBaseChartDataWithForecast,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+export const WithSingleForecastAreaWithShortAnimationDuration = DefaultTemplate.bind({});
+WithSingleForecastAreaWithShortAnimationDuration.args = {
+  data: simpleBaseChartDataWithForecast,
+  animationDuration: 100,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+export const WithSingleForecastAreaWithLongAnimationDuration = DefaultTemplate.bind({});
+WithSingleForecastAreaWithLongAnimationDuration.args = {
+  data: simpleBaseChartDataWithForecast,
+  animationDuration: 5000,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+export const WithMultipleForecastAreas = DefaultTemplate.bind({});
+WithMultipleForecastAreas.args = {
+  data: simpleBaseChartDataWithForecast,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: [["Sales Forecast Max", "Sales Forecast Min"], ["Successful Payments Forecast Max", "Successful Payments Forecast Min"]],
   index: "month",
 };
