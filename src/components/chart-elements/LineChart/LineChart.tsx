@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getPercentageWithCategories, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getForecastStrokeDasharray, getPercentageWithCategories, getYAxisDomain } from "../common/utils";
 import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -26,13 +26,13 @@ import {
     themeColorRange,
     tremorTwMerge,
 } from "lib";
-import { CurveType } from "../../../lib/inputTypes";
+import { CurveType, LineStyle } from "../../../lib/inputTypes";
 
 export interface LineChartProps extends BaseChartProps {
     curveType?: CurveType;
     connectNulls?: boolean;
     forecastCategories?: string[] | string[][];
-    forecastAnimationDelay?: number;
+    forecastLineStyle?: LineStyle;
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
@@ -40,6 +40,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         data = [],
         categories = [],
         forecastCategories,
+        forecastLineStyle = "dashed",
         index,
         colors = themeColorRange,
         valueFormatter = defaultValueFormatter,
@@ -73,6 +74,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     const animationDurationPercentage = animationDuration * percentageOfRealDatas
     const forecastAnimationDurationPercentage = animationDuration * percentageOfForecastedDatas
     const forecastAnimationDelay = animationDurationPercentage - (animationDurationPercentage / 2.5)
+
+    const forecastStrokeDasharray = getForecastStrokeDasharray(forecastLineStyle);
       
     return (
         <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -229,7 +232,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                     strokeWidth={2}
                                                     strokeLinejoin="round"
                                                     strokeLinecap="round"
-                                                    strokeDasharray="5 5"
+                                                    strokeDasharray={forecastStrokeDasharray}
                                                     isAnimationActive={showAnimation}
                                                     animationDuration={forecastAnimationDurationPercentage}
                                                     animationBegin={forecastAnimationDelay}
@@ -267,7 +270,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                             strokeWidth={2}
                                             strokeLinejoin="round"
                                             strokeLinecap="round"
-                                            strokeDasharray="5 5"
+                                            strokeDasharray={forecastStrokeDasharray}
                                             isAnimationActive={showAnimation}
                                             animationDuration={forecastAnimationDurationPercentage}
                                             animationBegin={forecastAnimationDelay}

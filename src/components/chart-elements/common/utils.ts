@@ -1,4 +1,4 @@
-import { Color } from "../../../lib/inputTypes";
+import { Color, LineStyle } from "../../../lib/inputTypes";
 
 export const constructCategoryColors = (
   categories: string[],
@@ -44,5 +44,17 @@ export const getPercentageWithCategories = (data: any[], categories?: string[] |
   
     const percentageWithCategories = (objectsWithCategories / totalObjects);
     return percentageWithCategories;
-  
 };
+
+export const getForecastStrokeDasharray = (forecastLineStyle: LineStyle): string => {
+    switch (forecastLineStyle) {
+        case "solid":
+            return "1";
+        case "dashed":
+            return "5 5";
+        case "dotted":
+            return "0.5 5";
+        default:
+            return "1";
+    }
+}
