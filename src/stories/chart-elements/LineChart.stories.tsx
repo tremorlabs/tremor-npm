@@ -3,7 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { Card, LineChart, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import { simpleBaseChartData as data, simpleBaseChartDataWithNulls, simpleBaseChartDataWithForecast } from "./helpers/testData";
 import { valueFormatter } from "stories/chart-elements/helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -184,5 +184,25 @@ WithShortAnimationDuration.args = {
   showAnimation: true,
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithSingleForecastLine = DefaultTemplate.bind({});
+WithSingleForecastLine.args = {
+  data: simpleBaseChartDataWithForecast,
+  showAnimation: true,
+  animationDuration: 100,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+export const WithMultipleForecastLines = DefaultTemplate.bind({});
+WithMultipleForecastLines.args = {
+  data: simpleBaseChartDataWithForecast,
+  showAnimation: true,
+  animationDuration: 100,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: [["Sales Forecast Max", "Sales Forecast Min"], ["Successful Payments Forecast Max", "Successful Payments Forecast Min"]],
   index: "month",
 };
