@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { makeClassName } from "lib";
-import BaseInput, { BaseInputProps } from "components/input-elements/BaseInput";
+import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassName"> & {
   type?: "text" | "password" | "email" | "url";

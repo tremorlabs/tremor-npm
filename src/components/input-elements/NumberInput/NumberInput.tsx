@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import { PlusIcon, MinusIcon } from "assets";
-import BaseInput, { BaseInputProps } from "components/input-elements/BaseInput";
+import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export type NumberInputProps = Omit<
   BaseInputProps,
