@@ -14,3 +14,5 @@ export { default as ExclamationFilledIcon } from "./ExclamationFilledIcon";
 export { default as LoadingSpinner } from "./LoadingSpinner";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as XCircleIcon } from "./XCircleIcon";
+export { default as PlusIcon } from "./PlusIcon";
+export { default as MinusIcon } from "./MinusIcon";
