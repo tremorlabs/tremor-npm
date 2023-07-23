@@ -3,17 +3,13 @@ import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import { PlusIcon, MinusIcon } from "assets";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
-export type NumberInputProps = Omit<
-  BaseInputProps,
-  "type" | "stepper" | "onSubmit" | "makeInputClassName"
-> & {
-  min?: string;
-  max?: string;
+export interface NumberInputProps
+  extends Omit<BaseInputProps, "type" | "stepper" | "onSubmit" | "makeInputClassName"> {
   step?: string;
   enableStepper?: boolean;
   onSubmit?: (value: number) => void;
   onValueChange?: (value: number) => void;
-};
+}
 
 const baseArrowClasses =
   "flex mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";

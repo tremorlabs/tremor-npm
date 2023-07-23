@@ -100,9 +100,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           />
         ) : null}
         <input
-          ref={mergeRefs([ref, inputRef])}
+          ref={mergeRefs([inputRef, ref])}
+          defaultValue={defaultValue}
+          value={value}
           type={type}
-          data-testid="base-input"
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
@@ -121,6 +122,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           )}
           placeholder={placeholder}
           disabled={disabled}
+          data-testid="base-input"
           {...other}
         />
         {error ? (
