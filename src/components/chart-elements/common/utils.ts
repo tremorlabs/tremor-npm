@@ -20,3 +20,29 @@ export const getYAxisDomain = (
   const maxDomain = maxValue ?? "auto";
   return [minDomain, maxDomain];
 };
+
+export const getPercentageWithCategories = (data: any[], categories?: string[] | string [][]): number => {
+    if(!categories)
+        return 0;
+
+    const totalObjects = data.length + 1;
+    let objectsWithCategories = 0;
+  
+    for (const obj of data) {
+      let hasCategoryValue = false;
+        for (const category of categories.flat()) {
+            if (obj.hasOwnProperty(category) && obj[category] !== null && obj[category] !== undefined) {
+                hasCategoryValue = true;
+                break;
+            }
+        }
+
+        if (hasCategoryValue) {
+            objectsWithCategories++;
+        }
+    }
+  
+    const percentageWithCategories = (objectsWithCategories / totalObjects);
+    return percentageWithCategories;
+  
+};

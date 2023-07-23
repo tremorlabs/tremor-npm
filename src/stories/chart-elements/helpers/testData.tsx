@@ -281,5 +281,5 @@ export const simpleBaseChartDataWithForecast = [
       "Successful Payments Forecast Max" : 6000
     },
 
-  ];
+];
   

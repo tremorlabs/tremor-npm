@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
     CartesianGrid,
     Legend,
@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getPercentageWithCategories, getYAxisDomain } from "../common/utils";
 import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -32,6 +32,7 @@ export interface LineChartProps extends BaseChartProps {
     curveType?: CurveType;
     connectNulls?: boolean;
     forecastCategories?: string[] | string[][];
+    forecastAnimationDelay?: number;
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
@@ -65,7 +66,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     const categoryColors = constructCategoryColors(categories, colors);
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  
+    const percentageOfRealDatas = forecastCategories ? getPercentageWithCategories(data, categories) : 1;
+    const percentageOfForecastedDatas = forecastCategories ? getPercentageWithCategories(data, forecastCategories) : 0;
 
+    const animationDurationPercentage = animationDuration * percentageOfRealDatas
+    const forecastAnimationDurationPercentage = animationDuration * percentageOfForecastedDatas
+    const forecastAnimationDelay = animationDurationPercentage - (animationDurationPercentage / 2.5)
+      
     return (
         <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
             <ResponsiveContainer className="h-full w-full">
@@ -182,13 +190,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                 strokeLinejoin="round"
                                 strokeLinecap="round"
                                 isAnimationActive={showAnimation}
-                                animationDuration={animationDuration}
+                                animationDuration={animationDurationPercentage}
                                 connectNulls={connectNulls}
                             />
                         ))}
                         {forecastCategories ? (
-                            forecastCategories.map((category, idX) => (
-                                <>
+                            forecastCategories.map((category, idx) => (
+                                <Fragment key={idx}>
                                     {Array.isArray(category) ? (
                                         <>
                                             {category.map((subCategory) => (
@@ -197,7 +205,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                         tremorTwMerge(
                                                             "opacity-50",
                                                             getColorClassNames(
-                                                                categoryColors.get(categories[idX]) ?? BaseColors.Gray,
+                                                                categoryColors.get(categories[idx]) ?? BaseColors.Gray,
                                                                 colorPalette.text,
                                                             ).strokeColor
                                                         )
@@ -207,7 +215,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                         className: tremorTwMerge(
                                                             "stroke-tremor-background dark:stroke-dark-tremor-background",
                                                             getColorClassNames(
-                                                                categoryColors.get(categories[idX]) ?? BaseColors.Gray,
+                                                                categoryColors.get(categories[idx]) ?? BaseColors.Gray,
                                                                 colorPalette.text,
                                                             ).fillColor,
                                                         ),
@@ -223,7 +231,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                     strokeLinecap="round"
                                                     strokeDasharray="5 5"
                                                     isAnimationActive={showAnimation}
-                                                    animationDuration={animationDuration}
+                                                    animationDuration={forecastAnimationDurationPercentage}
+                                                    animationBegin={forecastAnimationDelay}
                                                     connectNulls={connectNulls}
                                                 />
                                             ))}
@@ -234,7 +243,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                 tremorTwMerge(
                                                     "opacity-50",
                                                     getColorClassNames(
-                                                        categoryColors.get(categories[idX]) ?? BaseColors.Gray,
+                                                        categoryColors.get(categories[idx]) ?? BaseColors.Gray,
                                                         colorPalette.text,
                                                     ).strokeColor
                                                 )
@@ -244,7 +253,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                                 className: tremorTwMerge(
                                                     "stroke-tremor-background dark:stroke-dark-tremor-background",
                                                     getColorClassNames(
-                                                        categoryColors.get(categories[idX]) ?? BaseColors.Gray,
+                                                        categoryColors.get(categories[idx]) ?? BaseColors.Gray,
                                                         colorPalette.text,
                                                     ).fillColor,
                                                 ),
@@ -260,11 +269,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                                             strokeLinecap="round"
                                             strokeDasharray="5 5"
                                             isAnimationActive={showAnimation}
-                                            animationDuration={animationDuration}
+                                            animationDuration={forecastAnimationDurationPercentage}
+                                            animationBegin={forecastAnimationDelay}
                                             connectNulls={connectNulls}
                                         />
                                     )}
-                                </>
+                                </Fragment>
                             ))
                         ) : (
                             null

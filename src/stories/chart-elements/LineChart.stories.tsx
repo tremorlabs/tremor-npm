@@ -190,18 +190,33 @@ WithShortAnimationDuration.args = {
 export const WithSingleForecastLine = DefaultTemplate.bind({});
 WithSingleForecastLine.args = {
   data: simpleBaseChartDataWithForecast,
-  showAnimation: true,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+export const WithSingleForecastLineWithShortAnimationDuration = DefaultTemplate.bind({});
+WithSingleForecastLineWithShortAnimationDuration.args = {
+  data: simpleBaseChartDataWithForecast,
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
   forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
   index: "month",
 };
 
+export const WithSingleForecastLineWithLongAnimationDuration = DefaultTemplate.bind({});
+WithSingleForecastLineWithLongAnimationDuration.args = {
+  data: simpleBaseChartDataWithForecast,
+  animationDuration: 5000,
+  categories: ["Sales", "Successful Payments"],
+  forecastCategories: ["Sales Forecast", "Successful Payments Forecast"],
+  index: "month",
+};
+
+
 export const WithMultipleForecastLines = DefaultTemplate.bind({});
 WithMultipleForecastLines.args = {
   data: simpleBaseChartDataWithForecast,
-  showAnimation: true,
-  animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
   forecastCategories: [["Sales Forecast Max", "Sales Forecast Min"], ["Successful Payments Forecast Max", "Successful Payments Forecast Min"]],
   index: "month",
