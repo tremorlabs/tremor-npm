@@ -3,7 +3,10 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { Card, ScatterChart, Title } from "components";
-import { simpleBaseChartDataRefactored as data, simpleBaseChartDataGithub } from "./helpers/testDataScatterChart";
+import {
+  simpleScatterChartData as data,
+  simpleScatterChartData2 as data2,
+} from "./helpers/testDataScatterChart";
 import { valueFormatter } from "stories/chart-elements/helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -48,7 +51,7 @@ export const WithNoSize = ResponsiveTemplate.bind({});
 WithNoSize.args = {
   ...args,
   data,
-  size: undefined
+  size: undefined,
 };
 
 export const WithCustomeSizeRange = ResponsiveTemplate.bind({});
@@ -56,7 +59,7 @@ export const WithCustomeSizeRange = ResponsiveTemplate.bind({});
 WithCustomeSizeRange.args = {
   ...args,
   data,
-  sizeRange: [1, 10]
+  sizeRange: [1, 10],
 };
 
 export const WithCustomColor = ResponsiveTemplate.bind({});
@@ -80,7 +83,7 @@ export const WithCustomValueFormatters = ResponsiveTemplate.bind({});
 WithCustomValueFormatters.args = {
   ...args,
   data,
-  valueFormatters: [(x) => `${x} cm`, (x) => `${x} yrs.`, valueFormatter]
+  valueFormatters: [(x) => `${x} cm`, (x) => `${x} yrs.`, valueFormatter],
 };
 
 export const WithAutoMinXValue = ResponsiveTemplate.bind({});
@@ -88,7 +91,7 @@ export const WithAutoMinXValue = ResponsiveTemplate.bind({});
 WithAutoMinXValue.args = {
   ...args,
   data,
-  autoMinXValue: true
+  autoMinXValue: true,
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -103,14 +106,14 @@ WithNoDataText.args = {
   noDataText: "No data, try again later.",
 };
 
-export const WithGithubExampleDatas = ResponsiveTemplate.bind({});
+export const WithExampleDatas = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithGithubExampleDatas.args = {
-    data: simpleBaseChartDataGithub,
-    x: "gdpPercap",
-    y: "lifeExp",
-    category: "continent",
-    size: "population",
-    tooltip: ["country", "happinessLev"],
-    colors: ["red", "green", "blue"],
+WithExampleDatas.args = {
+  data: data2,
+  x: "gdpPercap",
+  y: "lifeExp",
+  category: "continent",
+  size: "population",
+  tooltip: ["country", "happinessLev"],
+  colors: ["red", "green", "blue"],
 };

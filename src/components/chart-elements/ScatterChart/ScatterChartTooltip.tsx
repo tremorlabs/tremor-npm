@@ -97,7 +97,12 @@ const ScatterChartTooltip = ({
               "border-tremor-background shadow-tremor-card",
               // dark
               "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-              getColorClassNames(category ? categoryColors.get(payload[0].payload[category]) ?? BaseColors.Blue : BaseColors.Blue, colorPalette.background).bgColor,
+              getColorClassNames(
+                category
+                  ? categoryColors.get(payload[0].payload[category]) ?? BaseColors.Blue
+                  : BaseColors.Blue,
+                colorPalette.background,
+              ).bgColor,
               sizing.sm.height,
               sizing.sm.width,
               border.md.all,
@@ -118,27 +123,38 @@ const ScatterChartTooltip = ({
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {tooltip ? (
-            tooltip.map((name: string, idx: number) => {
-              return (
-                <ChartTooltipRow
-                  key={`id-${idx}`}
-                  value={(valueFormatters && valueFormatters[idx]) ? valueFormatters[idx](payload[idx].payload[name]) : `${payload[idx].payload[name]}`} //payload[idx].payload[name
-                  name={name}
-                />
-              )
-            })
-          ) : (
-            payload.map(({ value, name, payload }: { value: number; name: string; payload: any }, idx: number) => {
-              return (
-                <ChartTooltipRow
-                  key={`id-${idx}`}
-                  value={(valueFormatters && valueFormatters[idx]) ? valueFormatters[idx](value) : `${value}`}
-                  name={name}
-                />
-              )
-            })
-          )}
+          {tooltip
+            ? tooltip.map((name: string, idx: number) => {
+                return (
+                  <ChartTooltipRow
+                    key={`id-${idx}`}
+                    value={
+                      valueFormatters && valueFormatters[idx]
+                        ? valueFormatters[idx](payload[idx].payload[name])
+                        : `${payload[idx].payload[name]}`
+                    } //payload[idx].payload[name
+                    name={name}
+                  />
+                );
+              })
+            : payload.map(
+                (
+                  { value, name, payload }: { value: number; name: string; payload: any },
+                  idx: number,
+                ) => {
+                  return (
+                    <ChartTooltipRow
+                      key={`id-${idx}`}
+                      value={
+                        valueFormatters && valueFormatters[idx]
+                          ? valueFormatters[idx](value)
+                          : `${value}`
+                      }
+                      name={name}
+                    />
+                  );
+                },
+              )}
         </div>
       </ChartTooltipFrame>
     );
