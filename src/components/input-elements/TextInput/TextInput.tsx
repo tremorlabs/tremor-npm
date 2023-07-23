@@ -15,9 +15,15 @@ export type TextInputProps = Omit<BaseInputProps, "stepper"> & {
 
 const makeTextInputClassName = makeClassName("TextInput");
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props) => {
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+  const { type, ...other } = props;
   return (
-    <BaseInput type={props.type || "text"} {...props} makeInputClassName={makeTextInputClassName} />
+    <BaseInput
+      ref={ref}
+      type={type || "text"}
+      makeInputClassName={makeTextInputClassName}
+      {...other}
+    />
   );
 });
 
