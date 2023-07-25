@@ -168,7 +168,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           "w-full overflow-hidden",
           enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           isCalendarButtonFocused &&
-            "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted",
+            "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
         )}
       >
         <div className="relative w-full overflow-hidden">
@@ -267,7 +267,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           className={tremorTwMerge(
             "w-48 overflow-hidden -ml-px rounded-r-tremor-default",
             isSelectButtonFocused &&
-              "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted",
+              "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
           )}
           value={selectedSelectValue}
           onChange={handleSelectClick}
