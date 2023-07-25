@@ -41,7 +41,7 @@ export interface ScatterChartProps extends BaseAnimationTimingProps {
   y: string;
   category: string;
   size?: string;
-  valueFormatter: ScatterChartValueFormatter;
+  valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
   colors?: Color[];
   showOpacity: boolean;
