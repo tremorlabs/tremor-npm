@@ -77,7 +77,7 @@ WithCustomValueFormatters.args = {
   valueFormatter: {
     x: (x) => `${x} m`,
     y: (y) => `${y} cm`,
-    z: (z) => `${z} kg`,
+    size: (z) => `${z} kg`,
   },
 };
 

@@ -32,7 +32,7 @@ import { Color, ValueFormatter } from "../../../lib/inputTypes";
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
   y?: ValueFormatter;
-  z?: ValueFormatter;
+  size?: ValueFormatter;
 };
 
 export interface ScatterChartProps extends BaseAnimationTimingProps {
@@ -75,7 +75,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     valueFormatter = {
       x: defaultValueFormatter,
       y: defaultValueFormatter,
-      z: defaultValueFormatter,
+      size: defaultValueFormatter,
     },
     startEndOnly = false,
     showXAxis = true,
@@ -209,7 +209,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     payload={payload}
                     label={category ? payload?.[0]?.payload?.[category] : label}
                     valueFormatter={valueFormatter}
-                    axis={{ x: x, y: y, z: size }}
+                    axis={{ x: x, y: y, size: size }}
                     category={category}
                     categoryColors={categoryColors}
                   />
