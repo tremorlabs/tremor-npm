@@ -35,7 +35,9 @@ export type ScatterChartValueFormatter = {
   size?: ValueFormatter;
 };
 
-export interface ScatterChartProps extends BaseAnimationTimingProps {
+export interface ScatterChartProps
+  extends BaseAnimationTimingProps,
+    React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   x: string;
   y: string;
@@ -44,7 +46,7 @@ export interface ScatterChartProps extends BaseAnimationTimingProps {
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
   colors?: Color[];
-  showOpacity: boolean;
+  showOpacity?: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
