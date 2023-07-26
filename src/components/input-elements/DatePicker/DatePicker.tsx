@@ -31,6 +31,7 @@ export interface DatePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  displayFormat?: string;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -45,6 +46,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     disabled = false,
     locale = enUS,
     enableClear = true,
+    displayFormat,
     className,
     ...other
   } = props;
@@ -60,7 +62,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
 
   const formattedSelection = !selectedValue
     ? placeholder
-    : formatSelectedDates(selectedValue, undefined, locale);
+    : formatSelectedDates(selectedValue, undefined, locale, displayFormat);
   const defaultMonth = startOfMonth(selectedValue ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;
