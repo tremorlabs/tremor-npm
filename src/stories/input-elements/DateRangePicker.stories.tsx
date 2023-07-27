@@ -174,7 +174,7 @@ UncontrolledWithDisabled.args = {
 
 export const UncontrolledDefaultWithYearNavigation = UncontrolledTemplate.bind({});
 UncontrolledDefaultWithYearNavigation.args = {
-  enableYearPagination: true,
+  enableYearNavigation: true,
 };
 
 export const ControlledDefault = ControlledTemplate.bind({});

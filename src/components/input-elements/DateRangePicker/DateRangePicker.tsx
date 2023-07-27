@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  ArrowLeftHeadIcon,
-  ArrowRightHeadIcon,
-  DoubleArrowLeftHeadIcon,
-  DoubleArrowRightHeadIcon,
-  XCircleIcon,
-} from "assets";
-import { DateRange, DayPickerRangeProps, useNavigation } from "react-day-picker";
+import { XCircleIcon } from "assets";
+import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import { Listbox, Popover } from "@headlessui/react";
 import React, { ReactElement, useMemo, useState } from "react";
-import { addYears, format, startOfMonth, startOfToday } from "date-fns";
+import { startOfMonth, startOfToday } from "date-fns";
 import { border, sizing, spacing, tremorTwMerge } from "lib";
 import {
   constructValueToNameMapping,
@@ -29,9 +23,7 @@ import {
 import { Calendar } from "components/input-elements/Calendar";
 import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
-import { NavButton } from "components/input-elements/DateRangePicker/NavButton";
 import { SelectItem } from "components/input-elements/Select";
-import { Text } from "components/text-elements";
 import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
 
@@ -55,7 +47,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
-  enableYearPagination?: boolean;
+  enableYearNavigation?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -74,7 +66,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     enableClear = true,
     children,
     className,
-    enableYearPagination = false,
+    enableYearNavigation = false,
     ...other
   } = props;
 
@@ -258,6 +250,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             }
             locale={locale}
             disabled={disabledDays}
+            enableYearNavigation={enableYearNavigation}
             classNames={{
               day_range_middle: tremorTwMerge(
                 "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
@@ -266,47 +259,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
               day_range_end:
                 "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
-            }}
-            components={{
-              IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
-              IconRight: ({ ...props }) => <ArrowRightHeadIcon className="h-4 w-4" {...props} />,
-              Caption: ({ ...props }) => {
-                const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
-
-                return (
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center space-x-1">
-                      {enableYearPagination && (
-                        <NavButton
-                          onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
-                          icon={DoubleArrowLeftHeadIcon}
-                        />
-                      )}
-                      <NavButton
-                        onClick={() => previousMonth && goToMonth(previousMonth)}
-                        icon={ArrowLeftHeadIcon}
-                      />
-                    </div>
-
-                    <Text className="text-tremor-default tabular-nums text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
-                      {format(props.displayMonth, "LLLL yyy")}
-                    </Text>
-
-                    <div className="flex items-center space-x-1">
-                      <NavButton
-                        onClick={() => nextMonth && goToMonth(nextMonth)}
-                        icon={ArrowRightHeadIcon}
-                      />
-                      {enableYearPagination && (
-                        <NavButton
-                          onClick={() => currentMonth && goToMonth(addYears(currentMonth, 1))}
-                          icon={DoubleArrowRightHeadIcon}
-                        />
-                      )}
-                    </div>
-                  </div>
-                );
-              },
             }}
             {...props}
           />

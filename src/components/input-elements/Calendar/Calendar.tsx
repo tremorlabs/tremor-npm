@@ -1,8 +1,21 @@
 "use client";
 import React from "react";
-import { DayPicker, DayPickerRangeProps, DayPickerSingleProps } from "react-day-picker";
+import {
+  DayPicker,
+  DayPickerRangeProps,
+  DayPickerSingleProps,
+  useNavigation,
+} from "react-day-picker";
 
-import { ArrowLeftHeadIcon, ArrowRightHeadIcon } from "assets";
+import {
+  ArrowLeftHeadIcon,
+  ArrowRightHeadIcon,
+  DoubleArrowLeftHeadIcon,
+  DoubleArrowRightHeadIcon,
+} from "assets";
+import { NavButton } from "./NavButton";
+import { Text } from "../../text-elements/Text";
+import { addYears, format } from "date-fns";
 
 function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   mode,
@@ -11,9 +24,10 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   onSelect,
   locale,
   disabled,
+  enableYearNavigation,
   classNames,
   ...other
-}: T) {
+}: T & { enableYearNavigation: boolean }) {
   return (
     <DayPicker
       showOutsideDays={true}
@@ -49,8 +63,45 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ArrowLeftHeadIcon {...props} className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ArrowRightHeadIcon {...props} className="h-4 w-4" />,
+        IconLeft: ({ ...props }) => <ArrowLeftHeadIcon className="h-4 w-4" {...props} />,
+        IconRight: ({ ...props }) => <ArrowRightHeadIcon className="h-4 w-4" {...props} />,
+        Caption: ({ ...props }) => {
+          const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
+
+          return (
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-1">
+                {enableYearNavigation && (
+                  <NavButton
+                    onClick={() => currentMonth && goToMonth(addYears(currentMonth, -1))}
+                    icon={DoubleArrowLeftHeadIcon}
+                  />
+                )}
+                <NavButton
+                  onClick={() => previousMonth && goToMonth(previousMonth)}
+                  icon={ArrowLeftHeadIcon}
+                />
+              </div>
+
+              <Text className="text-tremor-default tabular-nums text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+                {format(props.displayMonth, "LLLL yyy")}
+              </Text>
+
+              <div className="flex items-center space-x-1">
+                <NavButton
+                  onClick={() => nextMonth && goToMonth(nextMonth)}
+                  icon={ArrowRightHeadIcon}
+                />
+                {enableYearNavigation && (
+                  <NavButton
+                    onClick={() => currentMonth && goToMonth(addYears(currentMonth, 1))}
+                    icon={DoubleArrowRightHeadIcon}
+                  />
+                )}
+              </div>
+            </div>
+          );
+        },
       }}
       {...other}
     />
