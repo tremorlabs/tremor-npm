@@ -112,7 +112,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsScatterChart className="overflow">
+          <ReChartsScatterChart>
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -180,26 +180,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 allowDecimals={allowDecimals}
               />
             ) : null}
-            {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} /> : null}
-            {categories.map((cat) => {
-              return (
-                <Scatter
-                  className={
-                    getColorClassNames(
-                      categoryColors.get(cat) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).fillColor
-                  }
-                  fill={`url(#${categoryColors.get(cat)})`}
-                  fillOpacity={showOpacity ? 0.7 : 1}
-                  key={cat}
-                  name={cat}
-                  data={category ? data.filter((d) => d[category] === cat) : data}
-                  isAnimationActive={showAnimation}
-                  animationDuration={animationDuration}
-                />
-              );
-            })}
             {showTooltip ? (
               <Tooltip
                 wrapperStyle={{ outline: "none" }}
@@ -218,6 +198,34 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
               />
             ) : null}
+            {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} /> : null}
+            {categories.map((cat) => {
+              return (
+                <Scatter
+                  className={`
+                ${
+                  getColorClassNames(categoryColors.get(cat) ?? BaseColors.Gray, colorPalette.text)
+                    .fillColor
+                } 
+                ${
+                  showOpacity
+                    ? getColorClassNames(
+                        categoryColors.get(cat) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).strokeColor
+                    : ""
+                }
+              `}
+                  fill={`url(#${categoryColors.get(cat)})`}
+                  fillOpacity={showOpacity ? 0.7 : 1}
+                  key={cat}
+                  name={cat}
+                  data={category ? data.filter((d) => d[category] === cat) : data}
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                />
+              );
+            })}
             {showLegend ? (
               <Legend
                 verticalAlign="top"
