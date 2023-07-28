@@ -66,7 +66,7 @@ export const WithCustomColor = ResponsiveTemplate.bind({});
 WithCustomColor.args = {
   ...args,
   data,
-  colors: ["red", "green", "blue"],
+  colors: ["red", "green", "blue", "yellow"],
 };
 
 export const WithCustomValueFormatters = ResponsiveTemplate.bind({});

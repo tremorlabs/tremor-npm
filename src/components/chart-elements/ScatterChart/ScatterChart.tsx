@@ -153,6 +153,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 padding={{ left: 0, right: 0 }}
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
+                allowDataOverflow={true}
               />
             ) : null}
             {y ? (
@@ -178,6 +179,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   "dark:fill-dark-tremor-content",
                 )}
                 allowDecimals={allowDecimals}
+                allowDataOverflow={true}
               />
             ) : null}
             {showTooltip ? (
