@@ -138,7 +138,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         ) : null}
         {stepper ?? null}
       </div>
-      {errorMessage ? (
+      {error && errorMessage ? (
         <p
           className={tremorTwMerge(
             makeInputClassName("errorMessage"),
