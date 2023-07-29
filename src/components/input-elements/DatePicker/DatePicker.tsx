@@ -9,7 +9,6 @@ import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
 import { Color } from "../../../lib/inputTypes";
 import { formatSelectedDates } from "../DateRangePicker/dateRangePickerUtils";
-
 import { XCircleIcon } from "assets";
 import { Popover } from "@headlessui/react";
 import { getSelectButtonColors, hasValue } from "../selectUtils";
@@ -31,6 +30,7 @@ export interface DatePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  enableYearNavigation?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -46,6 +46,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     locale = enUS,
     enableClear = true,
     className,
+    enableYearNavigation = false,
     ...other
   } = props;
 
@@ -152,6 +153,8 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
             }
             locale={locale}
             disabled={disabledDays}
+            enableYearNavigation={enableYearNavigation}
+            {...props}
           />
         )}
       </Popover.Panel>
