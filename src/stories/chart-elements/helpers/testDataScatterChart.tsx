@@ -48,10 +48,16 @@ export const simpleScatterChartData = [
     z: 120,
   },
   {
-    location: "Location C",
-    x: 190,
-    y: 290,
+    location: "Location D",
+    x: 0,
+    y: 190,
     z: 250,
+  },
+  {
+    location: "Location D",
+    x: 70,
+    y: 0,
+    z: 950,
   },
 ];
 

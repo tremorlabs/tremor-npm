@@ -66,7 +66,7 @@ export const WithCustomColor = ResponsiveTemplate.bind({});
 WithCustomColor.args = {
   ...args,
   data,
-  colors: ["red", "green", "blue"],
+  colors: ["red", "green", "blue", "yellow"],
 };
 
 export const WithCustomValueFormatters = ResponsiveTemplate.bind({});
@@ -77,7 +77,7 @@ WithCustomValueFormatters.args = {
   valueFormatter: {
     x: (x) => `${x} m`,
     y: (y) => `${y} cm`,
-    size: (z) => `${z} kg`,
+    size: (size) => `${size} kg`,
   },
 };
 

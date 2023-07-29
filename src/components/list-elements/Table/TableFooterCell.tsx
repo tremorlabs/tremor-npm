@@ -1,9 +1,9 @@
 import React from "react";
 import { tremorTwMerge, makeClassName, spacing } from "lib";
 
-const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
+const makeTableFooterCellClassName = makeClassName("TableFooterCell");
 
-const TableHeaderCell = React.forwardRef<
+const TableFooterCell = React.forwardRef<
   HTMLTableCellElement,
   React.HTMLAttributes<HTMLTableCellElement>
 >((props, ref) => {
@@ -13,11 +13,11 @@ const TableHeaderCell = React.forwardRef<
       <th
         ref={ref}
         className={tremorTwMerge(
-          makeTableHeaderCellClassName("root"),
+          makeTableFooterCellClassName("root"),
           // common
-          "sticky whitespace-nowrap text-left font-semibold",
+          //"whitespace-nowrap text-left font-semibold",
           // light
-          "text-tremor-content",
+          "text-tremor-content font-medium",
           // dark
           "dark:text-dark-tremor-content",
           spacing.none.top,
@@ -33,6 +33,6 @@ const TableHeaderCell = React.forwardRef<
   );
 });
 
-TableHeaderCell.displayName = "TableHeaderCell";
+TableFooterCell.displayName = "TableFooterCell";
 
-export default TableHeaderCell;
+export default TableFooterCell;

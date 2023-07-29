@@ -14,7 +14,9 @@ import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps extends BaseAnimationTimingProps {
+export interface DonutChartProps
+  extends BaseAnimationTimingProps,
+    React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   category?: string;
   index?: string;
