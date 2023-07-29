@@ -1,6 +1,7 @@
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
-interface BaseChartProps extends BaseAnimationTimingProps {
+
+interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   categories: string[];
   index: string;
