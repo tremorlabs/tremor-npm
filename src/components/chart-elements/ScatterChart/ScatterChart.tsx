@@ -15,7 +15,7 @@ import { AxisDomain } from "recharts/types/util/types";
 
 import { constructCategories, constructCategoryColors, getYAxisDomain } from "../common/utils";
 import NoData from "../common/NoData";
-import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import BaseAnimationTimingProps from "components/chart-elements/common/BaseAnimationTimingProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
 
