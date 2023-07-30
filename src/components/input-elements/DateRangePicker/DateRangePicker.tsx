@@ -48,6 +48,7 @@ export interface DateRangePickerProps
   locale?: Locale;
   enableClear?: boolean;
   enableYearNavigation?: boolean;
+  numberOfMonths?: number;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -67,6 +68,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     children,
     className,
     enableYearNavigation = false,
+    numberOfMonths = 1,
     ...other
   } = props;
 
@@ -242,6 +244,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               from: selectedStartDate,
               to: selectedEndDate,
             }}
+            numberOfMonths={numberOfMonths ?? 1}
             onSelect={
               ((v: DateRange) => {
                 onValueChange?.({ from: v?.from, to: v?.to });
