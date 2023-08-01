@@ -53,9 +53,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     maxValue,
     allowDecimals = true,
     xAxisTextAnchor = undefined,
+    margin = undefined,
+    tooltipValueFormatter = undefined,
     noDataText,
     className,
-    margin = undefined,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -195,7 +196,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     active={active}
                     payload={payload}
                     label={label}
-                    valueFormatter={valueFormatter}
+                    valueFormatter={tooltipValueFormatter || valueFormatter}
                     categoryColors={categoryColors}
                   />
                 )}

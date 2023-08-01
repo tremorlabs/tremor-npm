@@ -58,6 +58,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     xAxisAngle = 0,
     xAxisTextAnchor = undefined,
     margin = undefined,
+    tooltipValueFormatter = undefined,
     noDataText,
     className,
     ...other
@@ -142,7 +143,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     active={active}
                     payload={payload}
                     label={label}
-                    valueFormatter={valueFormatter}
+                    valueFormatter={tooltipValueFormatter || valueFormatter}
                     categoryColors={categoryColors}
                   />
                 )}
