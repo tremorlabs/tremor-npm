@@ -55,6 +55,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     xAxisTextAnchor = undefined,
     noDataText,
     className,
+    margin = undefined,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -70,6 +71,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
+            margin={margin}
           >
             {showGridLines ? (
               <CartesianGrid

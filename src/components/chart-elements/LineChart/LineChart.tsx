@@ -57,6 +57,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     allowDecimals = true,
     xAxisAngle = 0,
     xAxisTextAnchor = undefined,
+    margin = undefined,
     noDataText,
     className,
     ...other
@@ -70,7 +71,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsLineChart data={data}>
+          <ReChartsLineChart data={data} margin={margin}>
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(

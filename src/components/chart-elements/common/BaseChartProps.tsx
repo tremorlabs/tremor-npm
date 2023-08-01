@@ -22,6 +22,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   noDataText?: string;
   xAxisAngle?: number;
   xAxisTextAnchor?: string;
+  margin?: any;
 }
 
 export default BaseChartProps;
