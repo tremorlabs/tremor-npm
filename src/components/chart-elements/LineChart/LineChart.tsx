@@ -55,6 +55,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    xAxisAngle = 0,
+    xAxisTextAnchor = undefined,
     noDataText,
     className,
     ...other
@@ -104,6 +106,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               axisLine={false}
               padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              angle={xAxisAngle}
+              textAnchor={xAxisTextAnchor}
             />
             <YAxis
               width={yAxisWidth}

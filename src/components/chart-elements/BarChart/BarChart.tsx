@@ -44,6 +44,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    xAxisAngle = 0,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -51,6 +52,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     minValue,
     maxValue,
     allowDecimals = true,
+    xAxisTextAnchor = undefined,
     noDataText,
     className,
     ...other
@@ -104,6 +106,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 )}
                 tickLine={false}
                 axisLine={false}
+                angle={xAxisAngle}
+                textAnchor={xAxisTextAnchor}
               />
             ) : (
               <XAxis
@@ -127,6 +131,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 padding={{ left: 10, right: 10 }}
                 minTickGap={5}
                 allowDecimals={allowDecimals}
+                angle={xAxisAngle}
+                textAnchor={xAxisTextAnchor}
               />
             )}
             {layout !== "vertical" ? (
