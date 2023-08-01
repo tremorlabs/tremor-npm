@@ -137,8 +137,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 ticks={startEndOnly ? [data[0][x], data[data.length - 1][x]] : undefined}
                 type="number"
                 name={x}
-                // fill=""
-                // stroke=""
+                fill=""
+                stroke=""
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
