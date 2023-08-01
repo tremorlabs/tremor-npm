@@ -62,6 +62,9 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
+  xAxisProps?: any;
+  yAxisProps?: any;
+  zAxisProps?: any;
 }
 
 const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) => {
@@ -95,6 +98,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     minYValue,
     maxYValue,
     allowDecimals = true,
+    xAxisProps = {},
+    yAxisProps = {},
+    zAxisProps = {},
     noDataText,
     className,
     ...other
@@ -154,6 +160,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
+                {...xAxisProps}
               />
             ) : null}
             {y ? (
@@ -180,6 +187,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}
+                {...yAxisProps}
               />
             ) : null}
             {showTooltip ? (
@@ -200,7 +208,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
               />
             ) : null}
-            {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} /> : null}
+            {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} {...zAxisProps} /> : null}
             {categories.map((cat) => {
               return (
                 <Scatter

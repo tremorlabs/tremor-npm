@@ -59,6 +59,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     xAxisTextAnchor = undefined,
     margin = undefined,
     tooltipValueFormatter = undefined,
+    xAxisProps = {},
+    yAxisProps = {},
     noDataText,
     className,
     ...other
@@ -110,6 +112,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               minTickGap={5}
               angle={xAxisAngle}
               textAnchor={xAxisTextAnchor}
+              {...xAxisProps}
             />
             <YAxis
               width={yAxisWidth}
@@ -131,6 +134,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
+              {...yAxisProps}
             />
             {showTooltip ? (
               <Tooltip

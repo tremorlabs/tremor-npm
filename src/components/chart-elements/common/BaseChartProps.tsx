@@ -23,8 +23,9 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   xAxisAngle?: number;
   xAxisTextAnchor?: string;
   margin?: any;
+  xAxisProps?: any;
+  yAxisProps?: any;
   tooltipValueFormatter?: ValueFormatter;
-
 }
 
 export default BaseChartProps;

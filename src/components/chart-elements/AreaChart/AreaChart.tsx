@@ -58,6 +58,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    xAxisProps = {},
+    yAxisProps = {},
     noDataText,
     className,
     ...other
@@ -107,6 +109,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               axisLine={false}
               padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              {...xAxisProps}
             />
             <YAxis
               width={yAxisWidth}
@@ -128,6 +131,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
+              {...yAxisProps}
             />
             {showTooltip ? (
               <Tooltip

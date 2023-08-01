@@ -57,6 +57,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     tooltipValueFormatter = undefined,
     noDataText,
     className,
+    xAxisProps = {},
+    yAxisProps = {},
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -111,6 +113,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 axisLine={false}
                 angle={xAxisAngle}
                 textAnchor={xAxisTextAnchor}
+                {...xAxisProps}
               />
             ) : (
               <XAxis
@@ -136,6 +139,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 allowDecimals={allowDecimals}
                 angle={xAxisAngle}
                 textAnchor={xAxisTextAnchor}
+                {...xAxisProps}
               />
             )}
             {layout !== "vertical" ? (
@@ -161,6 +165,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
                 allowDecimals={allowDecimals}
+                {...yAxisProps}
               />
             ) : (
               <YAxis
@@ -183,6 +188,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   // dark
                   "dark:fill-dark-tremor-content",
                 )}
+                {...yAxisProps}
               />
             )}
             {showTooltip ? (
