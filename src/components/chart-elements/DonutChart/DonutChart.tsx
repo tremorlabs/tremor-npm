@@ -23,11 +23,13 @@ export interface DonutChartProps
   colors?: Color[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
+  tooltipValueFormatter?: ValueFormatter;
   label?: string;
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
   noDataText?: string;
+  labelClassname?: string;
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
@@ -38,6 +40,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     colors = themeColorRange,
     variant = "donut",
     valueFormatter = defaultValueFormatter,
+    tooltipValueFormatter = undefined,
     label,
     showLabel = true,
     animationDuration = 900,
@@ -45,6 +48,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     showTooltip = true,
     noDataText,
     className,
+    labelClassname,
     ...other
   } = props;
   const isDonut = variant == "donut";
@@ -63,6 +67,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                   "fill-tremor-content-emphasis",
                   // dark
                   "dark:fill-dark-tremor-content-emphasis",
+                  labelClassname,
                 )}
                 x="50%"
                 y="50%"
@@ -95,7 +100,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                   <DonutChartTooltip
                     active={active}
                     payload={payload}
-                    valueFormatter={valueFormatter}
+                    valueFormatter={tooltipValueFormatter || valueFormatter}
                   />
                 )}
               />
