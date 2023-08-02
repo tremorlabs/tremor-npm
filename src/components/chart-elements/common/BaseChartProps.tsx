@@ -25,6 +25,8 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   margin?: any;
   xAxisProps?: any;
   yAxisProps?: any;
+  gridProps?: any;
+  barProps?: any;
   tooltipValueFormatter?: ValueFormatter;
 }
 

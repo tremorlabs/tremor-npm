@@ -59,6 +59,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     className,
     xAxisProps = {},
     yAxisProps = {},
+    gridProps = {},
+    barProps = {},
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -89,6 +91,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 strokeDasharray="3 3"
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
+                {...gridProps}
               />
             ) : null}
 
@@ -148,7 +151,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 hide={!showYAxis}
                 axisLine={false}
                 tickLine={false}
-                type="number"
+                type="category"
                 domain={yAxisDomain as AxisDomain}
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
@@ -232,6 +235,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
+                {...barProps}
               />
             ))}
           </ReChartsBarChart>
