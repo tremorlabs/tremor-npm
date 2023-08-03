@@ -151,7 +151,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 hide={!showYAxis}
                 axisLine={false}
                 tickLine={false}
-                type="category"
+                type="number"
                 domain={yAxisDomain as AxisDomain}
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
