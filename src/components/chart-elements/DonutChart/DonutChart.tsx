@@ -30,6 +30,9 @@ export interface DonutChartProps
   showTooltip?: boolean;
   noDataText?: string;
   labelClassname?: string;
+  margin?: any;
+  customTooltip?: (p: any) => React.JSX.Element;
+  pieProps?: any;
 }
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
@@ -49,6 +52,9 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     noDataText,
     className,
     labelClassname,
+    margin = undefined,
+    customTooltip = undefined,
+    pieProps = {},
     ...other
   } = props;
   const isDonut = variant == "donut";
@@ -59,7 +65,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsDonutChart>
+          <ReChartsDonutChart margin={margin}>
             {showLabel && isDonut ? (
               <text
                 className={tremorTwMerge(
@@ -92,6 +98,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               nameKey={index}
               isAnimationActive={showAnimation}
               animationDuration={animationDuration}
+              {...pieProps}
             />
             {showTooltip ? (
               <Tooltip
@@ -101,6 +108,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                     active={active}
                     payload={payload}
                     valueFormatter={tooltipValueFormatter || valueFormatter}
+                    customTooltip={customTooltip}
                   />
                 )}
               />
