@@ -222,6 +222,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           ) : null}
         </div>
         <Popover.Panel
+          focus={true}
           className={tremorTwMerge(
             // common
             "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
