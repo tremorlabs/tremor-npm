@@ -82,8 +82,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     loading = false,
     loadingText,
     children,
-    className,
     tooltip,
+    className,
     ...other
   } = props;
 
@@ -114,6 +114,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   return (
     <Transition in={loading} timeout={50}>
       {(state) => (
+        // eslint-disable-next-line react/button-has-type
         <button
           ref={mergeRefs([ref, tooltipProps.refs.setReference])}
           className={tremorTwMerge(

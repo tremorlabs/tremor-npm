@@ -196,6 +196,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           </Popover.Button>
           {isClearEnabled && selectedStartDate ? (
             <button
+              type="button"
               className={tremorTwMerge(
                 "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100",
                 spacing.twoXl.marginRight,
