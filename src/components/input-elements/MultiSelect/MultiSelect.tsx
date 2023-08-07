@@ -143,6 +143,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           {/* coditionally showed XCircle */}
           {hasSelection && !disabled ? (
             <button
+              type="button"
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
                 spacing.fourXl.marginRight,
