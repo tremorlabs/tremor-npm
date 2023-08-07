@@ -57,6 +57,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     tooltipValueFormatter = undefined,
     noDataText,
     className,
+    filterPayload = undefined,
     xAxisProps = {},
     yAxisProps = {},
     gridProps = {},
@@ -203,7 +204,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 content={({ active, payload, label }) => (
                   <ChartTooltip
                     active={active}
-                    payload={payload}
+                    payload={filterPayload ? filterPayload(payload) : payload}
                     label={label}
                     valueFormatter={tooltipValueFormatter || valueFormatter}
                     categoryColors={categoryColors}
@@ -216,7 +217,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) => {
+                  return ChartLegend(
+                    { payload: filterPayload ? filterPayload(payload) : payload },
+                    categoryColors,
+                    setLegendHeight,
+                  );
+                }}
               />
             ) : null}
             {categories.map((category) => (
