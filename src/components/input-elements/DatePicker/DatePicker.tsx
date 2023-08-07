@@ -155,7 +155,6 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
             locale={locale}
             disabled={disabledDays}
             enableYearNavigation={enableYearNavigation}
-            {...props}
           />
         )}
       </Popover.Panel>

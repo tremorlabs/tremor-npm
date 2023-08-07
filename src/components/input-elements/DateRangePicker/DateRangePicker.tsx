@@ -156,7 +156,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     <div
       ref={ref}
       className={tremorTwMerge(
-        // common
         "w-full min-w-[10rem] relative flex justify-between text-tremor-default",
         "max-w-sm",
         className,
