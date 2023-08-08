@@ -27,6 +27,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         )}
         {...other}
         role="tabpanel"
+        hidden={!isSelected}
       >
         {children}
       </div>
