@@ -25,8 +25,8 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
           isSelected ? "" : "hidden",
           className,
         )}
-        aria-selected={isSelected ? "true" : "false"}
         {...other}
+        role="tabpanel"
       >
         {children}
       </div>
