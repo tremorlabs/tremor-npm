@@ -18,11 +18,13 @@ const TODAY = startOfToday();
 
 export type Locale = typeof enUS;
 
+export type DatePickerValue = Date | undefined;
+
 export interface DatePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
   value?: Date;
   defaultValue?: Date;
-  onValueChange?: (value: Date | undefined) => void;
+  onValueChange?: (value: DatePickerValue) => void;
   minDate?: Date;
   maxDate?: Date;
   placeholder?: string;
