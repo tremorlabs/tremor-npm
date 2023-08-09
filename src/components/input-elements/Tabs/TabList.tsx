@@ -2,7 +2,7 @@
 import React, { createContext } from "react";
 import { tremorTwMerge } from "lib";
 
-import { BaseColorContext } from "contexts";
+import { BaseColorContext, IndexContext } from "contexts";
 
 import { border, makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
@@ -57,7 +57,11 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
       {...other}
     >
       <TabVariantContext.Provider value={variant}>
-        <BaseColorContext.Provider value={color}>{children}</BaseColorContext.Provider>
+        <BaseColorContext.Provider value={color}>
+          {React.Children.map(children, (child, index) => (
+            <IndexContext.Provider value={index}>{child}</IndexContext.Provider>
+          ))}
+        </BaseColorContext.Provider>
       </TabVariantContext.Provider>
     </Tab.List>
   );

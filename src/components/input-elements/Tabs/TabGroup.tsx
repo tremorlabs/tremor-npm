@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { createContext, useId } from "react";
 import { tremorTwMerge } from "lib";
 import { Tab } from "@headlessui/react";
 import { makeClassName } from "lib";
@@ -13,8 +13,11 @@ export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
+export const IdContext = createContext<string | undefined>(undefined);
+
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) => {
   const { defaultIndex, index, onIndexChange, children, className, ...other } = props;
+  const id = useId();
 
   return (
     <Tab.Group
@@ -26,7 +29,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) =>
       className={tremorTwMerge(makeTabGroupClassName("root"), "w-full", className)}
       {...other}
     >
-      {children}
+      <IdContext.Provider value={`tremor-tab-group-${id}`}>{children}</IdContext.Provider>
     </Tab.Group>
   );
 });

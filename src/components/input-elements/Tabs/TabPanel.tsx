@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { tremorTwMerge } from "lib";
 import { makeClassName } from "lib";
 import { IndexContext, SelectedValueContext } from "contexts";
+import { IdContext } from "components/input-elements/Tabs/TabGroup";
 
 const makeTabPanelClassName = makeClassName("TabPanel");
 
@@ -11,6 +12,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     const { children, className, ...other } = props;
 
     const { selectedValue: selectedIndex } = useContext(SelectedValueContext);
+    const tabGroupId = useContext(IdContext);
     const index = useContext(IndexContext);
 
     const isSelected = selectedIndex === index;
@@ -28,7 +30,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         {...other}
         role="tabpanel"
         tabIndex={0}
-        aria-labelledby={`tremor-tab-trigger-${index}`}
+        aria-labelledby={`${tabGroupId}-tab-${index}`}
         hidden={!isSelected}
       >
         {children}
