@@ -16,3 +16,5 @@ export { default as SearchIcon } from "./SearchIcon";
 export { default as XCircleIcon } from "./XCircleIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as MinusIcon } from "./MinusIcon";
+export { default as EyeIcon } from "./EyeIcon";
+export { default as EyeOffIcon } from "./EyeOffIcon";

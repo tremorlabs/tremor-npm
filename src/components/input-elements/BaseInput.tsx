@@ -1,8 +1,9 @@
 "use client";
-import React, { ReactNode, useRef, useState } from "react";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import { ExclamationFilledIcon } from "assets";
+import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import { Icon as IconComponent } from "components/icon-elements";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -32,6 +33,12 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const toggleIsPasswordVisible = useCallback(
+    () => setIsPasswordVisible(!isPasswordVisible),
+    [isPasswordVisible, setIsPasswordVisible],
+  );
 
   const Icon = icon;
 
@@ -104,7 +111,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           ref={mergeRefs([inputRef, ref])}
           defaultValue={defaultValue}
           value={value}
-          type={type}
+          type={isPasswordVisible ? "text" : type}
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
@@ -126,6 +133,19 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           data-testid="base-input"
           {...other}
         />
+        {type === "password" && (
+          <button
+            className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
+            type="button"
+            onClick={() => toggleIsPasswordVisible()}
+          >
+            {isPasswordVisible ? (
+              <IconComponent size="xs" icon={EyeOffIcon} color="slate" />
+            ) : (
+              <IconComponent size="xs" icon={EyeIcon} color="slate" />
+            )}
+          </button>
+        )}
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(
