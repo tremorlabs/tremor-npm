@@ -6,7 +6,7 @@ import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import { makeClassName, sizing, spacing } from "lib";
 import { Color } from "../../../lib/inputTypes";
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
-import { BaseColorContext } from "contexts";
+import { BaseColorContext, IndexContext } from "contexts";
 
 const makeTabClassName = makeClassName("Tab");
 
@@ -51,6 +51,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
 
   const variant = useContext(TabVariantContext);
   const color = useContext(BaseColorContext);
+  const index = useContext(IndexContext);
   const Icon = icon;
 
   return (
@@ -67,6 +68,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         getVariantStyles(variant, color),
         className,
       )}
+      id={`tremor-tab-trigger-${index}`}
       {...other}
     >
       {Icon ? (

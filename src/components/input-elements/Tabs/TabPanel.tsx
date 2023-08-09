@@ -27,6 +27,8 @@ const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         )}
         {...other}
         role="tabpanel"
+        tabIndex={0}
+        aria-labelledby={`tremor-tab-trigger-${index}`}
         hidden={!isSelected}
       >
         {children}
