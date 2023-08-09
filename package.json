@@ -1,7 +1,7 @@
 {
   "name": "@tremor/react",
   "version": "0.0.0-development",
-  "description": "The React library to build dashboards faster.",
+  "description": "The React library to build dashboards faster 2023.",
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "rollup -c",
