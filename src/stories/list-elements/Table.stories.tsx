@@ -51,6 +51,33 @@ const data = [
     deltaType: "moderateDecrease",
     hours: 90,
   },
+  {
+    id: 4,
+    name: "Jane Doe",
+    sales: "1.000.000",
+    region: "Region A",
+    status: "overperforming",
+    deltaType: "moderateIncrease",
+    hours: 100,
+  },
+  {
+    id: 5,
+    name: "Jackson Doe",
+    sales: "2.202.000",
+    region: "Region B",
+    status: "overperforming",
+    deltaType: "moderateIncrease",
+    hours: 110,
+  },
+  {
+    id: 6,
+    name: "Robert Doe",
+    sales: "1.505.000",
+    region: "Region C",
+    status: "underperforming",
+    deltaType: "moderateDecrease",
+    hours: 90,
+  },
 ];
 
 const Template: ComponentStory<typeof Table> = (args) => {
@@ -95,9 +122,41 @@ const Template: ComponentStory<typeof Table> = (args) => {
     </Card>
   );
 };
-
+const paginationConfig = {
+  pageSize: 1,
+  allowEndStartButtons: true,
+};
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
   children: undefined,
+};
+
+export const WithPaginationWithDefaultVariant = Template.bind({});
+WithPaginationWithDefaultVariant.args = {
+  children: undefined,
+  paginationConfig: {
+    ...paginationConfig,
+    visibleButtons: 3,
+  },
+};
+
+export const WithPaginationWithOnlyArrows = Template.bind({});
+WithPaginationWithOnlyArrows.args = {
+  children: undefined,
+  paginationConfig: {
+    ...paginationConfig,
+    variant: "only_arrows",
+    color: "green",
+  },
+};
+
+export const WithPaginationWithInput = Template.bind({});
+WithPaginationWithInput.args = {
+  children: undefined,
+  paginationConfig: {
+    ...paginationConfig,
+    variant: "with_input",
+    color: "red",
+  },
 };
