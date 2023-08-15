@@ -32,6 +32,7 @@ export interface DatePickerProps
   enableClear?: boolean;
   enableYearNavigation?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
+  disabledDates?: Date[];
 }
 
 const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
@@ -41,6 +42,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     onValueChange,
     minDate,
     maxDate,
+    disabledDates,
     placeholder = "Select",
     disabled = false,
     locale = enUS,
@@ -56,8 +58,8 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
     if (maxDate) disabledDays.push({ after: maxDate });
-    return disabledDays;
-  }, [minDate, maxDate]);
+    return [...disabledDays, ...(disabledDates ?? [])];
+  }, [minDate, maxDate, disabledDates]);
 
   const formattedSelection = !selectedValue
     ? placeholder

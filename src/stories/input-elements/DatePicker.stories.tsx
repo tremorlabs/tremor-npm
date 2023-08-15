@@ -68,6 +68,14 @@ UncontrolledWithMinMax.args = {
   maxDate: new Date(2023, 4, 15),
 };
 
+export const UncontrolledWithDisabledDates = UncontrolledTemplate.bind({});
+UncontrolledWithDisabledDates.args = {
+  defaultValue: new Date(2023, 8, 9),
+  minDate: new Date(2023, 8, 1),
+  maxDate: new Date(2023, 8, 18),
+  disabledDates: [new Date(2023, 8, 12), new Date(2023, 8, 13), new Date(2023, 8, 17)],
+};
+
 export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
 UncontrolledWithDisabled.args = {
   defaultValue: new Date(2022, 10, 1),
