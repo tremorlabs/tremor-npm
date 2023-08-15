@@ -85,7 +85,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
               </div>
 
               <Text className="text-tremor-default tabular-nums text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
-                {format(props.displayMonth, "LLLL yyy")}
+                {format(props.displayMonth, "LLLL yyy", { locale })}
               </Text>
 
               <div className="flex items-center space-x-1">
