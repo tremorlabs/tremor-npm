@@ -61,6 +61,12 @@ UncontrolledWithDefaultValue.args = {
   defaultValue: new Date(2022, 10, 1),
 };
 
+export const UncontrolledWithWeekStartsOn = UncontrolledTemplate.bind({});
+UncontrolledWithWeekStartsOn.args = {
+  defaultValue: new Date(2022, 10, 1),
+  weekStartsOn: "Wed",
+};
+
 export const UncontrolledWithMinMax = UncontrolledTemplate.bind({});
 UncontrolledWithMinMax.args = {
   defaultValue: new Date(2022, 10, 1),

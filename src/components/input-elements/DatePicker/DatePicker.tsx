@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo } from "react";
 import { sizing, tremorTwMerge, border, spacing } from "lib";
-import { DayPickerSingleProps } from "react-day-picker";
+import { DayPickerSingleProps, DayPickerBase } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -16,7 +16,24 @@ import { Calendar } from "components/input-elements/Calendar";
 
 const TODAY = startOfToday();
 
+const weekDays = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
+};
+
+const getWeekStart = (day: WeekDays) => {
+  if (!day) return;
+  return weekDays[day] as DayPickerBase["weekStartsOn"];
+};
+
 export type Locale = typeof enUS;
+
+type WeekDays = keyof typeof weekDays | undefined;
 
 export interface DatePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
@@ -32,6 +49,7 @@ export interface DatePickerProps
   enableClear?: boolean;
   enableYearNavigation?: boolean;
   children?: React.ReactElement[] | React.ReactElement;
+  weekStartsOn?: WeekDays;
 }
 
 const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
@@ -47,6 +65,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     enableClear = true,
     className,
     enableYearNavigation = false,
+    weekStartsOn,
     ...other
   } = props;
 
@@ -153,6 +172,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
               }) as any
             }
             locale={locale}
+            weekStartsOn={getWeekStart(weekStartsOn)}
             disabled={disabledDays}
             enableYearNavigation={enableYearNavigation}
           />
