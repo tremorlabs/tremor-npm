@@ -9,10 +9,11 @@ import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
 import { Color } from "../../../lib/inputTypes";
 import { formatSelectedDates } from "../DateRangePicker/dateRangePickerUtils";
-import { XCircleIcon } from "assets";
+import { CalendarIcon, XCircleIcon } from "assets";
 import { Popover } from "@headlessui/react";
 import { getSelectButtonColors, hasValue } from "../selectUtils";
 import { Calendar } from "components/input-elements/Calendar";
+import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
 
 const TODAY = startOfToday();
 
@@ -98,6 +99,21 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           getSelectButtonColors(hasValue<Date>(selectedValue), disabled),
         )}
       >
+        <CalendarIcon
+          className={tremorTwMerge(
+            makeDatePickerClassName("calendarIcon"),
+            "flex-none shrink-0",
+            // light
+            "text-tremor-content-subtle",
+            // light
+            "dark:text-dark-tremor-content-subtle",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.threeXs.negativeMarginLeft,
+            spacing.lg.marginRight,
+          )}
+          aria-hidden="true"
+        />
         {formattedSelection}
       </Popover.Button>
       {isClearEnabled && selectedValue ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import { XCircleIcon } from "assets";
+import { CalendarIcon, XCircleIcon } from "assets";
 import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import { Listbox, Popover } from "@headlessui/react";
 import React, { ReactElement, useMemo, useState } from "react";
@@ -178,7 +178,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default",
+              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
               // light
               "rounded-l-tremor-default border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
               // dark
@@ -191,6 +191,21 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
             )}
           >
+            <CalendarIcon
+              className={tremorTwMerge(
+                makeDateRangePickerClassName("calendarIcon"),
+                "flex-none shrink-0",
+                // light
+                "text-tremor-content-subtle",
+                // light
+                "dark:text-dark-tremor-content-subtle",
+                sizing.lg.height,
+                sizing.lg.width,
+                spacing.threeXs.negativeMarginLeft,
+                spacing.lg.marginRight,
+              )}
+              aria-hidden="true"
+            />
             {formattedSelection}
           </Popover.Button>
           {isClearEnabled && selectedStartDate ? (
