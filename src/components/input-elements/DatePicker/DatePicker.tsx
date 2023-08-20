@@ -44,7 +44,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     onValueChange,
     minDate,
     maxDate,
-    placeholder = "Select",
+    placeholder = "Select date",
     disabled = false,
     locale = enUS,
     enableClear = true,
