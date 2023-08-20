@@ -206,7 +206,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               )}
               aria-hidden="true"
             />
-            {formattedSelection}
+            <p className="truncate">{formattedSelection}</p>
           </Popover.Button>
           {isClearEnabled && selectedStartDate ? (
             <button

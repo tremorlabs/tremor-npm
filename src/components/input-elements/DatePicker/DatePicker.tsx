@@ -114,7 +114,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           )}
           aria-hidden="true"
         />
-        {formattedSelection}
+        <p className="truncate">{formattedSelection}</p>
       </Popover.Button>
       {isClearEnabled && selectedValue ? (
         <button
