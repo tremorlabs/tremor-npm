@@ -156,8 +156,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     <div
       ref={ref}
       className={tremorTwMerge(
-        "w-full min-w-[10rem] relative flex justify-between text-tremor-default",
-        "max-w-sm",
+        "w-full min-w-[10rem] relative flex justify-between text-tremor-default max-w-sm shadow-tremor-input dark:shadow-dark-tremor-input rounded-tremor-default",
         className,
       )}
       {...other}
@@ -180,9 +179,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // common
               "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
               // light
-              "rounded-l-tremor-default border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
+              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
               // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
+              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.twoXl.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
