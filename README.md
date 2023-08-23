@@ -17,7 +17,7 @@
     <a href="https://github.com/tremorlabs/tremor/blob/main/License">
       <img alt="License Apache 2.0" src="https://img.shields.io/badge/license-Apache 2.0-blue.svg?style=flat&color=5C9BA1" height="20" width="auto">
     </a>
-    <a href="https://join.slack.com/t/tremor-community/shared_invite/zt-1u8jqmcmq-Fdr9B6MbnO7u8FkGh~2Ylg">
+    <a href="https://join.slack.com/t/tremor-community/shared_invite/zt-21ug6czv6-RckDPEAR6GdYOqfMGKOWpQ">
       <img src="https://img.shields.io/badge/Join-important.svg?color=4A154B&label=Slack&logo=slack" alt="Join Slack" />
     </a>
     <a href="https://twitter.com/intent/follow?screen_name=tremorlabs">
