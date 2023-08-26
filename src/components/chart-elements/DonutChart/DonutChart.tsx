@@ -4,8 +4,8 @@ import { tremorTwMerge } from "lib";
 import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import NoData from "../common/NoData";
-import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { defaultValueFormatter, themeColorRange } from "lib";
+import { Color, Shade, ValueFormatter } from "../../../lib/inputTypes";
+import { defaultValueFormatter, themeColorRange, themeShadeRange, BaseShades } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
@@ -21,6 +21,7 @@ export interface DonutChartProps
   category?: string;
   index?: string;
   colors?: Color[];
+  shades?: Shade[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
   label?: string;
@@ -36,6 +37,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     category = "value",
     index = "name",
     colors = themeColorRange,
+    shades = themeColorRange.map(() => BaseShades["500"]),
     variant = "donut",
     valueFormatter = defaultValueFormatter,
     label,
@@ -74,7 +76,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             ) : null}
             <Pie
               className="stroke-tremor-background dark:stroke-dark-tremor-background"
-              data={parseData(data, colors)}
+              data={parseData(data, colors, shades)}
               cx="50%"
               cy="50%"
               startAngle={90}

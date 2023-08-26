@@ -1,4 +1,4 @@
-import { Color, DeltaType, HorizontalPosition, Size, VerticalPosition } from "./inputTypes";
+import { Color, Shade, DeltaType, HorizontalPosition, Size, VerticalPosition } from "./inputTypes";
 
 export const DeltaTypes: { [key: string]: DeltaType } = {
   Increase: "increase",
@@ -31,6 +31,20 @@ export const BaseColors: { [key: string]: Color } = {
   Fuchsia: "fuchsia",
   Pink: "pink",
   Rose: "rose",
+};
+
+export const BaseShades: { [key: string]: Shade } = {
+  "50": 50,
+  "100": 100,
+  "200": 200,
+  "300": 300,
+  "400": 400,
+  "500": 500,
+  "600": 600,
+  "700": 700,
+  "800": 800,
+  "900": 900,
+  "950": 950
 };
 
 export const Sizes: { [key: string]: Size } = {

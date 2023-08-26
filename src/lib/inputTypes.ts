@@ -1,3 +1,5 @@
+import { DefaultColors } from "tailwindcss/types/generated/colors";
+
 export type ValueFormatter = {
   (value: number): string;
 };
@@ -54,6 +56,22 @@ const colorValues = [
 ] as const;
 
 export type Color = (typeof colorValues)[number];
+
+const shadeValues = [
+  50,
+  100,
+  200,
+  300,
+  400,
+  500,
+  600,
+  700,
+  800,
+  900,
+  950,
+] as const;
+
+export type Shade = (typeof shadeValues)[number];
 
 const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
 export type JustifyContent = (typeof justifyContentValues)[number];

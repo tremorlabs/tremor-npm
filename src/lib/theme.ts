@@ -1,5 +1,5 @@
-import { BaseColors } from "./constants";
-import { Color } from "./inputTypes";
+import { BaseColors, BaseShades } from "./constants";
+import { Color, Shade } from "./inputTypes";
 
 export const DEFAULT_COLOR: Color = "gray";
 export const WHITE = "white";
@@ -46,4 +46,18 @@ export const themeColorRange: Color[] = [
   BaseColors.Teal,
   BaseColors.Pink,
   BaseColors.Rose,
+];
+
+export const themeShadeRange: Shade[] = [
+  BaseShades["50"],
+  BaseShades["100"],
+  BaseShades["200"],
+  BaseShades["300"],
+  BaseShades["400"],
+  BaseShades["500"],
+  BaseShades["600"],
+  BaseShades["700"],
+  BaseShades["800"],
+  BaseShades["900"],
+  BaseShades["950"],
 ];
