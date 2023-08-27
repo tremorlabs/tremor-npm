@@ -9,6 +9,7 @@ export const parseData = (data: any[], colors: Color[], shades: Shade[]) =>
       ...dataPoint,
       // explicitly adding color key if not present for tooltip coloring
       color: baseColor,
+      shade: shade,
       className: getColorClassNames(baseColor ?? BaseColors.Gray, shade ?? colorPalette.background)
         .fillColor,
       fill: "",

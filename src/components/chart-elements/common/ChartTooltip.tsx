@@ -1,7 +1,7 @@
 import React from "react";
 import { tremorTwMerge } from "../../../lib";
 
-import { Color, ValueFormatter } from "../../../lib";
+import { Color, Shade, ValueFormatter } from "../../../lib";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 
@@ -25,9 +25,10 @@ export interface ChartTooltipRowProps {
   value: string;
   name: string;
   color: Color;
+  shade?: Shade;
 }
 
-export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+export const ChartTooltipRow = ({ value, name, color, shade }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
@@ -38,7 +39,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
           "border-tremor-background shadow-tremor-card",
           // dark
           "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-          getColorClassNames(color, colorPalette.background).bgColor,
+          getColorClassNames(color, shade ?? colorPalette.background).bgColor,
           sizing.sm.height,
           sizing.sm.width,
           border.md.all,
