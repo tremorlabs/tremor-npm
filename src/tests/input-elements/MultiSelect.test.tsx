@@ -162,4 +162,28 @@ describe("MultiSelect", () => {
     expect(queryByText("Option Three")).toBeNull();
     expect(queryByText(placeholder)).toBeTruthy();
   });
+
+  // test clear
+  test("renders the MultiSelect component and clears the selected value", () => {
+    const placeholder = "Select options...";
+    const { getByText, queryByText } = render(
+      <MultiSelect defaultValue={["2"]} placeholder={placeholder}>
+        <MultiSelectItem value="1" />
+        <MultiSelectItem value="2">Option Two</MultiSelectItem>
+      </MultiSelect>,
+    );
+
+    expect(queryByText(placeholder)).toBeNull();
+    fireEvent.click(screen.getByRole("select-input"));
+    expect(getByText("1").previousElementSibling).toHaveProperty("checked", false);
+    expect(getByText("Option Two").previousElementSibling).toHaveProperty("checked", true);
+
+    fireEvent.click(getByText("1"));
+    expect(queryByText(placeholder)).toBeNull();
+    expect(getByText("1").previousElementSibling).toHaveProperty("checked", true);
+    expect(getByText("Option Two").previousElementSibling).toHaveProperty("checked", true);
+
+    fireEvent.click(screen.getByRole("clear-selection"));
+    expect(queryByText(placeholder)).toBeTruthy();
+  });
 });
