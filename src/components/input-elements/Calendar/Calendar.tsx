@@ -26,6 +26,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   disabled,
   enableYearNavigation,
   classNames,
+  weekStartsOn = 0,
   ...other
 }: T & { enableYearNavigation: boolean }) {
   return (
@@ -37,6 +38,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
       onSelect={onSelect as any}
       locale={locale}
       disabled={disabled}
+      weekStartsOn={weekStartsOn}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",

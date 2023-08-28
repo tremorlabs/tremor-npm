@@ -34,6 +34,7 @@ export interface DatePickerProps
   locale?: Locale;
   enableClear?: boolean;
   enableYearNavigation?: boolean;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -50,6 +51,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     enableClear = true,
     className,
     enableYearNavigation = false,
+    weekStartsOn = 0,
     ...other
   } = props;
 
@@ -163,6 +165,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
             mode="single"
             defaultMonth={defaultMonth}
             selected={selectedValue}
+            weekStartsOn={weekStartsOn}
             onSelect={
               ((v: Date) => {
                 onValueChange?.(v);

@@ -199,3 +199,9 @@ UncontrolledWithoutAllowClear.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
   enableClear: false,
 };
+
+export const UncontrolledWithWeekStartsOnTuesday = UncontrolledTemplate.bind({});
+UncontrolledWithWeekStartsOnTuesday.args = {
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  weekStartsOn: 2,
+};

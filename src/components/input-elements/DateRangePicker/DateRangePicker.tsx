@@ -48,6 +48,7 @@ export interface DateRangePickerProps
   locale?: Locale;
   enableClear?: boolean;
   enableYearNavigation?: boolean;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -67,6 +68,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     children,
     className,
     enableYearNavigation = false,
+    weekStartsOn = 0,
     ...other
   } = props;
 
@@ -275,6 +277,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               day_range_end:
                 "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
             }}
+            weekStartsOn={weekStartsOn}
             {...props}
           />
         </Popover.Panel>
