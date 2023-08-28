@@ -130,6 +130,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           </Listbox.Button>
           {enableClear && selectedValue ? (
             <button
+              role="clear-selection"
               type="button"
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
