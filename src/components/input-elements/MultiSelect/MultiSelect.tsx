@@ -94,6 +94,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               border.sm.all,
               getSelectButtonColors(value.length > 0, disabled),
             )}
+            role="select-input"
           >
             {Icon && (
               <span
@@ -143,6 +144,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           {/* coditionally showed XCircle */}
           {hasSelection && !disabled ? (
             <button
+              role="clear-selection"
               type="button"
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
