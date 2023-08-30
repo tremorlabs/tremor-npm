@@ -118,35 +118,37 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 />
               </span>
             )}
-            {value.length > 0 ? (
-              <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1">
-                {filteredOptions
-                  .filter((option) => value.includes(option.props.value))
-                  .map((option, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="max-w-[100px] lg:max-w-[200px] flex justify-center items-center font-medium px-2 py-1 rounded-full  bg-slate-100 border border-gray-300  text-gray-600"
-                      >
-                        <div className="text-xs truncate">
-                          {option.props.children ?? option.props.value}
-                        </div>
+            <div className="h-6 flex items-center">
+              {value.length > 0 ? (
+                <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1 mr-4">
+                  {filteredOptions
+                    .filter((option) => value.includes(option.props.value))
+                    .map((option, index) => {
+                      return (
                         <div
-                          onClick={() => {
-                            const newValue = value.filter((v) => v !== option.props.value);
-                            onValueChange?.(newValue);
-                            setSelectedValue(newValue);
-                          }}
+                          key={index}
+                          className="max-w-[100px] lg:max-w-[200px] flex justify-center items-center font-medium px-2 py-1 rounded-full bg-slate-100 border border-gray-300  text-gray-600"
                         >
-                          <XIcon className="feather feather-x cursor-pointer text-gray-800 hover:text-gray-500 rounded-full w-4 h-4 ml-2" />
+                          <div className="text-xs truncate">
+                            {option.props.children ?? option.props.value}
+                          </div>
+                          <div
+                            onClick={() => {
+                              const newValue = value.filter((v) => v !== option.props.value);
+                              onValueChange?.(newValue);
+                              setSelectedValue(newValue);
+                            }}
+                          >
+                            <XIcon className="feather feather-x cursor-pointer text-gray-800 hover:text-gray-500 rounded-full w-4 h-4 ml-2" />
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            ) : (
-              placeholder
-            )}
+                      );
+                    })}
+                </div>
+              ) : (
+                <span>{placeholder}</span>
+              )}
+            </div>
             <span
               className={tremorTwMerge(
                 "absolute inset-y-0 right-0 flex items-center",
