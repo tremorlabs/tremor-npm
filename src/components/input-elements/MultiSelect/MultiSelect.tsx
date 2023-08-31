@@ -89,7 +89,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
               "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+              Icon ? spacing.fourXl.paddingLeft : spacing.sm.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
               border.sm.all,
@@ -128,8 +128,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                         <div
                           key={index}
                           className={tremorTwMerge(
-                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-medium",
-                            "rounded-tremor-full border border-tremor-border dark:border-dark-tremor-border",
+                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-normal",
+                            "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
                             "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
                             "text-tremor-content-default dark:text-dark-tremor-content-default",
                           )}
@@ -148,7 +148,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                               className={tremorTwMerge(
                                 makeMultiSelectClassName("clearIconItem"),
                                 // common
-                                "cursor-pointer rounded-tremor-full w-4 h-4 ml-2",
+                                "cursor-pointer rounded-tremor-full w-3.5 h-3.5 ml-2",
                                 // light
                                 "text-tremor-content-subtle hover:text-tremor-content",
                                 // dark
