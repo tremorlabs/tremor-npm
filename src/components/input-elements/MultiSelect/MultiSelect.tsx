@@ -120,14 +120,19 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             )}
             <div className="h-6 flex items-center">
               {value.length > 0 ? (
-                <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1 mr-4">
+                <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1 mr-4 relative">
                   {filteredOptions
                     .filter((option) => value.includes(option.props.value))
                     .map((option, index) => {
                       return (
                         <div
                           key={index}
-                          className="max-w-[100px] lg:max-w-[200px] flex justify-center items-center font-medium px-2 py-1 rounded-full bg-slate-100 border border-gray-300  text-gray-600"
+                          className={tremorTwMerge(
+                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-medium",
+                            "rounded-tremor-full border border-tremor-border dark:border-dark-tremor-border",
+                            "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
+                            "text-tremor-content-default dark:text-dark-tremor-content-default",
+                          )}
                         >
                           <div className="text-xs truncate">
                             {option.props.children ?? option.props.value}
@@ -139,7 +144,17 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                               setSelectedValue(newValue);
                             }}
                           >
-                            <XIcon className="feather feather-x cursor-pointer text-gray-800 hover:text-gray-500 rounded-full w-4 h-4 ml-2" />
+                            <XIcon
+                              className={tremorTwMerge(
+                                makeMultiSelectClassName("clearIconItem"),
+                                // common
+                                "cursor-pointer rounded-tremor-full w-4 h-4 ml-2",
+                                // light
+                                "text-tremor-content-subtle hover:text-tremor-content",
+                                // dark
+                                "dark:text-dark-tremor-content-subtle dark:hover:text-tremor-content",
+                              )}
+                            />
                           </div>
                         </div>
                       );
@@ -186,7 +201,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             >
               <XCircleIcon
                 className={tremorTwMerge(
-                  makeMultiSelectClassName("clearIcon"),
+                  makeMultiSelectClassName("clearIconAllItems"),
                   // common
                   "flex-none",
                   // light
