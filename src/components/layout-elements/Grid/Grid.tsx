@@ -28,7 +28,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   const colsMd = getGridCols(numItemsMd, gridColsMd);
   const colsLg = getGridCols(numItemsLg, gridColsLg);
 
-  const colClassNames =  tremorTwMerge(colsBase, colsSm, colsMd, colsLg);
+  const colClassNames = tremorTwMerge(colsBase, colsSm, colsMd, colsLg);
 
   return (
     <div
