@@ -59,6 +59,7 @@
     "@storybook/react": "^6.5.16",
     "@storybook/testing-library": "^0.0.13",
     "@testing-library/react": "^13.1.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.4.1",
     "@types/react": "^18.0.5",
     "@types/react-transition-group": "^4.4.5",
