@@ -61,7 +61,7 @@ describe("Button", () => {
   test("renders the Button component with tooltip", async () => {
     const buttonText = "Click Me";
     const tooltip = "some explanation";
-    const { getByText, debug } = render(<Button tooltip={tooltip}>{buttonText}</Button>);
+    const { getByText } = render(<Button tooltip={tooltip}>{buttonText}</Button>);
 
     await userEvent.hover(getByText(buttonText));
     await waitFor(() => {
