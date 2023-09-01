@@ -26,10 +26,10 @@ const Template: ComponentStory<typeof NumberInput> = (args) => {
         <NumberInput {...args} onSubmit={(value: number) => alert(value)} />
         <Text>Uncontrolled with defaultValue</Text>
         <NumberInput {...args} defaultValue={123} onSubmit={(value: number) => alert(value)} />
-        <Text>Conrolled without onChange</Text>
+        <Text>Controlled without onValueChange</Text>
         <NumberInput {...args} value={value} onSubmit={(value: number) => alert(value)} />
         <label htmlFor="a">
-          <Text>Controlled</Text>
+          <Text>Controlled with onValueChange</Text>
         </label>
         <NumberInput
           {...args}
@@ -46,6 +46,31 @@ const Template: ComponentStory<typeof NumberInput> = (args) => {
         </Button>
       </form>
       <Text>{value}</Text>
+    </Card>
+  );
+};
+
+const ControlValueWithOnChangeExample: ComponentStory<typeof NumberInput> = (args) => {
+  const [value, setValue] = useState(0);
+  return (
+    <Card>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        onReset={() => setValue(0)}
+      >
+        <label htmlFor="a">
+          <Text>Controlled with onChange</Text>
+        </label>
+        <NumberInput
+          {...args}
+          id={"a"}
+          value={value}
+          onChange={(e) => setValue(Number(e.target.value))}
+        />
+      </form>
+      <Text>value: {value}</Text>
     </Card>
   );
 };
@@ -104,3 +129,6 @@ WithDisabledAndError.args = {
   error: true,
   disabled: true,
 };
+
+export const ControlValueWithOnChange = ControlValueWithOnChangeExample.bind({});
+ControlValueWithOnChange.args = {};
