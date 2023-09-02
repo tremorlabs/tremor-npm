@@ -222,6 +222,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   "dark:text-dark-tremor-content-emphasis",
                   spacing.sm.paddingY,
                 )}
+                onKeyDown={(e) => {
+                  if (e.code === "Space" && (e.target as HTMLInputElement).value !== "") {
+                    e.stopPropagation();
+                  }
+                }}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
