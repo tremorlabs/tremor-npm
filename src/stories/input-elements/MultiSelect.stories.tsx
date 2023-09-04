@@ -9,10 +9,11 @@ import {
   Flex,
   MultiSelect,
   MultiSelectItem,
-  Select,
   Text,
   TextInput,
   Title,
+  DatePicker,
+  NumberInput,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleMultiSelect } from "./helpers/SimpleMultiSelect";
@@ -33,8 +34,30 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelect> = (args) => (
     <Title>Mobile</Title>
     <div className="w-64">
       <Card>
-        <DateRangePicker />
+        <p>TextInput</p>
+        <TextInput />
+        <p>NumberInput</p>
+        <NumberInput />
+        <p>SimpleSelect</p>
+        <SimpleSelect />
+        <p>SimpleMultiSelect</p>
         <SimpleMultiSelect {...args} />
+        <p>SimpleSearchSelect</p>
+        <SimpleSearchSelect />
+        {/* icons */}
+        <p>DatePicker</p>
+        <DatePicker />
+        <p>DateRangePicker</p>
+        <DateRangePicker />
+        <p>TextInput</p>
+        <TextInput icon={CalendarIcon} />
+        <p>NumberInput</p>
+        <NumberInput icon={CalendarIcon} />
+        <p>SimpleSelect</p>
+        <SimpleSelect {...args} icon={CalendarIcon} />
+        <p>SimpleMultiSelect</p>
+        <SimpleMultiSelect {...args} icon={CalendarIcon} />
+        <p>SimpleSearchSelect</p>
         <SimpleSearchSelect icon={CalendarIcon} />
       </Card>
     </div>

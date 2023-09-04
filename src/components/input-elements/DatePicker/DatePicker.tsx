@@ -94,7 +94,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
           // dark
           "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
-          spacing.twoXl.paddingLeft,
+          spacing.lg.paddingLeft,
           isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
           border.sm.all,
@@ -112,7 +112,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
             sizing.lg.height,
             sizing.lg.width,
             spacing.threeXs.negativeMarginLeft,
-            spacing.lg.marginRight,
+            spacing.sm.marginRight,
           )}
           aria-hidden="true"
         />

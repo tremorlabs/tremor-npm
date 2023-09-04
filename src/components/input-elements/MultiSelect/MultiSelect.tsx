@@ -89,7 +89,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
               "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft, // spacing.sm.paddingLeft
+              Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.xs.paddingY,
               border.sm.all,
@@ -99,7 +99,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             {Icon && (
               <span
                 className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center",
+                  "absolute inset-y-0 left-0 flex items-center ml-px",
                   spacing.md.paddingLeft,
                 )}
               >
@@ -120,7 +120,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             )}
             <div className="h-6 flex items-center">
               {value.length > 0 ? (
-                <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1 mr-4 relative">
+                <div className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-x-1 mr-5 -ml-1.5 relative">
                   {filteredOptions
                     .filter((option) => value.includes(option.props.value))
                     .map((option, index) => {
@@ -129,15 +129,15 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                           key={index}
                           className={tremorTwMerge(
                             "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-medium",
-                            // "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
+                            "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
                             "rounded-tremor-small",
-                            // "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
+                            "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
                             "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
-                            // "text-tremor-content-default dark:text-dark-tremor-content-default",
+                            "text-tremor-content-default dark:text-dark-tremor-content-default",
                             "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
                           )}
                         >
-                          <div className="text-xs truncate">
+                          <div className="text-xs truncate ">
                             {option.props.children ?? option.props.value}
                           </div>
                           <div

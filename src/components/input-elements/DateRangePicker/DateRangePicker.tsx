@@ -183,7 +183,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // dark
               "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
-              spacing.twoXl.paddingLeft,
+              spacing.lg.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,
               border.sm.all,
@@ -201,7 +201,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 sizing.lg.height,
                 sizing.lg.width,
                 spacing.threeXs.negativeMarginLeft,
-                spacing.lg.marginRight,
+                spacing.sm.marginRight,
               )}
               aria-hidden="true"
             />

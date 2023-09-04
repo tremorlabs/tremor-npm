@@ -65,9 +65,9 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
         <>
           <Combobox.Button className="w-full">
             {Icon && (
-              <div
+              <span
                 className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center",
+                  "absolute inset-y-0 left-0 flex items-center ml-px",
                   spacing.md.paddingLeft,
                 )}
               >
@@ -84,7 +84,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                     sizing.lg.width,
                   )}
                 />
-              </div>
+              </span>
             )}
 
             <Combobox.Input
@@ -95,7 +95,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft,
+                Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
                 spacing.fourXl.paddingRight,
                 spacing.sm.paddingY,
                 border.sm.all,
