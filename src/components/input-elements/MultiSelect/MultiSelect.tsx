@@ -89,7 +89,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
               "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? spacing.fourXl.paddingLeft : spacing.sm.paddingLeft,
+              Icon ? spacing.fourXl.paddingLeft : spacing.twoXl.paddingLeft, // spacing.sm.paddingLeft
               spacing.fourXl.paddingRight,
               spacing.xs.paddingY,
               border.sm.all,
