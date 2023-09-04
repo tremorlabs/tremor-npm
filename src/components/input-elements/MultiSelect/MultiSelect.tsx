@@ -250,8 +250,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                     "text-tremor-content-subtle",
                     // dark
                     "dark:text-dark-tremor-content-subtle",
-                    spacing.threeXs.negativeMarginLeft,
-                    spacing.lg.marginRight,
+                    spacing.sm.marginRight,
                     sizing.md.height,
                     sizing.md.width,
                   )}

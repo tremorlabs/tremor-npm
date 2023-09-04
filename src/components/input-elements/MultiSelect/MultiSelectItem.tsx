@@ -49,7 +49,7 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
           "accent-tremor-brand",
           // dark
           "dark:accent-dark-tremor-brand",
-          spacing.sm.marginRight,
+          spacing.md.marginRight,
         )}
         checked={isSelected}
         readOnly={true}
