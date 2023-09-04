@@ -56,7 +56,8 @@ const ResponsiveTemplate: ComponentStory<typeof MultiSelect> = (args) => (
         <p>SimpleSelect</p>
         <SimpleSelect {...args} icon={CalendarIcon} />
         <p>SimpleMultiSelect</p>
-        <SimpleMultiSelect {...args} icon={CalendarIcon} />
+        {/* <SimpleMultiSelect {...args} icon={CalendarIcon} /> */}
+        <SimpleMultiSelect {...args} />
         <p>SimpleSearchSelect</p>
         <SimpleSearchSelect icon={CalendarIcon} />
       </Card>

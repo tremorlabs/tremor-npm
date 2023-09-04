@@ -238,7 +238,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 "bg-tremor-background-muted",
                 // dark
                 "dark:bg-dark-tremor-background-muted",
-                spacing.twoXl.paddingX,
+                spacing.md.paddingX,
               )}
             >
               <span>
