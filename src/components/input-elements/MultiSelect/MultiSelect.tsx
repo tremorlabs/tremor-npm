@@ -91,7 +91,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               Icon ? spacing.fourXl.paddingLeft : spacing.sm.paddingLeft,
               spacing.fourXl.paddingRight,
-              spacing.sm.paddingY,
+              spacing.xs.paddingY,
               border.sm.all,
               getSelectButtonColors(value.length > 0, disabled),
             )}

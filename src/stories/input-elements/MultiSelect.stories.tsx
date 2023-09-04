@@ -9,7 +9,9 @@ import {
   Flex,
   MultiSelect,
   MultiSelectItem,
+  Select,
   Text,
+  TextInput,
   Title,
 } from "components";
 import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
@@ -17,6 +19,7 @@ import { SimpleMultiSelect } from "./helpers/SimpleMultiSelect";
 
 import { CalendarIcon } from "assets";
 import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
+import { SimpleSelect } from "stories/input-elements/helpers/SimpleSelect";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -70,6 +73,13 @@ const FlexTemplate: ComponentStory<typeof MultiSelect> = (args) => (
         <div>
           <SimpleMultiSelect {...args} />
         </div>
+      </Flex>
+      <Text className="mt-2">Check height of select inputs</Text>
+      <Flex justifyContent="start" className="mt-2">
+        <TextInput />
+        <SimpleSelect />
+        <SimpleMultiSelect {...args} />
+        <SimpleMultiSelect {...args} icon={CalendarIcon} />
       </Flex>
     </Card>
   </>
