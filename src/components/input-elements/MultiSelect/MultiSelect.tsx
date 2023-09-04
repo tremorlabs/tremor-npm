@@ -128,10 +128,13 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                         <div
                           key={index}
                           className={tremorTwMerge(
-                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-normal",
-                            "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
-                            "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
-                            "text-tremor-content-default dark:text-dark-tremor-content-default",
+                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-medium",
+                            // "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
+                            "rounded-tremor-small",
+                            // "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
+                            "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
+                            // "text-tremor-content-default dark:text-dark-tremor-content-default",
+                            "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
                           )}
                         >
                           <div className="text-xs truncate">
