@@ -128,7 +128,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                         <div
                           key={index}
                           className={tremorTwMerge(
-                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center px-2 py-1 font-medium",
+                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center pl-2 pr-1.5 py-1 font-medium",
                             // "rounded-tremor-small border border-tremor-border dark:border-dark-tremor-border",
                             "rounded-tremor-small",
                             // "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
