@@ -140,7 +140,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                             {option.props.children ?? option.props.value}
                           </div>
                           <div
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               const newValue = value.filter((v) => v !== option.props.value);
                               onValueChange?.(newValue);
                               setSelectedValue(newValue);
