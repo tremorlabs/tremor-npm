@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 import { tremorTwMerge } from "lib";
-import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Pie,
+  PieChart as ReChartsDonutChart,
+  ResponsiveContainer,
+  Tooltip,
+  Sector,
+} from "recharts";
 
 import NoData from "../common/NoData";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
@@ -14,9 +20,7 @@ import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps
-  extends BaseAnimationTimingProps,
-    React.HTMLAttributes<HTMLDivElement> {
+export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
@@ -27,8 +31,44 @@ export interface DonutChartProps
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
+  showOnClickVisualFeedback?: boolean;
   noDataText?: string;
+  onValueChange?: (value: any) => void;
 }
+
+const renderActiveShape = (props: any) => {
+  const {
+    cx,
+    cy,
+    // midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    // fill,
+    // payload,
+    // percent,
+    // value,
+    // activeIndex,
+    className,
+  } = props;
+
+  return (
+    <g>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        className={className}
+        fill=""
+        opacity={0.5}
+      />
+    </g>
+  );
+};
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
   const {
@@ -43,13 +83,27 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     animationDuration = 900,
     showAnimation = true,
     showTooltip = true,
+    showOnClickVisualFeedback = true,
     noDataText,
     className,
+    onValueChange,
     ...other
   } = props;
   const isDonut = variant == "donut";
 
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
+
+  const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined);
+
+  function onShapeClick(data: any, index: number) {
+    if (!showOnClickVisualFeedback) return;
+    if (activeIndex === index) {
+      setActiveIndex(undefined);
+    } else {
+      setActiveIndex(index);
+      onValueChange?.(data.payload.payload);
+    }
+  }
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
@@ -87,6 +141,9 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               nameKey={index}
               isAnimationActive={showAnimation}
               animationDuration={animationDuration}
+              onClick={onShapeClick}
+              activeIndex={activeIndex}
+              inactiveShape={renderActiveShape}
             />
             {showTooltip ? (
               <Tooltip

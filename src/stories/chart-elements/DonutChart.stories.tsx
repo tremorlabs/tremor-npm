@@ -70,11 +70,34 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
   </>
 );
 
+const WithCustomEventTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => {
+  const [value, setValue] = React.useState<any>(undefined);
+  return (
+    <Card>
+      <DonutChart
+        {...args}
+        onValueChange={(value) => {
+          setValue(value);
+          alert(JSON.stringify(value));
+        }}
+      />
+      <p>value: {`${JSON.stringify(value)}`}</p>
+    </Card>
+  );
+};
+
 const args = { category: "sales", index: "city" };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
+  ...args,
+  data,
+};
+
+export const WithCustomEventExample = WithCustomEventTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithCustomEventExample.args = {
   ...args,
   data,
 };
