@@ -57,7 +57,8 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
         row: "flex w-full mt-0.5",
         cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
         day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
-        day_today: "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
+        day_today:
+          "bg-tremor-brand-muted hover:bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted dark:hover:bg-dark-tremor-brand-muted",
         day_selected:
           "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
         day_disabled:
