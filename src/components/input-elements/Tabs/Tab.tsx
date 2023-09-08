@@ -76,11 +76,11 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
-            spacing.sm.marginRight,
+            children && spacing.sm.marginRight, // if children doesn't exist we dont add margins
           )}
         />
       ) : null}
-      <span>{children}</span>
+      {children && <span>{children}</span>}
     </HeadlessTab>
   );
 });
