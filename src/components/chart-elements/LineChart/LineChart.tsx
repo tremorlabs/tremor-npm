@@ -50,6 +50,7 @@ const CustomizedDot = (props: any) => {
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
+  onValueChange?: (value: any) => void;
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
@@ -76,6 +77,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     allowDecimals = true,
     noDataText,
     className,
+    onValueChange,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -217,6 +219,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       setClickedPointIndex(index);
                       setClickedPointCategory(dataKey);
                       setHasClickedPoint(true);
+                      onValueChange?.(payload.payload);
                     } else {
                       // cancel click
                       if (index === clickedPointIndex && dataKey === clickedPointCategory) {
@@ -227,6 +230,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                         setClickedPointIndex(index);
                         setClickedPointCategory(dataKey);
                         setHasClickedPoint(true);
+                        onValueChange?.(payload.payload);
                       }
                     }
                   },
