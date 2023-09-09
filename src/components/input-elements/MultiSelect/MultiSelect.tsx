@@ -20,6 +20,7 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string[];
   onValueChange?: (value: string[]) => void;
   placeholder?: string;
+  placeholderSearch?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   children: React.ReactElement[] | React.ReactElement;
@@ -31,6 +32,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     value,
     onValueChange,
     placeholder = "Select...",
+    placeholderSearch = "Search",
     disabled = false,
     icon,
     children,
@@ -260,7 +262,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               <input
                 name="search"
                 type="input"
-                placeholder="Search"
+                placeholder={placeholderSearch}
                 className={tremorTwMerge(
                   // common
                   "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default",
@@ -270,6 +272,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   "dark:text-dark-tremor-content-emphasis",
                   spacing.sm.paddingY,
                 )}
+                onKeyDown={(e) => {
+                  if (e.code === "Space" && (e.target as HTMLInputElement).value !== "") {
+                    e.stopPropagation();
+                  }
+                }}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
