@@ -96,7 +96,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               "dark:text-dark-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              spacing.xl.marginLeft,
+              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -114,7 +114,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            Icon ? spacing.sm.paddingLeft : spacing.lg.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             disabled
