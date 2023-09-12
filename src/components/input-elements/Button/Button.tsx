@@ -17,6 +17,7 @@ export interface ButtonIconOrSpinnerProps {
   iconSize: string;
   iconPosition: string;
   Icon: React.ElementType | undefined;
+  needMargin: boolean;
   transitionState: string;
 }
 
@@ -25,14 +26,16 @@ export const ButtonIconOrSpinner = ({
   iconSize,
   iconPosition,
   Icon,
+  needMargin,
   transitionState,
 }: ButtonIconOrSpinnerProps) => {
   Icon = Icon!;
 
-  const margin =
-    iconPosition === HorizontalPositions.Left
-      ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-      : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+  const margin = !needMargin
+    ? ""
+    : iconPosition === HorizontalPositions.Left
+    ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
+    : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
   const defaultSpinnerSize = tremorTwMerge(sizing.none.width, sizing.none.height);
   const spinnerSize: { [key: string]: any } = {
@@ -92,6 +95,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
+  const needIconMargin = children || showLoadingText ? true : false;
 
   const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
   const buttonShapeStyles =
@@ -150,15 +154,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               iconPosition={iconPosition}
               Icon={Icon}
               transitionState={state}
+              needMargin={needIconMargin}
             />
           ) : null}
-          {
+          {showLoadingText || children ? (
             <span
               className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}
             >
               {showLoadingText ? loadingText : children}
             </span>
-          }
+          ) : null}
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
               loading={loading}
@@ -166,6 +171,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               iconPosition={iconPosition}
               Icon={Icon}
               transitionState={state}
+              needMargin={needIconMargin}
             />
           ) : null}
         </button>
