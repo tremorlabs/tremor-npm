@@ -31,8 +31,6 @@ export const ButtonIconOrSpinner = ({
 }: ButtonIconOrSpinnerProps) => {
   Icon = Icon!;
 
-  // if children/loadingText exists, we add margin based on position
-  // else we dont add any margins
   const margin = !needMargin
     ? ""
     : iconPosition === HorizontalPositions.Left
@@ -97,7 +95,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
   const showLoadingText = loading && loadingText;
-  // if children/loadingText exists we we add margins in Icon/Spinner else we don't
   const needIconMargin = children || showLoadingText ? true : false;
 
   const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
@@ -160,15 +157,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               needMargin={needIconMargin}
             />
           ) : null}
-
-          {(showLoadingText || children) && (
+          {showLoadingText || children ? (
             <span
               className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}
             >
               {showLoadingText ? loadingText : children}
             </span>
-          )}
-
+          ) : null}
           {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
             <ButtonIconOrSpinner
               loading={loading}
