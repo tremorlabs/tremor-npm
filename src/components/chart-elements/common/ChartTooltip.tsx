@@ -4,7 +4,7 @@ import { tremorTwMerge } from "../../../lib";
 import { Color, ValueFormatter } from "../../../lib";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
-import RangeProps from "components/chart-elements/common/RangeProps";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -84,7 +84,7 @@ export interface ChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
-  range?: RangeProps;
+  deltaCalculation?: DeltaCalculationProps;
 }
 
 const ChartTooltip = ({
@@ -93,11 +93,11 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
-  range,
+  deltaCalculation,
 }: ChartTooltipProps) => {
-  const hasRange = Boolean(range?.leftArea && range?.rightArea);
+  const hasRange = Boolean(deltaCalculation?.leftArea && deltaCalculation?.rightArea);
 
-  if (hasRange && range?.leftArea?.activeLabel === range?.rightArea?.activeLabel) return null;
+  if (hasRange && deltaCalculation?.leftArea?.activeLabel === deltaCalculation?.rightArea?.activeLabel) return null;
 
   if (active && payload) {
     return (
@@ -124,29 +124,29 @@ const ChartTooltip = ({
             )}
           >
             {hasRange
-              ? range?.leftArea?.chartX < range?.rightArea?.chartX
-                ? `${range?.leftArea?.activeLabel} - ${range?.rightArea?.activeLabel}`
-                : `${range?.rightArea?.activeLabel} - ${range?.leftArea?.activeLabel}`
+              ? deltaCalculation?.leftArea?.chartX < deltaCalculation?.rightArea?.chartX
+                ? `${deltaCalculation?.leftArea?.activeLabel} - ${deltaCalculation?.rightArea?.activeLabel}`
+                : `${deltaCalculation?.rightArea?.activeLabel} - ${deltaCalculation?.leftArea?.activeLabel}`
               : label}
           </p>
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => {
-            const isBeforeLeftValue = range?.leftArea?.chartX > range?.rightArea?.chartX;
+            const isBeforeLeftValue = deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
 
             const displayedValue = hasRange
-              ? (getRangePayloadValue(range?.rightArea?.activePayload, name) -
-                  getRangePayloadValue(range?.leftArea?.activePayload, name)) *
+              ? (getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) -
+                  getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
                 (isBeforeLeftValue ? -1 : 1)
               : value;
             const percentage = hasRange
               ? (100 -
                   (isBeforeLeftValue
-                    ? getRangePayloadValue(range?.leftArea?.activePayload, name) /
-                      getRangePayloadValue(range?.rightArea?.activePayload, name)
-                    : getRangePayloadValue(range?.rightArea?.activePayload, name) /
-                      getRangePayloadValue(range?.leftArea?.activePayload, name)) *
+                    ? getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name) /
+                      getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name)
+                    : getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) /
+                      getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
                     100) *
                 -1
               : 0;

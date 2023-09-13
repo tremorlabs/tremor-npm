@@ -28,8 +28,8 @@ import {
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
-import RangeProps from "components/chart-elements/common/RangeProps";
-import RangeReferenceShape from "components/chart-elements/common/RangeReferenceShape";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+import DeltaCalculationReferenceShape from "components/chart-elements/common/DeltaCalculationReferenceShape";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
@@ -61,11 +61,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    enableDeltaCalculation = false,
     noDataText,
     className,
     ...other
   } = props;
-  const [range, setRange] = useState<RangeProps>({});
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps>({});
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
@@ -77,9 +78,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
         {data?.length ? (
           <ReChartsAreaChart
             data={data}
-            onMouseDown={(e) => setRange({ leftArea: e })}
-            onMouseMove={(e) => range.leftArea && setRange((prev) => ({ ...prev, rightArea: e }))}
-            onMouseUp={() => setRange({})}
+            onMouseDown={(e) => enableDeltaCalculation && setDeltaCalculation({ leftArea: e })}
+            onMouseMove={(e) => (enableDeltaCalculation && deltaCalculation.leftArea) && setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))}
+            onMouseUp={() => setDeltaCalculation({})}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -144,7 +145,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 isAnimationActive={false}
                 cursor={{
                   stroke: "#d1d5db",
-                  strokeWidth: range.leftArea?.activeLabel && range.rightArea?.activeLabel ? 0 : 1,
+                  strokeWidth: deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? 0 : 1,
                 }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip
@@ -153,7 +154,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     label={label}
                     valueFormatter={valueFormatter}
                     categoryColors={categoryColors}
-                    range={range}
+                    deltaCalculation={deltaCalculation}
                   />
                 )}
                 position={{ y: 0 }}
@@ -235,7 +236,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     strokeLinejoin,
                     strokeWidth,
                   } = props;
-                  if (payload[index] === range?.leftArea?.activeLabel) {
+                  if (payload[index] === deltaCalculation?.leftArea?.activeLabel) {
                     return (
                       <svg width={width} height={height}>
                         <circle
@@ -275,13 +276,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {range.leftArea?.activeLabel && range.rightArea?.activeLabel ? (
+            {deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? (
               <ReferenceArea
-                x1={range.leftArea.activeLabel}
-                x2={range.rightArea.activeLabel}
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
                 fillOpacity={0.2}
                 shape={({ x, y, width, height }) => (
-                  <RangeReferenceShape x={x} y={y} width={width} height={height} />
+                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
                 )}
               />
             ) : null}

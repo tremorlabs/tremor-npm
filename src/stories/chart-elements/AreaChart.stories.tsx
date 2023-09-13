@@ -200,3 +200,10 @@ WithShortAnimationDuration.args = {
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
+
+export const WithEnableDeltaCalculation = DefaultTemplate.bind({});
+WithEnableDeltaCalculation.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true
+};

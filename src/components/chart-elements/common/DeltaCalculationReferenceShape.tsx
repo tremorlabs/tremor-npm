@@ -1,14 +1,14 @@
 import { tremorTwMerge } from "lib";
 import React from "react";
 
-interface RangeReferenceShapeProps {
+interface DeltaCalculationReferenceShapeProps {
   x: number;
   y: number;
   width: number;
   height: number;
 }
 
-const RangeReferenceShape = (props: RangeReferenceShapeProps) => {
+const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapeProps) => {
   const { x, y, width, height } = props;
 
   return (
@@ -66,4 +66,4 @@ const RangeReferenceShape = (props: RangeReferenceShapeProps) => {
   );
 };
 
-export default RangeReferenceShape;
+export default DeltaCalculationReferenceShape;

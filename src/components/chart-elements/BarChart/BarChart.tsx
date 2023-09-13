@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Legend,
   BarChart as ReChartsBarChart,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -21,6 +22,8 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+import DeltaCalculationReferenceShape from "components/chart-elements/common/DeltaCalculationReferenceShape";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -51,10 +54,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     minValue,
     maxValue,
     allowDecimals = true,
+    enableDeltaCalculation = false,
     noDataText,
     className,
     ...other
   } = props;
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps>({});
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
 
@@ -62,12 +67,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="h-full w-full select-none">
         {data?.length ? (
           <ReChartsBarChart
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
+            onMouseDown={(e) => (enableDeltaCalculation && layout === "horizontal") && setDeltaCalculation({ leftArea: e })}
+            onMouseMove={(e) => (enableDeltaCalculation && layout === "horizontal" && deltaCalculation.leftArea) && setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))}
+            onMouseUp={() => setDeltaCalculation({})}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -181,7 +189,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 // ongoing issue: https://github.com/recharts/recharts/issues/2920
                 wrapperStyle={{ outline: "none" }}
                 isAnimationActive={false}
-                cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+                cursor={{
+                  fill: "#d1d5db",
+                  opacity:
+                    deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? "0" : "0.15",
+                }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip
                     active={active}
@@ -189,6 +201,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     label={label}
                     valueFormatter={valueFormatter}
                     categoryColors={categoryColors}
+                    deltaCalculation={deltaCalculation}
                   />
                 )}
                 position={{ y: 0 }}
@@ -219,6 +232,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 animationDuration={animationDuration}
               />
             ))}
+            {deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
+                )}
+              />
+            ) : null}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />
