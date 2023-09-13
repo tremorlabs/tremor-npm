@@ -73,7 +73,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="h-full w-full select-none">
         {data?.length ? (
           <ReChartsAreaChart
             data={data}
@@ -224,7 +224,17 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ),
                 }}
                 dot={(props) => {
-                  const { payload, width, height, cx, cy } = props;
+                  const {
+                    payload,
+                    width,
+                    height,
+                    cx,
+                    cy,
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                  } = props;
                   if (payload[index] === range?.leftArea?.activeLabel) {
                     return (
                       <svg width={width} height={height}>
@@ -232,6 +242,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                           cx={cx}
                           cy={cy}
                           r={4}
+                          stroke={stroke}
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
                           className={tremorTwMerge(
                             "stroke-tremor-background dark:stroke-dark-tremor-background",
                             getColorClassNames(

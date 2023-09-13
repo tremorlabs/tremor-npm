@@ -183,7 +183,17 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   ),
                 }}
                 dot={(props) => {
-                  const { payload, width, height, cx, cy } = props;
+                  const {
+                    payload,
+                    width,
+                    height,
+                    cx,
+                    cy,
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                  } = props;
                   if (payload[index] === range?.leftArea?.activeLabel) {
                     return (
                       <svg width={width} height={height}>
@@ -191,6 +201,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                           cx={cx}
                           cy={cy}
                           r={4}
+                          stroke={stroke}
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
                           className={tremorTwMerge(
                             "stroke-tremor-background dark:stroke-dark-tremor-background",
                             getColorClassNames(
