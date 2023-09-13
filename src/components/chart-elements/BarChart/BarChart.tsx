@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
@@ -22,10 +22,28 @@ import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
+const renderShape = (props: any, activeBar: any | undefined) => {
+  const { x, y, width, height, fillOpacity, tooltipPosition } = props;
+
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      opacity={
+        activeBar ? (deepEqual(activeBar, tooltipPosition) ? fillOpacity : 0.3) : fillOpacity
+      }
+    />
+  );
+};
+
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
+  showOnClickVisualFeedback?: boolean;
+  onValueChange?: (value: any) => void;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -52,12 +70,28 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     maxValue,
     allowDecimals = true,
     noDataText,
+    showOnClickVisualFeedback = true,
+    onValueChange,
     className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
+  const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
 
+  function onBarClick(data: any, index: number, event: React.MouseEvent) {
+    console.log(data);
+
+    event.stopPropagation();
+
+    if (!showOnClickVisualFeedback) return;
+    if (deepEqual(activeBar, data.tooltipPosition)) {
+      setActiveBar(undefined);
+    } else {
+      setActiveBar(data.tooltipPosition);
+      onValueChange?.(data.payload);
+    }
+  }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
@@ -68,6 +102,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
+            onClick={() => setActiveBar(undefined)}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -217,6 +252,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
+                shape={(props) => renderShape(props, activeBar)}
+                onClick={onBarClick}
               />
             ))}
           </ReChartsBarChart>
