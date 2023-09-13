@@ -101,6 +101,13 @@ WithNoDataText.args = {
   noDataText: "No data, try again later.",
 };
 
+export const WithNoClickVisualFeedback = DefaultTemplate.bind({});
+WithNoClickVisualFeedback.args = {
+  ...args,
+  data,
+  showOnClickVisualFeedback: false
+};
+
 export const WithExampleDatas = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithExampleDatas.args = {

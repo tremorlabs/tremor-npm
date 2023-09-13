@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
   ZAxis,
+  Sector,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -34,6 +35,43 @@ export type ScatterChartValueFormatter = {
   y?: ValueFormatter;
   size?: ValueFormatter;
 };
+
+const deepEqual = (obj1: any, obj2: any ) => {
+    if (obj1 === obj2) return true;
+  
+    if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || obj1 === null || obj2 === null)
+      return false;
+  
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+  
+    if (keys1.length !== keys2.length) return false;
+  
+    for (const key of keys1) {
+      if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false;
+    }
+  
+    return true;
+  }
+
+const renderShape = (props: any, activeNode: any | undefined) => {
+    const {
+      cx,
+      cy,
+      width, 
+      node, 
+      fillOpacity
+    } = props;    
+    
+    return (
+      <circle
+        cx={cx}
+        cy={cy}
+        r={width/2}
+        opacity={activeNode ? (deepEqual(activeNode, node) ? fillOpacity : 0.3) : fillOpacity}
+      />
+    );
+  };
 
 export interface ScatterChartProps
   extends BaseAnimationTimingProps,
@@ -61,6 +99,7 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
+  showOnClickVisualFeedback?: boolean;
   noDataText?: string;
 }
 
@@ -95,12 +134,24 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     minYValue,
     maxYValue,
     allowDecimals = true,
+    showOnClickVisualFeedback = true,
     noDataText,
     className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
-
+  const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
+  
+  function onNodeClick(data: any, index: number, event: React.MouseEvent) {    
+    event.stopPropagation()
+    
+    if (!showOnClickVisualFeedback) return;
+    if (deepEqual(activeNode, data.node)) {
+      setActiveNode(undefined);
+    } else {
+      setActiveNode(data.node);
+    }
+  }
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
 
@@ -112,7 +163,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsScatterChart>
+          <ReChartsScatterChart onClick={() => setActiveNode(undefined)}>
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -225,6 +276,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
+                  shape={(props) => renderShape(props, activeNode)}
+                  onClick={onNodeClick}
                 />
               );
             })}
