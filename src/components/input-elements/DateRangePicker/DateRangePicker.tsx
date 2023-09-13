@@ -259,7 +259,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               from: selectedStartDate,
               to: selectedEndDate,
             }}
-            numberOfMonths={1}
             onSelect={
               ((v: DateRange) => {
                 onValueChange?.({ from: v?.from, to: v?.to });
