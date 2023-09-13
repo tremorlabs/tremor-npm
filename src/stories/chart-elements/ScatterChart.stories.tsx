@@ -108,6 +108,14 @@ WithNoClickVisualFeedback.args = {
   showOnClickVisualFeedback: false,
 };
 
+export const WithOnValueChange = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChange.args = {
+  ...args,
+  data,
+  onValueChange: (value) => alert(JSON.stringify(value)),
+};
+
 export const WithExampleDatas = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithExampleDatas.args = {

@@ -132,7 +132,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
       setActiveNode(undefined);
     } else {
       setActiveNode(data.node);
-      onValueChange?.(data.payload.payload);
+      onValueChange?.(data.payload);
     }
   }
   const categories = constructCategories(data, category);
