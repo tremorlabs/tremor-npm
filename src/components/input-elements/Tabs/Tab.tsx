@@ -52,7 +52,6 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const variant = useContext(TabVariantContext);
   const color = useContext(BaseColorContext);
   const Icon = icon;
-
   return (
     <HeadlessTab
       ref={ref}
@@ -63,7 +62,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
-          : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
+          : variant === 'solid' ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis" : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
         getVariantStyles(variant, color),
         className,
       )}

@@ -27,7 +27,7 @@ const variantStyles: { [key in TabVariant]: string } = {
   ),
   solid: tremorTwMerge(
     // common
-    "inline-flex p-1 rounded-tremor-default",
+    "inline-flex p-0.5 rounded-tremor-default",
     // light
     "bg-tremor-background-subtle",
     // dark
