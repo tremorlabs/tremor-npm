@@ -80,6 +80,7 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   showOnClickVisualFeedback?: boolean;
+  onValueChange?: (value: any) => void;
   noDataText?: string;
 }
 
@@ -115,6 +116,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     maxYValue,
     allowDecimals = true,
     showOnClickVisualFeedback = true,
+    onValueChange,
     noDataText,
     className,
     ...other
@@ -124,12 +126,13 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
-
+    
     if (!showOnClickVisualFeedback) return;
     if (deepEqual(activeNode, data.node)) {
       setActiveNode(undefined);
     } else {
       setActiveNode(data.node);
+      onValueChange?.(data.payload.payload);
     }
   }
   const categories = constructCategories(data, category);
