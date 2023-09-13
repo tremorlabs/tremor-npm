@@ -205,5 +205,5 @@ export const WithEnableDeltaCalculation = DefaultTemplate.bind({});
 WithEnableDeltaCalculation.args = {
   ...args,
   data: data,
-  enableDeltaCalculation: true
+  enableDeltaCalculation: true,
 };

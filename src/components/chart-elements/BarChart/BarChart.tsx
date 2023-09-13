@@ -73,8 +73,17 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
-            onMouseDown={(e) => (enableDeltaCalculation && layout === "horizontal") && setDeltaCalculation({ leftArea: e })}
-            onMouseMove={(e) => (enableDeltaCalculation && layout === "horizontal" && deltaCalculation.leftArea) && setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))}
+            onMouseDown={(e) =>
+              enableDeltaCalculation &&
+              layout === "horizontal" &&
+              setDeltaCalculation({ leftArea: e })
+            }
+            onMouseMove={(e) =>
+              enableDeltaCalculation &&
+              layout === "horizontal" &&
+              deltaCalculation.leftArea &&
+              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
+            }
             onMouseUp={() => setDeltaCalculation({})}
           >
             {showGridLines ? (
@@ -192,7 +201,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 cursor={{
                   fill: "#d1d5db",
                   opacity:
-                    deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? "0" : "0.15",
+                    deltaCalculation.leftArea?.activeLabel &&
+                    deltaCalculation.rightArea?.activeLabel
+                      ? "0"
+                      : "0.15",
                 }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip

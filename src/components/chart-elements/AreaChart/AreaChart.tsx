@@ -79,7 +79,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           <ReChartsAreaChart
             data={data}
             onMouseDown={(e) => enableDeltaCalculation && setDeltaCalculation({ leftArea: e })}
-            onMouseMove={(e) => (enableDeltaCalculation && deltaCalculation.leftArea) && setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))}
+            onMouseMove={(e) =>
+              enableDeltaCalculation &&
+              deltaCalculation.leftArea &&
+              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
+            }
             onMouseUp={() => setDeltaCalculation({})}
           >
             {showGridLines ? (
@@ -145,7 +149,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 isAnimationActive={false}
                 cursor={{
                   stroke: "#d1d5db",
-                  strokeWidth: deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? 0 : 1,
+                  strokeWidth:
+                    deltaCalculation.leftArea?.activeLabel &&
+                    deltaCalculation.rightArea?.activeLabel
+                      ? 0
+                      : 1,
                 }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip

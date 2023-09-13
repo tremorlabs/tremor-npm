@@ -97,7 +97,11 @@ const ChartTooltip = ({
 }: ChartTooltipProps) => {
   const hasRange = Boolean(deltaCalculation?.leftArea && deltaCalculation?.rightArea);
 
-  if (hasRange && deltaCalculation?.leftArea?.activeLabel === deltaCalculation?.rightArea?.activeLabel) return null;
+  if (
+    hasRange &&
+    deltaCalculation?.leftArea?.activeLabel === deltaCalculation?.rightArea?.activeLabel
+  )
+    return null;
 
   if (active && payload) {
     return (
@@ -133,8 +137,8 @@ const ChartTooltip = ({
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => {
-            const isBeforeLeftValue = deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
-
+            const isBeforeLeftValue =
+              deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
             const displayedValue = hasRange
               ? (getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) -
                   getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
@@ -145,12 +149,11 @@ const ChartTooltip = ({
                   (isBeforeLeftValue
                     ? getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name) /
                       getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name)
-                    : getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) /
-                      getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
-                    100) *
+                    : (getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) /
+                        getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
+                      100)) *
                 -1
               : 0;
-
             const percentageValue = hasRange ? `(${percentage.toFixed(2)}%)` : "";
 
             return (

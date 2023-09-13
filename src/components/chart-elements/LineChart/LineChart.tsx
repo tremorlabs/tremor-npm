@@ -77,7 +77,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
           <ReChartsLineChart
             data={data}
             onMouseDown={(e) => enableDeltaCalculation && setDeltaCalculation({ leftArea: e })}
-            onMouseMove={(e) => (enableDeltaCalculation && deltaCalculation.leftArea) && setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))}
+            onMouseMove={(e) =>
+              enableDeltaCalculation &&
+              deltaCalculation.leftArea &&
+              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
+            }
             onMouseUp={() => setDeltaCalculation({})}
           >
             {showGridLines ? (
@@ -144,7 +148,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={false}
                 cursor={{
                   stroke: "#d1d5db",
-                  strokeWidth: deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? 0 : 1,
+                  strokeWidth:
+                    deltaCalculation.leftArea?.activeLabel &&
+                    deltaCalculation.rightArea?.activeLabel
+                      ? 0
+                      : 1,
                 }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip
