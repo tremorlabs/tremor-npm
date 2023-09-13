@@ -10,11 +10,15 @@ import {
   XAxis,
   YAxis,
   ZAxis,
-  Sector,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategories, constructCategoryColors, getYAxisDomain } from "../common/utils";
+import {
+  constructCategories,
+  constructCategoryColors,
+  deepEqual,
+  getYAxisDomain,
+} from "../common/utils";
 import NoData from "../common/NoData";
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -36,42 +40,18 @@ export type ScatterChartValueFormatter = {
   size?: ValueFormatter;
 };
 
-const deepEqual = (obj1: any, obj2: any ) => {
-    if (obj1 === obj2) return true;
-  
-    if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || obj1 === null || obj2 === null)
-      return false;
-  
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-  
-    if (keys1.length !== keys2.length) return false;
-  
-    for (const key of keys1) {
-      if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false;
-    }
-  
-    return true;
-  }
-
 const renderShape = (props: any, activeNode: any | undefined) => {
-    const {
-      cx,
-      cy,
-      width, 
-      node, 
-      fillOpacity
-    } = props;    
-    
-    return (
-      <circle
-        cx={cx}
-        cy={cy}
-        r={width/2}
-        opacity={activeNode ? (deepEqual(activeNode, node) ? fillOpacity : 0.3) : fillOpacity}
-      />
-    );
-  };
+  const { cx, cy, width, node, fillOpacity } = props;
+
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={width / 2}
+      opacity={activeNode ? (deepEqual(activeNode, node) ? fillOpacity : 0.3) : fillOpacity}
+    />
+  );
+};
 
 export interface ScatterChartProps
   extends BaseAnimationTimingProps,
@@ -141,10 +121,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
-  
-  function onNodeClick(data: any, index: number, event: React.MouseEvent) {    
-    event.stopPropagation()
-    
+
+  function onNodeClick(data: any, index: number, event: React.MouseEvent) {
+    event.stopPropagation();
+
     if (!showOnClickVisualFeedback) return;
     if (deepEqual(activeNode, data.node)) {
       setActiveNode(undefined);

@@ -105,7 +105,7 @@ export const WithNoClickVisualFeedback = DefaultTemplate.bind({});
 WithNoClickVisualFeedback.args = {
   ...args,
   data,
-  showOnClickVisualFeedback: false
+  showOnClickVisualFeedback: false,
 };
 
 export const WithExampleDatas = ResponsiveTemplate.bind({});
