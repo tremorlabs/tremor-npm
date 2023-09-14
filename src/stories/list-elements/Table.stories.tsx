@@ -96,8 +96,118 @@ const Template: ComponentStory<typeof Table> = (args) => {
   );
 };
 
+const TemplateWithColSpan: ComponentStory<typeof Table> = (args) => {
+  return (
+    <Card>
+      <Table {...args}>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell colSpan={4}>Personal</TableHeaderCell>
+            <TableHeaderCell className="text-right">Stats</TableHeaderCell>
+          </TableRow>
+          <TableRow>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Sales ($)</TableHeaderCell>
+            <TableHeaderCell>Region</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {data.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell>{item.name}</TableCell>
+              <TableCell className="text-right">{item.sales}</TableCell>
+              <TableCell>{item.region}</TableCell>
+              <TableCell>
+                <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
+                  {item.status}
+                </BadgeDelta>
+              </TableCell>
+              <TableCell className="text-right">{item.hours}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFoot>
+          <TableRow>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">4642</TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">15h</TableFooterCell>
+          </TableRow>
+        </TableFoot>
+      </Table>
+    </Card>
+  );
+};
+
+const TemplateWithRowSpan: ComponentStory<typeof Table> = (args) => {
+  return (
+    <Card>
+      <Table {...args}>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell className="align-baseline" rowSpan={2}>
+              # ID
+            </TableHeaderCell>
+            <TableHeaderCell colSpan={4}>Personal</TableHeaderCell>
+            <TableHeaderCell className="text-right">Stats</TableHeaderCell>
+          </TableRow>
+          <TableRow>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Sales ($)</TableHeaderCell>
+            <TableHeaderCell>Region</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {data.map((item, index) => (
+            <TableRow key={item.id}>
+              <TableCell>{index}</TableCell>
+              <TableCell>{item.name}</TableCell>
+              <TableCell className="text-right">{item.sales}</TableCell>
+              <TableCell>{item.region}</TableCell>
+              <TableCell>
+                <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
+                  {item.status}
+                </BadgeDelta>
+              </TableCell>
+              <TableCell className="text-right">{item.hours}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFoot>
+          <TableRow>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">4642</TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">15h</TableFooterCell>
+          </TableRow>
+        </TableFoot>
+      </Table>
+    </Card>
+  );
+};
+
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
+  children: undefined,
+};
+
+export const WithColspan = TemplateWithColSpan.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithColspan.args = {
+  children: undefined,
+};
+
+export const WithRowspan = TemplateWithRowSpan.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithRowspan.args = {
   children: undefined,
 };
