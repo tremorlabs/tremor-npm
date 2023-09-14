@@ -50,7 +50,7 @@ const Template: ComponentStory<typeof NumberInput> = (args) => {
   );
 };
 
-const ControlValueWithOnChangeExample: ComponentStory<typeof NumberInput> = (args) => {
+const ControlledWithOnChangeExample: ComponentStory<typeof NumberInput> = (args) => {
   const [value, setValue] = useState(0);
   return (
     <Card>
@@ -130,5 +130,5 @@ WithDisabledAndError.args = {
   disabled: true,
 };
 
-export const ControlValueWithOnChange = ControlValueWithOnChangeExample.bind({});
-ControlValueWithOnChange.args = {};
+export const ControlledWithOnChange = ControlledWithOnChangeExample.bind({});
+ControlledWithOnChange.args = {};
