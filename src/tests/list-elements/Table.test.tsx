@@ -37,4 +37,42 @@ describe("List", () => {
       </Table>,
     );
   });
+  test("renders the List component with colSpan and rowSpan", () => {
+    render(
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell className="align-baseline" rowSpan={2}>
+              # ID
+            </TableHeaderCell>
+            <TableHeaderCell colSpan={4}>Personal</TableHeaderCell>
+            <TableHeaderCell className="text-right">Stats</TableHeaderCell>
+          </TableRow>
+          <TableRow>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Sales ($)</TableHeaderCell>
+            <TableHeaderCell>Region</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>1</TableCell>
+            <TableCell>Peter Doe</TableCell>
+            <TableCell>1.000.000</TableCell>
+            <TableCell>Region A</TableCell>
+            <TableCell>211</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>2</TableCell>
+            <TableCell>Peter Doe</TableCell>
+            <TableCell>1.000.000</TableCell>
+            <TableCell>Region A</TableCell>
+            <TableCell>211</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+  });
 });
