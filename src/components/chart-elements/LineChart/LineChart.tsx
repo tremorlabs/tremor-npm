@@ -179,18 +179,18 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             ) : null}
             {showLegend ? (
               <Legend
-                onClick={(e) => {
-                  const dataKey = e?.dataKey ?? null;
-                  setHasClickedPoint(false);
-                  if (dataKey !== selectedLegend) {
-                    setSelectedLegend(e?.dataKey);
-                  } else {
-                    setSelectedLegend(null);
-                  }
-                }}
                 verticalAlign="top"
                 height={legendHeight}
-                // content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend({ payload }, categoryColors, setLegendHeight, (clickedLegendItem) => {
+                    setHasClickedPoint(false);
+                    if (clickedLegendItem !== selectedLegend) {
+                      setSelectedLegend(clickedLegendItem);
+                    } else {
+                      setSelectedLegend(null);
+                    }
+                  })
+                }
               />
             ) : null}
             {categories.map((category) => (

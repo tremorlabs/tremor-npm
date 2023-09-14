@@ -9,9 +9,10 @@ const makeLegendClassName = makeClassName("Legend");
 export interface LegendItemProps {
   name: string;
   color: Color;
+  onClick?: (name: string, color: Color) => void;
 }
 
-const LegendItem = ({ name, color }: LegendItemProps) => (
+const LegendItem = ({ name, color, onClick }: LegendItemProps) => (
   <li
     className={tremorTwMerge(
       makeLegendClassName("legendItem"),
@@ -23,6 +24,7 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
       "dark:text-dark-tremor-content",
       spacing.md.marginRight,
     )}
+    onClick={(e) => onClick?.(name, color)}
   >
     <svg
       className={tremorTwMerge(
@@ -55,10 +57,11 @@ const LegendItem = ({ name, color }: LegendItemProps) => (
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
+  onClickLegendItem?: (category: string, color: Color) => void;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
-  const { categories, colors = themeColorRange, className, ...other } = props;
+  const { categories, colors = themeColorRange, className, onClickLegendItem, ...other } = props;
   return (
     <ol
       ref={ref}
@@ -70,7 +73,12 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
       {...other}
     >
       {categories.map((category, idx) => (
-        <LegendItem key={`item-${idx}`} name={category} color={colors[idx]} />
+        <LegendItem
+          key={`item-${idx}`}
+          name={category}
+          color={colors[idx]}
+          onClick={onClickLegendItem}
+        />
       ))}
     </ol>
   );

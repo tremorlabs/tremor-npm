@@ -9,6 +9,7 @@ const ChartLegend = (
   { payload }: any,
   categoryColors: Map<string, Color>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
+  onClick: (category: string, color: Color) => void,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +26,7 @@ const ChartLegend = (
       <Legend
         categories={payload.map((entry: any) => entry.value)}
         colors={payload.map((entry: any) => categoryColors.get(entry.value))}
+        onClickLegendItem={onClick}
       />
     </div>
   );
