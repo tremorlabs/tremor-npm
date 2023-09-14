@@ -62,7 +62,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
-          : variant === 'solid' ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis" : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
+          : (variant === "solid" ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis" : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand"),
         getVariantStyles(variant, color),
         className,
       )}
