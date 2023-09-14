@@ -126,7 +126,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
-    
     if (!showOnClickVisualFeedback) return;
     if (deepEqual(activeNode, data.node)) {
       setActiveNode(undefined);
