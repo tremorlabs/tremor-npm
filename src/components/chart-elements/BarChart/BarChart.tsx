@@ -80,8 +80,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
 
   function onBarClick(data: any, index: number, event: React.MouseEvent) {
-    console.log(data);
-
     event.stopPropagation();
 
     if (!showOnClickVisualFeedback) return;
@@ -89,7 +87,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       setActiveBar(undefined);
     } else {
       setActiveBar(data.tooltipPosition);
-      onValueChange?.(data.payload);
+      onValueChange?.({
+        ...data.payload,
+        dataKeyClicked: data.tooltipPayload[0]?.dataKey
+    });
     }
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
