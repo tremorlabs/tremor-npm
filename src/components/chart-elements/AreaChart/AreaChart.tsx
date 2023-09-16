@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Area,
     CartesianGrid,
@@ -28,6 +28,39 @@ import {
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
+const CustomTick = (props: any) => {
+    const {payload, y, width, height, className, tickFormatter, setWidestTick} = props
+
+    useEffect(() => {
+        setWidestTick((prev: number | undefined) => !prev || prev.toString().length < (payload.value).toString().length ? payload.value : prev)
+    }, [])
+
+    return (
+        <foreignObject 
+            x={0} 
+            y={y - 9} //center vertically
+            width={width} 
+            height={height}
+        >
+            <div 
+                className={
+                    tremorTwMerge(
+                        className,
+                        //common
+                        "overflow-hidden text-ellipsis text-right mr-1 tabular-nums",
+                        // light
+                        "text-tremor-content",
+                        // dark
+                        "dark:text-dark-tremor-content",
+                    )
+                }
+                title={tickFormatter(payload.value)}
+            >
+                {tickFormatter(payload.value)}
+            </div> 
+        </foreignObject>
+    )
+}
 
 export interface AreaChartProps extends BaseChartProps {
     stack?: boolean;
@@ -64,17 +97,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
         ...other
     } = props;
     const [legendHeight, setLegendHeight] = useState(60);
+    const [widestTick, setWidestTick] = useState<number | undefined>(undefined);
     const categoryColors = constructCategoryColors(categories, colors);
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
-    const longestValue = getLongestValue(data, categories)
-
-    const calculatedYAxisWidth = getYAxisWidth(yAxisWidth, longestValue ? valueFormatter(longestValue) : undefined)
-    console.log(calculatedYAxisWidth);
+    const calculatedYAxisWidth = getYAxisWidth(yAxisWidth, widestTick ? valueFormatter(widestTick) : undefined)
     
     return (
         <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-            {/* <span className="tabular-nums text-tremor-label">{valueFormatter(longestValue)}</span> */}
             <ResponsiveContainer className="h-full w-full">
                 {data?.length ? (
                     <ReChartsAreaChart data={data}>
@@ -121,45 +151,15 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                             tickLine={false}
                             type="number"
                             domain={yAxisDomain as AxisDomain}
-                            // tick={{ transform: "translate(-3, 0)" }}
-                            tick={(props: any) =>  {
-                                console.log(props);
-                                return (
-                                    <foreignObject 
-                                        x={0} 
-                                        y={props.y - 9} 
-                                        width={props.width} 
-                                        height={props.height}
-                                    >
-                                        <div 
-                                            className={
-                                                tremorTwMerge(
-                                                    // common
-                                                    "text-tremor-label",
-                                                    // light
-                                                    "text-tremor-content",
-                                                    // dark
-                                                    "dark:text-dark-tremor-content",
-                                                    //auto size
-                                                    "overflow-hidden text-ellipsis text-right mr-1",
-                                                    // Tabular num
-                                                    // "tabular-nums"
-                                                )
-                                            }
-                                        >
-                                            {valueFormatter(props.payload.value)}
-                                        </div> 
-                                    </foreignObject>
-                                )
-                            }}
+                            tick={(props: any) =>  <CustomTick {...props} setWidestTick={setWidestTick}/>}
                             fill=""
                             stroke=""
                             className={tremorTwMerge(
                                 // common
                                 "text-tremor-label whitespace-nowrap",
                             )}
-                            // tickFormatter={valueFormatter}
                             allowDecimals={allowDecimals}
+                            tickFormatter={valueFormatter}
                         />
                         {showTooltip ? (
                             <Tooltip

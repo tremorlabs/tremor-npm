@@ -207,3 +207,49 @@ WithVeryLongValueFormatter.args = {
   data,
   valueFormatter: (val) => `This is a very long valueFormatter: ${val} $`,
 };
+
+const chartdata = [
+    {
+      year: 1970,
+      "Export Growth Rate": 2.0476,
+      "Import Growth Rate": 1.531!,
+    },
+    {
+      year: 1971,
+      "Export Growth Rate": 1.9662,
+      "Import Growth Rate": 1.58,
+    },
+    {
+      year: 1972,
+      "Export Growth Rate": 1.96,
+      "Import Growth Rate": 1.61,
+    },
+    {
+      year: 1973,
+      "Export Growth Rate": 1.93,
+      "Import Growth Rate": 1.61,
+    },
+    {
+      year: 1974,
+      "Export Growth Rate": 1.88,
+      "Import Growth Rate": 1.67,
+    },
+    //...
+  ];
+export const WithOtherDatas = ResponsiveTemplate.bind({});
+WithOtherDatas.args = {
+  ...args,
+  data: chartdata,
+  categories: ["Export Growth Rate", "Import Growth Rate"],
+  index: "year",
+};
+
+export const WithOtherDatasValueFormatter = ResponsiveTemplate.bind({});
+WithOtherDatasValueFormatter.args = {
+  ...args,
+  data: chartdata,
+  categories: ["Export Growth Rate", "Import Growth Rate"],
+  index: "year",
+  valueFormatter: (val) => `${val} %`,
+};
+
