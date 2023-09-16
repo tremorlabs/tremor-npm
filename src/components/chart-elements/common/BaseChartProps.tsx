@@ -10,7 +10,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
-  yAxisWidth?: number;
+  yAxisWidth?: number | "auto";
   showTooltip?: boolean;
   showGradient?: boolean;
   showLegend?: boolean;

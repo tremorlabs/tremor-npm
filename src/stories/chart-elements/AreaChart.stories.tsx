@@ -200,3 +200,10 @@ WithShortAnimationDuration.args = {
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
+
+export const WithVeryLongValueFormatter = ResponsiveTemplate.bind({});
+WithVeryLongValueFormatter.args = {
+  ...args,
+  data,
+  valueFormatter: (val) => `This is a very long valueFormatter: ${val} $`,
+};
