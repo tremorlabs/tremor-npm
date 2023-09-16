@@ -1,6 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { tremorTwMerge } from "lib";
+import { useInternalState } from "hooks";
 
 import { border, makeClassName, sizing, spacing } from "lib";
 import {
@@ -10,7 +11,7 @@ import {
   hasValue,
 } from "../selectUtils";
 import { Combobox } from "@headlessui/react";
-import { ArrowDownHeadIcon } from "assets";
+import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
@@ -21,8 +22,11 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
+  enableClear?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
+
+const makeSelectClassName = makeClassName("SearchSelect");
 
 const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props, ref) => {
   const {
@@ -32,12 +36,14 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     placeholder = "Select...",
     disabled = false,
     icon,
+    enableClear = false,
     children,
     className,
     ...other
   } = props;
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const Icon = icon;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
@@ -46,13 +52,22 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     [searchQuery, children],
   );
 
+  const handleReset = () => {
+    setSelectedValue("");
+    setSearchQuery("");  // we also need to reset the search query else only the filtered options will be shown
+    onValueChange?.("");
+  };
+  
   return (
     <Combobox
       as="div"
       ref={ref}
-      defaultValue={defaultValue}
-      value={value}
-      onChange={onValueChange as any}
+      defaultValue={selectedValue}
+      value={selectedValue}
+      onChange={((value: string) => {
+        onValueChange?.(value);
+        setSelectedValue(value);
+      }) as any}
       disabled={disabled}
       className={tremorTwMerge(
         // common
@@ -129,6 +144,33 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
               />
             </div>
           </Combobox.Button>
+          {enableClear && selectedValue ? (
+            <button
+              type="button"
+              className={tremorTwMerge(
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.fourXl.marginRight,
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <XCircleIcon
+                className={tremorTwMerge(
+                  makeSelectClassName("clearIcon"),
+                  // common
+                  "flex-none",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
+                  sizing.md.height,
+                  sizing.md.width,
+                )}
+              />
+            </button>
+          ) : null}
           {filteredOptions.length > 0 && (
             <Combobox.Options
               className={tremorTwMerge(
