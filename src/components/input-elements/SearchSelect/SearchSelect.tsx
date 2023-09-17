@@ -107,13 +107,12 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             <Combobox.Input
               className={tremorTwMerge(
                 // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default",
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14",
                 // light
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
-                spacing.fourXl.paddingRight,
                 spacing.sm.paddingY,
                 border.sm.all,
                 disabled
