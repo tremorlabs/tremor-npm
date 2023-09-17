@@ -33,19 +33,6 @@ export const constructCategories = (data: any[], color?: string): string[] => {
   return Array.from(categories);
 };
 
-export const getLongestValue = (data: any[], categories: string[]) => {
-  let longestValue = undefined;
-
-  for (const item of data) {
-    for (const category of categories) {
-      if (!longestValue || item[category] > longestValue) {
-        longestValue = item[category];
-      }
-    }
-  }
-  return longestValue;
-};
-
 export const getYAxisWidth = (
   axisWidth: number | "auto",
   text?: string,
