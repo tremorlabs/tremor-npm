@@ -79,7 +79,6 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
-  showOnClickVisualFeedback?: boolean;
   onValueChange?: (value: any) => void;
   noDataText?: string;
 }
@@ -115,7 +114,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     minYValue,
     maxYValue,
     allowDecimals = true,
-    showOnClickVisualFeedback = true,
     onValueChange,
     noDataText,
     className,
@@ -126,7 +124,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
-    if (!showOnClickVisualFeedback) return;
+    if (onValueChange == null) return;
     if (deepEqual(activeNode, data.node)) {
       setActiveNode(undefined);
     } else {
