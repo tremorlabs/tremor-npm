@@ -33,6 +33,7 @@ export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
   onValueChange?: (value: any) => void;
+  enableOnClickAnimation?: boolean;
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
@@ -60,6 +61,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableOnClickAnimation = true,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -184,7 +186,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   ).strokeColor,
                 )}
                 strokeOpacity={
-                  hasClickedPoint || (selectedLegend && selectedLegend !== category) ? 0.3 : 1
+                  enableOnClickAnimation
+                    ? hasClickedPoint || (selectedLegend && selectedLegend !== category)
+                      ? 0.3
+                      : 1
+                    : 1
                 }
                 activeDot={{
                   className: tremorTwMerge(
@@ -229,7 +235,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     index,
                   } = props;
 
-                  if (clickedPointIndex === index && clickedPointCategory === dataKey) {
+                  if (
+                    enableOnClickAnimation &&
+                    clickedPointIndex === index &&
+                    clickedPointCategory === dataKey
+                  ) {
                     return (
                       <Dot
                         cx={cx}
