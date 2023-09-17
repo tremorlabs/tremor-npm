@@ -36,7 +36,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     placeholder = "Select...",
     disabled = false,
     icon,
-    enableClear = false,
+    enableClear = true,
     children,
     className,
     ...other
@@ -54,20 +54,22 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
 
   const handleReset = () => {
     setSelectedValue("");
-    setSearchQuery("");  // we also need to reset the search query else only the filtered options will be shown
+    setSearchQuery("");
     onValueChange?.("");
   };
-  
+
   return (
     <Combobox
       as="div"
       ref={ref}
       defaultValue={selectedValue}
       value={selectedValue}
-      onChange={((value: string) => {
-        onValueChange?.(value);
-        setSelectedValue(value);
-      }) as any}
+      onChange={
+        ((value: string) => {
+          onValueChange?.(value);
+          setSelectedValue(value);
+        }) as any
+      }
       disabled={disabled}
       className={tremorTwMerge(
         // common
