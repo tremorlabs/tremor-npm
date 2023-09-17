@@ -35,7 +35,7 @@ export interface LineChartProps extends BaseChartProps {
   onValueChange?: (value: any) => void;
 }
 
-interface ClickedPoint {
+interface ActiveDot {
   index?: number;
   dataKey?: string;
 }
@@ -68,7 +68,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
-  const [activeDot, setActiveDot] = useState<ClickedPoint | undefined>(undefined);
+  const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
