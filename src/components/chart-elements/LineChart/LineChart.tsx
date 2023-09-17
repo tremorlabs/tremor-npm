@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
+  Dot,
   Legend,
   Line,
   LineChart as ReChartsLineChart,
@@ -17,7 +18,6 @@ import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
-import ChartDot from "../common/ChartDot";
 
 import {
   BaseColors,
@@ -183,7 +183,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor,
                 )}
-                strokeOpacity={(hasClickedPoint || (selectedLegend && selectedLegend !== category)) ? 0.3 : 1}
+                strokeOpacity={
+                  hasClickedPoint || (selectedLegend && selectedLegend !== category) ? 0.3 : 1
+                }
                 activeDot={{
                   className: tremorTwMerge(
                     "stroke-tremor-background dark:stroke-dark-tremor-background",
@@ -215,13 +217,41 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     }
                   },
                 }}
-                dot={
-                  <ChartDot
-                    clickedPointIndex={clickedPointIndex}
-                    clickedPointCategory={clickedPointCategory}
-                    categoryColors={categoryColors}
-                  />
-                }
+                dot={(props: any) => {
+                  const {
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                    cx,
+                    cy,
+                    dataKey,
+                    index,
+                  } = props;
+
+                  if (clickedPointIndex === index && clickedPointCategory === dataKey) {
+                    return (
+                      <Dot
+                        cx={cx}
+                        cy={cy}
+                        r={4}
+                        stroke={stroke}
+                        fill="red"
+                        strokeLinecap={strokeLinecap}
+                        strokeLinejoin={strokeLinejoin}
+                        strokeWidth={strokeWidth}
+                        className={tremorTwMerge(
+                          "stroke-tremor-background dark:stroke-dark-tremor-background",
+                          getColorClassNames(
+                            categoryColors.get(dataKey) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).fillColor,
+                        )}
+                      />
+                    );
+                  }
+                  return <></>;
+                }}
                 key={category}
                 name={category}
                 type={curveType}
