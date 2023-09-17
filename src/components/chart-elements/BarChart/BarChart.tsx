@@ -14,10 +14,11 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, getYAxisWidth } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import ChartYTick from "../common/ChartYTick";
 import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
@@ -43,7 +44,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showAnimation = true,
     showXAxis = true,
     showYAxis = true,
-    yAxisWidth = 56,
+    yAxisWidth = "auto",
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -56,12 +57,22 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [widestTick, setWidestTick] = useState<number | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const calculatedYAxisWidth = getYAxisWidth(
+    yAxisWidth,
+    widestTick
+      ? relative
+        ? `${(widestTick * 100).toString()} %`
+        : valueFormatter(widestTick)
+      : undefined,
+  );
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <span>{valueFormatter(widestTick ?? 0)}</span>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart
@@ -131,23 +142,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             )}
             {layout !== "vertical" ? (
               <YAxis
-                width={yAxisWidth}
+                width={calculatedYAxisWidth}
                 hide={!showYAxis}
                 axisLine={false}
                 tickLine={false}
                 type="number"
                 domain={yAxisDomain as AxisDomain}
-                tick={{ transform: "translate(-3, 0)" }}
+                tick={(props: any) => <ChartYTick {...props} setWidestTick={setWidestTick} />}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={"text-tremor-label whitespace-nowrap"}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
@@ -155,7 +159,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               />
             ) : (
               <YAxis
-                width={yAxisWidth}
+                width={calculatedYAxisWidth}
                 hide={!showYAxis}
                 dataKey={index}
                 axisLine={false}
@@ -163,17 +167,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 type="category"
                 interval="preserveStartEnd"
-                tick={{ transform: "translate(0, 6)" }}
+                tick={(props: any) => <ChartYTick {...props} setWidestTick={setWidestTick} />}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={"text-tremor-label whitespace-nowrap"}
               />
             )}
             {showTooltip ? (

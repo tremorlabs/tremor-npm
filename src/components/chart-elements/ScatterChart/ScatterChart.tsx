@@ -13,7 +13,13 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategories, constructCategoryColors, getYAxisDomain } from "../common/utils";
+import {
+  constructCategories,
+  constructCategoryColors,
+  getYAxisDomain,
+  getYAxisWidth,
+} from "../common/utils";
+import ChartYTick from "../common/ChartYTick";
 import NoData from "../common/NoData";
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -82,7 +88,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
-    yAxisWidth = 56,
+    yAxisWidth = "auto",
     animationDuration = 900,
     showAnimation = true,
     showTooltip = true,
@@ -100,6 +106,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [widestTick, setWidestTick] = useState<number | undefined>(undefined);
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
@@ -107,6 +114,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
   const yAxisDomain = getYAxisDomain(autoMinYValue, minYValue, maxYValue);
+  const calculatedYAxisWidth = getYAxisWidth(
+    yAxisWidth,
+    widestTick && valueFormatter.y ? valueFormatter.y(widestTick) : undefined,
+  );
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -158,7 +169,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
             ) : null}
             {y ? (
               <YAxis
-                width={yAxisWidth}
+                width={calculatedYAxisWidth}
                 hide={!showYAxis}
                 axisLine={false}
                 tickLine={false}
@@ -166,18 +177,11 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 type="number"
                 name={y}
                 domain={yAxisDomain as AxisDomain}
-                tick={{ transform: "translate(-3, 0)" }}
+                tick={(props: any) => <ChartYTick {...props} setWidestTick={setWidestTick} />}
                 tickFormatter={valueFormatter.y}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={"text-tremor-label whitespace-nowrap"}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}
               />

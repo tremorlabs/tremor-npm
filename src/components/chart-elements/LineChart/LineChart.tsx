@@ -12,11 +12,12 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, getYAxisWidth } from "../common/utils";
 import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import ChartYTick from "../common/ChartYTick";
 
 import {
   BaseColors,
@@ -43,7 +44,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
-    yAxisWidth = 56,
+    yAxisWidth = "auto",
     animationDuration = 900,
     showAnimation = true,
     showTooltip = true,
@@ -60,9 +61,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [widestTick, setWidestTick] = useState<number | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const calculatedYAxisWidth = getYAxisWidth(
+    yAxisWidth,
+    widestTick ? valueFormatter(widestTick) : undefined,
+  );
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -106,23 +112,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               minTickGap={5}
             />
             <YAxis
-              width={yAxisWidth}
+              width={calculatedYAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
               type="number"
               domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
+              tick={(props: any) => <ChartYTick {...props} setWidestTick={setWidestTick} />}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
+              className={"text-tremor-label whitespace-nowrap"}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
