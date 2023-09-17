@@ -215,5 +215,4 @@ WithoutOnClickAnimation.args = {
   data: data,
   categories: ["Sales", "Successful Payments"],
   index: "month",
-  enableOnClickAnimation: false,
 };
