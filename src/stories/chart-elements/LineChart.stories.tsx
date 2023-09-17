@@ -209,3 +209,11 @@ WithShortAnimationDuration.args = {
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
+
+export const WithoutOnClickAnimation = DefaultTemplate.bind({});
+WithoutOnClickAnimation.args = {
+  data: data,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+  enableOnClickAnimation: false,
+};
