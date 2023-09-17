@@ -124,3 +124,13 @@ WithVeryLongValueFormatter.args = {
     y: (val) => `This is a very long valueFormatter: ${val} $`,
   },
 };
+
+export const WithFixedYAxisWidth = ResponsiveTemplate.bind({});
+WithFixedYAxisWidth.args = {
+  ...args,
+  data,
+  valueFormatter: {
+    y: (val) => `This is a very long valueFormatter: ${val} $`,
+  },
+  yAxisWidth: 260,
+};
