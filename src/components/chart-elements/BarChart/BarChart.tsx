@@ -42,7 +42,6 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
-  showOnClickVisualFeedback?: boolean;
   onValueChange?: (value: any) => void;
 }
 
@@ -70,7 +69,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     maxValue,
     allowDecimals = true,
     noDataText,
-    showOnClickVisualFeedback = true,
     onValueChange,
     className,
     ...other
@@ -82,15 +80,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   function onBarClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
 
-    if (!showOnClickVisualFeedback) return;
+    if (onValueChange == null) return;
     if (deepEqual(activeBar, data.tooltipPosition)) {
       setActiveBar(undefined);
     } else {
       setActiveBar(data.tooltipPosition);
       onValueChange?.({
         ...data.payload,
-        dataKeyClicked: data.tooltipPayload[0]?.dataKey
-    });
+        dataKeyClicked: data.tooltipPayload[0]?.dataKey,
+      });
     }
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);

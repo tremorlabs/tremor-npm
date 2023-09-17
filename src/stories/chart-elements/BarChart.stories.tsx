@@ -198,14 +198,6 @@ WithShortAnimationDuration.args = {
   index: "month",
 };
 
-export const WithNoClickVisualFeedback = DefaultTemplate.bind({});
-WithNoClickVisualFeedback.args = {
-  ...args,
-  data,
-  stack: true,
-  showOnClickVisualFeedback: false,
-};
-
 export const WithOnValueChange = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
