@@ -3,7 +3,6 @@ import React, { ReactNode, useCallback, useRef, useState } from "react";
 import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
-import { Icon as IconComponent } from "components/icon-elements";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -133,19 +132,37 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           data-testid="base-input"
           {...other}
         />
-        {type === "password" && (
+        {type === "password" ? (
           <button
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
           >
             {isPasswordVisible ? (
-              <IconComponent size="xs" icon={EyeOffIcon} color="slate" />
+              <EyeOffIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
+                )}
+              />
             ) : (
-              <IconComponent size="xs" icon={EyeIcon} color="slate" />
+              <EyeIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
+                )}
+              />
             )}
           </button>
-        )}
+        ) : null}
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(
