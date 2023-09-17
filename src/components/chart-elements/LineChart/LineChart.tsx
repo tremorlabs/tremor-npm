@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   CartesianGrid,
   Dot,
@@ -35,6 +35,11 @@ export interface LineChartProps extends BaseChartProps {
   onValueChange?: (value: any) => void;
 }
 
+interface ClickedPoint {
+  index?: number;
+  dataKey?: string;
+}
+
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
   const {
     data = [],
@@ -63,27 +68,41 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [activeDot, setActiveDot] = useState<ClickedPoint | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
-  const [hasClickedPoint, setHasClickedPoint] = useState<boolean>(false);
-  const [clickedPointIndex, setClickedPointIndex] = useState<number | null>(null);
-  const [clickedPointCategory, setClickedPointCategory] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (hasClickedPoint) return;
-    setClickedPointIndex(null);
-    setClickedPointCategory(null);
-  }, [hasClickedPoint]);
+  function onDotClick(data: any, event: React.MouseEvent) {
+    event.stopPropagation();
 
-  const [selectedLegend, setSelectedLegend] = useState<string | null>(null);
+    if (!onValueChange) return;
+    if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
+      setActiveDot(undefined);
+    } else {
+      setActiveDot({
+        index: data.index,
+        dataKey: data.dataKey,
+      });
+      onValueChange?.(data.payload);
+    }
+    setActiveLegend(undefined);
+  }
+
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsLineChart data={data}>
+          <ReChartsLineChart
+            data={data}
+            onClick={() => {
+              setActiveDot(undefined);
+              setActiveLegend(undefined);
+            }}
+          >
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -164,13 +183,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 verticalAlign="top"
                 height={legendHeight}
                 content={({ payload }) =>
-                  ChartLegend({ payload }, categoryColors, setLegendHeight, (clickedLegendItem) => {
-                    setHasClickedPoint(false);
-                    if (clickedLegendItem !== selectedLegend) {
-                      setSelectedLegend(clickedLegendItem);
+                  ChartLegend({ payload }, categoryColors, setLegendHeight, activeLegend, (clickedLegendItem: string) => {
+                    if (clickedLegendItem === activeLegend) {
+                      setActiveLegend(undefined);
                     } else {
-                      setSelectedLegend(null);
+                      setActiveLegend(clickedLegendItem);
                     }
+                    setActiveDot(undefined);
                   })
                 }
               />
@@ -184,38 +203,31 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   ).strokeColor,
                 )}
                 strokeOpacity={
-                  hasClickedPoint || (selectedLegend && selectedLegend !== category) ? 0.3 : 1
+                  activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1
                 }
-                activeDot={{
-                  className: tremorTwMerge(
-                    "stroke-tremor-background dark:stroke-dark-tremor-background",
-                    getColorClassNames(
-                      categoryColors.get(category) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).fillColor,
-                  ),
-                  onClick: (event, payload: any) => {
-                    const index = payload.index ?? null;
-                    const dataKey = payload.dataKey ?? null;
-                    if (!hasClickedPoint) {
-                      setClickedPointIndex(index);
-                      setClickedPointCategory(dataKey);
-                      setHasClickedPoint(true);
-                      onValueChange?.(payload.payload);
-                    } else {
-                      // cancel click
-                      if (index === clickedPointIndex && dataKey === clickedPointCategory) {
-                        setHasClickedPoint(false);
-                      }
-                      // click new point
-                      else {
-                        setClickedPointIndex(index);
-                        setClickedPointCategory(dataKey);
-                        setHasClickedPoint(true);
-                        onValueChange?.(payload.payload);
-                      }
-                    }
-                  },
+                activeDot={(props: any) => {
+                  const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
+                    props;
+                  return (
+                    <Dot
+                      onClick={(dotProps: any, event) => onDotClick(props, event)}
+                      cx={cx}
+                      cy={cy}
+                      r={4}
+                      stroke={stroke}
+                      fill="red"
+                      strokeLinecap={strokeLinecap}
+                      strokeLinejoin={strokeLinejoin}
+                      strokeWidth={strokeWidth}
+                      className={tremorTwMerge(
+                        "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        getColorClassNames(
+                          categoryColors.get(dataKey) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).fillColor,
+                      )}
+                    />
+                  );
                 }}
                 dot={(props: any) => {
                   const {
@@ -229,7 +241,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     index,
                   } = props;
 
-                  if (clickedPointIndex === index && clickedPointCategory === dataKey) {
+                  if (
+                    activeDot?.index === index &&
+                    activeDot?.dataKey === category
+                  ) {
                     return (
                       <Dot
                         cx={cx}
