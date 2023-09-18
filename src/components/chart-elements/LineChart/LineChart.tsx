@@ -71,7 +71,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
-  
+
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   function onDotClick(data: any, event: React.MouseEvent) {
@@ -90,7 +90,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     setActiveLegend(undefined);
   }
 
-  function onDataKeyClick(dataKey: string){
+  function onDataKeyClick(dataKey: string) {
     if (!onValueChange) return;
     if (dataKey === activeLegend) {
       setActiveLegend(undefined);
@@ -197,7 +197,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     setLegendHeight,
                     activeLegend,
                     (clickedLegendItem: string) => {
-                        onDataKeyClick(clickedLegendItem)
+                      onDataKeyClick(clickedLegendItem);
                     },
                   )
                 }
@@ -285,9 +285,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
                 onClick={(props: any, event) => {
-                    event.stopPropagation();
-                    const {name} = props
-                    onDataKeyClick(name)
+                  event.stopPropagation();
+                  const { name } = props;
+                  onDataKeyClick(name);
                 }}
               />
             ))}

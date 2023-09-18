@@ -47,17 +47,12 @@ const DefaultTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {
 };
 
 const WithCustomEventTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {
-  const [value, setValue] = React.useState<any>(undefined);
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
   return (
     <Card>
-      <LineChart
-        {...args}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(JSON.stringify(value));
-        }}
-      />
-      <p>value: {`${JSON.stringify(value)}`}</p>
+      <LineChart {...args} />
     </Card>
   );
 };
@@ -75,6 +70,7 @@ export const WithCustomEventExample = WithCustomEventTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomEventExample.args = {
   ...args,
+  onValueChange: (v) => alert(JSON.stringify(v)),
   data,
 };
 
