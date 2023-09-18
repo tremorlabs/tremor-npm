@@ -17,8 +17,8 @@ const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => {
   if (args.onValueChange?.length === 0) {
     args.onValueChange = undefined;
   }
-  
-  return(
+
+  return (
     <>
       <Title>Mobile</Title>
       <div className="w-64">
@@ -31,19 +31,19 @@ const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => {
         <LineChart {...args} />
       </Card>
     </>
-  )
+  );
 };
 
 const DefaultTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {
   if (args.onValueChange?.length === 0) {
     args.onValueChange = undefined;
   }
-  
-  return(
+
+  return (
     <Card>
       <LineChart {...args} />
     </Card>
-  )
+  );
 };
 
 const WithCustomEventTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {

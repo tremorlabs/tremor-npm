@@ -74,7 +74,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
-
   function onDotClick(data: any, event: React.MouseEvent) {
     event.stopPropagation();
 
@@ -90,7 +89,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     }
     setActiveLegend(undefined);
   }
-
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -183,14 +181,21 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 verticalAlign="top"
                 height={legendHeight}
                 content={({ payload }) =>
-                  ChartLegend({ payload }, categoryColors, setLegendHeight, activeLegend, (clickedLegendItem: string) => {
-                    if (clickedLegendItem === activeLegend) {
-                      setActiveLegend(undefined);
-                    } else {
-                      setActiveLegend(clickedLegendItem);
-                    }
-                    setActiveDot(undefined);
-                  })
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    (clickedLegendItem: string) => {
+                      if (!onValueChange) return;
+                      if (clickedLegendItem === activeLegend) {
+                        setActiveLegend(undefined);
+                      } else {
+                        setActiveLegend(clickedLegendItem);
+                      }
+                      setActiveDot(undefined);
+                    },
+                  )
                 }
               />
             ) : null}
@@ -202,9 +207,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor,
                 )}
-                strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1
-                }
+                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
                 activeDot={(props: any) => {
                   const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
                     props;
@@ -213,14 +216,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       onClick={(dotProps: any, event) => onDotClick(props, event)}
                       cx={cx}
                       cy={cy}
-                      r={4}
+                      r={5}
+                      fill=""
                       stroke={stroke}
-                      fill="red"
                       strokeLinecap={strokeLinecap}
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
                       className={tremorTwMerge(
                         "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        onValueChange ? "cursor-pointer" : "",
                         getColorClassNames(
                           categoryColors.get(dataKey) ?? BaseColors.Gray,
                           colorPalette.text,
@@ -241,22 +245,20 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     index,
                   } = props;
 
-                  if (
-                    activeDot?.index === index &&
-                    activeDot?.dataKey === category
-                  ) {
+                  if (activeDot?.index === index && activeDot?.dataKey === category) {
                     return (
                       <Dot
                         cx={cx}
                         cy={cy}
-                        r={4}
+                        r={5}
                         stroke={stroke}
-                        fill="red"
+                        fill=""
                         strokeLinecap={strokeLinecap}
                         strokeLinejoin={strokeLinejoin}
                         strokeWidth={strokeWidth}
                         className={tremorTwMerge(
                           "stroke-tremor-background dark:stroke-dark-tremor-background",
+                          onValueChange ? "cursor-pointer" : "",
                           getColorClassNames(
                             categoryColors.get(dataKey) ?? BaseColors.Gray,
                             colorPalette.text,
@@ -278,6 +280,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
+                onClick={() => console.log("lineclick")}
               />
             ))}
           </ReChartsLineChart>
