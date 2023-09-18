@@ -71,7 +71,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
-
+  
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   function onDotClick(data: any, event: React.MouseEvent) {
@@ -88,6 +88,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
       onValueChange?.(data.payload);
     }
     setActiveLegend(undefined);
+  }
+
+  function onDataKeyClick(dataKey: string){
+    if (!onValueChange) return;
+    if (dataKey === activeLegend) {
+      setActiveLegend(undefined);
+    } else {
+      setActiveLegend(dataKey);
+    }
+    setActiveDot(undefined);
   }
 
   return (
@@ -187,13 +197,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     setLegendHeight,
                     activeLegend,
                     (clickedLegendItem: string) => {
-                      if (!onValueChange) return;
-                      if (clickedLegendItem === activeLegend) {
-                        setActiveLegend(undefined);
-                      } else {
-                        setActiveLegend(clickedLegendItem);
-                      }
-                      setActiveDot(undefined);
+                        onDataKeyClick(clickedLegendItem)
                     },
                   )
                 }
@@ -280,7 +284,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
-                onClick={() => console.log("lineclick")}
+                onClick={(props: any, event) => {
+                    event.stopPropagation();
+                    const {name} = props
+                    onDataKeyClick(name)
+                }}
               />
             ))}
           </ReChartsLineChart>
