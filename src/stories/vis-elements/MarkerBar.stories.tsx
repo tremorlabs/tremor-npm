@@ -46,3 +46,11 @@ WithRange.args = {
   markerTooltip: "50%",
   className: "mt-5",
 };
+
+export const WithMinValue0 = Template.bind({})
+WithMinValue0.args = {
+    value: 10,
+    minValue: 0,
+    maxValue: 60,
+    showAnimation: true
+}

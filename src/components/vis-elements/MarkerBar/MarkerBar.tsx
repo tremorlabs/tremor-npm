@@ -53,7 +53,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       )}
       {...other}
     >
-      {minValue && maxValue && (
+      {(minValue && maxValue) ? (
         <>
           <Tooltip text={rangeTooltip} {...rangeTooltipProps} />
           <div
@@ -75,6 +75,8 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             {...getRangeReferenceProps}
           />
         </>
+      ) : (
+        null
       )}
       <Tooltip text={markerTooltip} {...markerTooltipProps} />
       <div
