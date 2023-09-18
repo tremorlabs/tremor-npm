@@ -15,74 +15,73 @@ export default {
 } as ComponentMeta<typeof DonutChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <DonutChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <DonutChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <DonutChart {...args} />
-    </Card>
-    <Title className="mt-5">Desktop Dark</Title>
-    <Card className="bg-gray-900">
-      <DonutChart {...args} />
-    </Card>
-  </>
-);
-
-const DefaultTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => (
-  <Card>
-    <DonutChart {...args} />
-  </Card>
-);
-
-const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
-  <>
-    <Title>Base Layer (Beta)</Title>
-    <div className="w-full mt-4">
-      <Card>
-        <Title>Sales</Title>
-        <DonutChart className="mt-5" {...args} />
-        <div className="mt-6">
-          <List>
-            {data.map((item) => (
-              <ListItem key={item.city}>
-                <span> {item.city} </span>
-                <Flex className="space-x-2" justifyContent="end">
-                  <BadgeDelta
-                    deltaType={item.deltaType as DeltaType}
-                    isIncreasePositive={true}
-                    size="xs"
-                  >
-                    {item.delta}
-                  </BadgeDelta>
-                </Flex>
-              </ListItem>
-            ))}
-          </List>
-        </div>
+      <Title className="mt-5">Desktop Dark</Title>
+      <Card className="bg-gray-900">
+        <DonutChart {...args} />
       </Card>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
-const WithCustomEventTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => {
-  const [value, setValue] = React.useState<any>(undefined);
+const DefaultTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
   return (
     <Card>
-      <DonutChart
-        {...args}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(JSON.stringify(value));
-        }}
-      />
-      <p>value: {`${JSON.stringify(value)}`}</p>
+      <DonutChart {...args} />
     </Card>
+  );
+};
+
+const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+  return (
+    <>
+      <Title>Base Layer (Beta)</Title>
+      <div className="w-full mt-4">
+        <Card>
+          <Title>Sales</Title>
+          <DonutChart className="mt-5" {...args} />
+          <div className="mt-6">
+            <List>
+              {data.map((item) => (
+                <ListItem key={item.city}>
+                  <span> {item.city} </span>
+                  <Flex className="space-x-2" justifyContent="end">
+                    <BadgeDelta
+                      deltaType={item.deltaType as DeltaType}
+                      isIncreasePositive={true}
+                      size="xs"
+                    >
+                      {item.delta}
+                    </BadgeDelta>
+                  </Flex>
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </Card>
+      </div>
+    </>
   );
 };
 
@@ -91,13 +90,6 @@ const args = { category: "sales", index: "city" };
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
-  ...args,
-  data,
-};
-
-export const WithCustomEventExample = WithCustomEventTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithCustomEventExample.args = {
   ...args,
   data,
 };
@@ -217,4 +209,21 @@ WithShortAnimationDuration.args = {
   animationDuration: 100,
   category: "sales",
   index: "city",
+};
+
+export const WithOnValueChangeExample = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChangeExample.args = {
+  ...args,
+  data,
+  onValueChange: (value) => alert(JSON.stringify(value)),
+};
+
+export const WithOnValueChangePieExample = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChangePieExample.args = {
+  ...args,
+  variant: "pie",
+  data,
+  onValueChange: (value) => alert(JSON.stringify(value)),
 };
