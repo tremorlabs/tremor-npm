@@ -88,6 +88,20 @@ module.exports = {
         "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
+      keyframes: {
+        gauge_fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        gauge_fill: {
+          from: { "stroke-dashoffset": "332", opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      animation: {
+        gauge_fadeIn: "gauge_fadeIn 1s ease forwards",
+        gauge_fill: "gauge_fill 1s ease forwards",
+      },
     },
   },
   safelist: [
@@ -119,5 +133,5 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require("@headlessui/tailwindcss")],
+  plugins: [require("@headlessui/tailwindcss"), require("tailwindcss-animate")],
 };
