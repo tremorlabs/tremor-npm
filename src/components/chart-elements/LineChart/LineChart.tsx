@@ -85,7 +85,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         index: data.index,
         dataKey: data.dataKey,
       });
-      onValueChange?.(data.payload);
+      onValueChange?.({
+        ...data.payload,
+        dataKeyClicked: data.dataKey,
+      });
     }
     setActiveLegend(undefined);
   }
@@ -168,24 +171,28 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
-            {showTooltip ? (
-              <Tooltip
-                // ongoing issue: https://github.com/recharts/recharts/issues/2920
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-                content={({ active, payload, label }) => (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={valueFormatter}
-                    categoryColors={categoryColors}
-                  />
-                )}
-                position={{ y: 0 }}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) => (
+                    <ChartTooltip
+                      active={active}
+                      payload={payload}
+                      label={label}
+                      valueFormatter={valueFormatter}
+                      categoryColors={categoryColors}
+                    />
+                  )
+                ) : (
+                  <></>
+                )
+              }
+              position={{ y: 0 }}
+            />
+
             {showLegend ? (
               <Legend
                 verticalAlign="top"
@@ -284,13 +291,34 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
-                onClick={(props: any, event) => {
-                  event.stopPropagation();
-                  const { name } = props;
-                  onDataKeyClick(name);
-                }}
+                // onClick={(props: any, event) => {
+                //   event.stopPropagation();
+                //   const { name } = props;
+                //   onDataKeyClick(name);
+                // }}
               />
             ))}
+            {onValueChange
+              ? categories.map((category) => (
+                  <Line
+                    className={tremorTwMerge("cursor-pointer")}
+                    strokeOpacity={0}
+                    key={category}
+                    name={category}
+                    type={curveType}
+                    dataKey={category}
+                    stroke="transparent"
+                    fill="transparent"
+                    strokeWidth={12}
+                    connectNulls={connectNulls}
+                    onClick={(props: any, event) => {
+                      event.stopPropagation();
+                      const { name } = props;
+                      onDataKeyClick(name);
+                    }}
+                  />
+                ))
+              : null}
           </ReChartsLineChart>
         ) : (
           <NoData noDataText={noDataText} />

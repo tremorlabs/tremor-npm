@@ -178,7 +178,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             )}
             {showTooltip ? (
               <Tooltip
-                // ongoing issue: https://github.com/recharts/recharts/issues/2920
                 wrapperStyle={{ outline: "none" }}
                 isAnimationActive={false}
                 cursor={{ fill: "#d1d5db", opacity: "0.15" }}
