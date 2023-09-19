@@ -1,7 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { tremorTwMerge } from "lib";
-import { Pie, PieChart as ReChartsDonutChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Pie,
+  PieChart as ReChartsDonutChart,
+  ResponsiveContainer,
+  Tooltip,
+  Sector,
+} from "recharts";
 
 import NoData from "../common/NoData";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
@@ -14,9 +20,7 @@ import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps
-  extends BaseAnimationTimingProps,
-    React.HTMLAttributes<HTMLDivElement> {
+export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
@@ -27,8 +31,46 @@ export interface DonutChartProps
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
+  showOnClickVisualFeedback?: boolean;
   noDataText?: string;
+  onValueChange?: (value: any) => void;
+  className?: string;
 }
+
+const renderInactiveShape = (props: any) => {
+  const {
+    cx,
+    cy,
+    // midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    // fill,
+    // payload,
+    // percent,
+    // value,
+    // activeIndex,
+    className,
+  } = props;
+
+  return (
+    <g>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        className={className}
+        fill=""
+        opacity={0.3}
+        style={{ outline: "none" }}
+      />
+    </g>
+  );
+};
 
 const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref) => {
   const {
@@ -44,6 +86,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     showAnimation = true,
     showTooltip = true,
     noDataText,
+    onValueChange,
     className,
     ...other
   } = props;
@@ -51,11 +94,34 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
+  const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined);
+
+  function onShapeClick(data: any, index: number, event: React.MouseEvent) {
+    event.stopPropagation();
+
+    if (onValueChange == null) return;
+    if (activeIndex === index) {
+      setActiveIndex(undefined);
+    } else {
+      setActiveIndex(index);
+      onValueChange?.(data.payload.payload);
+    }
+  }
+
+  useEffect(() => {
+    const pieSectors = document.querySelectorAll(".recharts-pie-sector");
+    if (pieSectors) {
+      pieSectors.forEach((sector) => {
+        sector.setAttribute("style", "outline: none");
+      });
+    }
+  }, [activeIndex]);
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsDonutChart>
+          <ReChartsDonutChart onClick={() => setActiveIndex(undefined)}>
             {showLabel && isDonut ? (
               <text
                 className={tremorTwMerge(
@@ -73,7 +139,10 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               </text>
             ) : null}
             <Pie
-              className="stroke-tremor-background dark:stroke-dark-tremor-background"
+              className={tremorTwMerge(
+                "stroke-tremor-background dark:stroke-dark-tremor-background",
+                onValueChange ? "cursor-pointer" : "cursor-default",
+              )}
               data={parseData(data, colors)}
               cx="50%"
               cy="50%"
@@ -87,10 +156,15 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               nameKey={index}
               isAnimationActive={showAnimation}
               animationDuration={animationDuration}
+              onClick={onShapeClick}
+              activeIndex={activeIndex}
+              inactiveShape={renderInactiveShape}
+              style={{ outline: "none" }}
             />
             {showTooltip ? (
               <Tooltip
                 wrapperStyle={{ outline: "none" }}
+                isAnimationActive={false}
                 content={({ active, payload }) => (
                   <DonutChartTooltip
                     active={active}

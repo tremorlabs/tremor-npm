@@ -13,26 +13,49 @@ export default {
 } as ComponentMeta<typeof LineChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <LineChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <LineChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
+    </>
+  );
+};
+
+const DefaultTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
     <Card>
       <LineChart {...args} />
     </Card>
-  </>
-);
+  );
+};
 
-const DefaultTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => (
-  <Card>
-    <LineChart {...args} />
-  </Card>
-);
+const WithCustomEventTemplate: ComponentStory<typeof LineChart> = ({ ...args }) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+  return (
+    <Card>
+      <LineChart {...args} />
+    </Card>
+  );
+};
 
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 
@@ -40,6 +63,14 @@ export const DefaultResponsive = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
   ...args,
+  data,
+};
+
+export const WithCustomEventExample = WithCustomEventTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithCustomEventExample.args = {
+  ...args,
+  onValueChange: (v) => alert(JSON.stringify(v)),
   data,
 };
 
@@ -183,6 +214,13 @@ WithShortAnimationDuration.args = {
   data: data,
   showAnimation: true,
   animationDuration: 100,
+  categories: ["Sales", "Successful Payments"],
+  index: "month",
+};
+
+export const WithoutOnClickAnimation = DefaultTemplate.bind({});
+WithoutOnClickAnimation.args = {
+  data: data,
   categories: ["Sales", "Successful Payments"],
   index: "month",
 };
