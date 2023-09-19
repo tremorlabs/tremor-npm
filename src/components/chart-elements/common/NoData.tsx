@@ -17,7 +17,7 @@ const NoData = ({ noDataText = "No data" }: NoDataProps) => {
         // light
         "border-tremor-border",
         // dark
-        "dark:border-tdark-remor-border",
+        "dark:border-dark-tremor-border",
       )}
     >
       <Text
