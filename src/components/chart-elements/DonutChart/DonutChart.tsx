@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { tremorTwMerge } from "lib";
 import {
   Pie,
@@ -98,6 +98,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
   function onShapeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
+
     if (onValueChange == null) return;
     if (activeIndex === index) {
       setActiveIndex(undefined);
@@ -107,11 +108,20 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     }
   }
 
+  useEffect(() => {
+    const pieSectors = document.querySelectorAll(".recharts-pie-sector");
+    if (pieSectors) {
+      pieSectors.forEach((sector) => {
+        sector.setAttribute("style", "outline: none");
+      });
+    }
+  }, [activeIndex]);
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsDonutChart>
+          <ReChartsDonutChart onClick={() => setActiveIndex(undefined)}>
             {showLabel && isDonut ? (
               <text
                 className={tremorTwMerge(
@@ -129,7 +139,10 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               </text>
             ) : null}
             <Pie
-              className="stroke-tremor-background dark:stroke-dark-tremor-background outline-none"
+              className={tremorTwMerge(
+                "stroke-tremor-background dark:stroke-dark-tremor-background",
+                onValueChange ? "cursor-pointer" : "cursor-default",
+              )}
               data={parseData(data, colors)}
               cx="50%"
               cy="50%"
