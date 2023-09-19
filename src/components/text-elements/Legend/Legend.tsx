@@ -11,18 +11,22 @@ export interface LegendItemProps {
   color: Color;
   onClick?: (name: string, color: Color) => void;
   activeLegend?: string;
+  hasOnValueChange: boolean;
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => (
+const LegendItem = ({ name, color, onClick, activeLegend, hasOnValueChange }: LegendItemProps) => (
   <li
     className={tremorTwMerge(
       makeLegendClassName("legendItem"),
       // common
-      "group inline-flex items-center truncate px-2 py-0.5 rounded-tremor-small transition cursor-pointer",
+      "group inline-flex items-center truncate px-2 py-0.5 rounded-tremor-small transition ",
+      hasOnValueChange ? "cursor-pointer" : "cursor-default",
       // light
-      "text-tremor-content hover:bg-tremor-background-subtle",
+      "text-tremor-content",
+      hasOnValueChange ? "hover:bg-tremor-background-subtle" : "",
       // dark
-      "dark:text-dark-tremor-content dark:hover:bg-dark-tremor-background-subtle",
+      "dark:text-dark-tremor-content",
+      hasOnValueChange ? "dark:hover:bg-dark-tremor-background-subtle" : "",
     )}
     onClick={(e) => {
       e.stopPropagation();
@@ -48,10 +52,12 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
         // common
         "whitespace-nowrap truncate text-tremor-default",
         // light
-        "text-tremor-content group-hover:text-tremor-content-emphasis",
+        "text-tremor-content",
+        hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
         // dark
-        "dark:text-dark-tremor-content dark:group-hover:text-dark-tremor-content-emphasis",
+        "dark:text-dark-tremor-content",
         activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+        hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
       )}
     >
       {name}
@@ -64,6 +70,7 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   colors?: Color[];
   onClickLegendItem?: (category: string, color: Color) => void;
   activeLegend?: string;
+  hasOnValueChange: boolean;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
@@ -73,6 +80,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     className,
     onClickLegendItem,
     activeLegend,
+    hasOnValueChange,
     ...other
   } = props;
   return (
@@ -92,6 +100,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           color={colors[idx]}
           onClick={onClickLegendItem}
           activeLegend={activeLegend}
+          hasOnValueChange={hasOnValueChange}
         />
       ))}
     </ol>
