@@ -73,11 +73,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const hasOnValueChange = !!onValueChange;
 
   function onDotClick(data: any, event: React.MouseEvent) {
     event.stopPropagation();
 
-    if (!onValueChange) return;
+    if (!hasOnValueChange) return;
     if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
       setActiveDot(undefined);
     } else {
@@ -94,11 +95,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   }
 
   function onDataKeyClick(dataKey: string) {
-    if (!onValueChange) return;
+    if (!hasOnValueChange) return;
     if (dataKey === activeLegend) {
       setActiveLegend(undefined);
     } else {
       setActiveLegend(dataKey);
+      onValueChange?.({
+        dataKeyClicked: dataKey,
+      });
     }
     setActiveDot(undefined);
   }
@@ -206,6 +210,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     (clickedLegendItem: string) => {
                       onDataKeyClick(clickedLegendItem);
                     },
+                    hasOnValueChange,
                   )
                 }
               />
@@ -291,11 +296,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
-                // onClick={(props: any, event) => {
-                //   event.stopPropagation();
-                //   const { name } = props;
-                //   onDataKeyClick(name);
-                // }}
               />
             ))}
             {onValueChange
@@ -309,6 +309,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     dataKey={category}
                     stroke="transparent"
                     fill="transparent"
+                    legendType="none"
+                    tooltipType="none"
                     strokeWidth={12}
                     connectNulls={connectNulls}
                     onClick={(props: any, event) => {
