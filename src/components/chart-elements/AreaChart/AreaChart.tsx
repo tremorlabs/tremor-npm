@@ -46,7 +46,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
-    showAnimation = true,
+    showAnimation = false,
     animationDuration = 900,
     showTooltip = true,
     showLegend = true,
@@ -132,7 +132,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               <Tooltip
                 wrapperStyle={{ outline: "none" }}
                 isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }} // @achi @severin
+                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
                 content={({ active, payload, label }) => (
                   <ChartTooltip
                     active={active}
