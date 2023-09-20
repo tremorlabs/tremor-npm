@@ -88,20 +88,20 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
       });
       onValueChange?.({
         ...data.payload,
-        dataKeyClicked: data.dataKey,
+        categoryClicked: data.dataKey,
       });
     }
     setActiveLegend(undefined);
   }
 
-  function onDataKeyClick(dataKey: string) {
+  function onCategoryClick(dataKey: string) {
     if (!hasOnValueChange) return;
     if (dataKey === activeLegend) {
       setActiveLegend(undefined);
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
-        dataKeyClicked: dataKey,
+        categoryClicked: dataKey,
       });
     }
     setActiveDot(undefined);
@@ -208,7 +208,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     setLegendHeight,
                     activeLegend,
                     (clickedLegendItem: string) => {
-                      onDataKeyClick(clickedLegendItem);
+                      onCategoryClick(clickedLegendItem);
                     },
                     hasOnValueChange,
                   )
@@ -296,6 +296,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
+                style={{ transition: "all 100ms" }}
               />
             ))}
             {onValueChange
@@ -316,7 +317,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     onClick={(props: any, event) => {
                       event.stopPropagation();
                       const { name } = props;
-                      onDataKeyClick(name);
+                      onCategoryClick(name);
                     }}
                   />
                 ))
