@@ -89,7 +89,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 hide={!showXAxis}
                 dataKey={index}
                 interval="preserveStartEnd"
-                tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
+                tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
