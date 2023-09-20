@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import {
   Area,
   CartesianGrid,
+  Dot,
   Legend,
+  Line,
   AreaChart as ReChartsAreaChart,
   ResponsiveContainer,
   Tooltip,
@@ -32,6 +34,12 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  onValueChange?: (value: any) => void;
+}
+
+interface ActiveDot {
+  index?: number;
+  dataKey?: string;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
@@ -60,18 +68,68 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     allowDecimals = true,
     noDataText,
     className,
+    onValueChange,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const hasOnValueChange = !!onValueChange;
 
+  function onDotClick(data: any, event: React.MouseEvent) {
+    event.stopPropagation();
+
+    if (!hasOnValueChange) return;
+    if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
+      setActiveLegend(undefined);
+      setActiveDot(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(data.dataKey);
+      setActiveDot({
+        index: data.index,
+        dataKey: data.dataKey,
+      });
+      onValueChange?.({
+        ...data.payload,
+        categoryClicked: data.dataKey,
+      });
+    }
+  }
+
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (dataKey === activeLegend && !activeDot) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        categoryClicked: dataKey,
+      });
+    }
+    setActiveDot(undefined);
+  }
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsAreaChart data={data}>
+          <ReChartsAreaChart
+            data={data}
+            onClick={
+              hasOnValueChange && (activeLegend || activeDot)
+                ? () => {
+                    setActiveDot(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
+          >
+            {" "}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -128,28 +186,43 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
-            {showTooltip ? (
-              <Tooltip
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-                content={({ active, payload, label }) => (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={valueFormatter}
-                    categoryColors={categoryColors}
-                  />
-                )}
-                position={{ y: 0 }}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) => (
+                    <ChartTooltip
+                      active={active}
+                      payload={payload}
+                      label={label}
+                      valueFormatter={valueFormatter}
+                      categoryColors={categoryColors}
+                    />
+                  )
+                ) : (
+                  <></>
+                )
+              }
+              position={{ y: 0 }}
+            />
             {showLegend ? (
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    (clickedLegendItem: string) => {
+                      onCategoryClick(clickedLegendItem);
+                    },
+                    hasOnValueChange,
+                  )
+                }
               />
             ) : null}
             {categories.map((category) => {
@@ -169,7 +242,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor="currentColor" stopOpacity={0.4} />
+                      <stop
+                        offset="5%"
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+                        }
+                      />
                       <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
                     </linearGradient>
                   ) : (
@@ -186,7 +265,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       x2="0"
                       y2="1"
                     >
-                      <stop stopColor="currentColor" stopOpacity={0.3} />
+                      <stop
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
+                        }
+                      />
                     </linearGradient>
                   )}
                 </defs>
@@ -200,16 +284,68 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
-                activeDot={{
-                  className: tremorTwMerge(
-                    "stroke-tremor-background dark:stroke-dark-tremor-background",
-                    getColorClassNames(
-                      categoryColors.get(category) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).fillColor,
-                  ),
+                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
+                activeDot={(props: any) => {
+                  const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
+                    props;
+                  return (
+                    <Dot
+                      className={tremorTwMerge(
+                        "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        onValueChange ? "cursor-pointer" : "",
+                        getColorClassNames(
+                          categoryColors.get(dataKey) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).fillColor,
+                      )}
+                      cx={cx}
+                      cy={cy}
+                      r={5}
+                      fill=""
+                      stroke={stroke}
+                      strokeLinecap={strokeLinecap}
+                      strokeLinejoin={strokeLinejoin}
+                      strokeWidth={strokeWidth}
+                      onClick={(dotProps: any, event) => onDotClick(props, event)}
+                    />
+                  );
                 }}
-                dot={false}
+                dot={(props: any) => {
+                  const {
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                    cx,
+                    cy,
+                    dataKey,
+                    index,
+                  } = props;
+
+                  if (activeDot?.index === index && activeDot?.dataKey === category) {
+                    return (
+                      <Dot
+                        cx={cx}
+                        cy={cy}
+                        r={5}
+                        stroke={stroke}
+                        fill=""
+                        strokeLinecap={strokeLinecap}
+                        strokeLinejoin={strokeLinejoin}
+                        strokeWidth={strokeWidth}
+                        className={tremorTwMerge(
+                          "stroke-tremor-background dark:stroke-dark-tremor-background",
+                          onValueChange ? "cursor-pointer" : "",
+                          getColorClassNames(
+                            categoryColors.get(dataKey) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).fillColor,
+                        )}
+                      />
+                    );
+                  }
+                  return <></>;
+                }}
                 key={category}
                 name={category}
                 type={curveType}
@@ -225,6 +361,29 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
+            {onValueChange
+              ? categories.map((category) => (
+                  <Line
+                    className={tremorTwMerge("cursor-pointer")}
+                    strokeOpacity={0}
+                    key={category}
+                    name={category}
+                    type={curveType}
+                    dataKey={category}
+                    stroke="transparent"
+                    fill="transparent"
+                    legendType="none"
+                    tooltipType="none"
+                    strokeWidth={12}
+                    connectNulls={connectNulls}
+                    onClick={(props: any, event) => {
+                      event.stopPropagation();
+                      const { name } = props;
+                      onCategoryClick(name);
+                    }}
+                  />
+                ))
+              : null}
           </ReChartsAreaChart>
         ) : (
           <NoData noDataText={noDataText} />

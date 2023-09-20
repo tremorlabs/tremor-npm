@@ -43,6 +43,14 @@ DefaultResponsive.args = {
   data,
 };
 
+export const WithCustomEventExample = DefaultTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithCustomEventExample.args = {
+  ...args,
+  onValueChange: (v) => alert(JSON.stringify(v)),
+  data,
+};
+
 export const WithStacked = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithStacked.args = {
