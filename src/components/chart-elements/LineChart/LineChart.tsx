@@ -81,6 +81,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     if (!hasOnValueChange) return;
     if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
       setActiveDot(undefined);
+      onValueChange?.(null);
     } else {
       setActiveDot({
         index: data.index,
@@ -98,6 +99,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     if (!hasOnValueChange) return;
     if (dataKey === activeLegend) {
       setActiveLegend(undefined);
+        onValueChange?.(null);
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
