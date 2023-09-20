@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
   ZAxis,
+  Dot,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -40,15 +41,21 @@ export type ScatterChartValueFormatter = {
   size?: ValueFormatter;
 };
 
-const renderShape = (props: any, activeNode: any | undefined) => {
-  const { cx, cy, width, node, fillOpacity } = props;
+const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
+  const { cx, cy, width, node, fillOpacity, name } = props;
 
   return (
-    <circle
+    <Dot
       cx={cx}
       cy={cy}
       r={width / 2}
-      opacity={activeNode ? (deepEqual(activeNode, node) ? fillOpacity : 0.3) : fillOpacity}
+      opacity={
+        activeNode || (activeLegend && activeLegend !== name)
+          ? deepEqual(activeNode, node)
+            ? fillOpacity
+            : 0.3
+          : fillOpacity
+      }
     />
   );
 };
@@ -128,23 +135,22 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     event.stopPropagation();
     if (!hasOnValueChange) return;
     if (deepEqual(activeNode, data.node)) {
+      setActiveLegend(undefined);
       setActiveNode(undefined);
       onValueChange?.(null);
     } else {
       setActiveNode(data.node);
+      setActiveLegend(data.payload[category]);
       onValueChange?.({
         ...data.payload,
+        categoryClicked: data.payload[category],
       });
     }
-    setActiveLegend(undefined);
   }
 
-  // should be mergend into onNode click.
-  // click on node -> corresponding legend item gets highighted
-  // click on legend item -> all bubbles of that category get highlighted
   function onCategoryClick(dataKey: string) {
     if (!hasOnValueChange) return;
-    if (dataKey === activeLegend) {
+    if (dataKey === activeLegend && !activeNode) {
       setActiveLegend(undefined);
       onValueChange?.(null);
     } else {
@@ -153,6 +159,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
         categoryClicked: dataKey,
       });
     }
+    setActiveNode(undefined);
   }
 
   const categories = constructCategories(data, category);
@@ -285,7 +292,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
-                  shape={(props) => renderShape(props, activeNode)}
+                  shape={(props) => renderShape(props, activeNode, activeLegend)}
                   onClick={onNodeClick}
                 />
               );
