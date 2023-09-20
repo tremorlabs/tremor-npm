@@ -3,7 +3,6 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Card, Legend } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Tremor/TextElements/Legend",
   component: Legend,
