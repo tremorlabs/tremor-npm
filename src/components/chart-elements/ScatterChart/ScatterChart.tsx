@@ -13,7 +13,12 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategories, constructCategoryColors, getYAxisDomain } from "../common/utils";
+import {
+  constructCategories,
+  constructCategoryColors,
+  deepEqual,
+  getYAxisDomain,
+} from "../common/utils";
 import NoData from "../common/NoData";
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
@@ -33,6 +38,19 @@ export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
   y?: ValueFormatter;
   size?: ValueFormatter;
+};
+
+const renderShape = (props: any, activeNode: any | undefined) => {
+  const { cx, cy, width, node, fillOpacity } = props;
+
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={width / 2}
+      opacity={activeNode ? (deepEqual(activeNode, node) ? fillOpacity : 0.3) : fillOpacity}
+    />
+  );
 };
 
 export interface ScatterChartProps
@@ -61,6 +79,7 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
+  onValueChange?: (value: any) => void;
   noDataText?: string;
 }
 
@@ -95,12 +114,24 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     minYValue,
     maxYValue,
     allowDecimals = true,
+    onValueChange,
     noDataText,
     className,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
 
+  function onNodeClick(data: any, index: number, event: React.MouseEvent) {
+    event.stopPropagation();
+    if (onValueChange == null) return;
+    if (deepEqual(activeNode, data.node)) {
+      setActiveNode(undefined);
+    } else {
+      setActiveNode(data.node);
+      onValueChange?.(data.payload);
+    }
+  }
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
 
@@ -112,7 +143,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsScatterChart>
+          <ReChartsScatterChart onClick={() => setActiveNode(undefined)}>
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -225,6 +256,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
+                  shape={(props) => renderShape(props, activeNode)}
+                  onClick={onNodeClick}
                 />
               );
             })}
