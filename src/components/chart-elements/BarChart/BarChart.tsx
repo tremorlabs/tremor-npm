@@ -23,7 +23,7 @@ import NoData from "../common/NoData";
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
 const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, y, width, height, fillOpacity, tooltipPosition } = props;
+  const { x, y, width, height, fillOpacity, name, payload, value } = props;
 
   return (
     <rect
@@ -32,7 +32,11 @@ const renderShape = (props: any, activeBar: any | undefined, activeLegend: strin
       width={width}
       height={height}
       opacity={
-        activeBar ? (deepEqual(activeBar, tooltipPosition) ? fillOpacity : 0.3) : fillOpacity
+        activeBar || (activeLegend && activeLegend !== name)
+          ? deepEqual(activeBar, { ...payload, value })
+            ? fillOpacity
+            : 0.3
+          : fillOpacity
       }
     />
   );
@@ -79,18 +83,19 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const hasOnValueChange = !!onValueChange;
 
-  function onBarClick(data: any, index: number, event: React.MouseEvent) {
+  function onBarClick(data: any, idx: number, event: React.MouseEvent) {
     event.stopPropagation();
-
     if (!onValueChange) return;
-    //missing logic?
-    if (deepEqual(activeBar, data.tooltipPosition)) {
+    if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
       setActiveLegend(undefined);
       setActiveBar(undefined);
       onValueChange?.(null);
     } else {
-      setActiveLegend(data.dataKey); // missig logic evtl
-      setActiveBar(data.tooltipPosition);
+      setActiveLegend(data.tooltipPayload[0]?.dataKey);
+      setActiveBar({
+        ...data.payload,
+        value: data.value,
+      });
       onValueChange?.({
         ...data.payload,
         dataKeyClicked: data.tooltipPayload[0]?.dataKey,
