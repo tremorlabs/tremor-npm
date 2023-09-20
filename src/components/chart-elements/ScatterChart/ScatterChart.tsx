@@ -174,10 +174,15 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsScatterChart
-            onClick={() => {
-              setActiveNode(undefined);
-              setActiveLegend(undefined);
-            }}
+            onClick={
+              hasOnValueChange && (activeLegend || activeNode)
+                ? () => {
+                    setActiveNode(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
           >
             {showGridLines ? (
               <CartesianGrid

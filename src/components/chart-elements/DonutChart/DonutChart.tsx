@@ -83,7 +83,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     label,
     showLabel = true,
     animationDuration = 900,
-    showAnimation = false,
+    showAnimation = true,
     showTooltip = true,
     noDataText,
     onValueChange,
@@ -95,11 +95,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined);
+  const hasOnValueChange = !!onValueChange;
 
   function onShapeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
 
-    if (onValueChange == null) return;
+    if (!hasOnValueChange) return;
     if (activeIndex === index) {
       setActiveIndex(undefined);
       onValueChange?.(null);
@@ -122,7 +123,16 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsDonutChart onClick={() => setActiveIndex(undefined)}>
+          <ReChartsDonutChart
+            onClick={
+              hasOnValueChange && activeIndex
+                ? () => {
+                    setActiveIndex(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
+          >
             {showLabel && isDonut ? (
               <text
                 className={tremorTwMerge(

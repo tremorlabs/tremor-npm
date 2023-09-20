@@ -126,10 +126,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
-            onClick={() => {
-              setActiveBar(undefined);
-              setActiveLegend(undefined);
-            }}
+            onClick={
+              hasOnValueChange && (activeLegend || activeBar)
+                ? () => {
+                    setActiveBar(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
           >
             {showGridLines ? (
               <CartesianGrid

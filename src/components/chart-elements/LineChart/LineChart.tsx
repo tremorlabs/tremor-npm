@@ -116,10 +116,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         {data?.length ? (
           <ReChartsLineChart
             data={data}
-            onClick={() => {
-              setActiveDot(undefined);
-              setActiveLegend(undefined);
-            }}
+            onClick={
+              hasOnValueChange && (activeLegend || activeDot)
+                ? () => {
+                    setActiveDot(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
           >
             {showGridLines ? (
               <CartesianGrid
