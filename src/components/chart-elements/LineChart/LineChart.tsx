@@ -126,11 +126,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   // common
                   "stroke-1",
                   // light
-                  "stroke-tremor-content-subtle",
+                  "stroke-tremor-border",
                   // dark
-                  "dark:stroke-dark-tremor-content-subtle",
+                  "dark:stroke-dark-tremor-border",
                 )}
-                strokeDasharray="3 3"
                 horizontal={true}
                 vertical={false}
               />

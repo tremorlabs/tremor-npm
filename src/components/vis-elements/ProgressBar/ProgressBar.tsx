@@ -39,7 +39,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             "relative flex items-center w-full rounded-tremor-full",
             color
               ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-              : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint",
+              : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
             sizing.xs.height,
           )}
           {...getReferenceProps}
