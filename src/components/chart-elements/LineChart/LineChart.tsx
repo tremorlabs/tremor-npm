@@ -32,7 +32,6 @@ import { CurveType } from "../../../lib/inputTypes";
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
-  onValueChange?: (value: any) => void;
 }
 
 interface ActiveDot {

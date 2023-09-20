@@ -34,7 +34,6 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
-  onValueChange?: (value: any) => void;
 }
 
 interface ActiveDot {
