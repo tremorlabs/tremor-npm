@@ -121,17 +121,40 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+  const hasOnValueChange = !!onValueChange;
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
-    if (onValueChange == null) return;
+    if (!hasOnValueChange) return;
     if (deepEqual(activeNode, data.node)) {
       setActiveNode(undefined);
+      onValueChange?.(null);
     } else {
       setActiveNode(data.node);
-      onValueChange?.(data.payload);
+      onValueChange?.({
+        ...data.payload,
+      });
+    }
+    setActiveLegend(undefined);
+  }
+
+  // should be mergend into onNode click.
+  // click on node -> corresponding legend item gets highighted
+  // click on legend item -> all bubbles of that category get highlighted
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (dataKey === activeLegend) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        categoryClicked: dataKey,
+      });
     }
   }
+
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
 
@@ -143,7 +166,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsScatterChart onClick={() => setActiveNode(undefined)}>
+          <ReChartsScatterChart
+            onClick={() => {
+              setActiveNode(undefined);
+              setActiveLegend(undefined);
+            }}
+          >
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -248,6 +276,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       ).strokeColor
                     : ""
                 }
+                ${onValueChange ? "cursor-pointer" : ""}
               `}
                   fill={`url(#${categoryColors.get(cat)})`}
                   fillOpacity={showOpacity ? 0.7 : 1}
@@ -265,7 +294,18 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    (clickedLegendItem: string) => {
+                      onCategoryClick(clickedLegendItem);
+                    },
+                    hasOnValueChange,
+                  )
+                }
               />
             ) : null}
           </ReChartsScatterChart>
