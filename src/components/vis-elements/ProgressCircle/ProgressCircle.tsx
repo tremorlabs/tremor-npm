@@ -1,23 +1,59 @@
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { Color, colorPalette, getColorClassNames, tremorTwMerge } from "lib";
+import { Color, Sizes, colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import React from "react";
 
-export type Size = "xs" | "sm" | "md" | "lg" | "xl";
+type Size = (typeof Sizes)[number];
 
 export type ProgressCircleProps = {
   value: number;
   size?: Size;
   color?: Color;
-  showValue: boolean;
+  showLabel: boolean;
   showAnimation?: boolean;
   tooltip?: string;
+};
+
+const size2config: Record<
+  Size,
+  { width: string; height: string; textSize: string; fontWeight: string }
+> = {
+  xs: {
+    width: "30px",
+    height: "30px",
+    textSize: "text-xs",
+    fontWeight: "font-normal",
+  },
+  sm: {
+    width: "38px",
+    height: "38px",
+    textSize: "text-sm",
+    fontWeight: "font-normal",
+  },
+  md: {
+    width: "64px",
+    height: "64px",
+    textSize: "text-md",
+    fontWeight: "font-medium",
+  },
+  lg: {
+    width: "104px",
+    height: "104px",
+    textSize: "text-3xl",
+    fontWeight: "font-semibold",
+  },
+  xl: {
+    width: "160px",
+    height: "160px",
+    textSize: "text-5xl",
+    fontWeight: "font-semibold",
+  },
 };
 
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
     value: inputValue,
     size = "sm",
-    showValue = true,
+    showLabel = true,
     color = "blue",
     showAnimation = true,
     tooltip,
@@ -28,34 +64,6 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
   const strokeDasharray = `${circumference} ${circumference}`;
   const initialOffset = circumference;
   const strokeDashoffset = initialOffset - valueInCircumference;
-
-  const sizes = {
-    xs: {
-      width: "24",
-      height: "24",
-      textSize: "text-xs",
-    },
-    sm: {
-      width: "36",
-      height: "36",
-      textSize: "text-sm",
-    },
-    md: {
-      width: "72",
-      height: "72",
-      textSize: "text-md",
-    },
-    lg: {
-      width: "144",
-      height: "144",
-      textSize: "text-3xl",
-    },
-    xl: {
-      width: "256",
-      height: "256",
-      textSize: "text-5xl",
-    },
-  };
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -69,8 +77,8 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
         <svg
           fill="none"
           shapeRendering="crispEdges"
-          height={sizes[size].height}
-          width={sizes[size].width}
+          height={size2config[size].height}
+          width={size2config[size].width}
           viewBox="0 0 120 120"
           strokeWidth="2"
           className="transform -rotate-90"
@@ -114,14 +122,18 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             }}
           />
         </svg>
-        {showValue ? (
+        {showLabel ? (
           <div
             className={tremorTwMerge(
               "absolute flex",
               showAnimation && "opacity-0 animate-gauge_fadeIn",
             )}
           >
-            <p className={`text-black ${sizes[size].textSize}`}>{value}</p>
+            <p
+              className={`text-black ${size2config[size].textSize} ${size2config[size].fontWeight}`}
+            >
+              {value}
+            </p>
           </div>
         ) : null}
       </div>

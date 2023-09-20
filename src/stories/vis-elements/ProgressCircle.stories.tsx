@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { Card, Metric, ProgressCircle } from "components";
 
-import { BaseColors } from "lib/constants";
+import { BaseColors, Sizes } from "lib/constants";
 import { Flex } from "components";
 import { template } from "@babel/core";
 
@@ -17,7 +17,7 @@ export default {
 
 const TemplateRainbowColorDemo: ComponentStory<typeof ProgressCircle> = (args) => (
   <>
-    <div className="flex flex-row gap-x-5">
+    <div className="flex flex-col gap-y-5">
       {Object.values(BaseColors).map((color) => (
         <ProgressCircle {...args} color={color} key={color} />
       ))}
@@ -25,10 +25,12 @@ const TemplateRainbowColorDemo: ComponentStory<typeof ProgressCircle> = (args) =
   </>
 );
 
-const TemplateSingle: ComponentStory<typeof ProgressCircle> = (args) => (
+const TemplateDifferentSizes: ComponentStory<typeof ProgressCircle> = (args) => (
   <>
-    <div className="flex flex-row gap-x-5">
-      <ProgressCircle {...args} />
+    <div className="flex flex-col gap-y-5">
+      {Object.values(Sizes).map((size) => (
+        <ProgressCircle {...args} size={size} key={size} />
+      ))}
     </div>
   </>
 );
@@ -38,9 +40,21 @@ RainbowColor.args = {
   value: 42,
 };
 
-export const WithToolTip = TemplateSingle.bind({});
-WithToolTip.args = {
+export const differentSizes = TemplateDifferentSizes.bind({});
+differentSizes.args = {
   value: 86,
-  showValue: true,
+  showLabel: true,
   tooltip: "progress so far",
+};
+
+export const withoutAnimation = TemplateDifferentSizes.bind({});
+withoutAnimation.args = {
+  value: 56,
+  showAnimation: false,
+};
+
+export const withoutLabel = TemplateDifferentSizes.bind({});
+withoutLabel.args = {
+  value: 56,
+  showLabel: false,
 };
