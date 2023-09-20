@@ -80,9 +80,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
     if (!hasOnValueChange) return;
     if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
+      setActiveLegend(undefined);
       setActiveDot(undefined);
       onValueChange?.(null);
     } else {
+      setActiveLegend(data.dataKey);
       setActiveDot({
         index: data.index,
         dataKey: data.dataKey,
@@ -92,12 +94,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         categoryClicked: data.dataKey,
       });
     }
-    setActiveLegend(undefined);
   }
 
   function onCategoryClick(dataKey: string) {
     if (!hasOnValueChange) return;
-    if (dataKey === activeLegend) {
+    if (dataKey === activeLegend && !activeDot) {
       setActiveLegend(undefined);
       onValueChange?.(null);
     } else {
