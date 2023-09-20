@@ -22,7 +22,7 @@ import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
-const renderShape = (props: any, activeBar: any | undefined) => {
+const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
   const { x, y, width, height, fillOpacity, tooltipPosition } = props;
 
   return (
@@ -76,20 +76,40 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+  const hasOnValueChange = !!onValueChange;
 
   function onBarClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
 
-    if (onValueChange == null) return;
+    if (!onValueChange) return;
+    //missing logic?
     if (deepEqual(activeBar, data.tooltipPosition)) {
+      setActiveLegend(undefined);
       setActiveBar(undefined);
+      onValueChange?.(null);
     } else {
+      setActiveLegend(data.dataKey); // missig logic evtl
       setActiveBar(data.tooltipPosition);
       onValueChange?.({
         ...data.payload,
         dataKeyClicked: data.tooltipPayload[0]?.dataKey,
       });
     }
+  }
+
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (dataKey === activeLegend && !activeBar) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        categoryClicked: dataKey,
+      });
+    }
+    setActiveBar(undefined);
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
@@ -101,7 +121,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
-            onClick={() => setActiveBar(undefined)}
+            onClick={() => {
+              setActiveBar(undefined);
+              setActiveLegend(undefined);
+            }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -230,17 +253,29 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    (clickedLegendItem: string) => {
+                      onCategoryClick(clickedLegendItem);
+                    },
+                    hasOnValueChange,
+                  )
+                }
               />
             ) : null}
             {categories.map((category) => (
               <Bar
-                className={
+                className={tremorTwMerge(
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.background,
-                  ).fillColor
-                }
+                  ).fillColor,
+                  onValueChange ? "cursor-pointer" : "",
+                )}
                 key={category}
                 name={category}
                 type="linear"
@@ -249,7 +284,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar)}
+                shape={(props) => renderShape(props, activeBar, activeLegend)}
                 onClick={onBarClick}
               />
             ))}

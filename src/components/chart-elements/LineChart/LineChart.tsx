@@ -231,15 +231,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     props;
                   return (
                     <Dot
-                      onClick={(dotProps: any, event) => onDotClick(props, event)}
-                      cx={cx}
-                      cy={cy}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
                       className={tremorTwMerge(
                         "stroke-tremor-background dark:stroke-dark-tremor-background",
                         onValueChange ? "cursor-pointer" : "",
@@ -248,6 +239,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                           colorPalette.text,
                         ).fillColor,
                       )}
+                      cx={cx}
+                      cy={cy}
+                      r={5}
+                      fill=""
+                      stroke={stroke}
+                      strokeLinecap={strokeLinecap}
+                      strokeLinejoin={strokeLinejoin}
+                      strokeWidth={strokeWidth}
+                      onClick={(dotProps: any, event) => onDotClick(props, event)}
                     />
                   );
                 }}
