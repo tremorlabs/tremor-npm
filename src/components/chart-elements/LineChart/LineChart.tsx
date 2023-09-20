@@ -99,7 +99,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     if (!hasOnValueChange) return;
     if (dataKey === activeLegend) {
       setActiveLegend(undefined);
-        onValueChange?.(null);
+      onValueChange?.(null);
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
@@ -298,7 +298,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
-                style={{ transition: "all 100ms" }}
               />
             ))}
             {onValueChange
