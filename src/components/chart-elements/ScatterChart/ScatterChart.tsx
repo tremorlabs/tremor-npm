@@ -311,10 +311,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    (clickedLegendItem: string) => {
-                      onCategoryClick(clickedLegendItem);
-                    },
-                    hasOnValueChange,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
                   )
                 }
               />

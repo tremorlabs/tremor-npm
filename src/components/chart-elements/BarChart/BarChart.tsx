@@ -268,10 +268,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    (clickedLegendItem: string) => {
-                      onCategoryClick(clickedLegendItem);
-                    },
-                    hasOnValueChange,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
                   )
                 }
               />
