@@ -97,7 +97,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       });
       onValueChange?.({
         eventType: "bar",
-        dataKeyClicked: data.tooltipPayload[0]?.dataKey,
+        categoryClicked: data.tooltipPayload[0]?.dataKey,
         ...data.payload,
       });
     }
