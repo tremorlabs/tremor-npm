@@ -32,7 +32,6 @@ import { CurveType } from "../../../lib/inputTypes";
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
-  onValueChange?: (value: any) => void;
 }
 
 interface ActiveDot {
@@ -90,8 +89,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         dataKey: data.dataKey,
       });
       onValueChange?.({
-        ...data.payload,
+        eventType: "dot",
         categoryClicked: data.dataKey,
+        ...data.payload,
       });
     }
   }
@@ -104,6 +104,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }
@@ -214,10 +215,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    (clickedLegendItem: string) => {
-                      onCategoryClick(clickedLegendItem);
-                    },
-                    hasOnValueChange,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
                   )
                 }
               />

@@ -46,7 +46,6 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
-  onValueChange?: (value: any) => void;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -97,6 +96,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         value: data.value,
       });
       onValueChange?.({
+        eventType: "bar",
         ...data.payload,
         dataKeyClicked: data.tooltipPayload[0]?.dataKey,
       });
@@ -111,6 +111,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }
@@ -269,10 +270,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    (clickedLegendItem: string) => {
-                      onCategoryClick(clickedLegendItem);
-                    },
-                    hasOnValueChange,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
                   )
                 }
               />

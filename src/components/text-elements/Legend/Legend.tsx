@@ -11,66 +11,68 @@ export interface LegendItemProps {
   color: Color;
   onClick?: (name: string, color: Color) => void;
   activeLegend?: string;
-  hasOnValueChange: boolean;
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend, hasOnValueChange }: LegendItemProps) => (
-  <li
-    className={tremorTwMerge(
-      makeLegendClassName("legendItem"),
-      // common
-      "group inline-flex items-center truncate px-2 py-0.5 rounded-tremor-small transition ",
-      hasOnValueChange ? "cursor-pointer" : "cursor-default",
-      // light
-      "text-tremor-content",
-      hasOnValueChange ? "hover:bg-tremor-background-subtle" : "",
-      // dark
-      "dark:text-dark-tremor-content",
-      hasOnValueChange ? "dark:hover:bg-dark-tremor-background-subtle" : "",
-    )}
-    onClick={(e) => {
-      e.stopPropagation();
-      onClick?.(name, color);
-    }}
-  >
-    <svg
+const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => {
+  const hasOnValueChange = !!onClick;
+  return (
+    <li
       className={tremorTwMerge(
-        "flex-none",
-        getColorClassNames(color, colorPalette.text).textColor,
-        sizing.xs.height,
-        sizing.xs.width,
-        spacing.xs.marginRight,
-        activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
-      )}
-      fill="currentColor"
-      viewBox="0 0 8 8"
-    >
-      <circle cx={4} cy={4} r={4} />
-    </svg>
-    <p
-      className={tremorTwMerge(
+        makeLegendClassName("legendItem"),
         // common
-        "whitespace-nowrap truncate text-tremor-default",
+        "group inline-flex items-center truncate px-2 py-0.5 rounded-tremor-small transition ",
+        hasOnValueChange ? "cursor-pointer" : "cursor-default",
         // light
         "text-tremor-content",
-        hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
+        hasOnValueChange ? "hover:bg-tremor-background-subtle" : "",
         // dark
         "dark:text-dark-tremor-content",
-        activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
-        hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
+        hasOnValueChange ? "dark:hover:bg-dark-tremor-background-subtle" : "",
       )}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.(name, color);
+      }}
     >
-      {name}
-    </p>
-  </li>
-);
+      <svg
+        className={tremorTwMerge(
+          "flex-none",
+          getColorClassNames(color, colorPalette.text).textColor,
+          sizing.xs.height,
+          sizing.xs.width,
+          spacing.xs.marginRight,
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+        )}
+        fill="currentColor"
+        viewBox="0 0 8 8"
+      >
+        <circle cx={4} cy={4} r={4} />
+      </svg>
+      <p
+        className={tremorTwMerge(
+          // common
+          "whitespace-nowrap truncate text-tremor-default",
+          // light
+          "text-tremor-content",
+          hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
+          // dark
+          "dark:text-dark-tremor-content",
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+          hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
+        )}
+      >
+        {name}
+      </p>
+    </li>
+  );
+};
 
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
   onClickLegendItem?: (category: string, color: Color) => void;
   activeLegend?: string;
-  hasOnValueChange: boolean;
+  //   hasOnValueChange?: boolean;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
@@ -80,7 +82,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     className,
     onClickLegendItem,
     activeLegend,
-    hasOnValueChange,
+    // hasOnValueChange,
     ...other
   } = props;
   return (
@@ -100,7 +102,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           color={colors[idx]}
           onClick={onClickLegendItem}
           activeLegend={activeLegend}
-          hasOnValueChange={hasOnValueChange}
+          //   hasOnValueChange={hasOnValueChange}
         />
       ))}
     </ol>
