@@ -93,8 +93,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
         dataKey: data.dataKey,
       });
       onValueChange?.({
-        ...data.payload,
+        eventType: "dot",
         categoryClicked: data.dataKey,
+        ...data.payload,
       });
     }
   }
@@ -107,6 +108,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }

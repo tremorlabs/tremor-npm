@@ -96,6 +96,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         value: data.value,
       });
       onValueChange?.({
+        eventType: "bar",
         ...data.payload,
         dataKeyClicked: data.tooltipPayload[0]?.dataKey,
       });
@@ -110,6 +111,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }

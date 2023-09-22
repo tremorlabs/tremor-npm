@@ -89,8 +89,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         dataKey: data.dataKey,
       });
       onValueChange?.({
-        ...data.payload,
+        eventType: "dot",
         categoryClicked: data.dataKey,
+        ...data.payload,
       });
     }
   }
@@ -103,6 +104,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }

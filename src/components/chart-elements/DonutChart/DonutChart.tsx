@@ -106,7 +106,10 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
       onValueChange?.(null);
     } else {
       setActiveIndex(index);
-      onValueChange?.(data.payload.payload);
+      onValueChange?.({
+        eventType: "slice",
+        ...data.payload.payload,
+      });
     }
   }
 

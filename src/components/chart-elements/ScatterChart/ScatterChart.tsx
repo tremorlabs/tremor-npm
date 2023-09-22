@@ -142,6 +142,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
       setActiveNode(data.node);
       setActiveLegend(data.payload[category]);
       onValueChange?.({
+        eventType: "bubble",
         ...data.payload,
         categoryClicked: data.payload[category],
       });
@@ -156,6 +157,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     } else {
       setActiveLegend(dataKey);
       onValueChange?.({
+        eventType: "category",
         categoryClicked: dataKey,
       });
     }
