@@ -29,7 +29,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   maxValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
-  onValueChange?: (value: BaseEventProps | null) => void;
+  onValueChange?: (value?: BaseEventProps | null) => void;
 }
 
 export default BaseChartProps;
