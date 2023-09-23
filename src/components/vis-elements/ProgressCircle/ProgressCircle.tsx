@@ -31,28 +31,28 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
 
   const sizes = {
     xs: {
-      width: "24",
-      height: "24",
+      width: "30",
+      height: "30",
       textSize: "text-xs",
     },
     sm: {
-      width: "36",
-      height: "36",
+      width: "38",
+      height: "38",
       textSize: "text-sm",
     },
     md: {
-      width: "72",
-      height: "72",
+      width: "64",
+      height: "64",
       textSize: "text-md",
     },
     lg: {
-      width: "144",
-      height: "144",
+      width: "104",
+      height: "104",
       textSize: "text-3xl",
     },
     xl: {
-      width: "256",
-      height: "256",
+      width: "160",
+      height: "160",
       textSize: "text-5xl",
     },
   };
