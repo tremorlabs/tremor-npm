@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card, Metric, ProgressCircle } from "components";
+import { Card, ProgressCircle, Title, Text } from "components";
 
 import { BaseColors } from "lib/constants";
 import { Flex } from "components";
@@ -17,11 +17,15 @@ export default {
 
 const TemplateRainbowColorDemo: ComponentStory<typeof ProgressCircle> = (args) => (
   <>
-    <div className="flex flex-row gap-x-5">
-      {Object.values(BaseColors).map((color) => (
-        <ProgressCircle {...args} color={color} key={color} />
-      ))}
-    </div>
+    {Object.values(BaseColors).map((color) => (
+      <Card key={color} className="mt-5 flex items-center space-x-6">
+        <ProgressCircle {...args} color={color} />
+        <div>
+          <Title>Sales Goals</Title>
+          <Text>Overview Q1-Q3 2023</Text>
+        </div>
+      </Card>
+    ))}
   </>
 );
 

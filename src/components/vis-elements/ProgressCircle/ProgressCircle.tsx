@@ -4,14 +4,14 @@ import React from "react";
 
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type ProgressCircleProps = {
+export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
   size?: Size;
   color?: Color;
   showValue: boolean;
   showAnimation?: boolean;
   tooltip?: string;
-};
+}
 
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
