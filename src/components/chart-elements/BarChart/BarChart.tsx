@@ -243,23 +243,27 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 )}
               />
             )}
-            {showTooltip ? (
-              <Tooltip
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ fill: "#d1d5db", opacity: "0.15" }}
-                content={({ active, payload, label }) => (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={valueFormatter}
-                    categoryColors={categoryColors}
-                  />
-                )}
-                position={{ y: 0 }}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) => (
+                    <ChartTooltip
+                      active={active}
+                      payload={payload}
+                      label={label}
+                      valueFormatter={valueFormatter}
+                      categoryColors={categoryColors}
+                    />
+                  )
+                ) : (
+                  <></>
+                )
+              }
+              position={{ y: 0 }}
+            />
             {showLegend ? (
               <Legend
                 verticalAlign="top"

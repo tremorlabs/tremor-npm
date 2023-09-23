@@ -254,24 +254,28 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 allowDataOverflow={true}
               />
             ) : null}
-            {showTooltip ? (
-              <Tooltip
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-                content={({ active, payload, label }) => (
-                  <ScatterChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={category ? payload?.[0]?.payload?.[category] : label}
-                    valueFormatter={valueFormatter}
-                    axis={{ x: x, y: y, size: size }}
-                    category={category}
-                    categoryColors={categoryColors}
-                  />
-                )}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) => (
+                    <ScatterChartTooltip
+                      active={active}
+                      payload={payload}
+                      label={category ? payload?.[0]?.payload?.[category] : label}
+                      valueFormatter={valueFormatter}
+                      axis={{ x: x, y: y, size: size }}
+                      category={category}
+                      categoryColors={categoryColors}
+                    />
+                  )
+                ) : (
+                  <></>
+                )
+              }
+            />
             {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} /> : null}
             {categories.map((cat) => {
               return (
