@@ -1,5 +1,6 @@
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
+import type BaseEventProps from "./BaseEventProps";
 
 interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
@@ -20,7 +21,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   maxValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
-  onValueChange?: (value: any) => void;
+  onValueChange?: (value: BaseEventProps | null) => void;
 }
 
 export default BaseChartProps;
