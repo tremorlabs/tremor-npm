@@ -22,6 +22,7 @@ import {
 } from "../common/utils";
 import NoData from "../common/NoData";
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import type { EventProps } from "components/chart-elements/common";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
 
@@ -39,25 +40,6 @@ export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
   y?: ValueFormatter;
   size?: ValueFormatter;
-};
-
-const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
-  const { cx, cy, width, node, fillOpacity, name } = props;
-
-  return (
-    <Dot
-      cx={cx}
-      cy={cy}
-      r={width / 2}
-      opacity={
-        activeNode || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeNode, node)
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-    />
-  );
 };
 
 export interface ScatterChartProps
@@ -86,9 +68,28 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
-  onValueChange?: (value: any) => void;
+  onValueChange?: (value?: EventProps) => void;
   noDataText?: string;
 }
+
+const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
+  const { cx, cy, width, node, fillOpacity, name } = props;
+
+  return (
+    <Dot
+      cx={cx}
+      cy={cy}
+      r={width / 2}
+      opacity={
+        activeNode || (activeLegend && activeLegend !== name)
+          ? deepEqual(activeNode, node)
+            ? fillOpacity
+            : 0.3
+          : fillOpacity
+      }
+    />
+  );
+};
 
 const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) => {
   const {
