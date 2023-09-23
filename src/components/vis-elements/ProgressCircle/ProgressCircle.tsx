@@ -64,7 +64,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={tooltipProps.refs.setReference}
-        className="flex flex-col items-center justify-center relative"
+        className="flex flex-col items-center justify-center"
       >
         <svg
           fill="none"
@@ -121,7 +121,11 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
               showAnimation && "opacity-0 animate-gauge_fadeIn",
             )}
           >
-            <p className={`text-black ${sizes[size].textSize}`}>{value}</p>
+            <span
+              className={`text-tremor-content-emphasis dark:text-tremor-content-emphasis ${sizes[size].textSize}`}
+            >
+              {value}
+            </span>
           </div>
         ) : null}
       </div>
