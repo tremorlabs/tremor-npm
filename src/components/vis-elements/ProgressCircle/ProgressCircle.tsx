@@ -10,16 +10,52 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
   value: number;
   size?: Size;
   color?: Color;
-  showValue: boolean;
+  showLabel: boolean;
   showAnimation?: boolean;
   tooltip?: string;
 }
+
+const size2config: Record<
+  Size,
+  { width: string; height: string; textSize: string; fontWeight: string }
+> = {
+  xs: {
+    width: "30px",
+    height: "30px",
+    textSize: "text-xs",
+    fontWeight: "font-normal",
+  },
+  sm: {
+    width: "38px",
+    height: "38px",
+    textSize: "text-sm",
+    fontWeight: "font-normal",
+  },
+  md: {
+    width: "64px",
+    height: "64px",
+    textSize: "text-md",
+    fontWeight: "font-medium",
+  },
+  lg: {
+    width: "104px",
+    height: "104px",
+    textSize: "text-3xl",
+    fontWeight: "font-semibold",
+  },
+  xl: {
+    width: "160px",
+    height: "160px",
+    textSize: "text-5xl",
+    fontWeight: "font-semibold",
+  },
+};
 
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
     value: inputValue,
     size = "sm",
-    showValue = true,
+    showLabel = true,
     color = "blue",
     showAnimation = true,
     tooltip,
@@ -78,8 +114,8 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
         <svg
           fill="none"
           shapeRendering="crispEdges"
-          height={sizes[size].height}
-          width={sizes[size].width}
+          height={size2config[size].height}
+          width={size2config[size].width}
           viewBox="0 0 120 120"
           strokeWidth="2"
           className="transform -rotate-90"
@@ -123,7 +159,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             }}
           />
         </svg>
-        {showValue ? (
+        {showLabel ? (
           <div
             className={tremorTwMerge(
               "absolute flex",
