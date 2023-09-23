@@ -1,6 +1,8 @@
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { Color, colorPalette, getColorClassNames, tremorTwMerge } from "lib";
+import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import React from "react";
+
+const makeProgressCircleClassName = makeClassName("ProgressBar");
 
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -21,6 +23,8 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     color = "blue",
     showAnimation = true,
     tooltip,
+    className,
+    ...other
   } = props;
   const value = inputValue > 100 ? 100 : inputValue < 0 ? 0 : inputValue; // clean up input
   const circumference = 332; //2 * Math.PI * 53; // 2 * pi * radius
@@ -64,7 +68,12 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={tooltipProps.refs.setReference}
-        className="flex flex-col items-center justify-center"
+        className={tremorTwMerge(
+          makeProgressCircleClassName("root"),
+          "flex flex-col items-center justify-center",
+          className,
+        )}
+        {...other}
       >
         <svg
           fill="none"
