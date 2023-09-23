@@ -48,12 +48,12 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     lg: {
       width: "104",
       height: "104",
-      textSize: "text-3xl",
+      textSize: "text-lg",
     },
     xl: {
       width: "160",
       height: "160",
-      textSize: "text-5xl",
+      textSize: "text-xl",
     },
   };
 
