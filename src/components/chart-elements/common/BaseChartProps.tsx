@@ -1,6 +1,14 @@
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
-import type BaseEventProps from "./BaseEventProps";
+
+type FixedProps = {
+  eventType: "dot" | "category" | "bar" | "slice" | "bubble";
+  categoryClicked: string;
+};
+
+export type BaseEventProps = FixedProps & {
+  [key: string]: number | string;
+};
 
 interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
