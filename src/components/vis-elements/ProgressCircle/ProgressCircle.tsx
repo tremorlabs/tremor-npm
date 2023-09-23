@@ -51,6 +51,43 @@ const size2config: Record<
   },
 };
 
+const CustomCircle = (props: {
+  className: string;
+  strokeDasharray?: string | undefined;
+  initialOffset?: number | undefined;
+  strokeDashoffset?: number | undefined;
+  transition?: string | undefined;
+  strokeLinecap?: "round" | undefined;
+}) => {
+  const {
+    className,
+    strokeDasharray = undefined,
+    initialOffset = undefined,
+    strokeLinecap = undefined,
+    strokeDashoffset = undefined,
+    transition = undefined,
+  } = props;
+  return (
+    <circle
+      className={className}
+      strokeWidth="12"
+      stroke="currentColor"
+      fill="transparent"
+      shapeRendering="geometricPrecision"
+      r="53"
+      cx="60"
+      cy="60"
+      strokeDasharray={strokeDasharray}
+      strokeDashoffset={initialOffset}
+      strokeLinecap={strokeLinecap}
+      style={{
+        strokeDashoffset: strokeDashoffset,
+        transition: transition,
+      }}
+    />
+  );
+};
+
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
     value: inputValue,
@@ -68,34 +105,6 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
   const strokeDasharray = `${circumference} ${circumference}`;
   const initialOffset = circumference;
   const strokeDashoffset = initialOffset - valueInCircumference;
-
-  const sizes = {
-    xs: {
-      width: "30",
-      height: "30",
-      textSize: "text-xs",
-    },
-    sm: {
-      width: "38",
-      height: "38",
-      textSize: "text-sm",
-    },
-    md: {
-      width: "64",
-      height: "64",
-      textSize: "text-md",
-    },
-    lg: {
-      width: "104",
-      height: "104",
-      textSize: "text-lg",
-    },
-    xl: {
-      width: "160",
-      height: "160",
-      textSize: "text-xl",
-    },
-  };
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -120,44 +129,30 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
           strokeWidth="2"
           className="transform -rotate-90"
         >
-          <circle
+          <CustomCircle
             className={tremorTwMerge(
               (color
                 ? getColorClassNames(color, colorPalette.lightBackground).bgColor
                 : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint"
               ).replace("bg", "text"),
             )}
-            strokeWidth="12"
-            stroke="currentColor"
-            fill="transparent"
-            shapeRendering="geometricPrecision"
-            r="53"
-            cx="60"
-            cy="60"
           />
-          <circle
-            className={tremorTwMerge(
-              (color
-                ? getColorClassNames(color, colorPalette.background).bgColor
-                : "bg-tremor-brand dark:bg-dark-tremor-brand"
-              ).replace("bg", "text"),
-              showAnimation && "animate-gauge_fill",
-            )}
-            strokeWidth="12"
-            strokeDasharray={strokeDasharray}
-            strokeDashoffset={initialOffset}
-            shapeRendering="geometricPrecision"
-            strokeLinecap="round"
-            stroke="currentColor"
-            fill="transparent"
-            r="53"
-            cx="60"
-            cy="60"
-            style={{
-              strokeDashoffset: strokeDashoffset,
-              transition: "stroke-dasharray 1s ease 0s,stroke 1s ease 0s",
-            }}
-          />
+          {value > 0 && (
+            <CustomCircle
+              className={tremorTwMerge(
+                (color
+                  ? getColorClassNames(color, colorPalette.background).bgColor
+                  : "bg-tremor-brand dark:bg-dark-tremor-brand"
+                ).replace("bg", "text"),
+                showAnimation && "animate-gauge_fill",
+              )}
+              strokeDasharray={strokeDasharray}
+              initialOffset={initialOffset}
+              strokeDashoffset={strokeDashoffset}
+              transition={"stroke-dasharray 1s ease 0s,stroke 1s ease 0s"}
+              strokeLinecap="round"
+            />
+          )}
         </svg>
         {showLabel ? (
           <div
@@ -167,7 +162,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             )}
           >
             <span
-              className={`text-tremor-content-emphasis dark:text-tremor-content-emphasis ${sizes[size].textSize}`}
+              className={`text-tremor-content-emphasis dark:text-tremor-content-emphasis ${size2config[size].textSize}`}
             >
               {value}
             </span>
