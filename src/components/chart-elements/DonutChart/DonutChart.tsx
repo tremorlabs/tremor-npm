@@ -31,7 +31,6 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   showLabel?: boolean;
   showAnimation?: boolean;
   showTooltip?: boolean;
-  showOnClickVisualFeedback?: boolean;
   noDataText?: string;
   onValueChange?: (value: any) => void;
   className?: string;
