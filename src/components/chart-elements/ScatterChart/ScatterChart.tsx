@@ -68,7 +68,7 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
-  onValueChange?: (value?: EventProps) => void;
+  onValueChange?: (value: EventProps) => void;
   noDataText?: string;
 }
 
