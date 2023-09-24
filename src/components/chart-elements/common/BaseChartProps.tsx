@@ -6,9 +6,11 @@ type FixedProps = {
   categoryClicked: string;
 };
 
-export type BaseEventProps = FixedProps & {
+type BaseEventProps = FixedProps & {
   [key: string]: number | string;
 };
+
+export type EventProps = BaseEventProps | null | undefined;
 
 interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
@@ -29,7 +31,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   maxValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
-  onValueChange?: (value?: BaseEventProps | null) => void;
+  onValueChange?: (value?: EventProps) => void;
 }
 
 export default BaseChartProps;
