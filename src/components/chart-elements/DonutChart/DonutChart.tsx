@@ -17,6 +17,7 @@ import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import type { EventProps } from "components/chart-elements/common";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -32,7 +33,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   showAnimation?: boolean;
   showTooltip?: boolean;
   noDataText?: string;
-  onValueChange?: (value: any) => void;
+  onValueChange?: (value?: EventProps) => void;
   className?: string;
 }
 

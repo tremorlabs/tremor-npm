@@ -1,1 +1,1 @@
-export type { BaseEventProps } from "./BaseChartProps";
+export type { EventProps } from "./BaseChartProps";
