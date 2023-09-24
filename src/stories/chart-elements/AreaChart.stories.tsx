@@ -13,26 +13,38 @@ export default {
 } as ComponentMeta<typeof AreaChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <AreaChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <AreaChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
+    </>
+  );
+};
+
+const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
     <Card>
       <AreaChart {...args} />
     </Card>
-  </>
-);
-
-const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => (
-  <Card>
-    <AreaChart {...args} />
-  </Card>
-);
+  );
+};
 
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 
@@ -199,4 +211,12 @@ WithShortAnimationDuration.args = {
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
   index: "month",
+};
+
+export const WithOnValueChange = DefaultTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChange.args = {
+  ...args,
+  onValueChange: (v) => alert(JSON.stringify(v)),
+  data,
 };

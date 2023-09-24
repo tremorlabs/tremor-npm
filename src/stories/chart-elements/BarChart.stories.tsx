@@ -13,20 +13,25 @@ export default {
 } as ComponentMeta<typeof BarChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof BarChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof BarChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <BarChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <BarChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <BarChart {...args} />
-    </Card>
-  </>
-);
+    </>
+  );
+};
 
 const DefaultTemplate: ComponentStory<typeof BarChart> = ({ ...args }) => (
   <Card>
@@ -196,4 +201,13 @@ WithShortAnimationDuration.args = {
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
   index: "month",
+};
+
+export const WithOnValueChange = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChange.args = {
+  ...args,
+  data,
+  stack: true,
+  onValueChange: (value) => alert(JSON.stringify(value)),
 };
