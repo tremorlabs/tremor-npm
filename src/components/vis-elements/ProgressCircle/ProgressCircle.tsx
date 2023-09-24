@@ -125,7 +125,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
           shapeRendering="crispEdges"
           height={size2config[size].height}
           width={size2config[size].width}
-          viewBox="0 0 120 120" // make dynamic here
+          viewBox="0 0 120 120" // make dynamic here, tried: viewBox={`0 0 ${size2config[size].width} ${size2config[size].width}`}
           strokeWidth="2"
           className="transform -rotate-90"
         >
