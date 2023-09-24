@@ -17,35 +17,35 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
 
 const size2config: Record<
   Size,
-  { width: string; height: string; textSize: string; fontWeight: string }
+  { width: number; height: number; textSize: string; fontWeight: string }
 > = {
   xs: {
-    width: "30px",
-    height: "30px",
+    width: 30,
+    height: 30,
     textSize: "text-xs",
     fontWeight: "font-normal",
   },
   sm: {
-    width: "38px",
-    height: "38px",
+    width: 38,
+    height: 38,
     textSize: "text-sm",
     fontWeight: "font-normal",
   },
   md: {
-    width: "64px",
-    height: "64px",
+    width: 64,
+    height: 64,
     textSize: "text-md",
     fontWeight: "font-medium",
   },
   lg: {
-    width: "104px",
-    height: "104px",
+    width: 104,
+    height: 104,
     textSize: "text-3xl",
     fontWeight: "font-semibold",
   },
   xl: {
-    width: "160px",
-    height: "160px",
+    width: 160,
+    height: 160,
     textSize: "text-5xl",
     fontWeight: "font-semibold",
   },
@@ -74,9 +74,9 @@ const CustomCircle = (props: {
       stroke="currentColor"
       fill="transparent"
       shapeRendering="geometricPrecision"
-      r="53"
-      cx="60"
-      cy="60"
+      r="53" // make dynamic here:
+      cx="60" // make dynamic here: e.g. {size2config[size].width / 2}
+      cy="60" // make dynamic here: e.g. {size2config[size].height / 2}
       strokeDasharray={strokeDasharray}
       strokeDashoffset={initialOffset}
       strokeLinecap={strokeLinecap}
@@ -88,7 +88,7 @@ const CustomCircle = (props: {
   );
 };
 
-const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
+const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props) => {
   const {
     value: inputValue,
     size = "sm",
@@ -99,14 +99,14 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     className,
     ...other
   } = props;
-  const value = inputValue > 100 ? 100 : inputValue < 0 ? 0 : inputValue; // clean up input
-  const circumference = 332; //2 * Math.PI * 53; // 2 * pi * radius
+  const value = inputValue > 100 ? 100 : inputValue < 0 ? 0 : inputValue;
+  const circumference = 332; // make dynamic here: 2 * Math.PI * 53; // 2 * pi * radius
   const valueInCircumference = (value / 100) * circumference;
   const strokeDasharray = `${circumference} ${circumference}`;
   const initialOffset = circumference;
   const strokeDashoffset = initialOffset - valueInCircumference;
 
-  const { tooltipProps, getReferenceProps } = useTooltip();
+  const { tooltipProps } = useTooltip();
 
   return (
     <>
@@ -125,7 +125,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
           shapeRendering="crispEdges"
           height={size2config[size].height}
           width={size2config[size].width}
-          viewBox="0 0 120 120"
+          viewBox="0 0 120 120" // make dynamic here
           strokeWidth="2"
           className="transform -rotate-90"
         >
