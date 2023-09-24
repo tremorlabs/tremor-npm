@@ -88,6 +88,8 @@ const ChartTooltip = ({
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload) {
+    const filteredPayload = payload.filter((item: any) => item.type !== "none");
+
     return (
       <ChartTooltipFrame>
         <div
@@ -116,7 +118,7 @@ const ChartTooltip = ({
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {payload.map(({ value, name }: { value: number; name: string }, idx: number) => (
+          {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}
               value={valueFormatter(value)}
