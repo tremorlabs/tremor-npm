@@ -72,7 +72,6 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   colors?: Color[];
   onClickLegendItem?: (category: string, color: Color) => void;
   activeLegend?: string;
-  //   hasOnValueChange?: boolean;
 }
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
@@ -82,7 +81,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     className,
     onClickLegendItem,
     activeLegend,
-    // hasOnValueChange,
     ...other
   } = props;
   return (
@@ -102,7 +100,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           color={colors[idx]}
           onClick={onClickLegendItem}
           activeLegend={activeLegend}
-          //   hasOnValueChange={hasOnValueChange}
         />
       ))}
     </ol>
