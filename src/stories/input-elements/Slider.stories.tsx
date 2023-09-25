@@ -26,6 +26,14 @@ const ControlledSilder = (args: SliderProps) => {
     </>
   );
 };
+
+const DefaultTemplate: ComponentStory<typeof Slider> = (args) => {
+  return (
+    <Card>
+      <Slider {...args} />
+    </Card>
+  );
+};
 const DefaultSliderTemplate: ComponentStory<typeof Slider> = (args) => {
   return (
     <div className="flex flex-col gap-1">
@@ -159,4 +167,15 @@ export const WithValueFormatter = DefaultRangeSliderTemplate.bind({});
 WithValueFormatter.args = {
   range: true,
   valueFormatter: (e) => `${e}€`,
+};
+
+export const WithBadDefaultValue = DefaultTemplate.bind({});
+WithBadDefaultValue.args = {
+  defaultValue: [30, 60],
+};
+
+export const WithRangeAndBadDefaultValue = DefaultTemplate.bind({});
+WithRangeAndBadDefaultValue.args = {
+  range: true,
+  defaultValue: [30],
 };

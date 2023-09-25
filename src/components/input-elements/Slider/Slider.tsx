@@ -17,7 +17,7 @@ import {
 const makeBadgeClassName = makeClassName("Slider");
 
 const Thumb = React.forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { className, ...other } = props;
+  const { className, testid, ...other } = props;
 
   return (
     // CLASSIC VARIANT
@@ -51,6 +51,7 @@ const Thumb = React.forwardRef<HTMLDivElement, any>((props, ref) => {
         className,
       )}
       tabIndex={0}
+      data-testid={testid}
       {...other}
     >
       <span
@@ -85,7 +86,7 @@ export interface SliderProps {
   step?: number;
   color?: Color;
   defaultValue?: SliderValue;
-  onValueChange: (value: SliderValue) => void;
+  onValueChange?: (value: SliderValue) => void;
   range?: boolean;
   showValues?: boolean;
   showTootlip?: boolean;
@@ -111,8 +112,27 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
     ...other
   } = props;
   const sliderTrackRef = useRef<HTMLDivElement | null>(null);
-  const initialValue: SliderValue = range ? defaultValue ?? [min, max] : defaultValue ?? [min];
-  const [values, setValues] = useInternalState<SliderValue | undefined>(initialValue, value);
+  //   const initialValue: SliderValue = range ? defaultValue ?? [min, max] : defaultValue ?? [min];
+  console.log(value);
+
+  const initialDefaultValue: SliderValue = range
+    ? defaultValue && defaultValue.length === 2
+      ? defaultValue
+      : [min, max]
+    : defaultValue && defaultValue.length === 1
+    ? defaultValue
+    : [min];
+  const initialValue: SliderValue | undefined = range
+    ? value && value.length === 2
+      ? value
+      : undefined
+    : value && value.length === 1
+    ? value
+    : undefined;
+  const [values, setValues] = useInternalState<SliderValue | undefined>(
+    initialDefaultValue,
+    initialValue,
+  );
   const [dragging, setDragging] = useState<string | null>(null);
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -196,6 +216,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
         makeBadgeClassName("root"),
         dragging && !disabled ? "cursor-grabbing" : "cursor-default",
       )}
+      data-testid="slider"
     >
       <div
         ref={sliderTrackRef}
@@ -253,6 +274,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
               )}
               onMouseDown={(e: MouseEvent) => handleMouseDown(e, "left")}
               onMouseUp={handleMouseUp}
+              testid="thumb-left"
             />
           ) : null}
           <Thumb
@@ -264,6 +286,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
             )}
             onMouseDown={(e: MouseEvent) => handleMouseDown(e, "right")}
             onMouseUp={handleMouseUp}
+            testid="thumb-right"
           />
         </div>
       </div>
