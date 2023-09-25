@@ -21,6 +21,7 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
   showLabel: boolean;
   showAnimation?: boolean;
   radius: number;
+  tooltip?: string;
   strokeWidth: number;
   progress: number;
   valueFormatter: ValueFormatter;
@@ -71,6 +72,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     showAnimation = true,
     color,
     valueFormatter = defaultValueFormatter,
+    tooltip,
     ...other
   } = props;
   const radius = size2config[size].radius;
@@ -84,7 +86,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
 
   return (
     <>
-      <Tooltip text={valueFormatter(value)} {...tooltipProps} />
+      <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={tooltipProps.refs.setReference}
         className={tremorTwMerge(
@@ -129,9 +131,29 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 color
                   ? getColorClassNames(color, colorPalette.background).strokeColor
                   : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
-                // showAnimation && "animate-gauge_fill",
               )}
-            />
+            >
+              {showAnimation && (
+                <>
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    from={circumference}
+                    to={offset}
+                    dur="1s"
+                    calcMode={"spline"}
+                    keySplines="0.42, 0, 1, 1"
+                  />
+                  <animate
+                    attributeName="stroke-opacity"
+                    from="0"
+                    to="1"
+                    dur="1s"
+                    calcMode={"spline"}
+                    keySplines="0.42, 0, 1, 1"
+                  />
+                </>
+              )}
+            </circle>
           ) : null}
         </svg>
         {showLabel ? (
