@@ -139,7 +139,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
                   getButtonColors(variant, color).hoverBgColor,
                   getButtonColors(variant, color).hoverBorderColor,
                 )
-              : "opacity-50",
+              : "opacity-50 cursor-not-allowed",
             className,
           )}
           disabled={isDisabled}
