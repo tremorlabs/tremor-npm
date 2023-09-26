@@ -121,7 +121,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     return valueToNameMapping;
   }, [children]);
 
-  const selectedSelectValue = selectedValue?.selectValue;
+  const selectedSelectValue = selectedValue?.selectValue || "";
   const selectedStartDate = parseStartDate(
     selectedValue?.from,
     minDate,

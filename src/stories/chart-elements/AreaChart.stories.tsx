@@ -3,7 +3,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { AreaChart, Card, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  simpleBaseChartDataWithNulls,
+  singleAndMultipleData,
+} from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -217,6 +221,32 @@ export const WithOnValueChange = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
-  onValueChange: (v) => alert(JSON.stringify(v)),
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
   data,
+};
+
+export const WithOneDataValue = ResponsiveTemplate.bind({});
+WithOneDataValue.args = {
+  ...args,
+  data: data.slice(0, 1),
+};
+
+export const WithOneDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneDataValueAndOnValueChange.args = {
+  ...args,
+  data: data.slice(0, 1),
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithOneAndMultipleDataValue = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValue.args = {
+  ...args,
+  data: singleAndMultipleData,
+};
+
+export const WithOneAndMultipleDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValueAndOnValueChange.args = {
+  ...args,
+  data: singleAndMultipleData,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
 };

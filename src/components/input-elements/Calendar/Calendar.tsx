@@ -72,7 +72,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
           const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
 
           return (
-            <div className="flex justify-between items-center" {...props}>
+            <div className="flex justify-between items-center">
               <div className="flex items-center space-x-1">
                 {enableYearNavigation && (
                   <NavButton
