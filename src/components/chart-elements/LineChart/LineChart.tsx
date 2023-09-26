@@ -13,7 +13,11 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import {
+  constructCategoryColors,
+  getYAxisDomain,
+  hasOnlyOneValueForThisKey,
+} from "../common/utils";
 import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
@@ -74,31 +78,39 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
 
-  function onDotClick(data: any, event: React.MouseEvent) {
+  function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
 
     if (!hasOnValueChange) return;
-    if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
+    if (
+      (itemData.index === activeDot?.index && itemData.dataKey === activeDot?.dataKey) ||
+      (hasOnlyOneValueForThisKey(data, itemData.dataKey) &&
+        activeLegend &&
+        activeLegend === itemData.dataKey)
+    ) {
       setActiveLegend(undefined);
       setActiveDot(undefined);
       onValueChange?.(null);
     } else {
-      setActiveLegend(data.dataKey);
+      setActiveLegend(itemData.dataKey);
       setActiveDot({
-        index: data.index,
-        dataKey: data.dataKey,
+        index: itemData.index,
+        dataKey: itemData.dataKey,
       });
       onValueChange?.({
         eventType: "dot",
-        categoryClicked: data.dataKey,
-        ...data.payload,
+        categoryClicked: itemData.dataKey,
+        ...itemData.payload,
       });
     }
   }
 
   function onCategoryClick(dataKey: string) {
     if (!hasOnValueChange) return;
-    if (dataKey === activeLegend && !activeDot) {
+    if (
+      (dataKey === activeLegend && !activeDot) ||
+      (hasOnlyOneValueForThisKey(data, dataKey) && activeDot && activeDot.dataKey === dataKey)
+    ) {
       setActiveLegend(undefined);
       onValueChange?.(null);
     } else {
@@ -268,7 +280,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     index,
                   } = props;
 
-                  if (activeDot?.index === index && activeDot?.dataKey === category) {
+                  if (
+                    (hasOnlyOneValueForThisKey(data, category) &&
+                      !(activeDot || (activeLegend && activeLegend !== category))) ||
+                    (activeDot?.index === index && activeDot?.dataKey === category)
+                  ) {
                     return (
                       <Dot
                         cx={cx}

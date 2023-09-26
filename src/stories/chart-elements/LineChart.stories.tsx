@@ -221,6 +221,44 @@ export const WithOnValueChange = WithCustomEventTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
-  onValueChange: (v) => alert(JSON.stringify(v)),
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
   data,
+};
+
+export const WithOneDataValue = ResponsiveTemplate.bind({});
+WithOneDataValue.args = {
+  ...args,
+  data: data.slice(0, 1),
+};
+
+export const WithOneDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneDataValueAndOnValueChange.args = {
+  ...args,
+  data: data.slice(0, 1),
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+const singleAndMultipleData = [
+  {
+    month: "Jan 21'",
+    Sales: 4400,
+    "Successful Payments": 5026,
+  },
+  {
+    month: "Feb 21'",
+    Sales: 3612,
+  },
+];
+
+export const WithOneAndMultipleDataValue = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValue.args = {
+  ...args,
+  data: singleAndMultipleData,
+};
+
+export const WithOneAndMultipleDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValueAndOnValueChange.args = {
+  ...args,
+  data: singleAndMultipleData,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
 };
