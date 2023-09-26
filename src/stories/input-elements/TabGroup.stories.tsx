@@ -54,6 +54,36 @@ const TabSolid = (args: any) => (
   </TabGroup>
 );
 
+const TabLineNoText = (args: any) => (
+  <TabGroup defaultIndex={0} {...args}>
+    <TabList>
+      <Tab icon={CalendarIcon}></Tab>
+      <Tab icon={CalendarIcon}></Tab>
+      <Tab icon={CalendarIcon}></Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel>One</TabPanel>
+      <TabPanel>Two</TabPanel>
+      <TabPanel>Three</TabPanel>
+    </TabPanels>
+  </TabGroup>
+);
+
+const TabSolidNoText = (args: any) => (
+  <TabGroup defaultIndex={1} {...args}>
+    <TabList variant="solid">
+      <Tab icon={CalendarIcon}></Tab>
+      <Tab icon={CalendarIcon}></Tab>
+      <Tab icon={CalendarIcon}></Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel>One</TabPanel>
+      <TabPanel>Two</TabPanel>
+      <TabPanel>Three</TabPanel>
+    </TabPanels>
+  </TabGroup>
+);
+
 const ResponsiveTemplate: ComponentStory<typeof TabGroup> = (args) => (
   <>
     <Title>Mobile</Title>
@@ -71,6 +101,27 @@ const ResponsiveTemplate: ComponentStory<typeof TabGroup> = (args) => (
     </Card>
     <Card>
       <TabSolid {...args} />
+    </Card>
+  </>
+);
+
+const ResponsiveTemplateNoText: ComponentStory<typeof TabGroup> = (args) => (
+  <>
+    <Title>Mobile</Title>
+    <div className="w-64 space-y-5">
+      <Card>
+        <TabLineNoText {...args} />
+      </Card>
+      <Card>
+        <TabSolidNoText {...args} />
+      </Card>
+    </div>
+    <Title className="mt-5 space-y-5">Desktop</Title>
+    <Card>
+      <TabLineNoText {...args} />
+    </Card>
+    <Card>
+      <TabSolidNoText {...args} />
     </Card>
   </>
 );
@@ -136,6 +187,11 @@ const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
+  onIndexChange: (index) => console.log(index),
+};
+
+export const DefaultResponsiveNoText = ResponsiveTemplateNoText.bind({});
+DefaultResponsiveNoText.args = {
   onIndexChange: (index) => console.log(index),
 };
 

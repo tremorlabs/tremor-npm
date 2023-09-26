@@ -52,7 +52,6 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
   const variant = useContext(TabVariantContext);
   const color = useContext(BaseColorContext);
   const Icon = icon;
-
   return (
     <HeadlessTab
       ref={ref}
@@ -63,6 +62,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
+          : variant === "solid"
+          ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis"
           : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
         getVariantStyles(variant, color),
         className,
@@ -76,11 +77,11 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
             "flex-none",
             sizing.lg.height,
             sizing.lg.width,
-            spacing.sm.marginRight,
+            children ? spacing.sm.marginRight : "",
           )}
         />
       ) : null}
-      <span>{children}</span>
+      {children ? <span>{children}</span> : null}
     </HeadlessTab>
   );
 });
