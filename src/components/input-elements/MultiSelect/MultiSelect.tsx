@@ -262,6 +262,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               <input
                 name="search"
                 type="input"
+                autoComplete="off"
                 placeholder={placeholderSearch}
                 className={tremorTwMerge(
                   // common
