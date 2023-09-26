@@ -3,7 +3,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { Card, LineChart, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  simpleBaseChartDataWithNulls,
+  singleAndMultipleData,
+} from "./helpers/testData";
 import { valueFormatter } from "stories/chart-elements/helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -237,18 +241,6 @@ WithOneDataValueAndOnValueChange.args = {
   data: data.slice(0, 1),
   onValueChange: (v: any) => alert(JSON.stringify(v)),
 };
-
-const singleAndMultipleData = [
-  {
-    month: "Jan 21'",
-    Sales: 4400,
-    "Successful Payments": 5026,
-  },
-  {
-    month: "Feb 21'",
-    Sales: 3612,
-  },
-];
 
 export const WithOneAndMultipleDataValue = ResponsiveTemplate.bind({});
 WithOneAndMultipleDataValue.args = {
