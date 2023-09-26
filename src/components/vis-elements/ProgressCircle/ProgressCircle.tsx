@@ -35,7 +35,7 @@ const size2config: Record<
     radius: 15,
     textSize: "text-xs",
     fontWeight: "font-normal",
-    strokeWidth: 2,
+    strokeWidth: 3,
   },
   sm: {
     radius: 19,
@@ -139,7 +139,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                     attributeName="stroke-dashoffset"
                     from={circumference}
                     to={offset}
-                    dur="1s"
+                    dur="0.5s"
                     calcMode={"spline"}
                     keySplines="0.42, 0, 1, 1"
                   />
@@ -147,7 +147,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                     attributeName="stroke-opacity"
                     from="0"
                     to="1"
-                    dur="1s"
+                    dur="0.5s"
                     calcMode={"spline"}
                     keySplines="0.42, 0, 1, 1"
                   />
