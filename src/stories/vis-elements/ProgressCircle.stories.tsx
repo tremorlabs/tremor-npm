@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card, ProgressCircle, Title, Text } from "components";
+import { Card, ProgressCircle, Title, Text, Subtitle } from "components";
 
 import { BaseColors, Sizes } from "lib/constants";
 
@@ -37,6 +37,49 @@ const TemplateDifferentSizes: ComponentStory<typeof ProgressCircle> = (args) => 
   </>
 );
 
+const TemplateMisc: ComponentStory<typeof ProgressCircle> = (args) => (
+  <>
+    <div className="flex flex-col gap-y-10 ml-10">
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle />
+        <Subtitle>Not specify any args</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle noDataText="no data" />
+        <Subtitle>Showing No Data</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle showLabel={false} />
+        <Subtitle>Do not show any label</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={0} />
+        <Subtitle>Value 0</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={100} />
+        <Subtitle>Value 100</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={42} />
+        <Subtitle>Value 42</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={42.22123} />
+        <Subtitle>Stange value without custom formatter </Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={42.22123} valueFormatter={(num: number) => num.toFixed(2)} />
+        <Subtitle>Stange value custom formatter of 2 digits</Subtitle>
+      </div>
+      <div className="flex flex-row gap-x-5 items-center">
+        <ProgressCircle value={42} tooltip={"Progress..."} />
+        <Subtitle>Showing Tooltip</Subtitle>
+      </div>
+    </div>
+  </>
+);
+
 export const RainbowColor = TemplateRainbowColorDemo.bind({});
 RainbowColor.args = {
   value: 42,
@@ -55,8 +98,4 @@ withoutAnimation.args = {
   showAnimation: false,
 };
 
-export const withoutLabel = TemplateDifferentSizes.bind({});
-withoutLabel.args = {
-  value: 56,
-  showLabel: false,
-};
+export const miscDemo = TemplateMisc.bind({});

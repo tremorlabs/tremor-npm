@@ -15,16 +15,16 @@ const makeProgressCircleClassName = makeClassName("ProgressBar");
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: number;
+  value?: number;
   size?: Size;
   color?: Color;
-  showLabel: boolean;
+  showLabel?: boolean;
   showAnimation?: boolean;
-  radius: number;
   tooltip?: string;
-  strokeWidth: number;
-  progress: number;
-  valueFormatter: ValueFormatter;
+  radius?: number;
+  strokeWidth?: number;
+  noDataText?: string;
+  valueFormatter?: ValueFormatter;
 }
 
 const size2config: Record<
@@ -65,18 +65,25 @@ const size2config: Record<
 
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props) => {
   const {
-    value,
+    value: inputValue,
     size = "md",
     className,
     showLabel = true,
     showAnimation = true,
-    color,
+    color = "blue",
     valueFormatter = defaultValueFormatter,
     tooltip,
+    radius: inputRadius,
+    strokeWidth: inputStrokeWidth,
+    noDataText,
     ...other
   } = props;
-  const radius = size2config[size].radius;
-  const strokeWidth = size2config[size].strokeWidth;
+
+  // sanitize input
+  const value = inputValue === undefined ? 0 : inputValue;
+
+  const radius = inputRadius ?? size2config[size].radius;
+  const strokeWidth = inputStrokeWidth ?? size2config[size].strokeWidth;
   const normalizedRadius = radius - strokeWidth / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = (value / 100) * circumference;
@@ -166,7 +173,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             <span
               className={`text-tremor-content-emphasis dark:text-tremor-content-emphasis ${size2config[size].textSize}`}
             >
-              {valueFormatter(value)}
+              {inputValue ? valueFormatter(value) : noDataText ?? "--"}
             </span>
           </div>
         ) : null}
