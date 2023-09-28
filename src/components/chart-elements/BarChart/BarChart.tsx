@@ -132,18 +132,23 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
-            onMouseDown={(e) =>
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
               enableDeltaCalculation &&
-              layout === "horizontal" &&
-              setDeltaCalculation({ leftArea: e })
-            }
-            onMouseMove={(e) =>
+                layout === "horizontal" &&
+                setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
               enableDeltaCalculation &&
-              layout === "horizontal" &&
-              deltaCalculation.leftArea &&
-              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
-            }
-            onMouseUp={() => setDeltaCalculation({})}
+                layout === "horizontal" &&
+                deltaCalculation.leftArea &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(_, e) => {
+              e.stopPropagation();
+              setDeltaCalculation({});
+            }}
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
                 ? () => {
@@ -266,8 +271,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               cursor={{
                 stroke: "#d1d5db",
                 strokeWidth:
-                  deltaCalculation.leftArea?.activeLabel &&
-                  deltaCalculation.rightArea?.activeLabel
+                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
                     ? 0
                     : 1,
               }}

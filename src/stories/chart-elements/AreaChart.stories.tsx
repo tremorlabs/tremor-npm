@@ -222,7 +222,7 @@ WithEnableDeltaCalculation.args = {
   ...args,
   data: data,
   enableDeltaCalculation: true,
-}
+};
 
 export const WithOnValueChange = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
@@ -230,6 +230,15 @@ WithOnValueChange.args = {
   ...args,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
   data,
+};
+
+export const WithOnValueChangeAndEnableDeltaCalculation = DefaultTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChangeAndEnableDeltaCalculation.args = {
+  ...args,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+  data,
+  enableDeltaCalculation: true,
 };
 
 export const WithOneDataValue = ResponsiveTemplate.bind({});

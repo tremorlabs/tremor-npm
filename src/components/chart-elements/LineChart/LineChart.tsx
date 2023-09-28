@@ -135,13 +135,20 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         {data?.length ? (
           <ReChartsLineChart
             data={data}
-            onMouseDown={(e) => enableDeltaCalculation && setDeltaCalculation({ leftArea: e })}
-            onMouseMove={(e) =>
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
               enableDeltaCalculation &&
-              deltaCalculation.leftArea &&
-              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
-            }
-            onMouseUp={() => setDeltaCalculation({})}
+                deltaCalculation.leftArea &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(_, e) => {
+              e.stopPropagation();
+              setDeltaCalculation({});
+            }}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -214,8 +221,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               cursor={{
                 stroke: "#d1d5db",
                 strokeWidth:
-                  deltaCalculation.leftArea?.activeLabel &&
-                  deltaCalculation.rightArea?.activeLabel
+                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
                     ? 0
                     : 1,
               }}
@@ -299,7 +305,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     cy,
                     dataKey,
                     index: idx,
-                    payload
+                    payload,
                   } = props;
 
                   if (

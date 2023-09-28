@@ -219,7 +219,7 @@ WithEnableDeltaCalculation.args = {
   ...args,
   data: data,
   enableDeltaCalculation: true,
-}
+};
 
 export const WithoutOnClickAnimation = DefaultTemplate.bind({});
 WithoutOnClickAnimation.args = {

@@ -137,13 +137,20 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
         {data?.length ? (
           <ReChartsAreaChart
             data={data}
-            onMouseDown={(e) => enableDeltaCalculation && setDeltaCalculation({ leftArea: e })}
-            onMouseMove={(e) =>
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
               enableDeltaCalculation &&
-              deltaCalculation.leftArea &&
-              setDeltaCalculation((prev) => ({ ...prev, rightArea: e }))
-            }
-            onMouseUp={() => setDeltaCalculation({})}
+                deltaCalculation.leftArea &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(_, e) => {
+              e.stopPropagation();
+              setDeltaCalculation({});
+            }}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -217,8 +224,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               cursor={{
                 stroke: "#d1d5db",
                 strokeWidth:
-                  deltaCalculation.leftArea?.activeLabel &&
-                  deltaCalculation.rightArea?.activeLabel
+                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
                     ? 0
                     : 1,
               }}
@@ -354,12 +360,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     dataKey,
                     index: idx,
                   } = props;
-                  
+
                   if (
                     (hasOnlyOneValueForThisKey(data, category) &&
                       !(activeDot || (activeLegend && activeLegend !== category))) ||
                     (activeDot?.index === idx && activeDot?.dataKey === category) ||
-                    (payload[index] === deltaCalculation?.leftArea?.activeLabel)
+                    payload[index] === deltaCalculation?.leftArea?.activeLabel
                   ) {
                     return (
                       <Dot
