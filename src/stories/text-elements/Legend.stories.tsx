@@ -46,7 +46,5 @@ WithScroll.args = {
 export const WithNoScroll = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoScroll.args = {
-  categories: [
-    "Critical",
-  ]
+  categories: ["Critical"],
 };
