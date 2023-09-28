@@ -3,25 +3,22 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Card, Legend } from "components";
 
+// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Tremor/TextElements/Legend",
   component: Legend,
 } as ComponentMeta<typeof Legend>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Legend> = (args) => {
-  if (args.onClickLegendItem?.length === 0) {
-    args.onClickLegendItem = undefined;
-  }
+const Template: ComponentStory<typeof Legend> = (args) => (
+  <Card className="max-w-md">
+    <Legend {...args} />
+  </Card>
+);
 
-  return (
-    <Card className="max-w-md">
-      <Legend {...args} />
-    </Card>
-  );
-};
-
-const args = {
+export const Default = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Default.args = {
   categories: [
     "Critical",
     "This is a very long category name to test an edge case",
@@ -30,22 +27,26 @@ const args = {
   ],
 };
 
-export const Default = Template.bind({});
+export const WithScroll = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  ...args,
+WithScroll.args = {
+  categories: [
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+  ],
+  allowScroll: true,
 };
 
-export const WithOnClick = Template.bind({});
+export const WithNoScroll = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithOnClick.args = {
-  ...args,
-  onClickLegendItem: (e) => alert(JSON.stringify(e)),
-};
-
-export const WithActiveLegend = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithActiveLegend.args = {
-  ...args,
-  activeLegend: "Category C",
+WithNoScroll.args = {
+  categories: [
+    "Critical",
+  ]
 };
