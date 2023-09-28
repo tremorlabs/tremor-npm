@@ -10,7 +10,6 @@ import { IconVariants } from "components/icon-elements/Icon/Icon";
 
 import Icon from "components/icon-elements/Icon/Icon";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Tremor/IconElements/Icon",
   component: Icon,

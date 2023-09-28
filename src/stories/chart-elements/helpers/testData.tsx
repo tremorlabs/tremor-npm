@@ -6021,3 +6021,15 @@ export const simpleSingleCategoryData = [
     deltaType: "moderateIncrease",
   },
 ];
+
+export const singleAndMultipleData = [
+  {
+    month: "Jan 21'",
+    Sales: 4400,
+    "Successful Payments": 5026,
+  },
+  {
+    month: "Feb 21'",
+    Sales: 3612,
+  },
+];
