@@ -122,7 +122,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             )}
             <div className="h-6 flex items-center">
               {value.length > 0 ? (
-                <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden gap-x-1 mr-5 -ml-1.5 relative">
+                <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
                   {filteredOptions
                     .filter((option) => value.includes(option.props.value))
                     .map((option, index) => {
@@ -262,6 +262,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               <input
                 name="search"
                 type="input"
+                autoComplete="off"
                 placeholder={placeholderSearch}
                 className={tremorTwMerge(
                   // common

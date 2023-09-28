@@ -26,7 +26,7 @@ const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapePro
           // common
           "text-tremor-label",
           // light
-          "fill-tremor-content-subtle",
+          "fill-tremor-content-subtle", //gray-300 could be nice
           // dark
           "dark:fill-dark-tremor-content-subtle",
         )}

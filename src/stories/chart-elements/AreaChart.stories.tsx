@@ -3,7 +3,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { AreaChart, Card, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  simpleBaseChartDataWithNulls,
+  singleAndMultipleData,
+} from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -13,26 +17,38 @@ export default {
 } as ComponentMeta<typeof AreaChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <AreaChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <AreaChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
+    </>
+  );
+};
+
+const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+
+  return (
     <Card>
       <AreaChart {...args} />
     </Card>
-  </>
-);
-
-const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => (
-  <Card>
-    <AreaChart {...args} />
-  </Card>
-);
+  );
+};
 
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 
@@ -206,4 +222,38 @@ WithEnableDeltaCalculation.args = {
   ...args,
   data: data,
   enableDeltaCalculation: true,
+}
+
+export const WithOnValueChange = DefaultTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChange.args = {
+  ...args,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+  data,
+};
+
+export const WithOneDataValue = ResponsiveTemplate.bind({});
+WithOneDataValue.args = {
+  ...args,
+  data: data.slice(0, 1),
+};
+
+export const WithOneDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneDataValueAndOnValueChange.args = {
+  ...args,
+  data: data.slice(0, 1),
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithOneAndMultipleDataValue = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValue.args = {
+  ...args,
+  data: singleAndMultipleData,
+};
+
+export const WithOneAndMultipleDataValueAndOnValueChange = ResponsiveTemplate.bind({});
+WithOneAndMultipleDataValueAndOnValueChange.args = {
+  ...args,
+  data: singleAndMultipleData,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
 };

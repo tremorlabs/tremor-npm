@@ -15,20 +15,25 @@ export default {
 } as ComponentMeta<typeof ScatterChart>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const ResponsiveTemplate: ComponentStory<typeof ScatterChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
+const ResponsiveTemplate: ComponentStory<typeof ScatterChart> = (args) => {
+  if (args.onValueChange?.length === 0) {
+    args.onValueChange = undefined;
+  }
+  return (
+    <>
+      <Title>Mobile</Title>
+      <div className="w-64">
+        <Card>
+          <ScatterChart {...args} />
+        </Card>
+      </div>
+      <Title className="mt-5">Desktop</Title>
       <Card>
         <ScatterChart {...args} />
       </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <ScatterChart {...args} />
-    </Card>
-  </>
-);
+    </>
+  );
+};
 
 const DefaultTemplate: ComponentStory<typeof ScatterChart> = ({ ...args }) => (
   <Card>
@@ -99,6 +104,14 @@ export const WithNoDataText = DefaultTemplate.bind({});
 WithNoDataText.args = {
   ...args,
   noDataText: "No data, try again later.",
+};
+
+export const WithOnValueChange = ResponsiveTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChange.args = {
+  ...args,
+  data,
+  onValueChange: (value) => alert(JSON.stringify(value)),
 };
 
 export const WithExampleDatas = ResponsiveTemplate.bind({});

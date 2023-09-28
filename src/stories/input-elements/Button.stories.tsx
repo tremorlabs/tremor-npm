@@ -57,6 +57,26 @@ const SizesTemplate: ComponentStory<typeof Button> = (args) => (
   </Card>
 );
 
+const SizesTemplateNoText: ComponentStory<typeof Button> = (args) => (
+  <Card>
+    <Grid numItems={5} className="gap-4">
+      <Button {...args} icon={MyIcon}></Button>
+      <Button {...args} icon={MyIcon}></Button>
+      <Button {...args} variant="secondary" icon={MyIcon}></Button>
+      <Button {...args} variant="light" icon={MyIcon}></Button>
+      {Object.values(InputSizes).map((size) => (
+        <>
+          <Button {...args} size={size}></Button>
+          <Button {...args} size={size} icon={MyIcon}></Button>
+          <Button {...args} size={size} icon={MyIcon}></Button>
+          <Button {...args} size={size} variant="secondary" icon={MyIcon}></Button>
+          <Button {...args} size={size} variant="light" icon={MyIcon}></Button>
+        </>
+      ))}
+    </Grid>
+  </Card>
+);
+
 const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
   <Card>
     <Grid numItems={4} numItemsLg={4} className="gap-y-2">
@@ -162,6 +182,13 @@ const tooltip = "Tooltip";
 
 export const Sizes = SizesTemplate.bind({});
 Sizes.args = {
+  onClick: () => alert(2),
+  className: "max-w-fit",
+  tooltip,
+};
+
+export const SizesNoText = SizesTemplateNoText.bind({});
+SizesNoText.args = {
   onClick: () => alert(2),
   className: "max-w-fit",
   tooltip,
