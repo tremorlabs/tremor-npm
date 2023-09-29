@@ -187,16 +187,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             onMouseMove={(value, e) => {
               e.stopPropagation();
               enableDeltaCalculation &&
-                deltaCalculation &&
-                deltaCalculation.leftArea &&
                 setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
             }}
             onMouseUp={(value, e) => {
               e.stopPropagation();
-              enableDeltaCalculation && hasDeltaCalculation && setDeltaCalculation(null);
+              enableDeltaCalculation && setDeltaCalculation(null);
             }}
           >
-            {" "}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(

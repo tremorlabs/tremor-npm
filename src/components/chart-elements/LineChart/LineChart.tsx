@@ -146,13 +146,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             onMouseMove={(value, e) => {
               e.stopPropagation();
               enableDeltaCalculation &&
-                deltaCalculation &&
-                deltaCalculation.leftArea &&
                 setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
             }}
             onMouseUp={(_, e) => {
               e.stopPropagation();
-              enableDeltaCalculation && hasDeltaCalculation && setDeltaCalculation(null);
+              enableDeltaCalculation && setDeltaCalculation(null);
             }}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
