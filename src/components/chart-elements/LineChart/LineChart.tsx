@@ -68,6 +68,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    withScroll = true,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -230,6 +231,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    withScroll,
                   )
                 }
               />

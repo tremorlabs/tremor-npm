@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Color, tremorTwMerge } from "../../../lib";
 import { getColorClassNames, makeClassName, sizing, spacing, themeColorRange } from "lib";
@@ -90,8 +90,16 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     return () => clearInterval(intervalRef.current as NodeJS.Timeout);
   }, [isPressed]);
 
+  useEffect(() => {
+    if (disabled) {
+      clearInterval(intervalRef.current as NodeJS.Timeout);
+      setIsPressed(false);
+    }
+  }, [disabled]);
+
   return (
     <button
+      type="button"
       className={tremorTwMerge(
         makeLegendClassName("legendScrollButton"),
         // common
@@ -130,7 +138,7 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   colors?: Color[];
   onClickLegendItem?: (category: string, color: Color) => void;
   activeLegend?: string;
-  allowScroll?: boolean;
+  withScroll?: boolean;
 }
 
 type HasScrollProps = {
@@ -145,11 +153,13 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     className,
     onClickLegendItem,
     activeLegend,
-    allowScroll = false,
+    withScroll = true,
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);
   const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null);
+  const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const checkScroll = () => {
     const scrollable = scrollableRef?.current;
@@ -164,7 +174,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     const element = scrollableRef?.current;
     const width = element?.clientWidth ?? 0;
 
-    if (element && allowScroll) {
+    if (element && withScroll) {
       element.scrollTo({
         left: direction === "left" ? element.scrollLeft - width : element.scrollLeft + width,
         behavior: "smooth",
@@ -175,25 +185,48 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     }
   };
 
-  const keyDownHandler = (e: KeyboardEvent) => {
-    if (e.key === "ArrowLeft") {
+  const keyDownHandler = (key: string) => {
+    if (key === "ArrowLeft") {
       scrollToTest("left");
-    } else if (e.key === "ArrowRight") {
+    } else if (key === "ArrowRight") {
       scrollToTest("right");
     }
   };
 
   React.useEffect(() => {
-    if (allowScroll) {
+    if (isKeyDowned) {
+      keyDownHandler(isKeyDowned);
+      intervalRef.current = setInterval(() => {
+        keyDownHandler(isKeyDowned);
+      }, 300);
+    } else {
+      clearInterval(intervalRef.current as NodeJS.Timeout);
+    }
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
+  }, [isKeyDowned]);
+
+  const keyDown = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    setIsKeyDowned(e.key);
+  };
+  const keyUp = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    setIsKeyDowned(null);
+  };
+
+  React.useEffect(() => {
+    if (withScroll) {
       checkScroll();
 
-      document.addEventListener("keydown", keyDownHandler);
+      document.addEventListener("keydown", keyDown);
+      document.addEventListener("keyup", keyUp);
     }
 
     return () => {
-      document.removeEventListener("keydown", keyDownHandler);
+      document.removeEventListener("keydown", keyDown);
+      document.removeEventListener("keyup", keyUp);
     };
-  }, []);
+  }, [withScroll]);
 
   return (
     <ol
@@ -206,8 +239,10 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         className={tremorTwMerge(
           //common
           "h-full flex",
-          allowScroll
-            ? "pl-4 pr-12  items-center overflow-auto snap-mandatory [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+          withScroll
+            ? hasScroll?.right || hasScroll?.left
+              ? "pl-4 pr-12  items-center overflow-auto snap-mandatory [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+              : ""
             : "flex-wrap",
         )}
       >
@@ -221,7 +256,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           />
         ))}
       </div>
-      {allowScroll && (hasScroll?.right || hasScroll?.left) ? (
+      {withScroll && (hasScroll?.right || hasScroll?.left) ? (
         <>
           <div
             className={tremorTwMerge(

@@ -70,6 +70,7 @@ export interface ScatterChartProps
   allowDecimals?: boolean;
   onValueChange?: (value: EventProps) => void;
   noDataText?: string;
+  withScroll?: boolean;
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -125,6 +126,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     onValueChange,
     noDataText,
     className,
+    withScroll = true,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -321,6 +323,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    withScroll,
                   )
                 }
               />

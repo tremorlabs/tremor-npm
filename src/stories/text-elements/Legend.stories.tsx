@@ -27,9 +27,9 @@ Default.args = {
   ],
 };
 
-export const WithScroll = Template.bind({});
+export const WithManyCategories = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithScroll.args = {
+WithManyCategories.args = {
   categories: [
     "Critical",
     "This is a very long category name to test an edge case",
@@ -40,11 +40,20 @@ WithScroll.args = {
     "Category C",
     "Category D",
   ],
-  allowScroll: true,
 };
 
 export const WithNoScroll = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoScroll.args = {
-  categories: ["Critical"],
+  categories: [
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+  ],
+  withScroll: false,
 };

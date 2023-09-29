@@ -32,6 +32,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   allowDecimals?: boolean;
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
+  withScroll?: boolean;
 }
 
 export default BaseChartProps;

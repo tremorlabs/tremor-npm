@@ -64,7 +64,6 @@ const WithCustomEventTemplate: ComponentStory<typeof LineChart> = ({ ...args }) 
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
   ...args,
   data,
@@ -137,7 +136,6 @@ WithMultipleCategories.args = {
 };
 
 export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
   ...args,
 };
@@ -222,7 +220,6 @@ WithoutOnClickAnimation.args = {
 };
 
 export const WithOnValueChange = WithCustomEventTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
@@ -253,4 +250,11 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
   ...args,
   data: singleAndMultipleData,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithoutLegendScroll = ResponsiveTemplate.bind({});
+WithoutLegendScroll.args = {
+  ...args,
+  data,
+  withScroll: false,
 };

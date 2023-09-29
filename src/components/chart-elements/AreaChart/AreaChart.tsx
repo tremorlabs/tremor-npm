@@ -72,6 +72,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    withScroll = true,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -233,6 +234,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    withScroll,
                   )
                 }
               />

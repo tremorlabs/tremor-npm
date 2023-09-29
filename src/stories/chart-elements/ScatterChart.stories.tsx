@@ -44,14 +44,12 @@ const DefaultTemplate: ComponentStory<typeof ScatterChart> = ({ ...args }) => (
 const args = { x: "x", y: "y", size: "z", category: "location" };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
   ...args,
   data,
 };
 
 export const WithNoSize = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoSize.args = {
   ...args,
   data,
@@ -59,7 +57,6 @@ WithNoSize.args = {
 };
 
 export const WithCustomeSizeRange = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomeSizeRange.args = {
   ...args,
   data,
@@ -67,7 +64,6 @@ WithCustomeSizeRange.args = {
 };
 
 export const WithCustomColor = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColor.args = {
   ...args,
   data,
@@ -75,7 +71,6 @@ WithCustomColor.args = {
 };
 
 export const WithCustomValueFormatters = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomValueFormatters.args = {
   ...args,
   data,
@@ -87,7 +82,6 @@ WithCustomValueFormatters.args = {
 };
 
 export const WithAutoMinXValue = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithAutoMinXValue.args = {
   ...args,
   data,
@@ -95,7 +89,6 @@ WithAutoMinXValue.args = {
 };
 
 export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
   ...args,
 };
@@ -107,7 +100,6 @@ WithNoDataText.args = {
 };
 
 export const WithOnValueChange = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
   data,
@@ -115,7 +107,6 @@ WithOnValueChange.args = {
 };
 
 export const WithExampleDatas = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithExampleDatas.args = {
   data: data2,
   x: "gdpPercap",
@@ -127,4 +118,11 @@ WithExampleDatas.args = {
     y: (y) => `${y} yrs`,
   },
   colors: ["red", "green", "blue"],
+};
+
+export const WithoutLegendScroll = ResponsiveTemplate.bind({});
+WithoutLegendScroll.args = {
+  ...args,
+  data,
+  withScroll: false,
 };

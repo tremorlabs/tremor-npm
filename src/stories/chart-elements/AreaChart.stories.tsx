@@ -53,14 +53,12 @@ const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
   ...args,
   data,
 };
 
 export const WithStacked = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithStacked.args = {
   ...args,
   data,
@@ -68,7 +66,6 @@ WithStacked.args = {
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
   ...args,
   data,
@@ -77,7 +74,6 @@ WithValueFormatter.args = {
 };
 
 export const WithAutoMinValue = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithAutoMinValue.args = {
   ...args,
   data,
@@ -85,7 +81,6 @@ WithAutoMinValue.args = {
 };
 
 export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithMinValueAndMaxValue.args = {
   ...args,
   data,
@@ -94,7 +89,6 @@ WithMinValueAndMaxValue.args = {
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
   ...args,
   data,
@@ -102,7 +96,6 @@ WithCustomColors.args = {
 };
 
 export const WithNoGradient = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoGradient.args = {
   ...args,
   data,
@@ -139,7 +132,6 @@ WithMultipleCategories.args = {
 };
 
 export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
   ...args,
 };
@@ -218,7 +210,6 @@ WithShortAnimationDuration.args = {
 };
 
 export const WithOnValueChange = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
@@ -249,4 +240,11 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
   ...args,
   data: singleAndMultipleData,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithoutLegendScroll = ResponsiveTemplate.bind({});
+WithoutLegendScroll.args = {
+  ...args,
+  data,
+  withScroll: false,
 };

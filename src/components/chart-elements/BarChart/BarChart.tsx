@@ -74,6 +74,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     noDataText,
     onValueChange,
     className,
+    withScroll = true,
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -277,6 +278,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    withScroll,
                   )
                 }
               />

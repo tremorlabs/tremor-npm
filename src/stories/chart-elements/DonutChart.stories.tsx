@@ -88,14 +88,12 @@ const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => {
 const args = { category: "sales", index: "city" };
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultResponsive.args = {
   ...args,
   data,
 };
 
 export const WithValueFormatter = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithValueFormatter.args = {
   ...args,
   data,
@@ -103,7 +101,6 @@ WithValueFormatter.args = {
 };
 
 export const WithCustomLabel = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomLabel.args = {
   ...args,
   data,
@@ -112,7 +109,6 @@ WithCustomLabel.args = {
 };
 
 export const WithLabelDisabled = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithLabelDisabled.args = {
   ...args,
   data,
@@ -122,7 +118,6 @@ WithLabelDisabled.args = {
 };
 
 export const WithCustomColors = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithCustomColors.args = {
   ...args,
   data,
@@ -158,7 +153,6 @@ WithVariantPie.args = {
 };
 
 export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithNoData.args = {
   ...args,
 };
@@ -170,7 +164,6 @@ WithNoDataText.args = {
 };
 
 export const BlockExample = BlockTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 BlockExample.args = {
   ...args,
   data,
@@ -212,7 +205,6 @@ WithShortAnimationDuration.args = {
 };
 
 export const WithOnValueChangeExample = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChangeExample.args = {
   ...args,
   data,
@@ -220,7 +212,6 @@ WithOnValueChangeExample.args = {
 };
 
 export const WithOnValueChangePieExample = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChangePieExample.args = {
   ...args,
   variant: "pie",
