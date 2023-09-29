@@ -43,9 +43,9 @@ const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapePro
           // common
           "stroke-1",
           // light
-          "stroke-tremor-content-subtle",
+          "stroke-tremor-border",
           // dark
-          "dark:stroke-dark-tremor-content-subtle",
+          "dark:stroke-dark-tremor-border",
         )}
       />
       <line
@@ -58,9 +58,9 @@ const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapePro
           // common
           "stroke-1",
           // light
-          "stroke-tremor-content-subtle",
+          "stroke-tremor-border",
           // dark
-          "dark:stroke-dark-tremor-content-subtle",
+          "dark:stroke-dark-tremor-border",
         )}
       />
     </>

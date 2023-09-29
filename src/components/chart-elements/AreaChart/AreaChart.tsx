@@ -344,6 +344,22 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
+            {hasDeltaCalculation ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape
+                    x={x}
+                    y={y}
+                    width={width}
+                    height={height}
+                    fill={false}
+                  />
+                )}
+              />
+            ) : null}
             {categories.map((category) => (
               <Area
                 className={
@@ -439,22 +455,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {hasDeltaCalculation ? (
-              <ReferenceArea
-                x1={deltaCalculation.leftArea.activeLabel}
-                x2={deltaCalculation.rightArea.activeLabel}
-                fillOpacity={0.2}
-                shape={({ x, y, width, height }) => (
-                  <DeltaCalculationReferenceShape
-                    x={x}
-                    y={y}
-                    width={width}
-                    height={height}
-                    fill={false}
-                  />
-                )}
-              />
-            ) : null}
             {hasDeltaCalculation
               ? categories.map((category) => (
                   <Area

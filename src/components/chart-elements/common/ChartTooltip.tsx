@@ -177,7 +177,7 @@ const ChartTooltip = ({
             return (
               <ChartTooltipRow
                 key={`id-${idx}`}
-                value={`${displayedValue > 0 ? "+" : ""}${valueFormatter(
+                value={`${displayedValue > 0 && hasRange ? "+" : ""}${valueFormatter(
                   displayedValue,
                 )} ${percentageValue}`}
                 name={name}

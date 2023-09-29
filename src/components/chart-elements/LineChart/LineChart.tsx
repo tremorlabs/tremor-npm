@@ -244,7 +244,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               }
               position={{ y: 0 }}
             />
-
             {showLegend ? (
               <Legend
                 verticalAlign="top"
@@ -260,6 +259,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       : undefined,
                   )
                 }
+              />
+            ) : null}
+            {hasDeltaCalculation ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
+                )}
               />
             ) : null}
             {categories.map((category) => (
@@ -351,16 +360,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {hasDeltaCalculation ? (
-              <ReferenceArea
-                x1={deltaCalculation.leftArea.activeLabel}
-                x2={deltaCalculation.rightArea.activeLabel}
-                fillOpacity={0.2}
-                shape={({ x, y, width, height }) => (
-                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
-                )}
-              />
-            ) : null}
             {onValueChange
               ? categories.map((category) => (
                   <Line
