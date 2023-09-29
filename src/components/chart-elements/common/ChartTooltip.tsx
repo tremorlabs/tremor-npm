@@ -6,6 +6,18 @@ import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
 
+type TooltipValueColors = "text-emerald-600 dark:text-emerald-500" | "text-red-600 dark:text-red-500" | "text-gray-500 dark:text-white";
+
+function getTooltipValueColor (value: number): TooltipValueColors {
+  if (value > 0) {
+    return "text-emerald-600 dark:text-emerald-500";
+  } else if (value < 0) {
+    return "text-red-600 dark:text-red-500";
+  } else {
+    return "text-gray-500 dark:text-white";
+  }
+}
+
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
@@ -26,7 +38,7 @@ export interface ChartTooltipRowProps {
   value: string;
   name: string;
   color: Color;
-  textColor?: "green" | "red" | null;
+  textColor?: TooltipValueColors | null;
 }
 
 const getRangePayloadValue = (payload: any, dataKey: string) =>
@@ -65,12 +77,12 @@ export const ChartTooltipRow = ({ value, name, color, textColor }: ChartTooltipR
     <p
       className={tremorTwMerge(
         // common
-        "font-medium tabular-nums text-right whitespace-nowrap",
+        "font-medium tabular-nums text-right whitespace-nowrap tabular-nums tracking-tight",
         // light
         "text-tremor-content-emphasis",
         // dark
         "dark:text-dark-tremor-content-emphasis",
-        textColor && `text-${textColor}-500`,
+        textColor ? textColor : "",
       )}
     >
       {value}
@@ -84,7 +96,7 @@ export interface ChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
-  deltaCalculation?: DeltaCalculationProps;
+  deltaCalculation?: DeltaCalculationProps | null;
 }
 
 const ChartTooltip = ({
@@ -139,24 +151,27 @@ const ChartTooltip = ({
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => {
+            const rightRangePayloadValue = hasRange && getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name);
+            const leftRangePayloadValue = hasRange && getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name);
+            
             const isBeforeLeftValue =
               deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
             const displayedValue = hasRange
-              ? (getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) -
-                  getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
+              ? (rightRangePayloadValue -
+                  leftRangePayloadValue) *
                 (isBeforeLeftValue ? -1 : 1)
               : value;
             const percentage = hasRange
               ? (100 -
                   (isBeforeLeftValue
-                    ? getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name) /
-                      getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name)
-                    : (getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name) /
-                        getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name)) *
+                    ? leftRangePayloadValue /
+                      rightRangePayloadValue
+                    : (rightRangePayloadValue /
+                        leftRangePayloadValue) *
                       100)) *
                 -1
               : 0;
-            const percentageValue = hasRange ? `(${percentage.toFixed(2)}%)` : "";
+            const percentageValue = hasRange ? `(${percentage > 0 ? "+" : ""}${percentage.toFixed(1)}%)` : "";
 
             return (
               <ChartTooltipRow
@@ -164,7 +179,7 @@ const ChartTooltip = ({
                 value={`${valueFormatter(displayedValue)} ${percentageValue}`}
                 name={name}
                 color={categoryColors.get(name) ?? BaseColors.Blue}
-                textColor={hasRange ? (displayedValue >= 0 ? "green" : "red") : null}
+                textColor={hasRange ? getTooltipValueColor(displayedValue) : null}
               />
             );
           })}

@@ -78,7 +78,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     onValueChange,
     ...other
   } = props;
-  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps>({});
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps | null>(null);
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -86,6 +86,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasDeltaCalculation = deltaCalculation && deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
+
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -131,35 +133,40 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     }
     setActiveDot(undefined);
   }
+  
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full select-none">
         {data?.length ? (
           <ReChartsAreaChart
             data={data}
+            onClick={
+                hasOnValueChange && (activeLegend || activeDot)
+                  ? () => {
+                      setActiveDot(undefined);
+                      setActiveLegend(undefined);
+                      onValueChange?.(null);
+                    }
+                  : undefined
+              }
+              //had to fix legend click
             onMouseDown={(value, e) => {
               e.stopPropagation();
               enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
             }}
             onMouseMove={(value, e) => {
               e.stopPropagation();
-              enableDeltaCalculation &&
+              enableDeltaCalculation && 
+              deltaCalculation &&
                 deltaCalculation.leftArea &&
                 setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
             }}
-            onMouseUp={(_, e) => {
+            onMouseUp={(value, e) => {
               e.stopPropagation();
-              setDeltaCalculation({});
+                enableDeltaCalculation &&
+                hasDeltaCalculation &&
+              setDeltaCalculation(null);
             }}
-            onClick={
-              hasOnValueChange && (activeLegend || activeDot)
-                ? () => {
-                    setActiveDot(undefined);
-                    setActiveLegend(undefined);
-                    onValueChange?.(null);
-                  }
-                : undefined
-            }
           >
             {" "}
             {showGridLines ? (
@@ -223,10 +230,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               isAnimationActive={false}
               cursor={{
                 stroke: "#d1d5db",
-                strokeWidth:
-                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
-                    ? 0
-                    : 1,
+                strokeWidth: hasDeltaCalculation ? 0 : 1
               }}
               content={
                 showTooltip ? (
@@ -266,7 +270,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             {categories.map((category) => {
               return (
                 <defs key={category}>
-                  {showGradient ? (
+                  {!hasDeltaCalculation ? (
+                    showGradient ? (
                     <linearGradient
                       className={
                         getColorClassNames(
@@ -281,7 +286,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       y2="1"
                     >
                       <stop
-                        offset="5%"
+                        offset="25%"
                         stopColor="currentColor"
                         stopOpacity={
                           activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
@@ -310,7 +315,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                         }
                       />
                     </linearGradient>
-                  )}
+                  )
+                  ) : (
+                    null
+            )}
                 </defs>
               );
             })}
@@ -405,7 +413,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? (
+            {hasDeltaCalculation ? (
               <ReferenceArea
                 x1={deltaCalculation.leftArea.activeLabel}
                 x2={deltaCalculation.rightArea.activeLabel}

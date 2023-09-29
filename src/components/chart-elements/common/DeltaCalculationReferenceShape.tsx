@@ -37,7 +37,7 @@ const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapePro
         x2={x}
         y1={y}
         y2={y + height}
-        strokeDasharray={"3 3"}
+        strokeDasharray={"2 2"}
         className={tremorTwMerge(
           // common
           "stroke-1",

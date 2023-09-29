@@ -74,7 +74,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     onValueChange,
     ...other
   } = props;
-  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps>({});
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps | null>(null);
 
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
@@ -83,6 +83,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasDeltaCalculation = deltaCalculation && deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -142,12 +143,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             onMouseMove={(value, e) => {
               e.stopPropagation();
               enableDeltaCalculation &&
+              deltaCalculation &&
                 deltaCalculation.leftArea &&
                 setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
             }}
             onMouseUp={(_, e) => {
               e.stopPropagation();
-              setDeltaCalculation({});
+              enableDeltaCalculation &&
+                hasDeltaCalculation &&
+              setDeltaCalculation(null);
             }}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
@@ -220,10 +224,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               isAnimationActive={false}
               cursor={{
                 stroke: "#d1d5db",
-                strokeWidth:
-                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
-                    ? 0
-                    : 1,
+                strokeWidth: hasDeltaCalculation ? 0 : 1
               }}
               content={
                 showTooltip ? (
@@ -350,7 +351,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? (
+            {hasDeltaCalculation ? (
               <ReferenceArea
                 x1={deltaCalculation.leftArea.activeLabel}
                 x2={deltaCalculation.rightArea.activeLabel}
