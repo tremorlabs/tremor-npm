@@ -91,6 +91,34 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     deltaCalculation.leftArea?.activeLabel &&
     deltaCalculation.rightArea?.activeLabel;
 
+  const isBeforeLeftValue =
+    deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
+  const deltaCalculationData =
+    hasDeltaCalculation &&
+    deltaCalculation.leftArea?.activeLabel !== deltaCalculation.rightArea?.activeLabel
+      ? data.map((item, idx) => {
+          if (
+            isBeforeLeftValue
+              ? idx <= deltaCalculation.leftArea.activeTooltipIndex &&
+                idx >= deltaCalculation.rightArea.activeTooltipIndex
+              : idx >= deltaCalculation.leftArea.activeTooltipIndex &&
+                idx <= deltaCalculation.rightArea.activeTooltipIndex
+          ) {
+            return {
+              ...item,
+              ...categories.reduce((acc, category) => {
+                return {
+                  ...acc,
+                  [`${category}TremorRange`]: item[category],
+                };
+              }, {}),
+            };
+          }
+
+          return item;
+        })
+      : data;
+
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
 
@@ -139,9 +167,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full select-none">
-        {data?.length ? (
+        {deltaCalculationData?.length ? (
           <ReChartsAreaChart
-            data={data}
+            data={deltaCalculationData}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -270,53 +298,51 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             {categories.map((category) => {
               return (
                 <defs key={category}>
-                  {!hasDeltaCalculation ? (
-                    showGradient ? (
-                      <linearGradient
-                        className={
-                          getColorClassNames(
-                            categoryColors.get(category) ?? BaseColors.Gray,
-                            colorPalette.text,
-                          ).textColor
+                  {showGradient ? (
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="25%"
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
                         }
-                        id={categoryColors.get(category)}
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="25%"
-                          stopColor="currentColor"
-                          stopOpacity={
-                            activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
-                          }
-                        />
-                        <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
-                      </linearGradient>
-                    ) : (
-                      <linearGradient
-                        className={
-                          getColorClassNames(
-                            categoryColors.get(category) ?? BaseColors.Gray,
-                            colorPalette.text,
-                          ).textColor
+                      />
+                      <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+                    </linearGradient>
+                  ) : (
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
                         }
-                        id={categoryColors.get(category)}
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          stopColor="currentColor"
-                          stopOpacity={
-                            activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
-                          }
-                        />
-                      </linearGradient>
-                    )
-                  ) : null}
+                      />
+                    </linearGradient>
+                  )}
                 </defs>
               );
             })}
@@ -328,7 +354,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
-                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
+                strokeOpacity={
+                  activeDot || (activeLegend && activeLegend !== category) || hasDeltaCalculation
+                    ? 0.3
+                    : 1
+                }
                 activeDot={(props: any) => {
                   const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
                     props;
@@ -401,7 +431,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 type={curveType}
                 dataKey={category}
                 stroke=""
-                fill={`url(#${categoryColors.get(category)})`}
+                fill={hasDeltaCalculation ? "transparent" : `url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
@@ -417,10 +447,42 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 x2={deltaCalculation.rightArea.activeLabel}
                 fillOpacity={0.2}
                 shape={({ x, y, width, height }) => (
-                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
+                  <DeltaCalculationReferenceShape
+                    x={x}
+                    y={y}
+                    width={width}
+                    height={height}
+                    fill={false}
+                  />
                 )}
               />
             ) : null}
+            {hasDeltaCalculation
+              ? categories.map((category) => (
+                  <Area
+                    className={
+                      getColorClassNames(
+                        categoryColors.get(category) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).strokeColor
+                    }
+                    key={category + "TremorRange"}
+                    name={category + "TremorRange"}
+                    legendType="none"
+                    tooltipType="none"
+                    type={curveType}
+                    dataKey={category + "TremorRange"}
+                    stroke=""
+                    fill={`url(#${categoryColors.get(category)})`}
+                    strokeWidth={2}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    animationDuration={animationDuration}
+                    stackId={stack ? "a" : undefined}
+                    connectNulls={false}
+                  />
+                ))
+              : null}
             {onValueChange
               ? categories.map((category) => (
                   <Line

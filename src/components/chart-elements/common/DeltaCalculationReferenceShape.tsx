@@ -6,10 +6,11 @@ interface DeltaCalculationReferenceShapeProps {
   y: number;
   width: number;
   height: number;
+  fill?: boolean;
 }
 
 const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapeProps) => {
-  const { x, y, width, height } = props;
+  const { x, y, width, height, fill = true } = props;
 
   return (
     <>
@@ -26,9 +27,9 @@ const DeltaCalculationReferenceShape = (props: DeltaCalculationReferenceShapePro
           // common
           "text-tremor-label",
           // light
-          "fill-tremor-content-subtle", //gray-300 could be nice
-          // dark
-          "dark:fill-dark-tremor-content-subtle",
+          fill
+            ? "fill-tremor-content-subtle dark:fill-dark-tremor-content-subtle"
+            : "fill-transparent",
         )}
         fillOpacity={0.2}
       />

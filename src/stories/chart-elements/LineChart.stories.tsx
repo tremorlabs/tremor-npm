@@ -261,3 +261,11 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
   data: singleAndMultipleData,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
 };
+
+export const WithLargeDataSetAndEnableDeltaCalculation = DefaultTemplate.bind({});
+WithLargeDataSetAndEnableDeltaCalculation.args = {
+  ...args,
+  data: require("./helpers/largeDataSet.json"),
+  index: "date",
+  enableDeltaCalculation: true,
+};
