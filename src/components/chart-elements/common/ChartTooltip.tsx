@@ -6,9 +6,12 @@ import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
 
-type TooltipValueColors = "text-emerald-600 dark:text-emerald-500" | "text-red-600 dark:text-red-500" | "text-gray-500 dark:text-white";
+type TooltipValueColors =
+  | "text-emerald-600 dark:text-emerald-500"
+  | "text-red-600 dark:text-red-500"
+  | "text-gray-500 dark:text-white";
 
-function getTooltipValueColor (value: number): TooltipValueColors {
+function getTooltipValueColor(value: number): TooltipValueColors {
   if (value > 0) {
     return "text-emerald-600 dark:text-emerald-500";
   } else if (value < 0) {
@@ -151,27 +154,25 @@ const ChartTooltip = ({
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
           {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => {
-            const rightRangePayloadValue = hasRange && getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name);
-            const leftRangePayloadValue = hasRange && getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name);
-            
+            const rightRangePayloadValue =
+              hasRange && getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name);
+            const leftRangePayloadValue =
+              hasRange && getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name);
+
             const isBeforeLeftValue =
               deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
             const displayedValue = hasRange
-              ? (rightRangePayloadValue -
-                  leftRangePayloadValue) *
-                (isBeforeLeftValue ? -1 : 1)
+              ? (rightRangePayloadValue - leftRangePayloadValue) * (isBeforeLeftValue ? -1 : 1)
               : value;
             const percentage = hasRange
-              ? (100 -
-                  (isBeforeLeftValue
-                    ? leftRangePayloadValue /
-                      rightRangePayloadValue
-                    : (rightRangePayloadValue /
-                        leftRangePayloadValue) *
-                      100)) *
-                -1
+              ? (isBeforeLeftValue
+                  ? (-1 * (rightRangePayloadValue - leftRangePayloadValue)) / leftRangePayloadValue
+                  : (rightRangePayloadValue - leftRangePayloadValue) / rightRangePayloadValue) * 100
               : 0;
-            const percentageValue = hasRange ? `(${percentage > 0 ? "+" : ""}${percentage.toFixed(1)}%)` : "";
+
+            const percentageValue = hasRange
+              ? `(${percentage > 0 ? "+" : ""}${percentage.toFixed(1)}%)`
+              : "";
 
             return (
               <ChartTooltipRow

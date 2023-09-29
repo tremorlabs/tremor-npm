@@ -86,8 +86,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
-  const hasDeltaCalculation = deltaCalculation && deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
-
+  const hasDeltaCalculation =
+    deltaCalculation &&
+    deltaCalculation.leftArea?.activeLabel &&
+    deltaCalculation.rightArea?.activeLabel;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -133,7 +135,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     }
     setActiveDot(undefined);
   }
-  
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full select-none">
@@ -141,31 +143,29 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           <ReChartsAreaChart
             data={data}
             onClick={
-                hasOnValueChange && (activeLegend || activeDot)
-                  ? () => {
-                      setActiveDot(undefined);
-                      setActiveLegend(undefined);
-                      onValueChange?.(null);
-                    }
-                  : undefined
-              }
-              //had to fix legend click
+              hasOnValueChange && (activeLegend || activeDot)
+                ? () => {
+                    setActiveDot(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
+            //had to fix legend click
             onMouseDown={(value, e) => {
               e.stopPropagation();
               enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
             }}
             onMouseMove={(value, e) => {
               e.stopPropagation();
-              enableDeltaCalculation && 
-              deltaCalculation &&
+              enableDeltaCalculation &&
+                deltaCalculation &&
                 deltaCalculation.leftArea &&
                 setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
             }}
             onMouseUp={(value, e) => {
               e.stopPropagation();
-                enableDeltaCalculation &&
-                hasDeltaCalculation &&
-              setDeltaCalculation(null);
+              enableDeltaCalculation && hasDeltaCalculation && setDeltaCalculation(null);
             }}
           >
             {" "}
@@ -230,7 +230,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               isAnimationActive={false}
               cursor={{
                 stroke: "#d1d5db",
-                strokeWidth: hasDeltaCalculation ? 0 : 1
+                strokeWidth: hasDeltaCalculation ? 0 : 1,
               }}
               content={
                 showTooltip ? (
@@ -272,53 +272,51 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 <defs key={category}>
                   {!hasDeltaCalculation ? (
                     showGradient ? (
-                    <linearGradient
-                      className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
-                      }
-                      id={categoryColors.get(category)}
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop
-                        offset="25%"
-                        stopColor="currentColor"
-                        stopOpacity={
-                          activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+                      <linearGradient
+                        className={
+                          getColorClassNames(
+                            categoryColors.get(category) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).textColor
                         }
-                      />
-                      <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
-                    </linearGradient>
-                  ) : (
-                    <linearGradient
-                      className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
-                      }
-                      id={categoryColors.get(category)}
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop
-                        stopColor="currentColor"
-                        stopOpacity={
-                          activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
+                        id={categoryColors.get(category)}
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="25%"
+                          stopColor="currentColor"
+                          stopOpacity={
+                            activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+                          }
+                        />
+                        <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+                      </linearGradient>
+                    ) : (
+                      <linearGradient
+                        className={
+                          getColorClassNames(
+                            categoryColors.get(category) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).textColor
                         }
-                      />
-                    </linearGradient>
-                  )
-                  ) : (
-                    null
-            )}
+                        id={categoryColors.get(category)}
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          stopColor="currentColor"
+                          stopOpacity={
+                            activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
+                          }
+                        />
+                      </linearGradient>
+                    )
+                  ) : null}
                 </defs>
               );
             })}
