@@ -218,13 +218,17 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     if (withScroll) {
       checkScroll();
 
-      document.addEventListener("keydown", keyDown);
-      document.addEventListener("keyup", keyUp);
+    //   document.addEventListener("keydown", keyDown);
+    //   document.addEventListener("keyup", keyUp);
+    scrollableRef?.current?.addEventListener("keydown", keyDown);
+    scrollableRef?.current?.addEventListener("keyup", keyUp);
     }
 
     return () => {
-      document.removeEventListener("keydown", keyDown);
-      document.removeEventListener("keyup", keyUp);
+    //   document.removeEventListener("keydown", keyDown);
+    //   document.removeEventListener("keyup", keyUp);
+    scrollableRef?.current?.removeEventListener("keydown", keyDown);
+    scrollableRef?.current?.removeEventListener("keyup", keyUp);
     };
   }, [withScroll]);
 
@@ -236,6 +240,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     >
       <div
         ref={scrollableRef}
+        tabIndex={0}
         className={tremorTwMerge(
           //common
           "h-full flex",
