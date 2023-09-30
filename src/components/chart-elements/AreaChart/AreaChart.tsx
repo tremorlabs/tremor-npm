@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Area,
   CartesianGrid,
@@ -288,7 +288,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category) => (
+            {categories.map((category, idx) => (
               <Area
                 className={
                   getColorClassNames(
@@ -341,6 +341,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ) {
                     return (
                       <Dot
+                        key={index}
                         cx={cx}
                         cy={cy}
                         r={5}
@@ -360,7 +361,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       />
                     );
                   }
-                  return <></>;
+                  return <Fragment key={index}></Fragment>;
                 }}
                 key={category}
                 name={category}
