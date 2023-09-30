@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { NumberInput } from "components";
 
 describe("NumberInput", () => {
+  afterEach(cleanup);
   test("renders the NumberInput component with default props", () => {
     const { container } = render(<NumberInput defaultValue="123" />);
     expect(container.querySelector('[data-testid="base-input"]')?.getAttribute("type")).toBe(

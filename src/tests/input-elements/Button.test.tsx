@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 import React from "react";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, cleanup } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 
 import Button from "components/input-elements/Button/Button";
 
 describe("Button", () => {
+  afterEach(cleanup);
   test("renders the Button component with default props", () => {
     render(<Button>Button</Button>);
   });

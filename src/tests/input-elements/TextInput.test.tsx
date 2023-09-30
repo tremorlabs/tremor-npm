@@ -1,9 +1,9 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import { TextInput } from "components";
-import userEvent from "@testing-library/user-event";
 
 describe("TextInput", () => {
+  afterEach(cleanup);
   test("renders the TextInput component with text type", () => {
     render(<TextInput type="text" defaultValue="Test" />);
   });

@@ -1,10 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 
 import Select from "components/input-elements/Select/Select";
 import SelectItem from "components/input-elements/Select/SelectItem";
 
 describe("Select", () => {
+  afterEach(cleanup);
   test("renders the Select component with default props", () => {
     render(
       <Select>

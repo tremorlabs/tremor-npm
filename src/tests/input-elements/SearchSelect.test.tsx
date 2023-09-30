@@ -1,10 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 
 import SearchSelect from "components/input-elements/SearchSelect/SearchSelect";
 import SearchSelectItem from "components/input-elements/SearchSelect/SearchSelectItem";
 
 describe("SearchSelect", () => {
+  afterEach(cleanup);
   test("renders the SearchSelect component with default props", () => {
     render(
       <SearchSelect>
