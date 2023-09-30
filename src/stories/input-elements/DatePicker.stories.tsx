@@ -79,6 +79,11 @@ UncontrolledWithDisabled.args = {
   disabled: true,
 };
 
+export const UncontrolledDefaultWithYearNavigation = UncontrolledTemplate.bind({});
+UncontrolledDefaultWithYearNavigation.args = {
+  enableYearNavigation: true,
+};
+
 export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDate = ControlledTemplate.bind({});
@@ -90,4 +95,10 @@ export const UncontrolledWithoutAllowClear = UncontrolledTemplate.bind({});
 UncontrolledWithoutAllowClear.args = {
   defaultValue: new Date(2022, 10, 1),
   enableClear: false,
+};
+
+export const UncontrolledWithWeekStartsOnWednesday = UncontrolledTemplate.bind({});
+UncontrolledWithWeekStartsOnWednesday.args = {
+  defaultValue: new Date(2022, 10, 1),
+  weekStartsOn: 3,
 };

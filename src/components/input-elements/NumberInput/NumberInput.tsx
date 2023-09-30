@@ -81,7 +81,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepDown();
-                onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
               }}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
@@ -104,7 +104,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepUp();
-                onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
               }}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,

@@ -5,6 +5,8 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFoot,
+  TableFooterCell,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -69,7 +71,7 @@ const Template: ComponentStory<typeof Table> = (args) => {
           {data.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.name}</TableCell>
-              <TableCell>{item.sales}</TableCell>
+              <TableCell className="text-right">{item.sales}</TableCell>
               <TableCell>{item.region}</TableCell>
               <TableCell>
                 <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
@@ -80,6 +82,15 @@ const Template: ComponentStory<typeof Table> = (args) => {
             </TableRow>
           ))}
         </TableBody>
+        <TableFoot>
+          <TableRow>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">4642</TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell></TableFooterCell>
+            <TableFooterCell className="text-right">15h</TableFooterCell>
+          </TableRow>
+        </TableFoot>
       </Table>
     </Card>
   );

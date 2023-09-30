@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-
 import {
   Button,
   Card,
@@ -11,8 +7,12 @@ import {
   Text,
   Title,
 } from "components";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import React, { useState } from "react";
+
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
+
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Tremor/InputElements/DateRangePicker",
@@ -177,6 +177,11 @@ UncontrolledWithDisabled.args = {
   disabled: true,
 };
 
+export const UncontrolledDefaultWithYearNavigation = UncontrolledTemplate.bind({});
+UncontrolledDefaultWithYearNavigation.args = {
+  enableYearNavigation: true,
+};
+
 export const ControlledDefault = ControlledTemplate.bind({});
 
 export const ControlledWithDefaultDateRange = ControlledTemplate.bind({});
@@ -198,4 +203,10 @@ export const UncontrolledWithoutAllowClear = UncontrolledTemplate.bind({});
 UncontrolledWithoutAllowClear.args = {
   defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
   enableClear: false,
+};
+
+export const UncontrolledWithWeekStartsOnTuesday = UncontrolledTemplate.bind({});
+UncontrolledWithWeekStartsOnTuesday.args = {
+  defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
+  weekStartsOn: 2,
 };

@@ -34,6 +34,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
   const [isFocused, setIsFocused] = useState(false);
 
   const Icon = icon;
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const hasSelection = hasValue(value || defaultValue);
@@ -95,7 +96,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               "dark:text-dark-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              spacing.xl.marginLeft,
+              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -113,7 +114,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            Icon ? spacing.sm.paddingLeft : spacing.lg.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             disabled
@@ -138,7 +139,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         ) : null}
         {stepper ?? null}
       </div>
-      {errorMessage ? (
+      {error && errorMessage ? (
         <p
           className={tremorTwMerge(
             makeInputClassName("errorMessage"),

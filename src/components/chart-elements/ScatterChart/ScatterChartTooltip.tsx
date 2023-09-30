@@ -1,9 +1,9 @@
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
+import { Color, defaultValueFormatter, tremorTwMerge } from "../../../lib";
 
-import { Color, ValueFormatter } from "../../../lib";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
+import { ScatterChartValueFormatter } from "components/chart-elements/ScatterChart/ScatterChart";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -24,26 +24,11 @@ export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) =
 export interface ChartTooltipRowProps {
   value: string;
   name: string;
-  color: Color;
 }
 
-export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+export const ChartTooltipRow = ({ value, name }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
-      <span
-        className={tremorTwMerge(
-          // common
-          "shrink-0 rounded-tremor-full",
-          // light
-          "border-tremor-background shadow-tremor-card",
-          // dark
-          "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-          getColorClassNames(color, colorPalette.background).bgColor,
-          sizing.sm.height,
-          sizing.sm.width,
-          border.md.all,
-        )}
-      />
       <p
         className={tremorTwMerge(
           // commmon
@@ -72,28 +57,32 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
   </div>
 );
 
-export interface ChartTooltipProps {
-  active: boolean | undefined;
-  payload: any;
+export interface ScatterChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
-  valueFormatter: ValueFormatter;
+  active: boolean | undefined;
+  payload: any;
+  valueFormatter: ScatterChartValueFormatter;
+  axis: any;
+  category?: string;
 }
 
-const ChartTooltip = ({
+const ScatterChartTooltip = ({
+  label,
   active,
   payload,
-  label,
-  categoryColors,
   valueFormatter,
-}: ChartTooltipProps) => {
+  axis,
+  category,
+  categoryColors,
+}: ScatterChartTooltipProps) => {
   if (active && payload) {
-    const filteredPayload = payload.filter((item: any) => item.type !== "none");
-
     return (
       <ChartTooltipFrame>
         <div
           className={tremorTwMerge(
+            // common
+            "flex items-center space-x-2",
             // light
             "border-tremor-border",
             // dark
@@ -103,6 +92,25 @@ const ChartTooltip = ({
             border.sm.bottom,
           )}
         >
+          <span
+            className={tremorTwMerge(
+              // common
+              "shrink-0 rounded-tremor-full",
+              // light
+              "border-tremor-background shadow-tremor-card",
+              // dark
+              "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
+              getColorClassNames(
+                category
+                  ? categoryColors.get(payload[0].payload[category]) ?? BaseColors.Blue
+                  : BaseColors.Blue,
+                colorPalette.background,
+              ).bgColor,
+              sizing.sm.height,
+              sizing.sm.width,
+              border.md.all,
+            )}
+          />
           <p
             className={tremorTwMerge(
               // common
@@ -118,14 +126,19 @@ const ChartTooltip = ({
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
-            <ChartTooltipRow
-              key={`id-${idx}`}
-              value={valueFormatter(value)}
-              name={name}
-              color={categoryColors.get(name) ?? BaseColors.Blue}
-            />
-          ))}
+          {payload.map(({ value, name }: { value: number; name: string }, idx: number) => {
+            const valueFormatterKey = Object.keys(axis).find((key) => axis[key] === name) ?? "";
+            const valueFormatterFn =
+              valueFormatter[valueFormatterKey as keyof ScatterChartValueFormatter] ??
+              defaultValueFormatter;
+            return (
+              <ChartTooltipRow
+                key={`id-${idx}`}
+                value={valueFormatter && valueFormatterFn ? valueFormatterFn(value) : `${value}`}
+                name={name}
+              />
+            );
+          })}
         </div>
       </ChartTooltipFrame>
     );
@@ -133,4 +146,4 @@ const ChartTooltip = ({
   return null;
 };
 
-export default ChartTooltip;
+export default ScatterChartTooltip;
