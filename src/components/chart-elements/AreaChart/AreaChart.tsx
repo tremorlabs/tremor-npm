@@ -288,7 +288,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category, idx) => (
+            {categories.map((category) => (
               <Area
                 className={
                   getColorClassNames(
