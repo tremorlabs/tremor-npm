@@ -132,7 +132,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           data-testid="base-input"
           {...other}
         />
-        {type === "password" ? (
+        {type === "password" && !disabled ? (
           <button
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
             type="button"
@@ -142,22 +142,22 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               <EyeOffIcon
                 className={tremorTwMerge(
                   // common
-                  "flex-none h-5 w-5",
+                  "flex-none h-5 w-5 transition",
                   // light
-                  "text-tremor-content-subtle",
+                  "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-content-subtle",
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
               />
             ) : (
               <EyeIcon
                 className={tremorTwMerge(
                   // common
-                  "flex-none h-5 w-5",
+                  "flex-none h-5 w-5 transition",
                   // light
-                  "text-tremor-content-subtle",
+                  "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-content-subtle",
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
               />
             )}
