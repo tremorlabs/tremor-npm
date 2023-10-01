@@ -1,9 +1,15 @@
 "use client";
 import React from "react";
-import { tremorTwMerge } from "lib";
-
-import { Sizes, getColorClassNames, makeClassName, mergeRefs, spacing } from "lib";
-import { Color, Size } from "../../../lib";
+import {
+  Sizes,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
+  spacing,
+  Color,
+  Size,
+  tremorTwMerge,
+} from "lib";
 import { badgeProportions, iconSizes } from "./styles";
 import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
