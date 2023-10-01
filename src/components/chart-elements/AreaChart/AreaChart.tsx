@@ -355,7 +355,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     y={y}
                     width={width}
                     height={height}
-                    fill={false}
+                    fill={["natural", "monotone"].includes(curveType)}
                   />
                 )}
               />
@@ -369,7 +369,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ).strokeColor
                 }
                 strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== category) || hasDeltaCalculation
+                  activeDot || (activeLegend && activeLegend !== category) || (hasDeltaCalculation  && !["natural", "monotone"].includes(curveType))
                     ? 0.3
                     : 1
                 }
@@ -455,7 +455,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
-            {hasDeltaCalculation
+            {hasDeltaCalculation && !["natural", "monotone"].includes(curveType)
               ? categories.map((category) => (
                   <Area
                     className={
