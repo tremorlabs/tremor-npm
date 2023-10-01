@@ -34,6 +34,7 @@ import {
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
+
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
@@ -72,8 +73,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    customTooltip,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -205,15 +208,22 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
+                    ({ active, payload, label }) => (
+                        CustomTooltip ? (
+                            <CustomTooltip
+                                payload={payload}
+                                active={active}
+                                label={label}
+                            />
+                        ) : (
+                        <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                        />
+                    ))
                 ) : (
                   <></>
                 )

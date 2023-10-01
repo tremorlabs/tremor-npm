@@ -35,6 +35,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -68,8 +69,9 @@ export interface ScatterChartProps
   minYValue?: number;
   maxYValue?: number;
   allowDecimals?: boolean;
-  onValueChange?: (value: EventProps) => void;
   noDataText?: string;
+  onValueChange?: (value: EventProps) => void;
+  customTooltip?: React.ComponentType<CustomTooltipType>
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -122,11 +124,13 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     minYValue,
     maxYValue,
     allowDecimals = true,
-    onValueChange,
     noDataText,
+    onValueChange,
+    customTooltip,
     className,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -262,6 +266,13 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
+                    CustomTooltip ? (
+                        <CustomTooltip
+                            payload={payload}
+                            active={active}
+                            label={label}
+                        />
+                    ) : (
                     <ScatterChartTooltip
                       active={active}
                       payload={payload}
@@ -271,7 +282,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       category={category}
                       categoryColors={categoryColors}
                     />
-                  )
+                    ))
                 ) : (
                   <></>
                 )

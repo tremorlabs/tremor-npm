@@ -1,3 +1,4 @@
+import { CustomTooltipType } from "./CustomTooltipProps";
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 
@@ -32,6 +33,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   allowDecimals?: boolean;
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
+  customTooltip?: React.ComponentType<CustomTooltipType>
 }
 
 export default BaseChartProps;
