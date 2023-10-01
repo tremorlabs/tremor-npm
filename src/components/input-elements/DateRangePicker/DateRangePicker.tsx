@@ -47,6 +47,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   children?: React.ReactElement[] | React.ReactElement;
@@ -65,6 +66,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     disabled = false,
     locale = enUS,
     enableClear = true,
+    displayFormat,
     children,
     className,
     enableYearNavigation = false,
@@ -137,7 +139,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   const formattedSelection =
     !selectedStartDate && !selectedEndDate
       ? placeholder
-      : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
+      : formatSelectedDates(selectedStartDate, selectedEndDate, locale, displayFormat);
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;

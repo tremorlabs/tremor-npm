@@ -88,7 +88,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
         // light
         "text-white bg-tremor-background-emphasis",
         // dark
-        "dark:text text-white dark:bg-dark-tremor-background-subtle",
+        "text-white dark:bg-dark-tremor-background-subtle",
         spacing.md.paddingX,
         spacing.twoXs.paddingY,
       )}

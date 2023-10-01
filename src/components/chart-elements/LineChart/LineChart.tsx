@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   CartesianGrid,
   Dot,
@@ -287,6 +287,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   ) {
                     return (
                       <Dot
+                        key={index}
                         cx={cx}
                         cy={cy}
                         r={5}
@@ -306,7 +307,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       />
                     );
                   }
-                  return <></>;
+                  return <Fragment key={index}></Fragment>;
                 }}
                 key={category}
                 name={category}
