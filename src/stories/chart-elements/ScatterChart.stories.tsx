@@ -7,7 +7,7 @@ import {
   simpleScatterChartData as data,
   simpleScatterChartData2 as data2,
 } from "./helpers/testDataScatterChart";
-import { Color, currencyValueFormatter } from "lib";
+import { Color } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -132,45 +132,37 @@ WithExampleData.args = {
 };
 
 //Custom tooltips
-const customTooltipColors: Color[] = ["cyan"];
-
+const customTooltipColors: Color[] = ["red", "green", "blue", "yellow"];
+const customTooltipIndex = "location";
 export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
 WithCustomTooltipExample1.args = {
   ...args,
   data,
-  colors: ["blue"],
+  colors: customTooltipColors,
+  category: customTooltipIndex,
   customTooltip: (props: CustomTooltipType) => {
-    const { payload, active } = props;
+    const { payload, active, label } = props;
     if (!active) return null;
 
-    const categoryPayload = payload[0];
-    const color = customTooltipColors[0];
+    const uniqueCategories = [...new Set(data.map((point) => point[customTooltipIndex]))];
+    const categoryIndex = uniqueCategories.findIndex((cat) => cat === label);
     return (
       <div className="w-28 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
-          <div className={`w-1.5 flex flex-col bg-${color}-500 rounded`} />
+          <div
+            className={`w-1.5 flex flex-col bg-${customTooltipColors[categoryIndex]}-500 rounded`}
+          />
           <div className="w-full">
-            {/* SIMPLIFY WITH MAP FUNCTION */}
-            <div className="flex items-center justify-between space-x-8">
-              <p className="text-right text-tremor-content whitespace-nowrap">
-                {categoryPayload.name}
-              </p>
-              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {categoryPayload.value}
-              </p>
-            </div>
-            <div className="flex items-center justify-between space-x-8">
-              <p className="text-right text-tremor-content whitespace-nowrap">{payload[1].name}</p>
-              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {payload[1].value}
-              </p>
-            </div>
-            <div className="flex items-center justify-between space-x-8">
-              <p className="text-right text-tremor-content whitespace-nowrap">{payload[2].name}</p>
-              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {payload[2].value}
-              </p>
-            </div>
+            {payload.map((payloadItem: any, index: number) => (
+              <div key={index} className="flex items-center justify-between space-x-8">
+                <p className="text-right text-tremor-content whitespace-nowrap">
+                  {payloadItem.name}
+                </p>
+                <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                  {payloadItem.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

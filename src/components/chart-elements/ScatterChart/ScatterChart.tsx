@@ -267,7 +267,11 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 showTooltip ? (
                   ({ active, payload, label }) =>
                     CustomTooltip ? (
-                      <CustomTooltip payload={payload} active={active} label={label} />
+                      <CustomTooltip
+                        payload={payload}
+                        active={active}
+                        label={category ? payload?.[0]?.payload?.[category] : label}
+                      />
                     ) : (
                       <ScatterChartTooltip
                         active={active}
@@ -288,21 +292,19 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
             {categories.map((cat) => {
               return (
                 <Scatter
-                  className={`
-                ${
-                  getColorClassNames(categoryColors.get(cat) ?? BaseColors.Gray, colorPalette.text)
-                    .fillColor
-                } 
-                ${
-                  showOpacity
-                    ? getColorClassNames(
-                        categoryColors.get(cat) ?? BaseColors.Gray,
-                        colorPalette.text,
-                      ).strokeColor
-                    : ""
-                }
-                ${onValueChange ? "cursor-pointer" : ""}
-              `}
+                  className={tremorTwMerge(
+                    getColorClassNames(
+                      categoryColors.get(cat) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                    showOpacity
+                      ? getColorClassNames(
+                          categoryColors.get(cat) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).strokeColor
+                      : "",
+                    onValueChange ? "cursor-pointer" : "",
+                  )}
                   fill={`url(#${categoryColors.get(cat)})`}
                   fillOpacity={showOpacity ? 0.7 : 1}
                   key={cat}
