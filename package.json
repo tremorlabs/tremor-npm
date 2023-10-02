@@ -31,8 +31,7 @@
     "react-day-picker": "^8.7.1",
     "react-transition-group": "^4.4.5",
     "recharts": "^2.7.1",
-    "tailwind-merge": "^1.9.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind-merge": "^1.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
