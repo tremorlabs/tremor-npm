@@ -226,22 +226,20 @@ WithOnValueChangePieExample.args = {
 };
 
 //Custom tooltips
-const customTooltipColors: Color[] = ["cyan"];
-
+const customTooltipColors: Color[] = ["cyan", "red", "yellow", "blue", "green", "violet"];
 export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
 WithCustomTooltipExample1.args = {
   ...args,
   data,
   index: "city",
   category: "sales",
-  // colors: customTooltipColors,
+  colors: customTooltipColors,
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
-    const { payload, active, label } = props;
+    const { payload, active, label, color } = props;
     if (!active) return null;
 
     const categoryPayload = payload[0];
-    const color = customTooltipColors[0];
     return (
       <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">

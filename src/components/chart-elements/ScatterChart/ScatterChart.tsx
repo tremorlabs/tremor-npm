@@ -271,6 +271,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         payload={payload}
                         active={active}
                         label={category ? payload?.[0]?.payload?.[category] : label}
+                        color={categoryColors.get(
+                          category ? payload?.[0]?.payload?.[category] : label,
+                        )}
                       />
                     ) : (
                       <ScatterChartTooltip

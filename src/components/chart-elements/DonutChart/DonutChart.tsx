@@ -196,9 +196,14 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               isAnimationActive={false}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) =>
+                  ({ active, payload }) =>
                     CustomTooltip ? (
-                      <CustomTooltip payload={payload} active={active} label={label} />
+                      <CustomTooltip
+                        payload={payload}
+                        active={active}
+                        label={payload?.[0]?.name}
+                        color={payload?.[0]?.payload?.color}
+                      />
                     ) : (
                       <DonutChartTooltip
                         active={active}
