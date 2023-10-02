@@ -103,11 +103,23 @@ withoutAnimation.args = {
   showAnimation: false,
 };
 
-export const withChildren = TemplateColorsDemo.bind({});
-withChildren.args = {
+export const withChildrenSpan = TemplateColorsDemo.bind({});
+withChildrenSpan.args = {
   value: 56,
   showAnimation: false,
   children: <span className="dark:text-white font-medium font-mono text-sm">56.3</span>,
+};
+
+export const withChildrenImage = TemplateColorsDemo.bind({});
+withChildrenImage.args = {
+  value: 76,
+  children: (
+    <img
+      className="rounded-full h-12"
+      src="https://picsum.photos/id/800/300/300"
+      alt="random image"
+    />
+  ),
 };
 
 export const miscDemo = TemplateMisc.bind({});
