@@ -8,7 +8,7 @@ import {
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
 } from "./helpers/testData";
-import { Color, ValueFormatter, currencyValueFormatter } from "lib";
+import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -25,11 +25,11 @@ const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
 
   return (
     <>
-      <Title className="mt-5">Desktop</Title>
+      <Title>Desktop</Title>
       <Card>
         <AreaChart {...args} yAxisWidth={60} />
       </Card>
-      <Title>Mobile</Title>
+      <Title className="mt-5">Mobile</Title>
       <div className="w-64">
         <Card>
           <AreaChart {...args} yAxisWidth={60} />
@@ -253,22 +253,20 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";
-const customTootipValueFormatter: ValueFormatter = (e: number) =>
-  `$${Intl.NumberFormat("en-US").format(e)}`;
 const getBadgeColor = (percentage: number | undefined) => {
   if (!percentage || percentage === 0) return "gray";
   else if (percentage > 0) return "emerald";
   else return "red";
 };
 
-export const WithTooltipVersionA = DefaultTemplate.bind({});
-WithTooltipVersionA.args = {
+export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
+WithCustomTooltipExample1.args = {
   ...args,
   data,
   index: customTooltipIndex,
   categories: ["Sales"],
   colors: customTooltipColors,
-  valueFormatter: customTootipValueFormatter,
+  valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
     if (!active) return null;
@@ -286,7 +284,7 @@ WithTooltipVersionA.args = {
                 {categoryPayload.dataKey}
               </p>
               <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {customTootipValueFormatter(categoryPayload.value)}
+                {currencyValueFormatter(categoryPayload.value)}
               </p>
             </div>
           </div>
@@ -296,14 +294,14 @@ WithTooltipVersionA.args = {
   },
 };
 
-export const WithTooltipVersionB = DefaultTemplate.bind({});
-WithTooltipVersionB.args = {
+export const WithCustomTooltipExample2 = DefaultTemplate.bind({});
+WithCustomTooltipExample2.args = {
   ...args,
   data,
   index: customTooltipIndex,
   categories: ["Sales"],
   colors: customTooltipColors,
-  valueFormatter: customTootipValueFormatter,
+  valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
     if (!active) return null;
@@ -323,7 +321,7 @@ WithTooltipVersionB.args = {
         </span>
         <div className="flex items-center space-x-2">
           <span className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-            {customTootipValueFormatter(categoryPayload.value)}
+            {currencyValueFormatter(categoryPayload.value)}
           </span>
           {percentage ? (
             <span
@@ -339,8 +337,8 @@ WithTooltipVersionB.args = {
   },
 };
 
-export const WithTooltipVersionC = DefaultTemplate.bind({});
-WithTooltipVersionC.args = {
+export const WithCustomTooltipExample3 = DefaultTemplate.bind({});
+WithCustomTooltipExample3.args = {
   ...args,
   data,
   index: customTooltipIndex,
@@ -370,7 +368,7 @@ WithTooltipVersionC.args = {
             </p>
             <p className="text-tremor-default text-tremor-content-subtle">{label}</p>
             <p className="mt-2 font-medium whitespace-nowrap text-tremor-content-emphasis">
-              {customTootipValueFormatter(categoryPayload.value)}
+              {currencyValueFormatter(categoryPayload.value)}
             </p>
             {percentage ? (
               <div className="mt-1 flex items-end space-x-2">

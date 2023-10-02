@@ -7,6 +7,8 @@ import {
   simpleScatterChartData as data,
   simpleScatterChartData2 as data2,
 } from "./helpers/testDataScatterChart";
+import { Color, currencyValueFormatter } from "lib";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -21,16 +23,16 @@ const ResponsiveTemplate: ComponentStory<typeof ScatterChart> = (args) => {
   }
   return (
     <>
-      <Title>Mobile</Title>
+      <Title>Desktop</Title>
+      <Card>
+        <ScatterChart {...args} />
+      </Card>
+      <Title className="mt-5">Mobile</Title>
       <div className="w-64">
         <Card>
           <ScatterChart {...args} />
         </Card>
       </div>
-      <Title className="mt-5">Desktop</Title>
-      <Card>
-        <ScatterChart {...args} />
-      </Card>
     </>
   );
 };
@@ -114,9 +116,9 @@ WithOnValueChange.args = {
   onValueChange: (value) => alert(JSON.stringify(value)),
 };
 
-export const WithExampleDatas = ResponsiveTemplate.bind({});
+export const WithExampleData = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithExampleDatas.args = {
+WithExampleData.args = {
   data: data2,
   x: "gdpPercap",
   y: "lifeExp",
@@ -127,4 +129,51 @@ WithExampleDatas.args = {
     y: (y) => `${y} yrs`,
   },
   colors: ["red", "green", "blue"],
+};
+
+//Custom tooltips
+const customTooltipColors: Color[] = ["cyan"];
+
+export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
+WithCustomTooltipExample1.args = {
+  ...args,
+  data,
+  colors: ["blue"],
+  customTooltip: (props: CustomTooltipType) => {
+    const { payload, active } = props;
+    if (!active) return null;
+
+    const categoryPayload = payload[0];
+    const color = customTooltipColors[0];
+    return (
+      <div className="w-28 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+        <div className="flex flex-1 space-x-2.5">
+          <div className={`w-1.5 flex flex-col bg-${color}-500 rounded`} />
+          <div className="w-full">
+            {/* SIMPLIFY WITH MAP FUNCTION */}
+            <div className="flex items-center justify-between space-x-8">
+              <p className="text-right text-tremor-content whitespace-nowrap">
+                {categoryPayload.name}
+              </p>
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                {categoryPayload.value}
+              </p>
+            </div>
+            <div className="flex items-center justify-between space-x-8">
+              <p className="text-right text-tremor-content whitespace-nowrap">{payload[1].name}</p>
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                {payload[1].value}
+              </p>
+            </div>
+            <div className="flex items-center justify-between space-x-8">
+              <p className="text-right text-tremor-content whitespace-nowrap">{payload[2].name}</p>
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                {payload[2].value}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
 };
