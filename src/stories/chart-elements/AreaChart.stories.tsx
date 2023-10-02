@@ -224,6 +224,14 @@ WithEnableDeltaCalculation.args = {
   enableDeltaCalculation: true,
 };
 
+export const WithEnableDeltaCalculationAndIncreaseNegative = DefaultTemplate.bind({});
+WithEnableDeltaCalculationAndIncreaseNegative.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+  isIncreasePositive: false,
+};
+
 export const WithOnValueChange = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {

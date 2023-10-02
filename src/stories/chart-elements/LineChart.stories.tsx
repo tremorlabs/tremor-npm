@@ -221,6 +221,14 @@ WithEnableDeltaCalculation.args = {
   enableDeltaCalculation: true,
 };
 
+export const WithEnableDeltaCalculationAndIncreaseNegative = DefaultTemplate.bind({});
+WithEnableDeltaCalculationAndIncreaseNegative.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+  isIncreasePositive: false,
+};
+
 export const WithoutOnClickAnimation = DefaultTemplate.bind({});
 WithoutOnClickAnimation.args = {
   data: data,

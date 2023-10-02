@@ -73,6 +73,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     connectNulls = false,
     allowDecimals = true,
     enableDeltaCalculation = false,
+    isIncreasePositive = true,
     noDataText,
     className,
     onValueChange,
@@ -268,6 +269,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
                       deltaCalculation={deltaCalculation}
+                      isIncreasePositive={isIncreasePositive}
                     />
                   )
                 ) : (
@@ -369,7 +371,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ).strokeColor
                 }
                 strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== category) || (hasDeltaCalculation  && !["natural", "monotone"].includes(curveType))
+                  activeDot ||
+                  (activeLegend && activeLegend !== category) ||
+                  (hasDeltaCalculation && !["natural", "monotone"].includes(curveType))
                     ? 0.3
                     : 1
                 }

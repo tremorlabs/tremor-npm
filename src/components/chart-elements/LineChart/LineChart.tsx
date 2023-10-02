@@ -69,6 +69,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     connectNulls = false,
     allowDecimals = true,
     enableDeltaCalculation = false,
+    isIncreasePositive = true,
     noDataText,
     className,
     onValueChange,
@@ -236,6 +237,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
                       deltaCalculation={deltaCalculation}
+                      isIncreasePositive={isIncreasePositive}
                     />
                   )
                 ) : (

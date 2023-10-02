@@ -100,6 +100,7 @@ export interface ChartTooltipProps {
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
   deltaCalculation?: DeltaCalculationProps | null;
+  isIncreasePositive?: boolean;
 }
 
 const ChartTooltip = ({
@@ -109,6 +110,7 @@ const ChartTooltip = ({
   categoryColors,
   valueFormatter,
   deltaCalculation,
+  isIncreasePositive,
 }: ChartTooltipProps) => {
   const hasRange = Boolean(deltaCalculation?.leftArea && deltaCalculation?.rightArea);
 
@@ -182,7 +184,11 @@ const ChartTooltip = ({
                 )} ${percentageValue}`}
                 name={name}
                 color={categoryColors.get(name) ?? BaseColors.Blue}
-                textColor={hasRange ? getTooltipValueColor(displayedValue) : null}
+                textColor={
+                  hasRange
+                    ? getTooltipValueColor(displayedValue * (isIncreasePositive ? 1 : -1))
+                    : null
+                }
               />
             );
           })}
