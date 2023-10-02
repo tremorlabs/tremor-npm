@@ -94,7 +94,7 @@ Colors.args = {
 export const differentSizes = TemplateDifferentSizes.bind({});
 differentSizes.args = {
   value: 86,
-  tooltip: "progress so far",
+  tooltip: "Progress so far",
 };
 
 export const withoutAnimation = TemplateDifferentSizes.bind({});
