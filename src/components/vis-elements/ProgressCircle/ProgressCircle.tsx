@@ -1,13 +1,5 @@
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import {
-  Color,
-  ValueFormatter,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  makeClassName,
-  tremorTwMerge,
-} from "lib";
+import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import React from "react";
 
 const makeProgressCircleClassName = makeClassName("ProgressBar");
@@ -18,47 +10,32 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
   value?: number;
   size?: Size;
   color?: Color;
-  showLabel?: boolean;
   showAnimation?: boolean;
   tooltip?: string;
   radius?: number;
   strokeWidth?: number;
-  noDataText?: string;
-  valueFormatter?: ValueFormatter;
+  children?: any;
 }
 
-const size2config: Record<
-  Size,
-  { textSize: string; fontWeight: string; strokeWidth: number; radius: number }
-> = {
+const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
   xs: {
     radius: 15,
-    textSize: "text-xs",
-    fontWeight: "font-normal",
     strokeWidth: 3,
   },
   sm: {
     radius: 19,
-    textSize: "text-sm",
-    fontWeight: "font-normal",
     strokeWidth: 4,
   },
   md: {
     radius: 32,
-    textSize: "text-md",
-    fontWeight: "font-medium",
     strokeWidth: 6,
   },
   lg: {
     radius: 52,
-    textSize: "text-3xl",
-    fontWeight: "font-semibold",
     strokeWidth: 8,
   },
   xl: {
     radius: 80,
-    textSize: "text-5xl",
-    fontWeight: "font-semibold",
     strokeWidth: 10,
   },
 };
@@ -68,20 +45,17 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     value: inputValue,
     size = "md",
     className,
-    showLabel = true,
     showAnimation = true,
-    color = "blue",
-    valueFormatter = defaultValueFormatter,
+    color,
     tooltip,
     radius: inputRadius,
     strokeWidth: inputStrokeWidth,
-    noDataText,
+    children,
     ...other
   } = props;
 
   // sanitize input
   const value = inputValue === undefined ? 0 : inputValue;
-
   const radius = inputRadius ?? size2config[size].radius;
   const strokeWidth = inputStrokeWidth ?? size2config[size].strokeWidth;
   const normalizedRadius = radius - strokeWidth / 2;
@@ -107,7 +81,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
           width={radius * 2}
           height={radius * 2}
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-          className="tansform -rotate-90"
+          className="transform -rotate-90"
         >
           <circle
             r={normalizedRadius}
@@ -119,8 +93,10 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             strokeLinecap="round"
             className={tremorTwMerge(
               color
-                ? getColorClassNames(color, colorPalette.lightBackground).strokeColor
-                : "stroke-tremor-brand-faint dark:stroke-dark-tremor-brand-faint",
+                ? `${
+                    getColorClassNames(color, colorPalette.background).strokeColor
+                  } opacity-20 dark:opacity-25`
+                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted",
             )}
           />
           {value > 0 ? (
@@ -163,20 +139,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             </circle>
           ) : null}
         </svg>
-        {showLabel ? (
-          <div
-            className={tremorTwMerge(
-              "absolute flex",
-              showAnimation && "opacity-0 animate-gauge_fadeIn",
-            )}
-          >
-            <span
-              className={`text-tremor-content-emphasis dark:text-tremor-content-emphasis ${size2config[size].textSize}`}
-            >
-              {inputValue ? valueFormatter(value) : noDataText ?? "--"}
-            </span>
-          </div>
-        ) : null}
+        <div className={tremorTwMerge("absolute flex")}>{children}</div>
       </div>
     </>
   );

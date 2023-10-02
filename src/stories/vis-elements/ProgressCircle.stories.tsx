@@ -13,8 +13,15 @@ export default {
 } as ComponentMeta<typeof ProgressCircle>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const TemplateRainbowColorDemo: ComponentStory<typeof ProgressCircle> = (args) => (
+const TemplateColorsDemo: ComponentStory<typeof ProgressCircle> = (args) => (
   <>
+    <Card className="mt-5 flex items-center space-x-6">
+      <ProgressCircle {...args} />
+      <div>
+        <Title>Sales Goals</Title>
+        <Text>Overview Q1-Q3 2023</Text>
+      </div>
+    </Card>
     {Object.values(BaseColors).map((color) => (
       <Card key={color} className="mt-5 flex items-center space-x-6">
         <ProgressCircle {...args} color={color} />
@@ -37,58 +44,56 @@ const TemplateDifferentSizes: ComponentStory<typeof ProgressCircle> = (args) => 
   </>
 );
 
-const TemplateMisc: ComponentStory<typeof ProgressCircle> = (args) => (
-  <>
-    <div className="flex flex-col gap-y-10 ml-10">
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle />
-        <Subtitle>Not specify any args</Subtitle>
+const TemplateMisc: ComponentStory<typeof ProgressCircle> = () => {
+  function formatNumber(num: number) {
+    return num.toFixed(2);
+  }
+  return (
+    <>
+      <div className="flex flex-col gap-y-10 ml-10">
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle />
+          <Subtitle>Not specify any args</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle value={0} />
+          <Subtitle>Value 0</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle value={100} />
+          <Subtitle>Value 100</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle value={42} />
+          <Subtitle>Value 42</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle value={42.22123} />
+          <Subtitle>Stange value</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle className="text-xs text-blue-600" value={42.22123}>
+            {formatNumber(42.22123)}
+          </ProgressCircle>
+          <Subtitle>Value with custom formatter of 2 digits and classname</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle value={42} tooltip={"Progress..."} />
+          <Subtitle>Showing Tooltip</Subtitle>
+        </div>
       </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle noDataText="no data" />
-        <Subtitle>Showing No Data</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle showLabel={false} />
-        <Subtitle>Do not show any label</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={0} />
-        <Subtitle>Value 0</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={100} />
-        <Subtitle>Value 100</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={42} />
-        <Subtitle>Value 42</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={42.22123} />
-        <Subtitle>Stange value without custom formatter </Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={42.22123} valueFormatter={(num: number) => num.toFixed(2)} />
-        <Subtitle>Stange value custom formatter of 2 digits</Subtitle>
-      </div>
-      <div className="flex flex-row gap-x-5 items-center">
-        <ProgressCircle value={42} tooltip={"Progress..."} />
-        <Subtitle>Showing Tooltip</Subtitle>
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
-export const RainbowColor = TemplateRainbowColorDemo.bind({});
-RainbowColor.args = {
+export const Colors = TemplateColorsDemo.bind({});
+Colors.args = {
   value: 42,
 };
 
 export const differentSizes = TemplateDifferentSizes.bind({});
 differentSizes.args = {
   value: 86,
-  showLabel: true,
   tooltip: "progress so far",
 };
 
@@ -96,6 +101,13 @@ export const withoutAnimation = TemplateDifferentSizes.bind({});
 withoutAnimation.args = {
   value: 56,
   showAnimation: false,
+};
+
+export const withChildren = TemplateColorsDemo.bind({});
+withChildren.args = {
+  value: 56,
+  showAnimation: false,
+  children: <span className="dark:text-white font-medium font-mono text-sm">56.3</span>,
 };
 
 export const miscDemo = TemplateMisc.bind({});
