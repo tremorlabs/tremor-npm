@@ -214,6 +214,21 @@ WithShortAnimationDuration.args = {
   index: "month",
 };
 
+export const WithEnableDeltaCalculation = DefaultTemplate.bind({});
+WithEnableDeltaCalculation.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+};
+
+export const WithEnableDeltaCalculationAndIncreaseNegative = DefaultTemplate.bind({});
+WithEnableDeltaCalculationAndIncreaseNegative.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+  isIncreasePositive: false,
+};
+
 export const WithoutOnClickAnimation = DefaultTemplate.bind({});
 WithoutOnClickAnimation.args = {
   data: data,
@@ -253,4 +268,12 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
   ...args,
   data: singleAndMultipleData,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithLargeDataSetAndEnableDeltaCalculation = DefaultTemplate.bind({});
+WithLargeDataSetAndEnableDeltaCalculation.args = {
+  ...args,
+  data: require("./helpers/largeDataSet.json"),
+  index: "date",
+  enableDeltaCalculation: true,
 };

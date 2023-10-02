@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Legend,
   BarChart as ReChartsBarChart,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -21,6 +22,8 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+import DeltaCalculationReferenceShape from "components/chart-elements/common/DeltaCalculationReferenceShape";
 
 const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
   const { x, y, width, height, fillOpacity, name, payload, value } = props;
@@ -71,11 +74,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     minValue,
     maxValue,
     allowDecimals = true,
+    enableDeltaCalculation = false,
     noDataText,
     onValueChange,
     className,
     ...other
   } = props;
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps>({});
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -121,12 +126,29 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="h-full w-full select-none">
         {data?.length ? (
           <ReChartsBarChart
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation &&
+                layout === "horizontal" &&
+                setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation &&
+                layout === "horizontal" &&
+                deltaCalculation.leftArea &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(_, e) => {
+              e.stopPropagation();
+              setDeltaCalculation({});
+            }}
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
                 ? () => {
@@ -246,7 +268,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
-              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+              cursor={{
+                stroke: "#d1d5db",
+                strokeWidth:
+                  deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel
+                    ? 0
+                    : 1,
+              }}
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -256,6 +284,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      deltaCalculation={deltaCalculation}
                     />
                   )
                 ) : (
@@ -302,6 +331,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 onClick={onBarClick}
               />
             ))}
+            {deltaCalculation.leftArea?.activeLabel && deltaCalculation.rightArea?.activeLabel ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
+                )}
+              />
+            ) : null}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />

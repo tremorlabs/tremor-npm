@@ -6,6 +6,7 @@ import {
   Legend,
   Line,
   LineChart as ReChartsLineChart,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -22,6 +23,8 @@ import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+import DeltaCalculationReferenceShape from "components/chart-elements/common/DeltaCalculationReferenceShape";
 
 import {
   BaseColors,
@@ -65,11 +68,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    enableDeltaCalculation = false,
+    isIncreasePositive = true,
     noDataText,
     className,
     onValueChange,
     ...other
   } = props;
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps | null>(null);
+
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -77,6 +84,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasDeltaCalculation =
+    deltaCalculation &&
+    deltaCalculation.leftArea?.activeLabel &&
+    deltaCalculation.rightArea?.activeLabel;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -125,10 +136,24 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="h-full w-full select-none">
         {data?.length ? (
           <ReChartsLineChart
             data={data}
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation &&
+                deltaCalculation &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(_, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && deltaCalculation && setDeltaCalculation(null);
+            }}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -198,7 +223,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
-              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              cursor={{
+                stroke: "#d1d5db",
+                strokeWidth: hasDeltaCalculation ? 0 : 1,
+              }}
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -208,6 +236,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      deltaCalculation={deltaCalculation}
+                      isIncreasePositive={isIncreasePositive}
                     />
                   )
                 ) : (
@@ -216,7 +246,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               }
               position={{ y: 0 }}
             />
-
             {showLegend ? (
               <Legend
                 verticalAlign="top"
@@ -232,6 +261,16 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       : undefined,
                   )
                 }
+              />
+            ) : null}
+            {hasDeltaCalculation ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape x={x} y={y} width={width} height={height} />
+                )}
               />
             ) : null}
             {categories.map((category) => (
@@ -277,13 +316,15 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     cx,
                     cy,
                     dataKey,
-                    index,
+                    index: idx,
+                    payload,
                   } = props;
 
                   if (
                     (hasOnlyOneValueForThisKey(data, category) &&
                       !(activeDot || (activeLegend && activeLegend !== category))) ||
-                    (activeDot?.index === index && activeDot?.dataKey === category)
+                    (activeDot?.index === idx && activeDot?.dataKey === category) ||
+                    payload[index] === deltaCalculation?.leftArea?.activeLabel
                   ) {
                     return (
                       <Dot

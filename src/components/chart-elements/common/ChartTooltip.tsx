@@ -4,6 +4,22 @@ import { tremorTwMerge } from "../../../lib";
 import { Color, ValueFormatter } from "../../../lib";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+
+type TooltipValueColors =
+  | "text-emerald-600 dark:text-emerald-500"
+  | "text-red-600 dark:text-red-500"
+  | "text-gray-500 dark:text-white";
+
+function getTooltipValueColor(value: number): TooltipValueColors {
+  if (value > 0) {
+    return "text-emerald-600 dark:text-emerald-500";
+  } else if (value < 0) {
+    return "text-red-600 dark:text-red-500";
+  } else {
+    return "text-gray-500 dark:text-white";
+  }
+}
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -25,9 +41,13 @@ export interface ChartTooltipRowProps {
   value: string;
   name: string;
   color: Color;
+  textColor?: TooltipValueColors | null;
 }
 
-export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+const getRangePayloadValue = (payload: any, dataKey: string) =>
+  payload.find((e: any) => e.dataKey === dataKey)?.value ?? 0;
+
+export const ChartTooltipRow = ({ value, name, color, textColor }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
@@ -60,11 +80,12 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     <p
       className={tremorTwMerge(
         // common
-        "font-medium tabular-nums text-right whitespace-nowrap",
+        "font-medium tabular-nums text-right whitespace-nowrap tabular-nums tracking-tight",
         // light
         "text-tremor-content-emphasis",
         // dark
         "dark:text-dark-tremor-content-emphasis",
+        textColor ? textColor : "",
       )}
     >
       {value}
@@ -78,6 +99,8 @@ export interface ChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
+  deltaCalculation?: DeltaCalculationProps | null;
+  isIncreasePositive?: boolean;
 }
 
 const ChartTooltip = ({
@@ -86,7 +109,17 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  deltaCalculation,
+  isIncreasePositive,
 }: ChartTooltipProps) => {
+  const hasRange = Boolean(deltaCalculation?.leftArea && deltaCalculation?.rightArea);
+
+  if (
+    hasRange &&
+    deltaCalculation?.leftArea?.activeLabel === deltaCalculation?.rightArea?.activeLabel
+  )
+    return null;
+
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none");
 
@@ -113,19 +146,52 @@ const ChartTooltip = ({
               "dark:text-dark-tremor-content-emphasis",
             )}
           >
-            {label}
+            {hasRange
+              ? deltaCalculation?.leftArea?.chartX < deltaCalculation?.rightArea?.chartX
+                ? `${deltaCalculation?.leftArea?.activeLabel} - ${deltaCalculation?.rightArea?.activeLabel}`
+                : `${deltaCalculation?.rightArea?.activeLabel} - ${deltaCalculation?.leftArea?.activeLabel}`
+              : label}
           </p>
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
-            <ChartTooltipRow
-              key={`id-${idx}`}
-              value={valueFormatter(value)}
-              name={name}
-              color={categoryColors.get(name) ?? BaseColors.Blue}
-            />
-          ))}
+          {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => {
+            const rightRangePayloadValue =
+              hasRange && getRangePayloadValue(deltaCalculation?.rightArea?.activePayload, name);
+            const leftRangePayloadValue =
+              hasRange && getRangePayloadValue(deltaCalculation?.leftArea?.activePayload, name);
+
+            const isBeforeLeftValue =
+              deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
+            const displayedValue = hasRange
+              ? (rightRangePayloadValue - leftRangePayloadValue) * (isBeforeLeftValue ? -1 : 1)
+              : value;
+            const percentage = hasRange
+              ? (isBeforeLeftValue
+                  ? (-1 * (rightRangePayloadValue - leftRangePayloadValue)) / leftRangePayloadValue
+                  : (rightRangePayloadValue - leftRangePayloadValue) / rightRangePayloadValue) * 100
+              : 0;
+
+            const percentageValue = hasRange
+              ? `(${percentage > 0 ? "+" : ""}${percentage.toFixed(1)}%)`
+              : "";
+
+            return (
+              <ChartTooltipRow
+                key={`id-${idx}`}
+                value={`${displayedValue > 0 && hasRange ? "+" : ""}${valueFormatter(
+                  displayedValue,
+                )} ${percentageValue}`}
+                name={name}
+                color={categoryColors.get(name) ?? BaseColors.Blue}
+                textColor={
+                  hasRange
+                    ? getTooltipValueColor(displayedValue * (isIncreasePositive ? 1 : -1))
+                    : null
+                }
+              />
+            );
+          })}
         </div>
       </ChartTooltipFrame>
     );

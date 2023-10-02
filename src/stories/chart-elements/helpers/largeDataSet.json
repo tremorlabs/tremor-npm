@@ -1,0 +1,3397 @@
+[
+    {
+        "date": "2022-01-01",
+        "Sales": 148,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-01-02",
+        "Sales": 107,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-01-03",
+        "Sales": 100,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2022-01-04",
+        "Sales": 108,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-01-05",
+        "Sales": 127,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-01-06",
+        "Sales": 109,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-01-07",
+        "Sales": 133,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-01-08",
+        "Sales": 126,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-01-09",
+        "Sales": 128,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-01-10",
+        "Sales": 131,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-01-11",
+        "Sales": 134,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-01-13",
+        "Sales": 150,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-01-14",
+        "Sales": 109,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-01-15",
+        "Sales": 150,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-01-16",
+        "Sales": 106,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-01-17",
+        "Sales": 135,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2022-01-18",
+        "Sales": 122,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-01-19",
+        "Sales": 101,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2022-01-20",
+        "Sales": 116,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-01-21",
+        "Sales": 134,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-01-22",
+        "Sales": 137,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-01-23",
+        "Sales": 147,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-01-24",
+        "Sales": 122,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-01-25",
+        "Sales": 130,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-01-26",
+        "Sales": 145,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2022-01-27",
+        "Sales": 149,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2022-01-28",
+        "Sales": 122,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-01-29",
+        "Sales": 131,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-01-30",
+        "Sales": 112,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-01-31",
+        "Sales": 147,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2022-02-01",
+        "Sales": 108,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-02-02",
+        "Sales": 136,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-02-03",
+        "Sales": 104,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-02-05",
+        "Sales": 112,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-02-06",
+        "Sales": 130,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2022-02-07",
+        "Sales": 143,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-02-08",
+        "Sales": 114,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-02-09",
+        "Sales": 137,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2022-02-10",
+        "Sales": 139,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-02-11",
+        "Sales": 120,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-02-12",
+        "Sales": 147,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-02-14",
+        "Sales": 114,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2022-02-15",
+        "Sales": 132,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2022-02-16",
+        "Sales": 113,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2022-02-17",
+        "Sales": 128,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-02-18",
+        "Sales": 115,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-02-19",
+        "Sales": 150,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2022-02-20",
+        "Sales": 145,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-02-21",
+        "Sales": 116,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-02-22",
+        "Sales": 118,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-02-23",
+        "Sales": 128,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2022-02-24",
+        "Sales": 150,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-02-25",
+        "Sales": 105,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2022-02-26",
+        "Sales": 108,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2022-02-27",
+        "Sales": 150,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-02-28",
+        "Sales": 119,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-03-02",
+        "Sales": 113,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-03-03",
+        "Sales": 129,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-03-04",
+        "Sales": 116,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2022-03-05",
+        "Sales": 109,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-03-06",
+        "Sales": 107,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-03-07",
+        "Sales": 110,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-03-08",
+        "Sales": 125,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2022-03-09",
+        "Sales": 124,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-03-10",
+        "Sales": 131,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2022-03-11",
+        "Sales": 139,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2022-03-12",
+        "Sales": 132,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-03-13",
+        "Sales": 102,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-03-14",
+        "Sales": 133,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-03-15",
+        "Sales": 135,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-03-16",
+        "Sales": 131,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2022-03-17",
+        "Sales": 145,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-03-18",
+        "Sales": 144,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2022-03-19",
+        "Sales": 105,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-03-20",
+        "Sales": 148,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-03-21",
+        "Sales": 102,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2022-03-22",
+        "Sales": 133,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-03-23",
+        "Sales": 103,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-03-24",
+        "Sales": 115,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-03-25",
+        "Sales": 101,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-03-26",
+        "Sales": 145,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2022-03-27",
+        "Sales": 133,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-03-28",
+        "Sales": 126,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2022-03-29",
+        "Sales": 113,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2022-03-30",
+        "Sales": 150,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-03-31",
+        "Sales": 102,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-04-02",
+        "Sales": 121,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-04-03",
+        "Sales": 148,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2022-04-04",
+        "Sales": 126,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-04-06",
+        "Sales": 150,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-04-07",
+        "Sales": 132,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-04-09",
+        "Sales": 139,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2022-04-10",
+        "Sales": 109,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-04-11",
+        "Sales": 120,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-04-12",
+        "Sales": 147,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-04-13",
+        "Sales": 138,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2022-04-14",
+        "Sales": 100,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-04-15",
+        "Sales": 108,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2022-04-16",
+        "Sales": 135,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-04-17",
+        "Sales": 108,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-04-18",
+        "Sales": 132,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2022-04-19",
+        "Sales": 118,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-04-20",
+        "Sales": 109,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-04-21",
+        "Sales": 139,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2022-04-22",
+        "Sales": 147,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2022-04-23",
+        "Sales": 111,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-04-24",
+        "Sales": 122,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2022-04-26",
+        "Sales": 120,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-04-27",
+        "Sales": 146,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-04-28",
+        "Sales": 105,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2022-04-29",
+        "Sales": 117,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-04-30",
+        "Sales": 111,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-05-01",
+        "Sales": 104,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-05-02",
+        "Sales": 110,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-05-03",
+        "Sales": 124,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-05-04",
+        "Sales": 126,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-05-05",
+        "Sales": 105,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-05-06",
+        "Sales": 147,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-05-07",
+        "Sales": 132,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-05-08",
+        "Sales": 123,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2022-05-09",
+        "Sales": 125,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-05-10",
+        "Sales": 106,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-05-11",
+        "Sales": 138,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-05-12",
+        "Sales": 119,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-05-13",
+        "Sales": 111,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-05-14",
+        "Sales": 150,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-05-15",
+        "Sales": 117,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2022-05-16",
+        "Sales": 108,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-05-17",
+        "Sales": 127,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-05-18",
+        "Sales": 115,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-05-19",
+        "Sales": 103,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-05-20",
+        "Sales": 150,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-05-21",
+        "Sales": 147,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2022-05-22",
+        "Sales": 132,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-05-23",
+        "Sales": 141,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-05-24",
+        "Sales": 144,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-05-25",
+        "Sales": 112,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-05-26",
+        "Sales": 101,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2022-05-27",
+        "Sales": 135,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2022-05-28",
+        "Sales": 122,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-05-29",
+        "Sales": 125,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-05-31",
+        "Sales": 100,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2022-06-01",
+        "Sales": 133,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2022-06-02",
+        "Sales": 147,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-06-03",
+        "Sales": 149,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-06-04",
+        "Sales": 126,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-06-05",
+        "Sales": 135,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-06-06",
+        "Sales": 101,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-06-07",
+        "Sales": 126,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-06-08",
+        "Sales": 145,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-06-09",
+        "Sales": 117,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2022-06-10",
+        "Sales": 123,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-06-11",
+        "Sales": 138,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-06-12",
+        "Sales": 129,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-06-13",
+        "Sales": 114,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-06-14",
+        "Sales": 147,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-06-15",
+        "Sales": 149,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2022-06-16",
+        "Sales": 124,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-06-18",
+        "Sales": 138,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2022-06-20",
+        "Sales": 138,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-06-21",
+        "Sales": 138,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2022-06-22",
+        "Sales": 106,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2022-06-23",
+        "Sales": 126,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-06-24",
+        "Sales": 112,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-06-25",
+        "Sales": 111,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-06-26",
+        "Sales": 114,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-06-27",
+        "Sales": 128,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2022-06-28",
+        "Sales": 135,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2022-06-29",
+        "Sales": 102,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-06-30",
+        "Sales": 131,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2022-07-02",
+        "Sales": 144,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-07-03",
+        "Sales": 140,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-07-04",
+        "Sales": 125,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-07-05",
+        "Sales": 113,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-07-06",
+        "Sales": 114,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-07-07",
+        "Sales": 137,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2022-07-09",
+        "Sales": 124,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2022-07-10",
+        "Sales": 118,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-07-11",
+        "Sales": 147,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2022-07-12",
+        "Sales": 140,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-07-13",
+        "Sales": 150,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-07-14",
+        "Sales": 132,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-07-15",
+        "Sales": 107,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-07-16",
+        "Sales": 112,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-07-17",
+        "Sales": 108,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-07-19",
+        "Sales": 112,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-07-20",
+        "Sales": 136,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-07-21",
+        "Sales": 146,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-07-22",
+        "Sales": 133,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-07-23",
+        "Sales": 108,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-07-24",
+        "Sales": 136,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-07-25",
+        "Sales": 105,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-07-26",
+        "Sales": 122,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-07-27",
+        "Sales": 149,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-07-28",
+        "Sales": 114,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2022-07-29",
+        "Sales": 108,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-07-30",
+        "Sales": 149,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-07-31",
+        "Sales": 116,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2022-08-01",
+        "Sales": 126,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2022-08-02",
+        "Sales": 105,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-08-03",
+        "Sales": 103,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-08-04",
+        "Sales": 136,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2022-08-05",
+        "Sales": 106,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-08-06",
+        "Sales": 120,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2022-08-07",
+        "Sales": 109,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-08-08",
+        "Sales": 133,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2022-08-09",
+        "Sales": 130,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2022-08-10",
+        "Sales": 107,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2022-08-11",
+        "Sales": 146,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-08-12",
+        "Sales": 103,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-08-14",
+        "Sales": 116,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2022-08-15",
+        "Sales": 132,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-08-16",
+        "Sales": 123,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-08-17",
+        "Sales": 120,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-08-18",
+        "Sales": 111,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-08-19",
+        "Sales": 114,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-08-21",
+        "Sales": 133,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-08-22",
+        "Sales": 115,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2022-08-23",
+        "Sales": 104,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-08-24",
+        "Sales": 110,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-08-25",
+        "Sales": 134,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-08-26",
+        "Sales": 104,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-08-27",
+        "Sales": 143,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-08-28",
+        "Sales": 103,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-08-29",
+        "Sales": 148,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2022-08-30",
+        "Sales": 111,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-08-31",
+        "Sales": 121,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-09-01",
+        "Sales": 150,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-09-02",
+        "Sales": 126,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-09-03",
+        "Sales": 147,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-09-04",
+        "Sales": 120,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2022-09-05",
+        "Sales": 142,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-09-06",
+        "Sales": 132,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-09-07",
+        "Sales": 137,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2022-09-08",
+        "Sales": 134,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-09-09",
+        "Sales": 102,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-09-10",
+        "Sales": 112,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-09-11",
+        "Sales": 118,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2022-09-12",
+        "Sales": 130,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-09-13",
+        "Sales": 115,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2022-09-14",
+        "Sales": 120,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2022-09-15",
+        "Sales": 104,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-09-16",
+        "Sales": 122,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-09-17",
+        "Sales": 128,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-09-18",
+        "Sales": 124,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-09-19",
+        "Sales": 111,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-09-20",
+        "Sales": 130,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-09-21",
+        "Sales": 136,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2022-09-22",
+        "Sales": 130,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-09-23",
+        "Sales": 103,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2022-09-24",
+        "Sales": 113,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2022-09-25",
+        "Sales": 131,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-09-26",
+        "Sales": 149,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-09-27",
+        "Sales": 137,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2022-09-28",
+        "Sales": 136,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-09-29",
+        "Sales": 132,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-09-30",
+        "Sales": 112,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-10-02",
+        "Sales": 124,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-10-04",
+        "Sales": 135,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-10-05",
+        "Sales": 102,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-10-06",
+        "Sales": 130,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-10-07",
+        "Sales": 124,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2022-10-08",
+        "Sales": 117,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2022-10-09",
+        "Sales": 102,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-10-10",
+        "Sales": 103,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2022-10-11",
+        "Sales": 148,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-10-12",
+        "Sales": 115,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-10-13",
+        "Sales": 123,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2022-10-14",
+        "Sales": 119,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-10-15",
+        "Sales": 145,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-10-16",
+        "Sales": 132,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-10-18",
+        "Sales": 126,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-10-19",
+        "Sales": 122,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2022-10-20",
+        "Sales": 135,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-10-21",
+        "Sales": 100,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2022-10-22",
+        "Sales": 133,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2022-10-23",
+        "Sales": 121,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2022-10-25",
+        "Sales": 108,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2022-10-26",
+        "Sales": 141,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-10-27",
+        "Sales": 145,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-10-29",
+        "Sales": 120,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-10-30",
+        "Sales": 119,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-10-31",
+        "Sales": 148,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-11-01",
+        "Sales": 122,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2022-11-02",
+        "Sales": 135,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2022-11-03",
+        "Sales": 129,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-11-04",
+        "Sales": 144,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2022-11-05",
+        "Sales": 106,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-11-06",
+        "Sales": 121,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-11-07",
+        "Sales": 130,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-11-08",
+        "Sales": 112,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2022-11-09",
+        "Sales": 101,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-11-10",
+        "Sales": 128,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-11-11",
+        "Sales": 125,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-11-12",
+        "Sales": 123,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-11-13",
+        "Sales": 134,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2022-11-14",
+        "Sales": 107,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2022-11-15",
+        "Sales": 146,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2022-11-16",
+        "Sales": 142,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2022-11-17",
+        "Sales": 118,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2022-11-18",
+        "Sales": 101,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2022-11-19",
+        "Sales": 104,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2022-11-20",
+        "Sales": 146,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-11-21",
+        "Sales": 133,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2022-11-22",
+        "Sales": 133,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-11-23",
+        "Sales": 101,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-11-24",
+        "Sales": 125,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2022-11-25",
+        "Sales": 149,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-11-26",
+        "Sales": 104,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-11-28",
+        "Sales": 125,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2022-11-29",
+        "Sales": 140,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2022-11-30",
+        "Sales": 127,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2022-12-01",
+        "Sales": 105,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-12-02",
+        "Sales": 131,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2022-12-03",
+        "Sales": 103,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2022-12-04",
+        "Sales": 106,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-12-05",
+        "Sales": 126,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2022-12-06",
+        "Sales": 132,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2022-12-07",
+        "Sales": 100,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2022-12-08",
+        "Sales": 133,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2022-12-09",
+        "Sales": 141,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2022-12-10",
+        "Sales": 122,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2022-12-11",
+        "Sales": 140,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2022-12-12",
+        "Sales": 130,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2022-12-14",
+        "Sales": 120,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2022-12-16",
+        "Sales": 142,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-12-17",
+        "Sales": 116,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2022-12-18",
+        "Sales": 134,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2022-12-19",
+        "Sales": 134,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2022-12-20",
+        "Sales": 104,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2022-12-21",
+        "Sales": 129,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2022-12-23",
+        "Sales": 102,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2022-12-24",
+        "Sales": 139,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2022-12-25",
+        "Sales": 138,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2022-12-26",
+        "Sales": 113,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2022-12-27",
+        "Sales": 141,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2022-12-28",
+        "Sales": 103,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2022-12-30",
+        "Sales": 142,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-01-01",
+        "Sales": 128,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-01-02",
+        "Sales": 146,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-01-03",
+        "Sales": 125,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2023-01-05",
+        "Sales": 100,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-01-06",
+        "Sales": 108,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-01-07",
+        "Sales": 136,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-01-08",
+        "Sales": 107,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-01-09",
+        "Sales": 121,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-01-10",
+        "Sales": 114,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-01-11",
+        "Sales": 133,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-01-12",
+        "Sales": 136,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-01-13",
+        "Sales": 134,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-01-14",
+        "Sales": 125,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-01-15",
+        "Sales": 134,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-01-16",
+        "Sales": 114,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2023-01-17",
+        "Sales": 108,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-01-18",
+        "Sales": 106,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-01-19",
+        "Sales": 115,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-01-20",
+        "Sales": 131,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-01-21",
+        "Sales": 118,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-01-22",
+        "Sales": 140,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-01-23",
+        "Sales": 138,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-01-24",
+        "Sales": 127,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-01-25",
+        "Sales": 110,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2023-01-26",
+        "Sales": 116,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-01-27",
+        "Sales": 141,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2023-01-28",
+        "Sales": 148,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-01-29",
+        "Sales": 130,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-01-30",
+        "Sales": 125,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-01-31",
+        "Sales": 142,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2023-02-01",
+        "Sales": 115,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-02-02",
+        "Sales": 138,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-02-03",
+        "Sales": 127,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-02-05",
+        "Sales": 144,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-02-06",
+        "Sales": 101,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-02-08",
+        "Sales": 142,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-02-09",
+        "Sales": 111,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2023-02-10",
+        "Sales": 143,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-02-11",
+        "Sales": 108,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-02-12",
+        "Sales": 118,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-02-13",
+        "Sales": 133,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-02-14",
+        "Sales": 149,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2023-02-15",
+        "Sales": 128,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-02-16",
+        "Sales": 112,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2023-02-17",
+        "Sales": 148,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-02-18",
+        "Sales": 146,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2023-02-19",
+        "Sales": 124,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-02-20",
+        "Sales": 114,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-02-21",
+        "Sales": 119,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-02-22",
+        "Sales": 127,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2023-02-23",
+        "Sales": 131,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-02-24",
+        "Sales": 143,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-02-25",
+        "Sales": 121,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2023-02-26",
+        "Sales": 110,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-02-27",
+        "Sales": 114,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-02-28",
+        "Sales": 121,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-03-01",
+        "Sales": 104,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2023-03-02",
+        "Sales": 111,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-03-04",
+        "Sales": 137,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-03-05",
+        "Sales": 140,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-03-07",
+        "Sales": 102,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2023-03-08",
+        "Sales": 128,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-03-09",
+        "Sales": 143,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-03-10",
+        "Sales": 105,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-03-11",
+        "Sales": 105,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-03-12",
+        "Sales": 141,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2023-03-13",
+        "Sales": 119,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2023-03-14",
+        "Sales": 136,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-03-15",
+        "Sales": 106,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-03-16",
+        "Sales": 105,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-03-17",
+        "Sales": 148,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-03-18",
+        "Sales": 107,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2023-03-19",
+        "Sales": 116,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2023-03-20",
+        "Sales": 102,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-03-21",
+        "Sales": 130,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-03-22",
+        "Sales": 142,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-03-23",
+        "Sales": 110,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-03-24",
+        "Sales": 105,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2023-03-25",
+        "Sales": 142,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2023-03-26",
+        "Sales": 139,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-03-27",
+        "Sales": 109,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-03-28",
+        "Sales": 132,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-03-29",
+        "Sales": 116,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-03-30",
+        "Sales": 115,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2023-03-31",
+        "Sales": 138,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-04-01",
+        "Sales": 148,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-04-02",
+        "Sales": 143,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-04-03",
+        "Sales": 126,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-04-04",
+        "Sales": 150,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-04-05",
+        "Sales": 148,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-04-06",
+        "Sales": 111,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2023-04-07",
+        "Sales": 117,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-04-08",
+        "Sales": 144,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2023-04-09",
+        "Sales": 125,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-04-10",
+        "Sales": 131,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-04-11",
+        "Sales": 107,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-04-12",
+        "Sales": 133,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-04-13",
+        "Sales": 143,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-04-14",
+        "Sales": 125,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-04-15",
+        "Sales": 145,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-04-17",
+        "Sales": 111,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-04-18",
+        "Sales": 133,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-04-19",
+        "Sales": 121,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-04-20",
+        "Sales": 122,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2023-04-21",
+        "Sales": 139,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2023-04-22",
+        "Sales": 100,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2023-04-23",
+        "Sales": 149,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-04-24",
+        "Sales": 102,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2023-04-25",
+        "Sales": 117,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2023-04-26",
+        "Sales": 103,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-04-27",
+        "Sales": 139,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-04-28",
+        "Sales": 146,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-04-29",
+        "Sales": 149,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-04-30",
+        "Sales": 141,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-05-01",
+        "Sales": 109,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2023-05-02",
+        "Sales": 147,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2023-05-03",
+        "Sales": 149,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-05-04",
+        "Sales": 103,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-05-05",
+        "Sales": 136,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2023-05-06",
+        "Sales": 113,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2023-05-07",
+        "Sales": 110,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-05-08",
+        "Sales": 129,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-05-09",
+        "Sales": 138,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-05-10",
+        "Sales": 140,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-05-11",
+        "Sales": 109,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2023-05-12",
+        "Sales": 143,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-05-13",
+        "Sales": 102,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2023-05-14",
+        "Sales": 149,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-05-15",
+        "Sales": 122,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-05-16",
+        "Sales": 102,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-05-18",
+        "Sales": 131,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-05-19",
+        "Sales": 140,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-05-20",
+        "Sales": 150,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-05-21",
+        "Sales": 104,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-05-22",
+        "Sales": 130,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2023-05-23",
+        "Sales": 120,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-05-24",
+        "Sales": 119,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-05-25",
+        "Sales": 129,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-05-26",
+        "Sales": 142,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-05-27",
+        "Sales": 147,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-05-28",
+        "Sales": 134,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-05-29",
+        "Sales": 135,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-05-30",
+        "Sales": 128,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-05-31",
+        "Sales": 149,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-06-01",
+        "Sales": 102,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-06-02",
+        "Sales": 102,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-06-05",
+        "Sales": 114,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-06-06",
+        "Sales": 137,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-06-07",
+        "Sales": 101,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-06-08",
+        "Sales": 134,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-06-09",
+        "Sales": 123,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-06-10",
+        "Sales": 123,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-06-11",
+        "Sales": 110,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2023-06-12",
+        "Sales": 132,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-06-13",
+        "Sales": 102,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-06-14",
+        "Sales": 140,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-06-15",
+        "Sales": 150,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-06-16",
+        "Sales": 146,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-06-17",
+        "Sales": 102,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-06-18",
+        "Sales": 120,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2023-06-19",
+        "Sales": 130,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-06-20",
+        "Sales": 131,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-06-21",
+        "Sales": 137,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-06-22",
+        "Sales": 150,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-06-23",
+        "Sales": 150,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-06-24",
+        "Sales": 120,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-06-25",
+        "Sales": 112,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2023-06-26",
+        "Sales": 110,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2023-06-27",
+        "Sales": 122,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-06-28",
+        "Sales": 146,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2023-06-29",
+        "Sales": 127,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-06-30",
+        "Sales": 128,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2023-07-01",
+        "Sales": 102,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-07-02",
+        "Sales": 107,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2023-07-03",
+        "Sales": 136,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-07-05",
+        "Sales": 128,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2023-07-06",
+        "Sales": 139,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2023-07-07",
+        "Sales": 116,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2023-07-08",
+        "Sales": 115,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2023-07-09",
+        "Sales": 109,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-07-10",
+        "Sales": 101,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-07-11",
+        "Sales": 141,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-07-12",
+        "Sales": 150,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-07-13",
+        "Sales": 113,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-07-14",
+        "Sales": 148,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-07-15",
+        "Sales": 136,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-07-16",
+        "Sales": 118,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-07-17",
+        "Sales": 131,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-07-18",
+        "Sales": 149,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-07-19",
+        "Sales": 100,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-07-20",
+        "Sales": 132,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-07-21",
+        "Sales": 140,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2023-07-22",
+        "Sales": 120,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-07-23",
+        "Sales": 144,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2023-07-24",
+        "Sales": 133,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2023-07-25",
+        "Sales": 109,
+        "Successful Payments": 137
+    },
+    {
+        "date": "2023-07-26",
+        "Sales": 136,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2023-07-27",
+        "Sales": 109,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-07-28",
+        "Sales": 119,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-07-29",
+        "Sales": 109,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-07-30",
+        "Sales": 100,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-07-31",
+        "Sales": 101,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-08-01",
+        "Sales": 130,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-08-02",
+        "Sales": 125,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-08-04",
+        "Sales": 125,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-08-06",
+        "Sales": 116,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2023-08-07",
+        "Sales": 121,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-08-08",
+        "Sales": 150,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-08-09",
+        "Sales": 150,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-08-10",
+        "Sales": 119,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-08-12",
+        "Sales": 150,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-08-13",
+        "Sales": 132,
+        "Successful Payments": 127
+    },
+    {
+        "date": "2023-08-14",
+        "Sales": 110,
+        "Successful Payments": 144
+    },
+    {
+        "date": "2023-08-15",
+        "Sales": 123,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-08-16",
+        "Sales": 117,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-08-18",
+        "Sales": 102,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-08-19",
+        "Sales": 106,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-08-21",
+        "Sales": 149,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-08-22",
+        "Sales": 111,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2023-08-23",
+        "Sales": 129,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-08-24",
+        "Sales": 110,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-08-25",
+        "Sales": 138,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-08-26",
+        "Sales": 121,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-08-27",
+        "Sales": 145,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-08-28",
+        "Sales": 148,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-08-29",
+        "Sales": 148,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-08-30",
+        "Sales": 100,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-08-31",
+        "Sales": 142,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-09-01",
+        "Sales": 147,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2023-09-02",
+        "Sales": 119,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-09-03",
+        "Sales": 149,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-09-04",
+        "Sales": 150,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-09-05",
+        "Sales": 145,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-09-06",
+        "Sales": 111,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2023-09-07",
+        "Sales": 147,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-09-09",
+        "Sales": 107,
+        "Successful Payments": 142
+    },
+    {
+        "date": "2023-09-10",
+        "Sales": 117,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2023-09-11",
+        "Sales": 142,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-09-12",
+        "Sales": 137,
+        "Successful Payments": 112
+    },
+    {
+        "date": "2023-09-13",
+        "Sales": 142,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-09-14",
+        "Sales": 103,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-09-15",
+        "Sales": 148,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-09-16",
+        "Sales": 126,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-09-17",
+        "Sales": 131,
+        "Successful Payments": 149
+    },
+    {
+        "date": "2023-09-18",
+        "Sales": 140,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-09-19",
+        "Sales": 108,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2023-09-21",
+        "Sales": 106,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2023-09-22",
+        "Sales": 137,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-09-23",
+        "Sales": 136,
+        "Successful Payments": 130
+    },
+    {
+        "date": "2023-09-24",
+        "Sales": 107,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-09-25",
+        "Sales": 122,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-09-26",
+        "Sales": 107,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2023-09-27",
+        "Sales": 145,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-09-28",
+        "Sales": 102,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2023-09-29",
+        "Sales": 110,
+        "Successful Payments": 141
+    },
+    {
+        "date": "2023-09-30",
+        "Sales": 137,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-10-01",
+        "Sales": 134,
+        "Successful Payments": 124
+    },
+    {
+        "date": "2023-10-02",
+        "Sales": 101,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2023-10-03",
+        "Sales": 105,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-10-04",
+        "Sales": 122,
+        "Successful Payments": 129
+    },
+    {
+        "date": "2023-10-05",
+        "Sales": 132,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-10-06",
+        "Sales": 118,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-10-07",
+        "Sales": 112,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2023-10-08",
+        "Sales": 124,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2023-10-09",
+        "Sales": 121,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-10-10",
+        "Sales": 123,
+        "Successful Payments": 117
+    },
+    {
+        "date": "2023-10-11",
+        "Sales": 110,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-10-12",
+        "Sales": 146,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-10-13",
+        "Sales": 111,
+        "Successful Payments": 102
+    },
+    {
+        "date": "2023-10-14",
+        "Sales": 136,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-10-15",
+        "Sales": 148,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2023-10-16",
+        "Sales": 143,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-10-17",
+        "Sales": 110,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-10-18",
+        "Sales": 102,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-10-19",
+        "Sales": 143,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-10-20",
+        "Sales": 141,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-10-21",
+        "Sales": 126,
+        "Successful Payments": 115
+    },
+    {
+        "date": "2023-10-22",
+        "Sales": 141,
+        "Successful Payments": 128
+    },
+    {
+        "date": "2023-10-23",
+        "Sales": 144,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-10-24",
+        "Sales": 120,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-10-25",
+        "Sales": 147,
+        "Successful Payments": 107
+    },
+    {
+        "date": "2023-10-26",
+        "Sales": 144,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-10-27",
+        "Sales": 110,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-10-28",
+        "Sales": 126,
+        "Successful Payments": 109
+    },
+    {
+        "date": "2023-10-29",
+        "Sales": 109,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-10-30",
+        "Sales": 105,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-11-02",
+        "Sales": 123,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-11-03",
+        "Sales": 118,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2023-11-04",
+        "Sales": 142,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2023-11-05",
+        "Sales": 146,
+        "Successful Payments": 100
+    },
+    {
+        "date": "2023-11-06",
+        "Sales": 137,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-11-08",
+        "Sales": 149,
+        "Successful Payments": 114
+    },
+    {
+        "date": "2023-11-09",
+        "Sales": 108,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-11-10",
+        "Sales": 103,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-11-11",
+        "Sales": 110,
+        "Successful Payments": 108
+    },
+    {
+        "date": "2023-11-14",
+        "Sales": 150,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-11-15",
+        "Sales": 118,
+        "Successful Payments": 121
+    },
+    {
+        "date": "2023-11-16",
+        "Sales": 108,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-11-17",
+        "Sales": 129,
+        "Successful Payments": 132
+    },
+    {
+        "date": "2023-11-18",
+        "Sales": 103,
+        "Successful Payments": 134
+    },
+    {
+        "date": "2023-11-19",
+        "Sales": 107,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2023-11-20",
+        "Sales": 120,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-11-21",
+        "Sales": 143,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-11-22",
+        "Sales": 111,
+        "Successful Payments": 126
+    },
+    {
+        "date": "2023-11-23",
+        "Sales": 113,
+        "Successful Payments": 105
+    },
+    {
+        "date": "2023-11-24",
+        "Sales": 122,
+        "Successful Payments": 113
+    },
+    {
+        "date": "2023-11-25",
+        "Sales": 121,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-11-26",
+        "Sales": 136,
+        "Successful Payments": 110
+    },
+    {
+        "date": "2023-11-27",
+        "Sales": 104,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-11-28",
+        "Sales": 105,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-11-30",
+        "Sales": 116,
+        "Successful Payments": 147
+    },
+    {
+        "date": "2023-12-01",
+        "Sales": 147,
+        "Successful Payments": 116
+    },
+    {
+        "date": "2023-12-02",
+        "Sales": 134,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-12-03",
+        "Sales": 123,
+        "Successful Payments": 125
+    },
+    {
+        "date": "2023-12-04",
+        "Sales": 121,
+        "Successful Payments": 138
+    },
+    {
+        "date": "2023-12-05",
+        "Sales": 110,
+        "Successful Payments": 145
+    },
+    {
+        "date": "2023-12-06",
+        "Sales": 121,
+        "Successful Payments": 143
+    },
+    {
+        "date": "2023-12-07",
+        "Sales": 139,
+        "Successful Payments": 103
+    },
+    {
+        "date": "2023-12-08",
+        "Sales": 143,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2023-12-09",
+        "Sales": 125,
+        "Successful Payments": 104
+    },
+    {
+        "date": "2023-12-10",
+        "Sales": 127,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-12-11",
+        "Sales": 105,
+        "Successful Payments": 139
+    },
+    {
+        "date": "2023-12-12",
+        "Sales": 103,
+        "Successful Payments": 122
+    },
+    {
+        "date": "2023-12-13",
+        "Sales": 148,
+        "Successful Payments": 118
+    },
+    {
+        "date": "2023-12-14",
+        "Sales": 102,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-12-15",
+        "Sales": 104,
+        "Successful Payments": 136
+    },
+    {
+        "date": "2023-12-16",
+        "Sales": 136,
+        "Successful Payments": 148
+    },
+    {
+        "date": "2023-12-17",
+        "Sales": 111,
+        "Successful Payments": 111
+    },
+    {
+        "date": "2023-12-18",
+        "Sales": 118,
+        "Successful Payments": 106
+    },
+    {
+        "date": "2023-12-19",
+        "Sales": 106,
+        "Successful Payments": 135
+    },
+    {
+        "date": "2023-12-20",
+        "Sales": 132,
+        "Successful Payments": 101
+    },
+    {
+        "date": "2023-12-21",
+        "Sales": 136,
+        "Successful Payments": 131
+    },
+    {
+        "date": "2023-12-22",
+        "Sales": 142,
+        "Successful Payments": 150
+    },
+    {
+        "date": "2023-12-23",
+        "Sales": 133,
+        "Successful Payments": 133
+    },
+    {
+        "date": "2023-12-24",
+        "Sales": 103,
+        "Successful Payments": 119
+    },
+    {
+        "date": "2023-12-25",
+        "Sales": 122,
+        "Successful Payments": 146
+    },
+    {
+        "date": "2023-12-26",
+        "Sales": 108,
+        "Successful Payments": 120
+    },
+    {
+        "date": "2023-12-27",
+        "Sales": 115,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-12-28",
+        "Sales": 105,
+        "Successful Payments": 140
+    },
+    {
+        "date": "2023-12-29",
+        "Sales": 130,
+        "Successful Payments": 123
+    },
+    {
+        "date": "2023-12-30",
+        "Sales": 142,
+        "Successful Payments": 122
+    }
+]

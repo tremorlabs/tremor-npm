@@ -217,12 +217,36 @@ WithShortAnimationDuration.args = {
   index: "month",
 };
 
+export const WithEnableDeltaCalculation = DefaultTemplate.bind({});
+WithEnableDeltaCalculation.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+};
+
+export const WithEnableDeltaCalculationAndIncreaseNegative = DefaultTemplate.bind({});
+WithEnableDeltaCalculationAndIncreaseNegative.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+  isIncreasePositive: false,
+};
+
 export const WithOnValueChange = DefaultTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {
   ...args,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
   data,
+};
+
+export const WithOnValueChangeAndEnableDeltaCalculation = DefaultTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+WithOnValueChangeAndEnableDeltaCalculation.args = {
+  ...args,
+  onValueChange: (v: any) => alert(JSON.stringify(v)),
+  data,
+  enableDeltaCalculation: true,
 };
 
 export const WithOneDataValue = ResponsiveTemplate.bind({});
@@ -249,4 +273,12 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
   ...args,
   data: singleAndMultipleData,
   onValueChange: (v: any) => alert(JSON.stringify(v)),
+};
+
+export const WithLargeDataSetAndEnableDeltaCalculation = DefaultTemplate.bind({});
+WithLargeDataSetAndEnableDeltaCalculation.args = {
+  ...args,
+  data: require("./helpers/largeDataSet.json"),
+  index: "date",
+  enableDeltaCalculation: true,
 };

@@ -203,6 +203,13 @@ WithShortAnimationDuration.args = {
   index: "month",
 };
 
+export const WithEnableDeltaCalculation = DefaultTemplate.bind({});
+WithEnableDeltaCalculation.args = {
+  ...args,
+  data: data,
+  enableDeltaCalculation: true,
+};
+
 export const WithOnValueChange = ResponsiveTemplate.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 WithOnValueChange.args = {

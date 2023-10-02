@@ -7,6 +7,7 @@ import {
   Legend,
   Line,
   AreaChart as ReChartsAreaChart,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -33,6 +34,8 @@ import {
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
+import DeltaCalculationProps from "components/chart-elements/common/DeltaCalculationProps";
+import DeltaCalculationReferenceShape from "components/chart-elements/common/DeltaCalculationReferenceShape";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
@@ -69,11 +72,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    enableDeltaCalculation = false,
+    isIncreasePositive = true,
     noDataText,
     className,
     onValueChange,
     ...other
   } = props;
+  const [deltaCalculation, setDeltaCalculation] = useState<DeltaCalculationProps | null>(null);
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -81,6 +87,38 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasDeltaCalculation =
+    deltaCalculation &&
+    deltaCalculation.leftArea?.activeLabel &&
+    deltaCalculation.rightArea?.activeLabel;
+
+  const isBeforeLeftValue =
+    deltaCalculation?.leftArea?.chartX > deltaCalculation?.rightArea?.chartX;
+  const deltaCalculationData =
+    hasDeltaCalculation &&
+    deltaCalculation.leftArea?.activeLabel !== deltaCalculation.rightArea?.activeLabel
+      ? data.map((item, idx) => {
+          if (
+            isBeforeLeftValue
+              ? idx <= deltaCalculation.leftArea.activeTooltipIndex &&
+                idx >= deltaCalculation.rightArea.activeTooltipIndex
+              : idx >= deltaCalculation.leftArea.activeTooltipIndex &&
+                idx <= deltaCalculation.rightArea.activeTooltipIndex
+          ) {
+            return {
+              ...item,
+              ...categories.reduce((acc, category) => {
+                return {
+                  ...acc,
+                  [`${category}TremorRange`]: item[category],
+                };
+              }, {}),
+            };
+          }
+
+          return item;
+        })
+      : data;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -126,12 +164,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     }
     setActiveDot(undefined);
   }
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
-        {data?.length ? (
+      <ResponsiveContainer className="h-full w-full select-none">
+        {deltaCalculationData?.length ? (
           <ReChartsAreaChart
-            data={data}
+            data={deltaCalculationData}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -141,8 +180,22 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   }
                 : undefined
             }
+            //had to fix legend click
+            onMouseDown={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && setDeltaCalculation({ leftArea: value });
+            }}
+            onMouseMove={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation &&
+                deltaCalculation &&
+                setDeltaCalculation((prev) => ({ ...prev, rightArea: value }));
+            }}
+            onMouseUp={(value, e) => {
+              e.stopPropagation();
+              enableDeltaCalculation && deltaCalculation && setDeltaCalculation(null);
+            }}
           >
-            {" "}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -202,7 +255,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
-              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              cursor={{
+                stroke: "#d1d5db",
+                strokeWidth: hasDeltaCalculation ? 0 : 1,
+              }}
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -212,6 +268,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      deltaCalculation={deltaCalculation}
+                      isIncreasePositive={isIncreasePositive}
                     />
                   )
                 ) : (
@@ -255,7 +313,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       y2="1"
                     >
                       <stop
-                        offset="5%"
+                        offset="25%"
                         stopColor="currentColor"
                         stopOpacity={
                           activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
@@ -288,6 +346,22 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
+            {hasDeltaCalculation ? (
+              <ReferenceArea
+                x1={deltaCalculation.leftArea.activeLabel}
+                x2={deltaCalculation.rightArea.activeLabel}
+                fillOpacity={0.2}
+                shape={({ x, y, width, height }) => (
+                  <DeltaCalculationReferenceShape
+                    x={x}
+                    y={y}
+                    width={width}
+                    height={height}
+                    fill={["natural", "monotone"].includes(curveType)}
+                  />
+                )}
+              />
+            ) : null}
             {categories.map((category) => (
               <Area
                 className={
@@ -296,7 +370,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
-                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
+                strokeOpacity={
+                  activeDot ||
+                  (activeLegend && activeLegend !== category) ||
+                  (hasDeltaCalculation && !["natural", "monotone"].includes(curveType))
+                    ? 0.3
+                    : 1
+                }
                 activeDot={(props: any) => {
                   const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
                     props;
@@ -324,6 +404,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 }}
                 dot={(props: any) => {
                   const {
+                    payload,
                     stroke,
                     strokeLinecap,
                     strokeLinejoin,
@@ -331,13 +412,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     cx,
                     cy,
                     dataKey,
-                    index,
+                    index: idx,
                   } = props;
 
                   if (
                     (hasOnlyOneValueForThisKey(data, category) &&
                       !(activeDot || (activeLegend && activeLegend !== category))) ||
-                    (activeDot?.index === index && activeDot?.dataKey === category)
+                    (activeDot?.index === idx && activeDot?.dataKey === category) ||
+                    payload[index] === deltaCalculation?.leftArea?.activeLabel
                   ) {
                     return (
                       <Dot
@@ -368,7 +450,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 type={curveType}
                 dataKey={category}
                 stroke=""
-                fill={`url(#${categoryColors.get(category)})`}
+                fill={hasDeltaCalculation ? "transparent" : `url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
@@ -378,6 +460,32 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 connectNulls={connectNulls}
               />
             ))}
+            {hasDeltaCalculation && !["natural", "monotone"].includes(curveType)
+              ? categories.map((category) => (
+                  <Area
+                    className={
+                      getColorClassNames(
+                        categoryColors.get(category) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).strokeColor
+                    }
+                    key={category + "TremorRange"}
+                    name={category + "TremorRange"}
+                    legendType="none"
+                    tooltipType="none"
+                    type={curveType}
+                    dataKey={category + "TremorRange"}
+                    stroke=""
+                    fill={`url(#${categoryColors.get(category)})`}
+                    strokeWidth={2}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    animationDuration={animationDuration}
+                    stackId={stack ? "a" : undefined}
+                    connectNulls={false}
+                  />
+                ))
+              : null}
             {onValueChange
               ? categories.map((category) => (
                   <Line
