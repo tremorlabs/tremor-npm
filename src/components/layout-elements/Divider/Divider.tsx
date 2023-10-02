@@ -28,7 +28,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
                 "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
               )}
             />
-            <span className={tremorTwMerge("text-inherit whitespace-nowrap")}>{children}</span>
+            <div className={tremorTwMerge("text-inherit whitespace-nowrap")}>{children}</div>
             <div
               className={tremorTwMerge(
                 "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
