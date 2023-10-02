@@ -226,6 +226,9 @@ WithOnValueChangePieExample.args = {
 };
 
 //Custom tooltips
+
+// Override default colors with custom color in tooltip
+// const customTooltipColors: Color[] = ["cyan", "red", "yellow", "blue", "green", "violet"];
 export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
 WithCustomTooltipExample1.args = {
   ...args,
