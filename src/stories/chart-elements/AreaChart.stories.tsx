@@ -8,7 +8,6 @@ import {
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
 } from "./helpers/testData";
-import { valueFormatter } from "./helpers/utils";
 import { Color, ValueFormatter, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
