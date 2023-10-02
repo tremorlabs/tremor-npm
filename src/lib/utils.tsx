@@ -20,6 +20,9 @@ export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: bool
 
 export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
+export const currencyValueFormatter: ValueFormatter = (e: number) =>
+  `$ ${Intl.NumberFormat("en-US").format(e)}`;
+
 export const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0);
 

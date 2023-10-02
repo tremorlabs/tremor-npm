@@ -9,7 +9,7 @@ import {
   singleAndMultipleData,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
-import { Color, ValueFormatter, defaultValueFormatter } from "lib";
+import { Color, ValueFormatter, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -26,16 +26,16 @@ const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
 
   return (
     <>
+      <Title className="mt-5">Desktop</Title>
+      <Card>
+        <AreaChart {...args} yAxisWidth={60} />
+      </Card>
       <Title>Mobile</Title>
       <div className="w-64">
         <Card>
-          <AreaChart {...args} />
+          <AreaChart {...args} yAxisWidth={60} />
         </Card>
       </div>
-      <Title className="mt-5">Desktop</Title>
-      <Card>
-        <AreaChart {...args} />
-      </Card>
     </>
   );
 };
@@ -47,7 +47,7 @@ const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
 
   return (
     <Card>
-      <AreaChart {...args} />
+      <AreaChart {...args} yAxisWidth={60} />
     </Card>
   );
 };
@@ -74,7 +74,7 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 WithValueFormatter.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
   colors: ["red", "green"],
 };
 
@@ -129,7 +129,6 @@ WithLongValues.args = {
   ...args,
   data,
   categories: ["This is an edge case"],
-  valueFormatter: valueFormatter,
 };
 
 export const WithMultipleCategories = ResponsiveTemplate.bind({});
@@ -137,7 +136,6 @@ WithMultipleCategories.args = {
   ...args,
   data,
   categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
-  valueFormatter: valueFormatter,
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -256,7 +254,8 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";
-const customTootipValueFormatter: ValueFormatter = (e: number) => `$ ${e}`;
+const customTootipValueFormatter: ValueFormatter = (e: number) =>
+  `$${Intl.NumberFormat("en-US").format(e)}`;
 const getBadgeColor = (percentage: number | undefined) => {
   if (!percentage || percentage === 0) return "gray";
   else if (percentage > 0) return "emerald";
@@ -287,7 +286,7 @@ WithTooltipVersionA.args = {
               <p className="text-right text-tremor-content whitespace-nowrap">
                 {categoryPayload.dataKey}
               </p>
-              <p className="font-medium tabular-nums text-right whitespace-nowrap text-tremor-content-emphasis">
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
                 {customTootipValueFormatter(categoryPayload.value)}
               </p>
             </div>
@@ -315,8 +314,7 @@ WithTooltipVersionB.args = {
     const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
     const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
     const prev = previousValues ? previousValues[categoryPayload.dataKey] : undefined;
-    const percentage =
-      ((categoryPayload.value - prev) / ((categoryPayload.value + prev) / 2)) * 100 ?? undefined;
+    const percentage = ((categoryPayload.value - prev) / prev) * 100 ?? undefined;
     const color = getBadgeColor(percentage);
 
     return (
@@ -325,11 +323,13 @@ WithTooltipVersionB.args = {
           {categoryPayload.dataKey}
         </span>
         <div className="flex items-center space-x-2">
-          <span className="font-medium tabular-nums text-right whitespace-nowrap text-tremor-content-emphasis">
+          <span className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
             {customTootipValueFormatter(categoryPayload.value)}
           </span>
           {percentage ? (
-            <span className={`inline-flex px-2 py-0.5 bg-${color}-100 text-${color}-600 rounded`}>
+            <span
+              className={`inline-flex text-xs px-1.5 py-0.5 bg-${color}-100 text-${color}-600 rounded`}
+            >
               {percentage > 0 ? "+" : ""}
               {percentage.toFixed(1)}%
             </span>
@@ -347,7 +347,7 @@ WithTooltipVersionC.args = {
   index: customTooltipIndex,
   categories: ["Sales"],
   colors: customTooltipColors,
-  valueFormatter: defaultValueFormatter,
+  valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
     if (!active) return null;
@@ -358,37 +358,34 @@ WithTooltipVersionC.args = {
     const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
     const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
     const prev = previousValues ? previousValues[categoryPayload.dataKey] : undefined;
-    const percentage =
-      ((categoryPayload.value - prev) / ((categoryPayload.value + prev) / 2)) * 100 ?? undefined;
-    const badeColor = getBadgeColor(percentage);
+    const percentage = ((categoryPayload.value - prev) / prev) * 100 ?? undefined;
+    const badgeColor = getBadgeColor(percentage);
 
     return (
-      <div className="rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+      <div className="rounded-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
-          <div className={`w-1.5 flex flex-col bg-${categoryColor}-500 rounded`} />
+          <div className={`w-1 flex flex-col bg-${categoryColor}-500 rounded`} />
           <div className="w-full">
-            <p className="font-medium text-tremor-content-emphasis">{categoryPayload.dataKey}</p>
-            <p className="text-xs text-tremor-content-subtle">{label}</p>
-            <p className="mt-2 font-medium tabular-nums whitespace-nowrap text-tremor-content-emphasis">
+            <p className="text-tremor-default font-medium text-tremor-content-emphasis">
+              {categoryPayload.dataKey}
+            </p>
+            <p className="text-tremor-default text-tremor-content-subtle">{label}</p>
+            <p className="mt-2 font-medium whitespace-nowrap text-tremor-content-emphasis">
               {customTootipValueFormatter(categoryPayload.value)}
             </p>
             {percentage ? (
-              <>
-                <p
-                  className={`text-xs inline-flex px-1 py-0.5 bg-${badeColor}-100 text-${badeColor}-600 rounded`}
+              <div className="mt-1 flex items-end space-x-2">
+                <div
+                  className={`inline-flex text-tremor-default px-1.5 py-0.5 bg-${badgeColor}-100 text-${badgeColor}-600 rounded`}
                 >
-                  {percentage > 0 ? "+" : ""}
+                  {percentage > 0 ? "+" : null}
                   {percentage.toFixed(1)}%
-                </p>
-                <span className="ml-1 align-bottom whitespace-nowrap text-xs text-tremor-content-subtle">
+                </div>
+                <div className="whitespace-nowrap text-tremor-default text-tremor-content-subtle">
                   from previous month
-                </span>
-              </>
+                </div>
+              </div>
             ) : null}
-            {/* <div className="flex items-center justify-between space-x-8">
-                            <p className="text-right text-tremor-content whitespace-nowrap">{categoryPayload.dataKey}</p>
-                            <p className="font-medium tabular-nums text-right whitespace-nowrap text-tremor-content-emphasis">{customTootipValueFormatter(categoryPayload.value)}</p>
-                        </div> */}
           </div>
         </div>
       </div>
