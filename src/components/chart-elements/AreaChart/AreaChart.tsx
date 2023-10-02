@@ -209,7 +209,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 showTooltip ? (
                   ({ active, payload, label }) =>
                     CustomTooltip ? (
-                      <CustomTooltip payload={payload} active={active} label={label} />
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
                     ) : (
                       <ChartTooltip
                         active={active}

@@ -257,7 +257,7 @@ WithOneAndMultipleDataValueAndOnValueChange.args = {
 };
 
 //Custom tooltips
-const customTooltipColors: Color[] = ["cyan"];
+const customTooltipColors: Color[] = ["lime"];
 const customTooltipIndex = "month";
 const getBadgeColor = (percentage: number | undefined) => {
   if (!percentage || percentage === 0) return "gray";
@@ -356,7 +356,6 @@ WithCustomTooltipExample3.args = {
     if (!active) return null;
 
     const categoryPayload = payload[0];
-    const categoryColor = customTooltipColors[0];
 
     const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
     const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
@@ -367,7 +366,7 @@ WithCustomTooltipExample3.args = {
     return (
       <div className="rounded-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
-          <div className={`w-1 flex flex-col bg-${categoryColor}-500 rounded`} />
+          <div className={`w-1 flex flex-col bg-${categoryPayload?.color}-500 rounded`} />
           <div className="w-full">
             <p className="text-tremor-default font-medium text-tremor-content-emphasis">
               {categoryPayload.dataKey}

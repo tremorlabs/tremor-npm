@@ -268,12 +268,15 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   ({ active, payload, label }) =>
                     CustomTooltip ? (
                       <CustomTooltip
-                        payload={payload}
+                        payload={payload?.map((payloadItem) => ({
+                          ...payloadItem,
+                          color:
+                            categoryColors.get(
+                              category ? payload?.[0]?.payload?.[category] : label,
+                            ) ?? BaseColors.Gray,
+                        }))}
                         active={active}
                         label={category ? payload?.[0]?.payload?.[category] : label}
-                        color={categoryColors.get(
-                          category ? payload?.[0]?.payload?.[category] : label,
-                        )}
                       />
                     ) : (
                       <ScatterChartTooltip

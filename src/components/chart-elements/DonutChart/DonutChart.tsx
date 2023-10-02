@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { tremorTwMerge } from "lib";
+import { BaseColors, tremorTwMerge } from "lib";
 import {
   Pie,
   PieChart as ReChartsDonutChart,
@@ -199,10 +199,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                   ({ active, payload }) =>
                     CustomTooltip ? (
                       <CustomTooltip
-                        payload={payload}
+                        payload={payload?.map((payloadItem) => ({
+                          ...payloadItem,
+                          color: payload?.[0]?.payload?.color ?? BaseColors.Gray,
+                        }))}
                         active={active}
                         label={payload?.[0]?.name}
-                        color={payload?.[0]?.payload?.color}
                       />
                     ) : (
                       <DonutChartTooltip
