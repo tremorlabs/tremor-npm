@@ -71,7 +71,7 @@ export interface ScatterChartProps
   allowDecimals?: boolean;
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
-  customTooltip?: React.ComponentType<CustomTooltipType>
+  customTooltip?: React.ComponentType<CustomTooltipType>;
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -265,24 +265,20 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
+                  ({ active, payload, label }) =>
                     CustomTooltip ? (
-                        <CustomTooltip
-                            payload={payload}
-                            active={active}
-                            label={label}
-                        />
+                      <CustomTooltip payload={payload} active={active} label={label} />
                     ) : (
-                    <ScatterChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={category ? payload?.[0]?.payload?.[category] : label}
-                      valueFormatter={valueFormatter}
-                      axis={{ x: x, y: y, size: size }}
-                      category={category}
-                      categoryColors={categoryColors}
-                    />
-                    ))
+                      <ScatterChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        valueFormatter={valueFormatter}
+                        axis={{ x: x, y: y, size: size }}
+                        category={category}
+                        categoryColors={categoryColors}
+                      />
+                    )
                 ) : (
                   <></>
                 )

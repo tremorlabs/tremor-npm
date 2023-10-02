@@ -36,7 +36,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   noDataText?: string;
   className?: string;
   onValueChange?: (value: EventProps) => void;
-  customTooltip?: React.ComponentType<CustomTooltipType>
+  customTooltip?: React.ComponentType<CustomTooltipType>;
 }
 
 const renderInactiveShape = (props: any) => {
@@ -196,26 +196,22 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               isAnimationActive={false}
               content={
                 showTooltip ? (
-                    ({ active, payload, label }) => (
-                        CustomTooltip ? (
-                            <CustomTooltip
-                                payload={payload}
-                                active={active}
-                                label={label}
-                            />
-                        ) : (
-                            <DonutChartTooltip
-                            active={active}
-                            payload={payload}
-                            valueFormatter={valueFormatter}
-                          />
-                    ))
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip payload={payload} active={active} label={label} />
+                    ) : (
+                      <DonutChartTooltip
+                        active={active}
+                        payload={payload}
+                        valueFormatter={valueFormatter}
+                      />
+                    )
                 ) : (
                   <></>
                 )
               }
-/>
-              </ReChartsDonutChart>
+            />
+          </ReChartsDonutChart>
         ) : (
           <NoData noDataText={noDataText} />
         )}

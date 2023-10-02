@@ -251,22 +251,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               cursor={{ fill: "#d1d5db", opacity: "0.15" }}
               content={
                 showTooltip ? (
-                    ({ active, payload, label }) => (
-                        CustomTooltip ? (
-                            <CustomTooltip
-                                payload={payload}
-                                active={active}
-                                label={label}
-                            />
-                        ) : (
-                        <ChartTooltip
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip payload={payload} active={active} label={label} />
+                    ) : (
+                      <ChartTooltip
                         active={active}
                         payload={payload}
                         label={label}
                         valueFormatter={valueFormatter}
                         categoryColors={categoryColors}
-                        />
-                    ))
+                      />
+                    )
                 ) : (
                   <></>
                 )

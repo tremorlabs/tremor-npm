@@ -203,22 +203,18 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                    ({ active, payload, label }) => (
-                        CustomTooltip ? (
-                            <CustomTooltip
-                                payload={payload}
-                                active={active}
-                                label={label}
-                            />
-                        ) : (
-                        <ChartTooltip
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip payload={payload} active={active} label={label} />
+                    ) : (
+                      <ChartTooltip
                         active={active}
                         payload={payload}
                         label={label}
                         valueFormatter={valueFormatter}
                         categoryColors={categoryColors}
-                        />
-                    ))
+                      />
+                    )
                 ) : (
                   <></>
                 )

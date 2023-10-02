@@ -1,5 +1,5 @@
 export type CustomTooltipType = {
-    payload: any;
-    active: boolean | undefined;
-    label: any;
-}
+  payload: any;
+  active: boolean | undefined;
+  label: any;
+};
