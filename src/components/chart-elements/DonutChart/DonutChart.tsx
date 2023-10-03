@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { tremorTwMerge, defaultValueFormatter, themeColorRange, BaseColors, tremorTwMerge } from "lib";
+import { tremorTwMerge, defaultValueFormatter, themeColorRange, BaseColors } from "lib";
 import {
   Pie,
   PieChart as ReChartsDonutChart,
