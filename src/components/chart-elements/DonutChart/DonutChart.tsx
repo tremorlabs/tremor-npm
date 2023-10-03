@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { BaseColors, tremorTwMerge } from "lib";
+import { tremorTwMerge, defaultValueFormatter, themeColorRange, BaseColors, tremorTwMerge } from "lib";
 import {
   Pie,
   PieChart as ReChartsDonutChart,
@@ -11,7 +11,6 @@ import {
 
 import NoData from "../common/NoData";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { defaultValueFormatter, themeColorRange } from "lib";
 
 import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
@@ -126,7 +125,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   }, [activeIndex]);
 
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-full h-40", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsDonutChart
@@ -138,6 +137,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                   }
                 : undefined
             }
+            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
           >
             {showLabel && isDonut ? (
               <text
