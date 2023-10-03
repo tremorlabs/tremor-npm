@@ -6,7 +6,8 @@ import { BadgeDelta, Card, DonutChart, Flex, List, ListItem, Title } from "compo
 import { DeltaType } from "lib";
 
 import { simpleSingleCategoryData as data } from "stories/chart-elements/helpers/testData";
-import { valueFormatter } from "stories/chart-elements/helpers/utils";
+import { Color, currencyValueFormatter } from "lib";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -21,20 +22,16 @@ const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => {
   }
   return (
     <>
-      <Title>Mobile</Title>
+      <Title>Desktop</Title>
+      <Card>
+        <DonutChart {...args} />
+      </Card>
+      <Title className="mt-5">Mobile</Title>
       <div className="w-64">
         <Card>
           <DonutChart {...args} />
         </Card>
       </div>
-      <Title className="mt-5">Desktop</Title>
-      <Card>
-        <DonutChart {...args} />
-      </Card>
-      <Title className="mt-5">Desktop Dark</Title>
-      <Card className="bg-gray-900">
-        <DonutChart {...args} />
-      </Card>
     </>
   );
 };
@@ -99,7 +96,7 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 WithValueFormatter.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
 };
 
 export const WithCustomLabel = ResponsiveTemplate.bind({});
@@ -107,7 +104,7 @@ export const WithCustomLabel = ResponsiveTemplate.bind({});
 WithCustomLabel.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
   label: "Hello there",
 };
 
@@ -116,7 +113,7 @@ export const WithLabelDisabled = ResponsiveTemplate.bind({});
 WithLabelDisabled.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
   label: "Hello there",
   showLabel: false,
 };
@@ -147,7 +144,7 @@ WithLongValues.args = {
     ...dataPoint,
     sales: dataPoint.sales * 10000000,
   })),
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
 };
 
 export const WithVariantPie = DefaultTemplate.bind({});
@@ -174,7 +171,7 @@ export const BlockExample = BlockTemplate.bind({});
 BlockExample.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
 };
 
 export const WithNoAnimation = DefaultTemplate.bind({});
@@ -226,4 +223,42 @@ WithOnValueChangePieExample.args = {
   variant: "pie",
   data,
   onValueChange: (value) => alert(JSON.stringify(value)),
+};
+
+//Custom tooltips
+
+// Override default colors with custom color in tooltip
+// const customTooltipColors: Color[] = ["cyan", "red", "yellow", "blue", "green", "violet"];
+export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
+WithCustomTooltipExample1.args = {
+  ...args,
+  data,
+  index: "city",
+  category: "sales",
+  valueFormatter: currencyValueFormatter,
+  customTooltip: (props: CustomTooltipType) => {
+    const { payload, active, label } = props;
+    if (!active || !payload) return null;
+
+    const categoryPayload = payload?.[0];
+    if (!categoryPayload) return null;
+
+    return (
+      <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+        <div className="flex flex-1 space-x-2.5">
+          <div className={`w-1.5 flex flex-col bg-${categoryPayload?.color}-500 rounded`} />
+          <div className="w-full">
+            <div className="flex items-center justify-between space-x-8">
+              <p className="text-right text-tremor-content whitespace-nowrap">
+                {categoryPayload.name}
+              </p>
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                {currencyValueFormatter(categoryPayload.value as number)}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
 };
