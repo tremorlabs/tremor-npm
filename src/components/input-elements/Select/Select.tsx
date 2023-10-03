@@ -11,18 +11,20 @@ import { useInternalState } from "hooks";
 
 const makeSelectClassName = makeClassName("Select");
 
-export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   value?: string;
+  name?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
+  required?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
+const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
   const {
     defaultValue,
     value,
@@ -31,6 +33,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     disabled = false,
     icon,
     enableClear = false,
+    required,
     children,
     className,
     ...other

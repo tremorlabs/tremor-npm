@@ -94,6 +94,37 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
   );
 };
 
+const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
+  <form
+    action="http://localhost:6006"
+    target="_blank"
+    method="GET"
+    className="flex flex-col gap-3 items-start"
+  >
+    <label className="">
+      Custom input:
+      <input className="border-2 rounded-lg" name="text-input" required />
+    </label>
+    <Select
+      {...args}
+      name="select"
+      required
+      onInvalid={() => {
+        console.log("invalid!");
+      }}
+      className="w-1/2"
+    >
+      <SelectItem value={"5"}>Five</SelectItem>
+      <SelectItem value={"3"}>Three</SelectItem>
+      <SelectItem value={"1"}>One</SelectItem>
+    </Select>
+    <Button className="" type="submit" onClick={() => console.log("Submit clicked!")}>
+      Submit
+    </Button>
+    <Text>This will bring you to submit form page</Text>
+  </form>
+);
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
@@ -130,3 +161,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const SelectWithForm = SelectWithFormTemplate.bind({});
