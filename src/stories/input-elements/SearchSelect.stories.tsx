@@ -93,6 +93,37 @@ const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
   );
 };
 
+const SearchSelectWithFormTemplate: ComponentStory<typeof SearchSelect> = (args) => (
+  <form
+    action="http://localhost:6006"
+    target="_blank"
+    method="GET"
+    className="flex flex-col gap-3 items-start"
+  >
+    <label className="">
+      Custom input:
+      <input className="border-2 rounded-lg" name="text-input" required />
+    </label>
+    <SearchSelect
+      {...args}
+      name="Searchselect"
+      required
+      onInvalid={() => {
+        console.log("invalid!");
+      }}
+      className="w-1/2"
+    >
+      <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+      <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+      <SearchSelectItem value={"1"}>One</SearchSelectItem>
+    </SearchSelect>
+    <Button className="" type="submit" onClick={() => console.log("Submit clicked!")}>
+      Submit
+    </Button>
+    <Text>This will bring you to submit form page</Text>
+  </form>
+);
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
@@ -123,3 +154,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const SearchSelectWithForm = SearchSelectWithFormTemplate.bind({});

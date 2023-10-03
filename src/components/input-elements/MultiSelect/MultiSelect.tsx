@@ -15,18 +15,20 @@ import XIcon from "assets/XIcon";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 
-export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string[];
+  name?: string;
   value?: string[];
   onValueChange?: (value: string[]) => void;
   placeholder?: string;
   placeholderSearch?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
+  required?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
+const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props, ref) => {
   const {
     defaultValue,
     value,

@@ -14,17 +14,19 @@ import { ArrowDownHeadIcon } from "assets";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
-export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
+  name?: string;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
+  required?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props, ref) => {
+const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((props, ref) => {
   const {
     defaultValue,
     value,
