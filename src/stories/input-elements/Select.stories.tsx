@@ -94,6 +94,23 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
   );
 };
 
+const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
+  <form action="http://localhost:6006" target="_blank" method="GET">
+    <label className="mb-5">
+      Custom input:
+      <input className="border-2 p-1 ml-5 rounded-lg" name="text-input" required />
+    </label>
+    <Select {...args} name="select">
+      <SelectItem value={"5"}>Five</SelectItem>
+      <SelectItem value={"3"}>Three</SelectItem>
+      <SelectItem value={"1"}>One</SelectItem>
+    </Select>
+    <button className="" type="submit">
+      Submit
+    </button>
+  </form>
+);
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
@@ -130,3 +147,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const SelectWithForm = SelectWithFormTemplate.bind({});
