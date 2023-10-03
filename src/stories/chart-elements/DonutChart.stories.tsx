@@ -226,14 +226,15 @@ WithOnValueChangePieExample.args = {
 };
 
 //Custom tooltips
-const customTooltipColors: Color[] = ["cyan", "red", "yellow", "blue", "green", "violet"];
+
+// Override default colors with custom color in tooltip
+// const customTooltipColors: Color[] = ["cyan", "red", "yellow", "blue", "green", "violet"];
 export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
 WithCustomTooltipExample1.args = {
   ...args,
   data,
   index: "city",
   category: "sales",
-  colors: customTooltipColors,
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
@@ -247,7 +248,6 @@ WithCustomTooltipExample1.args = {
         <div className="flex flex-1 space-x-2.5">
           <div className={`w-1.5 flex flex-col bg-${categoryPayload?.color}-500 rounded`} />
           <div className="w-full">
-            <p className="font-medium text-tremor-content-emphasis">{label}</p>
             <div className="flex items-center justify-between space-x-8">
               <p className="text-right text-tremor-content whitespace-nowrap">
                 {categoryPayload.name}
