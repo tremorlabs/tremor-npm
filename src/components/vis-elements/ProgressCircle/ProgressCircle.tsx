@@ -40,7 +40,7 @@ const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
   },
 };
 
-const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props) => {
+const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
     value: inputValue,
     size = "md",
@@ -69,7 +69,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
-        ref={tooltipProps.refs.setReference}
+        ref={ref}
         className={tremorTwMerge(
           makeProgressCircleClassName("root"),
           "flex flex-col items-center justify-center",
