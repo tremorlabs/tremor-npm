@@ -14,7 +14,7 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
   tooltip?: string;
   radius?: number;
   strokeWidth?: number;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
