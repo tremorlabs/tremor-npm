@@ -269,14 +269,14 @@ WithCustomTooltipExample1.args = {
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
-    if (!active) return null;
+    if (!active || !payload) return null;
 
     const categoryPayload = payload[0];
-    const color = customTooltipColors[0];
+    if (!categoryPayload) return null;
     return (
       <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
-          <div className={`w-1.5 flex flex-col bg-${color}-500 rounded`} />
+          <div className={`w-1.5 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
           <div className="w-full">
             <p className="font-medium text-tremor-content-emphasis">{label}</p>
             <div className="flex items-center justify-between space-x-8">
@@ -284,7 +284,7 @@ WithCustomTooltipExample1.args = {
                 {categoryPayload.dataKey}
               </p>
               <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {currencyValueFormatter(categoryPayload.value)}
+                {currencyValueFormatter(categoryPayload.value as number)}
               </p>
             </div>
           </div>
@@ -304,24 +304,25 @@ WithCustomTooltipExample2.args = {
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
-    if (!active) return null;
+    if (!active || !payload) return null;
 
     const categoryPayload = payload[0];
+    if (!categoryPayload) return null;
+    const value = categoryPayload.value as number;
+    const dataKey = categoryPayload.dataKey as number;
 
     const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
     const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
-    const prev = previousValues ? previousValues[categoryPayload.dataKey] : undefined;
-    const percentage = ((categoryPayload.value - prev) / prev) * 100 ?? undefined;
+    const prev = previousValues ? previousValues[dataKey] : undefined;
+    const percentage = ((value - prev) / prev) * 100 ?? undefined;
     const color = getBadgeColor(percentage);
 
     return (
       <div className="w-56 flex items-center justify-between rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
-        <span className="text-right text-tremor-content whitespace-nowrap">
-          {categoryPayload.dataKey}
-        </span>
+        <span className="text-right text-tremor-content whitespace-nowrap">{dataKey}</span>
         <div className="flex items-center space-x-2">
           <span className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-            {currencyValueFormatter(categoryPayload.value)}
+            {currencyValueFormatter(value)}
           </span>
           {percentage ? (
             <span
@@ -347,13 +348,17 @@ WithCustomTooltipExample3.args = {
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
-    if (!active) return null;
+    if (!active || !payload) return null;
 
     const categoryPayload = payload[0];
+    if (!categoryPayload) return null;
+    const value = categoryPayload.value as number;
+    const dataKey = categoryPayload.dataKey as number;
+
     const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
     const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
-    const prev = previousValues ? previousValues[categoryPayload.dataKey] : undefined;
-    const percentage = ((categoryPayload.value - prev) / prev) * 100 ?? undefined;
+    const prev = previousValues ? previousValues[dataKey] : undefined;
+    const percentage = ((value - prev) / prev) * 100 ?? undefined;
     const badgeColor = getBadgeColor(percentage);
 
     return (
@@ -362,11 +367,11 @@ WithCustomTooltipExample3.args = {
           <div className={`w-1 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
           <div className="w-full">
             <p className="text-tremor-default font-medium text-tremor-content-emphasis">
-              {categoryPayload.dataKey}
+              {dataKey}
             </p>
             <p className="text-tremor-default text-tremor-content-subtle">{label}</p>
             <p className="mt-2 font-medium whitespace-nowrap text-tremor-content-emphasis">
-              {currencyValueFormatter(categoryPayload.value)}
+              {currencyValueFormatter(value)}
             </p>
             {percentage ? (
               <div className="mt-1 flex items-end space-x-2">

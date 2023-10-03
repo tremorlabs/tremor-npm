@@ -1,5 +1,7 @@
+import { NameType, Payload } from "recharts/types/component/DefaultTooltipContent";
+
 export type CustomTooltipType = {
-  payload: any;
+  payload: Payload<string | number | (string | number)[], string | number>[] | undefined;
   active: boolean | undefined;
-  label: any;
+  label: NameType | undefined;
 };

@@ -237,9 +237,11 @@ WithCustomTooltipExample1.args = {
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
     const { payload, active, label } = props;
-    if (!active) return null;
+    if (!active || !payload) return null;
 
     const categoryPayload = payload?.[0];
+    if (!categoryPayload) return null;
+
     return (
       <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
@@ -251,7 +253,7 @@ WithCustomTooltipExample1.args = {
                 {categoryPayload.name}
               </p>
               <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
-                {currencyValueFormatter(categoryPayload.value)}
+                {currencyValueFormatter(categoryPayload.value as number)}
               </p>
             </div>
           </div>

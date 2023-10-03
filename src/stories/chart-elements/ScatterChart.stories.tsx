@@ -141,13 +141,15 @@ WithCustomTooltipExample1.args = {
   colors: customTooltipColors,
   category: customTooltipIndex,
   customTooltip: (props: CustomTooltipType) => {
-    const { payload, active } = props;
-    if (!active) return null;
+    const { payload, active, label } = props;
+    if (!active || !payload) return null;
+
     return (
       <div className="w-28 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
           <div className={`w-1.5 flex flex-col bg-${payload[0]?.color}-500 rounded`} />
           <div className="w-full">
+            <p className="font-medium text-tremor-content-emphasis">{label}</p>
             {payload.map((payloadItem: any, index: number) => (
               <div key={index} className="flex items-center justify-between space-x-8">
                 <p className="text-right text-tremor-content whitespace-nowrap">
