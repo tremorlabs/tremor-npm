@@ -107,11 +107,7 @@ const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
     >
       {/* <label className="mb-5">Custom input test:</label>
       <input className="p-1 ml-5 border-2 rounded-lg" name="text-input" required /> */}
-<<<<<<< Updated upstream
       <Select {...args} name="select" className="mt-4 w-52" id="test" required>
-=======
-      <Select {...args} name="select" className="mt-4 w-52" id="test">
->>>>>>> Stashed changes
         <SelectItem value={"5"}>Five</SelectItem>
         <SelectItem value={"3"}>Three</SelectItem>
         <SelectItem value={"1"}>One</SelectItem>
