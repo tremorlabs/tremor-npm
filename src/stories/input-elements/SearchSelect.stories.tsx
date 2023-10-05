@@ -29,7 +29,7 @@ const ResponsiveTemplate: ComponentStory<typeof SearchSelect> = (args) => (
   <form>
     <Title>Mobile</Title>
     <div className="w-64">
-      <Card>
+      <Card className="space-y-4">
         <DateRangePicker />
         <SimpleSearchSelect {...args} />
         <SimpleSelect />
