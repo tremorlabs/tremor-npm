@@ -93,6 +93,28 @@ const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
   );
 };
 
+const SearchSelectWithFormTemplate: ComponentStory<typeof SearchSelect> = (args) => (
+  <form className="flex flex-col gap-3 items-start" method="GET" action="http://localhost:6006/">
+    <label htmlFor="path" className="w-full">
+      <Text>Redirect path</Text>
+      <input
+        type="text"
+        name="path"
+        id="path"
+        defaultValue="/story/tremor-inputelements-searchselect--search-select-with-form"
+        className="border border-gray-200 rounded-md w-1/2 p-2"
+      />
+    </label>
+    <SearchSelect {...args} name="Searchselect" required className="w-1/2">
+      <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+      <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+      <SearchSelectItem value={"1"}>One</SearchSelectItem>
+    </SearchSelect>
+    <Button type="submit">Submit</Button>
+    <Text>{"You'll find your selected value in the URL params after submiting the form"}</Text>
+  </form>
+);
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
@@ -123,3 +145,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const SearchSelectWithForm = SearchSelectWithFormTemplate.bind({});

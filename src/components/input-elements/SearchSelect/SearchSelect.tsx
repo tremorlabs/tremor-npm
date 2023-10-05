@@ -11,22 +11,25 @@ import {
 } from "../selectUtils";
 import { Combobox } from "@headlessui/react";
 import { ArrowDownHeadIcon } from "assets";
+import { useInternalState } from "hooks";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
-export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
+  name?: string;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
+  required?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props, ref) => {
+const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((props, ref) => {
   const {
-    defaultValue,
+    defaultValue = "",
     value,
     onValueChange,
     placeholder = "Select...",
@@ -34,9 +37,11 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     icon,
     children,
     className,
+    name,
+    required,
     ...other
   } = props;
-
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
 
   const Icon = icon;
@@ -47,108 +52,148 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
   );
 
   return (
-    <Combobox
-      as="div"
-      ref={ref}
-      defaultValue={defaultValue}
-      value={value}
-      onChange={onValueChange as any}
-      disabled={disabled}
+    <div
       className={tremorTwMerge(
         // common
         "w-full min-w-[10rem] relative text-tremor-default",
-        className,
       )}
-      {...other}
     >
-      {({ value }) => (
-        <>
-          <Combobox.Button className="w-full">
-            {Icon && (
-              <span
+      <select
+        required={required}
+        className={tremorTwMerge(
+          // common
+          "h-full w-full",
+          className,
+          "absolute left-0 top-0 z-0 opacity-0",
+        )}
+        value={selectedValue}
+        onChange={(e) => {
+          e.preventDefault();
+        }}
+        name={name}
+        disabled={disabled}
+      >
+        <option className="hidden" value="" disabled hidden>
+          {placeholder}
+        </option>
+        {filteredOptions.map((child: any) => {
+          const value = child.props.value;
+          const name = child.props.children;
+          return (
+            <option className="hidden" key={value} value={value}>
+              {name}
+            </option>
+          );
+        })}
+      </select>
+      <Combobox
+        as="div"
+        ref={ref}
+        defaultValue={defaultValue}
+        value={selectedValue}
+        onChange={
+          ((value: string) => {
+            onValueChange?.(value);
+            setSelectedValue(value);
+          }) as any
+        }
+        disabled={disabled}
+        className={tremorTwMerge(
+          // common
+          "w-full min-w-[10rem] relative text-tremor-default",
+          className,
+        )}
+        {...other}
+      >
+        {({ value }) => (
+          <>
+            <Combobox.Button className="w-full">
+              {Icon && (
+                <span
+                  className={tremorTwMerge(
+                    "absolute inset-y-0 left-0 flex items-center ml-px",
+                    spacing.md.paddingLeft,
+                  )}
+                >
+                  <Icon
+                    className={tremorTwMerge(
+                      makeSearchSelectClassName("Icon"),
+                      // common
+                      "flex-none",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                      sizing.lg.height,
+                      sizing.lg.width,
+                    )}
+                  />
+                </span>
+              )}
+
+              <Combobox.Input
                 className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center ml-px",
-                  spacing.md.paddingLeft,
+                  // common
+                  "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default",
+                  // light
+                  "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+                  // dark
+                  "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                  Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
+                  spacing.fourXl.paddingRight,
+                  spacing.sm.paddingY,
+                  border.sm.all,
+                  disabled
+                    ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
+                    : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
+                  getSelectButtonColors(hasValue(value), disabled),
+                )}
+                placeholder={placeholder}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
+              />
+              <div
+                className={tremorTwMerge(
+                  "absolute inset-y-0 right-0 flex items-center",
+                  spacing.md.paddingRight,
                 )}
               >
-                <Icon
+                <ArrowDownHeadIcon
                   className={tremorTwMerge(
-                    makeSearchSelectClassName("Icon"),
+                    makeSearchSelectClassName("arrowDownIcon"),
                     // common
                     "flex-none",
                     // light
                     "text-tremor-content-subtle",
                     // dark
                     "dark:text-dark-tremor-content-subtle",
-                    sizing.lg.height,
-                    sizing.lg.width,
+                    sizing.md.height,
+                    sizing.md.width,
                   )}
                 />
-              </span>
-            )}
-
-            <Combobox.Input
-              className={tremorTwMerge(
-                // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default",
-                // light
-                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-                // dark
-                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
-                spacing.fourXl.paddingRight,
-                spacing.sm.paddingY,
-                border.sm.all,
-                disabled
-                  ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
-                  : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                getSelectButtonColors(hasValue(value), disabled),
-              )}
-              placeholder={placeholder}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
-            />
-            <div
-              className={tremorTwMerge(
-                "absolute inset-y-0 right-0 flex items-center",
-                spacing.md.paddingRight,
-              )}
-            >
-              <ArrowDownHeadIcon
+              </div>
+            </Combobox.Button>
+            {filteredOptions.length > 0 && (
+              <Combobox.Options
                 className={tremorTwMerge(
-                  makeSearchSelectClassName("arrowDownIcon"),
                   // common
-                  "flex-none",
+                  "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default text-tremor-default",
                   // light
-                  "text-tremor-content-subtle",
+                  "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                   // dark
-                  "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
+                  "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                  spacing.twoXs.marginTop,
+                  spacing.twoXs.marginBottom,
+                  border.sm.all,
                 )}
-              />
-            </div>
-          </Combobox.Button>
-          {filteredOptions.length > 0 && (
-            <Combobox.Options
-              className={tremorTwMerge(
-                // common
-                "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default text-tremor-default",
-                // light
-                "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                // dark
-                "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-                spacing.twoXs.marginTop,
-                spacing.twoXs.marginBottom,
-                border.sm.all,
-              )}
-            >
-              {filteredOptions}
-            </Combobox.Options>
-          )}
-        </>
-      )}
-    </Combobox>
+              >
+                {filteredOptions}
+              </Combobox.Options>
+            )}
+          </>
+        )}
+      </Combobox>
+    </div>
   );
 });
 

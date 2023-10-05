@@ -130,6 +130,28 @@ const WithControlledStateTemplate: ComponentStory<typeof MultiSelect> = () => {
   );
 };
 
+const MultiSelectWithFormTemplate: ComponentStory<typeof MultiSelect> = (args) => (
+  <form className="flex flex-col gap-3 items-start" method="GET" action="http://localhost:6006/">
+    <label htmlFor="path" className="w-full">
+      <Text>Redirect path</Text>
+      <input
+        type="text"
+        name="path"
+        id="path"
+        defaultValue="/story/tremor-inputelements-multiselect--multi-select-with-form"
+        className="border border-gray-200 rounded-md w-1/2 p-2"
+      />
+    </label>
+    <MultiSelect {...args} name="MultiSelect" required className="w-1/2">
+      <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+      <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+      <MultiSelectItem value={"1"}>One</MultiSelectItem>
+    </MultiSelect>
+    <Button type="submit">Submit</Button>
+    <Text>{"You'll find your selected value in the URL params after submiting the form"}</Text>
+  </form>
+);
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
@@ -159,3 +181,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const MultiSelectWithForm = MultiSelectWithFormTemplate.bind({});

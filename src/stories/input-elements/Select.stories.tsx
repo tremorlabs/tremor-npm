@@ -20,7 +20,7 @@ const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
   <form>
     <Title>Mobile</Title>
     <div className="w-64">
-      <Card>
+      <Card className="space-y-4">
         <DateRangePicker />
         <SimpleSelect {...args} />
         <SimpleSearchSelect icon={CalendarIcon} />
@@ -87,28 +87,36 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
         <SelectItem value={"10"}>Ten</SelectItem>
         <SelectItem value={"11"}>Eleven</SelectItem>
       </Select>
-      <Button onClick={() => setValue("")}>Reset</Button>
-      <Button onClick={() => setValue("1")}>Set to One</Button>
-      <Text>{value}</Text>
+      <div className="mt-4 space-x-4">
+        <Button onClick={() => setValue("")}>Reset</Button>
+        <Button onClick={() => setValue("1")}>Set to One</Button>
+      </div>
+      <Text className="mt-4">value: {value}</Text>
     </Card>
   );
 };
 
 const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
-  <form action="http://localhost:6006" target="_blank" method="GET">
-    <label className="mb-5">
-      Custom input:
-      <input className="border-2 p-1 ml-5 rounded-lg" name="text-input" required />
-    </label>
-    <Select {...args} name="select">
-      <SelectItem value={"5"}>Five</SelectItem>
-      <SelectItem value={"3"}>Three</SelectItem>
-      <SelectItem value={"1"}>One</SelectItem>
-    </Select>
-    <button className="" type="submit">
-      Submit
-    </button>
-  </form>
+  // <form action="http://localhost:6006" target="_blank" method="GET">
+  <>
+    <Text>Use Select within a form</Text>
+    <form
+      action="https://getform.io/f/e297423b-7763-4c32-848d-4d680ccc5866"
+      method="POST"
+      className="mt-4"
+    >
+      {/* <label className="mb-5">Custom input test:</label>
+      <input className="p-1 ml-5 border-2 rounded-lg" name="text-input" required /> */}
+      <Select {...args} name="select" className="mt-4 w-52" id="test" required>
+        <SelectItem value={"5"}>Five</SelectItem>
+        <SelectItem value={"3"}>Three</SelectItem>
+        <SelectItem value={"1"}>One</SelectItem>
+      </Select>
+      <Button type="submit" className="mt-4">
+        Submit
+      </Button>
+    </form>
+  </>
 );
 
 export const DefaultResponsive = ResponsiveTemplate.bind({});
