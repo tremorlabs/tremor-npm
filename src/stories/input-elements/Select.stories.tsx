@@ -100,11 +100,7 @@ const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
   // <form action="http://localhost:6006" target="_blank" method="GET">
   <>
     <Text>Use Select within a form</Text>
-    <form
-      action="https://getform.io/f/e297423b-7763-4c32-848d-4d680ccc5866"
-      method="POST"
-      className="mt-4"
-    >
+    <form action="#" method="POST" className="mt-4">
       {/* <label className="mb-5">Custom input test:</label>
       <input className="p-1 ml-5 border-2 rounded-lg" name="text-input" required /> */}
       <Select {...args} name="select" className="mt-4 w-52" id="test" required>
