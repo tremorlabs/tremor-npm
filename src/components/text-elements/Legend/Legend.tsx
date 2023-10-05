@@ -207,7 +207,10 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
 
   const keyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
-    setIsKeyDowned(e.key);
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+      setIsKeyDowned(e.key);
+    }
   };
   const keyUp = (e: KeyboardEvent) => {
     e.stopPropagation();
@@ -215,20 +218,19 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   };
 
   React.useEffect(() => {
+    const scrollable = scrollableRef?.current;
     if (withScroll) {
       checkScroll();
 
-    //   document.addEventListener("keydown", keyDown);
-    //   document.addEventListener("keyup", keyUp);
-    scrollableRef?.current?.addEventListener("keydown", keyDown);
-    scrollableRef?.current?.addEventListener("keyup", keyUp);
+      scrollable?.addEventListener("keydown", keyDown);
+      scrollable?.addEventListener("keyup", keyUp);
     }
 
     return () => {
-    //   document.removeEventListener("keydown", keyDown);
-    //   document.removeEventListener("keyup", keyUp);
-    scrollableRef?.current?.removeEventListener("keydown", keyDown);
-    scrollableRef?.current?.removeEventListener("keyup", keyUp);
+      //   document.removeEventListener("keydown", keyDown);
+      //   document.removeEventListener("keyup", keyUp);
+      scrollable?.removeEventListener("keydown", keyDown);
+      scrollable?.removeEventListener("keyup", keyUp);
     };
   }, [withScroll]);
 
@@ -280,12 +282,18 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           >
             <ScrollButton
               icon={ChevronLeftFill}
-              onClick={() => scrollToTest("left")}
+              onClick={() => {
+                setIsKeyDowned(null);
+                scrollToTest("left");
+              }}
               disabled={!hasScroll?.left ?? true}
             />
             <ScrollButton
               icon={ChevronRightFill}
-              onClick={() => scrollToTest("right")}
+              onClick={() => {
+                setIsKeyDowned(null);
+                scrollToTest("right");
+              }}
               disabled={!hasScroll?.right ?? true}
             />
           </div>
