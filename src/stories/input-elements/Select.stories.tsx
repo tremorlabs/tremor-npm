@@ -95,35 +95,24 @@ const WithControlledStateTemplate: ComponentStory<typeof Select> = () => {
 };
 
 const SelectWithFormTemplate: ComponentStory<typeof Select> = (args) => (
-  <form
-    className="flex flex-col gap-3 items-start"
-    method="GET"
-    action="http://localhost:6006/"
-  >
+  <form className="flex flex-col gap-3 items-start" method="GET" action="http://localhost:6006/">
     <label htmlFor="path" className="w-full">
-        <Text>Redirect path</Text>
-        <input 
-            type="text" 
-            name="path" 
-            id="path" 
-            defaultValue="/story/tremor-inputelements-select--select-with-form" 
-            className="border border-gray-200 rounded-md w-1/2 p-2"
-        />
+      <Text>Redirect path</Text>
+      <input
+        type="text"
+        name="path"
+        id="path"
+        defaultValue="/story/tremor-inputelements-select--select-with-form"
+        className="border border-gray-200 rounded-md w-1/2 p-2"
+      />
     </label>
-    <Select
-      {...args}
-      name="select"
-      required
-      className="w-1/2"
-    >
+    <Select {...args} name="select" required className="w-1/2">
       <SelectItem value={"5"}>Five</SelectItem>
       <SelectItem value={"3"}>Three</SelectItem>
       <SelectItem value={"1"}>One</SelectItem>
     </Select>
-    <Button type="submit">
-      Submit
-    </Button>
-    <Text>You'll find your selected value in the URL params after submiting the form</Text>
+    <Button type="submit">Submit</Button>
+    <Text>{"You'll find your selected value in the URL params after submiting the form"}</Text>
   </form>
 );
 
@@ -165,8 +154,7 @@ export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 export const WithControlledState = WithControlledStateTemplate.bind({});
 
 export const SelectWithForm = SelectWithFormTemplate.bind({});
-
 SelectWithForm.args = {
-    enableClear: true,
-    icon: CalendarIcon,
-  };
+  enableClear: true,
+  icon: CalendarIcon,
+};
