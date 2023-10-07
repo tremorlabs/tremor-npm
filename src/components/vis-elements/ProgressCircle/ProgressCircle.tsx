@@ -1,6 +1,6 @@
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const makeProgressCircleClassName = makeClassName("ProgressBar");
 
@@ -65,6 +65,22 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
 
   const { tooltipProps } = useTooltip();
 
+  const animationRef = useRef<SVGAnimateElement>(null);
+  const [animation, setAnnimation] = useState({
+    start: circumference,
+    end: offset,
+  });
+
+  useEffect(() => {
+    if (offset !== animation.end) {
+      if (animationRef?.current) animationRef.current.beginElement();
+      setAnnimation((prev) => ({
+        start: prev.end,
+        end: offset,
+      }));
+    }
+  }, [offset]);
+
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
@@ -119,9 +135,10 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
               {showAnimation && (
                 <>
                   <animate
+                    ref={animationRef}
                     attributeName="stroke-dashoffset"
-                    from={circumference}
-                    to={offset}
+                    from={animation.start}
+                    to={animation.end}
                     dur="0.5s"
                     calcMode={"spline"}
                     keySplines="0.42, 0, 1, 1"
