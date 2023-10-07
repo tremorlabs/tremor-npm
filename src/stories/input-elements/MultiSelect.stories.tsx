@@ -130,6 +130,19 @@ const WithControlledStateTemplate: ComponentStory<typeof MultiSelect> = () => {
   );
 };
 
+const WithOnInputValueChangeTemplate: ComponentStory<typeof MultiSelect> = () => {
+  const [input, setInput] = useState<string>("");
+  return (
+    <Card>
+      <Text>Input:{input}</Text>
+      <MultiSelect onInputValueChange={(value) => setInput(value)}>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+        <MultiSelectItem value={"2"}>Two</MultiSelectItem>
+      </MultiSelect>
+    </Card>
+  );
+};
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 
 export const WithFlexParent = FlexTemplate.bind({});
@@ -159,3 +172,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const WithOnInputValueChange = WithOnInputValueChangeTemplate.bind({});
