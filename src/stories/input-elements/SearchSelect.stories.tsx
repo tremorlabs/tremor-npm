@@ -93,6 +93,18 @@ const WithControlledStateTemplate: ComponentStory<typeof SearchSelect> = () => {
   );
 };
 
+const WithOnInputValueChangeTemplate: ComponentStory<typeof SearchSelect> = () => {
+  const [input, setInput] = useState<string>("");
+  return (
+    <Card>
+      <Text>Input:{input}</Text>
+      <SearchSelect onInputValueChange={(value) => setInput(value)}>
+        <SearchSelectItem value={"1"}>One</SearchSelectItem>
+      </SearchSelect>
+    </Card>
+  );
+};
+
 export const DefaultResponsive = ResponsiveTemplate.bind({});
 DefaultResponsive.args = {
   onValueChange: (v) => alert(v),
@@ -123,3 +135,5 @@ WithDisabled.args = {
 export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
+
+export const WithOnInputValueChange = WithOnInputValueChangeTemplate.bind({});

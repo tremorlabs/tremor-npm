@@ -18,6 +18,7 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  onInputValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -29,6 +30,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     defaultValue,
     value,
     onValueChange,
+    onInputValueChange,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -45,6 +47,11 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
     [searchQuery, children],
   );
+
+  const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    onInputValueChange?.(e.target.value);
+  };
 
   return (
     <Combobox
@@ -105,7 +112,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 getSelectButtonColors(hasValue(value), disabled),
               )}
               placeholder={placeholder}
-              onChange={(event) => setSearchQuery(event.target.value)}
+              onChange={handleInputValueChange}
               displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
             />
             <div
