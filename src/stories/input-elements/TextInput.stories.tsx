@@ -31,9 +31,13 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
           <Text>Conrolled without onChange</Text>
           <TextInput {...args} value={value} />
           <label htmlFor="a">
-            <Text>Controlled</Text>
+            <Text>Controlled with onChange</Text>
           </label>
           <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
+          <label htmlFor="a">
+            <Text>Controlled with onValueChanage</Text>
+          </label>
+          <TextInput {...args} id={"a"} value={value} onValueChange={setValue} />
           <Button type="submit" className="mt-2">
             Submit
           </Button>
@@ -58,9 +62,13 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
           <Text>Conrolled without onChange</Text>
           <TextInput {...args} value={value} />
           <label htmlFor="a">
-            <Text>Controlled</Text>
+            <Text>Controlled with onChange</Text>
           </label>
           <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
+          <label htmlFor="a">
+            <Text>Controlled with onValueChanage</Text>
+          </label>
+          <TextInput {...args} id={"a"} value={value} onValueChange={setValue} />
           <Button type="submit" className="mt-2">
             Submit
           </Button>

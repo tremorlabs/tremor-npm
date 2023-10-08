@@ -13,6 +13,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
+  onValueChange?: (value: string) => void;
   makeInputClassName: (className: string) => string;
 }
 
@@ -29,6 +30,8 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     stepper,
     makeInputClassName,
     className,
+    onChange,
+    onValueChange,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
@@ -124,6 +127,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           placeholder={placeholder}
           disabled={disabled}
           data-testid="base-input"
+          onChange={(e) => {
+            onChange?.(e);
+            onValueChange?.(e.target.value);
+          }}
           {...other}
         />
         {error ? (
