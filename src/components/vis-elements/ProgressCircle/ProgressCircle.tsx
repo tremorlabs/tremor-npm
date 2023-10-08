@@ -56,7 +56,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     size = "md",
     className,
     showAnimation = true,
-    color,
+    color = "blue",
     tooltip,
     radius: inputRadius,
     strokeWidth: inputStrokeWidth,
@@ -124,7 +124,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 ? `${
                     getColorClassNames(color, colorPalette.background).strokeColor
                   } opacity-20 dark:opacity-25`
-                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted",
+                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted transition-colors ease-linear",
             )}
           />
           {value > 0 ? (
