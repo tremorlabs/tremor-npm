@@ -110,15 +110,13 @@ withChildrenSpan.args = {
   children: <span className="dark:text-white font-medium font-mono text-sm">56.3</span>,
 };
 
-export const withChildrenImage = TemplateColorsDemo.bind({});
-withChildrenImage.args = {
+export const withChildrenAvatar = TemplateColorsDemo.bind({});
+withChildrenAvatar.args = {
   value: 76,
   children: (
-    <img
-      className="rounded-full h-12"
-      src="https://picsum.photos/id/800/300/300"
-      alt="random image"
-    />
+    <div className="rounded-full flex items-center justify-center h-12 w-12 bg-gray-100">
+      <span className="text-sm font-medium text-gray-500">JD</span>
+    </div>
   ),
 };
 
