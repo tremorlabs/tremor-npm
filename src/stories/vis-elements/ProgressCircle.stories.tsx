@@ -78,6 +78,12 @@ const TemplateMisc: ComponentStory<typeof ProgressCircle> = () => {
           <Subtitle>Value with custom formatter of 2 digits and classname</Subtitle>
         </div>
         <div className="flex flex-row gap-x-5 items-center">
+          <ProgressCircle className="text-xs text-blue-600" value={134}>
+            {formatNumber(134)}
+          </ProgressCircle>
+          <Subtitle>Value larger than 100</Subtitle>
+        </div>
+        <div className="flex flex-row gap-x-5 items-center">
           <ProgressCircle value={42} tooltip={"Progress..."} />
           <Subtitle>Showing Tooltip</Subtitle>
         </div>

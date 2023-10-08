@@ -40,6 +40,16 @@ const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
   },
 };
 
+function getLimitedValue(input: number | undefined) {
+  if (input === undefined) {
+    return 0;
+  } else if (input > 100) {
+    return 100;
+  } else {
+    return input;
+  }
+}
+
 const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
   const {
     value: inputValue,
@@ -55,7 +65,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
   } = props;
 
   // sanitize input
-  const value = inputValue === undefined ? 0 : inputValue;
+  const value = getLimitedValue(inputValue);
   const radius = inputRadius ?? size2config[size].radius;
   const strokeWidth = inputStrokeWidth ?? size2config[size].strokeWidth;
   const normalizedRadius = radius - strokeWidth / 2;
@@ -63,7 +73,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
   const strokeDashoffset = (value / 100) * circumference;
   const offset = circumference - strokeDashoffset;
 
-  const { tooltipProps } = useTooltip();
+  const { tooltipProps, getReferenceProps } = useTooltip();
 
   const animationRef = useRef<SVGAnimateElement>(null);
   const [animation, setAnnimation] = useState({
@@ -79,7 +89,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
         end: offset,
       }));
     }
-  }, [offset]);
+  }, [animation.end, offset]);
 
   return (
     <>
@@ -94,10 +104,12 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
         {...other}
       >
         <svg
+          ref={tooltipProps.refs.setReference}
           width={radius * 2}
           height={radius * 2}
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}
           className="transform -rotate-90"
+          {...getReferenceProps}
         >
           <circle
             r={normalizedRadius}
