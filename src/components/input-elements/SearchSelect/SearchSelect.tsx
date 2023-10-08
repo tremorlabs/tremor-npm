@@ -24,6 +24,8 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   children: React.ReactElement[] | React.ReactElement;
 }
 
@@ -39,6 +41,8 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
     className,
     name,
     required,
+    error = false,
+    errorMessage,
     ...other
   } = props;
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
@@ -59,6 +63,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
       )}
     >
       <select
+        title="search-select-hidden"
         required={required}
         className={tremorTwMerge(
           // common
@@ -146,7 +151,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   disabled
                     ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
                     : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                  getSelectButtonColors(hasValue(value), disabled),
+                  getSelectButtonColors(hasValue(value), disabled, error),
                 )}
                 placeholder={placeholder}
                 onChange={(event) => setSearchQuery(event.target.value)}
@@ -193,6 +198,11 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
           </>
         )}
       </Combobox>
+      {error && errorMessage ? (
+        <p className={tremorTwMerge("errorMessage", "text-sm text-rose-500 mt-1")}>
+          {errorMessage}
+        </p>
+      ) : null}
     </div>
   );
 });

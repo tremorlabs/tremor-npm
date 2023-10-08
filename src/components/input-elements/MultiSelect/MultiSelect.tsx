@@ -25,6 +25,8 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement>
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   children: React.ReactElement[] | React.ReactElement;
 }
 
@@ -41,6 +43,8 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
     className,
     required,
     name,
+    error = false,
+    errorMessage,
     ...other
   } = props;
   const Icon = icon;
@@ -71,6 +75,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
       )}
     >
       <select
+        title="multi-select-hidden"
         required={required}
         className={tremorTwMerge(
           // common
@@ -133,7 +138,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 spacing.fourXl.paddingRight,
                 spacing.xs.paddingY,
                 border.sm.all,
-                getSelectButtonColors(value.length > 0, disabled),
+                getSelectButtonColors(value.length > 0, disabled, error),
               )}
             >
               {Icon && (
@@ -326,6 +331,11 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
           </>
         )}
       </Listbox>
+      {error && errorMessage ? (
+        <p className={tremorTwMerge("errorMessage", "text-sm text-rose-500 mt-1")}>
+          {errorMessage}
+        </p>
+      ) : null}
     </div>
   );
 });

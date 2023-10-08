@@ -152,4 +152,10 @@ export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
 
-export const SelectWithForm = SelectWithFormTemplate.bind({});
+export const WithError = ResponsiveTemplate.bind({});
+WithError.args = {
+  error: true,
+  errorMessage: "Error message",
+};
+
+export const WithForm = SelectWithFormTemplate.bind({});

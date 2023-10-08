@@ -21,6 +21,8 @@ export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   children: React.ReactElement[] | React.ReactElement;
 }
 
@@ -37,6 +39,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
     children,
     className,
     name,
+    error = false,
+    errorMessage,
     ...other
   } = props;
   const childrenArray = Children.toArray(children);
@@ -58,6 +62,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
       )}
     >
       <select
+        title="select-hidden"
         required={required}
         className={tremorTwMerge(
           // common
@@ -118,7 +123,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                 spacing.fourXl.paddingRight,
                 spacing.sm.paddingY,
                 border.sm.all,
-                getSelectButtonColors(hasValue(value), disabled),
+                getSelectButtonColors(hasValue(value), disabled, error),
               )}
             >
               {Icon && (
@@ -212,6 +217,11 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
           </>
         )}
       </Listbox>
+      {error && errorMessage ? (
+        <p className={tremorTwMerge("errorMessage", "text-sm text-rose-500 mt-1")}>
+          {errorMessage}
+        </p>
+      ) : null}
     </div>
   );
 });
