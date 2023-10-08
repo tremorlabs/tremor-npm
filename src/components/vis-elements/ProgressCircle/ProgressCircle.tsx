@@ -56,7 +56,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
     size = "md",
     className,
     showAnimation = true,
-    color = "blue",
+    color,
     tooltip,
     radius: inputRadius,
     strokeWidth: inputStrokeWidth,
