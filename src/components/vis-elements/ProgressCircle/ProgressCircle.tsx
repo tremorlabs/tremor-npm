@@ -120,11 +120,12 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             stroke=""
             strokeLinecap="round"
             className={tremorTwMerge(
+              "transition-colors ease-linear",
               color
                 ? `${
                     getColorClassNames(color, colorPalette.background).strokeColor
                   } opacity-20 dark:opacity-25`
-                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted transition-colors ease-linear",
+                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted",
             )}
           />
           {value > 0 ? (
@@ -139,6 +140,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
               stroke=""
               strokeLinecap="round"
               className={tremorTwMerge(
+                "transition-colors ease-linear",
                 color
                   ? getColorClassNames(color, colorPalette.background).strokeColor
                   : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
