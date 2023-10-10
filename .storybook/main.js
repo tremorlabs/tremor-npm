@@ -1,32 +1,46 @@
-var path = require('path');
+var path = require("path");
 
 module.exports = {
-  "stories": ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
 
-  "addons": [
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@storybook/addon-styling-webpack",
+    "@storybook/addon-themes",
     {
-      name: '@storybook/addon-postcss',
+      name: "@storybook/addon-styling-webpack",
+
       options: {
-        cssLoaderOptions: {
-          // When you have splitted your css over multiple files
-          // and use @import('./other-styles.css')
-          importLoaders: 1,
-        },
-        postcssLoaderOptions: {
-          // When using postCSS 8
-          implementation: require('postcss'),
-        },
+        rules: [
+          {
+            test: /\.css$/,
+            sideEffects: true,
+            use: [
+              require.resolve("style-loader"),
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve("postcss-loader"),
+                options: {
+                  implementation: require.resolve("postcss"),
+                },
+              },
+            ],
+          },
+        ],
       },
     },
-    "@storybook/addon-styling-webpack"
   ],
 
-  "framework": {
+  framework: {
     name: "@storybook/react-webpack5",
-    options: {}
+    options: {},
   },
 
   features: {
@@ -34,15 +48,12 @@ module.exports = {
   },
 
   webpackFinal: async (config) => {
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
-      path.resolve(__dirname, "../src"),
-    ];
+    config.resolve.modules = [...(config.resolve.modules || []), path.resolve(__dirname, "../src")];
 
     return config;
   },
 
   docs: {
-    autodocs: true
-  }
+    autodocs: true,
+  },
 };

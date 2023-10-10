@@ -24,7 +24,12 @@ export default meta;
 type Story = StoryObj<typeof AreaChart>;
 
 export const DefaultResponsive: Story = {
-  args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
+  args: {
+    categories: ["Sales", "Successful Payments"],
+    index: "month",
+    data,
+    className: "h-72 w-[500px]",
+  },
 };
 
 // export const WithStacked: Story = {

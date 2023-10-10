@@ -85,6 +85,9 @@ devDependencies:
   '@storybook/addon-styling-webpack':
     specifier: ^0.0.5
     version: 0.0.5(webpack@5.86.0)
+  '@storybook/addon-themes':
+    specifier: ^7.4.6
+    version: 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/mdx2-csf':
     specifier: ^1.1.0
     version: 1.1.0
@@ -127,6 +130,9 @@ devDependencies:
   conventional-changelog-conventionalcommits:
     specifier: ^5.0.0
     version: 5.0.0
+  css-loader:
+    specifier: ^6.8.1
+    version: 6.8.1(webpack@5.86.0)
   eslint:
     specifier: ^8.13.0
     version: 8.42.0
@@ -154,6 +160,9 @@ devDependencies:
   postcss:
     specifier: ^8.4.21
     version: 8.4.24
+  postcss-loader:
+    specifier: ^7.3.3
+    version: 7.3.3(postcss@8.4.24)(webpack@5.86.0)
   prettier:
     specifier: ^2.8.3
     version: 2.8.8
@@ -193,6 +202,9 @@ devDependencies:
   storybook:
     specifier: ^7.4.6
     version: 7.4.6
+  style-loader:
+    specifier: ^3.3.3
+    version: 3.3.3(webpack@5.86.0)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
@@ -404,7 +416,7 @@ packages:
       '@babel/helper-replace-supers': 7.22.5
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.5
-      semver: 6.3.0
+      semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -424,7 +436,7 @@ packages:
       '@babel/helper-replace-supers': 7.22.5
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.5
-      semver: 6.3.0
+      semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -438,7 +450,7 @@ packages:
       '@babel/core': 7.22.5
       '@babel/helper-annotate-as-pure': 7.22.5
       regexpu-core: 5.3.2
-      semver: 6.3.0
+      semver: 6.3.1
     dev: true
 
   /@babel/helper-create-regexp-features-plugin@7.22.5(@babel/core@7.23.0):
@@ -450,7 +462,7 @@ packages:
       '@babel/core': 7.23.0
       '@babel/helper-annotate-as-pure': 7.22.5
       regexpu-core: 5.3.2
-      semver: 6.3.0
+      semver: 6.3.1
     dev: true
 
   /@babel/helper-define-polyfill-provider@0.4.0(@babel/core@7.22.5):
@@ -464,7 +476,7 @@ packages:
       debug: 4.3.4
       lodash.debounce: 4.0.8
       resolve: 1.22.2
-      semver: 6.3.0
+      semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4594,7 +4606,7 @@ packages:
       read-pkg: 8.0.0
       registry-auth-token: 5.0.2
       semantic-release: 21.0.5
-      semver: 7.5.1
+      semver: 7.5.4
       tempy: 3.0.0
     dev: true
 
@@ -4919,6 +4931,32 @@ packages:
       webpack: 5.86.0(@swc/core@1.3.92)(esbuild@0.18.20)
     dev: true
 
+  /@storybook/addon-themes@7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-XMcO9KQEoWB8eqLbp2drtCQpaCeJZxSr/Ln1DOiVDiq/CMS6kVQ4+YEV4W9tRA6729bVdyRKsy69i6YlBW+FTQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@storybook/client-logger': 7.4.6
+      '@storybook/components': 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/core-events': 7.4.6
+      '@storybook/manager-api': 7.4.6(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/preview-api': 7.4.6
+      '@storybook/theming': 7.4.6(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/types': 7.4.6
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: true
+
   /@storybook/addon-toolbars@7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-L9m2FBcKeteGq7qIYsMJr0LEfiH7Wdrv5IDcldZTn68eZUJTh1p4GdJZcOmzX1P5IFRr76hpu03iWsNlWQjpbQ==}
     peerDependencies:
@@ -5162,7 +5200,7 @@ packages:
       prompts: 2.4.2
       puppeteer-core: 2.1.1
       read-pkg-up: 7.0.1
-      semver: 7.5.1
+      semver: 7.5.4
       simple-update-notifier: 2.0.0
       strip-json-comments: 3.1.1
       tempy: 1.0.1
@@ -5422,7 +5460,7 @@ packages:
       memoizerific: 1.11.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      semver: 7.5.1
+      semver: 7.5.4
       store2: 2.14.2
       telejson: 7.2.0
       ts-dedent: 2.2.0
@@ -6314,7 +6352,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.1
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@4.9.5)
       typescript: 4.9.5
     transitivePeerDependencies:
@@ -6335,7 +6373,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.59.11(typescript@4.9.5)
       eslint: 8.42.0
       eslint-scope: 5.1.1
-      semver: 7.5.1
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -7807,7 +7845,7 @@ packages:
       postcss-modules-scope: 3.0.0(postcss@8.4.24)
       postcss-modules-values: 4.0.0(postcss@8.4.24)
       postcss-value-parser: 4.2.0
-      semver: 7.5.1
+      semver: 7.5.4
       webpack: 5.86.0(@swc/core@1.3.92)(esbuild@0.18.20)
     dev: true
 
@@ -9158,7 +9196,7 @@ packages:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.2.0
-      semver: 7.5.1
+      semver: 7.5.4
       tapable: 2.2.1
       typescript: 4.9.5
       webpack: 5.86.0(@swc/core@1.3.92)(esbuild@0.18.20)
@@ -10171,7 +10209,7 @@ packages:
       '@babel/parser': 7.22.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
-      semver: 6.3.0
+      semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10647,7 +10685,7 @@ packages:
       jest-util: 27.5.1
       natural-compare: 1.4.0
       pretty-format: 27.5.1
-      semver: 7.5.1
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -11151,7 +11189,7 @@ packages:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
     dependencies:
-      semver: 6.3.0
+      semver: 6.3.1
     dev: true
 
   /makeerror@1.0.12:
@@ -11523,7 +11561,7 @@ packages:
     dependencies:
       hosted-git-info: 6.1.1
       is-core-module: 2.12.1
-      semver: 7.5.1
+      semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -12250,6 +12288,20 @@ packages:
       lilconfig: 2.1.0
       postcss: 8.4.24
       yaml: 2.3.1
+
+  /postcss-loader@7.3.3(postcss@8.4.24)(webpack@5.86.0):
+    resolution: {integrity: sha512-YgO/yhtevGO/vJePCQmTxiaEwER94LABZN0ZMT4A0vsak9TpO+RvKRs7EmJ8peIlB9xfXCsS7M8LjqncsUZ5HA==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      postcss: ^7.0.0 || ^8.0.1
+      webpack: ^5.0.0
+    dependencies:
+      cosmiconfig: 8.2.0
+      jiti: 1.18.2
+      postcss: 8.4.24
+      semver: 7.5.4
+      webpack: 5.86.0(@swc/core@1.3.92)(esbuild@0.18.20)
+    dev: true
 
   /postcss-merge-longhand@5.1.7(postcss@8.4.24):
     resolution: {integrity: sha512-YCI9gZB+PLNskrK0BB3/2OzPnGhPkBEwmwhfYk1ilBHYVAZB7/tkTHFBAnCrvBBOmeYyMYw3DMjT55SyxMBzjQ==}
@@ -13496,7 +13548,7 @@ packages:
     resolution: {integrity: sha512-0Ju4+6A8iOnpL/Thra7dZsSlOHYAHIeMxfhWQRI1/VLcT3WDBZKKtQt/QkBOsiIN9ZpuvHE6cGZ0x4glCMmfiA==}
     engines: {node: '>=12'}
     dependencies:
-      semver: 7.5.1
+      semver: 7.5.4
     dev: true
 
   /semver-regex@4.0.5:
