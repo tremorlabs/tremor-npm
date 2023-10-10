@@ -12,7 +12,6 @@ import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import { valueFormatter } from "./helpers/utils";
 
-// More meta: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof AreaChart> = {
   title: "Tremor/ChartElements/AreaChart",
   component: AreaChart,
@@ -23,7 +22,7 @@ const meta: Meta<typeof AreaChart> = {
 export default meta;
 type Story = StoryObj<typeof AreaChart>;
 
-export const DefaultResponsive: Story = {
+export const Default: Story = {
   args: {},
 };
 
@@ -77,10 +76,6 @@ export const NoData: Story = {
 };
 
 export const NoDataText: Story = {
-  args: { data: [], noDataText: "No data, try again later." },
-};
-
-export const NoDataTextLessColorsThanCategories: Story = {
   args: { data: [], noDataText: "No data, try again later." },
 };
 
@@ -274,6 +269,8 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
+
+// keep because of if statement
 // const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
 //   if (args.onValueChange?.length === 0) {
 //     args.onValueChange = undefined;
