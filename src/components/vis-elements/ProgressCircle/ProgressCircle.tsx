@@ -128,7 +128,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 color
                   ? getColorClassNames(color, colorPalette.background).strokeColor
                   : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
-                showAnimation ? "transition-all duration-300 ease-in-out" : null,
+                showAnimation ? "transition-all duration-300 ease-in-out" : "",
               )}
             />
           ) : null}
