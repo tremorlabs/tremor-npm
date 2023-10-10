@@ -62,19 +62,19 @@ export const ValueFormatter: Story = {
   args: { valueFormatter: currencyValueFormatter },
 };
 
-export const WithCustomLabel: Story = {
+export const CustomLabel: Story = {
   args: { valueFormatter: currencyValueFormatter, label: "Hello there" },
 };
 
-export const WithLabelDisabled: Story = {
+export const LabelDisabled: Story = {
   args: { valueFormatter: currencyValueFormatter, label: "Hello there", showLabel: false },
 };
 
-export const WithOtherColors: Story = {
+export const OtherColors: Story = {
   args: { colors: ["blue", "amber", "sky", "emerald", "rose", "orange"] },
 };
 
-export const WithMoreDatapointsThanColors: Story = {
+export const MoreDatapointsThanColors: Story = {
   args: {
     data: [
       // extra long data array
@@ -85,7 +85,7 @@ export const WithMoreDatapointsThanColors: Story = {
   },
 };
 
-export const WithLongValues: Story = {
+export const LongValues: Story = {
   args: {
     data: data.map((dataPoint) => ({
       ...dataPoint,
@@ -95,15 +95,15 @@ export const WithLongValues: Story = {
   },
 };
 
-export const WithVariantPie: Story = {
+export const VariantPie: Story = {
   args: { variant: "pie" },
 };
 
-export const WithNoData: Story = {
+export const NoData: Story = {
   args: { data: [] },
 };
 
-export const WithNoDataText: Story = {
+export const NoDataText: Story = {
   args: { data: [], noDataText: "No data, try again later." },
 };
 
@@ -120,16 +120,16 @@ export const LongAnimation: Story = {
   },
 };
 
-export const WithOnValueChangeExample: Story = {
+export const OnValueChangeExample: Story = {
   args: { onValueChange: (value) => alert(JSON.stringify(value)) },
 };
 
-export const WithOnValueChangePieExample: Story = {
+export const OnValueChangePieExample: Story = {
   args: { variant: "pie", onValueChange: (value) => alert(JSON.stringify(value)) },
 };
 
 //Custom tooltips
-export const WithCustomTooltipSimple: Story = {
+export const CustomTooltipSimple: Story = {
   args: {
     data: data2,
     index: "month",

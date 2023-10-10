@@ -41,7 +41,7 @@ export const AutoMinValueAndLayoutVertical: Story = {
   args: { autoMinValue: true, layout: "vertical" },
 };
 
-export const WithMinValueAndMaxValue: Story = {
+export const MinValueAndMaxValue: Story = {
   args: { minValue: -1000, maxValue: 5000 },
 };
 
