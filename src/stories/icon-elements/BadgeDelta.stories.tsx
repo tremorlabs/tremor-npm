@@ -49,10 +49,10 @@ export const Default: Story = {
   args: {},
 };
 
-export const SizesExample: Story = {
+export const Sizes: Story = {
   ...BadgeDeltaTemplateSizes,
 };
 
-export const TypesExample: Story = {
+export const Types: Story = {
   ...BadgeDeltaTemplateTypes,
 };

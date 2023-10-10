@@ -50,15 +50,15 @@ export const Default: Story = {
   args: {},
 };
 
-export const SizesExample: Story = {
+export const Sizes: Story = {
   ...BadgeTemplateSizes,
 };
 
-export const ColorsExample: Story = {
+export const Colors: Story = {
   ...BadgeTemplateColors,
 };
 
-export const NoIconExample: Story = {
+export const NoIcon: Story = {
   args: {
     icon: undefined,
   },
