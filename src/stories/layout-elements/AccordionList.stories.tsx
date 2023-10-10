@@ -1,16 +1,16 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { AccordionList, Card, Flex, Text, Title } from "components";
 import { SimpleAccordion } from "./helpers/SimpleAccordion";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/LayoutElements/AccordionList",
   component: AccordionList,
 } as ComponentMeta<typeof AccordionList>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const SimpleAccordionList = ({ ...args }) => {
   return (

@@ -11,17 +11,17 @@ import {
   TableHeaderCell,
   TableRow,
 } from "components";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
 import { DeltaType } from "lib";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/ListElements/Table",
   component: Table,
 } as ComponentMeta<typeof Table>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const data = [
   {

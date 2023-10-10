@@ -4,14 +4,14 @@ import { BaseColors, HorizontalPosition, VerticalPosition } from "lib";
 import { Card, Grid, Flex, Metric, Title } from "components";
 import { SimpleCard } from "./helpers/SimpleCard";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/LayoutElements/Card",
   component: Card,
 } as ComponentMeta<typeof Card>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const ResponsiveTemplate: ComponentStory<typeof Card> = (args) => (
   <>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import {
   Button,
@@ -22,12 +22,12 @@ import { CalendarIcon } from "assets";
 import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
 import { SimpleSelect } from "stories/input-elements/helpers/SimpleSelect";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/MultiSelect",
   component: MultiSelect,
 } as ComponentMeta<typeof MultiSelect>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const ResponsiveTemplate: ComponentStory<typeof MultiSelect> = (args) => (
   <form>

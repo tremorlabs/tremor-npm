@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button, Card, DatePicker, Text, Title } from "components";
 import { fr } from "date-fns/locale";
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/DatePicker",
   component: DatePicker,
 } as ComponentMeta<typeof DatePicker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const UncontrolledTemplate: ComponentStory<typeof DatePicker> = (args) => {
   const [value, setValue] = useState<Date>();

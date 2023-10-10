@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { BarChart, Card, Title } from "components";
 import { simpleBaseChartData as data } from "./helpers/testData";
 import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/ChartElements/BarChart",
   component: BarChart,
 } as ComponentMeta<typeof BarChart>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const ResponsiveTemplate: ComponentStory<typeof BarChart> = (args) => {
   if (args.onValueChange?.length === 0) {

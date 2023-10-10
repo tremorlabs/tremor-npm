@@ -1,14 +1,14 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Card, DeltaBar, Metric } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/VisElements/DeltaBar",
   component: DeltaBar,
 } as ComponentMeta<typeof DeltaBar>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof DeltaBar> = (args) => (
   <Card>

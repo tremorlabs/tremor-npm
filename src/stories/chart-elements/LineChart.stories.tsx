@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, LineChart, Title } from "components";
 import {
@@ -11,12 +11,12 @@ import {
 import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/ChartElements/LineChart",
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const ResponsiveTemplate: ComponentStory<typeof LineChart> = (args) => {
   if (args.onValueChange?.length === 0) {

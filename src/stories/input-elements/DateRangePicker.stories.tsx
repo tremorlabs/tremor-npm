@@ -7,18 +7,18 @@ import {
   Text,
   Title,
 } from "components";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/DateRangePicker",
   component: DateRangePicker,
 } as ComponentMeta<typeof DateRangePicker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const UncontrolledTemplate: ComponentStory<typeof DateRangePicker> = (args) => {
   const [value, setValue] = useState<DateRangePickerValue>({});

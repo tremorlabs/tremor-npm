@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowUpIcon } from "assets";
 
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
@@ -14,7 +14,7 @@ export default {
   title: "Tremor/IconElements/Icon",
   component: Icon,
 } as ComponentMeta<typeof Icon>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const SizesTemplate: ComponentStory<typeof Icon> = (args) => (
   <div>

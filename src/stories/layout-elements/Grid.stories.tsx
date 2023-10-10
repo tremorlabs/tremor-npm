@@ -1,17 +1,17 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Col, Grid, Metric } from "components";
 import { SimpleCard } from "./helpers/SimpleCard";
 import { SimpleText } from "./helpers/SimpleText";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/LayoutElements/Grid",
   component: Grid,
 } as ComponentMeta<typeof Grid>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof Grid> = (args) => (
   <Grid {...args}>

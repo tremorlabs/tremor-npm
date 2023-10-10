@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Tracker } from "components";
 
@@ -8,7 +8,7 @@ export default {
   title: "Tremor/VisElements/Tracker",
   component: Tracker,
 } as ComponentMeta<typeof Tracker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof Tracker> = () => (
   <Card>

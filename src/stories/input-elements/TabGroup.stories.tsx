@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import {
   Button,
@@ -17,12 +17,12 @@ import {
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/TabGroup",
   component: TabGroup,
 } as ComponentMeta<typeof TabGroup>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const TabLine = (args: any) => (
   <TabGroup defaultIndex={0} {...args}>

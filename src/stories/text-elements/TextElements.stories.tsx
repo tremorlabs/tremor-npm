@@ -1,15 +1,15 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Bold, Italic, Text, Title } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/TextElements/TextElements",
   component: Title,
 } as ComponentMeta<typeof Title>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof Text> = () => (
   <Text>

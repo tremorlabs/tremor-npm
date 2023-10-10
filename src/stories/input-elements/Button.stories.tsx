@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
 
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
@@ -9,12 +9,12 @@ import { Card, Grid, Flex, Title } from "components";
 
 import { Button } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/Button",
   component: Flex,
 } as ComponentMeta<typeof Flex>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const MyIcon = ArrowRightIcon;
 

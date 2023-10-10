@@ -1,17 +1,17 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, ProgressCircle, Title, Text, Subtitle } from "components";
 
 import { BaseColors, Sizes } from "lib/constants";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/VisElements/ProgressCircle",
   component: ProgressCircle,
 } as ComponentMeta<typeof ProgressCircle>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const TemplateColorsDemo: ComponentStory<typeof ProgressCircle> = (args) => (
   <>

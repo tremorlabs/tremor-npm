@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { BaseColors } from "lib/constants";
 import { Sizes as InputSizes } from "lib/constants";
@@ -9,12 +9,12 @@ import { BadgeDelta, Card, Grid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";
 import Badge from "components/icon-elements/Badge/Badge";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/IconElements/Badge",
   component: Badge,
 } as ComponentMeta<typeof Badge>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
   <Card className="max-w-2xl">

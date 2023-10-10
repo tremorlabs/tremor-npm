@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Flex, Metric } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/LayoutElements/Flex",
   component: Flex,
 } as ComponentMeta<typeof Flex>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 const TemplateMaxWidth: ComponentStory<typeof Flex> = (args) => (
   <Flex {...args}>
     <div>

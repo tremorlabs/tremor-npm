@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import {
   Button,
@@ -18,12 +18,12 @@ import { SimpleSearchSelect } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/SearchSelect",
   component: SearchSelect,
 } as ComponentMeta<typeof SearchSelect>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const ResponsiveTemplate: ComponentStory<typeof SearchSelect> = (args) => (
   <form>

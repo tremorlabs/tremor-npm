@@ -1,16 +1,16 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card } from "components";
 import Subtitle from "components/text-elements/Subtitle/Subtitle";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/TextElements/Subtitle",
   component: Subtitle,
 } as ComponentMeta<typeof Subtitle>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof Subtitle> = (args) => (
   <Card>

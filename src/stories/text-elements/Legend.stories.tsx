@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Card, Legend } from "components";
 
 export default {
@@ -8,7 +8,7 @@ export default {
   component: Legend,
 } as ComponentMeta<typeof Legend>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 const Template: ComponentStory<typeof Legend> = (args) => {
   if (args.onClickLegendItem?.length === 0) {
     args.onClickLegendItem = undefined;

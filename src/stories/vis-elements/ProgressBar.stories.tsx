@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Metric, ProgressBar } from "components";
 
 import { BaseColors } from "lib/constants";
 import { Flex } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/VisElements/ProgressBar",
   component: ProgressBar,
 } as ComponentMeta<typeof ProgressBar>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof ProgressBar> = (args) => (
   <>

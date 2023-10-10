@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button, Card, Text, NumberInput } from "components";
 import { CalendarIcon } from "assets";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/InputElements/NumberInput",
   component: NumberInput,
 } as ComponentMeta<typeof NumberInput>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof NumberInput> = (args) => {
   const [value, setValue] = useState(0);

@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { BarList, Card } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 import { BarListProps } from "components/vis-elements/BarList/BarList";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: "Tremor/VisElements/BarList",
   component: BarList,
 } as ComponentMeta<typeof BarList>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 
 const Template: ComponentStory<typeof BarList> = (args) => (
   <Card>
