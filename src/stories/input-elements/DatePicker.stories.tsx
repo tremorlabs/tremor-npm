@@ -50,6 +50,11 @@ UncontrolledWithDefaultDate.args = {
   defaultValue: new Date(2022, 10, 1),
 };
 
+export const UncontrolledWithDisplayFormat = UncontrolledTemplate.bind({});
+UncontrolledWithDisplayFormat.args = {
+  displayFormat: "dd/MM/yyyy",
+};
+
 export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
 UncontrolledWithDefaultFrLocale.args = {
   locale: fr,

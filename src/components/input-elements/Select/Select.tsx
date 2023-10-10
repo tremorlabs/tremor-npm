@@ -30,7 +30,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     placeholder = "Select...",
     disabled = false,
     icon,
-    enableClear = false,
+    enableClear = true,
     children,
     className,
     ...other

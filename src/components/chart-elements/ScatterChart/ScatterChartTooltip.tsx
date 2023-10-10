@@ -102,7 +102,7 @@ const ScatterChartTooltip = ({
               "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
               getColorClassNames(
                 category
-                  ? categoryColors.get(payload[0].payload[category]) ?? BaseColors.Blue
+                  ? categoryColors.get(payload?.[0]?.payload[category]) ?? BaseColors.Blue
                   : BaseColors.Blue,
                 colorPalette.background,
               ).bgColor,

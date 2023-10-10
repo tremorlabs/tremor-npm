@@ -73,9 +73,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     allowDecimals = true,
     noDataText,
     onValueChange,
+    customTooltip,
     className,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -90,14 +92,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       setActiveBar(undefined);
       onValueChange?.(null);
     } else {
-      setActiveLegend(data.tooltipPayload[0]?.dataKey);
+      setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
       setActiveBar({
         ...data.payload,
         value: data.value,
       });
       onValueChange?.({
         eventType: "bar",
-        categoryClicked: data.tooltipPayload[0]?.dataKey,
+        categoryClicked: data.tooltipPayload?.[0]?.dataKey,
         ...data.payload,
       });
     }
@@ -249,15 +251,25 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               cursor={{ fill: "#d1d5db", opacity: "0.15" }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
                 ) : (
                   <></>
                 )

@@ -4,7 +4,8 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { BarChart, Card, Title } from "components";
 import { simpleBaseChartData as data } from "./helpers/testData";
-import { valueFormatter } from "stories/chart-elements/helpers/utils";
+import { Color, currencyValueFormatter } from "lib";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -19,23 +20,23 @@ const ResponsiveTemplate: ComponentStory<typeof BarChart> = (args) => {
   }
   return (
     <>
-      <Title>Mobile</Title>
+      <Title>Desktop</Title>
+      <Card>
+        <BarChart {...args} yAxisWidth={60} />
+      </Card>
+      <Title className="mt-5">Mobile</Title>
       <div className="w-64">
         <Card>
-          <BarChart {...args} />
+          <BarChart {...args} yAxisWidth={60} />
         </Card>
       </div>
-      <Title className="mt-5">Desktop</Title>
-      <Card>
-        <BarChart {...args} />
-      </Card>
     </>
   );
 };
 
 const DefaultTemplate: ComponentStory<typeof BarChart> = ({ ...args }) => (
   <Card>
-    <BarChart {...args} />
+    <BarChart {...args} yAxisWidth={60} />
   </Card>
 );
 const args = { categories: ["Sales", "Successful Payments"], index: "month" };
@@ -98,7 +99,7 @@ export const WithValueFormatter = ResponsiveTemplate.bind({});
 WithValueFormatter.args = {
   ...args,
   data,
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
   colors: ["blue", "green"],
 };
 
@@ -136,7 +137,7 @@ WithLongValues.args = {
   data,
   categories: ["This is an edge case"],
   index: "month",
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
 };
 
 export const WithMultipleCategories = ResponsiveTemplate.bind({});
@@ -144,7 +145,7 @@ WithMultipleCategories.args = {
   data,
   categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
   index: "month",
-  valueFormatter: valueFormatter,
+  valueFormatter: currencyValueFormatter,
 };
 
 export const WithNoData = DefaultTemplate.bind({});
@@ -210,4 +211,42 @@ WithOnValueChange.args = {
   data,
   stack: true,
   onValueChange: (value) => alert(JSON.stringify(value)),
+};
+
+//Custom tooltips
+const customTooltipColors: Color[] = ["pink"];
+const customTooltipIndex = "month";
+
+export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
+WithCustomTooltipExample1.args = {
+  ...args,
+  data,
+  index: customTooltipIndex,
+  categories: ["Sales"],
+  colors: customTooltipColors,
+  valueFormatter: currencyValueFormatter,
+  customTooltip: (props: CustomTooltipType) => {
+    const { payload, active, label } = props;
+    if (!active || !payload) return null;
+    const categoryPayload = payload?.[0];
+    if (!categoryPayload) return null;
+    return (
+      <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+        <div className="flex flex-1 space-x-2.5">
+          <div className={`w-1.5 flex flex-col bg-${categoryPayload?.color}-500 rounded`} />
+          <div className="w-full">
+            <p className="font-medium text-tremor-content-emphasis">{label}</p>
+            <div className="flex items-center justify-between space-x-8">
+              <p className="text-right text-tremor-content whitespace-nowrap">
+                {categoryPayload.dataKey}
+              </p>
+              <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                {currencyValueFormatter(categoryPayload.value as number)}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
 };

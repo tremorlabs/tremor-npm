@@ -4,3 +4,4 @@ export * from "./ProgressBar";
 export * from "./MarkerBar";
 export * from "./BarList";
 export * from "./Tracker";
+export * from "./ProgressCircle";
