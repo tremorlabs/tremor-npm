@@ -144,9 +144,10 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 color
                   ? getColorClassNames(color, colorPalette.background).strokeColor
                   : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
+                showAnimation && "transition-all duration-300 ease-in-out",
               )}
             >
-              {showAnimation && (
+              {/* {showAnimation && (
                 <>
                   <animate
                     ref={animationRef}
@@ -166,7 +167,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                     keySplines="0.42, 0, 1, 1"
                   />
                 </>
-              )}
+              )} */}
             </circle>
           ) : null}
         </svg>
