@@ -11,7 +11,6 @@ module.exports = {
     "@storybook/addon-themes",
     {
       name: "@storybook/addon-styling-webpack",
-
       options: {
         rules: [
           {
@@ -54,6 +53,6 @@ module.exports = {
   },
 
   docs: {
-    autodocs: true,
+    autodocs: false,
   },
 };
