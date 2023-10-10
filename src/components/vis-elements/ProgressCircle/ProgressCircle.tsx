@@ -1,6 +1,6 @@
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
 const makeProgressCircleClassName = makeClassName("ProgressBar");
 
@@ -75,22 +75,6 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
-  const animationRef = useRef<SVGAnimateElement>(null);
-  const [animation, setAnnimation] = useState({
-    start: circumference,
-    end: offset,
-  });
-
-  useEffect(() => {
-    if (offset !== animation.end) {
-      if (animationRef?.current) animationRef.current.beginElement();
-      setAnnimation((prev) => ({
-        start: prev.end,
-        end: offset,
-      }));
-    }
-  }, [animation.end, offset]);
-
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
@@ -144,31 +128,9 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 color
                   ? getColorClassNames(color, colorPalette.background).strokeColor
                   : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
-                showAnimation && "transition-all duration-300 ease-in-out",
+                showAnimation ? "transition-all duration-300 ease-in-out" : null,
               )}
-            >
-              {/* {showAnimation && (
-                <>
-                  <animate
-                    ref={animationRef}
-                    attributeName="stroke-dashoffset"
-                    from={animation.start}
-                    to={animation.end}
-                    dur="0.5s"
-                    calcMode={"spline"}
-                    keySplines="0.42, 0, 1, 1"
-                  />
-                  <animate
-                    attributeName="stroke-opacity"
-                    from="0"
-                    to="1"
-                    dur="0.5s"
-                    calcMode={"spline"}
-                    keySplines="0.42, 0, 1, 1"
-                  />
-                </>
-              )} */}
-            </circle>
+            />
           ) : null}
         </svg>
         <div className={tremorTwMerge("absolute flex")}>{children}</div>
