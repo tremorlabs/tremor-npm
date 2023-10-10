@@ -20,13 +20,15 @@ const SizesTemplate: ComponentStory<typeof BadgeDelta> = (args) => (
     <Grid numItems={4} className="gap-y-2">
       {Object.values(InputSizes).map((size) => (
         <>
-          <BadgeDelta size={size} deltaType="increase" />
-          <BadgeDelta size={size} deltaType="increase">
+          <BadgeDelta size={size} deltaType="increase" tooltip="tooltip" />
+          <BadgeDelta size={size} deltaType="increase" tooltip="tooltip">
             {args.children}
           </BadgeDelta>
 
-          <Badge size={size}>{args.children}</Badge>
-          <Badge size={size} icon={ArrowUpIcon}>
+          <Badge size={size} tooltip="tooltip">
+            {args.children}
+          </Badge>
+          <Badge size={size} tooltip="tooltip" icon={ArrowUpIcon}>
             {args.children}
           </Badge>
         </>
