@@ -9,6 +9,7 @@ import {
   tremorTwMerge,
   Sizes,
   mapInputsToDeltaType,
+  mergeRefs,
 } from "lib";
 import {
   badgeProportionsIconOnly,
@@ -17,6 +18,7 @@ import {
   deltaIcons,
   iconSizes,
 } from "./styles";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
 
@@ -24,6 +26,7 @@ export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
   deltaType?: DeltaType;
   isIncreasePositive?: boolean;
   size?: Size;
+  tooltip?: string;
 }
 
 const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, ref) => {
@@ -31,6 +34,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
     deltaType = DeltaTypes.Increase,
     isIncreasePositive = true,
     size = Sizes.SM,
+    tooltip,
     children,
     className,
     ...other
@@ -39,10 +43,11 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
   const Icon = deltaIcons[deltaType];
   const mappedDeltaType = mapInputsToDeltaType(deltaType, isIncreasePositive);
   const badgeProportions = children ? badgeProportionsWithText : badgeProportionsIconOnly;
+  const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
     <span
-      ref={ref}
+      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={tremorTwMerge(
         makeBadgeDeltaClassName("root"),
         // common
@@ -54,8 +59,10 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
         badgeProportions[size].fontSize,
         className,
       )}
+      {...getReferenceProps}
       {...other}
     >
+      <Tooltip text={tooltip} {...tooltipProps} />
       <Icon
         className={tremorTwMerge(
           makeBadgeDeltaClassName("icon"),
