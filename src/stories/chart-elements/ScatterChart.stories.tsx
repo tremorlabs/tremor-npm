@@ -147,7 +147,7 @@ WithCustomTooltipExample1.args = {
     return (
       <div className="w-48 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
         <div className="flex flex-1 space-x-2.5">
-          <div className={`w-1.5 flex flex-col bg-${payload[0]?.color}-500 rounded`} />
+          <div className={`w-1.5 flex flex-col bg-${payload?.[0]?.color}-500 rounded`} />
           <div className="w-full">
             <p className="mb-2 font-medium text-tremor-content-emphasis">{label}</p>
             {payload.map((payloadItem: any, index: number) => (

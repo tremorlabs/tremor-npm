@@ -92,14 +92,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       setActiveBar(undefined);
       onValueChange?.(null);
     } else {
-      setActiveLegend(data.tooltipPayload[0]?.dataKey);
+      setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
       setActiveBar({
         ...data.payload,
         value: data.value,
       });
       onValueChange?.({
         eventType: "bar",
-        categoryClicked: data.tooltipPayload[0]?.dataKey,
+        categoryClicked: data.tooltipPayload?.[0]?.dataKey,
         ...data.payload,
       });
     }

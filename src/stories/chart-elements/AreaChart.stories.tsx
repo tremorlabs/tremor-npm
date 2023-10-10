@@ -271,7 +271,7 @@ WithCustomTooltipExample1.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     return (
       <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
@@ -306,7 +306,7 @@ WithCustomTooltipExample2.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     const value = categoryPayload.value as number;
     const dataKey = categoryPayload.dataKey as number;
@@ -350,7 +350,7 @@ WithCustomTooltipExample3.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     const value = categoryPayload.value as number;
     const dataKey = categoryPayload.dataKey as number;

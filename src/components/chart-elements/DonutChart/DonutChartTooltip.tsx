@@ -12,8 +12,8 @@ export interface DonutChartTooltipProps {
 }
 
 export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChartTooltipProps) => {
-  if (active && payload[0]) {
-    const payloadRow = payload[0];
+  if (active && payload?.[0]) {
+    const payloadRow = payload?.[0];
     return (
       <ChartTooltipFrame>
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY)}>

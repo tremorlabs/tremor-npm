@@ -277,7 +277,7 @@ WithCustomTooltipExample1.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     const color = customTooltipColors[0];
     return (
@@ -313,7 +313,7 @@ WithCustomTooltipExample2.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     const value = categoryPayload.value as number;
     const dataKey = categoryPayload.dataKey as number;
@@ -357,7 +357,7 @@ WithCustomTooltipExample3.args = {
     const { payload, active, label } = props;
     if (!active || !payload) return null;
 
-    const categoryPayload = payload[0];
+    const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
     const value = categoryPayload.value as number;
     const dataKey = categoryPayload.dataKey as number;

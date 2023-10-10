@@ -5,7 +5,10 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { BadgeDelta, Card, DonutChart, Flex, List, ListItem, Title } from "components";
 import { DeltaType } from "lib";
 
-import { simpleSingleCategoryData as data } from "stories/chart-elements/helpers/testData";
+import {
+  simpleSingleCategoryData as data,
+  simpleBaseChartData as data2,
+} from "stories/chart-elements/helpers/testData";
 import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
@@ -232,12 +235,12 @@ WithOnValueChangePieExample.args = {
 export const WithCustomTooltipExample1 = DefaultTemplate.bind({});
 WithCustomTooltipExample1.args = {
   ...args,
-  data,
-  index: "city",
-  category: "sales",
+  data: data2,
+  index: "month",
+  category: "Sales",
   valueFormatter: currencyValueFormatter,
   customTooltip: (props: CustomTooltipType) => {
-    const { payload, active } = props;
+    const { payload, active, label } = props;
     if (!active || !payload) return null;
     const categoryPayload = payload?.[0];
     if (!categoryPayload) return null;
@@ -254,6 +257,8 @@ WithCustomTooltipExample1.args = {
                 {currencyValueFormatter(categoryPayload.value as number)}
               </p>
             </div>
+            <p>{label}</p>
+            <p>{categoryPayload.dataKey}</p>
           </div>
         </div>
       </div>
