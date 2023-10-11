@@ -7,7 +7,7 @@ import { SimpleCard } from "./helpers/SimpleCard";
 import { SimpleText } from "./helpers/SimpleText";
 
 const meta: Meta<typeof Grid> = {
-  title: "Tremor/InputElements/Grid",
+  title: "Tremor/LayoutElements/Grid",
   component: Grid,
 };
 
