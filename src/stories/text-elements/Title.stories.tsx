@@ -2,33 +2,22 @@ import React from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
 
-import { Title, Card } from "components";
+import { Title } from "components";
 
 const meta: Meta<typeof Title> = {
   title: "Tremor/TextElements/Title",
   component: Title,
-  decorators: [(Story) => <Story />],
 };
 
 export default meta;
 type Story = StoryObj<typeof Title>;
 
-const TitleResponsiveFlexTemplate: Story = {
-  render: ({ ...args }) => {
-    return (
-      <Card>
-        <Title {...args}>Title</Title>
-      </Card>
-    );
-  },
+export const Default: Story = {
+  render: (args) => <Title {...args}>Title</Title>,
 };
 
-export const DefaultExample: Story = {
-  ...TitleResponsiveFlexTemplate,
-};
-
-export const ExampleColor: Story = {
-  ...TitleResponsiveFlexTemplate,
+export const Color: Story = {
+  render: (args) => <Title {...args}>Title</Title>,
   args: {
     color: "green",
     className: "text-left",
