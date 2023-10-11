@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { NumberInput } from "components";
 import { CalendarIcon } from "assets";
+import { NumberInput } from "components";
 import { SimpleNumberInput, SimpleNumberInputControlled } from "./helpers/SimpleNumberInput";
 
 const meta: Meta<typeof NumberInput> = {

@@ -4,12 +4,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { DonutChart } from "components";
 
-import {
-  simpleSingleCategoryData as data,
-  simpleBaseChartData as data2,
-} from "stories/chart-elements/helpers/testData";
-import { currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { currencyValueFormatter } from "lib";
+import {
+  simpleBaseChartData as data2,
+  simpleSingleCategoryData as data,
+} from "stories/chart-elements/helpers/testData";
 
 const meta: Meta<typeof DonutChart> = {
   title: "Tremor/ChartElements/DonutChart",

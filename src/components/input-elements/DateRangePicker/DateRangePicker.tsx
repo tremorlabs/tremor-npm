@@ -1,11 +1,11 @@
 "use client";
 
-import { CalendarIcon, XCircleIcon } from "assets";
-import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import { Listbox, Popover } from "@headlessui/react";
-import React, { ReactElement, useMemo, useState } from "react";
+import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { border, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactElement, useMemo, useState } from "react";
+import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
   constructValueToNameMapping,
   getNodeText,
@@ -21,11 +21,11 @@ import {
 } from "./dateRangePickerUtils";
 
 import { Calendar } from "components/input-elements/Calendar";
-import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 import { SelectItem } from "components/input-elements/Select";
 import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
+import { Color } from "../../../lib/inputTypes";
 
 const TODAY = startOfToday();
 

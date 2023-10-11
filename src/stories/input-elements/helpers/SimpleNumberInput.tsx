@@ -1,5 +1,5 @@
-import React from "react";
 import { Button, NumberInput } from "components";
+import React from "react";
 
 export const SimpleNumberInput = (args: any) => {
   const [value, setValue] = React.useState(0);

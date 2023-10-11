@@ -1,5 +1,5 @@
-import React from "react";
 import { Button, TextInput } from "components";
+import React from "react";
 
 export const SimpleTextInput = (args: any) => {
   const [value, setValue] = React.useState("");

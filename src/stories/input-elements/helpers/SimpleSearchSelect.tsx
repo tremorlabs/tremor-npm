@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Button, SearchSelect, SearchSelectItem } from "components";
 import { CalendarIcon } from "assets";
+import { Button, SearchSelect, SearchSelectItem } from "components";
 
 export const SimpleSearchSelect = (args: any) => (
   <SearchSelect {...args}>

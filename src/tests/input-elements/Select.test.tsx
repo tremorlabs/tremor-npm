@@ -1,5 +1,5 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 import Select from "components/input-elements/Select/Select";
 import SelectItem from "components/input-elements/Select/SelectItem";

@@ -1,15 +1,15 @@
-import React from "react";
 import {
+  Color,
   defaultValueFormatter,
   getColorClassNames,
   makeClassName,
   sizing,
   spacing,
-  Color,
-  ValueFormatter,
   tremorTwMerge,
+  ValueFormatter,
 } from "lib";
 import { colorPalette } from "lib/theme";
+import React from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 

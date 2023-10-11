@@ -3,9 +3,9 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { BarChart } from "components";
-import { simpleBaseChartData as data, singleAndMultipleData } from "./helpers/testData";
-import { Color, currencyValueFormatter } from "lib";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { Color, currencyValueFormatter } from "lib";
+import { simpleBaseChartData as data, singleAndMultipleData } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
   title: "Tremor/ChartElements/BarChart",

@@ -3,12 +3,12 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ScatterChart } from "components";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { Color } from "lib";
 import {
   simpleScatterChartData as data,
   simpleScatterChartData2 as data2,
 } from "./helpers/testDataScatterChart";
-import { Color } from "lib";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 const meta: Meta<typeof ScatterChart> = {
   title: "Tremor/ChartElements/ScatterChart",

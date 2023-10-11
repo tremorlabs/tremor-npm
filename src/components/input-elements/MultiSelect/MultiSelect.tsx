@@ -1,6 +1,6 @@
 "use client";
-import React, { useMemo, useState } from "react";
 import { tremorTwMerge } from "lib";
+import React, { useMemo, useState } from "react";
 
 import { SelectedValueContext } from "contexts";
 
@@ -8,10 +8,10 @@ import { useInternalState } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import { border, makeClassName, sizing, spacing } from "lib";
-import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 import { Listbox } from "@headlessui/react";
 import XIcon from "assets/XIcon";
+import { border, makeClassName, sizing, spacing } from "lib";
+import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 

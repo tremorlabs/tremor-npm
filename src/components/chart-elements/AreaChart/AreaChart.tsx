@@ -2,11 +2,11 @@
 import React, { Fragment, useState } from "react";
 import {
   Area,
+  AreaChart as ReChartsAreaChart,
   CartesianGrid,
   Dot,
   Legend,
   Line,
-  AreaChart as ReChartsAreaChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -14,22 +14,22 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
+import BaseChartProps from "../common/BaseChartProps";
+import ChartLegend from "../common/ChartLegend";
+import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 import {
   constructCategoryColors,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
-import BaseChartProps from "../common/BaseChartProps";
-import ChartLegend from "../common/ChartLegend";
-import ChartTooltip from "../common/ChartTooltip";
-import NoData from "../common/NoData";
 
 import {
   BaseColors,
-  defaultValueFormatter,
-  themeColorRange,
   colorPalette,
+  defaultValueFormatter,
   getColorClassNames,
+  themeColorRange,
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";

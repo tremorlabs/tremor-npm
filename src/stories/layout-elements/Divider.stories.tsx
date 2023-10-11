@@ -1,9 +1,9 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
-import { Divider } from "components";
 import { CalendarIcon } from "assets";
+import { Divider } from "components";
+import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 
 const meta: Meta<typeof Divider> = {
   title: "Tremor/LayoutElements/Divider",

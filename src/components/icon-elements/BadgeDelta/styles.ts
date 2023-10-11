@@ -1,4 +1,4 @@
-import { BaseColors, DeltaTypes, Sizing, fontSize, getColorClassNames, sizing, spacing } from "lib";
+import { BaseColors, DeltaTypes, fontSize, getColorClassNames, Sizing, sizing, spacing } from "lib";
 
 import {
   ArrowDownIcon,

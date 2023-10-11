@@ -2,11 +2,10 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BaseColors } from "lib/constants";
-import { Sizes as InputSizes } from "lib/constants";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
-import { Grid, Badge } from "components";
 import { ArrowUpIcon } from "assets";
+import { Badge, Grid } from "components";
 
 const meta: Meta<typeof Badge> = {
   title: "Tremor/IconElements/Badge",

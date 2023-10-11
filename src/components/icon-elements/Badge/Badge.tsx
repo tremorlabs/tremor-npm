@@ -1,18 +1,18 @@
 "use client";
-import React from "react";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
-  Sizes,
+  Color,
   getColorClassNames,
   makeClassName,
   mergeRefs,
-  spacing,
-  Color,
   Size,
+  Sizes,
+  spacing,
   tremorTwMerge,
 } from "lib";
-import { badgeProportions, iconSizes } from "./styles";
 import { colorPalette } from "lib/theme";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import React from "react";
+import { badgeProportions, iconSizes } from "./styles";
 
 const makeBadgeClassName = makeClassName("Badge");
 

@@ -3,8 +3,8 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { ArrowUpIcon } from "assets";
 
-import { BaseColors, Sizes as InputSizes } from "lib/constants";
 import { Grid } from "components";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 import { IconVariants } from "components/icon-elements/Icon/Icon";
 

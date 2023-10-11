@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Button, Select, SelectItem } from "components";
 import { CalendarIcon } from "assets";
+import { Button, Select, SelectItem } from "components";
 
 export const SimpleSelect = (args: any) => (
   <Select {...args}>

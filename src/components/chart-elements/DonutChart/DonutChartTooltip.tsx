@@ -1,5 +1,5 @@
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
 import { ChartTooltipFrame, ChartTooltipRow } from "components/chart-elements/common/ChartTooltip";
 import { spacing } from "lib";

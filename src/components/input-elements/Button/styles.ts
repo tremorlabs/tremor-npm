@@ -1,7 +1,7 @@
-import { Sizing, fontSize, sizing, spacing, getColorClassNames, tremorTwMerge } from "lib";
+import { fontSize, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
-import { Color, ButtonVariant } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
+import { ButtonVariant, Color } from "../../../lib/inputTypes";
 
 export const iconSizes: { [size: string]: Sizing } = {
   xs: {

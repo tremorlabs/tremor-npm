@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { CalendarIcon } from "assets";
 import { TextInput } from "components";
 import { SimpleTextInput } from "./helpers/SimpleTextInput";
-import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof TextInput> = {
   title: "Tremor/InputElements/TextInput",

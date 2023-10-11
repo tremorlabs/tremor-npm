@@ -1,16 +1,17 @@
 "use client";
-import React from "react";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   DeltaType,
   DeltaTypes,
-  Size,
   makeClassName,
-  spacing,
-  tremorTwMerge,
-  Sizes,
   mapInputsToDeltaType,
   mergeRefs,
+  Size,
+  Sizes,
+  spacing,
+  tremorTwMerge,
 } from "lib";
+import React from "react";
 import {
   badgeProportionsIconOnly,
   badgeProportionsWithText,
@@ -18,7 +19,6 @@ import {
   deltaIcons,
   iconSizes,
 } from "./styles";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeBadgeDeltaClassName = makeClassName("BadgeDelta");
 

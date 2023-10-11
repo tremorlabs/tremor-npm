@@ -1,7 +1,7 @@
-import { Sizing, border, getColorClassNames, sizing, spacing, tremorTwMerge } from "lib";
+import { border, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
-import { Color, IconVariant } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
+import { Color, IconVariant } from "../../../lib/inputTypes";
 
 export type WrapperProportionTypes = {
   paddingX: string;

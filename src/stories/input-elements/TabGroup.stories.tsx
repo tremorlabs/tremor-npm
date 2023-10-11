@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { CalendarIcon } from "assets";
 import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from "components";
 import { BaseColors, Color } from "lib";
-import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof TabGroup> = {
   title: "Tremor/InputElements/TabGroup",

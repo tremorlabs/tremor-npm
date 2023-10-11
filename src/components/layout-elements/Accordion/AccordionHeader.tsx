@@ -1,11 +1,11 @@
 "use client";
-import React, { useContext } from "react";
 import { tremorTwMerge } from "lib";
+import React, { useContext } from "react";
 
-import { ArrowUpHeadIcon } from "assets";
-import { makeClassName, sizing, spacing } from "lib";
 import { Disclosure } from "@headlessui/react";
+import { ArrowUpHeadIcon } from "assets";
 import { OpenContext } from "components/layout-elements/Accordion/Accordion";
+import { makeClassName, sizing, spacing } from "lib";
 
 const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
 

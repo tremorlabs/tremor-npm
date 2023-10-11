@@ -1,7 +1,7 @@
 import React from "react";
 
-import { BaseColors, HorizontalPosition, VerticalPosition } from "lib";
 import { Card, Grid } from "components";
+import { BaseColors, HorizontalPosition, VerticalPosition } from "lib";
 import { SimpleCard } from "./helpers/SimpleCard";
 
 import type { Meta, StoryObj } from "@storybook/react";

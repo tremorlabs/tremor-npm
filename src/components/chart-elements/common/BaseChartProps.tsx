@@ -1,6 +1,6 @@
-import { CustomTooltipType } from "./CustomTooltipProps";
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
+import { CustomTooltipType } from "./CustomTooltipProps";
 
 type FixedProps = {
   eventType: "dot" | "category" | "bar" | "slice" | "bubble";

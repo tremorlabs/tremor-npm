@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
 
 import { Button, DateRangePicker, DateRangePickerItem, DateRangePickerValue } from "components";
 
-import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 import { fr } from "date-fns/locale";
+import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 
 const meta: Meta<typeof DateRangePicker> = {
   title: "Tremor/InputElements/DateRangePicker",

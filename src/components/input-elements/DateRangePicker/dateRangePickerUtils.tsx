@@ -1,4 +1,5 @@
 import {
+  format,
   isEqual,
   max,
   min,
@@ -7,7 +8,6 @@ import {
   startOfToday,
   startOfYear,
   sub,
-  format,
 } from "date-fns";
 
 import { makeClassName } from "lib";

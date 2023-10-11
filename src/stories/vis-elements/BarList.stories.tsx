@@ -2,10 +2,10 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BarList } from "components";
-import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
+import { BarList } from "components";
 import { BarListProps } from "components/vis-elements/BarList/BarList";
+import { BaseColors } from "lib";
 
 const meta: Meta<typeof BarList> = {
   title: "Tremor/VisElements/BarList",

@@ -3,13 +3,13 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AreaChart } from "components";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
 } from "./helpers/testData";
-import { Color, currencyValueFormatter } from "lib";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import { valueFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof AreaChart> = {

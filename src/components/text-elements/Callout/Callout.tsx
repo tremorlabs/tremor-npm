@@ -1,9 +1,9 @@
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
 import { border, getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
+import { Color } from "../../../lib";
 
 const makeCalloutClassName = makeClassName("Callout");
 

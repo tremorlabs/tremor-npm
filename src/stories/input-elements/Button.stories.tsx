@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
-import { BaseColors, Sizes as InputSizes } from "lib/constants";
 import { Button, Grid } from "components";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 const meta: Meta<typeof Button> = {
   title: "Tremor/InputElements/Button",

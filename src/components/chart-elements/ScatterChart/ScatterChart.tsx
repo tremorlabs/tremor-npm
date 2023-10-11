@@ -1,31 +1,32 @@
 "use client";
 import React, { useState } from "react";
 import {
-  ScatterChart as ReChartsScatterChart,
-  Scatter,
   CartesianGrid,
+  Dot,
   Legend,
   ResponsiveContainer,
+  Scatter,
+  ScatterChart as ReChartsScatterChart,
   Tooltip,
   XAxis,
   YAxis,
   ZAxis,
-  Dot,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
+import type { EventProps } from "components/chart-elements/common";
+import ChartLegend from "components/chart-elements/common/ChartLegend";
+import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
+import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import NoData from "../common/NoData";
 import {
   constructCategories,
   constructCategoryColors,
   deepEqual,
   getYAxisDomain,
 } from "../common/utils";
-import NoData from "../common/NoData";
-import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
-import type { EventProps } from "components/chart-elements/common";
-import ChartLegend from "components/chart-elements/common/ChartLegend";
-import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
 
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import {
   BaseColors,
   colorPalette,
@@ -35,7 +36,6 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
