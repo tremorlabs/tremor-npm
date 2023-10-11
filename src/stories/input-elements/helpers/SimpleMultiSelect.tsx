@@ -28,6 +28,7 @@ export const SimpleMultiSelectControlled = (args: any) => {
       </MultiSelect>
       <Button onClick={() => setValue([])}>Reset</Button>
       <Button onClick={() => setValue(["1"])}>Set to One</Button>
+      <p>value: {value}</p>
     </>
   );
 };

@@ -35,7 +35,7 @@ export const SimpleSearchSelectControlled = (args: any) => {
       </SearchSelect>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>
-      <p className="text-slate-500">{value}</p>
+      <p>value: {value}</p>
     </div>
   );
 };
