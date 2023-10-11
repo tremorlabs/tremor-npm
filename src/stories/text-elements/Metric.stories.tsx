@@ -5,7 +5,7 @@ import { BaseColors } from "lib/constants";
 import { Metric } from "components";
 
 const meta: Meta<typeof Metric> = {
-  title: "Tremor/LayoutElements/Metric",
+  title: "Tremor/TextElements/Metric",
   component: Metric,
 };
 
