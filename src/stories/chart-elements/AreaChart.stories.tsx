@@ -127,6 +127,28 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
+export const WithMultipleZeroValues = ResponsiveTemplate.bind({});
+WithMultipleZeroValues.args = {
+  ...args,
+  data: [
+    {
+      month: "May 21",
+      Sales: 2390,
+      "Successful Payments": 0,
+    },
+    {
+      month: "Jun 21'",
+      Sales: 2390,
+      "Successful Payments": 0,
+    },
+    {
+      month: "Jul 21'",
+      Sales: 3490,
+      "Successful Payments": 0,
+    },
+  ],
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";
