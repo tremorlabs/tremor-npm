@@ -3,18 +3,15 @@ import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button, Card, DateRangePicker, Select, SelectItem, Flex, Text, Title } from "components";
-import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleSelect } from "./helpers/SimpleSelect";
 import { SimpleSearchSelect } from "stories/input-elements/helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
-
 export default {
   title: "Tremor/InputElements/Select",
   component: Select,
 } as ComponentMeta<typeof Select>;
-
 
 const ResponsiveTemplate: ComponentStory<typeof Select> = (args) => (
   <form>
@@ -126,7 +123,5 @@ WithDisabled.args = {
   icon: CalendarIcon,
   disabled: true,
 };
-
-export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});

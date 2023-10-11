@@ -12,7 +12,6 @@ import {
   Text,
   Title,
 } from "components";
-import { SelectElementsFlexTemplate } from "./helpers/SelectElementsFlexTemplate";
 import { SimpleSelect } from "stories/input-elements/helpers/SimpleSelect";
 import { SimpleSearchSelect } from "./helpers/SimpleSearchSelect";
 
@@ -119,7 +118,5 @@ WithDisabled.args = {
   onValueChange: (v) => alert(v),
   disabled: true,
 };
-
-export const SelectElementsComparison = SelectElementsFlexTemplate.bind({});
 
 export const WithControlledState = WithControlledStateTemplate.bind({});
