@@ -32,6 +32,14 @@ const CalloutTemplate: Story = {
 };
 
 export const Default: Story = {
+  args: {
+    title: "Performance Metric",
+    children:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.",
+  },
+};
+
+export const Colors: Story = {
   ...CalloutTemplate,
   args: {
     title: "Performance Metric",

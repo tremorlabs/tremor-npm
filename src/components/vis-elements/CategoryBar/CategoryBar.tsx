@@ -101,7 +101,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     markerValue,
     showLabels = true,
     tooltip,
-    showAnimation = true,
+    showAnimation = false,
     className,
     ...other
   } = props;

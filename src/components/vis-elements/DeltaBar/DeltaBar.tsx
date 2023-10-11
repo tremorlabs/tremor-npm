@@ -21,7 +21,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
   const {
     value,
     isIncreasePositive = true,
-    showAnimation = true,
+    showAnimation = false,
     className,
     tooltip,
     ...other

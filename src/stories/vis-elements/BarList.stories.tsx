@@ -2,7 +2,7 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BarList, Card } from "components";
+import { BarList } from "components";
 import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
 import { BarListProps } from "components/vis-elements/BarList/BarList";
@@ -62,9 +62,7 @@ export const Colors: Story = {
   render: (args) => (
     <div className="space-y-2">
       {Object.values(BaseColors).map((color) => (
-        <Card key={color}>
-          <BarList {...args} color={color} />
-        </Card>
+        <BarList key={color} {...args} color={color} />
       ))}
     </div>
   ),

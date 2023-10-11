@@ -37,6 +37,7 @@ const BadgeDeltaTemplateTypes: Story = {
   render: ({ ...args }) => {
     return (
       <Grid className="gap-y-1">
+        <BadgeDelta deltaType="increase" {...args} />
         {Object.values(InputDeltaTypes).map((deltaType) => (
           <BadgeDelta key={deltaType} deltaType={deltaType} {...args} />
         ))}

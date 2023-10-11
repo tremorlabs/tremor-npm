@@ -47,7 +47,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
     data = [],
     color,
     valueFormatter = defaultValueFormatter,
-    showAnimation = true,
+    showAnimation = false,
     className,
     ...other
   } = props;
@@ -77,12 +77,12 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={tremorTwMerge(
                 makeBarListClassName("bar"),
                 // common
-                "flex items-center rounded-tremor-small bg-opacity-20",
+                "flex items-center rounded-tremor-small bg-opacity-30",
                 rowHeight,
                 item.color || color
                   ? getColorClassNames(item.color ?? (color as Color), colorPalette.background)
                       .bgColor
-                  : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle",
+                  : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle dark:bg-opacity-30",
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{

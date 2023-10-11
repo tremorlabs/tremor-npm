@@ -26,7 +26,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
     maxValue,
     markerTooltip,
     rangeTooltip,
-    showAnimation = true,
+    showAnimation = false,
     color,
     className,
     ...other

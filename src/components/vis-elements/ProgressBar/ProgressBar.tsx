@@ -17,7 +17,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
-  const { value, label, color, tooltip, showAnimation = true, className, ...other } = props;
+  const { value, label, color, tooltip, showAnimation = false, className, ...other } = props;
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (

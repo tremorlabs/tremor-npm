@@ -26,6 +26,7 @@ const BadgeTemplateColors: Story = {
   render: ({ ...args }) => {
     return (
       <Grid className="gap-y-2">
+        <Badge tooltip="Tooltip" {...args} />
         {Object.values(BaseColors).map((color) => (
           <Badge key={color} color={color} tooltip="Tooltip" {...args} />
         ))}

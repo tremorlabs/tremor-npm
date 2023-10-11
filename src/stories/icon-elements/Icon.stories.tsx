@@ -27,7 +27,7 @@ const IconTemplateSizes: Story = {
       <Grid numItems={5}>
         {Object.values(IconVariants).map((variant) => (
           <div key={variant}>
-            <text>{variant}</text>
+            <p>{variant}</p>
             {Object.values(InputSizes).map((size) => (
               <div key={size} className="mt-2">
                 <Icon variant={variant} size={size} tooltip="Tooltip" {...args} />
@@ -46,12 +46,13 @@ const IconTemplateColors: Story = {
       <Grid numItemsLg={2} className="gap-x-2 gap-y-2">
         {Object.values(IconVariants).map((variant) => (
           <>
-            <text>{variant}</text>
             <Grid numItems={5}>
               {Object.values(BaseColors).map((color) => (
-                <div key={color} className="mt-2">
-                  <Icon variant={variant} color={color} {...args} />
-                </div>
+                <>
+                  <div key={color} className="mt-2">
+                    <Icon variant={variant} color={color} {...args} />
+                  </div>
+                </>
               ))}
             </Grid>
           </>

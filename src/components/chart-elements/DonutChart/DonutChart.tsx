@@ -84,7 +84,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     label,
     showLabel = true,
     animationDuration = 900,
-    showAnimation = true,
+    showAnimation = false,
     showTooltip = true,
     noDataText,
     onValueChange,
