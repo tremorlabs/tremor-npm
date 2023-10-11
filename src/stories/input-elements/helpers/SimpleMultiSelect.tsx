@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MultiSelect, MultiSelectItem } from "components";
+import { Button, MultiSelect, MultiSelectItem } from "components";
 
 export const SimpleMultiSelect = (args: any) => (
   <MultiSelect {...args}>
@@ -9,3 +9,26 @@ export const SimpleMultiSelect = (args: any) => (
     <MultiSelectItem value={"1"}>One</MultiSelectItem>
   </MultiSelect>
 );
+
+export const SimpleMultiSelectControlled = (args: any) => {
+  const [value, setValue] = React.useState<string[]>([]);
+  return (
+    <>
+      <MultiSelect
+        value={value}
+        onValueChange={(values) => {
+          setValue(values);
+          alert(values);
+        }}
+        {...args}
+      >
+        <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+        <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+      </MultiSelect>
+      <Button onClick={() => setValue([])}>Reset</Button>
+      <Button onClick={() => setValue(["1"])}>Set to One</Button>
+      <p>value: {value}</p>
+    </>
+  );
+};
