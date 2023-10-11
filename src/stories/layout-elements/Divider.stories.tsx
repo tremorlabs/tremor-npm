@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof Divider>;
 
 const DividerTemplate: Story = {
-  render: ({ ...args }) => (
+  render: () => (
     <>
       <div>
         <SimpleCard />
