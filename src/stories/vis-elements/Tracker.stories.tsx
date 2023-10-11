@@ -44,3 +44,7 @@ export const Default: Story = {};
 export const MaxWidthMd: Story = {
   args: { className: "max-w-md" },
 };
+
+export const MaxWidthXs: Story = {
+  args: { className: "max-w-xs" },
+};
