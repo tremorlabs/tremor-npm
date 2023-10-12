@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { makeClassName, spacing } from "lib";
 import { Disclosure } from "@headlessui/react";
+import { makeClassName, spacing } from "lib";
 
 const makeAccordionBodyClassName = makeClassName("AccordionBody");
 

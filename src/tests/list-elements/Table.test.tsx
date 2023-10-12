@@ -1,5 +1,5 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 import Table from "components/list-elements/Table/Table";
 import TableBody from "components/list-elements/Table/TableBody";

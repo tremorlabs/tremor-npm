@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { Sizes, makeClassName, mergeRefs } from "lib";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { makeClassName, mergeRefs, Sizes } from "lib";
 import { Color, IconVariant, Size } from "../../../lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeIconClassName = makeClassName("Icon");
 

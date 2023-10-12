@@ -1,5 +1,5 @@
+import { makeClassName, spacing, tremorTwMerge } from "lib";
 import React from "react";
-import { tremorTwMerge, makeClassName, spacing } from "lib";
 
 const makeTableFooterCellClassName = makeClassName("TableFooterCell");
 

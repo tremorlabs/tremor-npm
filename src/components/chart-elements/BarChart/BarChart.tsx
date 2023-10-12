@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
+import React, { useState } from "react";
 
 import {
   Bar,
+  BarChart as ReChartsBarChart,
   CartesianGrid,
   Legend,
-  BarChart as ReChartsBarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -14,11 +14,11 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
+import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 

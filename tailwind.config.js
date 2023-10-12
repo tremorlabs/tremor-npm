@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  darkMode: ["class", '[data-mode="dark"]'],
   theme: {
     transparent: "transparent",
     current: "currentColor",

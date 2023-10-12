@@ -1,8 +1,8 @@
 "use client";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
-import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";

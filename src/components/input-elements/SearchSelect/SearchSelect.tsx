@@ -1,8 +1,10 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import { tremorTwMerge } from "lib";
 import { useInternalState } from "hooks";
+import { tremorTwMerge } from "lib";
+import React, { useMemo, useState } from "react";
 
+import { Combobox } from "@headlessui/react";
+import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { border, makeClassName, sizing, spacing } from "lib";
 import {
   constructValueToNameMapping,
@@ -10,8 +12,6 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import { Combobox } from "@headlessui/react";
-import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 

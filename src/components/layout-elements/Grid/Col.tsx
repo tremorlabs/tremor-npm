@@ -1,8 +1,8 @@
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { GridClassesMapping, colSpan, colSpanLg, colSpanMd, colSpanSm } from "./styles";
 import { makeClassName } from "lib";
+import { colSpan, colSpanLg, colSpanMd, colSpanSm, GridClassesMapping } from "./styles";
 
 const makeColClassName = makeClassName("Col");
 

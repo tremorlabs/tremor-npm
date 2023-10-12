@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 
 import { useOnWindowResize } from "hooks";
 
-import { Color } from "../../../lib";
 import { Legend } from "components/text-elements/Legend";
+import { Color } from "../../../lib";
 
 const ChartLegend = (
   { payload }: any,

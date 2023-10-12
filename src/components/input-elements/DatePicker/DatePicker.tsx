@@ -1,19 +1,19 @@
 "use client";
+import { border, sizing, spacing, tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
-import { sizing, tremorTwMerge, border, spacing } from "lib";
 import { DayPickerSingleProps } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
+import { Popover } from "@headlessui/react";
+import { CalendarIcon, XCircleIcon } from "assets";
+import { Calendar } from "components/input-elements/Calendar";
+import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
 import { useInternalState } from "hooks";
 import { Color } from "../../../lib/inputTypes";
 import { formatSelectedDates } from "../DateRangePicker/dateRangePickerUtils";
-import { CalendarIcon, XCircleIcon } from "assets";
-import { Popover } from "@headlessui/react";
 import { getSelectButtonColors, hasValue } from "../selectUtils";
-import { Calendar } from "components/input-elements/Calendar";
-import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
 
 const TODAY = startOfToday();
 
