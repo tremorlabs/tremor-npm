@@ -43,6 +43,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const Icon = icon;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+  const optionsAvailable = getFilteredOptions("", children as React.ReactElement[]);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   // checked if there are selected options
@@ -51,13 +53,20 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const hasSelection = selectedItems.length > 0;
 
   const filteredOptions = useMemo(
-    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
-    [searchQuery, children],
+    () =>
+      searchQuery
+        ? getFilteredOptions(searchQuery, children as React.ReactElement[])
+        : optionsAvailable,
+    [searchQuery, children, optionsAvailable],
   );
 
   const handleReset = () => {
     setSelectedValue([]);
     onValueChange?.([]);
+  };
+
+  const handleResetSearch = () => {
+    setSearchQuery("");
   };
 
   return (
@@ -123,7 +132,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <div className="h-6 flex items-center">
               {value.length > 0 ? (
                 <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
-                  {filteredOptions
+                  {optionsAvailable
                     .filter((option) => value.includes(option.props.value))
                     .map((option, index) => {
                       return (
@@ -279,11 +288,14 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   }
                 }}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
               />
             </div>
-            <SelectedValueContext.Provider value={{ selectedValue: value }}>
-              {filteredOptions}
-            </SelectedValueContext.Provider>
+            <span onBlur={handleResetSearch}>
+              <SelectedValueContext.Provider value={{ selectedValue: value }}>
+                {filteredOptions}
+              </SelectedValueContext.Provider>
+            </span>
           </Listbox.Options>
         </>
       )}
