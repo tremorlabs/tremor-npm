@@ -17,9 +17,6 @@ dependencies:
   date-fns:
     specifier: ^2.28.0
     version: 2.30.0
-  prettier:
-    specifier: ^3.0.3
-    version: 3.0.3
   react-day-picker:
     specifier: ^8.7.1
     version: 8.7.1(date-fns@2.30.0)(react@18.2.0)
@@ -166,6 +163,9 @@ devDependencies:
   postcss-loader:
     specifier: ^7.3.3
     version: 7.3.3(postcss@8.4.24)(webpack@5.86.0)
+  prettier:
+    specifier: 3.0.3
+    version: 3.0.3
   prop-types:
     specifier: ^15.8.1
     version: 15.8.1
@@ -12630,6 +12630,7 @@ packages:
     resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
+    dev: true
 
   /pretty-error@4.0.0:
     resolution: {integrity: sha512-AoJ5YMAcXKYxKhuJGdcvse+Voc6v1RgnsR3nWcYU7q4t6z0Q6T86sv5Zq8VIRbOWWFpvdGE83LtdSMNd+6Y0xw==}
