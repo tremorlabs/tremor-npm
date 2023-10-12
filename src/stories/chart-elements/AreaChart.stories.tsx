@@ -13,7 +13,7 @@ import {
 import { valueFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof AreaChart> = {
-  title: "Tremor/ChartElements/AreaChart",
+  title: "Components/Chart/AreaChart",
   component: AreaChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
   // parameters: { layout: "centered" },

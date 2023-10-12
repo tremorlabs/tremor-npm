@@ -5,7 +5,7 @@ import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof MarkerBar> = {
-  title: "Tremor/VisElements/MarkerBar",
+  title: "Components/Vis/MarkerBar",
   component: MarkerBar,
   render: (args) => <MarkerBar {...args} />,
 };

@@ -13,7 +13,7 @@ import {
 import { valueFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof LineChart> = {
-  title: "Tremor/ChartElements/LineChart",
+  title: "Components/Chart/LineChart",
   component: LineChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
   // parameters: { layout: "centered" },

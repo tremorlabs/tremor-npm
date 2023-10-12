@@ -16,7 +16,7 @@ import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
 import { DeltaType } from "lib";
 
 const meta: Meta<typeof Table> = {
-  title: "Tremor/ListElements/Table",
+  title: "Components/List/Table",
   component: Table,
 };
 

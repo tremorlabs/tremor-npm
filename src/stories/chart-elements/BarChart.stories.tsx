@@ -8,7 +8,7 @@ import { Color, currencyValueFormatter } from "lib";
 import { simpleBaseChartData as data, singleAndMultipleData } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
-  title: "Tremor/ChartElements/BarChart",
+  title: "Components/Chart/BarChart",
   component: BarChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
   // parameters: { layout: "centered" },

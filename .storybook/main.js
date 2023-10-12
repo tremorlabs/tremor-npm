@@ -9,6 +9,7 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/addon-styling-webpack",
     "@storybook/addon-themes",
+    "@storybook/addon-a11y",
     {
       name: "@storybook/addon-styling-webpack",
       options: {
@@ -53,6 +54,6 @@ module.exports = {
   },
 
   docs: {
-    autodocs: false,
+    autodocs: true,
   },
 };

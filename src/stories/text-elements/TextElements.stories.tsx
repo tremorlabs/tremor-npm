@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Bold, Italic, Text, Title } from "components";
 
 const meta: Meta<typeof Title> = {
-  title: "Tremor/TextElements/TextElements",
+  title: "Components/Text/TextElements",
   component: Title,
 };
 

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { List, ListItem } from "components";
 
 const meta: Meta<typeof List> = {
-  title: "Tremor/ListElements/List",
+  title: "Components/List/List",
   component: List,
 };
 

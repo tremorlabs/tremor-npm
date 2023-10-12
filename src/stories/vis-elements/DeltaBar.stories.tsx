@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DeltaBar } from "components";
 
 const meta: Meta<typeof DeltaBar> = {
-  title: "Tremor/VisElements/DeltaBar",
+  title: "Components/Vis/DeltaBar",
   component: DeltaBar,
   render: (args) => <DeltaBar {...args} />,
 };

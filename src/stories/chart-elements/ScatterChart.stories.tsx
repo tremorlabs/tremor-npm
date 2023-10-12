@@ -11,7 +11,7 @@ import {
 } from "./helpers/testDataScatterChart";
 
 const meta: Meta<typeof ScatterChart> = {
-  title: "Tremor/ChartElements/ScatterChart",
+  title: "Components/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
   // parameters: { layout: "centered" },

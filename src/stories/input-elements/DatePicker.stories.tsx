@@ -6,7 +6,7 @@ import { Button, DatePicker } from "components";
 import { fr } from "date-fns/locale";
 
 const meta: Meta<typeof DatePicker> = {
-  title: "Tremor/InputElements/DatePicker",
+  title: "Components/Input/DatePicker",
   component: DatePicker,
 };
 

@@ -7,7 +7,7 @@ import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from "components"
 import { BaseColors, Color } from "lib";
 
 const meta: Meta<typeof TabGroup> = {
-  title: "Tremor/InputElements/TabGroup",
+  title: "Components/Input/TabGroup",
   component: TabGroup,
 };
 
