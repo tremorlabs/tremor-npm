@@ -1,4 +1,4 @@
-import { BaseColors, sumNumericArray, getColorClassNames, colorPalette } from "lib";
+import { BaseColors, colorPalette, getColorClassNames, sumNumericArray } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
 export const parseData = (data: any[], colors: Color[]) =>

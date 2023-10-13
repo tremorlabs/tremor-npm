@@ -1,8 +1,8 @@
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 import { makeClassName } from "lib";
+import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 
 const makeGridClassName = makeClassName("Grid");
 

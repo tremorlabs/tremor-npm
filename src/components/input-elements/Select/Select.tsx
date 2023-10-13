@@ -1,13 +1,13 @@
 "use client";
 
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import React, { useMemo } from "react";
 import { border, makeClassName, sizing, spacing } from "lib";
+import React, { useMemo } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox } from "@headlessui/react";
-import { tremorTwMerge } from "lib";
 import { useInternalState } from "hooks";
+import { tremorTwMerge } from "lib";
 
 const makeSelectClassName = makeClassName("Select");
 
@@ -30,7 +30,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     placeholder = "Select...",
     disabled = false,
     icon,
-    enableClear = false,
+    enableClear = true,
     children,
     className,
     ...other

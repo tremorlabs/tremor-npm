@@ -1,11 +1,11 @@
 "use client";
 
-import { CalendarIcon, XCircleIcon } from "assets";
-import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import { Listbox, Popover } from "@headlessui/react";
-import React, { ReactElement, useMemo, useState } from "react";
+import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { border, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactElement, useMemo, useState } from "react";
+import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
   constructValueToNameMapping,
   getNodeText,
@@ -21,11 +21,11 @@ import {
 } from "./dateRangePickerUtils";
 
 import { Calendar } from "components/input-elements/Calendar";
-import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 import { SelectItem } from "components/input-elements/Select";
 import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
+import { Color } from "../../../lib/inputTypes";
 
 const TODAY = startOfToday();
 
@@ -47,6 +47,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   children?: React.ReactElement[] | React.ReactElement;
@@ -65,6 +66,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     disabled = false,
     locale = enUS,
     enableClear = true,
+    displayFormat,
     children,
     className,
     enableYearNavigation = false,
@@ -137,7 +139,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   const formattedSelection =
     !selectedStartDate && !selectedEndDate
       ? placeholder
-      : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
+      : formatSelectedDates(selectedStartDate, selectedEndDate, locale, displayFormat);
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;
@@ -169,7 +171,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           "w-full overflow-hidden",
           enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           isCalendarButtonFocused &&
-            "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
+            "ring-2 ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted z-10",
         )}
       >
         <div className="relative w-full overflow-hidden">
@@ -181,9 +183,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // common
               "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
               // light
-              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
+              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
-              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
+              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.lg.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,

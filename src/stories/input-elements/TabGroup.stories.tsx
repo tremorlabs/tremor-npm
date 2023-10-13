@@ -1,210 +1,137 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import {
-  Button,
-  Card,
-  Flex,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Text,
-  Title,
-} from "components";
-import { BaseColors } from "lib";
 import { CalendarIcon } from "assets";
+import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from "components";
+import { BaseColors, Color } from "lib";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/TabGroup",
+const meta: Meta<typeof TabGroup> = {
+  title: "Components/Input/TabGroup",
   component: TabGroup,
-} as ComponentMeta<typeof TabGroup>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+};
 
-const TabLine = (args: any) => (
-  <TabGroup defaultIndex={0} {...args}>
-    <TabList>
-      <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
-      <Tab icon={CalendarIcon}>Three</Tab>
-      <Tab icon={CalendarIcon}>One</Tab>
-    </TabList>
-    <TabPanels>
-      <TabPanel>One</TabPanel>
-      <TabPanel>Two</TabPanel>
-      <TabPanel>Three</TabPanel>
-    </TabPanels>
-  </TabGroup>
-);
+export default meta;
+type Story = StoryObj<typeof TabGroup>;
 
-const TabSolid = (args: any) => (
-  <TabGroup defaultIndex={1} {...args}>
-    <TabList variant="solid">
-      <Tab icon={CalendarIcon}>This is a very Long Tab Value that is used as an edge case</Tab>
-      <Tab icon={CalendarIcon}>Three</Tab>
-      <Tab icon={CalendarIcon}>One</Tab>
-    </TabList>
-    <TabPanels>
-      <TabPanel>One</TabPanel>
-      <TabPanel>Two</TabPanel>
-      <TabPanel>Three</TabPanel>
-    </TabPanels>
-  </TabGroup>
-);
+interface MyTabProps {
+  variant?: "line" | "solid";
+  defaultIndex?: number;
+  showText?: boolean;
+  color: Color;
+  args?: any;
+}
 
-const TabLineNoText = (args: any) => (
-  <TabGroup defaultIndex={0} {...args}>
-    <TabList>
-      <Tab icon={CalendarIcon}></Tab>
-      <Tab icon={CalendarIcon}></Tab>
-      <Tab icon={CalendarIcon}></Tab>
-    </TabList>
-    <TabPanels>
-      <TabPanel>One</TabPanel>
-      <TabPanel>Two</TabPanel>
-      <TabPanel>Three</TabPanel>
-    </TabPanels>
-  </TabGroup>
-);
+//Components
+function MyTab(props: MyTabProps) {
+  const { variant = "line", defaultIndex = 0, showText = true, color = "blue", args } = props;
 
-const TabSolidNoText = (args: any) => (
-  <TabGroup defaultIndex={1} {...args}>
-    <TabList variant="solid">
-      <Tab icon={CalendarIcon}></Tab>
-      <Tab icon={CalendarIcon}></Tab>
-      <Tab icon={CalendarIcon}></Tab>
-    </TabList>
-    <TabPanels>
-      <TabPanel>One</TabPanel>
-      <TabPanel>Two</TabPanel>
-      <TabPanel>Three</TabPanel>
-    </TabPanels>
-  </TabGroup>
-);
+  const tabLabels = ["This is a very Long Tab Value that is used as an edge case", "Three", "One"];
 
-const ResponsiveTemplate: ComponentStory<typeof TabGroup> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64 space-y-5">
-      <Card>
-        <TabLine {...args} />
-      </Card>
-      <Card>
-        <TabSolid {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5 space-y-5">Desktop</Title>
-    <Card>
-      <TabLine {...args} />
-    </Card>
-    <Card>
-      <TabSolid {...args} />
-    </Card>
-  </>
-);
-
-const ResponsiveTemplateNoText: ComponentStory<typeof TabGroup> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64 space-y-5">
-      <Card>
-        <TabLineNoText {...args} />
-      </Card>
-      <Card>
-        <TabSolidNoText {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5 space-y-5">Desktop</Title>
-    <Card>
-      <TabLineNoText {...args} />
-    </Card>
-    <Card>
-      <TabSolidNoText {...args} />
-    </Card>
-  </>
-);
-
-const FlexTemplate: ComponentStory<typeof TabGroup> = (args) => (
-  <>
-    <Card>
-      <Text className="mt-2">Justify Start</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <TabLine {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <TabLine {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <div>
-          <TabLine {...args} />
-        </div>
-      </Flex>
-      <Text className="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <div>
-          <TabLine {...args} />
-        </div>
-      </Flex>
-    </Card>
-  </>
-);
-
-const ColorsTemplate: ComponentStory<typeof TabGroup> = (args) => (
-  <>
-    <Card>
-      <div className="space-y-2">
-        {Object.values(BaseColors).map((color) => (
-          <Flex key={color} className="space-x-5">
-            <TabLine {...args} color={color} />
-            <TabSolid {...args} color={color} />
-          </Flex>
+  return (
+    <TabGroup defaultIndex={defaultIndex} {...args}>
+      <TabList variant={variant} color={color}>
+        {tabLabels.map((label, index) => (
+          <Tab icon={CalendarIcon} key={index}>
+            {showText ? label : null}
+          </Tab>
         ))}
-      </div>
-    </Card>
-  </>
-);
+      </TabList>
+      <TabPanels>
+        <TabPanel>One</TabPanel>
+        <TabPanel>Two</TabPanel>
+        <TabPanel>Three</TabPanel>
+      </TabPanels>
+    </TabGroup>
+  );
+}
 
-const WithControlledStateTemplate: ComponentStory<typeof TabGroup> = () => {
+function WithControlledStateTemplate({ ...args }) {
   const [index, setIndex] = useState(0);
   return (
-    <Card>
-      <TabGroup index={index} onIndexChange={setIndex}>
+    <>
+      <TabGroup index={index} onIndexChange={setIndex} {...args}>
         <TabList>
+          <Tab>One</Tab>
           <Tab>Five</Tab>
           <Tab>Three</Tab>
-          <Tab>One</Tab>
         </TabList>
       </TabGroup>
-      <Button onClick={() => setIndex(0)}>Reset</Button>
-      <Button onClick={() => setIndex(2)}>One</Button>
-    </Card>
+      <div className="mt-4 space-x-2">
+        <Button onClick={() => setIndex(0)}>Reset</Button>
+        <Button onClick={() => setIndex(2)}>Three</Button>
+        <p>index: {index}</p>
+      </div>
+    </>
   );
+}
+
+function TabSet({ showText = true, ...args }) {
+  const { color } = args;
+  return (
+    <>
+      <div className="space-y-4">
+        <MyTab variant="line" showText={showText} {...args} color={color} />
+        <MyTab variant="solid" showText={showText} {...args} color={color} />
+      </div>
+    </>
+  );
+}
+
+// Templates
+const TabSetTemplate: Story = {
+  render: ({ ...args }) => <TabSet {...args} />,
 };
 
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-DefaultResponsive.args = {
-  onIndexChange: (index) => console.log(index),
+const TabSetNoTextTemplate: Story = {
+  render: ({ ...args }) => <TabSet {...args} />,
 };
 
-export const DefaultResponsiveNoText = ResponsiveTemplateNoText.bind({});
-DefaultResponsiveNoText.args = {
-  onIndexChange: (index) => console.log(index),
+const TabSetColorsTemplate: Story = {
+  render: ({ ...args }) => (
+    <div className="space-y-4">
+      {Object.values(BaseColors).map((color) => (
+        <div key={color} className="space-x-5">
+          <TabSet {...args} color={color} />
+        </div>
+      ))}
+    </div>
+  ),
 };
 
-export const WithFlexParent = FlexTemplate.bind({});
-
-export const WithDefaultValue = ResponsiveTemplate.bind({});
-WithDefaultValue.args = {
-  defaultIndex: 3,
+const ControlledTabSetTemplate: Story = {
+  render: WithControlledStateTemplate,
 };
 
-export const Colors = ColorsTemplate.bind({});
-Colors.args = {
-  defaultIndex: 3,
+// Stories
+
+export const Default: Story = {
+  ...TabSetTemplate,
 };
 
-export const WithControlledState = WithControlledStateTemplate.bind({});
+export const DefaultNoText: Story = {
+  ...TabSetNoTextTemplate,
+};
+
+export const OnIndexChange: Story = {
+  ...TabSetTemplate,
+  args: { onIndexChange: (index) => console.log(index) },
+};
+
+export const OnIndexChangeNoText: Story = {
+  ...TabSetNoTextTemplate,
+  args: { onIndexChange: (index) => console.log(index) },
+};
+
+export const DefaultIndex: Story = {
+  ...TabSetTemplate,
+  args: { defaultIndex: 3 },
+};
+
+export const Colors: Story = {
+  ...TabSetColorsTemplate,
+};
+
+export const Controlled: Story = {
+  ...ControlledTabSetTemplate,
+};

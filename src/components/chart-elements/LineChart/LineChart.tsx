@@ -13,15 +13,15 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
+import BaseChartProps from "../common/BaseChartProps";
+import ChartLegend from "../common/ChartLegend";
+import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 import {
   constructCategoryColors,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
-import NoData from "../common/NoData";
-import BaseChartProps from "../common/BaseChartProps";
-import ChartLegend from "../common/ChartLegend";
-import ChartTooltip from "../common/ChartTooltip";
 
 import {
   BaseColors,
@@ -68,8 +68,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    customTooltip,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -201,15 +203,25 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
                 ) : (
                   <></>
                 )

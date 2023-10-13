@@ -1,9 +1,9 @@
 import React from "react";
 import { tremorTwMerge } from "../../../lib";
 
-import { Color, ValueFormatter } from "../../../lib";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
+import { Color, ValueFormatter } from "../../../lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div

@@ -1,8 +1,8 @@
 "use client";
-import React, { ReactNode, useRef, useState } from "react";
-import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import { ExclamationFilledIcon } from "assets";
+import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -35,6 +35,12 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const toggleIsPasswordVisible = useCallback(
+    () => setIsPasswordVisible(!isPasswordVisible),
+    [isPasswordVisible, setIsPasswordVisible],
+  );
 
   const Icon = icon;
 
@@ -107,7 +113,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           ref={mergeRefs([inputRef, ref])}
           defaultValue={defaultValue}
           value={value}
-          type={type}
+          type={isPasswordVisible ? "text" : type}
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
@@ -133,6 +139,37 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           }}
           {...other}
         />
+        {type === "password" && !disabled ? (
+          <button
+            className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
+            type="button"
+            onClick={() => toggleIsPasswordVisible()}
+          >
+            {isPasswordVisible ? (
+              <EyeOffIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5 transition",
+                  // light
+                  "text-tremor-content-subtle hover:text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                )}
+              />
+            ) : (
+              <EyeIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5 transition",
+                  // light
+                  "text-tremor-content-subtle hover:text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                )}
+              />
+            )}
+          </button>
+        ) : null}
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(

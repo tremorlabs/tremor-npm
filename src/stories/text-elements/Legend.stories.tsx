@@ -1,51 +1,50 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card, Legend } from "components";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Legend } from "components";
 
-export default {
-  title: "Tremor/TextElements/Legend",
+const meta: Meta<typeof Legend> = {
+  title: "Components/Text/Legend",
   component: Legend,
-} as ComponentMeta<typeof Legend>;
-
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Legend> = (args) => {
-  if (args.onClickLegendItem?.length === 0) {
-    args.onClickLegendItem = undefined;
-  }
-
-  return (
-    <Card className="max-w-md">
-      <Legend {...args} />
-    </Card>
-  );
+  args: {
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
+  },
 };
 
-const args = {
-  categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-  ],
+export default meta;
+type Story = StoryObj<typeof Legend>;
+
+// function
+function LegendComponent(args: any) {
+  // if (args.onClickLegendItem?.length === 0) {
+  //   args.onClickLegendItem = undefined;
+  // }
+  return <Legend {...args} />;
+}
+
+const LegendTemplate: Story = {
+  render: ({ ...args }) => <LegendComponent {...args} />,
 };
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  ...args,
+export const Default: Story = {
+  ...LegendTemplate,
 };
 
-export const WithOnClick = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithOnClick.args = {
-  ...args,
-  onClickLegendItem: (e) => alert(JSON.stringify(e)),
+export const OnClick: Story = {
+  ...LegendTemplate,
+  args: {
+    onClickLegendItem: (e: any) => alert(JSON.stringify(e)),
+  },
 };
 
-export const WithActiveLegend = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithActiveLegend.args = {
-  ...args,
-  activeLegend: "Category C",
+export const ActiveLegend: Story = {
+  ...LegendTemplate,
+  args: {
+    activeLegend: "Category C",
+  },
 };
