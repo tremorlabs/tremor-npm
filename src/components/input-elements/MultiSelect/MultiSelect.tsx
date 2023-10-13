@@ -291,11 +291,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 value={searchQuery}
               />
             </div>
-            <span onBlur={handleResetSearch}>
-              <SelectedValueContext.Provider value={{ selectedValue: value }}>
-                {filteredOptions}
-              </SelectedValueContext.Provider>
-            </span>
+            <SelectedValueContext.Provider
+              {...{ onBlur: { handleResetSearch } }}
+              value={{ selectedValue: value }}
+            >
+              {filteredOptions}
+            </SelectedValueContext.Provider>
           </Listbox.Options>
         </>
       )}
