@@ -19,9 +19,13 @@ export const SimpleTextInput = (args: any) => {
         <p>Conrolled without onChange</p>
         <TextInput {...args} value={value} />
         <label htmlFor="a">
-          <p>Controlled</p>
+          <p>Controlled with on Change</p>
         </label>
         <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
+        <label htmlFor="a">
+          <p>Controlled with onValueChanage</p>
+        </label>
+        <TextInput {...args} id={"a"} value={value} onValueChange={setValue} />
         <Button type="submit" className="mt-2">
           Submit
         </Button>

@@ -13,7 +13,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
 }
 
