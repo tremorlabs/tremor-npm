@@ -84,7 +84,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
       as="div"
       className={tremorTwMerge(
         "relative w-full min-w-[10rem] text-tremor-default",
-        "focus:ring-2 focus:ring-tremor-brand-muted focus:dark:focus:ring-dark-tremor-brand-muted",
+        "focus:ring-2 focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted",
         className,
       )}
       {...other}
