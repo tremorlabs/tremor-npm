@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import CategoryBar from "components/vis-elements/CategoryBar/CategoryBar";
 
 const meta: Meta<typeof CategoryBar> = {
-  title: "Tremor/VisElements/CategoryBar",
+  title: "Components/Vis/CategoryBar",
   component: CategoryBar,
   render: (args) => <CategoryBar {...args} />,
 };

@@ -6,7 +6,7 @@ import { SimpleMultiSelect, SimpleMultiSelectControlled } from "./helpers/Simple
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof MultiSelect> = {
-  title: "Tremor/InputElements/MultiSelect",
+  title: "Components/Input/MultiSelect",
   component: MultiSelect,
 };
 

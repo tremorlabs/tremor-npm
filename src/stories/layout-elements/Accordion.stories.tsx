@@ -4,7 +4,7 @@ import { Accordion } from "components";
 import { SimpleAccordion } from "./helpers/SimpleAccordion";
 
 const meta: Meta<typeof Accordion> = {
-  title: "Tremor/LayoutElements/Accordion",
+  title: "Components/Layout/Accordion",
   component: Accordion,
 };
 

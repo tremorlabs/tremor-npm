@@ -12,7 +12,7 @@ import {
 } from "stories/chart-elements/helpers/testData";
 
 const meta: Meta<typeof DonutChart> = {
-  title: "Tremor/ChartElements/DonutChart",
+  title: "Components/Chart/DonutChart",
   component: DonutChart,
   args: { category: "sales", index: "city", data },
   // parameters: { layout: "centered" },

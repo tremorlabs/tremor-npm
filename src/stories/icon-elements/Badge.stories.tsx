@@ -8,7 +8,7 @@ import { ArrowUpIcon } from "assets";
 import { Badge, Grid } from "components";
 
 const meta: Meta<typeof Badge> = {
-  title: "Tremor/IconElements/Badge",
+  title: "Components/Icon/Badge",
   component: Badge,
   args: {
     children: "Live",

@@ -5,7 +5,7 @@ import { NumberInput } from "components";
 import { SimpleNumberInput, SimpleNumberInputControlled } from "./helpers/SimpleNumberInput";
 
 const meta: Meta<typeof NumberInput> = {
-  title: "Tremor/InputElements/NumberInput",
+  title: "Components/Input/NumberInput",
   component: NumberInput,
 };
 

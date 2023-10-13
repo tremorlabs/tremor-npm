@@ -70,6 +70,9 @@ devDependencies:
   '@semantic-release/npm':
     specifier: github:semantic-release/npm
     version: github.com/semantic-release/npm/0f164077d26871cf7793585a169c038e9db93f35(semantic-release@22.0.5)
+  '@storybook/addon-a11y':
+    specifier: ^7.4.6
+    version: 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/addon-actions':
     specifier: ^7.4.6
     version: 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
@@ -88,6 +91,9 @@ devDependencies:
   '@storybook/addon-themes':
     specifier: ^7.4.6
     version: 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
+  '@storybook/manager-api':
+    specifier: ^7.4.6
+    version: 7.4.6(react-dom@18.2.0)(react@18.2.0)
   '@storybook/mdx2-csf':
     specifier: ^1.1.0
     version: 1.1.0
@@ -100,6 +106,9 @@ devDependencies:
   '@storybook/testing-library':
     specifier: ^0.2.2
     version: 0.2.2
+  '@storybook/theming':
+    specifier: ^7.4.6
+    version: 7.4.6(react-dom@18.2.0)(react@18.2.0)
   '@testing-library/react':
     specifier: ^13.1.1
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -4669,6 +4678,37 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: true
 
+  /@storybook/addon-a11y@7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-RE8sXk9KEqgmjsFmG31eObgPMTOvvWnoNZIaZEHs88X30tNHtFwjc0jzvCR/xriKsBtQdYQTUSsB7pSjaJHNzQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@storybook/addon-highlight': 7.4.6
+      '@storybook/channels': 7.4.6
+      '@storybook/client-logger': 7.4.6
+      '@storybook/components': 7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/core-events': 7.4.6
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 7.4.6(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/preview-api': 7.4.6
+      '@storybook/theming': 7.4.6(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/types': 7.4.6
+      axe-core: 4.8.2
+      lodash: 4.17.21
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-resize-detector: 7.1.2(react-dom@18.2.0)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: true
+
   /@storybook/addon-actions@7.4.6(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-SsqZr3js5NinKPnC8AeNI7Ij+Q6fIl9tRdRmSulEgjksjOg7E5S1/Wsn5Bb2CCgj7MaX6VxGyC7s3XskQtDiIQ==}
     peerDependencies:
@@ -6967,6 +7007,11 @@ packages:
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /axe-core@4.8.2:
+    resolution: {integrity: sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==}
+    engines: {node: '>=4'}
     dev: true
 
   /babel-core@7.0.0-bridge.0(@babel/core@7.23.0):
@@ -13316,6 +13361,17 @@ packages:
       tslib: 2.6.2
       use-callback-ref: 1.3.0(@types/react@18.2.12)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.12)(react@18.2.0)
+    dev: true
+
+  /react-resize-detector@7.1.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zXnPJ2m8+6oq9Nn8zsep/orts9vQv3elrpA+R8XTcW7DVVUJ9vwDwMXaBtykAYjMnkCIaOoK9vObyR7ZgFNlOw==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      lodash: 4.17.21
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: true
 
   /react-resize-detector@8.1.0(react-dom@18.2.0)(react@18.2.0):

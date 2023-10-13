@@ -5,7 +5,7 @@ import { TextInput } from "components";
 import { SimpleTextInput } from "./helpers/SimpleTextInput";
 
 const meta: Meta<typeof TextInput> = {
-  title: "Tremor/InputElements/TextInput",
+  title: "Components/Input/TextInput",
   component: TextInput,
 };
 

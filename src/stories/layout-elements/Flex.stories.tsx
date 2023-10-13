@@ -7,7 +7,7 @@ import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 
 const meta: Meta<typeof Flex> = {
-  title: "Tremor/LayoutElements/Flex",
+  title: "Components/Layout/Flex",
   component: Flex,
 };
 

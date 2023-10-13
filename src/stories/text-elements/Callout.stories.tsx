@@ -7,7 +7,7 @@ import { Callout } from "components";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof Callout> = {
-  title: "Tremor/TextElements/Callout",
+  title: "Components/Text/Callout",
   component: Callout,
 };
 

@@ -8,7 +8,7 @@ import { BarListProps } from "components/vis-elements/BarList/BarList";
 import { BaseColors } from "lib";
 
 const meta: Meta<typeof BarList> = {
-  title: "Tremor/VisElements/BarList",
+  title: "Components/Vis/BarList",
   component: BarList,
 };
 

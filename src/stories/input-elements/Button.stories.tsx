@@ -6,7 +6,7 @@ import { Button, Grid } from "components";
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 const meta: Meta<typeof Button> = {
-  title: "Tremor/InputElements/Button",
+  title: "Components/Input/Button",
   component: Button,
 };
 
