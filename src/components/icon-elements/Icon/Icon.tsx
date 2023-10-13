@@ -26,6 +26,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
+  //Icon is deprecated and will be removed in the next major release
   const {
     icon,
     variant = IconVariants.Simple,

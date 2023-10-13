@@ -7,6 +7,7 @@ import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from
 const makeGridClassName = makeClassName("Grid");
 
 const getGridCols = (numCols: number | undefined, gridColsMapping: GridClassesMapping): string => {
+  //Grid is deprecated and will be removed in the next major release
   if (!numCols) return "";
   if (!Object.keys(gridColsMapping).includes(String(numCols))) return "";
   return gridColsMapping[numCols];

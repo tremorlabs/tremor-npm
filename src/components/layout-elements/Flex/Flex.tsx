@@ -38,6 +38,7 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
+  // Flex is deprecated and will be removed in the next major release
   const {
     flexDirection = "row",
     justifyContent = "between",

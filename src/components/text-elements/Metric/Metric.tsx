@@ -10,6 +10,7 @@ export interface MetricProps extends React.HTMLAttributes<HTMLParagraphElement> 
 }
 
 const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) => {
+  //Metric is deprecated and will be removed in the next major release
   const { color, children, className, ...other } = props;
   return (
     <p

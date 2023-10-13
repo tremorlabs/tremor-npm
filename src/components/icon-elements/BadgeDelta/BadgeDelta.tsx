@@ -30,6 +30,7 @@ export interface BadgeDeltaProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, ref) => {
+  // BadgeDelta is deprecated and will be removed in the next major release
   const {
     deltaType = DeltaTypes.Increase,
     isIncreasePositive = true,

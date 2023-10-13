@@ -10,6 +10,7 @@ export interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement
 }
 
 const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>((props, ref) => {
+  // Subtitle is deprecated and will be removed in the next major release
   const { color, children, className, ...other } = props;
   return (
     <p
