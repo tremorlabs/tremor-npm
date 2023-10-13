@@ -7,6 +7,7 @@ export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassNam
   type?: "text" | "password" | "email" | "url";
   defaultValue?: string;
   value?: string;
+  onValueChange?: (value: string) => void;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   error?: boolean;
   errorMessage?: string;
