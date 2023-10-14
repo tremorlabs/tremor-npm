@@ -1,6 +1,6 @@
 "use client";
 import { tremorTwMerge } from "lib";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { makeClassName, mergeRefs, Sizes } from "lib";
@@ -18,7 +18,7 @@ export const IconVariants: { [key: string]: IconVariant } = {
 };
 
 export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
-  icon: React.ElementType;
+  icon: React.ElementType | React.ReactElement;
   variant?: IconVariant;
   tooltip?: string;
   size?: Size;
@@ -35,7 +35,31 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     className,
     ...other
   } = props;
-  const Icon = icon;
+
+  let Icon;
+  if (isValidElement(icon)) {
+    Icon = cloneElement(icon as React.ReactElement, {
+      className: tremorTwMerge(
+        makeIconClassName("icon"),
+        "shrink-0",
+        iconSizes[size].height,
+        iconSizes[size].width,
+      ),
+    });
+  } else {
+    const IconElm = icon as React.ElementType;
+    Icon = (
+      <IconElm
+        className={tremorTwMerge(
+          makeIconClassName("icon"),
+          "shrink-0",
+          iconSizes[size].height,
+          iconSizes[size].width,
+        )}
+      />
+    );
+  }
+
   const iconColorStyles = getIconColors(variant, color);
 
   const { tooltipProps, getReferenceProps } = useTooltip();
@@ -62,14 +86,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
       {...other}
     >
       <Tooltip text={tooltip} {...tooltipProps} />
-      <Icon
-        className={tremorTwMerge(
-          makeIconClassName("icon"),
-          "shrink-0",
-          iconSizes[size].height,
-          iconSizes[size].width,
-        )}
-      />
+      {Icon}
     </span>
   );
 });
