@@ -127,6 +127,10 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
+export const IntervalTypePreserve: Story = {
+  args: { intervalType: "equidistantPreserveStart" },
+};
+
 export const MultipleZeroValues: Story = {
   args: {
     data: [

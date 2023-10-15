@@ -77,6 +77,10 @@ export const OnValueChange: Story = {
   },
 };
 
+export const IntervalTypePreserve: Story = {
+  args: { intervalType: "equidistantPreserveStart" },
+};
+
 export const RichDataExample: Story = {
   args: {
     data: data2,
