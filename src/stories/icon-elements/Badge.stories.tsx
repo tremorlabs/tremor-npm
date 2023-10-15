@@ -58,6 +58,26 @@ export const Colors: Story = {
   ...BadgeTemplateColors,
 };
 
+export const IconAsReactElement: Story = {
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
+export const SizesWithIconAsReactElement: Story = {
+  ...BadgeTemplateSizes,
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
+export const ColorsWithIconAsReactElement: Story = {
+  ...BadgeTemplateColors,
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
 export const NoIcon: Story = {
   args: {
     icon: undefined,
