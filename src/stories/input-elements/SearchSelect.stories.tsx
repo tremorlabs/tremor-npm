@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { SearchSelect } from "components";
@@ -40,6 +41,14 @@ export const Icon: Story = {
   args: {
     defaultValue: "5",
     icon: CalendarIcon,
+  },
+};
+
+export const IconAsReactElement: Story = {
+  render: SimpleSearchSelect,
+  args: {
+    defaultValue: "5",
+    icon: <CalendarIcon />,
   },
 };
 
