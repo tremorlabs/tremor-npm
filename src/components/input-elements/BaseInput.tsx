@@ -2,13 +2,20 @@
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  cloneElement,
+  isValidElement,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
   defaultValue?: string | number;
   value?: string | number;
-  icon?: React.ElementType | React.JSXElementConstructor<any>;
+  icon?: React.ElementType | React.JSXElementConstructor<any> | React.ReactElement;
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
@@ -39,7 +46,43 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     [isPasswordVisible, setIsPasswordVisible],
   );
 
-  const Icon = icon;
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeInputClassName("icon"),
+          // common
+          "shrink-0",
+          // light
+          "text-tremor-content-subtle",
+          // light
+          "dark:text-dark-tremor-content-subtle",
+          sizing.lg.height,
+          sizing.lg.width,
+          spacing.md.marginLeft,
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType | React.JSXElementConstructor<any>;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeInputClassName("icon"),
+            // common
+            "shrink-0",
+            // light
+            "text-tremor-content-subtle",
+            // light
+            "dark:text-dark-tremor-content-subtle",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.md.marginLeft,
+          )}
+        />
+      );
+    }
+  }
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -90,22 +133,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           handleFocusChange(false);
         }}
       >
-        {Icon ? (
-          <Icon
-            className={tremorTwMerge(
-              makeInputClassName("icon"),
-              // common
-              "shrink-0",
-              // light
-              "text-tremor-content-subtle",
-              // light
-              "dark:text-dark-tremor-content-subtle",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.md.marginLeft,
-            )}
-          />
-        ) : null}
+        {Icon}
         <input
           ref={mergeRefs([inputRef, ref])}
           defaultValue={defaultValue}

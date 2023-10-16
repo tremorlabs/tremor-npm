@@ -36,4 +36,16 @@ describe("NumberInput", () => {
     fireEvent.mouseUp(stepUp);
     expect(inputEl.value).toBe("2");
   });
+
+  test("renders with Icon as ElementType", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(<NumberInput icon={Icon} />);
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders with Icon as ReactElement", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(<NumberInput icon={<Icon />} />);
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
 });
