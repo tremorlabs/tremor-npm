@@ -56,6 +56,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           setIsChecked(e);
           onChange?.(e);
         }}
+        disabled={disabled}
         className={tremorTwMerge(
           makeSwitchClassName("switch"),
           "group relative inline-flex w-full h-full flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
@@ -100,7 +101,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         <p
           className={tremorTwMerge(
             makeSwitchClassName("errorMessage"),
-            "text-sm text-red-500 mt-5",
+            "text-sm text-rose-500 mt-1",
           )}
         >
           {errorMessage}

@@ -11,7 +11,6 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
-  render: SimpleSwitch,
   args: {},
 };
 
@@ -25,7 +24,7 @@ export const Disabled: Story = {
 export const CustomColor: Story = {
   // render : SimpleSwitch,
   args: {
-    color: "slate",
+    color: "emerald",
   },
 };
 
@@ -37,7 +36,6 @@ export const Required: Story = {
 };
 
 export const Error: Story = {
-  render: SimpleSwitch,
   args: {
     error: true,
     errorMessage: "Something is wrong",
