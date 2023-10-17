@@ -6,7 +6,7 @@ export const SimpleSwitch = (args: any) => {
 
   return (
     <div className="space-y-4">
-      <form action="http://localhost:6006/" method="get" onReset={() => setChecked(true)}>
+      <form action="http://localhost:6006/" method="get" onReset={() => setChecked(false)}>
         <input type="hidden" name="path" value={"/docs/components-input-switch--docs"} />
         <Switch {...args} checked={checked} onChange={setChecked} />
 

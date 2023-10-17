@@ -10,8 +10,14 @@ const meta: Meta<typeof Switch> = {
 export default meta;
 type Story = StoryObj<typeof Switch>;
 
-export const Default: Story = {
+export const Uncontrolled: Story = {
   args: {},
+};
+
+export const DefaultChecked: Story = {
+  args: {
+    defaultChecked: true,
+  },
 };
 
 export const Disabled: Story = {
