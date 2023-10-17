@@ -144,8 +144,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
-            {" "}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -178,7 +178,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               interval={intervalType}
               tickLine={false}
               axisLine={false}
-              padding={{ left: 10, right: 10 }}
               minTickGap={5}
             />
             <YAxis

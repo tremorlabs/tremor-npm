@@ -9,6 +9,8 @@ import {
   simpleBaseChartData as data,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
@@ -127,8 +129,24 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
-export const IntervalTypePreserve: Story = {
+export const Equidistant: Story = {
   args: { intervalType: "equidistantPreserveStart" },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndEquidistant: Story = {
+  args: { data: longBaseChartData, intervalType: "equidistantPreserveStart" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndEquidistant: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "equidistantPreserveStart" },
 };
 
 export const MultipleZeroValues: Story = {
@@ -140,12 +158,12 @@ export const MultipleZeroValues: Story = {
         "Successful Payments": 0,
       },
       {
-        month: "Jun 21'",
+        month: "Jun 21",
         Sales: 2390,
         "Successful Payments": 0,
       },
       {
-        month: "Jul 21'",
+        month: "Jul 21",
         Sales: 3490,
         "Successful Payments": 0,
       },

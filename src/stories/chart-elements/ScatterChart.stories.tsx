@@ -96,6 +96,32 @@ export const RichDataExample: Story = {
   },
 };
 
+export const Equidistant: Story = {
+  args: { intervalType: "equidistantPreserveStart" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["red", "green", "blue", "yellow"];
 const customTooltipIndex = "location";

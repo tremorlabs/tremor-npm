@@ -192,6 +192,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -229,7 +230,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
-                padding={{ left: 0, right: 0 }}
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
