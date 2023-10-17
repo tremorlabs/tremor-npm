@@ -19,12 +19,20 @@ interface MyTabProps {
   defaultIndex?: number;
   showText?: boolean;
   color: Color;
+  tabIcon?: React.ElementType | React.ReactElement;
   args?: any;
 }
 
 //Components
 function MyTab(props: MyTabProps) {
-  const { variant = "line", defaultIndex = 0, showText = true, color = "blue", args } = props;
+  const {
+    variant = "line",
+    defaultIndex = 0,
+    showText = true,
+    color = "blue",
+    tabIcon = CalendarIcon,
+    args,
+  } = props;
 
   const tabLabels = ["This is a very Long Tab Value that is used as an edge case", "Three", "One"];
 
@@ -32,7 +40,7 @@ function MyTab(props: MyTabProps) {
     <TabGroup defaultIndex={defaultIndex} {...args}>
       <TabList variant={variant} color={color}>
         {tabLabels.map((label, index) => (
-          <Tab icon={CalendarIcon} key={index}>
+          <Tab icon={tabIcon} key={index}>
             {showText ? label : null}
           </Tab>
         ))}
@@ -67,12 +75,12 @@ function WithControlledStateTemplate({ ...args }) {
 }
 
 function TabSet({ showText = true, ...args }) {
-  const { color } = args;
+  const { color, tabIcon } = args;
   return (
     <>
       <div className="space-y-4">
-        <MyTab variant="line" showText={showText} {...args} color={color} />
-        <MyTab variant="solid" showText={showText} {...args} color={color} />
+        <MyTab variant="line" showText={showText} {...args} color={color} tabIcon={tabIcon} />
+        <MyTab variant="solid" showText={showText} {...args} color={color} tabIcon={tabIcon} />
       </div>
     </>
   );
@@ -101,6 +109,18 @@ const TabSetColorsTemplate: Story = {
 
 const ControlledTabSetTemplate: Story = {
   render: WithControlledStateTemplate,
+};
+
+const TabSetWithTabIconTemplate: Story = {
+  render: ({ ...args }) => (
+    <div className="space-y-4">
+      {Object.values([CalendarIcon, <CalendarIcon key={"calender"} />]).map((tabIcon, i) => (
+        <div key={i} className="space-x-5">
+          <TabSet {...args} tabIcon={tabIcon} />
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 // Stories
@@ -134,4 +154,8 @@ export const Colors: Story = {
 
 export const Controlled: Story = {
   ...ControlledTabSetTemplate,
+};
+
+export const WithTabIcon: Story = {
+  ...TabSetWithTabIconTemplate,
 };

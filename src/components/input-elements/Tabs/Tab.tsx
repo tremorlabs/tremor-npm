@@ -1,7 +1,7 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
-import React, { useContext } from "react";
+import React, { ReactElement, cloneElement, isValidElement, useContext } from "react";
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
 import { BaseColorContext } from "contexts";
@@ -43,7 +43,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
 }
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
 }
 
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
@@ -51,7 +51,33 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
 
   const variant = useContext(TabVariantContext);
   const color = useContext(BaseColorContext);
-  const Icon = icon;
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as ReactElement, {
+        className: tremorTwMerge(
+          makeTabClassName("icon"),
+          "flex-none",
+          sizing.lg.height,
+          sizing.lg.width,
+          children ? spacing.sm.marginRight : "",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeTabClassName("icon"),
+            "flex-none",
+            sizing.lg.height,
+            sizing.lg.width,
+            children ? spacing.sm.marginRight : "",
+          )}
+        />
+      );
+    }
+  }
   return (
     <HeadlessTab
       ref={ref}
@@ -70,17 +96,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       )}
       {...other}
     >
-      {Icon ? (
-        <Icon
-          className={tremorTwMerge(
-            makeTabClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            children ? spacing.sm.marginRight : "",
-          )}
-        />
-      ) : null}
+      {Icon}
       {children ? <span>{children}</span> : null}
     </HeadlessTab>
   );
