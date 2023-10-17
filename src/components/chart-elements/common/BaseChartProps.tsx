@@ -1,4 +1,4 @@
-import { Color, ValueFormatter } from "../../../lib";
+import { Color, ValueFormatter, IntervalType } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 import { CustomTooltipType } from "./CustomTooltipProps";
 
@@ -23,6 +23,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
+  intervalType?: IntervalType;
   showTooltip?: boolean;
   showGradient?: boolean;
   showLegend?: boolean;

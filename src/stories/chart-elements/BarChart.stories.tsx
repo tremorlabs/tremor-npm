@@ -5,7 +5,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BarChart } from "components";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import { Color, currencyValueFormatter } from "lib";
-import { simpleBaseChartData as data, singleAndMultipleData } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
+} from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
   title: "Components/Chart/BarChart",
@@ -119,6 +124,48 @@ export const SingleAndMultipleData: Story = {
 
 export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
+};
+
+export const Equidistant: Story = {
+  args: { intervalType: "equidistantPreserveStart" },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndEquidistant: Story = {
+  args: { data: longBaseChartData, intervalType: "equidistantPreserveStart" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndEquidistant: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "equidistantPreserveStart" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
 };
 
 //Custom tooltips
