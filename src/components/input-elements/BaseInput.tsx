@@ -117,7 +117,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default",
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default autofill:bg-transparent",
             // light
             "text-tremor-content-emphasis",
             // dark
