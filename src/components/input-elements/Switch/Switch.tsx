@@ -34,80 +34,97 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
   } = props;
 
   const [isChecked, setIsChecked] = useInternalState(defaultChecked, checked);
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div ref={ref} className={twMerge(makeSwitchClassName("root"), "relative h-5 w-10")} {...other}>
-      <input
-        type="checkbox"
-        className={tremorTwMerge(
-          makeSwitchClassName("input"),
-          "absolute w-full h-full cursor-pointer left-0 top-0 opacity-0",
-        )}
-        name={name}
-        required={required}
-        checked={isChecked}
-        onChange={(e) => {
-          e.preventDefault();
-        }}
-      />
-      <HeadlessSwitch
-        checked={isChecked}
-        onChange={(e) => {
-          setIsChecked(e);
-          onChange?.(e);
-        }}
-        disabled={disabled}
-        className={tremorTwMerge(
-          makeSwitchClassName("switch"),
-          "group relative inline-flex w-full h-full flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
-          disabled ? "opacity-50 cursor-not-allowed" : "",
-        )}
+    <>
+      <div
+        ref={ref}
+        className={twMerge(makeSwitchClassName("root"), "flex flex-col relative h-5")}
+        {...other}
       >
-        <span className={tremorTwMerge(makeSwitchClassName("sr-only"), "sr-only")}>
-          Switch {isChecked ? "on" : "off"}
-        </span>
-        <span
+        <input
+          type="checkbox"
+          className={tremorTwMerge(
+            makeSwitchClassName("input"),
+            "absolute w-5 h-5 cursor-pointer left-0 top-0 opacity-0",
+          )}
+          name={name}
+          required={required}
+          checked={isChecked}
+          onChange={(e) => {
+            e.preventDefault();
+          }}
+        />
+        <HeadlessSwitch
+          checked={isChecked}
+          onChange={(e) => {
+            setIsChecked(e);
+            onChange?.(e);
+          }}
+          disabled={disabled}
+          className={tremorTwMerge(
+            makeSwitchClassName("switch"),
+            "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
+            "focus:outline-none",
+            disabled ? "opacity-50 cursor-not-allowed" : "",
+          )}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        >
+          <span className={tremorTwMerge(makeSwitchClassName("sr-only"), "sr-only")}>
+            Switch {isChecked ? "on" : "off"}
+          </span>
+          {/* <span
           aria-hidden="true"
           className={tremorTwMerge(
             makeSwitchClassName("background"),
             "pointer-events-none absolute h-full w-full rounded-md bg-white",
           )}
-        />
-        <span
-          aria-hidden="true"
-          className={tremorTwMerge(
-            makeSwitchClassName("background"),
-            isChecked ? getColorClassNames(color, colorPalette.background).bgColor : "bg-gray-200",
-            "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-full transition-colors duration-200 ease-in-out",
-          )}
-        />
-        {/* ADD FOCUS STATE */}
-        <span
-          aria-hidden="true"
-          className={tremorTwMerge(
-            makeSwitchClassName("round"),
-            isChecked
-              ? tremorTwMerge(
-                  getColorClassNames(color, colorPalette.background).bgColor,
-                  "translate-x-5 border-white",
-                )
-              : "translate-x-0 bg-white border-gray-200",
+        /> */}
+          <span
+            aria-hidden="true"
+            className={tremorTwMerge(
+              makeSwitchClassName("background"),
+              isChecked
+                ? getColorClassNames(color, colorPalette.background).bgColor
+                : "bg-gray-200",
+              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-full transition-colors duration-200 ease-in-out",
+            )}
+          />
+          <span
+            aria-hidden="true"
+            className={tremorTwMerge(
+              makeSwitchClassName("round"),
+              isChecked
+                ? tremorTwMerge(
+                    getColorClassNames(color, colorPalette.background).bgColor,
+                    "translate-x-5 border-white",
+                  )
+                : "translate-x-0 bg-white border-gray-200",
 
-            "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow transition-transform duration-200 ease-in-out foucs:ring-2 transition duration-100 focus:border-blue-400 focus:ring-blue-200",
-          )}
-        />
-      </HeadlessSwitch>
+              "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow transition-transform duration-200 ease-in-out transition duration-100",
+              isFocused
+                ? twMerge(
+                    getColorClassNames(color, colorPalette.lightText).borderColor,
+                    getColorClassNames(color, colorPalette.lightRing).ringColor,
+                  )
+                : "",
+            )}
+          />
+        </HeadlessSwitch>
+      </div>
       {error && errorMessage ? (
         <p
           className={tremorTwMerge(
             makeSwitchClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
+            "text-sm text-rose-500 mt-1 ",
           )}
         >
           {errorMessage}
         </p>
       ) : null}
-    </div>
+    </>
   );
 });
 
