@@ -105,10 +105,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
 
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow transition-transform duration-200 ease-in-out transition duration-100",
               isFocused
-                ? twMerge(
-                    "ring-2",
-                    getColorClassNames(color, colorPalette.lightRing).ringColor,
-                  )
+                ? twMerge("ring-2", getColorClassNames(color, colorPalette.lightRing).ringColor)
                 : "",
             )}
           />
