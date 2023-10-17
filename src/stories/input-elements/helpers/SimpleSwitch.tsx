@@ -8,7 +8,7 @@ export const SimpleSwitch = (args: any) => {
     <div className="space-y-4">
       <form action="http://localhost:6006/" method="get" onReset={() => setChecked(true)}>
         <input type="hidden" name="path" value={"/docs/components-input-switch--docs"} />
-        <Switch {...args} checked={checked} />
+        <Switch {...args} />
 
         <div className="flex gap-4 mt-2">
           <Button type="submit" className="mt-2 w-fit">
