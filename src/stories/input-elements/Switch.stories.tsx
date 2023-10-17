@@ -15,17 +15,19 @@ export const Default: Story = {
 };
 
 export const Disabled: Story = {
-  // render : SimpleSwitch,
   args: {
     disabled: true,
   },
 };
 
 export const CustomColor: Story = {
-  // render : SimpleSwitch,
   args: {
     color: "emerald",
   },
+};
+
+export const Controlled: Story = {
+  render: SimpleSwitch,
 };
 
 export const Required: Story = {
