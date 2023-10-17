@@ -24,6 +24,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
+  // Badge is deprecated and will be removed in the next major release
   const { color, icon, size = Sizes.SM, tooltip, className, children, ...other } = props;
 
   const Icon = icon ? icon : null;
