@@ -59,7 +59,7 @@ export interface ScatterChartProps
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
-  intervalType: IntervalType;
+  intervalType?: IntervalType;
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
