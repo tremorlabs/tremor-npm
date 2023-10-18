@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import Select from "components/input-elements/Select/Select";
@@ -36,6 +36,36 @@ describe("Select", () => {
         <SelectItem value={"1"}>One</SelectItem>
       </Select>,
     );
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders the SelectItem component with Icon as ElementType", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    const placeholder = "Select...";
+    render(
+      <Select placeholder={placeholder}>
+        <SelectItem value={"5"} icon={Icon} />
+        <SelectItem value={"3"}>Three</SelectItem>
+        <SelectItem value={"1"}>One</SelectItem>
+      </Select>,
+    );
+    expect(screen.queryByTestId("icon")).not.toBeTruthy();
+    fireEvent.click(screen.getByText(placeholder));
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders the SelectItem component with Icon as ReactElement", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    const placeholder = "Select...";
+    render(
+      <Select placeholder={placeholder}>
+        <SelectItem value={"5"} icon={<Icon />} />
+        <SelectItem value={"3"}>Three</SelectItem>
+        <SelectItem value={"1"}>One</SelectItem>
+      </Select>,
+    );
+    expect(screen.queryByTestId("icon")).not.toBeTruthy();
+    fireEvent.click(screen.getByText(placeholder));
     expect(screen.queryByTestId("icon")).toBeTruthy();
   });
 });

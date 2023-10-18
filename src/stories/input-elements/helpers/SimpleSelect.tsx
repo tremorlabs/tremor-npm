@@ -17,6 +17,20 @@ export const SimpleSelect = (args: any) => (
   </Select>
 );
 
+export const SimpleSelect2 = (args: any) => (
+  <Select {...args}>
+    <SelectItem value={"5"} icon={<CalendarIcon />}>
+      Very Long SelectItem Value as an edge case
+    </SelectItem>
+    <SelectItem value="3" icon={<CalendarIcon />}>
+      Three
+    </SelectItem>
+    <SelectItem value={"1"} icon={<CalendarIcon />}>
+      One
+    </SelectItem>
+  </Select>
+);
+
 export const SimpleSelectControlled = (args: any) => {
   const [value, setValue] = React.useState<string>("5");
   return (

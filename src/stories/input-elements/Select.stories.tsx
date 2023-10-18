@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Select } from "components";
-import { SimpleSelect, SimpleSelectControlled } from "./helpers/SimpleSelect";
+import { SimpleSelect, SimpleSelect2, SimpleSelectControlled } from "./helpers/SimpleSelect";
 
 import { CalendarIcon } from "assets";
 
@@ -46,6 +46,14 @@ export const UncontrolledIcon: Story = {
 
 export const UncontrolledWithIconAsReactElement: Story = {
   render: SimpleSelect,
+  args: {
+    defaultValue: "5",
+    icon: <CalendarIcon />,
+  },
+};
+
+export const UncontrolledWithIconAsReactElement2: Story = {
+  render: SimpleSelect2,
   args: {
     defaultValue: "5",
     icon: <CalendarIcon />,
