@@ -87,8 +87,8 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
               makeSwitchClassName("background"),
               isChecked
                 ? getColorClassNames(color, colorPalette.background).bgColor
-                : "bg-gray-200",
-              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-full transition-colors duration-200 ease-in-out",
+                : "bg-tremor-content-subtle dark:bg-dark-tremor-content-subtle",
+              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-full transition-colors duration-100 ease-in-out",
             )}
           />
           <span
@@ -100,7 +100,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                     getColorClassNames(color, colorPalette.background).bgColor,
                     "translate-x-5 border-white",
                   )
-                : "translate-x-0 bg-white border-gray-200",
+                : "translate-x-0 bg-tremor-content-subtle dark:bg-dark-tremor-content-subtle border-white",
 
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow duration-100 ease-in-out transition",
               isFocused
