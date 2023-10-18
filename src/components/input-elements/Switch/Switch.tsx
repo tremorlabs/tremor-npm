@@ -3,7 +3,6 @@ import { useInternalState } from "hooks";
 import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 const makeSwitchClassName = makeClassName("Switch");
 
@@ -40,7 +39,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
     <>
       <div
         ref={ref}
-        className={twMerge(makeSwitchClassName("root"), "flex flex-col relative h-5")}
+        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-col relative h-5")}
         {...other}
       >
         <input
@@ -105,7 +104,10 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
 
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow duration-100 ease-in-out transition",
               isFocused
-                ? twMerge("ring-2", getColorClassNames(color, colorPalette.lightRing).ringColor)
+                ? tremorTwMerge(
+                    "ring-2",
+                    getColorClassNames(color, colorPalette.lightRing).ringColor,
+                  )
                 : "",
             )}
           />
