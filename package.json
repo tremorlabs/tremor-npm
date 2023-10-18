@@ -66,7 +66,7 @@
     "@types/react-transition-group": "^4.4.5",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
-    "autoprefixer": "^10.4.4",
+    "autoprefixer": "^10.4.16",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.5",
     "conventional-changelog-conventionalcommits": "^5.0.0",
