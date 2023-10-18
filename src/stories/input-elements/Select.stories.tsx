@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Select } from "components";
@@ -40,6 +41,14 @@ export const UncontrolledIcon: Story = {
   args: {
     defaultValue: "5",
     icon: CalendarIcon,
+  },
+};
+
+export const UncontrolledWithIconAsReactElement: Story = {
+  render: SimpleSelect,
+  args: {
+    defaultValue: "5",
+    icon: <CalendarIcon />,
   },
 };
 

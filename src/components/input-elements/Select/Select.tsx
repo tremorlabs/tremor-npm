@@ -2,7 +2,7 @@
 
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { border, makeClassName, sizing, spacing } from "lib";
-import React, { useMemo } from "react";
+import React, { cloneElement, isValidElement, useMemo } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox } from "@headlessui/react";
@@ -17,7 +17,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
-  icon?: React.JSXElementConstructor<any>;
+  icon?: React.JSXElementConstructor<any> | React.ReactElement;
   enableClear?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
@@ -37,7 +37,43 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const Icon = icon;
+
+  let Icon: React.ReactElement | undefined;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSelectClassName("Icon"),
+          // common
+          "flex-none",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+          sizing.lg.height,
+          sizing.lg.width,
+        ),
+      });
+    } else {
+      const IconElm = icon as React.JSXElementConstructor<any>;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSelectClassName("Icon"),
+            // common
+            "flex-none",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+            sizing.lg.height,
+            sizing.lg.width,
+          )}
+        />
+      );
+    }
+  }
+
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
 
   const handleReset = () => {
@@ -89,19 +125,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                   spacing.md.paddingLeft,
                 )}
               >
-                <Icon
-                  className={tremorTwMerge(
-                    makeSelectClassName("Icon"),
-                    // common
-                    "flex-none",
-                    // light
-                    "text-tremor-content-subtle",
-                    // dark
-                    "dark:text-dark-tremor-content-subtle",
-                    sizing.lg.height,
-                    sizing.lg.width,
-                  )}
-                />
+                {Icon}
               </span>
             )}
             <span className="w-[90%] block truncate">
