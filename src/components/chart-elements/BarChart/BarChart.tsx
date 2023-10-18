@@ -64,7 +64,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
-    intervalType = "preserveStartEnd",
+    intervalType = "equidistantPreserveStart",
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
