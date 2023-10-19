@@ -10,7 +10,6 @@ export interface TitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
 }
 
 const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) => {
-  //Title is deprecated and will be removed in the next major release
   const { color, children, className, ...other } = props;
   return (
     <p

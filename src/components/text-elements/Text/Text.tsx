@@ -10,7 +10,6 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>((props, ref) => {
-  //Text is deprecated and will be removed in the next major release
   const { color, className, children } = props;
   return (
     <p
