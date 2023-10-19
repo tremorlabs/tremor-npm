@@ -66,7 +66,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           disabled={disabled}
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
-            "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
+            "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
             "focus:outline-none",
             disabled ? "opacity-0 cursor-not-allowed" : "",
           )}
@@ -91,7 +91,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
               isChecked
                 ? getColorClassNames(color, colorPalette.background).bgColor
                 : "bg-tremor-content-subtle dark:bg-dark-tremor-content-subtle",
-              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-full transition-colors duration-100 ease-in-out",
+              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-tremor-full transition-colors duration-100 ease-in-out",
             )}
           />
           <span
@@ -105,7 +105,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                   )
                 : "translate-x-0 bg-tremor-content-subtle dark:bg-dark-tremor-content-subtle border-white",
 
-              "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow duration-100 ease-in-out transition",
+              "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-tremor-full border-2 shadow-tremor-input duration-100 ease-in-out transition",
               isFocused ? tremorTwMerge("ring-2 ring-blue-200") : "",
             )}
           />
