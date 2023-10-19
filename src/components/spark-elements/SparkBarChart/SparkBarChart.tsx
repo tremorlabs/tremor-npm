@@ -15,26 +15,6 @@ import BaseSparkChartProps from "../common/BaseSparkChartProps";
 import { constructCategoryColors, deepEqual } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
-const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, y, width, height, fillOpacity, name, payload, value } = props;
-
-  return (
-    <rect
-      x={x}
-      y={y}
-      width={width}
-      height={height}
-      opacity={
-        activeBar || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeBar, { ...payload, value })
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-    />
-  );
-};
-
 export interface SparkBarChartProps extends BaseSparkChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
@@ -53,36 +33,11 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     animationDuration = 900,
     showAnimation = false,
     noDataText,
-    onValueChange,
     referenceLine,
     className,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
-  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
-  const hasOnValueChange = !!onValueChange;
-
-  function onBarClick(data: any, idx: number, event: React.MouseEvent) {
-    event.stopPropagation();
-    if (!onValueChange) return;
-    if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
-      setActiveLegend(undefined);
-      setActiveBar(undefined);
-      onValueChange?.(null);
-    } else {
-      setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
-      setActiveBar({
-        ...data.payload,
-        value: data.value,
-      });
-      onValueChange?.({
-        eventType: "bar",
-        categoryClicked: data.tooltipPayload?.[0]?.dataKey,
-        ...data.payload,
-      });
-    }
-  }
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -92,15 +47,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
             data={data}
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
-            onClick={
-              hasOnValueChange && (activeLegend || activeBar)
-                ? () => {
-                    setActiveBar(undefined);
-                    setActiveLegend(undefined);
-                    onValueChange?.(null);
-                  }
-                : undefined
-            }
+            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
           >
             <XAxis hide dataKey={index} />
             {categories.map((category) => (
@@ -110,7 +57,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.background,
                   ).fillColor,
-                  onValueChange ? "cursor-pointer" : "",
                 )}
                 key={category}
                 name={category}
@@ -120,8 +66,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend)}
-                onClick={onBarClick}
               />
             ))}
             {referenceLine ? (

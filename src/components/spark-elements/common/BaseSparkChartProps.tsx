@@ -19,22 +19,8 @@ interface BaseSparkChartProps
   categories: string[];
   index: string;
   colors?: Color[];
-  //   valueFormatter?: ValueFormatter;
-  //   startEndOnly?: boolean;
-  //   showXAxis?: boolean;
-  //   showYAxis?: boolean;
-  //   yAxisWidth?: number;
-  //   showTooltip?: boolean;
   showGradient?: boolean;
-  //   showLegend?: boolean;
-  //   showGridLines?: boolean;
-  //   autoMinValue?: boolean;
-  //   minValue?: number;
-  //   maxValue?: number;
-  //   allowDecimals?: boolean;
   noDataText?: string;
-  onValueChange?: (value: EventProps) => void;
-  //   customTooltip?: React.ComponentType<CustomTooltipType>;
   referenceLine?: number;
 }
 
