@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Area,
+  AreaChart as ReChartsAreaChart,
   CartesianGrid,
   Dot,
   Legend,
   Line,
-  AreaChart as ReChartsAreaChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -14,22 +14,22 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
+import BaseChartProps from "../common/BaseChartProps";
+import ChartLegend from "../common/ChartLegend";
+import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 import {
   constructCategoryColors,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
-import BaseChartProps from "../common/BaseChartProps";
-import ChartLegend from "../common/ChartLegend";
-import ChartTooltip from "../common/ChartTooltip";
-import NoData from "../common/NoData";
 
 import {
   BaseColors,
-  defaultValueFormatter,
-  themeColorRange,
   colorPalette,
+  defaultValueFormatter,
   getColorClassNames,
+  themeColorRange,
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
@@ -73,8 +73,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     className,
     onValueChange,
     withScroll = true,
+    customTooltip,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -206,15 +208,25 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
                 ) : (
                   <></>
                 )
@@ -343,6 +355,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ) {
                     return (
                       <Dot
+                        key={index}
                         cx={cx}
                         cy={cy}
                         r={5}
@@ -362,7 +375,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       />
                     );
                   }
-                  return <></>;
+                  return <Fragment key={index}></Fragment>;
                 }}
                 key={category}
                 name={category}

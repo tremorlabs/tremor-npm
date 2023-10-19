@@ -1,5 +1,6 @@
 import { Color, ValueFormatter } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
+import { CustomTooltipType } from "./CustomTooltipProps";
 
 type FixedProps = {
   eventType: "dot" | "category" | "bar" | "slice" | "bubble";
@@ -33,6 +34,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
   withScroll?: boolean;
+  customTooltip?: React.ComponentType<CustomTooltipType>;
 }
 
 export default BaseChartProps;

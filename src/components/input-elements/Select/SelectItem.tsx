@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
+import { Listbox } from "@headlessui/react";
+import { makeClassName } from "lib";
 import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
-import { makeClassName } from "lib";
-import { Listbox } from "@headlessui/react";
 
 const makeSelectItemClassName = makeClassName("SelectItem");
 

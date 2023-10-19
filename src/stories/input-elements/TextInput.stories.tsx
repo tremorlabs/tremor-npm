@@ -1,134 +1,98 @@
-import React, { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { Button, Card, Text, TextInput } from "components";
 import { CalendarIcon } from "assets";
+import { TextInput } from "components";
+import { SimpleTextInput } from "./helpers/SimpleTextInput";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/TextInput",
+const meta: Meta<typeof TextInput> = {
+  title: "Components/Input/TextInput",
   component: TextInput,
-} as ComponentMeta<typeof TextInput>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const Template: ComponentStory<typeof TextInput> = (args) => {
-  const [value, setValue] = useState("");
-  return (
-    <div>
-      <Card>
-        <form
-          onSubmit={(e) => {
-            alert(value);
-            e.preventDefault();
-          }}
-          onReset={() => setValue("")}
-        >
-          <Text>Uncontrolled</Text>
-          <TextInput {...args} />
-          <Text>Uncontrolled with defaultValue</Text>
-          <TextInput {...args} defaultValue="hello" />
-          <Text>Conrolled without onChange</Text>
-          <TextInput {...args} value={value} />
-          <label htmlFor="a">
-            <Text>Controlled</Text>
-          </label>
-          <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
-          <Button type="submit" className="mt-2">
-            Submit
-          </Button>
-          <Button type="reset" className="mt-2">
-            Reset Input
-          </Button>
-        </form>
-        <Text>{value}</Text>
-      </Card>
-      <Card className="bg-gray-950">
-        <form
-          onSubmit={(e) => {
-            alert(value);
-            e.preventDefault();
-          }}
-          onReset={() => setValue("")}
-        >
-          <Text>Uncontrolled</Text>
-          <TextInput {...args} />
-          <Text>Uncontrolled with defaultValue</Text>
-          <TextInput {...args} defaultValue="hello" />
-          <Text>Conrolled without onChange</Text>
-          <TextInput {...args} value={value} />
-          <label htmlFor="a">
-            <Text>Controlled</Text>
-          </label>
-          <TextInput {...args} id={"a"} value={value} onChange={(e) => setValue(e.target.value)} />
-          <Button type="submit" className="mt-2">
-            Submit
-          </Button>
-          <Button type="reset" className="mt-2">
-            Reset Input
-          </Button>
-        </form>
-        <Text>{value}</Text>
-      </Card>
-    </div>
-  );
 };
 
-export const Default = Template.bind({});
-Default.args = {};
+export default meta;
+type Story = StoryObj<typeof TextInput>;
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  icon: CalendarIcon,
+export const Default: Story = {
+  args: {},
 };
 
-export const WithNoPlaceholder = Template.bind({});
-WithNoPlaceholder.args = {
-  placeholder: "",
+export const DefaultSet: Story = {
+  render: SimpleTextInput,
+  args: {},
 };
 
-export const WithDefaultValue = Template.bind({});
-WithDefaultValue.args = {
-  value: "Hello",
+export const WithIcon: Story = {
+  render: SimpleTextInput,
+  args: {
+    icon: CalendarIcon,
+  },
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
-  value: "Hello",
-  error: true,
+export const WithNoPlaceholder: Story = {
+  render: SimpleTextInput,
+  args: {
+    placeholder: "",
+  },
 };
 
-export const WithErrorMessage = Template.bind({});
-WithErrorMessage.args = {
-  value: "Hello",
-  error: true,
-  errorMessage: "Something is wrong",
+export const WithDefaultValue: Story = {
+  render: SimpleTextInput,
+  args: {
+    value: "Hello",
+  },
 };
 
-export const WithDisabled = Template.bind({});
-WithDisabled.args = {
-  value: "Hello",
-  disabled: true,
+export const WithError: Story = {
+  render: SimpleTextInput,
+  args: {
+    value: "Hello",
+    error: true,
+  },
 };
 
-export const WithDisabledAndError = Template.bind({});
-WithDisabledAndError.args = {
-  value: "Hello",
-  error: true,
-  disabled: true,
+export const WithErrorMessage: Story = {
+  render: SimpleTextInput,
+  args: {
+    value: "Hello",
+    error: true,
+    errorMessage: "Something is wrong",
+  },
 };
 
-export const WithTypePassword = Template.bind({});
-WithTypePassword.args = {
-  type: "password",
+export const WithDisabled: Story = {
+  render: SimpleTextInput,
+  args: {
+    value: "Hello",
+    disabled: true,
+  },
 };
 
-export const WithTypeEmail = Template.bind({});
-WithTypeEmail.args = {
-  type: "email",
+export const WithDisabledAndError: Story = {
+  render: SimpleTextInput,
+  args: {
+    value: "Hello",
+    error: true,
+    disabled: true,
+  },
 };
 
-export const WithTypeUrl = Template.bind({});
-WithTypeUrl.args = {
-  type: "url",
+export const WithTypePassword: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "password",
+  },
+};
+
+export const WithTypeEmail: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "email",
+  },
+};
+
+export const WithTypeUrl: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "url",
+  },
 };

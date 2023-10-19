@@ -1,51 +1,60 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card, Legend } from "components";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Legend } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/TextElements/Legend",
+
+
+const meta: Meta<typeof Legend> = {
+  title: "Components/Text/Legend",
   component: Legend,
-} as ComponentMeta<typeof Legend>;
-
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Legend> = (args) => (
-  <Card className="max-w-md">
-    <Legend {...args} />
-  </Card>
-);
-
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-  ],
+  args: {
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
+  },
 };
 
-export const WithManyCategories = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithManyCategories.args = {
-  categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-  ],
+export default meta;
+type Story = StoryObj<typeof Legend>;
+
+// function
+function LegendComponent(args: any) {
+  // if (args.onClickLegendItem?.length === 0) {
+  //   args.onClickLegendItem = undefined;
+  // }
+  return <Legend {...args} />;
+}
+
+const LegendTemplate: Story = {
+  render: ({ ...args }) => <LegendComponent {...args} />,
 };
 
-export const WithNoScroll = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoScroll.args = {
-  categories: [
+export const Default: Story = {
+  ...LegendTemplate,
+};
+
+export const OnClick: Story = {
+  ...LegendTemplate,
+  args: {
+    onClickLegendItem: (e: any) => alert(JSON.stringify(e)),
+  },
+};
+
+export const ActiveLegend: Story = {
+  ...LegendTemplate,
+  args: {
+    activeLegend: "Category C",
+  },
+};
+
+export const ManyCategories: Story = {
+  ...LegendTemplate,
+  args: {
+   categories: [
     "Critical",
     "This is a very long category name to test an edge case",
     "Category C",
@@ -55,5 +64,22 @@ WithNoScroll.args = {
     "Category C",
     "Category D",
   ],
-  withScroll: false,
+  },
+};
+
+export const ManyCategories: Story = {
+  ...LegendTemplate,
+  args: {
+   categories: [
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+    "Critical",
+    "This is a very long category name to test an edge case",
+    "Category C",
+    "Category D",
+  ],
+    withScroll: false,
+  },
 };

@@ -1,17 +1,18 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card, List, ListItem } from "components";
+import type { Meta, StoryObj } from "@storybook/react";
+import { List, ListItem } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/ListElements/List",
+const meta: Meta<typeof List> = {
+  title: "Components/List/List",
   component: List,
-} as ComponentMeta<typeof List>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+};
 
-const Template: ComponentStory<typeof List> = (args) => (
-  <Card>
+export default meta;
+type Story = StoryObj<typeof List>;
+
+export const Default: Story = {
+  render: (args) => (
     <List {...args}>
       <ListItem>
         <div>Hello</div>
@@ -22,12 +23,9 @@ const Template: ComponentStory<typeof List> = (args) => (
         <div>World</div>
       </ListItem>
     </List>
-  </Card>
-);
-
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  className: "mt-5",
-  children: undefined,
+  ),
+  args: {
+    className: "mt-5",
+    children: undefined,
+  },
 };

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-import { Color, tremorTwMerge } from "../../../lib";
 import { getColorClassNames, makeClassName, sizing, spacing, themeColorRange } from "lib";
 import { colorPalette } from "lib/theme";
 import { ChevronLeftFill, ChevronRightFill } from "assets";
+import { Color, tremorTwMerge } from "../../../lib";
 
 const makeLegendClassName = makeClassName("Legend");
 

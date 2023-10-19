@@ -1,9 +1,9 @@
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
 import { getColorClassNames } from "lib";
-import { Color } from "../../../lib";
 import { colorPalette } from "lib/theme";
+import { Color } from "../../../lib";
 
 export interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color;
