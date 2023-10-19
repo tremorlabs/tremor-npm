@@ -44,7 +44,7 @@ export const ButtonIconOrSpinner = ({
     exited: defaultSpinnerSize,
   };
 
-  let Icon: React.ReactElement | undefined;
+  let Icon: React.ReactElement | null = null;
   if (icon) {
     Icon = cloneElement(icon, {
       className: tremorTwMerge(makeButtonClassName("icon"), "shrink-0", iconSize, margin),
