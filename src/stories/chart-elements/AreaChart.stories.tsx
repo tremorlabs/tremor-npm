@@ -129,24 +129,24 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
-export const Equidistant: Story = {
-  args: { intervalType: "equidistantPreserveStart" },
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
 };
 
 export const LongDataInput: Story = {
   args: { data: longBaseChartData },
 };
 
-export const LongDataInputAndEquidistant: Story = {
-  args: { data: longBaseChartData, intervalType: "equidistantPreserveStart" },
+export const LongDataInputAndPreserveStartEnd: Story = {
+  args: { data: longBaseChartData, intervalType: "preserveStartEnd" },
 };
 
 export const LongIndexName: Story = {
   args: { data: longIndexBaseChartData },
 };
 
-export const LongIndexNameAndEquidistant: Story = {
-  args: { data: longIndexBaseChartData, intervalType: "equidistantPreserveStart" },
+export const LongIndexNameAndPreserveStartEnd: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };
 
 export const MultipleZeroValues: Story = {
