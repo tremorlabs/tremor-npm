@@ -128,10 +128,6 @@ export const OnValueChangePieExample: Story = {
   args: { variant: "pie", onValueChange: (value) => alert(JSON.stringify(value)) },
 };
 
-export const WithoutLegendScroll: Story = {
-  args: { withScroll: false, },
-};
-
 //Custom tooltips
 export const CustomTooltipSimple: Story = {
   args: {

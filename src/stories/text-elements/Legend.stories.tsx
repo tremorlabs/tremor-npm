@@ -3,8 +3,6 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Legend } from "components";
 
-
-
 const meta: Meta<typeof Legend> = {
   title: "Components/Text/Legend",
   component: Legend,
@@ -54,32 +52,32 @@ export const ActiveLegend: Story = {
 export const ManyCategories: Story = {
   ...LegendTemplate,
   args: {
-   categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-  ],
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
   },
 };
 
-export const ManyCategories: Story = {
+export const ManyCategoriesWithoutScroll: Story = {
   ...LegendTemplate,
   args: {
-   categories: [
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-    "Critical",
-    "This is a very long category name to test an edge case",
-    "Category C",
-    "Category D",
-  ],
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
     withScroll: false,
   },
 };
