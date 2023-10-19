@@ -162,6 +162,20 @@ export const Default: Story = {
   },
 };
 
+export const WithIcon: Story = {
+  args: {
+    children: "Default",
+    icon: ArrowRightIcon,
+  },
+};
+
+export const WithIconAsReactElement: Story = {
+  args: {
+    children: "Default",
+    icon: <ArrowRightIcon />,
+  },
+};
+
 export const Sizes: Story = {
   ...SizesTemplate,
   args: {
