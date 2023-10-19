@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Switch } from "components";
-import { SimpleSwitch } from "./helpers/SimpleSwitch";
+import { SimpleSwitch, SimpleIdSwitch } from "./helpers/SimpleSwitch";
 
 const meta: Meta<typeof Switch> = {
   title: "Components/Input/Switch",
@@ -47,5 +47,12 @@ export const Error: Story = {
   args: {
     error: true,
     errorMessage: "Something is wrong",
+  },
+};
+
+export const Id: Story = {
+  render: SimpleIdSwitch,
+  args: {
+    required: true,
   },
 };

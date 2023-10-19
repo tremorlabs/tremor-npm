@@ -16,6 +16,7 @@ export interface SwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   errorMessage?: string;
   disabled?: boolean;
   required?: boolean;
+  id?: string;
 }
 
 const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
@@ -29,6 +30,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
     errorMessage,
     disabled,
     required,
+    id,
     ...other
   } = props;
 
@@ -66,10 +68,11 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             makeSwitchClassName("switch"),
             "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
             "focus:outline-none",
-            disabled ? "opacity-50 cursor-not-allowed" : "",
+            disabled ? "opacity-0 cursor-not-allowed" : "",
           )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          id={id}
         >
           <span className={tremorTwMerge(makeSwitchClassName("sr-only"), "sr-only")}>
             Switch {isChecked ? "on" : "off"}
@@ -103,12 +106,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                 : "translate-x-0 bg-tremor-content-subtle dark:bg-dark-tremor-content-subtle border-white",
 
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border-2 shadow duration-100 ease-in-out transition",
-              isFocused
-                ? tremorTwMerge(
-                    "ring-2",
-                    getColorClassNames(color, colorPalette.lightRing).ringColor,
-                  )
-                : "",
+              isFocused ? tremorTwMerge("ring-2 ring-blue-200") : "",
             )}
           />
         </HeadlessSwitch>
