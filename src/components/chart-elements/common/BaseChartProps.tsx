@@ -34,7 +34,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   allowDecimals?: boolean;
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
-  withScroll?: boolean;
+  enableLegendSlider?: boolean;
   customTooltip?: React.ComponentType<CustomTooltipType>;
 }
 

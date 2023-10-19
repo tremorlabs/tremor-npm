@@ -11,7 +11,7 @@ const ChartLegend = (
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
   onClick?: (category: string, color: Color) => void,
-  withScroll?: boolean,
+  enableLegendSlider?: boolean,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +32,7 @@ const ChartLegend = (
         colors={filteredPayload.map((entry: any) => categoryColors.get(entry.value))}
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
-        withScroll={withScroll}
+        enableLegendSlider={enableLegendSlider}
       />
     </div>
   );

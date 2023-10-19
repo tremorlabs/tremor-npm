@@ -117,7 +117,6 @@ export const OneDataValue: Story = {
   args: { data: data.slice(0, 1) },
 };
 
-
 export const OneDataValueAndOnValueChange: Story = {
   args: { data: data.slice(0, 1), onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
@@ -173,7 +172,7 @@ export const MultipleZeroValues: Story = {
 };
 
 export const WithoutLegendScroll: Story = {
-  args: { withScroll: false, },
+  args: { enableLegendSlider: false },
 };
 
 //Custom tooltips

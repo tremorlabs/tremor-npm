@@ -114,15 +114,14 @@ export const SingleAndMultipleData: Story = {
   args: { data: singleAndMultipleData },
 };
 
-
 export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
 export const WithoutLegendScroll: Story = {
-  args: { withScroll: false, },
+  args: { enableLegendSlider: false },
 };
-  
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -285,4 +284,3 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
-

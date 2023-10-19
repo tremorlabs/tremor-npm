@@ -69,7 +69,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
-    withScroll = true,
+    enableLegendSlider = true,
     customTooltip,
     ...other
   } = props;
@@ -244,7 +244,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
-                    withScroll,
+                    enableLegendSlider,
                   )
                 }
               />

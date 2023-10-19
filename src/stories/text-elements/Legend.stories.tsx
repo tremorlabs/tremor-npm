@@ -77,6 +77,6 @@ export const ManyCategoriesWithoutScroll: Story = {
       "Category C",
       "Category D",
     ],
-    withScroll: false,
+    enableLegendSlider: false,
   },
 };

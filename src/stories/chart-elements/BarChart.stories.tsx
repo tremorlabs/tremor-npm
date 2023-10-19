@@ -127,7 +127,7 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
 };
 
 export const WithoutLegendScroll: Story = {
-  args: { withScroll: false, },
+  args: { enableLegendSlider: false },
 };
 
 export const PreserveStartEnd: Story = {
@@ -314,4 +314,3 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
-
