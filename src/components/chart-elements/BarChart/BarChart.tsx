@@ -64,6 +64,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -139,6 +140,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -159,7 +161,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               <XAxis
                 hide={!showXAxis}
                 dataKey={index}
-                interval="preserveStartEnd"
+                interval={intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
@@ -194,7 +196,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
-                padding={{ left: 10, right: 10 }}
                 minTickGap={5}
                 allowDecimals={allowDecimals}
               />

@@ -7,3 +7,4 @@ export * from "./SearchSelect";
 export * from "./Select";
 export * from "./Tabs";
 export * from "./TextInput";
+export * from "./Switch";

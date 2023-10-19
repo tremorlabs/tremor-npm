@@ -5,7 +5,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BarChart } from "components";
 import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import { Color, currencyValueFormatter } from "lib";
-import { simpleBaseChartData as data, singleAndMultipleData } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
+} from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
   title: "Components/Chart/BarChart",
@@ -125,7 +130,47 @@ export const WithoutLegendScroll: Story = {
   args: { withScroll: false, },
 };
 
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
 
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndPreserveStartEnd: Story = {
+  args: { data: longBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndPreserveStartEnd: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
+};
 
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];

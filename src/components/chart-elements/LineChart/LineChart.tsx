@@ -54,6 +54,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     animationDuration = 900,
     showAnimation = false,
     showTooltip = true,
@@ -141,6 +142,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -159,7 +161,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             <XAxis
               hide={!showXAxis}
               dataKey={index}
-              interval="preserveStartEnd"
+              interval={intervalType}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""
@@ -174,7 +176,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               )}
               tickLine={false}
               axisLine={false}
-              padding={{ left: 10, right: 10 }}
               minTickGap={5}
             />
             <YAxis

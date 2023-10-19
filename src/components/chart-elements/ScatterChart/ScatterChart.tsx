@@ -35,7 +35,7 @@ import {
   themeColorRange,
   tremorTwMerge,
 } from "lib";
-import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -59,6 +59,7 @@ export interface ScatterChartProps
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
+  intervalType?: IntervalType;
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
@@ -113,6 +114,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     animationDuration = 900,
     showAnimation = false,
     showTooltip = true,
@@ -192,6 +194,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -211,7 +214,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <XAxis
                 hide={!showXAxis}
                 dataKey={x}
-                interval="preserveStartEnd"
+                interval={intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][x], data[data.length - 1][x]] : undefined}
                 type="number"
@@ -229,7 +232,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
-                padding={{ left: 0, right: 0 }}
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}

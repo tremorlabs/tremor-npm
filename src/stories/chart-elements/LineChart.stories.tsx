@@ -9,6 +9,8 @@ import {
   simpleBaseChartData as data,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
@@ -119,6 +121,26 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
 
 export const WithoutLegendScroll: Story = {
   args: { withScroll: false, },
+};
+  
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndPreserveStartEnd: Story = {
+  args: { data: longBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndPreserveStartEnd: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };
 
 //Custom tooltips
