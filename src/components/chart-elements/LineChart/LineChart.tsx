@@ -69,7 +69,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
-    enableLegendSlider = true,
+    enableLegendSlider = false,
     customTooltip,
     ...other
   } = props;

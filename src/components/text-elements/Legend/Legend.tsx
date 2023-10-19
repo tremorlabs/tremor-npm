@@ -160,7 +160,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     className,
     onClickLegendItem,
     activeLegend,
-    enableLegendSlider = true,
+    enableLegendSlider = false,
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);

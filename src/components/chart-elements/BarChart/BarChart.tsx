@@ -76,7 +76,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     onValueChange,
     customTooltip,
     className,
-    enableLegendSlider = true,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;

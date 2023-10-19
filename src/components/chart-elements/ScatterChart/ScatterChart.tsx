@@ -131,7 +131,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     onValueChange,
     customTooltip,
     className,
-    enableLegendSlider = true,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;

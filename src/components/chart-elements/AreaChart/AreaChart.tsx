@@ -73,7 +73,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
-    enableLegendSlider = true,
+    enableLegendSlider = false,
     customTooltip,
     ...other
   } = props;
