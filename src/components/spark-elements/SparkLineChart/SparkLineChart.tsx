@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Line,
   LineChart as ReChartsLineChart,
@@ -11,10 +11,7 @@ import {
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import {
-  constructCategoryColors,
-  hasOnlyOneValueForThisKey,
-} from "components/chart-elements/common/utils";
+import { constructCategoryColors } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkLineChartProps extends BaseSparkChartProps {
@@ -43,10 +40,7 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsLineChart
-            data={data}
-            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
-          >
+          <ReChartsLineChart data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
             <XAxis hide dataKey={index} />
             {categories.map((category) => (
               <Line
@@ -54,7 +48,7 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
-                  ).strokeColor
+                  ).strokeColor,
                 )}
                 strokeOpacity={1}
                 dot={false}
@@ -69,7 +63,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
-                
               />
             ))}
             {referenceLine ? (

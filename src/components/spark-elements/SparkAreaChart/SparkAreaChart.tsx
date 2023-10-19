@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Area,
   AreaChart as ReChartsAreaChart,
-  Line,
   ResponsiveContainer,
   ReferenceLine,
   XAxis,
@@ -12,10 +11,7 @@ import {
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import {
-  constructCategoryColors,
-  hasOnlyOneValueForThisKey,
-} from "components/chart-elements/common/utils";
+import { constructCategoryColors } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkAreaChartProps extends BaseSparkChartProps {
@@ -47,10 +43,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsAreaChart
-            data={data}
-            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
-          >
+          <ReChartsAreaChart data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
             <XAxis hide dataKey={index} />
             {categories.map((category) => {
               return (
@@ -69,11 +62,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                       x2="0"
                       y2="1"
                     >
-                      <stop
-                        offset="5%"
-                        stopColor="currentColor"
-                        stopOpacity={0.4}
-                      />
+                      <stop offset="5%" stopColor="currentColor" stopOpacity={0.4} />
                       <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
                     </linearGradient>
                   ) : (
@@ -90,10 +79,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                       x2="0"
                       y2="1"
                     >
-                      <stop
-                        stopColor="currentColor"
-                        stopOpacity={0.3}
-                      />
+                      <stop stopColor="currentColor" stopOpacity={0.3} />
                     </linearGradient>
                   )}
                 </defs>

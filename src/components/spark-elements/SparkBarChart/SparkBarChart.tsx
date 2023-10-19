@@ -1,6 +1,6 @@
 "use client";
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Bar,
@@ -12,7 +12,7 @@ import {
 
 import { BaseColors, themeColorRange } from "lib";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors, deepEqual } from "components/chart-elements/common/utils";
+import { constructCategoryColors } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkBarChartProps extends BaseSparkChartProps {
