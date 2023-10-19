@@ -1,6 +1,6 @@
 "use client";
 import { tremorTwMerge } from "lib";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 
 import { makeClassName } from "lib";
 import { sizing } from "lib/sizing";
@@ -12,12 +12,49 @@ const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
 
 export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
 }
 
 const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
-  const Icon = icon;
+
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSearchSelectItemClassName("icon"),
+          // common
+          "flex-none",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+          sizing.lg.height,
+          sizing.lg.width,
+          spacing.lg.marginRight,
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSearchSelectItemClassName("icon"),
+            // common
+            "flex-none",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+            sizing.lg.height,
+            sizing.lg.width,
+            spacing.lg.marginRight,
+          )}
+        />
+      );
+    }
+  }
 
   return (
     <Combobox.Option
@@ -38,22 +75,7 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
       value={value}
       {...other}
     >
-      {Icon && (
-        <Icon
-          className={tremorTwMerge(
-            makeSearchSelectItemClassName("icon"),
-            // common
-            "flex-none",
-            // light
-            "text-tremor-content-subtle",
-            // dark
-            "dark:text-dark-tremor-content-subtle",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.lg.marginRight,
-          )}
-        />
-      )}
+      {Icon}
       <span className="whitespace-nowrap truncate">{children ?? value}</span>
     </Combobox.Option>
   );

@@ -15,6 +15,18 @@ export const SimpleSearchSelect = (args: any) => (
   </SearchSelect>
 );
 
+export const SimpleSearchSelect2 = (args: any) => (
+  <SearchSelect {...args}>
+    <SearchSelectItem value="5" icon={<CalendarIcon />}>
+      Very Long DropdownItem Value as an edge case
+    </SearchSelectItem>
+    <SearchSelectItem value="Three" icon={<CalendarIcon />} />
+    <SearchSelectItem value="1" icon={<CalendarIcon />}>
+      One
+    </SearchSelectItem>
+  </SearchSelect>
+);
+
 export const SimpleSearchSelectControlled = (args: any) => {
   const [value, setValue] = React.useState<string>("5");
   return (
