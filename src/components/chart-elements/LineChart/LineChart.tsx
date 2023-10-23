@@ -141,7 +141,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   }
                 : undefined
             }
-            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -158,6 +157,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
+              padding={{ left: 20, right: 20 }}
               hide={!showXAxis}
               dataKey={index}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}

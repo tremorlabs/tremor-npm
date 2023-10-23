@@ -139,7 +139,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   }
                 : undefined
             }
-            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -158,6 +157,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
+                padding={{ left: 20, right: 20 }}
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}
