@@ -159,9 +159,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
+              padding={{ left: 20, right: 20 }}
               hide={!showXAxis}
               dataKey={index}
-              interval={intervalType}
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""

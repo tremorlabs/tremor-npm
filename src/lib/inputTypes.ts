@@ -4,7 +4,9 @@ export type ValueFormatter = {
 
 export type CurveType = "linear" | "natural" | "monotone" | "step";
 
-export type IntervalType = "preserveStartEnd" | "equidistantPreserveStart";
+export type Interval = "preserveStartEnd" | "equidistantPreserveStart";
+
+export type IntervalType = "preserveStartEnd" | Interval;
 
 const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as const;
 

@@ -214,7 +214,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <XAxis
                 hide={!showXAxis}
                 dataKey={x}
-                interval={intervalType}
+                interval={startEndOnly ? "preserveStartEnd" : intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][x], data[data.length - 1][x]] : undefined}
                 type="number"

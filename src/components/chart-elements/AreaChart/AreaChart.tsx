@@ -162,6 +162,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
+              padding={{ left: 20, right: 20 }}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
@@ -176,7 +177,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 // dark
                 "dark:fill-dark-tremor-content",
               )}
-              interval={intervalType}
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
               axisLine={false}
               minTickGap={5}
