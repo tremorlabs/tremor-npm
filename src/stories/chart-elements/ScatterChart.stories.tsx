@@ -122,6 +122,12 @@ export const MultipleZeroValues: Story = {
   },
 };
 
+export const RotateXLabel: Story = {
+  args: {
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["red", "green", "blue", "yellow"];
 const customTooltipIndex = "location";
