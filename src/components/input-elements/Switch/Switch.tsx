@@ -84,7 +84,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
               isChecked
                 ? getColorClassNames(color, colorPalette.background).bgColor
                 : "bg-tremor-border dark:bg-dark-tremor-border",
-              "pointer-events-none absolute mx-auto h-3.5 w-9 rounded-tremor-full transition-colors duration-100 ease-in-out",
+              "pointer-events-none absolute mx-auto h-3 w-9 rounded-tremor-full transition-colors duration-100 ease-in-out",
             )}
           />
           <span
