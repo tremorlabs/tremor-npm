@@ -171,6 +171,10 @@ export const MultipleZeroValues: Story = {
   },
 };
 
+export const WithoutLegendScroll: Story = {
+  args: { enableLegendSlider: false },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";

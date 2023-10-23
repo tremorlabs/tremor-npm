@@ -73,6 +73,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
     ...other
   } = props;
@@ -144,6 +145,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -245,6 +247,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />
