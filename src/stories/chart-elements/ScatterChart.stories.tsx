@@ -77,6 +77,10 @@ export const OnValueChange: Story = {
   },
 };
 
+export const IntervalTypePreserve: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
 export const RichDataExample: Story = {
   args: {
     data: data2,
@@ -89,6 +93,32 @@ export const RichDataExample: Story = {
       y: (y) => `${y} yrs`,
     },
     colors: ["red", "green", "blue"],
+  },
+};
+
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
   },
 };
 
