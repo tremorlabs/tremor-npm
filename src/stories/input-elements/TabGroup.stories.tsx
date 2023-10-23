@@ -67,12 +67,11 @@ function WithControlledStateTemplate({ ...args }) {
 }
 
 function TabSet({ showText = true, ...args }) {
-  const { color } = args;
   return (
     <>
       <div className="space-y-4">
-        <MyTab variant="line" showText={showText} {...args} color={color} />
-        <MyTab variant="solid" showText={showText} {...args} color={color} />
+        <MyTab variant="line" showText={showText} {...args} color={args.color} />
+        <MyTab variant="solid" showText={showText} {...args} color={args.color} />
       </div>
     </>
   );
