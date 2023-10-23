@@ -175,7 +175,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 // dark
                 "dark:fill-dark-tremor-content",
               )}
-              interval={intervalType}
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
               axisLine={false}
               minTickGap={5}
