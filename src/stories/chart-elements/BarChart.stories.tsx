@@ -58,11 +58,6 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
 };
 
-// @sev
-export const NoGradient: Story = {
-  args: { showGradient: false },
-};
-
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
@@ -176,6 +171,21 @@ export const NoAxes: Story = {
   args: {
     showXAxis: false,
     showYAxis: false,
+  },
+}; 
+
+export const RotateXLabelsHorizontal: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
+};
+
+export const RotateXLabelVertical: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+    layout: "vertical",
   },
 };
 
