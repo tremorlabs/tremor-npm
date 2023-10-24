@@ -38,6 +38,7 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  showGradient?: boolean;
 }
 
 interface ActiveDot {
@@ -73,6 +74,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
     ...other
@@ -145,6 +147,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -249,6 +252,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

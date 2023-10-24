@@ -96,6 +96,10 @@ export const RichDataExample: Story = {
   },
 };
 
+export const WithoutLegendScroll: Story = {
+  args: { enableLegendSlider: false },
+};
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };

@@ -176,6 +176,9 @@ export const RotateXLabels: Story = {
     data: longBaseChartData,
     rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
   },
+  
+export const WithoutLegendScroll: Story = {
+  args: { enableLegendSlider: false },
 };
 
 //Custom tooltips

@@ -71,6 +71,7 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
+  enableLegendSlider?: boolean;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipType>;
   rotateLabelX?: {
@@ -136,6 +137,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     customTooltip,
     rotateLabelX,
     className,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -347,6 +349,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

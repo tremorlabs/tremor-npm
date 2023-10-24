@@ -58,11 +58,6 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
 };
 
-// @sev
-export const NoGradient: Story = {
-  args: { showGradient: false },
-};
-
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
@@ -124,6 +119,10 @@ export const SingleAndMultipleData: Story = {
 
 export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
+};
+
+export const WithoutLegendScroll: Story = {
+  args: { enableLegendSlider: false },
 };
 
 export const PreserveStartEnd: Story = {
