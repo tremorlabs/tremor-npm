@@ -142,10 +142,11 @@ export const LongIndexNameAndPreserveStartEnd: Story = {
 };
 
 export const NoAxes: Story = {
-  args: {
-    showXAxis: false,
-    showYAxis: false,
-  },
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
 };
 
 export const RotateXLabels: Story = {

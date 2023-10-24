@@ -167,13 +167,6 @@ export const MultipleZeroValues: Story = {
   },
 };
 
-export const NoAxes: Story = {
-  args: {
-    showXAxis: false,
-    showYAxis: false,
-  },
-}; 
-
 export const RotateXLabelsHorizontal: Story = {
   args: {
     data: longBaseChartData,
@@ -187,6 +180,14 @@ export const RotateXLabelVertical: Story = {
     rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
     layout: "vertical",
   },
+};
+
+export const NoAxes: Story = {
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
 };
 
 //Custom tooltips
