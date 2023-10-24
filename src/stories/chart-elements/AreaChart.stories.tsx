@@ -182,6 +182,13 @@ export const NoAxes: Story = {
   },
 };
 
+export const NoYAxis: Story = {
+  args: {
+    showYAxis: false,
+    startEndOnly: true,
+  },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";
