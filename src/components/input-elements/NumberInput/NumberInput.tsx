@@ -4,7 +4,10 @@ import React, { useRef } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export interface NumberInputProps
-  extends Omit<BaseInputProps, "type" | "stepper" | "onSubmit" | "makeInputClassName"> {
+  extends Omit<
+    BaseInputProps,
+    "type" | "stepper" | "onSubmit" | "makeInputClassName" | "enableClear"
+  > {
   step?: string;
   enableStepper?: boolean;
   onSubmit?: (value: number) => void;
@@ -19,6 +22,8 @@ const enabledArrowClasses =
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
   const { onSubmit, enableStepper = true, disabled, onValueChange, onChange, ...other } = props;
+  // NumberInput not support clear
+  (other as any).enableClear = false;
 
   const inputRef = useRef<HTMLInputElement>(null);
 

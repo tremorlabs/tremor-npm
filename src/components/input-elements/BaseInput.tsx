@@ -1,8 +1,9 @@
 "use client";
-import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
+import { ExclamationFilledIcon, EyeIcon, EyeOffIcon, XCircleIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
 import React, { ReactNode, useCallback, useRef, useState } from "react";
+import { useInternalState } from "hooks";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -13,6 +14,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
+  enableClear?: boolean;
   onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
 }
@@ -30,10 +32,12 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     stepper,
     makeInputClassName,
     className,
+    enableClear = false,
     onChange,
     onValueChange,
     ...other
   } = props;
+  const [internalValue, setInternalValue] = useInternalState(defaultValue, value);
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -46,7 +50,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const hasSelection = hasValue(value || defaultValue);
+  const hasSelection = hasValue(internalValue);
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -55,6 +59,35 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
       inputRef.current?.focus();
     }
     setIsFocused(isFocused);
+  };
+
+  const onInternalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInternalValue(e.target.value);
+    if (onChange) {
+      const target = inputRef.current?.cloneNode(true) as HTMLInputElement;
+      const event = Object.create(e, {
+        target: { value: target },
+        currentTarget: { value: target },
+      });
+      target.value = e.target.value;
+      onChange(event as React.ChangeEvent<HTMLInputElement>);
+    }
+    onValueChange?.(e.target.value);
+  };
+
+  const handleClear = (e: React.MouseEvent<HTMLElement>) => {
+    setInternalValue("");
+    if (inputRef.current && onChange) {
+      inputRef.current.focus();
+      const target = inputRef.current.cloneNode(true) as HTMLInputElement;
+      const event = Object.create(e, {
+        target: { value: target },
+        currentTarget: { value: target },
+      });
+      target.value = "";
+      onChange(event as React.ChangeEvent<HTMLInputElement>);
+    }
+    onValueChange?.("");
   };
 
   return (
@@ -111,8 +144,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         ) : null}
         <input
           ref={mergeRefs([inputRef, ref])}
-          defaultValue={defaultValue}
-          value={value}
           type={isPasswordVisible ? "text" : type}
           className={tremorTwMerge(
             makeInputClassName("input"),
@@ -133,12 +164,33 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           placeholder={placeholder}
           disabled={disabled}
           data-testid="base-input"
-          onChange={(e) => {
-            onChange?.(e);
-            onValueChange?.(e.target.value);
-          }}
+          value={internalValue}
+          onChange={onInternalChange}
           {...other}
         />
+        {enableClear && !disabled && hasSelection ? (
+          <button
+            type="button"
+            className={tremorTwMerge(makeInputClassName("clearButton"), "mr-2")}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={handleClear}
+            data-testid="clear-btn"
+          >
+            <XCircleIcon
+              className={tremorTwMerge(
+                makeInputClassName("clearIcon"),
+                // common
+                "flex-none",
+                // light
+                "text-tremor-content-subtle",
+                // dark
+                "dark:text-dark-tremor-content-subtle",
+                sizing.md.height,
+                sizing.md.width,
+              )}
+            />
+          </button>
+        ) : null}
         {type === "password" && !disabled ? (
           <button
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
