@@ -141,6 +141,13 @@ export const LongIndexNameAndPreserveStartEnd: Story = {
   args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };
 
+export const NoAxes: Story = {
+  args: {
+    showXAxis: false,
+    showYAxis: false,
+  },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";

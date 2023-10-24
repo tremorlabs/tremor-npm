@@ -80,6 +80,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -140,7 +141,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   }
                 : undefined
             }
-            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -159,7 +159,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
-                padding={{ left: 20, right: 20 }}
+                padding={{ left: paddingValue, right: paddingValue }}
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}
