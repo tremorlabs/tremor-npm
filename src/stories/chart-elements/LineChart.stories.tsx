@@ -141,6 +141,14 @@ export const LongIndexNameAndPreserveStartEnd: Story = {
   args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };
 
+export const NoAxes: Story = {
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
+};
+
 export const RotateXLabels: Story = {
   args: {
     data: longBaseChartData,

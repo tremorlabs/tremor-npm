@@ -182,6 +182,14 @@ export const RotateXLabelVertical: Story = {
   },
 };
 
+export const NoAxes: Story = {
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";

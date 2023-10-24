@@ -75,6 +75,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -143,7 +144,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   }
                 : undefined
             }
-            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -160,7 +160,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
-              padding={{ left: 20, right: 20 }}
+              padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
               dataKey={index}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}
