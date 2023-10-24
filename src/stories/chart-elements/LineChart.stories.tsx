@@ -141,6 +141,13 @@ export const LongIndexNameAndPreserveStartEnd: Story = {
   args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };
 
+export const RotateXLabels: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
+};
+
 //Custom tooltips
 const customTooltipColors: Color[] = ["cyan"];
 const customTooltipIndex = "month";

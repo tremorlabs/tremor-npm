@@ -76,6 +76,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     onValueChange,
     enableLegendSlider = false,
     customTooltip,
+    rotateLabelX,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -182,6 +183,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               tickLine={false}
               axisLine={false}
               minTickGap={5}
+              angle={rotateLabelX?.angle}
+              dy={rotateLabelX?.verticalShift}
+              height={rotateLabelX?.xAxisHeight}
             />
             <YAxis
               width={yAxisWidth}
