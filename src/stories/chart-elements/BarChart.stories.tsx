@@ -58,11 +58,6 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
 };
 
-// @sev
-export const NoGradient: Story = {
-  args: { showGradient: false },
-};
-
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };

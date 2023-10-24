@@ -38,6 +38,7 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  showGradient?: boolean;
 }
 
 interface ActiveDot {
