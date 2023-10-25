@@ -63,7 +63,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         className={tremorTwMerge(
           makeInputClassName("root"),
           // common
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default",
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100",
           // light
           "shadow-tremor-input",
           // dark
@@ -72,7 +72,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           isFocused &&
             tremorTwMerge(
               // common
-              "ring-2 transition duration-100",
+              "ring-2",
               // light
               "border-tremor-brand-subtle ring-tremor-brand-muted",
               // light
@@ -117,7 +117,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default",
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default transition duration-100",
             // light
             "text-tremor-content-emphasis",
             // dark
