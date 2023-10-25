@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Textarea } from "components";
+import { Button, Textarea } from "components";
+import React from "react";
 
 const meta: Meta<typeof Textarea> = {
   title: "Components/Input/Textarea",
@@ -9,10 +10,41 @@ const meta: Meta<typeof Textarea> = {
 export default meta;
 type Story = StoryObj<typeof Textarea>;
 
-export const Default: Story = {
+function Controlled({ ...args }) {
+  const [value, setValue] = React.useState<string>("");
+  return (
+    <div className="space-y-4">
+      <Textarea {...args} value={value} onValueChange={(v: string) => setValue(v)} />
+      <Button
+        onClick={() => {
+          setValue("");
+        }}
+      >
+        Reset
+      </Button>
+      <div className="text-slate-500">
+        <p>Filtered Data</p>
+        <p>Data: {String(value)} </p>
+      </div>
+    </div>
+  );
+}
+
+const ControlledTemplate: Story = {
+  render: ({ ...args }) => <Controlled {...args} />,
+};
+
+export const Default: Story = {};
+
+export const MaxLength5Cols10: Story = {
   args: {
-    children:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.",
+    maxLength: 5,
+  },
+};
+
+export const Rows5: Story = {
+  args: {
+    rows: 5,
   },
 };
 
@@ -24,7 +56,7 @@ export const Disabled: Story = {
 
 export const Placeholder: Story = {
   args: {
-    placeholder: "This is some placeholdertext",
+    placeholder: "This is some placeholder text",
   },
 };
 
@@ -38,5 +70,23 @@ export const ErrorMessage: Story = {
   args: {
     error: true,
     errorMessage: "An unkown error occured.",
+  },
+};
+
+export const DefaultValue: Story = {
+  args: {
+    defaultValue:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.",
+  },
+};
+
+export const ControlledDefault: Story = {
+  ...ControlledTemplate,
+};
+
+export const ControlledWithDefaultValue: Story = {
+  ...ControlledTemplate,
+  args: {
+    defaultValue: "Default value comes here",
   },
 };
