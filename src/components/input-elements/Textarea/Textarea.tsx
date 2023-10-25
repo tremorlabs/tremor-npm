@@ -25,7 +25,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     className,
     onChange,
     onValueChange,
-    children,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
@@ -92,9 +91,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
           onValueChange?.(e.target.value);
         }}
         {...other}
-      >
-        {children}
-      </textarea>
+      />
       {error && errorMessage ? (
         <p
           className={tremorTwMerge(
