@@ -9,7 +9,7 @@ import {
   ValueFormatter,
 } from "lib";
 import { colorPalette } from "lib/theme";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -17,7 +17,7 @@ type Bar = {
   key?: string;
   value: number;
   name: string;
-  icon?: React.JSXElementConstructor<any>;
+  icon?: React.JSXElementConstructor<any> | React.ReactElement;
   href?: string;
   target?: string;
   color?: Color;
@@ -69,7 +69,43 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
     >
       <div className={tremorTwMerge(makeBarListClassName("bars"), "relative w-full")}>
         {data.map((item, idx) => {
-          const Icon = item.icon;
+          let Icon;
+          if (item.icon) {
+            if (isValidElement(item.icon)) {
+              Icon = cloneElement(item.icon as React.ReactElement, {
+                className: tremorTwMerge(
+                  makeBarListClassName("barIcon"),
+                  // common
+                  "flex-none",
+                  // light
+                  "text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content",
+                  sizing.lg.height,
+                  sizing.lg.width,
+                  spacing.md.marginRight,
+                ),
+              });
+            } else {
+              const IconElm = item.icon as React.ElementType;
+              Icon = (
+                <IconElm
+                  className={tremorTwMerge(
+                    makeBarListClassName("barIcon"),
+                    // common
+                    "flex-none",
+                    // light
+                    "text-tremor-content",
+                    // dark
+                    "dark:text-dark-tremor-content",
+                    sizing.lg.height,
+                    sizing.lg.width,
+                    spacing.md.marginRight,
+                  )}
+                />
+              );
+            }
+          }
 
           return (
             <div
@@ -91,22 +127,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               }}
             >
               <div className={tremorTwMerge("absolute max-w-full flex", spacing.sm.left)}>
-                {Icon ? (
-                  <Icon
-                    className={tremorTwMerge(
-                      makeBarListClassName("barIcon"),
-                      // common
-                      "flex-none",
-                      // light
-                      "text-tremor-content",
-                      // dark
-                      "dark:text-dark-tremor-content",
-                      sizing.lg.height,
-                      sizing.lg.width,
-                      spacing.md.marginRight,
-                    )}
-                  />
-                ) : null}
+                {Icon}
                 {item.href ? (
                   <a
                     href={item.href}

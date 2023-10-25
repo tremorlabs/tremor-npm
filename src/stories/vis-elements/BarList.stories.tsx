@@ -51,6 +51,13 @@ export const Icon: Story = {
   },
 };
 
+export const IconAsReactElement: Story = {
+  args: {
+    data: getData(Array(5).fill({ icon: <CalendarIcon /> })),
+    valueFormatter: (value) => `${value} USD`,
+  },
+};
+
 export const Links: Story = {
   args: {
     data: getData(Array(4).fill({ href: "https://www.tremor.so/" })),
