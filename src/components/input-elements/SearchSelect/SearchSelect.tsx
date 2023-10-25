@@ -3,7 +3,7 @@ import { useInternalState } from "hooks";
 import { tremorTwMerge } from "lib";
 import React, { useMemo, useState } from "react";
 
-import { Combobox } from "@headlessui/react";
+import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { border, makeClassName, sizing, spacing } from "lib";
 import {
@@ -173,21 +173,30 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             </button>
           ) : null}
           {filteredOptions.length > 0 && (
-            <Combobox.Options
-              className={tremorTwMerge(
-                // common
-                "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default text-tremor-default",
-                // light
-                "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                // dark
-                "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-                spacing.twoXs.marginTop,
-                spacing.twoXs.marginBottom,
-                border.sm.all,
-              )}
+            <Transition
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
             >
-              {filteredOptions}
-            </Combobox.Options>
+              <Combobox.Options
+                className={tremorTwMerge(
+                  // common
+                  "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default text-tremor-default",
+                  // light
+                  "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+                  // dark
+                  "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                  spacing.twoXs.marginTop,
+                  spacing.twoXs.marginBottom,
+                  border.sm.all,
+                )}
+              >
+                {filteredOptions}
+              </Combobox.Options>
+            </Transition>
           )}
         </>
       )}

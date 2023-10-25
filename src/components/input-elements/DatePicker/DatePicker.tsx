@@ -6,7 +6,7 @@ import { DayPickerSingleProps } from "react-day-picker";
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-import { Popover } from "@headlessui/react";
+import { Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { Calendar } from "components/input-elements/Calendar";
 import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
@@ -148,39 +148,48 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           />
         </button>
       ) : null}
-      <Popover.Panel
-        className={tremorTwMerge(
-          // common
-          "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
-          // light
-          "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-          // dark
-          "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-          spacing.twoXs.marginTop,
-          spacing.twoXs.marginBottom,
-          border.sm.all,
-        )}
+      <Transition
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
       >
-        {({ close }) => (
-          <Calendar<DayPickerSingleProps>
-            showOutsideDays={true}
-            mode="single"
-            defaultMonth={defaultMonth}
-            selected={selectedValue}
-            weekStartsOn={weekStartsOn}
-            onSelect={
-              ((v: Date) => {
-                onValueChange?.(v);
-                setSelectedValue(v);
-                close();
-              }) as any
-            }
-            locale={locale}
-            disabled={disabledDays}
-            enableYearNavigation={enableYearNavigation}
-          />
-        )}
-      </Popover.Panel>
+        <Popover.Panel
+          className={tremorTwMerge(
+            // common
+            "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
+            // light
+            "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+            // dark
+            "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+            spacing.twoXs.marginTop,
+            spacing.twoXs.marginBottom,
+            border.sm.all,
+          )}
+        >
+          {({ close }) => (
+            <Calendar<DayPickerSingleProps>
+              showOutsideDays={true}
+              mode="single"
+              defaultMonth={defaultMonth}
+              selected={selectedValue}
+              weekStartsOn={weekStartsOn}
+              onSelect={
+                ((v: Date) => {
+                  onValueChange?.(v);
+                  setSelectedValue(v);
+                  close();
+                }) as any
+              }
+              locale={locale}
+              disabled={disabledDays}
+              enableYearNavigation={enableYearNavigation}
+            />
+          )}
+        </Popover.Panel>
+      </Transition>
     </Popover>
   );
 });
