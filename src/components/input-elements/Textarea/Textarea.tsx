@@ -1,5 +1,6 @@
 "use client";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import { useInternalState } from "hooks";
 import { border, makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import React, { useRef, useState } from "react";
 
@@ -17,7 +18,7 @@ const makeTextareaClassName = makeClassName("Textarea");
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => {
   const {
     value,
-    defaultValue,
+    defaultValue = "",
     placeholder = "Type...",
     error = false,
     errorMessage,
@@ -28,10 +29,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [val, setVal] = useInternalState(defaultValue, value);
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const hasSelection = hasValue(value || defaultValue);
+  const hasSelection = hasValue(val);
 
   const handleFocusChange = (isFocused: boolean) => {
     if (isFocused === false) {
@@ -46,8 +48,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     <>
       <textarea
         ref={mergeRefs([inputRef, ref])}
-        defaultValue={defaultValue}
-        value={value}
+        value={val}
         placeholder={placeholder}
         disabled={disabled}
         className={tremorTwMerge(
@@ -88,6 +89,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         data-testid="text-area"
         onChange={(e) => {
           onChange?.(e);
+          setVal(e.target.value);
           onValueChange?.(e.target.value);
         }}
         {...other}
