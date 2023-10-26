@@ -96,6 +96,10 @@ export const RichDataExample: Story = {
   },
 };
 
+export const WithoutLegendScroll: Story = {
+  args: { enableLegendSlider: false },
+};
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -119,6 +123,12 @@ export const MultipleZeroValues: Story = {
         "Successful Payments": 0,
       },
     ],
+  },
+};
+
+export const RotateXLabel: Story = {
+  args: {
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
   },
 };
 
