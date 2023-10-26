@@ -23,7 +23,13 @@ import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/ut
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
 const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, y, width, height, fillOpacity, name, payload, value } = props;
+  const { x, width, fillOpacity, name, payload, value } = props;
+  let { y, height } = props;
+
+  if (value < 0) {
+    y = y + height;
+    height = Math.abs(height); // 'height' must be a positive number.
+  }
 
   return (
     <rect
