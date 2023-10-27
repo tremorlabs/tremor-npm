@@ -11,7 +11,7 @@ export default meta;
 type Story = StoryObj<typeof Textarea>;
 
 function Controlled({ ...args }) {
-  const [value, setValue] = React.useState<string>("");
+  const [value, setValue] = React.useState<string>("Default Value");
   return (
     <div className="space-y-4">
       <Textarea {...args} value={value} onValueChange={(v: string) => setValue(v)} />
@@ -82,11 +82,4 @@ export const DefaultValue: Story = {
 
 export const ControlledDefault: Story = {
   ...ControlledTemplate,
-};
-
-export const ControlledWithDefaultValue: Story = {
-  ...ControlledTemplate,
-  args: {
-    defaultValue: "Default value comes here",
-  },
 };
