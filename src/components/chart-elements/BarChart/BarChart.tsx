@@ -27,17 +27,28 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
+  stack: boolean,
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
 
   if (value < 0) {
     if (layout === "horizontal") {
-      y += height;
-      height = Math.abs(height); // height must be a positive number
+      if (stack === false) {
+        y += height;
+        height = Math.abs(height); // height must be a positive number
+      } else if (stack) {
+        // more code
+        // https://d3js.org/d3-shape/stack#stack-offsets
+        //https://github.com/d3/d3-shape/blob/main/src/offset/diverging.js
+      }
     } else if (layout === "vertical") {
-      x += width;
-      width = Math.abs(width); // width must be a positive number
+      if (stack === false) {
+        x += width;
+        width = Math.abs(width); // width must be a positive number
+      } else if (stack) {
+        // more code
+      }
     }
   }
 
@@ -327,7 +338,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend, layout)}
+                shape={(props) => renderShape(props, activeBar, activeLegend, layout, stack)}
                 onClick={onBarClick}
               />
             ))}

@@ -1696,7 +1696,7 @@ export const simpleBaseChartWithNegativeValues = [
   },
   {
     month: "Jul 21",
-    Sales: 3490,
+    Sales: 100,
     "Successful Payments": -3000,
   },
 ];
