@@ -9,6 +9,7 @@ const ChartLegend = (
   { payload }: any,
   categoryColors: Map<string, Color>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
+  legendOverwriteFn?: (s: string) => string,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +24,9 @@ const ChartLegend = (
   return (
     <div ref={legendRef} className="flex items-center justify-end">
       <Legend
-        categories={payload.map((entry: any) => entry.value)}
+        categories={payload.map((entry: any) =>
+          legendOverwriteFn ? legendOverwriteFn(entry.value) : entry.value,
+        )}
         colors={payload.map((entry: any) => categoryColors.get(entry.value))}
       />
     </div>

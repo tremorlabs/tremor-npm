@@ -25,6 +25,7 @@ import {
   colorPalette,
   getColorClassNames,
   tremorTwMerge,
+  Color,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
@@ -32,6 +33,8 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  legendOverwriteFn?: (s: string) => string;
+  additionalTooltipInformation?: { field: string; name: string; color?: Color }[];
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
@@ -58,6 +61,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
+    tooltipValueFormatter = undefined,
+    legendOverwriteFn = undefined,
+    additionalTooltipInformation = [],
     xAxisProps = {},
     yAxisProps = {},
     noDataText,
@@ -143,8 +149,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     active={active}
                     payload={payload}
                     label={label}
-                    valueFormatter={valueFormatter}
+                    valueFormatter={tooltipValueFormatter || valueFormatter}
                     categoryColors={categoryColors}
+                    legendOverwriteFn={legendOverwriteFn}
+                    additionalTooltipInformation={additionalTooltipInformation}
                   />
                 )}
                 position={{ y: 0 }}
@@ -154,7 +162,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend({ payload }, categoryColors, setLegendHeight, legendOverwriteFn)
+                }
               />
             ) : null}
             {categories.map((category) => {
