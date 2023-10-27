@@ -22,13 +22,23 @@ import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/ut
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
-const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, width, fillOpacity, name, payload, value } = props;
-  let { y, height } = props;
+const renderShape = (
+  props: any,
+  activeBar: any | undefined,
+  activeLegend: string | undefined,
+  layout: string,
+) => {
+  const { fillOpacity, name, payload, value } = props;
+  let { x, width, y, height } = props;
 
   if (value < 0) {
-    y = y + height;
-    height = Math.abs(height); // 'height' must be a positive number.
+    if (layout === "horizontal") {
+      y += height;
+      height = Math.abs(height); // height must be a positive number
+    } else if (layout === "vertical") {
+      x += width;
+      width = Math.abs(width); // width must be a positive number
+    }
   }
 
   return (
@@ -317,7 +327,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend)}
+                shape={(props) => renderShape(props, activeBar, activeLegend, layout)}
                 onClick={onBarClick}
               />
             ))}

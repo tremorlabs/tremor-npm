@@ -33,6 +33,28 @@ export const DefaultNegativeValues: Story = {
   },
 };
 
+export const DefaultNegativeValuesVertical: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    layout: "vertical",
+  },
+};
+
+export const DefaultNegativeValuesStacked: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    stack: true,
+  },
+};
+
+export const DefaultNegativeValuesVerticalStacked: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    layout: "vertical",
+    stack: true,
+  },
+};
+
 export const Stacked: Story = {
   args: { stack: true },
 };
