@@ -16,7 +16,6 @@ import { constructCategoryColors } from "components/chart-elements/common/utils"
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkBarChartProps extends BaseSparkChartProps {
-  layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
 }
@@ -27,7 +26,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     categories = [],
     index,
     colors = themeColorRange,
-    layout = "horizontal",
     stack = false,
     relative = false,
     animationDuration = 900,
@@ -46,7 +44,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
           <ReChartsBarChart
             data={data}
             stackOffset={relative ? "expand" : "none"}
-            layout={layout === "vertical" ? "vertical" : "horizontal"}
             margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
           >
             <XAxis hide dataKey={index} />

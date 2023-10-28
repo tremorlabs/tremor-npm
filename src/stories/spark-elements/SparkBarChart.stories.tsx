@@ -2,7 +2,12 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { simpleBaseChartData as data } from "../chart-elements/helpers/testData";
+import {
+  simpleBaseChartData as data,
+  longBaseChartData,
+  simpleBaseChartWithNegativeValues,
+  singleAndMultipleData,
+} from "../chart-elements/helpers/testData";
 import { SparkBarChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 
@@ -10,11 +15,11 @@ const meta: Meta<typeof SparkBarChart> = {
   title: "Components/Chart/SparkBarChart",
   component: SparkBarChart,
   args: {
-    categories: ["Sales"],
+    categories: ["Sales", "Successful Payments"],
     index: "month",
     data,
     className: "h-12 w-28",
-    colors: ["emerald"],
+    colors: ["emerald", "rose"],
   },
   parameters: { layout: "centered" },
 };
@@ -23,7 +28,91 @@ export default meta;
 type Story = StoryObj<typeof SparkBarChart>;
 
 export const Default: Story = {
-  args: {},
+  args: { categories: ["Sales"] },
+};
+
+export const DefaultNegativeValues: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+  },
+};
+
+export const Stacked: Story = {
+  args: { stack: true },
+};
+
+export const Relative: Story = {
+  args: { relative: true },
+};
+
+export const OtherColors: Story = {
+  args: { colors: ["blue", "green"] },
+};
+
+export const ChangedCategoriesOrder: Story = {
+  args: { categories: ["Successful Payments", "Sales"] },
+};
+
+export const LessColorsThanCategories: Story = {
+  args: { colors: ["green"] },
+};
+
+export const NoData: Story = {
+  args: { data: [] },
+};
+
+export const NoDataText: Story = {
+  args: { data: [], noDataText: "No data, try again later." },
+};
+
+export const NoCategories: Story = {
+  args: { categories: undefined },
+};
+
+export const NoIndex: Story = {
+  args: { index: undefined },
+};
+
+export const Animation: Story = {
+  args: { showAnimation: true },
+};
+
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
+};
+
+export const OneDataValue: Story = {
+  args: { data: data.slice(0, 1) },
+};
+
+export const SingleAndMultipleData: Story = {
+  args: { data: singleAndMultipleData },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
 };
 
 export const WithCard: Story = {
