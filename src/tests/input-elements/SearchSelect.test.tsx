@@ -1,5 +1,5 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 import SelectBox from "components/input-elements/SearchSelect/SearchSelect";
 import SelectBoxItem from "components/input-elements/SearchSelect/SearchSelectItem";

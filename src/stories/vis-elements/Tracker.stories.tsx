@@ -1,46 +1,50 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Card, Tracker } from "components";
+import { Tracker } from "components";
 
-export default {
-  title: "Tremor/VisElements/Tracker",
+const meta: Meta<typeof Tracker> = {
+  title: "Components/Vis/Tracker",
   component: Tracker,
-} as ComponentMeta<typeof Tracker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  args: {
+    data: [
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "yellow", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "red", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "yellow", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "red", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "yellow", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+      { color: "emerald", tooltip: "Tracker Info" },
+    ],
+  },
+  render: (args) => <Tracker {...args} />,
+};
 
-const Template: ComponentStory<typeof Tracker> = () => (
-  <Card>
-    <Tracker
-      data={[
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "yellow", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "red", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "yellow", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "red", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "yellow", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-        { color: "emerald", tooltip: "Tracker Info" },
-      ]}
-    />
-  </Card>
-);
+export default meta;
+type Story = StoryObj<typeof Tracker>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writingstories/args
-Default.args = {};
+export const Default: Story = {};
+
+export const MaxWidthMd: Story = {
+  args: { className: "max-w-md" },
+};
+
+export const MaxWidthXs: Story = {
+  args: { className: "max-w-xs" },
+};

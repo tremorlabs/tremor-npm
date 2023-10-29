@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import { MinusIcon, PlusIcon } from "assets";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
-import { PlusIcon, MinusIcon } from "assets";
+import React, { useRef } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export interface NumberInputProps

@@ -1,12 +1,18 @@
 "use client";
-import React from "react";
-import { tremorTwMerge } from "lib";
-
-import { Sizes, getColorClassNames, makeClassName, mergeRefs, spacing } from "lib";
-import { Color, Size } from "../../../lib";
-import { badgeProportions, iconSizes } from "./styles";
-import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import {
+  Color,
+  getColorClassNames,
+  makeClassName,
+  mergeRefs,
+  Size,
+  Sizes,
+  spacing,
+  tremorTwMerge,
+} from "lib";
+import { colorPalette } from "lib/theme";
+import React from "react";
+import { badgeProportions, iconSizes } from "./styles";
 
 const makeBadgeClassName = makeClassName("Badge");
 
@@ -33,8 +39,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
         color
           ? tremorTwMerge(
-              getColorClassNames(color, colorPalette.lightBackground).bgColor,
-              getColorClassNames(color, colorPalette.darkText).textColor,
+              getColorClassNames(color, colorPalette.background).bgColor,
+              getColorClassNames(color, colorPalette.text).textColor,
+              "bg-opacity-20 dark:bg-opacity-25",
             )
           : tremorTwMerge(
               // light

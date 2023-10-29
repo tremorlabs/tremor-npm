@@ -74,3 +74,18 @@ export function deepEqual(obj1: any, obj2: any) {
 
 //   return true;
 // }
+
+export function hasOnlyOneValueForThisKey(array: any[], keyToCheck: string) {
+  const val = [];
+
+  for (const obj of array) {
+    if (Object.prototype.hasOwnProperty.call(obj, keyToCheck)) {
+      val.push(obj[keyToCheck]);
+      if (val.length > 1) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}

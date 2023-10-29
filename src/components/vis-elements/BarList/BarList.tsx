@@ -1,9 +1,15 @@
-import React from "react";
-import { tremorTwMerge } from "lib";
-
-import { defaultValueFormatter, getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { Color, ValueFormatter } from "../../../lib";
+import {
+  Color,
+  defaultValueFormatter,
+  getColorClassNames,
+  makeClassName,
+  sizing,
+  spacing,
+  tremorTwMerge,
+  ValueFormatter,
+} from "lib";
 import { colorPalette } from "lib/theme";
+import React from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -41,7 +47,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
     data = [],
     color,
     valueFormatter = defaultValueFormatter,
-    showAnimation = true,
+    showAnimation = false,
     className,
     ...other
   } = props;
@@ -71,12 +77,12 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               className={tremorTwMerge(
                 makeBarListClassName("bar"),
                 // common
-                "flex items-center rounded-tremor-small",
+                "flex items-center rounded-tremor-small bg-opacity-30",
                 rowHeight,
                 item.color || color
-                  ? getColorClassNames(item.color ?? (color as Color), colorPalette.lightBackground)
+                  ? getColorClassNames(item.color ?? (color as Color), colorPalette.background)
                       .bgColor
-                  : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
+                  : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle dark:bg-opacity-30",
                 idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
               )}
               style={{

@@ -13,9 +13,9 @@ import {
   DoubleArrowLeftHeadIcon,
   DoubleArrowRightHeadIcon,
 } from "assets";
-import { NavButton } from "./NavButton";
-import { Text } from "../../text-elements/Text";
 import { addYears, format } from "date-fns";
+import { Text } from "../../text-elements/Text";
+import { NavButton } from "./NavButton";
 
 function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   mode,
@@ -72,7 +72,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
           const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
 
           return (
-            <div className="flex justify-between items-center" {...props}>
+            <div className="flex justify-between items-center">
               <div className="flex items-center space-x-1">
                 {enableYearNavigation && (
                   <NavButton

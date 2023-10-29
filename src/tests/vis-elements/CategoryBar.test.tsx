@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 import CategoryBar from "components/vis-elements/CategoryBar/CategoryBar";
 

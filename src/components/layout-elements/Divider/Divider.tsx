@@ -1,28 +1,46 @@
+import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
-import { tremorTwMerge } from "lib";
-
-import { makeClassName } from "lib";
 
 const makeDividerClassName = makeClassName("Divider");
 
 const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
-    const { className, ...other } = props;
+    const { className, children, ...other } = props;
     return (
       <div
         ref={ref}
         className={tremorTwMerge(
           makeDividerClassName("root"),
           // common
-          "w-full mx-auto h-[1px] my-6",
+          "w-full mx-auto my-6 flex justify-between gap-3 items-center text-tremor-default",
           // light
-          "bg-tremor-background-subtle",
+          "text-tremor-content",
           // dark
-          "dark:bg-dark-tremor-background-subtle",
+          "dark:text-dark-tremor-content",
           className,
         )}
         {...other}
-      />
+      >
+        {children ? (
+          <>
+            <div
+              className={tremorTwMerge(
+                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
+              )}
+            />
+            <div className={tremorTwMerge("text-inherit whitespace-nowrap")}>{children}</div>
+            <div
+              className={tremorTwMerge(
+                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
+              )}
+            />
+          </>
+        ) : (
+          <div
+            className={tremorTwMerge("w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border")}
+          />
+        )}
+      </div>
     );
   },
 );

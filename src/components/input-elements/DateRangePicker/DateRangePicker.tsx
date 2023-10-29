@@ -1,11 +1,11 @@
 "use client";
 
-import { CalendarIcon, XCircleIcon } from "assets";
-import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import { Listbox, Popover } from "@headlessui/react";
-import React, { ReactElement, useMemo, useState } from "react";
+import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { border, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactElement, useMemo, useState } from "react";
+import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
   constructValueToNameMapping,
   getNodeText,
@@ -21,11 +21,11 @@ import {
 } from "./dateRangePickerUtils";
 
 import { Calendar } from "components/input-elements/Calendar";
-import { Color } from "../../../lib/inputTypes";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 import { SelectItem } from "components/input-elements/Select";
 import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
+import { Color } from "../../../lib/inputTypes";
 
 const TODAY = startOfToday();
 
@@ -47,6 +47,7 @@ export interface DateRangePickerProps
   color?: Color;
   locale?: Locale;
   enableClear?: boolean;
+  displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   children?: React.ReactElement[] | React.ReactElement;
@@ -65,6 +66,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     disabled = false,
     locale = enUS,
     enableClear = true,
+    displayFormat,
     children,
     className,
     enableYearNavigation = false,
@@ -121,7 +123,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     return valueToNameMapping;
   }, [children]);
 
-  const selectedSelectValue = selectedValue?.selectValue;
+  const selectedSelectValue = selectedValue?.selectValue || "";
   const selectedStartDate = parseStartDate(
     selectedValue?.from,
     minDate,
@@ -137,7 +139,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
   const formattedSelection =
     !selectedStartDate && !selectedEndDate
       ? placeholder
-      : formatSelectedDates(selectedStartDate, selectedEndDate, locale);
+      : formatSelectedDates(selectedStartDate, selectedEndDate, locale, displayFormat);
   const defaultMonth = startOfMonth(selectedEndDate ?? selectedStartDate ?? maxDate ?? TODAY);
 
   const isClearEnabled = enableClear && !disabled;

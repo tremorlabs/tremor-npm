@@ -1,7 +1,10 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import { useInternalState } from "hooks";
 import { tremorTwMerge } from "lib";
+import React, { useMemo, useState } from "react";
 
+import { Combobox } from "@headlessui/react";
+import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { border, makeClassName, sizing, spacing } from "lib";
 import {
   constructValueToNameMapping,
@@ -9,8 +12,6 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import { Combobox } from "@headlessui/react";
-import { ArrowDownHeadIcon } from "assets";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
@@ -21,8 +22,11 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
+  enableClear?: boolean;
   children: React.ReactElement[] | React.ReactElement;
 }
+
+const makeSelectClassName = makeClassName("SearchSelect");
 
 const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props, ref) => {
   const {
@@ -32,12 +36,14 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     placeholder = "Select...",
     disabled = false,
     icon,
+    enableClear = true,
     children,
     className,
     ...other
   } = props;
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const Icon = icon;
   const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
@@ -46,13 +52,24 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     [searchQuery, children],
   );
 
+  const handleReset = () => {
+    setSelectedValue("");
+    setSearchQuery("");
+    onValueChange?.("");
+  };
+
   return (
     <Combobox
       as="div"
       ref={ref}
-      defaultValue={defaultValue}
-      value={value}
-      onChange={onValueChange as any}
+      defaultValue={selectedValue}
+      value={selectedValue}
+      onChange={
+        ((value: string) => {
+          onValueChange?.(value);
+          setSelectedValue(value);
+        }) as any
+      }
       disabled={disabled}
       className={tremorTwMerge(
         // common
@@ -90,13 +107,12 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             <Combobox.Input
               className={tremorTwMerge(
                 // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default",
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14",
                 // light
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
-                spacing.fourXl.paddingRight,
                 spacing.sm.paddingY,
                 border.sm.all,
                 disabled
@@ -129,6 +145,33 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
               />
             </div>
           </Combobox.Button>
+          {enableClear && selectedValue ? (
+            <button
+              type="button"
+              className={tremorTwMerge(
+                "absolute inset-y-0 right-0 flex items-center",
+                spacing.fourXl.marginRight,
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <XCircleIcon
+                className={tremorTwMerge(
+                  makeSelectClassName("clearIcon"),
+                  // common
+                  "flex-none",
+                  // light
+                  "text-tremor-content-subtle",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle",
+                  sizing.md.height,
+                  sizing.md.width,
+                )}
+              />
+            </button>
+          ) : null}
           {filteredOptions.length > 0 && (
             <Combobox.Options
               className={tremorTwMerge(

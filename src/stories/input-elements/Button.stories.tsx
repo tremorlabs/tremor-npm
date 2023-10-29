@@ -1,215 +1,199 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
-
+import { Button, Grid } from "components";
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
-import { Card, Grid, Flex, Title } from "components";
+const meta: Meta<typeof Button> = {
+  title: "Components/Input/Button",
+  component: Button,
+};
 
-import { Button } from "components";
+export default meta;
+type Story = StoryObj<typeof Button>;
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/Button",
-  component: Flex,
-} as ComponentMeta<typeof Flex>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const MyIcon = ArrowRightIcon;
-
-const SizesTemplate: ComponentStory<typeof Button> = (args) => (
-  <Card>
-    <Grid numItems={5} className="gap-4">
-      <Button {...args}>Button</Button>
-      <Button {...args} icon={MyIcon}>
-        Button
-      </Button>
-      <Button {...args} icon={MyIcon} iconPosition="right">
-        Button
-      </Button>
-      <Button {...args} variant="secondary" icon={MyIcon} iconPosition="left">
-        Button
-      </Button>
-      <Button {...args} variant="light" icon={MyIcon} iconPosition="right">
-        Button
-      </Button>
-      {Object.values(InputSizes).map((size) => (
-        <>
-          <Button {...args} size={size}>
-            Button
-          </Button>
-          <Button {...args} size={size} icon={MyIcon}>
-            Button
-          </Button>
-          <Button {...args} size={size} icon={MyIcon} iconPosition="right">
-            Button
-          </Button>
-          <Button {...args} size={size} variant="secondary" icon={MyIcon} iconPosition="left">
-            Button
-          </Button>
-          <Button {...args} size={size} variant="light" icon={MyIcon} iconPosition="right">
-            Button
-          </Button>
-        </>
-      ))}
-    </Grid>
-  </Card>
-);
-
-const SizesTemplateNoText: ComponentStory<typeof Button> = (args) => (
-  <Card>
-    <Grid numItems={5} className="gap-4">
-      <Button {...args} icon={MyIcon}></Button>
-      <Button {...args} icon={MyIcon}></Button>
-      <Button {...args} variant="secondary" icon={MyIcon}></Button>
-      <Button {...args} variant="light" icon={MyIcon}></Button>
-      {Object.values(InputSizes).map((size) => (
-        <>
-          <Button {...args} size={size}></Button>
-          <Button {...args} size={size} icon={MyIcon}></Button>
-          <Button {...args} size={size} icon={MyIcon}></Button>
-          <Button {...args} size={size} variant="secondary" icon={MyIcon}></Button>
-          <Button {...args} size={size} variant="light" icon={MyIcon}></Button>
-        </>
-      ))}
-    </Grid>
-  </Card>
-);
-
-const ColorsTemplate: ComponentStory<typeof Button> = (args) => (
-  <Card>
-    <Grid numItems={4} numItemsLg={4} className="gap-y-2">
-      {Object.values(BaseColors).map((color) => (
-        <>
-          <Button {...args} color={color}>
-            Button
-          </Button>
-          <Button {...args} color={color} icon={MyIcon}>
-            Button
-          </Button>
-          <Button {...args} color={color} variant="secondary">
-            Button
-          </Button>
-          <Button {...args} color={color} variant="light">
-            Button
-          </Button>
-        </>
-      ))}
-    </Grid>
-  </Card>
-);
-
-const ResponsiveFlexTemplate: ComponentStory<typeof Button> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="tr-w-64">
-      <Card>
-        <Flex>
-          <Button {...args} icon={MyIcon}>
-            Button
-          </Button>
-          <Button {...args} icon={MyIcon} variant={"secondary"}>
-            Button
-          </Button>
-        </Flex>
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <Flex>
-        <Button {...args} icon={MyIcon}>
+const SizesTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Grid numItems={5} className="gap-4">
+        <Button {...args}>Button</Button>
+        <Button {...args} icon={ArrowRightIcon}>
           Button
         </Button>
-        <Button {...args} icon={MyIcon} variant={"secondary"}>
-          Very Long Button Text
+        <Button {...args} icon={ArrowRightIcon} iconPosition="right">
+          Button
         </Button>
-      </Flex>
-    </Card>
-  </>
-);
-
-const LoadingStateTemplate: ComponentStory<typeof Button> = (args) => {
-  const [loading, setLoading] = useState(false);
-
-  return (
-    <Card>
-      <Button onClick={() => setLoading(!loading)}>Click to Load</Button>
-      <Grid numItems={3} className="gap-y-2 mt-10">
+        <Button {...args} variant="secondary" icon={ArrowRightIcon} iconPosition="left">
+          Button
+        </Button>
+        <Button {...args} variant="light" icon={ArrowRightIcon} iconPosition="right">
+          Button
+        </Button>
         {Object.values(InputSizes).map((size) => (
           <>
-            <Button {...args} size={size} loading={loading}>
+            <Button {...args} size={size}>
               Button
             </Button>
-            <Button {...args} size={size} icon={MyIcon} loading={loading}>
+            <Button {...args} size={size} icon={ArrowRightIcon}>
               Button
             </Button>
-            <Button {...args} size={size} icon={MyIcon} iconPosition="right" loading={loading}>
+            <Button {...args} size={size} icon={ArrowRightIcon} iconPosition="right">
               Button
             </Button>
-            <Button {...args} size={size} variant="secondary" loading={loading}>
+            <Button
+              {...args}
+              size={size}
+              variant="secondary"
+              icon={ArrowRightIcon}
+              iconPosition="left"
+            >
+              Button
+            </Button>
+            <Button
+              {...args}
+              size={size}
+              variant="light"
+              icon={ArrowRightIcon}
+              iconPosition="right"
+            >
               Button
             </Button>
           </>
         ))}
       </Grid>
-      <Title>With Loading Text</Title>
-      <Grid numItems={4} className="gap-y-2">
-        <Button {...args} loading={loading} loadingText="Loading">
-          Button
-        </Button>
-        <Button {...args} icon={MyIcon} loading={loading} loadingText="Loading">
-          Button
-        </Button>
-        <Button
-          {...args}
-          icon={MyIcon}
-          iconPosition="right"
-          loading={loading}
-          loadingText="Loading"
-        >
-          Button
-        </Button>
-        <Button {...args} variant="secondary" loading={loading} loadingText="Loading">
-          Button
-        </Button>
+    );
+  },
+};
+
+const SizesTemplateNoText: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Grid numItems={5} className="gap-4">
+        <Button {...args} icon={ArrowRightIcon}></Button>
+        <Button {...args} icon={ArrowRightIcon}></Button>
+        <Button {...args} variant="secondary" icon={ArrowRightIcon}></Button>
+        <Button {...args} variant="light" icon={ArrowRightIcon}></Button>
+        {Object.values(InputSizes).map((size) => (
+          <>
+            <Button {...args} size={size}></Button>
+            <Button {...args} size={size} icon={ArrowRightIcon}></Button>
+            <Button {...args} size={size} icon={ArrowRightIcon}></Button>
+            <Button {...args} size={size} variant="secondary" icon={ArrowRightIcon}></Button>
+            <Button {...args} size={size} variant="light" icon={ArrowRightIcon}></Button>
+          </>
+        ))}
       </Grid>
-    </Card>
+    );
+  },
+};
+
+const ColorsTemplate: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Grid numItems={4} numItemsLg={4} className="gap-y-2">
+        {Object.values(BaseColors).map((color) => (
+          <>
+            <Button {...args} color={color}>
+              Button
+            </Button>
+            <Button {...args} color={color} icon={ArrowRightIcon}>
+              Button
+            </Button>
+            <Button {...args} color={color} variant="secondary">
+              Button
+            </Button>
+            <Button {...args} color={color} variant="light">
+              Button
+            </Button>
+          </>
+        ))}
+      </Grid>
+    );
+  },
+};
+
+function LoadingState({ ...args }) {
+  const [loading, setLoading] = useState(false);
+  function RenderButtons(args: any, loading: any) {
+    return (
+      <>
+        <Button {...args} loading={loading}>
+          Button
+        </Button>
+        <Button {...args} icon={ArrowRightIcon} loading={loading}>
+          Button
+        </Button>
+        <Button {...args} icon={ArrowRightIcon} iconPosition="right" loading={loading}>
+          Button
+        </Button>
+        <Button {...args} variant="secondary" loading={loading}>
+          Button
+        </Button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Button onClick={() => setLoading(!loading)} color="gray">
+        Click to Load
+      </Button>
+      <div className="flex flex-col max-w-fit gap-y-2 mt-10">
+        {Object.values(InputSizes).map((size, index) => (
+          <React.Fragment key={index}>{RenderButtons(args, loading)}</React.Fragment>
+        ))}
+      </div>
+      With Loading Text
+      <div className="flex flex-col max-w-fit gap-y-2 mt-10">
+        {RenderButtons({ ...args, loadingText: "Loading" }, loading)}
+      </div>
+    </>
   );
+}
+
+const LoadingStateTemplate: Story = {
+  render: ({ ...args }) => <LoadingState {...args} />,
 };
 
-const tooltip = "Tooltip";
-
-export const Sizes = SizesTemplate.bind({});
-Sizes.args = {
-  onClick: () => alert(2),
-  className: "max-w-fit",
-  tooltip,
+export const Default: Story = {
+  args: {
+    children: "Default",
+  },
 };
 
-export const SizesNoText = SizesTemplateNoText.bind({});
-SizesNoText.args = {
-  onClick: () => alert(2),
-  className: "max-w-fit",
-  tooltip,
+export const Sizes: Story = {
+  ...SizesTemplate,
+  args: {
+    onClick: () => alert(2),
+    className: "max-w-fit",
+  },
 };
 
-export const Colors = ColorsTemplate.bind({});
-Colors.args = {
-  onSelect: () => console.log("clicked"),
-  className: "max-w-fit",
+export const SizesNoText: Story = {
+  ...SizesTemplateNoText,
+  args: {
+    onClick: () => alert(2),
+    className: "max-w-fit",
+  },
 };
 
-export const WithFlexParent = ResponsiveFlexTemplate.bind({});
-
-export const WithDisabled = ResponsiveFlexTemplate.bind({});
-WithDisabled.args = {
-  disabled: true,
+export const Colors: Story = {
+  ...ColorsTemplate,
+  args: {
+    onClick: () => alert(2),
+    className: "max-w-fit",
+  },
 };
 
-export const LoadingStates = LoadingStateTemplate.bind({});
-LoadingStates.args = {
-  className: "max-w-fit",
+export const Disabled: Story = {
+  args: {
+    children: "Disabled",
+    disabled: true,
+  },
 };
 
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const LoadingStates: Story = {
+  ...LoadingStateTemplate,
+  args: {},
+};

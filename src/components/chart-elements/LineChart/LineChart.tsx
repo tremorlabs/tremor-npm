@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   CartesianGrid,
   Dot,
@@ -13,11 +13,15 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
-import NoData from "../common/NoData";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import NoData from "../common/NoData";
+import {
+  constructCategoryColors,
+  getYAxisDomain,
+  hasOnlyOneValueForThisKey,
+} from "../common/utils";
 
 import {
   BaseColors,
@@ -64,8 +68,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    customTooltip,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -74,31 +80,39 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
 
-  function onDotClick(data: any, event: React.MouseEvent) {
+  function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
 
     if (!hasOnValueChange) return;
-    if (data.index === activeDot?.index && data.dataKey === activeDot?.dataKey) {
+    if (
+      (itemData.index === activeDot?.index && itemData.dataKey === activeDot?.dataKey) ||
+      (hasOnlyOneValueForThisKey(data, itemData.dataKey) &&
+        activeLegend &&
+        activeLegend === itemData.dataKey)
+    ) {
       setActiveLegend(undefined);
       setActiveDot(undefined);
       onValueChange?.(null);
     } else {
-      setActiveLegend(data.dataKey);
+      setActiveLegend(itemData.dataKey);
       setActiveDot({
-        index: data.index,
-        dataKey: data.dataKey,
+        index: itemData.index,
+        dataKey: itemData.dataKey,
       });
       onValueChange?.({
         eventType: "dot",
-        categoryClicked: data.dataKey,
-        ...data.payload,
+        categoryClicked: itemData.dataKey,
+        ...itemData.payload,
       });
     }
   }
 
   function onCategoryClick(dataKey: string) {
     if (!hasOnValueChange) return;
-    if (dataKey === activeLegend && !activeDot) {
+    if (
+      (dataKey === activeLegend && !activeDot) ||
+      (hasOnlyOneValueForThisKey(data, dataKey) && activeDot && activeDot.dataKey === dataKey)
+    ) {
       setActiveLegend(undefined);
       onValueChange?.(null);
     } else {
@@ -189,15 +203,25 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
                 ) : (
                   <></>
                 )
@@ -268,9 +292,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     index,
                   } = props;
 
-                  if (activeDot?.index === index && activeDot?.dataKey === category) {
+                  if (
+                    (hasOnlyOneValueForThisKey(data, category) &&
+                      !(activeDot || (activeLegend && activeLegend !== category))) ||
+                    (activeDot?.index === index && activeDot?.dataKey === category)
+                  ) {
                     return (
                       <Dot
+                        key={index}
                         cx={cx}
                         cy={cy}
                         r={5}
@@ -290,7 +319,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       />
                     );
                   }
-                  return <></>;
+                  return <Fragment key={index}></Fragment>;
                 }}
                 key={category}
                 name={category}
