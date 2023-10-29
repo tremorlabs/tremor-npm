@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { tremorTwMerge } from "lib";
 
 import { SelectedValueContext } from "contexts";
@@ -41,9 +41,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   } = props;
 
   const Icon = icon;
-
+  const searchRef = React.useRef<HTMLInputElement>(null);
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   // checked if there are selected options
   // used the same code from the previous version
@@ -59,6 +60,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     setSelectedValue([]);
     onValueChange?.([]);
   };
+
+  useEffect(() => {
+    if (searchRef) searchRef.current?.focus();
+  }, [isOpen]);
 
   return (
     <Listbox
@@ -84,6 +89,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
       {({ value }) => (
         <>
           <Listbox.Button
+            onClick={() => setIsOpen((prev) => !prev)}
             className={tremorTwMerge(
               // common
               "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
@@ -260,6 +266,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 />
               </span>
               <input
+                ref={searchRef}
                 name="search"
                 type="input"
                 placeholder={placeholderSearch}
