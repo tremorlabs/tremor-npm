@@ -11,6 +11,7 @@ import {
   singleAndMultipleData,
   longBaseChartData,
   longIndexBaseChartData,
+  simpleBaseChartWithNegativeValues,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
@@ -26,6 +27,12 @@ type Story = StoryObj<typeof AreaChart>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const DefaultNegativeValues: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+  },
 };
 
 export const Stacked: Story = {

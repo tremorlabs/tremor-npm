@@ -1663,6 +1663,44 @@ export const simpleBaseChartDataWithNulls = [
   },
 ];
 
+export const simpleBaseChartWithNegativeValues = [
+  {
+    month: "Jan 21",
+    Sales: 4000,
+    "Successful Payments": 3000,
+  },
+  {
+    month: "Feb 21",
+    Sales: 3000,
+    "Successful Payments": 2000,
+  },
+  {
+    month: "Mar 21",
+    Sales: 2000,
+    "Successful Payments": 1700,
+  },
+  {
+    month: "Apr 21",
+    Sales: 2780,
+    "Successful Payments": -2500,
+  },
+  {
+    month: "May 21",
+    Sales: 1890,
+    "Successful Payments": -1890,
+  },
+  {
+    month: "Jun 21",
+    Sales: 2390,
+    "Successful Payments": -2000,
+  },
+  {
+    month: "Jul 21",
+    Sales: 100,
+    "Successful Payments": -3000,
+  },
+];
+
 export const simpleSingleCategoryData = [
   {
     city: "New York",

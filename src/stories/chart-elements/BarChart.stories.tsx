@@ -10,6 +10,7 @@ import {
   singleAndMultipleData,
   longBaseChartData,
   longIndexBaseChartData,
+  simpleBaseChartWithNegativeValues,
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
@@ -24,6 +25,34 @@ type Story = StoryObj<typeof BarChart>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const DefaultNegativeValues: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+  },
+};
+
+export const DefaultNegativeValuesVertical: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    layout: "vertical",
+  },
+};
+
+export const DefaultNegativeValuesStacked: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    stack: true,
+  },
+};
+
+export const DefaultNegativeValuesVerticalStacked: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+    layout: "vertical",
+    stack: true,
+  },
 };
 
 export const Stacked: Story = {

@@ -12,7 +12,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AxisDomain } from "recharts/types/util/types";
 
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
@@ -21,9 +20,24 @@ import NoData from "../common/NoData";
 import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+import { AxisDomain } from "recharts/types/util/types";
 
-const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, y, width, height, fillOpacity, name, payload, value } = props;
+const renderShape = (
+  props: any,
+  activeBar: any | undefined,
+  activeLegend: string | undefined,
+  layout: string,
+) => {
+  const { fillOpacity, name, payload, value } = props;
+  let { x, width, y, height } = props;
+
+  if (layout === "horizontal" && height < 0) {
+    y += height;
+    height = Math.abs(height); // height must be a positive number
+  } else if (layout === "vertical" && width < 0) {
+    x += width;
+    width = Math.abs(width); // width must be a positive number
+  }
 
   return (
     <rect
@@ -128,7 +142,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         {data?.length ? (
           <ReChartsBarChart
             data={data}
-            stackOffset={relative ? "expand" : "none"}
+            stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
@@ -311,7 +325,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend)}
+                shape={(props) => renderShape(props, activeBar, activeLegend, layout)}
                 onClick={onBarClick}
               />
             ))}
