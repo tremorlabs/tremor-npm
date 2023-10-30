@@ -27,29 +27,16 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
-  stack: boolean,
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
 
-  if (value < 0) {
-    if (layout === "horizontal") {
-      if (stack === false) {
-        y += height;
-        height = Math.abs(height); // height must be a positive number
-      } else if (stack) {
-        // more code
-        // https://d3js.org/d3-shape/stack#stack-offsets
-        //https://github.com/d3/d3-shape/blob/main/src/offset/diverging.js
-      }
-    } else if (layout === "vertical") {
-      if (stack === false) {
-        x += width;
-        width = Math.abs(width); // width must be a positive number
-      } else if (stack) {
-        // more code
-      }
-    }
+  if (layout === "horizontal" && height < 0) {
+    y += height;
+    height = Math.abs(height); // height must be a positive number
+  } else if (layout === "vertical" && width < 0) {
+    x += width;
+    width = Math.abs(width); // width must be a positive number
   }
 
   return (
@@ -155,7 +142,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         {data?.length ? (
           <ReChartsBarChart
             data={data}
-            stackOffset={relative ? "expand" : "none"}
+            stackOffset={relative || stack ? "sign" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
@@ -338,7 +325,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend, layout, stack)}
+                shape={(props) => renderShape(props, activeBar, activeLegend, layout)}
                 onClick={onBarClick}
               />
             ))}
