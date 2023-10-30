@@ -43,7 +43,7 @@ function Uncontrolled({ ...args }) {
   );
 }
 
-function UncontrolledWithChildren({ ...args }) {
+function UncontrolledChildren({ ...args }) {
   const [value, setValue] = useState<DateRangePickerValue>({});
   const startDate = value.from;
   const endDate = value.to;
@@ -129,8 +129,8 @@ const UncontrolledTemplate: Story = {
   render: ({ ...args }) => <Uncontrolled {...args} />,
 };
 
-const UncontrolledWithChildrenTemplate: Story = {
-  render: ({ ...args }) => <UncontrolledWithChildren {...args} />,
+const UncontrolledChildrenTemplate: Story = {
+  render: ({ ...args }) => <UncontrolledChildren {...args} />,
 };
 
 const ControlledTemplate: Story = {
@@ -142,21 +142,21 @@ export const UncontrolledDefault: Story = {
   ...UncontrolledTemplate,
 };
 
-export const UncontrolledWithDefaultDateRange: Story = {
+export const UncontrolledDefaultDateRange: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
   },
 };
 
-export const UncontrolledWithDefaultDisplayFormat: Story = {
+export const UncontrolledDefaultDisplayFormat: Story = {
   ...UncontrolledTemplate,
   args: {
     displayFormat: "dd/MM/yyyy",
   },
 };
 
-export const UncontrolledWithDefaultFrLocale: Story = {
+export const UncontrolledDefaultFrLocale: Story = {
   ...UncontrolledTemplate,
   args: {
     locale: fr,
@@ -165,21 +165,21 @@ export const UncontrolledWithDefaultFrLocale: Story = {
   },
 };
 
-export const UncontrolledWithDefaultSelectOption: Story = {
+export const UncontrolledDefaultSelectOption: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { selectValue: "tdy" },
   },
 };
 
-export const UncontrolledWithDefaultValue: Story = {
+export const UncontrolledDefaultValue: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
   },
 };
 
-export const UncontrolledWithSelectDisabled: Story = {
+export const UncontrolledSelectDisabled: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
@@ -187,7 +187,7 @@ export const UncontrolledWithSelectDisabled: Story = {
   },
 };
 
-export const UncontrolledWithMinMax: Story = {
+export const UncontrolledMinMax: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
@@ -196,14 +196,14 @@ export const UncontrolledWithMinMax: Story = {
   },
 };
 
-export const UncontrolledWithDropdownOptions: Story = {
-  ...UncontrolledWithChildrenTemplate,
+export const UncontrolledDropdownOptions: Story = {
+  ...UncontrolledChildrenTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "one" },
   },
 };
 
-export const UncontrolledWithDisabled: Story = {
+export const UncontrolledDisabled: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "tdy" },
@@ -211,7 +211,17 @@ export const UncontrolledWithDisabled: Story = {
   },
 };
 
-export const UncontrolledDefaultWithYearNavigation: Story = {
+export const UncontrolledDisabledDates: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: { from: new Date(2023, 10, 25), to: new Date() },
+    minDate: new Date(2023, 10, 5),
+    maxDate: new Date(2023, 10, 28),
+    disabledDates: [new Date(2023, 10, 10), new Date(2023, 10, 11)],
+  },
+};
+
+export const UncontrolledDefaultYearNavigation: Story = {
   ...UncontrolledTemplate,
   args: {
     enableYearNavigation: true,
@@ -223,28 +233,28 @@ export const ControlledDefault: Story = {
   args: {},
 };
 
-export const ControlledWithDefaultDateRange: Story = {
+export const ControlledDefaultDateRange: Story = {
   ...ControlledTemplate,
   args: {
     value: { from: new Date(2022, 10, 1), to: new Date() },
   },
 };
 
-export const ControlledWithDefaultSelectOption: Story = {
+export const ControlledDefaultSelectOption: Story = {
   ...ControlledTemplate,
   args: {
     value: { from: undefined, to: undefined, selectValue: "t" },
   },
 };
 
-export const ControlledWithDefaultValue: Story = {
+export const ControlledDefaultValue: Story = {
   ...ControlledTemplate,
   args: {
     value: { from: new Date(2022, 10, 1), to: new Date(), selectValue: "t" },
   },
 };
 
-export const UncontrolledWithoutEnableClear: Story = {
+export const UncontrolledoutEnableClear: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },
@@ -252,7 +262,7 @@ export const UncontrolledWithoutEnableClear: Story = {
   },
 };
 
-export const UncontrolledWithWeekStartsOnTuesday: Story = {
+export const UncontrolledWeekStartsOnTuesday: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: { from: new Date(2022, 10, 1), to: new Date() },

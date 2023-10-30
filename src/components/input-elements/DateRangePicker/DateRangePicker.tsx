@@ -50,6 +50,7 @@ export interface DateRangePickerProps
   displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  disabledDates?: Date[];
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -71,6 +72,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     className,
     enableYearNavigation = false,
     weekStartsOn = 0,
+    disabledDates,
     ...other
   } = props;
 
@@ -82,8 +84,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
     if (maxDate) disabledDays.push({ after: maxDate });
-    return disabledDays;
-  }, [minDate, maxDate]);
+    return [...disabledDays, ...(disabledDates ?? [])];
+  }, [minDate, maxDate, disabledDates]);
 
   const selectValues = useMemo(() => {
     const selectValues = new Map<
@@ -168,13 +170,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
       <Popover
         as="div"
         className={tremorTwMerge(
-          "w-full overflow-hidden",
+          "w-full",
           enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           isCalendarButtonFocused &&
             "ring-2 ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted z-10",
         )}
       >
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full">
           <Popover.Button
             onFocus={() => setIsCalendarButtonFocused(true)}
             onBlur={() => setIsCalendarButtonFocused(false)}
@@ -240,12 +242,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           ) : null}
         </div>
         <Transition
-          enter="transition duration-100 ease-out"
-          enterFrom="transform scale-95 opacity-0"
-          enterTo="transform scale-100 opacity-100"
-          leave="transition duration-75 ease-out"
-          leaveFrom="transform scale-100 opacity-100"
-          leaveTo="transform scale-95 opacity-0"
+          enter="transition ease duration-100 transform"
+          enterFrom="opacity-0 -translate-y-4"
+          enterTo="opacity-100 translate-y-0"
+          leave="transition ease duration-100 transform"
+          leaveFrom="opacity-100 translate-y-0"
+          leaveTo="opacity-0 -translate-y-4"
         >
           <Popover.Panel
             focus={true}
@@ -297,7 +299,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         <Listbox
           as="div"
           className={tremorTwMerge(
-            "w-48 overflow-hidden -ml-px rounded-r-tremor-default",
+            "w-48 -ml-px rounded-r-tremor-default",
             isSelectButtonFocused &&
               "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
           )}
@@ -327,12 +329,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 {value ? valueToNameMapping.get(value) ?? selectPlaceholder : selectPlaceholder}
               </Listbox.Button>
               <Transition
-                enter="transition duration-100 ease-out"
-                enterFrom="transform scale-95 opacity-0"
-                enterTo="transform scale-100 opacity-100"
-                leave="transition duration-75 ease-out"
-                leaveFrom="transform scale-100 opacity-100"
-                leaveTo="transform scale-95 opacity-0"
+                enter="transition ease duration-100 transform"
+                enterFrom="opacity-0 -translate-y-4"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease duration-100 transform"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 -translate-y-4"
               >
                 <Listbox.Options
                   className={tremorTwMerge(

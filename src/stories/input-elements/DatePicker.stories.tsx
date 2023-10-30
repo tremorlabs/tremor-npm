@@ -63,21 +63,21 @@ export const UncontrolledDefault: Story = {
   ...UncontrolledTemplate,
 };
 
-export const UncontrolledWithDefaultValue: Story = {
+export const UncontrolledDefaultValue: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),
   },
 };
 
-export const UncontrolledWithDisplayFormat: Story = {
+export const UncontrolledDisplayFormat: Story = {
   ...UncontrolledTemplate,
   args: {
     displayFormat: "dd/MM/yyyy",
   },
 };
 
-export const UncontrolledWithFrLocale: Story = {
+export const UncontrolledFrLocale: Story = {
   ...UncontrolledTemplate,
   args: {
     locale: fr,
@@ -85,7 +85,7 @@ export const UncontrolledWithFrLocale: Story = {
   },
 };
 
-export const UncontrolledWithMinMax: Story = {
+export const UncontrolledMinMax: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),
@@ -94,7 +94,7 @@ export const UncontrolledWithMinMax: Story = {
   },
 };
 
-export const UncontrolledWithDisabled: Story = {
+export const UncontrolledDisabled: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),
@@ -102,14 +102,24 @@ export const UncontrolledWithDisabled: Story = {
   },
 };
 
-export const UncontrolledWithYearNavigation: Story = {
+export const UncontrolledDisabledDates: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2023, 10, 25),
+    minDate: new Date(2023, 10, 5),
+    maxDate: new Date(2023, 10, 28),
+    disabledDates: [new Date(2023, 10, 10), new Date(2023, 10, 11)],
+  },
+};
+
+export const UncontrolledYearNavigation: Story = {
   ...UncontrolledTemplate,
   args: {
     enableYearNavigation: true,
   },
 };
 
-export const UncontrolledWithoutEnableClear: Story = {
+export const UncontrolledoutEnableClear: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),
@@ -117,7 +127,7 @@ export const UncontrolledWithoutEnableClear: Story = {
   },
 };
 
-export const UncontrolledWithWeekStartsOnWednesday: Story = {
+export const UncontrolledWeekStartsOnWednesday: Story = {
   ...UncontrolledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),
@@ -129,7 +139,7 @@ export const ControlledDefault: Story = {
   ...ControlledTemplate,
 };
 
-export const ControlledWithDefaultValue: Story = {
+export const ControlledDefaultValue: Story = {
   ...ControlledTemplate,
   args: {
     defaultValue: new Date(2022, 10, 1),

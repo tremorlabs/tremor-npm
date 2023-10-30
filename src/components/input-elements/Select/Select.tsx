@@ -156,12 +156,12 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             </button>
           ) : null}
           <Transition
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
+            enter="transition ease duration-100 transform"
+            enterFrom="opacity-0 -translate-y-4"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease duration-100 transform"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 -translate-y-4"
           >
             <Listbox.Options
               className={tremorTwMerge(
