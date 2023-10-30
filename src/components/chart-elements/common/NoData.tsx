@@ -1,7 +1,7 @@
+import { tremorTwMerge } from "lib";
 import React from "react";
 import { Flex } from "../../../components/layout-elements/Flex";
 import { Text } from "../../../components/text-elements/Text";
-import { tremorTwMerge } from "lib";
 
 interface NoDataProps {
   noDataText?: string;
@@ -17,7 +17,7 @@ const NoData = ({ noDataText = "No data" }: NoDataProps) => {
         // light
         "border-tremor-border",
         // dark
-        "dark:border-tdark-remor-border",
+        "dark:border-dark-tremor-border",
       )}
     >
       <Text

@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 import { makeClassName } from "lib";
+import { GridClassesMapping, gridCols, gridColsLg, gridColsMd, gridColsSm } from "./styles";
 
 const makeGridClassName = makeClassName("Grid");
 
@@ -23,14 +23,12 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
 const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   const { numItems = 1, numItemsSm, numItemsMd, numItemsLg, children, className, ...other } = props;
 
-  const colClassNames = useMemo(() => {
-    const colsBase = getGridCols(numItems, gridCols);
-    const colsSm = getGridCols(numItemsSm, gridColsSm);
-    const colsMd = getGridCols(numItemsMd, gridColsMd);
-    const colsLg = getGridCols(numItemsLg, gridColsLg);
+  const colsBase = getGridCols(numItems, gridCols);
+  const colsSm = getGridCols(numItemsSm, gridColsSm);
+  const colsMd = getGridCols(numItemsMd, gridColsMd);
+  const colsLg = getGridCols(numItemsLg, gridColsLg);
 
-    return tremorTwMerge(colsBase, colsSm, colsMd, colsLg);
-  }, [numItems, numItemsSm, numItemsMd, numItemsLg]);
+  const colClassNames = tremorTwMerge(colsBase, colsSm, colsMd, colsLg);
 
   return (
     <div

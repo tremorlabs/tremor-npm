@@ -1,8 +1,9 @@
 import React from "react";
 import { tremorTwMerge } from "../../../lib";
-import { Color, ValueFormatter } from "../../../lib";
+
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
+import { Color, ValueFormatter } from "../../../lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -91,6 +92,8 @@ const ChartTooltip = ({
   additionalTooltipInformation,
 }: ChartTooltipProps) => {
   if (active && payload) {
+    const filteredPayload = payload.filter((item: any) => item.type !== "none");
+
     return (
       <ChartTooltipFrame>
         <div
@@ -119,31 +122,14 @@ const ChartTooltip = ({
         </div>
 
         <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
-          {payload.map(
-            (
-              { value, name, payload: entryData }: { value: number; name: string; payload: any },
-              idx: number,
-            ) => (
-              <div key={idx}>
-                <ChartTooltipRow
-                  key={`id-${idx}`}
-                  value={valueFormatter(value)}
-                  name={legendOverwriteFn ? legendOverwriteFn(name) : name}
-                  color={categoryColors.get(name) ?? BaseColors.Blue}
-                />
-                {additionalTooltipInformation?.map(({ field, name, color }, i) => {
-                  return (
-                    <ChartTooltipRow
-                      key={`additional-id-${i}`}
-                      value={entryData[field]}
-                      name={name}
-                      color={color ?? BaseColors.Blue}
-                    />
-                  );
-                })}
-              </div>
-            ),
-          )}
+          {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
+            <ChartTooltipRow
+              key={`id-${idx}`}
+              value={valueFormatter(value)}
+              name={name}
+              color={categoryColors.get(name) ?? BaseColors.Blue}
+            />
+          ))}
         </div>
       </ChartTooltipFrame>
     );

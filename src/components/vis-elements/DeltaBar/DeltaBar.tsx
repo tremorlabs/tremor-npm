@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { DeltaTypes, makeClassName, mapInputsToDeltaType, sizing } from "lib";
 import { colors } from "./styles";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 const makeDeltaBarClassName = makeClassName("DeltaBar");
 
@@ -21,7 +21,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
   const {
     value,
     isIncreasePositive = true,
-    showAnimation = true,
+    showAnimation = false,
     className,
     tooltip,
     ...other

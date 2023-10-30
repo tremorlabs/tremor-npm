@@ -2,7 +2,7 @@
 import React from "react";
 import { tremorTwMerge } from "../../../lib";
 
-import { Color } from "../../../lib";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   getColorClassNames,
   makeClassName,
@@ -12,7 +12,7 @@ import {
   themeColorRange,
 } from "lib";
 import { colorPalette } from "lib/theme";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { Color } from "../../../lib";
 
 const makeCategoryBarClassName = makeClassName("CategoryBar");
 
@@ -101,7 +101,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     markerValue,
     showLabels = true,
     tooltip,
-    showAnimation = true,
+    showAnimation = false,
     className,
     ...other
   } = props;

@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Do not any styles here. Use Tailwnd arbitrary properties */

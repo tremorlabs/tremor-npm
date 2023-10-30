@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
+import React, { useState } from "react";
 
 import {
   Bar,
+  BarChart as ReChartsBarChart,
   CartesianGrid,
   Legend,
-  BarChart as ReChartsBarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -14,13 +14,33 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
+import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+
+const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
+  const { x, y, width, height, fillOpacity, name, payload, value } = props;
+
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      opacity={
+        activeBar || (activeLegend && activeLegend !== name)
+          ? deepEqual(activeBar, { ...payload, value })
+            ? fillOpacity
+            : 0.3
+          : fillOpacity
+      }
+    />
+  );
+};
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -40,11 +60,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     relative = false,
     startEndOnly = false,
     animationDuration = 900,
-    showAnimation = true,
+    showAnimation = false,
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
     xAxisAngle = 0,
+    intervalType = "equidistantPreserveStart",
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -56,6 +77,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     margin = undefined,
     tooltipValueFormatter = undefined,
     noDataText,
+    onValueChange,
+    customTooltip,
     className,
     xAxisProps = {},
     yAxisProps = {},
@@ -63,9 +86,48 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     barProps = {},
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
+  const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+  const hasOnValueChange = !!onValueChange;
 
+  function onBarClick(data: any, idx: number, event: React.MouseEvent) {
+    event.stopPropagation();
+    if (!onValueChange) return;
+    if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
+      setActiveLegend(undefined);
+      setActiveBar(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
+      setActiveBar({
+        ...data.payload,
+        value: data.value,
+      });
+      onValueChange?.({
+        eventType: "bar",
+        categoryClicked: data.tooltipPayload?.[0]?.dataKey,
+        ...data.payload,
+      });
+    }
+  }
+
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (dataKey === activeLegend && !activeBar) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        eventType: "category",
+        categoryClicked: dataKey,
+      });
+    }
+    setActiveBar(undefined);
+  }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
@@ -77,6 +139,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
             stackOffset={relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
             margin={margin}
+            onClick={
+              hasOnValueChange && (activeLegend || activeBar)
+                ? () => {
+                    setActiveBar(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
           >
             {showGridLines ? (
               <CartesianGrid
@@ -84,11 +155,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   // common
                   "stroke-1",
                   // light
-                  "stroke-tremor-content-subtle",
+                  "stroke-tremor-border",
                   // dark
-                  "dark:stroke-dark-tremor-content-subtle",
+                  "dark:stroke-dark-tremor-border",
                 )}
-                strokeDasharray="3 3"
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
                 {...gridProps}
@@ -97,10 +167,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
+                padding={{ left: 20, right: 20 }}
                 hide={!showXAxis}
                 dataKey={index}
-                interval="preserveStartEnd"
-                tick={{ transform: "translate(0, 6)" }} //padding between labels and axis
+                interval={startEndOnly ? "preserveStartEnd" : intervalType}
+                tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
@@ -137,7 +208,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
-                padding={{ left: 10, right: 10 }}
                 minTickGap={5}
                 allowDecimals={allowDecimals}
                 angle={xAxisAngle}
@@ -194,39 +264,63 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 {...yAxisProps}
               />
             )}
-            {showTooltip ? (
-              <Tooltip
-                // ongoing issue: https://github.com/recharts/recharts/issues/2920
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ fill: "#d1d5db", opacity: "0.15" }}
-                content={({ active, payload, label }) => (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={tooltipValueFormatter || valueFormatter}
-                    categoryColors={categoryColors}
-                  />
-                )}
-                position={{ y: 0 }}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={tooltipValueFormatter || valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
+                ) : (
+                  <></>
+                )
+              }
+              position={{ y: 0 }}
+            />
             {showLegend ? (
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
+                  )
+                }
               />
             ) : null}
             {categories.map((category) => (
               <Bar
-                className={
+                className={tremorTwMerge(
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.background,
-                  ).fillColor
-                }
+                  ).fillColor,
+                  onValueChange ? "cursor-pointer" : "",
+                )}
                 key={category}
                 name={category}
                 type="linear"
@@ -235,6 +329,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
+                shape={(props) => renderShape(props, activeBar, activeLegend)}
+                onClick={onBarClick}
                 {...barProps}
               />
             ))}

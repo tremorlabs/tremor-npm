@@ -1,9 +1,9 @@
 import React from "react";
 import { Color, defaultValueFormatter, tremorTwMerge } from "../../../lib";
 
+import { ScatterChartValueFormatter } from "components/chart-elements/ScatterChart/ScatterChart";
 import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
-import { ScatterChartValueFormatter } from "components/chart-elements/ScatterChart/ScatterChart";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -102,7 +102,7 @@ const ScatterChartTooltip = ({
               "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
               getColorClassNames(
                 category
-                  ? categoryColors.get(payload[0].payload[category]) ?? BaseColors.Blue
+                  ? categoryColors.get(payload?.[0]?.payload[category]) ?? BaseColors.Blue
                   : BaseColors.Blue,
                 colorPalette.background,
               ).bgColor,

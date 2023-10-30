@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import {
-  ScatterChart as ReChartsScatterChart,
-  Scatter,
   CartesianGrid,
+  Dot,
   Legend,
   ResponsiveContainer,
+  Scatter,
+  ScatterChart as ReChartsScatterChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -13,12 +14,19 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategories, constructCategoryColors, getYAxisDomain } from "../common/utils";
-import NoData from "../common/NoData";
-import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import type { EventProps } from "components/chart-elements/common";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
+import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import NoData from "../common/NoData";
+import {
+  constructCategories,
+  constructCategoryColors,
+  deepEqual,
+  getYAxisDomain,
+} from "../common/utils";
 
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
 import {
   BaseColors,
   colorPalette,
@@ -27,7 +35,7 @@ import {
   themeColorRange,
   tremorTwMerge,
 } from "lib";
-import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -51,6 +59,7 @@ export interface ScatterChartProps
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
+  intervalType?: IntervalType;
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
@@ -62,10 +71,31 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
+  onValueChange?: (value: EventProps) => void;
+  customTooltip?: React.ComponentType<CustomTooltipType>;
   xAxisProps?: any;
   yAxisProps?: any;
   zAxisProps?: any;
 }
+
+const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
+  const { cx, cy, width, node, fillOpacity, name } = props;
+
+  return (
+    <Dot
+      cx={cx}
+      cy={cy}
+      r={width / 2}
+      opacity={
+        activeNode || (activeLegend && activeLegend !== name)
+          ? deepEqual(activeNode, node)
+            ? fillOpacity
+            : 0.3
+          : fillOpacity
+      }
+    />
+  );
+};
 
 const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) => {
   const {
@@ -86,8 +116,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     animationDuration = 900,
-    showAnimation = true,
+    showAnimation = false,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -102,10 +133,49 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     yAxisProps = {},
     zAxisProps = {},
     noDataText,
+    onValueChange,
+    customTooltip,
     className,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+  const hasOnValueChange = !!onValueChange;
+
+  function onNodeClick(data: any, index: number, event: React.MouseEvent) {
+    event.stopPropagation();
+    if (!hasOnValueChange) return;
+    if (deepEqual(activeNode, data.node)) {
+      setActiveLegend(undefined);
+      setActiveNode(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveNode(data.node);
+      setActiveLegend(data.payload[category]);
+      onValueChange?.({
+        eventType: "bubble",
+        categoryClicked: data.payload[category],
+        ...data.payload,
+      });
+    }
+  }
+
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (dataKey === activeLegend && !activeNode) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        eventType: "category",
+        categoryClicked: dataKey,
+      });
+    }
+    setActiveNode(undefined);
+  }
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
@@ -118,18 +188,28 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsScatterChart>
+          <ReChartsScatterChart
+            onClick={
+              hasOnValueChange && (activeLegend || activeNode)
+                ? () => {
+                    setActiveNode(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
+            margin={{ left: 20, right: 20 }}
+          >
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
                   // common
                   "stroke-1",
                   // light
-                  "stroke-tremor-content-subtle",
+                  "stroke-tremor-border",
                   // dark
-                  "dark:stroke-dark-tremor-content-subtle",
+                  "dark:stroke-dark-tremor-border",
                 )}
-                strokeDasharray="3 3"
                 horizontal={true}
                 vertical={true}
               />
@@ -138,13 +218,13 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <XAxis
                 hide={!showXAxis}
                 dataKey={x}
-                interval="preserveStartEnd"
+                interval={startEndOnly ? "preserveStartEnd" : intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][x], data[data.length - 1][x]] : undefined}
                 type="number"
                 name={x}
-                // fill=""
-                // stroke=""
+                fill=""
+                stroke=""
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
@@ -156,7 +236,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
-                padding={{ left: 0, right: 0 }}
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
@@ -190,42 +269,60 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 {...yAxisProps}
               />
             ) : null}
-            {showTooltip ? (
-              <Tooltip
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-                content={({ active, payload, label }) => (
-                  <ScatterChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={category ? payload?.[0]?.payload?.[category] : label}
-                    valueFormatter={valueFormatter}
-                    axis={{ x: x, y: y, size: size }}
-                    category={category}
-                    categoryColors={categoryColors}
-                  />
-                )}
-              />
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem) => ({
+                          ...payloadItem,
+                          color:
+                            categoryColors.get(
+                              category ? payload?.[0]?.payload?.[category] : label,
+                            ) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={category ? payload?.[0]?.payload?.[category] : label}
+                      />
+                    ) : (
+                      <ScatterChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        valueFormatter={valueFormatter}
+                        axis={{ x: x, y: y, size: size }}
+                        category={category}
+                        categoryColors={categoryColors}
+                      />
+                    )
+                ) : (
+                  <></>
+                )
+              }
+            />
+            {size ? (
+              <ZAxis dataKey={size} type="number" range={sizeRange} name={size} {...zAxisProps} />
             ) : null}
-            {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} {...zAxisProps} /> : null}
             {categories.map((cat) => {
               return (
                 <Scatter
-                  className={`
-                ${
-                  getColorClassNames(categoryColors.get(cat) ?? BaseColors.Gray, colorPalette.text)
-                    .fillColor
-                } 
-                ${
-                  showOpacity
-                    ? getColorClassNames(
-                        categoryColors.get(cat) ?? BaseColors.Gray,
-                        colorPalette.text,
-                      ).strokeColor
-                    : ""
-                }
-              `}
+                  className={tremorTwMerge(
+                    getColorClassNames(
+                      categoryColors.get(cat) ?? BaseColors.Gray,
+                      colorPalette.text,
+                    ).fillColor,
+                    showOpacity
+                      ? getColorClassNames(
+                          categoryColors.get(cat) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).strokeColor
+                      : "",
+                    onValueChange ? "cursor-pointer" : "",
+                  )}
                   fill={`url(#${categoryColors.get(cat)})`}
                   fillOpacity={showOpacity ? 0.7 : 1}
                   key={cat}
@@ -233,6 +330,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
+                  shape={(props) => renderShape(props, activeNode, activeLegend)}
+                  onClick={onNodeClick}
                 />
               );
             })}
@@ -240,7 +339,17 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
+                  )
+                }
               />
             ) : null}
           </ReChartsScatterChart>

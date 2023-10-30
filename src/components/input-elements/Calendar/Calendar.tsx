@@ -13,9 +13,9 @@ import {
   DoubleArrowLeftHeadIcon,
   DoubleArrowRightHeadIcon,
 } from "assets";
-import { NavButton } from "./NavButton";
-import { Text } from "../../text-elements/Text";
 import { addYears, format } from "date-fns";
+import { Text } from "../../text-elements/Text";
+import { NavButton } from "./NavButton";
 
 function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   mode,
@@ -26,6 +26,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   disabled,
   enableYearNavigation,
   classNames,
+  weekStartsOn = 0,
   ...other
 }: T & { enableYearNavigation: boolean }) {
   return (
@@ -37,6 +38,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
       onSelect={onSelect as any}
       locale={locale}
       disabled={disabled}
+      weekStartsOn={weekStartsOn}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -55,6 +57,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
         row: "flex w-full mt-0.5",
         cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
         day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
+        day_today: "font-bold",
         day_selected:
           "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
         day_disabled:
@@ -83,8 +86,8 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
                 />
               </div>
 
-              <Text className="text-tremor-default tabular-nums text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
-                {format(props.displayMonth, "LLLL yyy")}
+              <Text className="text-tremor-default tabular-nums capitalize text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+                {format(props.displayMonth, "LLLL yyy", { locale })}
               </Text>
 
               <div className="flex items-center space-x-1">

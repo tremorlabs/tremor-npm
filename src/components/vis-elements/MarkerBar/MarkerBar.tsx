@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
-import { getColorClassNames, makeClassName, sizing } from "lib";
-import { Color } from "../../../lib";
-import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { getColorClassNames, makeClassName, sizing } from "lib";
+import { colorPalette } from "lib/theme";
+import { Color } from "../../../lib";
 
 const makeMarkerBarClassName = makeClassName("MarkerBar");
 
@@ -26,7 +26,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
     maxValue,
     markerTooltip,
     rangeTooltip,
-    showAnimation = true,
+    showAnimation = false,
     color,
     className,
     ...other
@@ -53,7 +53,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       )}
       {...other}
     >
-      {minValue && maxValue && (
+      {minValue !== undefined && maxValue !== undefined ? (
         <>
           <Tooltip text={rangeTooltip} {...rangeTooltipProps} />
           <div
@@ -75,7 +75,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             {...getRangeReferenceProps}
           />
         </>
-      )}
+      ) : null}
       <Tooltip text={markerTooltip} {...markerTooltipProps} />
       <div
         ref={markerTooltipProps.refs.setReference}

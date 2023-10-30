@@ -1,197 +1,164 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { BadgeDelta, Card, DonutChart, Flex, List, ListItem, Title } from "components";
-import { DeltaType } from "lib";
+import { DonutChart } from "components";
 
-import { simpleSingleCategoryData as data } from "stories/chart-elements/helpers/testData";
-import { valueFormatter } from "stories/chart-elements/helpers/utils";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { currencyValueFormatter } from "lib";
+import {
+  simpleBaseChartData as data2,
+  simpleSingleCategoryData as data,
+} from "stories/chart-elements/helpers/testData";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/ChartElements/DonutChart",
+const meta: Meta<typeof DonutChart> = {
+  title: "Components/Chart/DonutChart",
   component: DonutChart,
-} as ComponentMeta<typeof DonutChart>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  args: { category: "sales", index: "city", data },
+  // parameters: { layout: "centered" },
+};
 
-const ResponsiveTemplate: ComponentStory<typeof DonutChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <DonutChart {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <DonutChart {...args} />
-    </Card>
-    <Title className="mt-5">Desktop Dark</Title>
-    <Card className="bg-gray-900">
-      <DonutChart {...args} />
-    </Card>
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof DonutChart>;
+//   if (args.onValueChange?.length === 0) {
+//     args.onValueChange = undefined;
+//   }
+//   return (
+//     <>
+//       <Title>Base Layer (Beta)</Title>
+//       <div className="w-full mt-4">
+//         <Card>
+//           <Title>Sales</Title>
+//           <DonutChart className="mt-5" {...args} />
+//           <div className="mt-6">
+//             <List>
+//               {data.map((item) => (
+//                 <ListItem key={item.city}>
+//                   <span> {item.city} </span>
+//                   <Flex className="space-x-2" justifyContent="end">
+//                     <BadgeDelta
+//                       deltaType={item.deltaType as DeltaType}
+//                       isIncreasePositive={true}
+//                       size="xs"
+//                     >
+//                       {item.delta}
+//                     </BadgeDelta>
+//                   </Flex>
+//                 </ListItem>
+//               ))}
+//             </List>
+//           </div>
+//         </Card>
+//       </div>
+//     </>
+//   );
+// };
 
-const DefaultTemplate: ComponentStory<typeof DonutChart> = ({ ...args }) => (
-  <Card>
-    <DonutChart {...args} />
-  </Card>
-);
+export const Default: Story = {
+  args: {},
+};
 
-const BlockTemplate: ComponentStory<typeof DonutChart> = (args) => (
-  <>
-    <Title>Base Layer (Beta)</Title>
-    <div className="w-full mt-4">
-      <Card>
-        <Title>Sales</Title>
-        <DonutChart className="mt-5" {...args} />
-        <div className="mt-6">
-          <List>
-            {data.map((item) => (
-              <ListItem key={item.city}>
-                <span> {item.city} </span>
-                <Flex className="space-x-2" justifyContent="end">
-                  <BadgeDelta
-                    deltaType={item.deltaType as DeltaType}
-                    isIncreasePositive={true}
-                    size="xs"
-                  >
-                    {item.delta}
-                  </BadgeDelta>
-                </Flex>
-              </ListItem>
-            ))}
-          </List>
+export const ValueFormatter: Story = {
+  args: { valueFormatter: currencyValueFormatter },
+};
+
+export const CustomLabel: Story = {
+  args: { valueFormatter: currencyValueFormatter, label: "Hello there" },
+};
+
+export const LabelDisabled: Story = {
+  args: { valueFormatter: currencyValueFormatter, label: "Hello there", showLabel: false },
+};
+
+export const OtherColors: Story = {
+  args: { colors: ["blue", "amber", "sky", "emerald", "rose", "orange"] },
+};
+
+export const MoreDatapointsThanColors: Story = {
+  args: {
+    data: [
+      // extra long data array
+      ...data,
+      ...data,
+    ],
+    colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
+  },
+};
+
+export const LongValues: Story = {
+  args: {
+    data: data.map((dataPoint) => ({
+      ...dataPoint,
+      sales: dataPoint.sales * 10000000,
+    })),
+    valueFormatter: currencyValueFormatter,
+  },
+};
+
+export const VariantPie: Story = {
+  args: { variant: "pie" },
+};
+
+export const NoData: Story = {
+  args: { data: [] },
+};
+
+export const NoDataText: Story = {
+  args: { data: [], noDataText: "No data, try again later." },
+};
+
+export const Animation: Story = {
+  args: {
+    showAnimation: true,
+  },
+};
+
+export const LongAnimation: Story = {
+  args: {
+    showAnimation: true,
+    animationDuration: 5000,
+  },
+};
+
+export const OnValueChangeExample: Story = {
+  args: { onValueChange: (value) => alert(JSON.stringify(value)) },
+};
+
+export const OnValueChangePieExample: Story = {
+  args: { variant: "pie", onValueChange: (value) => alert(JSON.stringify(value)) },
+};
+
+//Custom tooltips
+export const CustomTooltipSimple: Story = {
+  args: {
+    data: data2,
+    index: "month",
+    category: "Sales",
+    valueFormatter: currencyValueFormatter,
+    customTooltip: (props: CustomTooltipType) => {
+      const { payload, active, label } = props;
+      if (!active || !payload) return null;
+      const categoryPayload = payload?.[0];
+      if (!categoryPayload) return null;
+      return (
+        <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+          <div className="flex flex-1 space-x-2.5">
+            <div className={`w-1.5 flex flex-col bg-${categoryPayload?.color}-500 rounded`} />
+            <div className="w-full">
+              <div className="flex items-center justify-between space-x-8">
+                <p className="text-right text-tremor-content whitespace-nowrap">
+                  {categoryPayload.name}
+                </p>
+                <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                  {currencyValueFormatter(categoryPayload.value as number)}
+                </p>
+              </div>
+              <p>{label}</p>
+              <p>{categoryPayload.dataKey}</p>
+            </div>
+          </div>
         </div>
-      </Card>
-    </div>
-  </>
-);
-
-const args = { category: "sales", index: "city" };
-
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-DefaultResponsive.args = {
-  ...args,
-  data,
-};
-
-export const WithValueFormatter = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithValueFormatter.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-};
-
-export const WithCustomLabel = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithCustomLabel.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-  label: "Hello there",
-};
-
-export const WithLabelDisabled = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithLabelDisabled.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-  label: "Hello there",
-  showLabel: false,
-};
-
-export const WithCustomColors = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithCustomColors.args = {
-  ...args,
-  data,
-  colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
-};
-
-export const WithMoreDatapointsThanColors = DefaultTemplate.bind({});
-WithMoreDatapointsThanColors.args = {
-  ...args,
-  data: [
-    // extra long data array
-    ...data,
-    ...data,
-  ],
-  colors: ["blue", "amber", "sky", "emerald", "rose", "orange"],
-};
-
-export const WithLongValues = ResponsiveTemplate.bind({});
-WithLongValues.args = {
-  ...args,
-  data: data.map((dataPoint) => ({
-    ...dataPoint,
-    sales: dataPoint.sales * 10000000,
-  })),
-  valueFormatter: valueFormatter,
-};
-
-export const WithVariantPie = DefaultTemplate.bind({});
-WithVariantPie.args = {
-  ...args,
-  data,
-  variant: "pie",
-};
-
-export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoData.args = {
-  ...args,
-};
-
-export const WithNoDataText = DefaultTemplate.bind({});
-WithNoDataText.args = {
-  ...args,
-  noDataText: "No data, try again later.",
-};
-
-export const BlockExample = BlockTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-BlockExample.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-};
-
-export const WithNoAnimation = DefaultTemplate.bind({});
-WithNoAnimation.args = {
-  data: data,
-  showAnimation: false,
-  category: "sales",
-  index: "city",
-};
-
-export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
-WithDefaultAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  category: "sales",
-  index: "city",
-};
-
-export const WithLongAnimationDuration = DefaultTemplate.bind({});
-WithLongAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 5000,
-  category: "sales",
-  index: "city",
-};
-
-export const WithShortAnimationDuration = DefaultTemplate.bind({});
-WithShortAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 100,
-  category: "sales",
-  index: "city",
+      );
+    },
+  },
 };

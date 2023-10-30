@@ -1,7 +1,7 @@
-import { Sizing, fontSize, sizing, spacing, getColorClassNames } from "lib";
+import { fontSize, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
-import { Color, ButtonVariant } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
+import { ButtonVariant, Color } from "../../../lib/inputTypes";
 
 export const iconSizes: { [size: string]: Sizing } = {
   xs: {
@@ -118,7 +118,10 @@ export const getButtonColors = (variant: ButtonVariant, color?: Color) => {
           : "hover:text-tremor-brand-emphasis dark:hover:text-dark-tremor-brand-emphasis",
         bgColor: getColorClassNames("transparent").bgColor,
         hoverBgColor: color
-          ? getColorClassNames(color, colorPalette.lightBackground).hoverBgColor
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.background).hoverBgColor,
+              "hover:bg-opacity-20 dark:hover:bg-opacity-20",
+            )
           : "hover:bg-tremor-brand-faint dark:hover:bg-dark-tremor-brand-faint",
         borderColor: color
           ? getColorClassNames(color, colorPalette.border).borderColor

@@ -1,8 +1,8 @@
 "use client";
-import React, { ReactNode, useRef, useState } from "react";
-import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import { ExclamationFilledIcon } from "assets";
+import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
+import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -13,6 +13,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
+  onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
 }
 
@@ -29,9 +30,17 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     stepper,
     makeInputClassName,
     className,
+    onChange,
+    onValueChange,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const toggleIsPasswordVisible = useCallback(
+    () => setIsPasswordVisible(!isPasswordVisible),
+    [isPasswordVisible, setIsPasswordVisible],
+  );
 
   const Icon = icon;
 
@@ -96,7 +105,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               "dark:text-dark-tremor-content-subtle",
               sizing.lg.height,
               sizing.lg.width,
-              spacing.xl.marginLeft,
+              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -104,17 +113,17 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           ref={mergeRefs([inputRef, ref])}
           defaultValue={defaultValue}
           value={value}
-          type={type}
+          type={isPasswordVisible ? "text" : type}
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default",
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default",
             // light
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? spacing.lg.paddingLeft : spacing.twoXl.paddingLeft,
+            Icon ? spacing.sm.paddingLeft : spacing.lg.paddingLeft,
             error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
             spacing.sm.paddingY,
             disabled
@@ -124,8 +133,43 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           placeholder={placeholder}
           disabled={disabled}
           data-testid="base-input"
+          onChange={(e) => {
+            onChange?.(e);
+            onValueChange?.(e.target.value);
+          }}
           {...other}
         />
+        {type === "password" && !disabled ? (
+          <button
+            className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
+            type="button"
+            onClick={() => toggleIsPasswordVisible()}
+          >
+            {isPasswordVisible ? (
+              <EyeOffIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5 transition",
+                  // light
+                  "text-tremor-content-subtle hover:text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                )}
+              />
+            ) : (
+              <EyeIcon
+                className={tremorTwMerge(
+                  // common
+                  "flex-none h-5 w-5 transition",
+                  // light
+                  "text-tremor-content-subtle hover:text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                )}
+              />
+            )}
+          </button>
+        ) : null}
         {error ? (
           <ExclamationFilledIcon
             className={tremorTwMerge(

@@ -1,199 +1,312 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { BarChart, Card, Title } from "components";
-import { simpleBaseChartData as data } from "./helpers/testData";
-import { valueFormatter } from "stories/chart-elements/helpers/utils";
+import { BarChart } from "components";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { Color, currencyValueFormatter } from "lib";
+import {
+  simpleBaseChartData as data,
+  singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
+} from "./helpers/testData";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/ChartElements/BarChart",
+const meta: Meta<typeof BarChart> = {
+  title: "Components/Chart/BarChart",
   component: BarChart,
-} as ComponentMeta<typeof BarChart>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const ResponsiveTemplate: ComponentStory<typeof BarChart> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <BarChart {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <BarChart {...args} />
-    </Card>
-  </>
-);
-
-const DefaultTemplate: ComponentStory<typeof BarChart> = ({ ...args }) => (
-  <Card>
-    <BarChart {...args} />
-  </Card>
-);
-const args = { categories: ["Sales", "Successful Payments"], index: "month" };
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-DefaultResponsive.args = {
-  ...args,
-  data,
+  args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
+  // parameters: { layout: "centered" },
 };
 
-export const WithStacked = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithStacked.args = {
-  ...args,
-  data,
-  stack: true,
+export default meta;
+type Story = StoryObj<typeof BarChart>;
+
+export const Default: Story = {
+  args: {},
 };
 
-export const WithRelative = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithRelative.args = {
-  ...args,
-  data,
-  relative: true,
+export const Stacked: Story = {
+  args: { stack: true },
 };
 
-export const WithLayoutVertical = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithLayoutVertical.args = {
-  ...args,
-  data,
-  layout: "vertical",
+export const Relative: Story = {
+  args: { relative: true },
 };
 
-export const WithAutoMinValue = ResponsiveTemplate.bind({});
-WithAutoMinValue.args = {
-  ...args,
-  data,
-  autoMinValue: true,
+export const LayoutVertical: Story = {
+  args: { layout: "vertical" },
 };
 
-export const WithAutoMinValueAndLayoutVertical = ResponsiveTemplate.bind({});
-WithAutoMinValueAndLayoutVertical.args = {
-  ...args,
-  data,
-  layout: "vertical",
-  autoMinValue: true,
+export const AutoMinValue: Story = {
+  args: { autoMinValue: true },
 };
 
-export const WithMinValueAndMaxValue = ResponsiveTemplate.bind({});
-WithMinValueAndMaxValue.args = {
-  ...args,
-  data,
-  minValue: -1000,
-  maxValue: 5000,
+export const AutoMinValueAndLayoutVertical: Story = {
+  args: { autoMinValue: true, layout: "vertical" },
 };
 
-export const WithValueFormatter = ResponsiveTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithValueFormatter.args = {
-  ...args,
-  data,
-  valueFormatter: valueFormatter,
-  colors: ["blue", "green"],
+export const MinValueAndMaxValue: Story = {
+  args: { minValue: -1000, maxValue: 5000 },
 };
 
-export const WithCustomColors = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithCustomColors.args = {
-  ...args,
-  data,
-  colors: ["blue", "green"],
+export const ValueFormatter: Story = {
+  args: { valueFormatter: currencyValueFormatter },
 };
 
-export const WithNoGradient = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoGradient.args = {
-  ...args,
-  data,
-  showGradient: false,
+export const OtherColors: Story = {
+  args: { colors: ["blue", "green"] },
 };
 
-export const WithChangedCategoriesOrder = DefaultTemplate.bind({});
-WithChangedCategoriesOrder.args = {
-  ...args,
-  data,
+// @sev
+export const NoGradient: Story = {
+  args: { showGradient: false },
 };
 
-export const WithLessColorsThanCategories = DefaultTemplate.bind({});
-WithLessColorsThanCategories.args = {
-  ...args,
-  data,
-  colors: ["green"],
+export const ChangedCategoriesOrder: Story = {
+  args: { categories: ["Successful Payments", "Sales"] },
 };
 
-export const WithLongValues = ResponsiveTemplate.bind({});
-WithLongValues.args = {
-  data,
-  categories: ["This is an edge case"],
-  index: "month",
-  valueFormatter: valueFormatter,
+export const LessColorsThanCategories: Story = {
+  args: { colors: ["green"] },
 };
 
-export const WithMultipleCategories = ResponsiveTemplate.bind({});
-WithMultipleCategories.args = {
-  data,
-  categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
-  index: "month",
-  valueFormatter: valueFormatter,
+export const LongValues: Story = {
+  args: { categories: ["This is an edge case"] },
 };
 
-export const WithNoData = DefaultTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithNoData.args = args;
-
-export const WithNoDataText = DefaultTemplate.bind({});
-WithNoDataText.args = {
-  ...args,
-  noDataText: "No data, try again later.",
+export const MultipleCategories: Story = {
+  args: {
+    categories: ["Sales", "Successful Payments", "This is an edge case", "Test"],
+    yAxisWidth: 110,
+  },
 };
 
-export const WithNoCategories = DefaultTemplate.bind({});
-WithNoCategories.args = {
-  ...args,
-  data,
+export const NoData: Story = {
+  args: { data: [] },
 };
 
-export const WithNoDataKey = DefaultTemplate.bind({});
-WithNoDataKey.args = {
-  ...args,
-  data,
+export const NoDataText: Story = {
+  args: { data: [], noDataText: "No data, try again later." },
 };
 
-export const WithNoAnimation = DefaultTemplate.bind({});
-WithNoAnimation.args = {
-  data: data,
-  showAnimation: false,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const NoCategories: Story = {
+  args: { categories: undefined },
 };
 
-export const WithDefaultAnimationDuration = DefaultTemplate.bind({});
-WithDefaultAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const NoIndex: Story = {
+  args: { index: undefined },
 };
 
-export const WithLongAnimationDuration = DefaultTemplate.bind({});
-WithLongAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 5000,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const Animation: Story = {
+  args: { showAnimation: true },
 };
 
-export const WithShortAnimationDuration = DefaultTemplate.bind({});
-WithShortAnimationDuration.args = {
-  data: data,
-  showAnimation: true,
-  animationDuration: 100,
-  categories: ["Sales", "Successful Payments"],
-  index: "month",
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
+};
+
+export const OnValueChange: Story = {
+  args: { onValueChange: (v: any) => alert(JSON.stringify(v)) },
+};
+
+export const OneDataValue: Story = {
+  args: { data: data.slice(0, 1) },
+};
+
+export const OneDataValueAndOnValueChange: Story = {
+  args: { data: data.slice(0, 1), onValueChange: (v: any) => alert(JSON.stringify(v)) },
+};
+
+export const SingleAndMultipleData: Story = {
+  args: { data: singleAndMultipleData },
+};
+
+export const SingleAndMultipleDataAndOnValueChange: Story = {
+  args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
+};
+
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndPreserveStartEnd: Story = {
+  args: { data: longBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndPreserveStartEnd: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
+};
+
+//Custom tooltips
+const customTooltipColors: Color[] = ["cyan"];
+const customTooltipIndex = "month";
+const getBadgeColor = (percentage: number | undefined) => {
+  if (!percentage || percentage === 0) return "gray";
+  else if (percentage > 0) return "emerald";
+  else return "red";
+};
+
+export const CustomTooltipSimple: Story = {
+  args: {
+    yAxisWidth: 65,
+    index: customTooltipIndex,
+    categories: ["Sales"],
+    colors: customTooltipColors,
+    valueFormatter: currencyValueFormatter,
+    customTooltip: (props: CustomTooltipType) => {
+      const { payload, active, label } = props;
+      if (!active || !payload) return null;
+
+      const categoryPayload = payload?.[0];
+      if (!categoryPayload) return null;
+      return (
+        <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+          <div className="flex flex-1 space-x-2.5">
+            <div className={`w-1.5 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
+            <div className="w-full">
+              <p className="font-medium text-tremor-content-emphasis">{label}</p>
+              <div className="flex items-center justify-between space-x-8">
+                <p className="text-right text-tremor-content whitespace-nowrap">
+                  {categoryPayload.dataKey}
+                </p>
+                <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                  {currencyValueFormatter(categoryPayload.value as number)}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+};
+
+export const CustomTooltipPreviousDay: Story = {
+  args: {
+    yAxisWidth: 65,
+    index: customTooltipIndex,
+    categories: ["Sales"],
+    colors: customTooltipColors,
+    valueFormatter: currencyValueFormatter,
+    customTooltip: (props: CustomTooltipType) => {
+      const { payload, active, label } = props;
+      if (!active || !payload) return null;
+
+      const categoryPayload = payload?.[0];
+      if (!categoryPayload) return null;
+      const value = categoryPayload.value as number;
+      const dataKey = categoryPayload.dataKey as number;
+
+      const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
+      const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
+      const prev = previousValues ? previousValues[dataKey] : undefined;
+      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const color = getBadgeColor(percentage);
+
+      return (
+        <div className="w-56 translate-y-14 flex items-center justify-between rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+          <span className="text-right text-tremor-content whitespace-nowrap">{dataKey}</span>
+          <div className="flex items-center space-x-2">
+            <span className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+              {currencyValueFormatter(value)}
+            </span>
+            {percentage ? (
+              <span
+                className={`inline-flex text-xs px-1.5 py-0.5 bg-${color}-100 text-${color}-600 rounded`}
+              >
+                {percentage > 0 ? "+" : ""}
+                {percentage.toFixed(1)}%
+              </span>
+            ) : null}
+          </div>
+        </div>
+      );
+    },
+  },
+};
+
+export const CustomTooltipComplex: Story = {
+  args: {
+    yAxisWidth: 65,
+    index: customTooltipIndex,
+    categories: ["Sales"],
+    colors: customTooltipColors,
+    valueFormatter: currencyValueFormatter,
+    customTooltip: (props: CustomTooltipType) => {
+      const { payload, active, label } = props;
+      if (!active || !payload) return null;
+
+      const categoryPayload = payload?.[0];
+      if (!categoryPayload) return null;
+      const value = categoryPayload.value as number;
+      const dataKey = categoryPayload.dataKey as number;
+
+      const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
+      const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
+      const prev = previousValues ? previousValues[dataKey] : undefined;
+      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const badgeColor = getBadgeColor(percentage);
+
+      return (
+        <div className="rounded-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+          <div className="flex flex-1 space-x-2.5">
+            <div className={`w-1 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
+            <div className="w-full">
+              <p className="text-tremor-default font-medium text-tremor-content-emphasis">
+                {dataKey}
+              </p>
+              <p className="text-tremor-default text-tremor-content-subtle">{label}</p>
+              <p className="mt-2 font-medium whitespace-nowrap text-tremor-content-emphasis">
+                {currencyValueFormatter(value)}
+              </p>
+              {percentage ? (
+                <div className="mt-1 flex items-end space-x-2">
+                  <div
+                    className={`inline-flex text-tremor-default px-1.5 py-0.5 bg-${badgeColor}-100 text-${badgeColor}-600 rounded`}
+                  >
+                    {percentage > 0 ? "+" : null}
+                    {percentage.toFixed(1)}%
+                  </div>
+                  <div className="whitespace-nowrap text-tremor-default text-tremor-content-subtle">
+                    from previous month
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
 };

@@ -1,5 +1,5 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 import MultiSelect from "components/input-elements/MultiSelect/MultiSelect";
 import MultiSelectItem from "components/input-elements/MultiSelect/MultiSelectItem";

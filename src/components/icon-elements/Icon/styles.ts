@@ -1,7 +1,7 @@
-import { Sizing, border, getColorClassNames, sizing, spacing } from "lib";
+import { border, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
-import { Color, IconVariant } from "../../../lib/inputTypes";
 import { colorPalette } from "lib/theme";
+import { Color, IconVariant } from "../../../lib/inputTypes";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -111,7 +111,10 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
           ? getColorClassNames(color, colorPalette.text).textColor
           : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
-          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.background).bgColor,
+              "bg-opacity-20",
+            )
           : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
         borderColor: "",
         ringColor: "",
@@ -122,7 +125,10 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
           ? getColorClassNames(color, colorPalette.text).textColor
           : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
-          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.background).bgColor,
+              "bg-opacity-20",
+            )
           : "bg-tremor-background dark:bg-dark-tremor-background",
         borderColor: "border-tremor-border dark:border-dark-tremor-border",
         ringColor: "",
@@ -133,7 +139,10 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
           ? getColorClassNames(color, colorPalette.text).textColor
           : "text-tremor-brand-inverted dark:text-dark-tremor-brand-inverted",
         bgColor: color
-          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.background).bgColor,
+              "bg-opacity-20",
+            )
           : "bg-tremor-brand dark:bg-dark-tremor-brand",
         borderColor: "border-tremor-brand-inverted dark:border-dark-tremor-brand-inverted",
         ringColor: "ring-tremor-ring dark:ring-dark-tremor-ring",
@@ -144,13 +153,16 @@ export const getIconColors = (variant: IconVariant, color?: Color) => {
           ? getColorClassNames(color, colorPalette.text).textColor
           : "text-tremor-brand dark:text-dark-tremor-brand",
         bgColor: color
-          ? getColorClassNames(color, colorPalette.lightBackground).bgColor
+          ? tremorTwMerge(
+              getColorClassNames(color, colorPalette.background).bgColor,
+              "bg-opacity-20",
+            )
           : "bg-tremor-background dark:bg-dark-tremor-background",
         borderColor: color
           ? getColorClassNames(color, colorPalette.ring).borderColor
           : "border-tremor-brand-subtle dark:border-dark-tremor-brand-subtle",
         ringColor: color
-          ? getColorClassNames(color, colorPalette.lightRing).ringColor
+          ? tremorTwMerge(getColorClassNames(color, colorPalette.ring).ringColor, "ring-opacity-40")
           : "ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted",
       };
   }

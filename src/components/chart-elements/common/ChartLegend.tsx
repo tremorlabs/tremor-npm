@@ -2,13 +2,15 @@ import React, { useRef } from "react";
 
 import { useOnWindowResize } from "hooks";
 
-import { Color } from "../../../lib";
 import { Legend } from "components/text-elements/Legend";
+import { Color } from "../../../lib";
 
 const ChartLegend = (
   { payload }: any,
   categoryColors: Map<string, Color>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
+  activeLegend: string | undefined,
+  onClick?: (category: string, color: Color) => void,
   legendOverwriteFn?: (s: string) => string,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);
@@ -21,13 +23,17 @@ const ChartLegend = (
     setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
   });
 
+  const filteredPayload = payload.filter((item: any) => item.type !== "none");
+
   return (
     <div ref={legendRef} className="flex items-center justify-end">
       <Legend
-        categories={payload.map((entry: any) =>
+        categories={filteredPayload.map((entry: any) =>
           legendOverwriteFn ? legendOverwriteFn(entry.value) : entry.value,
         )}
-        colors={payload.map((entry: any) => categoryColors.get(entry.value))}
+        colors={filteredPayload.map((entry: any) => categoryColors.get(entry.value))}
+        onClickLegendItem={onClick}
+        activeLegend={activeLegend}
       />
     </div>
   );

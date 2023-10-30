@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import { MinusIcon, PlusIcon } from "assets";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
-import { PlusIcon, MinusIcon } from "assets";
+import React, { useRef } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export interface NumberInputProps
@@ -81,7 +81,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepDown();
-                onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
               }}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
@@ -104,7 +104,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepUp();
-                onValueChange?.(parseFloat(inputRef.current?.value ?? ""));
+                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
               }}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,

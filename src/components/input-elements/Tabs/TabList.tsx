@@ -1,12 +1,12 @@
 "use client";
-import React, { createContext } from "react";
 import { tremorTwMerge } from "lib";
+import React, { createContext } from "react";
 
 import { BaseColorContext } from "contexts";
 
+import { Tab } from "@headlessui/react";
 import { border, makeClassName, spacing } from "lib";
 import { Color } from "../../../lib";
-import { Tab } from "@headlessui/react";
 
 const makeTabListClassName = makeClassName("TabList");
 
@@ -27,7 +27,7 @@ const variantStyles: { [key in TabVariant]: string } = {
   ),
   solid: tremorTwMerge(
     // common
-    "inline-flex p-1 rounded-tremor-default",
+    "inline-flex p-0.5 rounded-tremor-default",
     // light
     "bg-tremor-background-subtle",
     // dark
