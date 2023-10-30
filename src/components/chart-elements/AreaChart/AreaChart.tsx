@@ -31,7 +31,6 @@ import {
   getColorClassNames,
   themeColorRange,
   tremorTwMerge,
-  Color,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
@@ -40,7 +39,6 @@ export interface AreaChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
   legendOverwriteFn?: (s: string) => string;
-  additionalTooltipInformation?: { field: string; name: string; color?: Color }[];
 }
 
 interface ActiveDot {
@@ -75,7 +73,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     allowDecimals = true,
     tooltipValueFormatter = undefined,
     legendOverwriteFn = undefined,
-    additionalTooltipInformation = [],
     xAxisProps = {},
     yAxisProps = {},
     noDataText,
@@ -252,11 +249,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     { payload },
                     categoryColors,
                     setLegendHeight,
-                    legendOverwriteFn,
                     activeLegend,
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    legendOverwriteFn,
                   )
                 }
               />

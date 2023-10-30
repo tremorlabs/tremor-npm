@@ -79,7 +79,6 @@ export interface ChartTooltipProps {
   categoryColors: Map<string, Color>;
   valueFormatter: ValueFormatter;
   legendOverwriteFn?: (s: string) => string;
-  additionalTooltipInformation?: { field: string; name: string; color?: Color }[];
 }
 
 const ChartTooltip = ({
@@ -89,7 +88,6 @@ const ChartTooltip = ({
   categoryColors,
   valueFormatter,
   legendOverwriteFn,
-  additionalTooltipInformation,
 }: ChartTooltipProps) => {
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none");
@@ -126,7 +124,7 @@ const ChartTooltip = ({
             <ChartTooltipRow
               key={`id-${idx}`}
               value={valueFormatter(value)}
-              name={name}
+              name={legendOverwriteFn ? legendOverwriteFn(name) : name}
               color={categoryColors.get(name) ?? BaseColors.Blue}
             />
           ))}
