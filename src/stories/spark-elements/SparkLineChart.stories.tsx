@@ -18,7 +18,6 @@ const meta: Meta<typeof SparkLineChart> = {
     categories: ["Sales", "Successful Payments"],
     index: "month",
     data,
-    className: "h-12 w-28",
     colors: ["emerald", "rose"],
   },
   parameters: { layout: "centered" },

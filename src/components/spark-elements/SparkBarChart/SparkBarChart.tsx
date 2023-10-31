@@ -31,7 +31,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
   const categoryColors = constructCategoryColors(categories, colors);
 
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart

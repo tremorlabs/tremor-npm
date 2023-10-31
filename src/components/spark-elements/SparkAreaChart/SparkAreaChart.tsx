@@ -34,7 +34,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
   const categoryColors = constructCategoryColors(categories, colors);
 
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsAreaChart data={data} margin={{ top: 1, left: 1, right: 1, bottom: 1 }}>
