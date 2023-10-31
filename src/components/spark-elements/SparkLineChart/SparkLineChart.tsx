@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Line,
-  LineChart as ReChartsLineChart,
-  ReferenceLine,
-  ResponsiveContainer,
-  XAxis,
-} from "recharts";
+import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis } from "recharts";
 
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
@@ -31,7 +25,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     connectNulls = false,
     noDataText,
     className,
-    referenceLine,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
@@ -57,7 +50,7 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                 type={curveType}
                 dataKey={category}
                 stroke=""
-                strokeWidth={1}
+                strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
                 isAnimationActive={showAnimation}
@@ -65,22 +58,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                 connectNulls={connectNulls}
               />
             ))}
-            {referenceLine ? (
-              <ReferenceLine
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-content-subtle",
-                  // dark
-                  "dark:stroke-dark-tremor-content-subtle",
-                )}
-                y={referenceLine}
-                stroke=""
-                strokeDasharray="3 3"
-                strokeWidth={1}
-              />
-            ) : null}
           </ReChartsLineChart>
         ) : (
           <NoData noDataText={noDataText} />

@@ -19,9 +19,7 @@ interface BaseSparkChartProps
   categories: string[];
   index: string;
   colors?: Color[];
-  showGradient?: boolean;
   noDataText?: string;
-  referenceLine?: number;
 }
 
 export default BaseSparkChartProps;

@@ -2,13 +2,7 @@
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import React from "react";
 
-import {
-  Bar,
-  BarChart as ReChartsBarChart,
-  ResponsiveContainer,
-  ReferenceLine,
-  XAxis,
-} from "recharts";
+import { Bar, BarChart as ReChartsBarChart, ResponsiveContainer, XAxis } from "recharts";
 
 import { BaseColors, themeColorRange } from "lib";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
@@ -31,7 +25,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     animationDuration = 900,
     showAnimation = false,
     noDataText,
-    referenceLine,
     className,
     ...other
   } = props;
@@ -44,7 +37,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
           <ReChartsBarChart
             data={data}
             stackOffset={relative ? "expand" : "none"}
-            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+            margin={{ top: 0, left: -1.5, right: -1.5, bottom: 0 }}
           >
             <XAxis hide dataKey={index} />
             {categories.map((category) => (
@@ -65,22 +58,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
                 animationDuration={animationDuration}
               />
             ))}
-            {referenceLine ? (
-              <ReferenceLine
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-content-subtle",
-                  // dark
-                  "dark:stroke-dark-tremor-content-subtle",
-                )}
-                y={referenceLine}
-                stroke=""
-                strokeDasharray="3 3"
-                strokeWidth={1}
-              />
-            ) : null}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />

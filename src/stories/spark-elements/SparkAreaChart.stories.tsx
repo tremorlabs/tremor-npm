@@ -121,9 +121,6 @@ export const MultipleZeroValues: Story = {
 };
 
 export const WithCard: Story = {
-  args: {
-    referenceLine: 3000,
-  },
   decorators: [
     (Story) => (
       <ExampleCard>

@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Area,
-  AreaChart as ReChartsAreaChart,
-  ResponsiveContainer,
-  ReferenceLine,
-  XAxis,
-} from "recharts";
+import { Area, AreaChart as ReChartsAreaChart, ResponsiveContainer, XAxis } from "recharts";
 
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
@@ -18,6 +12,7 @@ export interface SparkAreaChartProps extends BaseSparkChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  showGradient?: boolean;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, ref) => {
@@ -34,7 +29,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     connectNulls = false,
     noDataText,
     className,
-    referenceLine,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
@@ -101,7 +95,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                 dataKey={category}
                 stroke=""
                 fill={`url(#${categoryColors.get(category)})`}
-                strokeWidth={1}
+                strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
                 isAnimationActive={showAnimation}
@@ -110,22 +104,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                 connectNulls={connectNulls}
               />
             ))}
-            {referenceLine ? (
-              <ReferenceLine
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-content-subtle",
-                  // dark
-                  "dark:stroke-dark-tremor-content-subtle",
-                )}
-                y={referenceLine}
-                stroke=""
-                strokeDasharray="3 3"
-                strokeWidth={1}
-              />
-            ) : null}
           </ReChartsAreaChart>
         ) : (
           <NoData noDataText={noDataText} />

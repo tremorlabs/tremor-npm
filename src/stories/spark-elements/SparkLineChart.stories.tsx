@@ -33,10 +33,6 @@ export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
 };
 
-export const NoGradient: Story = {
-  args: { showGradient: false },
-};
-
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
@@ -115,9 +111,6 @@ export const MultipleZeroValues: Story = {
 };
 
 export const WithCard: Story = {
-  args: {
-    referenceLine: 3000,
-  },
   decorators: [
     (Story) => (
       <ExampleCard>
