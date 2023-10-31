@@ -22,7 +22,11 @@ import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/ut
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 
-const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
+const defaultRenderShape = (
+  props: any,
+  activeBar: any | undefined,
+  activeLegend: string | undefined,
+) => {
   const { x, y, width, height, fillOpacity, name, payload, value } = props;
 
   return (
@@ -80,6 +84,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     onValueChange,
     customTooltip,
     className,
+    renderShape = undefined,
     xAxisProps = {},
     yAxisProps = {},
     gridProps = {},
@@ -329,7 +334,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend)}
+                shape={(props: any) =>
+                  renderShape
+                    ? renderShape(props, activeBar, activeLegend)
+                    : defaultRenderShape(props, activeBar, activeLegend)
+                }
                 onClick={onBarClick}
                 {...barProps}
               />

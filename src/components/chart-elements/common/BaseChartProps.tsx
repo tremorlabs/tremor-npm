@@ -35,6 +35,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipType>;
+  renderShape?: (props: any, activeBar: any | undefined, activeLegend: string | undefined) => any;
   xAxisAngle?: number;
   xAxisTextAnchor?: string;
   margin?: any;
