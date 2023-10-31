@@ -17,6 +17,9 @@ const baseArrowClasses =
 const enabledArrowClasses =
   "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
 
+const stepDelay = 600;
+const stepInterval = 100;
+
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
   const { onSubmit, enableStepper = true, disabled, onValueChange, onChange, ...other } = props;
 
@@ -38,6 +41,32 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
     setIsArrowUpPressed(false);
   }, []);
 
+  // for long press to step up/down
+  const stepTimeoutRef = useRef<number | null>(null);
+  const onStopStepping = () => {
+    stepTimeoutRef && clearTimeout(stepTimeoutRef.current!);
+  };
+  const onStepMouseDown = React.useCallback((e: React.MouseEvent, up: boolean) => {
+    e.preventDefault();
+    onStopStepping();
+
+    up ? inputRef.current?.stepUp() : inputRef.current?.stepDown();
+    inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
+
+    function step() {
+      up ? inputRef.current?.stepUp() : inputRef.current?.stepDown();
+      inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
+      stepTimeoutRef.current = setTimeout(step, stepInterval) as unknown as number;
+    }
+    stepTimeoutRef.current = setTimeout(step, stepDelay) as unknown as number;
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      onStopStepping();
+    };
+  }, []);
+
   return (
     <BaseInput
       type="number"
@@ -46,6 +75,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
       makeInputClassName={makeClassName("NumberInput")}
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+          onStopStepping();
           const value = inputRef.current?.value;
           onSubmit?.(parseFloat(value ?? ""));
         }
@@ -76,13 +106,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
             <div
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
-              onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
-              onMouseUp={() => {
+              onMouseDown={(e) => {
+                e.preventDefault();
                 if (disabled) return;
-                inputRef.current?.stepDown();
-                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
+                onStepMouseDown(e, false);
               }}
+              onTouchStart={(e) => e.preventDefault()}
+              onMouseUp={() => onStopStepping()}
+              onMouseLeave={() => onStopStepping()}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
                 baseArrowClasses,
@@ -99,13 +130,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
             <div
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
-              onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
-              onMouseUp={() => {
+              onMouseDown={(e) => {
+                e.preventDefault();
                 if (disabled) return;
-                inputRef.current?.stepUp();
-                inputRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
+                onStepMouseDown(e, true);
               }}
+              onTouchStart={(e) => e.preventDefault()}
+              onMouseUp={() => onStopStepping()}
+              onMouseLeave={() => onStopStepping()}
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
                 baseArrowClasses,
