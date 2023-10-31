@@ -57,6 +57,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     data = [],
     categories = [],
     index,
+    children = undefined,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
     layout = "horizontal",
@@ -317,6 +318,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 }
               />
             ) : null}
+            {children}
             {categories.map((category) => (
               <Bar
                 className={tremorTwMerge(

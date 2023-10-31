@@ -51,6 +51,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     data = [],
     categories = [],
     index,
+    children = undefined,
     stack = false,
     colors = themeColorRange,
     valueFormatter = defaultValueFormatter,
@@ -258,6 +259,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 }
               />
             ) : null}
+            {children}
             {categories.map((category) => {
               return (
                 <defs key={category}>

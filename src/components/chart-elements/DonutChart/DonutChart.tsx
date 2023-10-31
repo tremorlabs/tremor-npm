@@ -1,6 +1,6 @@
 "use client";
 import { BaseColors, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import {
   Pie,
   PieChart as ReChartsDonutChart,
@@ -26,6 +26,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   category?: string;
   index?: string;
   colors?: Color[];
+  children?: ReactNode;
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
   tooltipValueFormatter?: ValueFormatter;
@@ -80,6 +81,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     data = [],
     category = "value",
     index = "name",
+    children = undefined,
     colors = themeColorRange,
     variant = "donut",
     valueFormatter = defaultValueFormatter,
@@ -223,6 +225,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                 )
               }
             />
+            {children}
           </ReChartsDonutChart>
         ) : (
           <NoData noDataText={noDataText} />

@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Color, ValueFormatter, IntervalType } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 import { CustomTooltipType } from "./CustomTooltipProps";
@@ -30,6 +31,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   showGridLines?: boolean;
   autoMinValue?: boolean;
   minValue?: number;
+  children?: ReactNode;
   maxValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
