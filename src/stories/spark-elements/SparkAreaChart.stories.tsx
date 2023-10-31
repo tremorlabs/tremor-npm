@@ -121,6 +121,9 @@ export const MultipleZeroValues: Story = {
 };
 
 export const WithCard: Story = {
+  args: {
+    categories: ["Sales"],
+  },
   decorators: [
     (Story) => (
       <ExampleCard>

@@ -37,7 +37,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsAreaChart data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+          <ReChartsAreaChart data={data} margin={{ top: 1, left: 1, right: 1, bottom: 1 }}>
             <XAxis hide dataKey={index} />
             {categories.map((category) => {
               return (
