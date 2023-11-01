@@ -1,69 +1,49 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { makeClassName } from "lib";
 
-const makeCheckboxClassName = makeClassName("Checkbox");
-export interface CheckBoxProps {
-  label: string;
+export interface CheckboxProps {
   onChange: (checked: boolean) => void;
   checked?: boolean;
-  className?: string;
-  disabled?: boolean;
   defaultChecked?: boolean;
-  containerClassName?: string;
-  labelClassName?: string;
-  checkBoxClassName?: string;
+  disabled?: boolean;
+  className?: string;
 }
 
-const CheckBox = React.forwardRef<HTMLDivElement, CheckBoxProps>(
-  (
-    {
-      label,
-      onChange,
-      checked,
-      className,
-      defaultChecked = false,
-      disabled = false,
-      containerClassName,
-      labelClassName,
-      checkBoxClassName,
-    }: CheckBoxProps,
-    ref,
-  ) => {
-    const [value, setValue] = useState(checked !== undefined ? checked : defaultChecked);
+const makeCheckboxClassName = makeClassName("Checkbox");
 
-    useEffect(() => {
-      checked !== undefined && setValue(checked);
-    }, [checked]);
+const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>((props, ref) => {
+  const { onChange, checked, defaultChecked, disabled, className, ...other } = props;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.checked);
-      setValue(checked !== undefined ? checked : e.target.checked);
-    };
+  const [value, setValue] = useState(checked !== undefined ? checked : defaultChecked);
 
-    return (
-      <div
-        ref={ref}
-        className={twMerge(
-          "flex items-center",
-          makeCheckboxClassName("root"),
-          containerClassName,
-          className,
-        )}
-      >
-        <input
-          type="checkbox"
-          className={twMerge("cursor-pointer", checkBoxClassName)}
-          checked={value}
-          onChange={handleChange}
-          disabled={disabled}
-        />
-        <label className={twMerge("ml-2", labelClassName)}>{label}</label>
-      </div>
-    );
-  },
-);
+  useEffect(() => {
+    checked !== undefined && setValue(checked);
+  }, [checked]);
 
-CheckBox.displayName = "CheckBox";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.checked);
+    setValue(checked !== undefined ? checked : e.target.checked);
+  };
 
-export default CheckBox;
+  return (
+    <div
+      ref={ref}
+      className={twMerge("flex items-center", makeCheckboxClassName("root"), className)}
+      {...other}
+    >
+      <input
+        type="checkbox"
+        className={twMerge("cursor-pointer disabled:cursor-not-allowed")}
+        checked={value}
+        onChange={handleChange}
+        disabled={disabled}
+      />
+    </div>
+  );
+});
+
+Checkbox.displayName = "Checkbox";
+
+export default Checkbox;

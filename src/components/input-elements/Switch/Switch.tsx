@@ -1,3 +1,4 @@
+"use client";
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 import { useInternalState } from "hooks";
 import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";

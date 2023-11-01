@@ -1,40 +1,31 @@
-import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import CheckBox from "components/input-elements/CheckBox";
+import type { Meta, StoryObj } from "@storybook/react";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/CheckBox",
-  component: CheckBox,
-} as ComponentMeta<typeof CheckBox>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+import { Checkbox } from "components";
 
-const Template: ComponentStory<typeof CheckBox> = (args) => (
-  <CheckBox
-    className="form-checkbox cursor-pointer h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-    {...args}
-  />
-);
-
-const baseArgs = { label: "Checkbox" };
-
-export const Default = Template.bind({});
-Default.args = baseArgs;
-
-export const Checked = Template.bind({});
-Checked.args = {
-  ...baseArgs,
-  checked: true,
+const meta: Meta<typeof Checkbox> = {
+  title: "Components/Input/Checkbox",
+  component: Checkbox,
 };
 
-export const DefaultChecked = Template.bind({});
-DefaultChecked.args = {
-  ...baseArgs,
-  defaultChecked: true,
+export default meta;
+type Story = StoryObj<typeof Checkbox>;
+
+export const Default: Story = {};
+
+export const Checked: Story = {
+  args: {
+    checked: true,
+  },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...baseArgs,
-  disabled: true,
+export const DefaultChecked: Story = {
+  args: {
+    defaultChecked: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
 };

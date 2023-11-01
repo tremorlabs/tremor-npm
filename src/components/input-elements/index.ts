@@ -1,5 +1,5 @@
 export * from "./Button";
-export * from "./CheckBox";
+export * from "./Checkbox";
 export * from "./DatePicker";
 export * from "./DateRangePicker";
 export * from "./MultiSelect";
