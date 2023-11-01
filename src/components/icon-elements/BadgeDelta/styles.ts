@@ -1,4 +1,4 @@
-import { BaseColors, DeltaTypes, Sizing, colorClassNames, fontSize, sizing, spacing } from "lib";
+import { BaseColors, DeltaTypes, fontSize, getColorClassNames, Sizing, sizing, spacing } from "lib";
 
 import {
   ArrowDownIcon,
@@ -105,24 +105,24 @@ export type ColorTypes = {
 
 export const colors: { [key: string]: ColorTypes } = {
   [DeltaTypes.Increase]: {
-    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
+    bgColor: getColorClassNames(BaseColors.Emerald, colorPalette.background).bgColor,
+    textColor: getColorClassNames(BaseColors.Emerald, colorPalette.text).textColor,
   },
   [DeltaTypes.ModerateIncrease]: {
-    bgColor: colorClassNames[BaseColors.Emerald][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Emerald][colorPalette.darkText].textColor,
+    bgColor: getColorClassNames(BaseColors.Emerald, colorPalette.background).bgColor,
+    textColor: getColorClassNames(BaseColors.Emerald, colorPalette.text).textColor,
   },
   [DeltaTypes.Decrease]: {
-    bgColor: colorClassNames[BaseColors.Rose][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Rose][colorPalette.darkText].textColor,
+    bgColor: getColorClassNames(BaseColors.Rose, colorPalette.background).bgColor,
+    textColor: getColorClassNames(BaseColors.Rose, colorPalette.text).textColor,
   },
   [DeltaTypes.ModerateDecrease]: {
-    bgColor: colorClassNames[BaseColors.Rose][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Rose][colorPalette.darkText].textColor,
+    bgColor: getColorClassNames(BaseColors.Rose, colorPalette.background).bgColor,
+    textColor: getColorClassNames(BaseColors.Rose, colorPalette.text).textColor,
   },
   [DeltaTypes.Unchanged]: {
-    bgColor: colorClassNames[BaseColors.Orange][colorPalette.lightBackground].bgColor,
-    textColor: colorClassNames[BaseColors.Orange][colorPalette.darkText].textColor,
+    bgColor: getColorClassNames(BaseColors.Orange, colorPalette.background).bgColor,
+    textColor: getColorClassNames(BaseColors.Orange, colorPalette.text).textColor,
   },
 };
 

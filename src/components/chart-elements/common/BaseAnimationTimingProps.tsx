@@ -1,4 +1,4 @@
-interface BaseAnimationTimingProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BaseAnimationTimingProps {
   animationDuration?: number;
   showAnimation?: boolean;
 }

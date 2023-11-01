@@ -1,33 +1,57 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { MarkerBar, Metric, Card } from "components";
-
+import type { Meta, StoryObj } from "@storybook/react";
+import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
 import { BaseColors } from "lib/constants";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/VisElements/MarkerBar",
+const meta: Meta<typeof MarkerBar> = {
+  title: "Components/Vis/MarkerBar",
   component: MarkerBar,
-} as ComponentMeta<typeof MarkerBar>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  render: (args) => <MarkerBar {...args} />,
+};
 
-const Template: ComponentStory<typeof MarkerBar> = (args) => (
-  <>
-    {Object.values(BaseColors).map((color) => (
-      <Card key={color} className="mt-5">
-        <Metric>$23.456</Metric>
-        <MarkerBar {...args} color={color} />
-      </Card>
-    ))}
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof MarkerBar>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  percentageValue: 50,
-  tooltip: "50%",
-  className: "mt-5",
+export const Default: Story = {
+  args: {
+    value: 50,
+    markerTooltip: "50%",
+  },
+};
+
+export const Range: Story = {
+  args: {
+    value: 50,
+    minValue: 25,
+    maxValue: 75,
+    rangeTooltip: "Min: 25% Max: 75%",
+    markerTooltip: "50%",
+  },
+};
+
+export const MinValue0: Story = {
+  args: {
+    value: 0,
+    minValue: 0,
+    maxValue: 60,
+  },
+};
+
+export const Colors: Story = {
+  render: (args) => (
+    <>
+      {Object.values(BaseColors).map((color) => (
+        <div key={color} className="mt-8">
+          <MarkerBar {...args} color={color} />
+        </div>
+      ))}
+    </>
+  ),
+  args: {
+    value: 10,
+    minValue: 0,
+    maxValue: 60,
+    showAnimation: true,
+  },
 };

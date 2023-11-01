@@ -1,8 +1,5 @@
+import { makeClassName, spacing, tremorTwMerge } from "lib";
 import React from "react";
-import { twMerge } from "tailwind-merge";
-
-import { fontWeight, getColorClassNames, makeClassName, spacing } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
@@ -15,14 +12,17 @@ const TableHeaderCell = React.forwardRef<
     <>
       <th
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeTableHeaderCellClassName("root"),
-          "sticky whitespace-nowrap text-left",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
+          // common
+          "sticky whitespace-nowrap text-left font-semibold",
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
           spacing.none.top,
           spacing.twoXl.paddingX,
           spacing.xl.paddingY,
-          fontWeight.lg,
           className,
         )}
         {...other}

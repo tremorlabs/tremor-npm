@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import React, { Fragment, useState } from "react";
 import {
   Area,
-  CartesianGrid,
-  Legend,
   AreaChart as ReChartsAreaChart,
+  CartesianGrid,
+  Dot,
+  Legend,
+  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,19 +14,35 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
+import {
+  constructCategoryColors,
+  getYAxisDomain,
+  hasOnlyOneValueForThisKey,
+} from "../common/utils";
 
-import { BaseColors, defaultValueFormatter, hexColors, themeColorRange } from "lib";
+import {
+  BaseColors,
+  colorPalette,
+  defaultValueFormatter,
+  getColorClassNames,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+}
+
+interface ActiveDot {
+  index?: number;
+  dataKey?: string;
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
@@ -40,8 +57,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
-    showAnimation = true,
-    animationDuration = 1500,
+    intervalType = "equidistantPreserveStart",
+    showAnimation = false,
+    animationDuration = 900,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -52,37 +70,114 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     maxValue,
     connectNulls = false,
     allowDecimals = true,
-    className,
     noDataText,
+    className,
+    onValueChange,
+    customTooltip,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
+  const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const hasOnValueChange = !!onValueChange;
 
+  function onDotClick(itemData: any, event: React.MouseEvent) {
+    event.stopPropagation();
+
+    if (!hasOnValueChange) return;
+    if (
+      (itemData.index === activeDot?.index && itemData.dataKey === activeDot?.dataKey) ||
+      (hasOnlyOneValueForThisKey(data, itemData.dataKey) &&
+        activeLegend &&
+        activeLegend === itemData.dataKey)
+    ) {
+      setActiveLegend(undefined);
+      setActiveDot(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(itemData.dataKey);
+      setActiveDot({
+        index: itemData.index,
+        dataKey: itemData.dataKey,
+      });
+      onValueChange?.({
+        eventType: "dot",
+        categoryClicked: itemData.dataKey,
+        ...itemData.payload,
+      });
+    }
+  }
+
+  function onCategoryClick(dataKey: string) {
+    if (!hasOnValueChange) return;
+    if (
+      (dataKey === activeLegend && !activeDot) ||
+      (hasOnlyOneValueForThisKey(data, dataKey) && activeDot && activeDot.dataKey === dataKey)
+    ) {
+      setActiveLegend(undefined);
+      onValueChange?.(null);
+    } else {
+      setActiveLegend(dataKey);
+      onValueChange?.({
+        eventType: "category",
+        categoryClicked: dataKey,
+      });
+    }
+    setActiveDot(undefined);
+  }
   return (
-    <div ref={ref} className={twMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer width="100%" height={"100%"}>
+    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+      <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
-          <ReChartsAreaChart data={data}>
+          <ReChartsAreaChart
+            data={data}
+            onClick={
+              hasOnValueChange && (activeLegend || activeDot)
+                ? () => {
+                    setActiveDot(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
+                : undefined
+            }
+          >
             {showGridLines ? (
-              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+              <CartesianGrid
+                className={tremorTwMerge(
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
+                )}
+                horizontal={true}
+                vertical={false}
+              />
             ) : null}
             <XAxis
+              padding={{ left: 20, right: 20 }}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-                color: "red",
-              }}
-              interval="preserveStartEnd"
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
               axisLine={false}
-              padding={{ left: 10, right: 10 }}
               minTickGap={5}
             />
             <YAxis
@@ -93,73 +188,231 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               type="number"
               domain={yAxisDomain as AxisDomain}
               tick={{ transform: "translate(-3, 0)" }}
-              style={{
-                fontSize: "12px",
-                fontFamily: "Inter; Helvetica",
-              }}
+              fill=""
+              stroke=""
+              className={tremorTwMerge(
+                // common
+                "text-tremor-label",
+                // light
+                "fill-tremor-content",
+                // dark
+                "dark:fill-dark-tremor-content",
+              )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
-            {showTooltip ? (
-              <Tooltip
-                // ongoing issue: https://github.com/recharts/recharts/issues/2920
-                wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
-                cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-                content={({ active, payload, label }) => (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={valueFormatter}
-                    categoryColors={categoryColors}
-                  />
-                )}
-                position={{ y: 0 }}
-              />
-            ) : null}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              content={
+                showTooltip ? (
+                  ({ active, payload, label }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem: any) => ({
+                          ...payloadItem,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={label}
+                      />
+                    ) : (
+                      <ChartTooltip
+                        active={active}
+                        payload={payload}
+                        label={label}
+                        valueFormatter={valueFormatter}
+                        categoryColors={categoryColors}
+                      />
+                    )
+                ) : (
+                  <></>
+                )
+              }
+              position={{ y: 0 }}
+            />
             {showLegend ? (
               <Legend
                 verticalAlign="top"
                 height={legendHeight}
-                content={({ payload }) => ChartLegend({ payload }, categoryColors, setLegendHeight)}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
+                      : undefined,
+                  )
+                }
               />
             ) : null}
-
             {categories.map((category) => {
-              const hexColor = hexColors[categoryColors.get(category) ?? BaseColors.Gray];
               return (
                 <defs key={category}>
                   {showGradient ? (
-                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={hexColor} stopOpacity={0.4} />
-                      <stop offset="95%" stopColor={hexColor} stopOpacity={0} />
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="5%"
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+                        }
+                      />
+                      <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
                     </linearGradient>
                   ) : (
-                    <linearGradient id={categoryColors.get(category)} x1="0" y1="0" x2="0" y2="1">
-                      <stop stopColor={hexColor} stopOpacity={0.3} />
+                    <linearGradient
+                      className={
+                        getColorClassNames(
+                          categoryColors.get(category) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).textColor
+                      }
+                      id={categoryColors.get(category)}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        stopColor="currentColor"
+                        stopOpacity={
+                          activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
+                        }
+                      />
                     </linearGradient>
                   )}
                 </defs>
               );
             })}
-
             {categories.map((category) => (
               <Area
+                className={
+                  getColorClassNames(
+                    categoryColors.get(category) ?? BaseColors.Gray,
+                    colorPalette.text,
+                  ).strokeColor
+                }
+                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
+                activeDot={(props: any) => {
+                  const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
+                    props;
+                  return (
+                    <Dot
+                      className={tremorTwMerge(
+                        "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        onValueChange ? "cursor-pointer" : "",
+                        getColorClassNames(
+                          categoryColors.get(dataKey) ?? BaseColors.Gray,
+                          colorPalette.text,
+                        ).fillColor,
+                      )}
+                      cx={cx}
+                      cy={cy}
+                      r={5}
+                      fill=""
+                      stroke={stroke}
+                      strokeLinecap={strokeLinecap}
+                      strokeLinejoin={strokeLinejoin}
+                      strokeWidth={strokeWidth}
+                      onClick={(dotProps: any, event) => onDotClick(props, event)}
+                    />
+                  );
+                }}
+                dot={(props: any) => {
+                  const {
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                    cx,
+                    cy,
+                    dataKey,
+                    index,
+                  } = props;
+
+                  if (
+                    (hasOnlyOneValueForThisKey(data, category) &&
+                      !(activeDot || (activeLegend && activeLegend !== category))) ||
+                    (activeDot?.index === index && activeDot?.dataKey === category)
+                  ) {
+                    return (
+                      <Dot
+                        key={index}
+                        cx={cx}
+                        cy={cy}
+                        r={5}
+                        stroke={stroke}
+                        fill=""
+                        strokeLinecap={strokeLinecap}
+                        strokeLinejoin={strokeLinejoin}
+                        strokeWidth={strokeWidth}
+                        className={tremorTwMerge(
+                          "stroke-tremor-background dark:stroke-dark-tremor-background",
+                          onValueChange ? "cursor-pointer" : "",
+                          getColorClassNames(
+                            categoryColors.get(dataKey) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).fillColor,
+                        )}
+                      />
+                    );
+                  }
+                  return <Fragment key={index}></Fragment>;
+                }}
                 key={category}
                 name={category}
                 type={curveType}
                 dataKey={category}
-                stroke={hexColors[categoryColors.get(category) ?? BaseColors.Gray]}
+                stroke=""
                 fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
-                dot={false}
+                strokeLinejoin="round"
+                strokeLinecap="round"
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 stackId={stack ? "a" : undefined}
                 connectNulls={connectNulls}
               />
             ))}
+            {onValueChange
+              ? categories.map((category) => (
+                  <Line
+                    className={tremorTwMerge("cursor-pointer")}
+                    strokeOpacity={0}
+                    key={category}
+                    name={category}
+                    type={curveType}
+                    dataKey={category}
+                    stroke="transparent"
+                    fill="transparent"
+                    legendType="none"
+                    tooltipType="none"
+                    strokeWidth={12}
+                    connectNulls={connectNulls}
+                    onClick={(props: any, event) => {
+                      event.stopPropagation();
+                      const { name } = props;
+                      onCategoryClick(name);
+                    }}
+                  />
+                ))
+              : null}
           </ReChartsAreaChart>
         ) : (
           <NoData noDataText={noDataText} />

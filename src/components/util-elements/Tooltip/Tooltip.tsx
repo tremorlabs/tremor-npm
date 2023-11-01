@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import {
-  ExtendedRefs,
-  ReferenceType,
-  Strategy,
   autoUpdate,
+  ExtendedRefs,
   flip,
   offset,
+  ReferenceType,
   shift,
+  Strategy,
   useDismiss,
   useFloating,
   useFocus,
@@ -14,15 +13,28 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { twMerge } from "tailwind-merge";
-import { DEFAULT_COLOR, borderRadius, colorPalette, getColorClassNames, spacing } from "lib";
+import { spacing, tremorTwMerge } from "lib";
+import React, { useState } from "react";
 
-export const useTooltip = () => {
+export const useTooltip = (delay?: number) => {
   const [open, setOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
+
+  const handleOpenChange = (isOpen: boolean) => {
+    if (isOpen && delay) {
+      const timer = setTimeout(() => {
+        setOpen(isOpen);
+      }, delay);
+      setTimeoutId(timer);
+      return;
+    }
+    clearTimeout(timeoutId);
+    setOpen(isOpen);
+  };
 
   const { x, y, refs, strategy, context } = useFloating({
     open,
-    onOpenChange: setOpen,
+    onOpenChange: handleOpenChange,
     placement: "top",
     whileElementsMounted: autoUpdate,
     middleware: [
@@ -69,11 +81,13 @@ export interface TooltipProps {
 const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: TooltipProps) => {
   return open && text ? (
     <div
-      className={twMerge(
-        "max-w-xs text-sm z-20",
-        getColorClassNames(DEFAULT_COLOR, colorPalette.darkestBackground).bgColor,
-        getColorClassNames("white").textColor,
-        borderRadius.md.all,
+      className={tremorTwMerge(
+        // common
+        "max-w-xs text-sm z-20 rounded-tremor-default",
+        // light
+        "text-white bg-tremor-background-emphasis",
+        // dark
+        "text-white dark:bg-dark-tremor-background-subtle",
         spacing.md.paddingX,
         spacing.twoXs.paddingY,
       )}

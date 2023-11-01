@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export interface SelectedValueContextValue {
   selectedValue: any;
-  handleValueChange: ((value: any) => void) | undefined;
+  handleValueChange?: (value: any) => void;
 }
 
 const SelectedValueContext = createContext<SelectedValueContextValue>({

@@ -1,8 +1,5 @@
+import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
-import { twMerge } from "tailwind-merge";
-
-import { fontWeight, getColorClassNames, makeClassName } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeTableHeadClassName = makeClassName("TableHead");
 
@@ -15,11 +12,14 @@ const TableHead = React.forwardRef<
     <>
       <thead
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeTableHeadClassName("root"),
+          // common
           "text-left",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.text).textColor,
-          fontWeight.lg,
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
           className,
         )}
         {...other}

@@ -1,29 +1,46 @@
+import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
-import { twMerge } from "tailwind-merge";
-
-import { borderRadius, getColorClassNames, makeClassName, sizing, spacing } from "lib";
-import { DEFAULT_COLOR, colorPalette } from "lib/theme";
 
 const makeDividerClassName = makeClassName("Divider");
 
 const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
-    const { className, ...other } = props;
+    const { className, children, ...other } = props;
     return (
       <div
         ref={ref}
-        className={twMerge(
+        className={tremorTwMerge(
           makeDividerClassName("root"),
-          "w-full mx-auto",
-          getColorClassNames(DEFAULT_COLOR, colorPalette.lightBorder).bgColor,
-          sizing.threeXs.height,
-          spacing.threeXl.marginTop,
-          spacing.threeXl.marginBottom,
-          borderRadius.lg.all,
+          // common
+          "w-full mx-auto my-6 flex justify-between gap-3 items-center text-tremor-default",
+          // light
+          "text-tremor-content",
+          // dark
+          "dark:text-dark-tremor-content",
           className,
         )}
         {...other}
-      />
+      >
+        {children ? (
+          <>
+            <div
+              className={tremorTwMerge(
+                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
+              )}
+            />
+            <div className={tremorTwMerge("text-inherit whitespace-nowrap")}>{children}</div>
+            <div
+              className={tremorTwMerge(
+                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
+              )}
+            />
+          </>
+        ) : (
+          <div
+            className={tremorTwMerge("w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border")}
+          />
+        )}
+      </div>
     );
   },
 );
