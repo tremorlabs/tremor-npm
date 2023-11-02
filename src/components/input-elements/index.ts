@@ -6,6 +6,6 @@ export * from "./MultiSelect";
 export * from "./NumberInput";
 export * from "./SearchSelect";
 export * from "./Select";
+export * from "./Switch";
 export * from "./Tabs";
 export * from "./TextInput";
-export * from "./Switch";
