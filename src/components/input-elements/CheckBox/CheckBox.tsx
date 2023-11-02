@@ -9,11 +9,13 @@ export interface CheckboxProps {
   defaultChecked?: boolean;
   disabled?: boolean;
   className?: string;
+  // id automatisch?
+  // name automatisch?
 }
 
 const makeCheckboxClassName = makeClassName("Checkbox");
 
-const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>((props, ref) => {
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
   const { onChange, checked, defaultChecked, disabled, className, ...other } = props;
 
   const [value, setValue] = useState(checked !== undefined ? checked : defaultChecked);
@@ -28,19 +30,24 @@ const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>((props, ref) =>
   };
 
   return (
-    <div
+    <input
       ref={ref}
-      className={twMerge("flex items-center", makeCheckboxClassName("root"), className)}
+      type="checkbox"
+      className={twMerge(
+        makeCheckboxClassName("root"),
+        // common
+        "h-4 w-4 appearance-none cursor-pointer disabled:cursor-not-allowed rounded-tremor-small border-2 focus:ring-0 focus:outline-none focus:outline-transparent checked:border-0 checked:border-transparent focus:ring-transparent focus-visible:ring-2 transition bg-transparent",
+        // light
+        "border-tremor-border  text-tremor-brand focus-visible:ring-tremor-brand disabled:bg-tremor-background-muted",
+        // dark
+        "dark:border-dark-tremor-border  dark:text-dark-tremor-brand dark:focus-visible:ring-dark-tremor-brand dark:disabled:bg-dark-tremor-background-muted",
+        className,
+      )}
+      checked={value}
+      onChange={handleChange}
+      disabled={disabled}
       {...other}
-    >
-      <input
-        type="checkbox"
-        className={twMerge("cursor-pointer disabled:cursor-not-allowed")}
-        checked={value}
-        onChange={handleChange}
-        disabled={disabled}
-      />
-    </div>
+    />
   );
 });
 
