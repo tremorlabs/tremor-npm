@@ -33,7 +33,4 @@ export const Disabled: Story = {
 
 export const Id: Story = {
   render: SimpleIdCheckbox,
-  args: {
-    // required: true,
-  },
 };

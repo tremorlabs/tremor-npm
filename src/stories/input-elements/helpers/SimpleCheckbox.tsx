@@ -14,7 +14,14 @@ export const SimpleIdCheckbox = (args: any) => {
       >
         <div className="flex gap-3 items-center">
           <label htmlFor="a">Label</label>
-          <Checkbox id="a" {...args} checked={checked} onChange={setChecked} />
+          <Checkbox
+            required
+            name="label"
+            id="a"
+            {...args}
+            checked={checked}
+            onChange={setChecked}
+          />
         </div>
         <div className="flex gap-4 mt-2">
           <Button type="submit" className="mt-2 w-fit">
