@@ -8,3 +8,4 @@ export * from "./Select";
 export * from "./Tabs";
 export * from "./TextInput";
 export * from "./Switch";
+export * from "./RadioGroup";
