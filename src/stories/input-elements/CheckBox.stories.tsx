@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Checkbox } from "components";
+import { SimpleIdCheckbox } from "./helpers/SimpleCheckbox";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Input/Checkbox",
@@ -27,5 +28,12 @@ export const DefaultChecked: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+};
+
+export const Id: Story = {
+  render: SimpleIdCheckbox,
+  args: {
+    // required: true,
   },
 };
