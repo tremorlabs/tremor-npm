@@ -178,8 +178,11 @@ export const RotateXLabels: Story = {
   },
 };
 
-export const WithoutLegendScroll: Story = {
-  args: { enableLegendSlider: false },
+export const LegendSlider: Story = {
+  args: {
+    enableLegendSlider: true,
+    categories: ["Sales", "Successful Payments", "Test"],
+  },
 };
 
 export const NoAxes: Story = {

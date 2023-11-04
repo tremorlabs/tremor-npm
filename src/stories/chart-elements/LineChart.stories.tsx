@@ -118,8 +118,8 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
-export const WithoutLegendScroll: Story = {
-  args: { enableLegendSlider: false },
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
 };
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },

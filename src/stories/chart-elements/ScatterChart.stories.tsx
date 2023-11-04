@@ -96,8 +96,8 @@ export const RichDataExample: Story = {
   },
 };
 
-export const WithoutLegendScroll: Story = {
-  args: { enableLegendSlider: false },
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
 };
 
 export const PreserveStartEnd: Story = {

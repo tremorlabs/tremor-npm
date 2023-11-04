@@ -108,7 +108,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     <button
       type="button"
       className={tremorTwMerge(
-        makeLegendClassName("legendScrollButton"),
+        makeLegendClassName("legendSliderButton"),
         // common
         "w-5 group inline-flex items-center truncate rounded-tremor-small transition",
         disabled ? "cursor-not-allowed" : "ursor-pointer",
