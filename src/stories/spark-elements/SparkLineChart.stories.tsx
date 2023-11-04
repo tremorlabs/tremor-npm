@@ -20,7 +20,7 @@ const meta: Meta<typeof SparkLineChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  parameters: { layout: "centered" },
+  // parameters: { layout: "centered" },
 };
 
 export default meta;
