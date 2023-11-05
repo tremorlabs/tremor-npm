@@ -6,7 +6,7 @@ import { Button, DatePicker } from "components";
 import { fr } from "date-fns/locale";
 
 const meta: Meta<typeof DatePicker> = {
-  title: "Components/Input/DatePicker",
+  title: "UI/Input/DatePicker",
   component: DatePicker,
 };
 

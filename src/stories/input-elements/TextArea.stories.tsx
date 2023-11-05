@@ -3,7 +3,7 @@ import { Button, Textarea } from "components";
 import React from "react";
 
 const meta: Meta<typeof Textarea> = {
-  title: "Components/Input/Textarea",
+  title: "UI/Input/Textarea",
   component: Textarea,
 };
 

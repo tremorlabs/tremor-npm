@@ -12,7 +12,7 @@ import { SparkAreaChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 
 const meta: Meta<typeof SparkAreaChart> = {
-  title: "Components/Chart/SparkAreaChart",
+  title: "Visualizations/Chart/SparkAreaChart",
   component: SparkAreaChart,
   args: {
     categories: ["Sales", "Successful Payments"],

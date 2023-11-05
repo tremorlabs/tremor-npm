@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Subtitle from "components/text-elements/Subtitle/Subtitle";
 
 const meta: Meta<typeof Subtitle> = {
-  title: "Components/Text/Subtitle",
+  title: "UI/Text/Subtitle",
   component: Subtitle,
 };
 

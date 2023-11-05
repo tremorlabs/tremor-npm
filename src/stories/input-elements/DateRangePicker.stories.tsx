@@ -7,7 +7,7 @@ import { fr } from "date-fns/locale";
 import { dateRangePickerData } from "stories/input-elements/helpers/testData";
 
 const meta: Meta<typeof DateRangePicker> = {
-  title: "Components/Input/DateRangePicker",
+  title: "UI/Input/DateRangePicker",
   component: DateRangePicker,
   decorators: [(Story) => <Story />],
 };

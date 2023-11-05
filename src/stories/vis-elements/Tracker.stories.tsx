@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Tracker } from "components";
 
 const meta: Meta<typeof Tracker> = {
-  title: "Components/Vis/Tracker",
+  title: "Visualizations/Vis/Tracker",
   component: Tracker,
   args: {
     data: [

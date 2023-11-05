@@ -12,7 +12,7 @@ import { SparkLineChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 
 const meta: Meta<typeof SparkLineChart> = {
-  title: "Components/Chart/SparkLineChart",
+  title: "Visualizations/Chart/SparkLineChart",
   component: SparkLineChart,
   args: {
     categories: ["Sales", "Successful Payments"],

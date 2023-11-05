@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Legend } from "components";
 
 const meta: Meta<typeof Legend> = {
-  title: "Components/Text/Legend",
+  title: "UI/Text/Legend",
   component: Legend,
   args: {
     categories: [

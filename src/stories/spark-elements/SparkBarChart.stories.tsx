@@ -12,7 +12,7 @@ import { SparkBarChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 
 const meta: Meta<typeof SparkBarChart> = {
-  title: "Components/Chart/SparkBarChart",
+  title: "Visualizations/Chart/SparkBarChart",
   component: SparkBarChart,
   args: {
     categories: ["Sales", "Successful Payments"],

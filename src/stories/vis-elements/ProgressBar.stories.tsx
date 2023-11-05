@@ -7,7 +7,7 @@ import { ProgressBar } from "components";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof ProgressBar> = {
-  title: "Components/Vis/ProgressBar",
+  title: "Visualizations/Vis/ProgressBar",
   component: ProgressBar,
   render: (args) => <ProgressBar {...args} />,
 };

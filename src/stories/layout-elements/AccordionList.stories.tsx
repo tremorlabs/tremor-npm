@@ -6,7 +6,7 @@ import { AccordionList } from "components";
 import { SimpleAccordion, SimpleAccordionList } from "./helpers/SimpleAccordion";
 
 const meta: Meta<typeof AccordionList> = {
-  title: "Components/Layout/AccordionList",
+  title: "UI/Layout/AccordionList",
   component: AccordionList,
 };
 

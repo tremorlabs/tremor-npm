@@ -13,7 +13,7 @@ import {
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
-  title: "Components/Chart/BarChart",
+  title: "Visualizations/Chart/BarChart",
   component: BarChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
   // parameters: { layout: "centered" },
