@@ -151,6 +151,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         </button>
       ) : null}
       <Transition
+        className="absolute z-10 min-w-min left-0"
         enter="transition ease duration-100 transform"
         enterFrom="opacity-0 -translate-y-4"
         enterTo="opacity-100 translate-y-0"
@@ -161,7 +162,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <Popover.Panel
           className={tremorTwMerge(
             // common
-            "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
+            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark

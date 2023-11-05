@@ -91,6 +91,7 @@ function Controlled({ ...args }) {
   return (
     <div className="space-y-4">
       <DateRangePicker {...args} value={value} onValueChange={(v) => setValue(v)} />
+      <DateRangePicker {...args} value={value} onValueChange={(v) => setValue(v)} />
       <Button
         onClick={() => {
           setValue({});

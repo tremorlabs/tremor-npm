@@ -242,6 +242,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           ) : null}
         </div>
         <Transition
+          className="absolute z-10 min-w-min left-0"
           enter="transition ease duration-100 transform"
           enterFrom="opacity-0 -translate-y-4"
           enterTo="opacity-100 translate-y-0"
@@ -253,7 +254,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             focus={true}
             className={tremorTwMerge(
               // common
-              "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
+              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
@@ -329,6 +330,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 {value ? valueToNameMapping.get(value) ?? selectPlaceholder : selectPlaceholder}
               </Listbox.Button>
               <Transition
+                className="absolute z-10 w-full inset-x-0 right-0"
                 enter="transition ease duration-100 transform"
                 enterFrom="opacity-0 -translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -339,7 +341,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 <Listbox.Options
                   className={tremorTwMerge(
                     // common
-                    "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none",
+                    "divide-y overflow-y-auto outline-none",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
