@@ -2,7 +2,7 @@
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { useInternalState } from "hooks";
 import { border, makeClassName, mergeRefs, tremorTwMerge } from "lib";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   defaultValue?: string | number;
@@ -28,21 +28,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     onValueChange,
     ...other
   } = props;
-  const [isFocused, setIsFocused] = useState(false);
   const [val, setVal] = useInternalState(defaultValue, value);
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const hasSelection = hasValue(val);
-
-  const handleFocusChange = (isFocused: boolean) => {
-    if (isFocused === false) {
-      inputRef.current?.blur();
-    } else {
-      inputRef.current?.focus();
-    }
-    setIsFocused(isFocused);
-  };
 
   return (
     <>
@@ -54,38 +44,18 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         className={tremorTwMerge(
           makeTextareaClassName("Textarea"),
           // common
-          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-sm",
+          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100",
           // light
-          "shadow-tremor-input",
+          "shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
-          "dark:shadow-dark-tremor-input",
+          "dark:shadow-dark-tremor-input focus:dark:border-dark-tremor-brand-subtle focus:dark:ring-dark-tremor-brand-muted",
           getSelectButtonColors(hasSelection, disabled, error),
-          isFocused &&
-            tremorTwMerge(
-              // common
-              "ring-2 transition duration-100",
-              // light
-              "border-tremor-brand-subtle ring-tremor-brand-muted",
-              // dark
-              "dark:border-dark-tremor-brand-subtle dark:ring-dark-tremor-brand-muted",
-            ),
           disabled
             ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
             : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
           border.sm.all,
           className,
         )}
-        onClick={() => {
-          if (!disabled) {
-            handleFocusChange(true);
-          }
-        }}
-        onFocus={() => {
-          handleFocusChange(true);
-        }}
-        onBlur={() => {
-          handleFocusChange(false);
-        }}
         data-testid="text-area"
         onChange={(e) => {
           onChange?.(e);
