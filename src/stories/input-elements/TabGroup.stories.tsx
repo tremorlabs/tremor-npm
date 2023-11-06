@@ -7,7 +7,7 @@ import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from "components"
 import { BaseColors, Color } from "lib";
 
 const meta: Meta<typeof TabGroup> = {
-  title: "Components/Input/TabGroup",
+  title: "UI/Input/TabGroup",
   component: TabGroup,
 };
 
@@ -67,12 +67,11 @@ function WithControlledStateTemplate({ ...args }) {
 }
 
 function TabSet({ showText = true, ...args }) {
-  const { color } = args;
   return (
     <>
       <div className="space-y-4">
-        <MyTab variant="line" showText={showText} {...args} color={color} />
-        <MyTab variant="solid" showText={showText} {...args} color={color} />
+        <MyTab variant="line" showText={showText} {...args} color={args.color} />
+        <MyTab variant="solid" showText={showText} {...args} color={args.color} />
       </div>
     </>
   );

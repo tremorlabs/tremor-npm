@@ -6,7 +6,7 @@ import { SimpleSearchSelect, SimpleSearchSelectControlled } from "./helpers/Simp
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof SearchSelect> = {
-  title: "Components/Input/SearchSelect",
+  title: "UI/Input/SearchSelect",
   component: SearchSelect,
 };
 

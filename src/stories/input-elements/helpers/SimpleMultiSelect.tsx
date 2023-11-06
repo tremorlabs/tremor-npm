@@ -10,25 +10,47 @@ export const SimpleMultiSelect = (args: any) => (
   </MultiSelect>
 );
 
-export const SimpleMultiSelectControlled = (args: any) => {
+export const SimpleMultiSelectControlled = () => {
   const [value, setValue] = React.useState<string[]>([]);
+
+  const handleValueChange = (values: string[]) => {
+    setValue(values);
+    // You can perform any additional actions here when the value changes.
+  };
+
+  const handleReset = () => {
+    setValue([]);
+  };
+
+  const handleSetToOne = () => {
+    setValue(["1"]);
+  };
+
   return (
-    <>
+    <div>
       <MultiSelect
         value={value}
-        onValueChange={(values) => {
-          setValue(values);
-          alert(values);
-        }}
-        {...args}
+        onValueChange={handleValueChange}
+        // Add any other props you need
       >
         <MultiSelectItem value={"5"}>Five</MultiSelectItem>
         <MultiSelectItem value={"3"}>Three</MultiSelectItem>
         <MultiSelectItem value={"1"}>One</MultiSelectItem>
       </MultiSelect>
-      <Button onClick={() => setValue([])}>Reset</Button>
-      <Button onClick={() => setValue(["1"])}>Set to One</Button>
-      <p>value: {value}</p>
-    </>
+      <MultiSelect
+        value={value}
+        onValueChange={handleValueChange}
+        // Add any other props you need
+      >
+        <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+        <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+      </MultiSelect>
+      <Button onClick={handleReset}>Reset</Button>
+      <Button onClick={handleSetToOne}>Set to One</Button>
+      <p>value: {value.join(", ")}</p>
+    </div>
   );
 };
+
+export default SimpleMultiSelectControlled;

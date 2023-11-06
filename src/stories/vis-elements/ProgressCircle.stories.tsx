@@ -5,7 +5,7 @@ import { ProgressCircle } from "components";
 import { BaseColors, Sizes } from "lib/constants";
 
 const meta: Meta<typeof ProgressCircle> = {
-  title: "Components/Vis/ProgressCircle",
+  title: "Visualizations/Vis/ProgressCircle",
   component: ProgressCircle,
   render: (args) => <ProgressCircle {...args} />,
 };

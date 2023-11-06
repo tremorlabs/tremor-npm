@@ -33,6 +33,20 @@ export const SimpleSearchSelectControlled = (args: any) => {
         <SearchSelectItem value={"30"}>Thirty</SearchSelectItem>
         <SearchSelectItem value={"33"}>Thirtythree</SearchSelectItem>
       </SearchSelect>
+      <SearchSelect
+        value={value}
+        onValueChange={(value) => {
+          setValue(value);
+          alert(value);
+        }}
+        {...args}
+      >
+        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+        <SearchSelectItem value={"1"}>One</SearchSelectItem>
+        <SearchSelectItem value={"30"}>Thirty</SearchSelectItem>
+        <SearchSelectItem value={"33"}>Thirtythree</SearchSelectItem>
+      </SearchSelect>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>
       <p>value: {value}</p>

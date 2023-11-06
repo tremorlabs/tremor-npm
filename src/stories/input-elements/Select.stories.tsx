@@ -6,7 +6,7 @@ import { SimpleSelect, SimpleSelectControlled } from "./helpers/SimpleSelect";
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof Select> = {
-  title: "Components/Input/Select",
+  title: "UI/Input/Select",
   component: Select,
 };
 

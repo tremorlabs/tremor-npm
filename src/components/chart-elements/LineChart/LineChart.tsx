@@ -69,10 +69,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
+    rotateLabelX,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -157,7 +160,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
-              padding={{ left: 20, right: 20 }}
+              padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
               dataKey={index}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}
@@ -176,6 +179,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               tickLine={false}
               axisLine={false}
               minTickGap={5}
+              angle={rotateLabelX?.angle}
+              dy={rotateLabelX?.verticalShift}
+              height={rotateLabelX?.xAxisHeight}
             />
             <YAxis
               width={yAxisWidth}
@@ -243,6 +249,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

@@ -11,7 +11,7 @@ import {
 } from "./helpers/testDataScatterChart";
 
 const meta: Meta<typeof ScatterChart> = {
-  title: "Components/Chart/ScatterChart",
+  title: "Visualizations/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
   // parameters: { layout: "centered" },
@@ -96,6 +96,10 @@ export const RichDataExample: Story = {
   },
 };
 
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
+};
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -119,6 +123,12 @@ export const MultipleZeroValues: Story = {
         "Successful Payments": 0,
       },
     ],
+  },
+};
+
+export const RotateXLabel: Story = {
+  args: {
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
   },
 };
 

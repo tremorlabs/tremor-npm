@@ -6,7 +6,7 @@ import { Divider } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 
 const meta: Meta<typeof Divider> = {
-  title: "Components/Layout/Divider",
+  title: "UI/Layout/Divider",
   component: Divider,
 };
 
