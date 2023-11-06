@@ -17,6 +17,18 @@ export const SimpleSelect = (args: any) => (
   </Select>
 );
 
+export const SimpleSelectWithStaticAndDynamicChildren = (args: any) => {
+  const items = ["item1", "item2"];
+  return (
+    <Select {...args}>
+      <SelectItem value="item0">item0</SelectItem>
+      {items.map((item) => {
+        return <SelectItem value={item} key={item} />;
+      })}
+    </Select>
+  );
+};
+
 export function SimpleSelectControlled() {
   const [value, setValue] = React.useState("5");
 
