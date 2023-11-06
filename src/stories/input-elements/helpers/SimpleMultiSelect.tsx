@@ -10,6 +10,18 @@ export const SimpleMultiSelect = (args: any) => (
   </MultiSelect>
 );
 
+export const SimpleMultiSelectWithStaticAndDynamicChildren = (args: any) => {
+  const items = ["item1", "item2"];
+  return (
+    <MultiSelect {...args}>
+      <MultiSelectItem value="item0">item0</MultiSelectItem>
+      {items.map((item) => {
+        return <MultiSelectItem value={item} key={item} />;
+      })}
+    </MultiSelect>
+  );
+};
+
 export const SimpleMultiSelectControlled = () => {
   const [value, setValue] = React.useState<string[]>([]);
 
