@@ -4,8 +4,8 @@ import React from "react";
 import MultiSelect from "components/input-elements/MultiSelect/MultiSelect";
 import MultiSelectItem from "components/input-elements/MultiSelect/MultiSelectItem";
 
-describe("SelectBox", () => {
-  test("renders the SelectBox component with default props", () => {
+describe("MultiSelect", () => {
+  test("renders the MultiSelect component with default props", () => {
     render(
       <MultiSelect>
         <MultiSelectItem value="1" />
