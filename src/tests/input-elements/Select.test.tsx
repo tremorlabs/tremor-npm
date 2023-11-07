@@ -27,7 +27,7 @@ describe("Select", () => {
       </Select>,
     );
 
-    fireEvent.click(screen.getByPlaceholderText(placeholder));
+    fireEvent.click(screen.getByText(placeholder));
 
     expect(screen.queryByText("item0")).toBeTruthy();
     expect(screen.queryByText("item1")).toBeTruthy();
