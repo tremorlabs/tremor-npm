@@ -27,11 +27,16 @@ export const SimpleSearchSelectControlled = (args: any) => {
         }}
         {...args}
       >
-        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
-        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
-        <SearchSelectItem value={"1"}>One</SearchSelectItem>
-        <SearchSelectItem value={"30"}>Thirty</SearchSelectItem>
-        <SearchSelectItem value={"33"}>Thirtythree</SearchSelectItem>
+        <SearchSelectItem value="1">One</SearchSelectItem>
+        <SearchSelectItem value="2">Two</SearchSelectItem>
+        <SearchSelectItem value="3">Three</SearchSelectItem>
+        <SearchSelectItem value="4">Four</SearchSelectItem>
+        <SearchSelectItem value="5">Five</SearchSelectItem>
+        <SearchSelectItem value="6">Six</SearchSelectItem>
+        <SearchSelectItem value="7">Seven</SearchSelectItem>
+        <SearchSelectItem value="8">Eight</SearchSelectItem>
+        <SearchSelectItem value="9">Nine</SearchSelectItem>
+        <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
       <SearchSelect
         value={value}
@@ -41,11 +46,16 @@ export const SimpleSearchSelectControlled = (args: any) => {
         }}
         {...args}
       >
-        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
-        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
-        <SearchSelectItem value={"1"}>One</SearchSelectItem>
-        <SearchSelectItem value={"30"}>Thirty</SearchSelectItem>
-        <SearchSelectItem value={"33"}>Thirtythree</SearchSelectItem>
+        <SearchSelectItem value="1">One</SearchSelectItem>
+        <SearchSelectItem value="2">Two</SearchSelectItem>
+        <SearchSelectItem value="3">Three</SearchSelectItem>
+        <SearchSelectItem value="4">Four</SearchSelectItem>
+        <SearchSelectItem value="5">Five</SearchSelectItem>
+        <SearchSelectItem value="6">Six</SearchSelectItem>
+        <SearchSelectItem value="7">Seven</SearchSelectItem>
+        <SearchSelectItem value="8">Eight</SearchSelectItem>
+        <SearchSelectItem value="9">Nine</SearchSelectItem>
+        <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
       <Button onClick={() => setValue("")}>Reset</Button>
       <Button onClick={() => setValue("1")}>One</Button>

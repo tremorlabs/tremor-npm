@@ -229,7 +229,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             </button>
           ) : null}
           <Transition
-            className="absolute z-10 max-h-[228px] w-full left-0 "
+            className="absolute z-10 w-full"
             enter="transition ease duration-100 transform"
             enterFrom="opacity-0 -translate-y-4"
             enterTo="opacity-100 translate-y-0"
@@ -240,7 +240,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default",
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
