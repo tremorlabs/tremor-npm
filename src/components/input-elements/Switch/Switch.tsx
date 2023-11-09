@@ -1,9 +1,19 @@
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 import { useInternalState } from "hooks";
-import { Color, makeClassName, tremorTwMerge } from "lib";
+import { Color, makeClassName, tremorTwMerge, colorPalette, getColorClassNames } from "lib";
 
 import React, { useState } from "react";
-import { getSwitchColors } from "./styles";
+
+const getSwitchColors = (color?: Color) => {
+  return {
+    bgColor: color
+      ? getColorClassNames(color, colorPalette.background).bgColor
+      : "bg-tremor-brand dark:bg-dark-tremor-brand",
+    ringColor: color
+      ? getColorClassNames(color, colorPalette.ring).ringColor
+      : "ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted",
+  };
+};
 
 const makeSwitchClassName = makeClassName("Switch");
 
