@@ -1,7 +1,7 @@
 "use client";
 import { useInternalState } from "hooks";
 import { tremorTwMerge } from "lib";
-import React, { useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useState } from "react";
 
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -23,7 +23,7 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   enableClear?: boolean;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const makeSelectClassName = makeClassName("SearchSelect");
@@ -46,10 +46,16 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const Icon = icon;
-  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+
+  const { reactElementChildren, valueToNameMapping } = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const valueToNameMapping = constructValueToNameMapping(reactElementChildren);
+    return { reactElementChildren, valueToNameMapping };
+  }, [children]);
+
   const filteredOptions = useMemo(
-    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
-    [searchQuery, children],
+    () => getFilteredOptions(searchQuery, reactElementChildren),
+    [searchQuery, reactElementChildren],
   );
 
   const handleReset = () => {

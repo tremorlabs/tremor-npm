@@ -15,6 +15,18 @@ export const SimpleSearchSelect = (args: any) => (
   </SearchSelect>
 );
 
+export const SimpleSearchSelectWithStaticAndDynamicChildren = (args: any) => {
+  const items = ["item1", "item2"];
+  return (
+    <SearchSelect {...args}>
+      <SearchSelectItem value="item0">item0</SearchSelectItem>
+      {items.map((item) => {
+        return <SearchSelectItem value={item} key={item} />;
+      })}
+    </SearchSelect>
+  );
+};
+
 export const SimpleSearchSelectControlled = (args: any) => {
   const [value, setValue] = React.useState<string>("5");
   return (

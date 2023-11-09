@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Select } from "components";
-import { SimpleSelect, SimpleSelectControlled } from "./helpers/SimpleSelect";
+import {
+  SimpleSelect,
+  SimpleSelectControlled,
+  SimpleSelectWithStaticAndDynamicChildren,
+} from "./helpers/SimpleSelect";
 
 import { CalendarIcon } from "assets";
 
@@ -15,6 +19,11 @@ type Story = StoryObj<typeof Select>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleSelectWithStaticAndDynamicChildren,
   args: {},
 };
 

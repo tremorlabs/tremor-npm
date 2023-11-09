@@ -2,7 +2,7 @@
 
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { border, makeClassName, sizing, spacing } from "lib";
-import React, { useMemo } from "react";
+import React, { isValidElement, useMemo } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox, Transition } from "@headlessui/react";
@@ -19,7 +19,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
@@ -38,7 +38,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
   const Icon = icon;
-  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+  const valueToNameMapping = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const valueToNameMapping = constructValueToNameMapping(reactElementChildren);
+    return valueToNameMapping;
+  }, [children]);
 
   const handleReset = () => {
     setSelectedValue("");

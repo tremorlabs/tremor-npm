@@ -1,6 +1,6 @@
 "use client";
 import { tremorTwMerge } from "lib";
-import React, { useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useState } from "react";
 
 import { SelectedValueContext } from "contexts";
 
@@ -23,7 +23,7 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholderSearch?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
@@ -43,7 +43,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const Icon = icon;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const optionsAvailable = getFilteredOptions("", children as React.ReactElement[]);
+
+  const { reactElementChildren, optionsAvailable } = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const optionsAvailable = getFilteredOptions("", reactElementChildren);
+    return { reactElementChildren, optionsAvailable };
+  }, [children]);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -53,11 +58,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const hasSelection = selectedItems.length > 0;
 
   const filteredOptions = useMemo(
-    () =>
-      searchQuery
-        ? getFilteredOptions(searchQuery, children as React.ReactElement[])
-        : optionsAvailable,
-    [searchQuery, children, optionsAvailable],
+    () => (searchQuery ? getFilteredOptions(searchQuery, reactElementChildren) : optionsAvailable),
+    [searchQuery, reactElementChildren, optionsAvailable],
   );
 
   const handleReset = () => {
