@@ -3,7 +3,7 @@ import { Switch } from "components";
 import { SimpleSwitch, SimpleIdSwitch } from "./helpers/SimpleSwitch";
 
 const meta: Meta<typeof Switch> = {
-  title: "Components/Input/Switch",
+  title: "UI/Input/Switch",
   component: Switch,
 };
 

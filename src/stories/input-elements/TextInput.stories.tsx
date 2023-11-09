@@ -5,7 +5,7 @@ import { TextInput } from "components";
 import { SimpleTextInput } from "./helpers/SimpleTextInput";
 
 const meta: Meta<typeof TextInput> = {
-  title: "Components/Input/TextInput",
+  title: "UI/Input/TextInput",
   component: TextInput,
 };
 

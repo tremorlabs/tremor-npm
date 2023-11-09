@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Legend } from "components";
 
 const meta: Meta<typeof Legend> = {
-  title: "Components/Text/Legend",
+  title: "UI/Text/Legend",
   component: Legend,
   args: {
     categories: [
@@ -19,7 +19,6 @@ const meta: Meta<typeof Legend> = {
 export default meta;
 type Story = StoryObj<typeof Legend>;
 
-// function
 function LegendComponent(args: any) {
   // if (args.onClickLegendItem?.length === 0) {
   //   args.onClickLegendItem = undefined;
@@ -46,5 +45,38 @@ export const ActiveLegend: Story = {
   ...LegendTemplate,
   args: {
     activeLegend: "Category C",
+  },
+};
+
+export const ManyCategories: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
+  },
+};
+
+export const ManyCategoriesWithoutScroll: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: [
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+      "Critical",
+      "This is a very long category name to test an edge case",
+      "Category C",
+      "Category D",
+    ],
+    enableLegendSlider: false,
   },
 };

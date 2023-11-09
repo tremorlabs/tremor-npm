@@ -7,7 +7,7 @@ import { Callout } from "components";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof Callout> = {
-  title: "Components/Text/Callout",
+  title: "UI/Text/Callout",
   component: Callout,
 };
 

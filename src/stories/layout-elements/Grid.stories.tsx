@@ -7,7 +7,7 @@ import { SimpleCard } from "./helpers/SimpleCard";
 import { SimpleText } from "./helpers/SimpleText";
 
 const meta: Meta<typeof Grid> = {
-  title: "Components/Layout/Grid",
+  title: "UI/Layout/Grid",
   component: Grid,
 };
 

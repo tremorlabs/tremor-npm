@@ -107,7 +107,6 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                     "translate-x-5 border-tremor-background dark:border-dark-tremor-background",
                   )
                 : "translate-x-0 bg-tremor-border dark:bg-dark-tremor-border border-tremor-background dark:border-dark-tremor-background",
-
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-tremor-full border-2 shadow-tremor-input duration-100 ease-in-out transition",
               isFocused ? tremorTwMerge("ring-2", switchColorStyles.ringColor) : "",
             )}

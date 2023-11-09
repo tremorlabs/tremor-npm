@@ -11,7 +11,7 @@ import { IconVariants } from "components/icon-elements/Icon/Icon";
 import Icon from "components/icon-elements/Icon/Icon";
 
 const meta: Meta<typeof Icon> = {
-  title: "Components/Icon/Icon",
+  title: "UI/Icon/Icon",
   component: Icon,
   args: {
     icon: ArrowUpIcon,

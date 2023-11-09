@@ -77,7 +77,11 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
               onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
+              onTouchStart={(e) => {
+                if (e.cancelable) {
+                  e.preventDefault();
+                }
+              }}
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepDown();
@@ -100,7 +104,11 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
               onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
+              onTouchStart={(e) => {
+                if (e.cancelable) {
+                  e.preventDefault();
+                }
+              }}
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepUp();
