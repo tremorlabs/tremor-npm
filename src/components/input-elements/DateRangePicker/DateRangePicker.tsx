@@ -171,7 +171,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           "w-full overflow-hidden",
           enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           isCalendarButtonFocused &&
-            "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
+            "ring-2 ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted z-10",
         )}
       >
         <div className="relative w-full overflow-hidden">
@@ -183,9 +183,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // common
               "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
               // light
-              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
+              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
-              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
+              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.lg.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,

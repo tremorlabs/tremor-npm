@@ -13,6 +13,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   errorMessage?: string;
   disabled?: boolean;
   stepper?: ReactNode;
+  onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
 }
 
@@ -29,6 +30,8 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     stepper,
     makeInputClassName,
     className,
+    onChange,
+    onValueChange,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
@@ -114,7 +117,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default",
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default",
             // light
             "text-tremor-content-emphasis",
             // dark
@@ -130,6 +133,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           placeholder={placeholder}
           disabled={disabled}
           data-testid="base-input"
+          onChange={(e) => {
+            onChange?.(e);
+            onValueChange?.(e.target.value);
+          }}
           {...other}
         />
         {type === "password" && !disabled ? (
