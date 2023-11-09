@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
 import { makeClassName } from "lib";
+import { useInternalState } from "hooks";
 
 export interface CheckboxProps {
   onChange: (checked: boolean) => void;
@@ -9,28 +10,22 @@ export interface CheckboxProps {
   defaultChecked?: boolean;
   disabled?: boolean;
   className?: string;
-  // id automatisch?
-  // name automatisch?
 }
 
 const makeCheckboxClassName = makeClassName("Checkbox");
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  const { onChange, checked, defaultChecked, disabled, className, ...other } = props;
-
-  const [value, setValue] = useState(checked !== undefined ? checked : defaultChecked);
-
-  useEffect(() => {
-    checked !== undefined && setValue(checked);
-  }, [checked]);
+  const { onChange, checked, defaultChecked = false, disabled, className, ...other } = props;
+  const [isChecked, setIsChecked] = useInternalState(defaultChecked, checked);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.checked);
-    setValue(checked !== undefined ? checked : e.target.checked);
+    setIsChecked(e.target.checked);
   };
 
   return (
     <input
+      {...other}
       ref={ref}
       type="checkbox"
       className={twMerge(
@@ -43,10 +38,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
         "dark:border-dark-tremor-border  dark:text-dark-tremor-brand dark:focus-visible:ring-dark-tremor-brand dark:disabled:bg-dark-tremor-background-muted",
         className,
       )}
-      checked={value}
+      checked={isChecked}
       onChange={handleChange}
       disabled={disabled}
-      {...other}
     />
   );
 });
