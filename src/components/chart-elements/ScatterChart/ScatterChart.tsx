@@ -331,7 +331,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
-                  shape={(props) => renderShape(props, activeNode, activeLegend)}
+                  shape={(props: any) => renderShape(props, activeNode, activeLegend)}
                   onClick={onNodeClick}
                 />
               );
