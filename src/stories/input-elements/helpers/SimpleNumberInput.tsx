@@ -13,7 +13,7 @@ export const SimpleNumberInput = (args: any) => {
         className="text-slate-500"
       >
         <p>Uncontrolled</p>
-        <NumberInput {...args} step={5} onSubmit={(value: number) => alert(value)} />
+        <NumberInput {...args} onSubmit={(value: number) => alert(value)} />
 
         <p>Uncontrolled with defaultValue</p>
         <NumberInput {...args} defaultValue={123} onSubmit={(value: number) => alert(value)} />
