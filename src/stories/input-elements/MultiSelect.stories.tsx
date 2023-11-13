@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { MultiSelect } from "components";
-import { SimpleMultiSelect, SimpleMultiSelectControlled } from "./helpers/SimpleMultiSelect";
+import {
+  SimpleMultiSelect,
+  SimpleMultiSelectControlled,
+  SimpleMultiSelectWithStaticAndDynamicChildren,
+} from "./helpers/SimpleMultiSelect";
 
 import { CalendarIcon } from "assets";
 
@@ -15,6 +19,11 @@ type Story = StoryObj<typeof MultiSelect>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleMultiSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleMultiSelectWithStaticAndDynamicChildren,
   args: {},
 };
 

@@ -335,7 +335,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend, layout)}
+                shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
                 onClick={onBarClick}
               />
             ))}

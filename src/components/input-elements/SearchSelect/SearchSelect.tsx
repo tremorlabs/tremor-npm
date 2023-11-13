@@ -1,7 +1,7 @@
 "use client";
 import { useInternalState } from "hooks";
 import { tremorTwMerge } from "lib";
-import React, { useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useState } from "react";
 
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -23,7 +23,7 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
   enableClear?: boolean;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const makeSelectClassName = makeClassName("SearchSelect");
@@ -46,10 +46,16 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const Icon = icon;
-  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+
+  const { reactElementChildren, valueToNameMapping } = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const valueToNameMapping = constructValueToNameMapping(reactElementChildren);
+    return { reactElementChildren, valueToNameMapping };
+  }, [children]);
+
   const filteredOptions = useMemo(
-    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
-    [searchQuery, children],
+    () => getFilteredOptions(searchQuery, reactElementChildren),
+    [searchQuery, reactElementChildren],
   );
 
   const handleReset = () => {
@@ -174,7 +180,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
           ) : null}
           {filteredOptions.length > 0 && (
             <Transition
-              className="absolute z-10 max-h-[228px] w-full left-0"
+              className="absolute z-10 w-full"
               enter="transition ease duration-100 transform"
               enterFrom="opacity-0 -translate-y-4"
               enterTo="opacity-100 translate-y-0"
@@ -185,7 +191,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
               <Combobox.Options
                 className={tremorTwMerge(
                   // common
-                  "divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default",
+                  "divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] left-0",
                   // light
                   "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                   // dark

@@ -1,6 +1,6 @@
 "use client";
 import { tremorTwMerge } from "lib";
-import React, { useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useState } from "react";
 
 import { SelectedValueContext } from "contexts";
 
@@ -23,7 +23,7 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholderSearch?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
@@ -43,7 +43,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const Icon = icon;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const optionsAvailable = getFilteredOptions("", children as React.ReactElement[]);
+
+  const { reactElementChildren, optionsAvailable } = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const optionsAvailable = getFilteredOptions("", reactElementChildren);
+    return { reactElementChildren, optionsAvailable };
+  }, [children]);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -53,11 +58,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const hasSelection = selectedItems.length > 0;
 
   const filteredOptions = useMemo(
-    () =>
-      searchQuery
-        ? getFilteredOptions(searchQuery, children as React.ReactElement[])
-        : optionsAvailable,
-    [searchQuery, children, optionsAvailable],
+    () => (searchQuery ? getFilteredOptions(searchQuery, reactElementChildren) : optionsAvailable),
+    [searchQuery, reactElementChildren, optionsAvailable],
   );
 
   const handleReset = () => {
@@ -229,7 +231,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             </button>
           ) : null}
           <Transition
-            className="absolute z-10 max-h-[228px] w-full left-0 "
+            className="absolute z-10 w-full"
             enter="transition ease duration-100 transform"
             enterFrom="opacity-0 -translate-y-4"
             enterTo="opacity-100 translate-y-0"
@@ -240,7 +242,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default",
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark

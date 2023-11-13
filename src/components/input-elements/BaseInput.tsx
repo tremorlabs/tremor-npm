@@ -32,6 +32,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     className,
     onChange,
     onValueChange,
+    autoFocus,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(false);
@@ -56,6 +57,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     }
     setIsFocused(isFocused);
   };
+
+  React.useEffect(() => {
+    // If the autoFocus prop is true, then set the isFocused state to true
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+      setIsFocused(true);
+    }
+  }, [autoFocus]);
 
   return (
     <>
