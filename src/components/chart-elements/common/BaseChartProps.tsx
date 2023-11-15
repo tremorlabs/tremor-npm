@@ -26,7 +26,6 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   yAxisWidth?: number;
   intervalType?: IntervalType;
   showTooltip?: boolean;
-  showGradient?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
   autoMinValue?: boolean;
@@ -36,9 +35,14 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   allowDecimals?: boolean;
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
+  enableLegendSlider?: boolean;
   customTooltip?: React.ComponentType<CustomTooltipType>;
-  renderShape?: (props: any, activeBar: any | undefined, activeLegend: string | undefined) => any;
-  xAxisAngle?: number;
+  rotateLabelX?: {
+    angle: number;
+    verticalShift?: number;
+    xAxisHeight?: number;
+  };
+  renderShape?: (props: any, activeBar: any | undefined, activeLegend: string | undefined, layout: string | undefined) => any;
   xAxisTextAnchor?: string;
   margin?: any;
   xAxisProps?: any;

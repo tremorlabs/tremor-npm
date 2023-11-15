@@ -8,7 +8,7 @@ import { BarListProps } from "components/vis-elements/BarList/BarList";
 import { BaseColors } from "lib";
 
 const meta: Meta<typeof BarList> = {
-  title: "Components/Vis/BarList",
+  title: "Visualizations/Vis/BarList",
   component: BarList,
 };
 

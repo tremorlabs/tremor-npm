@@ -71,11 +71,17 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
+  enableLegendSlider?: boolean;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipType>;
   xAxisProps?: any;
   yAxisProps?: any;
   zAxisProps?: any;
+  rotateLabelX?: {
+    angle: number;
+    verticalShift: number;
+    xAxisHeight: number;
+  };
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -135,7 +141,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     noDataText,
     onValueChange,
     customTooltip,
+    rotateLabelX,
     className,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -239,6 +247,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
+                angle={rotateLabelX?.angle}
+                dy={rotateLabelX?.verticalShift}
+                height={rotateLabelX?.xAxisHeight}
                 {...xAxisProps}
               />
             ) : null}
@@ -330,7 +341,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
-                  shape={(props) => renderShape(props, activeNode, activeLegend)}
+                  shape={(props: any) => renderShape(props, activeNode, activeLegend)}
                   onClick={onNodeClick}
                 />
               );
@@ -348,6 +359,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

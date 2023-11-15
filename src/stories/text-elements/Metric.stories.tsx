@@ -5,7 +5,7 @@ import { Metric } from "components";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof Metric> = {
-  title: "Components/Text/Metric",
+  title: "UI/Text/Metric",
   component: Metric,
 };
 

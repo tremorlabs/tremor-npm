@@ -7,7 +7,7 @@ import { DeltaTypes as InputDeltaTypes, Sizes as InputSizes } from "lib/constant
 import { BadgeDelta, Grid } from "components";
 
 const meta: Meta<typeof BadgeDelta> = {
-  title: "Components/Icon/BadgeDelta",
+  title: "UI/Icon/BadgeDelta",
   component: BadgeDelta,
   args: {
     children: "12.5%",

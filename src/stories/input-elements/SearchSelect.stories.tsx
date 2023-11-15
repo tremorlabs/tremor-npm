@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { SearchSelect } from "components";
-import { SimpleSearchSelect, SimpleSearchSelectControlled } from "./helpers/SimpleSearchSelect";
+import {
+  SimpleSearchSelect,
+  SimpleSearchSelectControlled,
+  SimpleSearchSelectWithStaticAndDynamicChildren,
+} from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof SearchSelect> = {
-  title: "Components/Input/SearchSelect",
+  title: "UI/Input/SearchSelect",
   component: SearchSelect,
 };
 
@@ -15,6 +19,11 @@ type Story = StoryObj<typeof SearchSelect>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleSearchSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleSearchSelectWithStaticAndDynamicChildren,
   args: {},
 };
 
