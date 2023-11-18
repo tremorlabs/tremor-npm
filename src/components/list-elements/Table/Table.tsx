@@ -8,22 +8,24 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
     const { children, className, ...other } = props;
 
     return (
-      <table
-        ref={ref}
-        className={tremorTwMerge(
-          makeTableClassName("root"),
-          // common
-          "w-full tabular-nums text-tremor-default",
-          // light
-          "text-tremor-content",
-          // dark
-          "dark:text-dark-tremor-content",
-          className,
-        )}
-        {...other}
-      >
-        {children}
-      </table>
+      <div className={tremorTwMerge(makeTableClassName("root"), "overflow-auto")}>
+        <table
+          ref={ref}
+          className={tremorTwMerge(
+            makeTableClassName("table"),
+            // common
+            "w-full tabular-nums text-tremor-default",
+            // light
+            "text-tremor-content",
+            // dark
+            "dark:text-dark-tremor-content",
+            className,
+          )}
+          {...other}
+        >
+          {children}
+        </table>
+      </div>
     );
   },
 );
