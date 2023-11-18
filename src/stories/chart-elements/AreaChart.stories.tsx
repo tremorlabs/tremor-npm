@@ -19,7 +19,10 @@ const meta: Meta<typeof AreaChart> = {
   title: "Visualizations/Chart/AreaChart",
   component: AreaChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/AreaChart",
+  },
 };
 
 export default meta;

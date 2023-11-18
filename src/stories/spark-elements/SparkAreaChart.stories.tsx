@@ -20,7 +20,10 @@ const meta: Meta<typeof SparkAreaChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkAreaChart",
+  },
 };
 
 export default meta;

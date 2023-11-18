@@ -19,7 +19,10 @@ const meta: Meta<typeof LineChart> = {
   title: "Visualizations/Chart/LineChart",
   component: LineChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/LineChart",
+  },
 };
 
 export default meta;

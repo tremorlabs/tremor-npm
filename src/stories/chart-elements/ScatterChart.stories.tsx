@@ -14,7 +14,10 @@ const meta: Meta<typeof ScatterChart> = {
   title: "Visualizations/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/ScatterChart",
+  },
 };
 
 export default meta;
