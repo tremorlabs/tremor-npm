@@ -8,6 +8,10 @@ import { fr } from "date-fns/locale";
 const meta: Meta<typeof DatePicker> = {
   title: "UI/Input/DatePicker",
   component: DatePicker,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/DatePicker",
+  },
 };
 
 export default meta;

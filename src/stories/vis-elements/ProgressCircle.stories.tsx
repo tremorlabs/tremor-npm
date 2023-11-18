@@ -8,6 +8,10 @@ const meta: Meta<typeof ProgressCircle> = {
   title: "Visualizations/Vis/ProgressCircle",
   component: ProgressCircle,
   render: (args) => <ProgressCircle {...args} />,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/ProgressCircle",
+  },
 };
 
 export default meta;
