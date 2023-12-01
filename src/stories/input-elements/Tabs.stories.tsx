@@ -7,8 +7,11 @@ import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from "components"
 import { BaseColors, Color } from "lib";
 
 const meta: Meta<typeof TabGroup> = {
-  title: "UI/Input/TabGroup",
+  title: "UI/Input/Tabs",
   component: TabGroup,
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Tabs",
+  },
 };
 
 export default meta;

@@ -7,6 +7,10 @@ const meta: Meta<typeof CategoryBar> = {
   title: "Visualizations/Vis/CategoryBar",
   component: CategoryBar,
   render: (args) => <CategoryBar {...args} />,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/CategoryBar",
+  },
 };
 
 export default meta;

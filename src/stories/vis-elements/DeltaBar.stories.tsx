@@ -7,6 +7,10 @@ const meta: Meta<typeof DeltaBar> = {
   title: "Visualizations/Vis/DeltaBar",
   component: DeltaBar,
   render: (args) => <DeltaBar {...args} />,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/DeltaBar",
+  },
 };
 
 export default meta;

@@ -15,7 +15,9 @@ const meta: Meta<typeof Badge> = {
     tooltip: "Tooltip",
     icon: ArrowUpIcon,
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/icon-elements/Badge",
+  },
 };
 
 export default meta;

@@ -31,6 +31,7 @@
     "react-day-picker": "^8.7.1",
     "react-transition-group": "^4.4.5",
     "recharts": "^2.9.0",
+    "storybook-source-link": "^4.0.1",
     "tailwind-merge": "^1.9.1"
   },
   "devDependencies": {
