@@ -193,6 +193,14 @@ export const Disabled: Story = {
   },
 };
 
+export const TooltipDisabled: Story = {
+  args: {
+    children: "Disabled",
+    tooltip: "Disabled",
+    disabled: true,
+  },
+};
+
 export const LoadingStates: Story = {
   ...LoadingStateTemplate,
   args: {},
