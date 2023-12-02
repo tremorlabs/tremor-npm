@@ -60,6 +60,7 @@ export const ChartTooltipRow = ({ value, name }: ChartTooltipRowProps) => (
 export interface ScatterChartTooltipProps {
   label: string;
   categoryColors: Map<string, Color>;
+  customCategoryColors?: Map<string, string>;
   active: boolean | undefined;
   payload: any;
   valueFormatter: ScatterChartValueFormatter;
@@ -75,6 +76,7 @@ const ScatterChartTooltip = ({
   axis,
   category,
   categoryColors,
+  customCategoryColors,
 }: ScatterChartTooltipProps) => {
   if (active && payload) {
     return (
@@ -105,6 +107,9 @@ const ScatterChartTooltip = ({
                   ? categoryColors.get(payload?.[0]?.payload[category]) ?? BaseColors.Blue
                   : BaseColors.Blue,
                 colorPalette.background,
+                !customCategoryColors || !category
+                  ? undefined
+                  : customCategoryColors.get(payload?.[0]?.payload[category]),
               ).bgColor,
               sizing.sm.height,
               sizing.sm.width,
