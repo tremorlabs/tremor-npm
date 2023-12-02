@@ -287,7 +287,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: !!customCategoryColors
+                          color: customCategoryColors
                             ? customCategoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray
                             : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
