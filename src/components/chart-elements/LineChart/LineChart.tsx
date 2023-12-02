@@ -219,7 +219,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
                           color: !!customCategoryColors
-                            ? customCategoryColors.get(payloadItem.dataKey)
+                            ? customCategoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray
                             : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
                         active={active}

@@ -288,7 +288,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
                           color: !!customCategoryColors
-                            ? customCategoryColors.get(payloadItem.dataKey)
+                            ? customCategoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray
                             : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
                         active={active}
