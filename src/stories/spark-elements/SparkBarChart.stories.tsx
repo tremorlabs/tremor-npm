@@ -51,6 +51,10 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
 };
 
+export const CustomColors: Story = {
+  args: { customChartColors: ["#32a852", "orange-600"] },
+};
+
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
