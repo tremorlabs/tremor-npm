@@ -36,6 +36,19 @@ export const CustomColor: Story = {
   },
 };
 
+export const Tooltip: Story = {
+  args: {
+    tooltip: "Action disabled",
+  },
+};
+
+export const TooltipDisabled: Story = {
+  args: {
+    tooltip: "Action disabled",
+    disabled: true,
+  },
+};
+
 export const Controlled: Story = {
   render: SimpleSwitch,
 };
