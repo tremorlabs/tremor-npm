@@ -56,12 +56,7 @@ export const OtherColors: Story = {
 
 export const CustomColors: Story = {
   args: {
-    categories: ["Leads", "Sales", "Successful Payments"],
-    data: data.map((item, index) => ({
-      ...item,
-      Leads: 2000 + index * 100,
-    })),
-    customChartColors: ["#32a852", "#fcba03", "orange-600"],
+    customChartColors: ["#32a852", "orange-600"],
   },
 };
 
