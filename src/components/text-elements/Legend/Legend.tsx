@@ -17,11 +17,12 @@ const makeLegendClassName = makeClassName("Legend");
 export interface LegendItemProps {
   name: string;
   color: Color;
-  onClick?: (name: string, color: Color) => void;
+  customColor?: string;
+  onClick?: (name: string, color: Color, customColor?: string) => void;
   activeLegend?: string;
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => {
+const LegendItem = ({ name, color, customColor, onClick, activeLegend }: LegendItemProps) => {
   const hasOnValueChange = !!onClick;
   return (
     <li
@@ -39,13 +40,13 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
       )}
       onClick={(e) => {
         e.stopPropagation();
-        onClick?.(name, color);
+        onClick?.(name, color, customColor);
       }}
     >
       <svg
         className={tremorTwMerge(
           "flex-none",
-          getColorClassNames(color, colorPalette.text).textColor,
+          getColorClassNames(color, colorPalette.text, customColor).textColor,
           sizing.xs.height,
           sizing.xs.width,
           spacing.xs.marginRight,
@@ -143,6 +144,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
   colors?: Color[];
+  customColors?: string[];
   onClickLegendItem?: (category: string, color: Color) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
@@ -158,6 +160,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     categories,
     colors = themeColorRange,
     className,
+    customColors = [],
     onClickLegendItem,
     activeLegend,
     enableLegendSlider = false,
@@ -268,6 +271,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             key={`item-${idx}`}
             name={category}
             color={colors[idx]}
+            customColor={!customColors.length ? undefined : customColors[idx]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />

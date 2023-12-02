@@ -25,9 +25,10 @@ export interface ChartTooltipRowProps {
   value: string;
   name: string;
   color: Color;
+  customColor?: string;
 }
 
-export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
+export const ChartTooltipRow = ({ value, name, color, customColor }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
@@ -38,7 +39,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
           "border-tremor-background shadow-tremor-card",
           // dark
           "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-          getColorClassNames(color, colorPalette.background).bgColor,
+          getColorClassNames(color, colorPalette.background, customColor).bgColor,
           sizing.sm.height,
           sizing.sm.width,
           border.md.all,
@@ -77,6 +78,7 @@ export interface ChartTooltipProps {
   payload: any;
   label: string;
   categoryColors: Map<string, Color>;
+  customCategoryColors?: Map<string, string>;
   valueFormatter: ValueFormatter;
 }
 
@@ -85,6 +87,7 @@ const ChartTooltip = ({
   payload,
   label,
   categoryColors,
+  customCategoryColors,
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload) {
@@ -124,6 +127,7 @@ const ChartTooltip = ({
               value={valueFormatter(value)}
               name={name}
               color={categoryColors.get(name) ?? BaseColors.Blue}
+              customColor={!customCategoryColors ? undefined : customCategoryColors.get(name)}
             />
           ))}
         </div>
