@@ -73,21 +73,33 @@ interface ColorClassNames {
 export function getColorClassNames(
   color: Color | "white" | "black" | "transparent",
   shade?: number,
+  customColor?: string,
 ): ColorClassNames {
-  if (color === "white" || color === "black" || color === "transparent" || !shade) {
+  if (
+    color === "white" ||
+    color === "black" ||
+    color === "transparent" ||
+    !!customColor ||
+    !shade
+  ) {
+    const unshadedColor = !customColor
+      ? color
+      : customColor.includes("#")
+      ? `[${customColor}]`
+      : customColor;
     return {
-      bgColor: `bg-${color}`,
-      hoverBgColor: `hover:bg-${color}`,
-      selectBgColor: `ui-selected:bg-${color}`,
-      textColor: `text-${color}`,
-      selectTextColor: `ui-selected:text-${color}`,
-      hoverTextColor: `hover:text-${color}`,
-      borderColor: `border-${color}`,
-      selectBorderColor: `ui-selected:border-${color}`,
-      hoverBorderColor: `hover:border-${color}`,
-      ringColor: `ring-${color}`,
-      strokeColor: `stroke-${color}`,
-      fillColor: `fill-${color}`,
+      bgColor: `bg-${unshadedColor}`,
+      hoverBgColor: `hover:bg-${unshadedColor}`,
+      selectBgColor: `ui-selected:bg-${unshadedColor}`,
+      textColor: `text-${unshadedColor}`,
+      selectTextColor: `ui-selected:text-${unshadedColor}`,
+      hoverTextColor: `hover:text-${unshadedColor}`,
+      borderColor: `border-${unshadedColor}`,
+      selectBorderColor: `ui-selected:border-${unshadedColor}`,
+      hoverBorderColor: `hover:border-${unshadedColor}`,
+      ringColor: `ring-${unshadedColor}`,
+      strokeColor: `stroke-${unshadedColor}`,
+      fillColor: `fill-${unshadedColor}`,
     };
   }
   return {

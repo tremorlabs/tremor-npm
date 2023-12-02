@@ -20,7 +20,10 @@ const meta: Meta<typeof SparkBarChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkBarChart",
+  },
 };
 
 export default meta;
@@ -46,6 +49,10 @@ export const Relative: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
+};
+
+export const CustomColors: Story = {
+  args: { customChartColors: ["#32a852", "orange-600"] },
 };
 
 export const ChangedCategoriesOrder: Story = {

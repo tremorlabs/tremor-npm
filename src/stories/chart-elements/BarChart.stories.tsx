@@ -17,7 +17,10 @@ const meta: Meta<typeof BarChart> = {
   title: "Visualizations/Chart/BarChart",
   component: BarChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/BarChart",
+  },
 };
 
 export default meta;
@@ -85,6 +88,12 @@ export const ValueFormatter: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    customChartColors: ["#32a852", "orange-600"],
+  },
 };
 
 export const ChangedCategoriesOrder: Story = {

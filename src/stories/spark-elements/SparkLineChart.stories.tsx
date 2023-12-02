@@ -20,7 +20,10 @@ const meta: Meta<typeof SparkLineChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkLineChart",
+  },
 };
 
 export default meta;
@@ -30,6 +33,12 @@ export const Default: Story = { args: { categories: ["Sales"] } };
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    customChartColors: ["#32a852", "orange-600"],
+  },
 };
 
 export const ChangedCategoriesOrder: Story = {

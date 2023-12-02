@@ -11,6 +11,20 @@ export const constructCategoryColors = (
   return categoryColors;
 };
 
+export const constructCustomCategoryColors = (
+  categories: string[],
+  colors: string[],
+): Map<string, string> | undefined => {
+  if (!colors.length) {
+    return;
+  }
+  const categoryColors = new Map<string, string>();
+  categories.forEach((category, idx) => {
+    categoryColors.set(category, colors[idx]);
+  });
+  return categoryColors;
+};
+
 export const getYAxisDomain = (
   autoMinValue: boolean,
   minValue: number | undefined,

@@ -19,6 +19,7 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 import {
   constructCategoryColors,
+  constructCustomCategoryColors,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
@@ -49,6 +50,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     categories = [],
     index,
     colors = themeColorRange,
+    customChartColors = [],
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
@@ -80,6 +82,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
+  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
@@ -215,7 +218,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                          color: customCategoryColors
+                            ? customCategoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray
+                            : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
                         active={active}
                         label={label}
@@ -227,6 +232,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                         label={label}
                         valueFormatter={valueFormatter}
                         categoryColors={categoryColors}
+                        customCategoryColors={customCategoryColors}
                       />
                     )
                 ) : (
@@ -250,6 +256,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
+                    customCategoryColors,
                   )
                 }
               />
@@ -260,6 +267,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
+                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).strokeColor,
                 )}
                 strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
@@ -274,6 +282,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                         getColorClassNames(
                           categoryColors.get(dataKey) ?? BaseColors.Gray,
                           colorPalette.text,
+                          !customCategoryColors ? undefined : customCategoryColors.get(category),
                         ).fillColor,
                       )}
                       cx={cx}
@@ -322,6 +331,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                           getColorClassNames(
                             categoryColors.get(dataKey) ?? BaseColors.Gray,
                             colorPalette.text,
+                            !customCategoryColors ? undefined : customCategoryColors.get(dataKey),
                           ).fillColor,
                         )}
                       />
