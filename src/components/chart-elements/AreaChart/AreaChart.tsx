@@ -20,6 +20,7 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 import {
   constructCategoryColors,
+  constructCustomCategoryColors,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
@@ -53,6 +54,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     index,
     stack = false,
     colors = themeColorRange,
+    customChartColors = [],
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
@@ -85,6 +87,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
+  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
@@ -219,7 +222,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                          color: !!customCategoryColors
+                            ? customCategoryColors.get(payloadItem.dataKey)
+                            : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
                         active={active}
                         label={label}
@@ -231,6 +236,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                         label={label}
                         valueFormatter={valueFormatter}
                         categoryColors={categoryColors}
+                        customCategoryColors={customCategoryColors}
                       />
                     )
                 ) : (
@@ -253,6 +259,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
+                    customCategoryColors,
                   )
                 }
               />
@@ -266,9 +273,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                         getColorClassNames(
                           categoryColors.get(category) ?? BaseColors.Gray,
                           colorPalette.text,
+                          !customCategoryColors ? undefined : customCategoryColors.get(category),
                         ).textColor
                       }
-                      id={categoryColors.get(category)}
+                      id={
+                        !customCategoryColors
+                          ? categoryColors.get(category)
+                          : customCategoryColors.get(category)
+                      }
                       x1="0"
                       y1="0"
                       x2="0"
@@ -289,9 +301,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                         getColorClassNames(
                           categoryColors.get(category) ?? BaseColors.Gray,
                           colorPalette.text,
+                          !customCategoryColors ? undefined : customCategoryColors.get(category),
                         ).textColor
                       }
-                      id={categoryColors.get(category)}
+                      id={
+                        !customCategoryColors
+                          ? categoryColors.get(category)
+                          : customCategoryColors.get(category)
+                      }
                       x1="0"
                       y1="0"
                       x2="0"
@@ -314,6 +331,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
+                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).strokeColor
                 }
                 strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
@@ -328,6 +346,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                         getColorClassNames(
                           categoryColors.get(dataKey) ?? BaseColors.Gray,
                           colorPalette.text,
+                          !customCategoryColors ? undefined : customCategoryColors.get(dataKey),
                         ).fillColor,
                       )}
                       cx={cx}
@@ -376,6 +395,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                           getColorClassNames(
                             categoryColors.get(dataKey) ?? BaseColors.Gray,
                             colorPalette.text,
+                            !customCategoryColors ? undefined : customCategoryColors.get(dataKey),
                           ).fillColor,
                         )}
                       />
@@ -388,7 +408,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 type={curveType}
                 dataKey={category}
                 stroke=""
-                fill={`url(#${categoryColors.get(category)})`}
+                fill={`url(#${
+                  !customCategoryColors
+                    ? categoryColors.get(category)
+                    : customCategoryColors.get(category)
+                })`}
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
