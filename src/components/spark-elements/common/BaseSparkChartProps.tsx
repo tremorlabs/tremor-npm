@@ -19,6 +19,7 @@ interface BaseSparkChartProps
   categories: string[];
   index: string;
   colors?: Color[];
+  customChartColors?: string[];
   noDataText?: string;
 }
 

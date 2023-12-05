@@ -1,7 +1,15 @@
 "use client";
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 import { useInternalState } from "hooks";
-import { Color, makeClassName, tremorTwMerge, colorPalette, getColorClassNames } from "lib";
+import {
+  Color,
+  makeClassName,
+  tremorTwMerge,
+  colorPalette,
+  getColorClassNames,
+  mergeRefs,
+} from "lib";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 import React, { useState } from "react";
 
@@ -29,6 +37,7 @@ export interface SwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   disabled?: boolean;
   required?: boolean;
   id?: string;
+  tooltip?: string;
 }
 
 const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
@@ -42,6 +51,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
     errorMessage,
     disabled,
     required,
+    tooltip,
     id,
     ...other
   } = props;
@@ -49,13 +59,17 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
 
   const [isChecked, setIsChecked] = useInternalState(defaultChecked, checked);
   const [isFocused, setIsFocused] = useState(false);
+  const delay = 300;
+  const { tooltipProps, getReferenceProps } = useTooltip(delay);
 
   return (
-    <>
+    <div className="flex flex-row items-center justify-start">
+      <Tooltip text={tooltip} {...tooltipProps} />
       <div
-        ref={ref}
-        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-col relative h-5")}
+        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-row relative h-5")}
         {...other}
+        {...getReferenceProps}
       >
         <input
           type="checkbox"
@@ -79,9 +93,9 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           disabled={disabled}
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
-            "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
+            "w-10 h-5 group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
             "focus:outline-none",
-            disabled ? "opacity-0 cursor-not-allowed" : "",
+            disabled ? "cursor-not-allowed" : "",
           )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -124,7 +138,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           {errorMessage}
         </p>
       ) : null}
-    </>
+    </div>
   );
 });
 

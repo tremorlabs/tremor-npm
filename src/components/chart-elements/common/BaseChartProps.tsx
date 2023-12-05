@@ -18,6 +18,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   categories: string[];
   index: string;
   colors?: Color[];
+  customChartColors?: string[];
   valueFormatter?: ValueFormatter;
   startEndOnly?: boolean;
   showXAxis?: boolean;
