@@ -32,7 +32,7 @@ const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export type Size = (typeof sizeValues)[number];
 
-const colorValues = [
+export const colorValues = [
   "slate",
   "gray",
   "zinc",

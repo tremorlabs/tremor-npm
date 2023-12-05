@@ -14,10 +14,7 @@ export const constructCategoryColors = (
 export const constructCustomCategoryColors = (
   categories: string[],
   colors: string[],
-): Map<string, string> | undefined => {
-  if (!colors.length) {
-    return;
-  }
+): Map<string, string> => {
   const categoryColors = new Map<string, string>();
   categories.forEach((category, idx) => {
     categoryColors.set(category, colors[idx]);

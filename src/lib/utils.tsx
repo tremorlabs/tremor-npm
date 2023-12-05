@@ -1,5 +1,6 @@
 import { DeltaTypes } from "./constants";
-import { Color, ValueFormatter } from "./inputTypes";
+import { colorValues, ValueFormatter } from "./inputTypes";
+import type { Color } from "./inputTypes";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -70,23 +71,10 @@ interface ColorClassNames {
   fillColor: string;
 }
 
-export function getColorClassNames(
-  color: Color | "white" | "black" | "transparent",
-  shade?: number,
-  customColor?: string,
-): ColorClassNames {
-  if (
-    color === "white" ||
-    color === "black" ||
-    color === "transparent" ||
-    !!customColor ||
-    !shade
-  ) {
-    const unshadedColor = !customColor
-      ? color
-      : customColor.includes("#")
-      ? `[${customColor}]`
-      : customColor;
+export function getColorClassNames(color: string, shade?: number, _?: string): ColorClassNames {
+  const isBaseColor = colorValues.includes(color as Color);
+  if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
+    const unshadedColor = color.includes("#") ? `[${color}]` : color;
     return {
       bgColor: `bg-${unshadedColor}`,
       hoverBgColor: `hover:bg-${unshadedColor}`,
