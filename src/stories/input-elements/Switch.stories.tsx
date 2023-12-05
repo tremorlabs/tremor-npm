@@ -3,8 +3,12 @@ import { Switch } from "components";
 import { SimpleSwitch, SimpleIdSwitch } from "./helpers/SimpleSwitch";
 
 const meta: Meta<typeof Switch> = {
-  title: "Components/Input/Switch",
+  title: "UI/Input/Switch",
   component: Switch,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Switch",
+  },
 };
 
 export default meta;

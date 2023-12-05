@@ -14,10 +14,13 @@ import {
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
-  title: "Components/Chart/BarChart",
+  title: "Visualizations/Chart/BarChart",
   component: BarChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/BarChart",
+  },
 };
 
 export default meta;
@@ -87,11 +90,6 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
 };
 
-// @sev
-export const NoGradient: Story = {
-  args: { showGradient: false },
-};
-
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
@@ -155,6 +153,10 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
+};
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -195,6 +197,29 @@ export const MultipleZeroValues: Story = {
       },
     ],
   },
+};
+
+export const RotateXLabelsHorizontal: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
+};
+
+export const RotateXLabelVertical: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+    layout: "vertical",
+  },
+};
+
+export const NoAxes: Story = {
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
 };
 
 //Custom tooltips

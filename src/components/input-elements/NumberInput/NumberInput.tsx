@@ -6,7 +6,7 @@ import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export interface NumberInputProps
   extends Omit<BaseInputProps, "type" | "stepper" | "onSubmit" | "makeInputClassName"> {
-  step?: string;
+  step?: string | number;
   enableStepper?: boolean;
   onSubmit?: (value: number) => void;
   onValueChange?: (value: number) => void;
@@ -78,7 +78,11 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
               onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
+              onTouchStart={(e) => {
+                if (e.cancelable) {
+                  e.preventDefault();
+                }
+              }}
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepDown();
@@ -101,7 +105,11 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               tabIndex={-1}
               onClick={(e) => e.preventDefault()}
               onMouseDown={(e) => e.preventDefault()}
-              onTouchStart={(e) => e.preventDefault()}
+              onTouchStart={(e) => {
+                if (e.cancelable) {
+                  e.preventDefault();
+                }
+              }}
               onMouseUp={() => {
                 if (disabled) return;
                 inputRef.current?.stepUp();

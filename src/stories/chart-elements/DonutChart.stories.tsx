@@ -12,10 +12,13 @@ import {
 } from "stories/chart-elements/helpers/testData";
 
 const meta: Meta<typeof DonutChart> = {
-  title: "Components/Chart/DonutChart",
+  title: "Visualizations/Chart/DonutChart",
   component: DonutChart,
   args: { category: "sales", index: "city", data },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/DonutChart",
+  },
 };
 
 export default meta;

@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Tracker } from "components";
 
 const meta: Meta<typeof Tracker> = {
-  title: "Components/Vis/Tracker",
+  title: "Visualizations/Vis/Tracker",
   component: Tracker,
   args: {
     data: [
@@ -34,6 +34,10 @@ const meta: Meta<typeof Tracker> = {
     ],
   },
   render: (args) => <Tracker {...args} />,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/Tracker",
+  },
 };
 
 export default meta;

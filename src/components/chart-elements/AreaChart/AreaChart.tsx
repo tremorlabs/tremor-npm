@@ -38,6 +38,7 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  showGradient?: boolean;
 }
 
 interface ActiveDot {
@@ -73,10 +74,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
+    rotateLabelX,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -160,7 +164,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
-              padding={{ left: 20, right: 20 }}
+              padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
@@ -179,6 +183,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               tickLine={false}
               axisLine={false}
               minTickGap={5}
+              angle={rotateLabelX?.angle}
+              dy={rotateLabelX?.verticalShift}
+              height={rotateLabelX?.xAxisHeight}
             />
             <YAxis
               width={yAxisWidth}
@@ -245,6 +252,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

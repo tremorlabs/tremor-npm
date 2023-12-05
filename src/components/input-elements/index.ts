@@ -8,4 +8,5 @@ export * from "./SearchSelect";
 export * from "./Select";
 export * from "./Switch";
 export * from "./Tabs";
+export * from "./Textarea";
 export * from "./TextInput";
