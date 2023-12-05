@@ -25,13 +25,12 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
 
   return (
     <input
-      {...other}
       ref={ref}
       type="checkbox"
       className={twMerge(
         makeCheckboxClassName("root"),
         // common
-        "h-4 w-4 appearance-none cursor-pointer disabled:cursor-not-allowed rounded-tremor-small border-2 focus:ring-0 focus:outline-none focus:outline-transparent checked:border-0 checked:border-transparent focus:ring-transparent focus-visible:ring-2 transition bg-transparent",
+        "h-4 w-4 appearance-none cursor-pointer disabled:cursor-not-allowed rounded-tremor-small border-2 focus:ring-0 focus:outline-none focus:outline-transparent checked:border-0 checked:border-transparent focus:ring-transparent focus-visible:ring-2 transition duration-100 bg-transparent",
         // light
         "border-tremor-border  text-tremor-brand focus-visible:ring-tremor-brand disabled:bg-tremor-background-muted",
         // dark
@@ -41,6 +40,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
       checked={isChecked}
       onChange={handleChange}
       disabled={disabled}
+      {...other}
     />
   );
 });

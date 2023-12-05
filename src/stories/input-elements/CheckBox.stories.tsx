@@ -4,7 +4,7 @@ import { Checkbox } from "components";
 import { SimpleIdCheckbox } from "./helpers/SimpleCheckbox";
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Components/Input/Checkbox",
+  title: "UI/Input/Checkbox",
   component: Checkbox,
 };
 
