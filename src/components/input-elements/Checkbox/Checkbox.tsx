@@ -25,6 +25,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
 
   return (
     <input
+      {...other}
       ref={ref}
       type="checkbox"
       className={twMerge(
@@ -40,7 +41,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
       checked={isChecked}
       onChange={handleChange}
       disabled={disabled}
-      {...other}
     />
   );
 });
