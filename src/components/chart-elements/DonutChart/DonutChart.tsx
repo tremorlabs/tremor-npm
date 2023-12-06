@@ -25,8 +25,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
-  colors?: Color[];
-  customChartColors?: string[];
+  colors?: string[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
   label?: string;
@@ -80,7 +79,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     category = "value",
     index = "name",
     colors = themeColorRange,
-    customChartColors = [],
     variant = "donut",
     valueFormatter = defaultValueFormatter,
     label,
@@ -162,7 +160,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                 "stroke-tremor-background dark:stroke-dark-tremor-background",
                 onValueChange ? "cursor-pointer" : "cursor-default",
               )}
-              data={parseData(data, colors, customChartColors)}
+              data={parseData(data, colors)}
               cx="50%"
               cy="50%"
               startAngle={90}
