@@ -53,7 +53,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     index,
     stack = false,
     colors = themeColorRange,
-    customChartColors = [],
     valueFormatter = defaultValueFormatter,
     startEndOnly = false,
     showXAxis = true,
