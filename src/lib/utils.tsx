@@ -1,6 +1,5 @@
 import { DeltaTypes } from "./constants";
-import { colorValues, ValueFormatter } from "./inputTypes";
-import type { Color } from "./inputTypes";
+import { getIsBaseColor, ValueFormatter } from "./inputTypes";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -72,7 +71,7 @@ interface ColorClassNames {
 }
 
 export function getColorClassNames(color: string, shade?: number, _?: string): ColorClassNames {
-  const isBaseColor = colorValues.includes(color as Color);
+  const isBaseColor = getIsBaseColor(color);
   if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
     const unshadedColor = color.includes("#") ? `[${color}]` : color;
     return {
