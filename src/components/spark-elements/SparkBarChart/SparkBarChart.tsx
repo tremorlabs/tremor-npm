@@ -20,7 +20,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     categories = [],
     index,
     colors = themeColorRange,
-    customChartColors = [],
     stack = false,
     relative = false,
     animationDuration = 900,
@@ -30,7 +29,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCategoryColors(categories, customChartColors);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
@@ -48,7 +46,6 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.background,
-                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).fillColor,
                 )}
                 key={category}
