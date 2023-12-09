@@ -54,7 +54,6 @@ export interface ScatterChartProps
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
   colors?: (Color | string)[];
-  customChartColors?: string[];
   showOpacity?: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
@@ -109,7 +108,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     size,
     category,
     colors = themeColorRange,
-    customChartColors = [],
     showOpacity = false,
     sizeRange = [1, 1000],
     valueFormatter = {
