@@ -59,7 +59,7 @@ export const ChartTooltipRow = ({ value, name }: ChartTooltipRowProps) => (
 
 export interface ScatterChartTooltipProps {
   label: string;
-  categoryColors: Map<string, Color>;
+  categoryColors: Map<string, Color | string>;
   customCategoryColors?: Map<string, string>;
   active: boolean | undefined;
   payload: any;

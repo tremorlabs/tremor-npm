@@ -6,10 +6,7 @@ import { Bar, BarChart as ReChartsBarChart, ResponsiveContainer, XAxis } from "r
 
 import { BaseColors, themeColorRange } from "lib";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import {
-  constructCategoryColors,
-  constructCustomCategoryColors,
-} from "components/chart-elements/common/utils";
+import { constructCategoryColors } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkBarChartProps extends BaseSparkChartProps {
@@ -33,7 +30,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
+  const customCategoryColors = constructCategoryColors(categories, customChartColors);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>

@@ -22,7 +22,6 @@ import NoData from "../common/NoData";
 import {
   constructCategories,
   constructCategoryColors,
-  constructCustomCategoryColors,
   deepEqual,
   getYAxisDomain,
 } from "../common/utils";
@@ -184,7 +183,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
+  const customCategoryColors = constructCategoryColors(categories, customChartColors);
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);

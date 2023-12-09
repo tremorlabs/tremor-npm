@@ -17,7 +17,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
-import { constructCustomCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
@@ -97,7 +97,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const CustomTooltip = customTooltip;
   const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
-  const categoryColors = constructCustomCategoryColors(categories, colors);
+  const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const hasOnValueChange = !!onValueChange;

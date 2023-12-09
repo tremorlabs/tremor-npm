@@ -2,20 +2,9 @@ import { Color } from "../../../lib/inputTypes";
 
 export const constructCategoryColors = (
   categories: string[],
-  colors: Color[],
-): Map<string, Color> => {
-  const categoryColors = new Map<string, Color>();
-  categories.forEach((category, idx) => {
-    categoryColors.set(category, colors[idx]);
-  });
-  return categoryColors;
-};
-
-export const constructCustomCategoryColors = (
-  categories: string[],
-  colors: string[],
-): Map<string, string> => {
-  const categoryColors = new Map<string, string>();
+  colors: (Color | string)[],
+): Map<string, Color | string> => {
+  const categoryColors = new Map<string, Color | string>();
   categories.forEach((category, idx) => {
     categoryColors.set(category, colors[idx]);
   });
