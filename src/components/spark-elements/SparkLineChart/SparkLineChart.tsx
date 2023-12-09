@@ -19,7 +19,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     categories = [],
     index,
     colors = themeColorRange,
-    customChartColors = [],
     animationDuration = 900,
     showAnimation = false,
     curveType = "linear",
@@ -29,7 +28,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCategoryColors(categories, customChartColors);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
@@ -43,7 +41,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
-                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).strokeColor,
                 )}
                 strokeOpacity={1}
