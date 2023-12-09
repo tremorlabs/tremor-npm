@@ -78,11 +78,7 @@ interface ColorClassNames {
 const getIsArbitraryColor = (color: Color | string) =>
   color.includes("#") || color.includes("--") || color.includes("rgb");
 
-export function getColorClassNames(
-  color: Color | string,
-  shade?: number,
-  _?: string,
-): ColorClassNames {
+export function getColorClassNames(color: Color | string, shade?: number): ColorClassNames {
   const isBaseColor = getIsBaseColor(color);
   if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
     const unshadedColor = !getIsArbitraryColor(color) ? color : `[${color}]`;
