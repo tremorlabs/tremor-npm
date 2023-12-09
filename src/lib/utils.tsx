@@ -70,6 +70,14 @@ interface ColorClassNames {
   fillColor: string;
 }
 
+/**
+ * Returns boolean based on a determination that a color should be considered an "arbitrary"
+ * Tailwind class.
+ * @see {@link https://tailwindcss.com/docs/background-color#arbitrary-values | Tailwind CSS docs}
+ */
+const getIsArbitraryColor = (color: Color | string) =>
+  color.includes("#") || color.includes("--") || color.includes("rgb");
+
 export function getColorClassNames(
   color: Color | string,
   shade?: number,
@@ -77,7 +85,7 @@ export function getColorClassNames(
 ): ColorClassNames {
   const isBaseColor = getIsBaseColor(color);
   if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
-    const unshadedColor = color.includes("#") ? `[${color}]` : color;
+    const unshadedColor = !getIsArbitraryColor(color) ? color : `[${color}]`;
     return {
       bgColor: `bg-${unshadedColor}`,
       hoverBgColor: `hover:bg-${unshadedColor}`,
