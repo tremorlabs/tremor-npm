@@ -1,6 +1,6 @@
 "use client";
 import { RadioGroup as HeadlessRadioGroup } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/solid";
+import { CheckCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
 

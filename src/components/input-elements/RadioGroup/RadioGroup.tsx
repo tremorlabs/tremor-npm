@@ -7,16 +7,20 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  disabled?: boolean;
+  name?: string;
 }
 
 const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
-  const { defaultValue, value, onValueChange, className, children } = props;
+  const { defaultValue, value, onValueChange, disabled = false, name, className, children } = props;
 
   return (
     <HeadlessRadioGroup
       as="div"
-      defaultValue={defaultValue}
       ref={ref}
+      disabled={disabled}
+      name={name}
+      defaultValue={defaultValue}
       value={value}
       onChange={(e) => {
         console.log(e);

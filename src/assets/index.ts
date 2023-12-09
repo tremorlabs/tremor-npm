@@ -8,6 +8,7 @@ export { default as ArrowUpHeadIcon } from "./ArrowUpHeadIcon";
 export { default as ArrowUpIcon } from "./ArrowUpIcon";
 export { default as ArrowUpRightIcon } from "./ArrowUpRightIcon";
 export { default as CalendarIcon } from "./CalendarIcon";
+export { default as CheckCircleIcon } from "./CheckCircleIcon";
 export { default as DoubleArrowLeftHeadIcon } from "./DoubleArrowLeftHeadIcon";
 export { default as DoubleArrowRightHeadIcon } from "./DoubleArrowRightHeadIcon";
 export { default as ExclamationFilledIcon } from "./ExclamationFilledIcon";
