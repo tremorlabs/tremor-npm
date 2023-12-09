@@ -22,7 +22,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     index,
     stack = false,
     colors = themeColorRange,
-    customChartColors = [],
     showAnimation = false,
     animationDuration = 900,
     showGradient = true,
@@ -33,7 +32,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCategoryColors(categories, customChartColors);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
@@ -50,14 +48,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                         getColorClassNames(
                           categoryColors.get(category) ?? BaseColors.Gray,
                           colorPalette.text,
-                          !customCategoryColors ? undefined : customCategoryColors.get(category),
                         ).textColor
                       }
-                      id={
-                        !customCategoryColors
-                          ? categoryColors.get(category)
-                          : customCategoryColors.get(category)
-                      }
+                      id={categoryColors.get(category)}
                       x1="0"
                       y1="0"
                       x2="0"
@@ -72,14 +65,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                         getColorClassNames(
                           categoryColors.get(category) ?? BaseColors.Gray,
                           colorPalette.text,
-                          !customCategoryColors ? undefined : customCategoryColors.get(category),
                         ).textColor
                       }
-                      id={
-                        !customCategoryColors
-                          ? categoryColors.get(category)
-                          : customCategoryColors.get(category)
-                      }
+                      id={categoryColors.get(category)}
                       x1="0"
                       y1="0"
                       x2="0"
@@ -97,7 +85,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
-                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).strokeColor
                 }
                 strokeOpacity={1}
@@ -107,11 +94,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                 type={curveType}
                 dataKey={category}
                 stroke=""
-                fill={`url(#${
-                  !customCategoryColors
-                    ? categoryColors.get(category)
-                    : customCategoryColors.get(category)
-                })`}
+                fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
