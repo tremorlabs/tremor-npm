@@ -53,7 +53,7 @@ export interface ScatterChartProps
   size?: string;
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
-  colors?: Color[];
+  colors?: (Color | string)[];
   customChartColors?: string[];
   showOpacity?: boolean;
   startEndOnly?: boolean;
