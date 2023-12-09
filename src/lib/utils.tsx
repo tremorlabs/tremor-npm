@@ -72,7 +72,7 @@ interface ColorClassNames {
 
 /**
  * Returns boolean based on a determination that a color should be considered an "arbitrary"
- * Tailwind class.
+ * Tailwind CSS class.
  * @see {@link https://tailwindcss.com/docs/background-color#arbitrary-values | Tailwind CSS docs}
  */
 const getIsArbitraryColor = (color: Color | string) =>
