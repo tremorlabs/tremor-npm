@@ -16,9 +16,9 @@ const makeLegendClassName = makeClassName("Legend");
 
 export interface LegendItemProps {
   name: string;
-  color: Color;
+  color: Color | string;
   customColor?: string;
-  onClick?: (name: string, color: Color, customColor?: string) => void;
+  onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
 }
 
@@ -40,7 +40,7 @@ const LegendItem = ({ name, color, customColor, onClick, activeLegend }: LegendI
       )}
       onClick={(e) => {
         e.stopPropagation();
-        onClick?.(name, color, customColor);
+        onClick?.(name, color);
       }}
     >
       <svg
@@ -143,9 +143,8 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
 
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
-  colors?: Color[];
-  customColors?: string[];
-  onClickLegendItem?: (category: string, color: Color) => void;
+  colors?: (Color | string)[];
+  onClickLegendItem?: (category: string, color: Color | string) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
 }
@@ -160,7 +159,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     categories,
     colors = themeColorRange,
     className,
-    customColors = [],
     onClickLegendItem,
     activeLegend,
     enableLegendSlider = false,
@@ -271,7 +269,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             key={`item-${idx}`}
             name={category}
             color={colors[idx]}
-            customColor={!customColors.length ? undefined : customColors[idx]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />
