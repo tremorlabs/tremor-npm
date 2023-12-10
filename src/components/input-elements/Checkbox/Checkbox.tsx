@@ -4,8 +4,8 @@ import { twMerge } from "tailwind-merge";
 import { makeClassName } from "lib";
 import { useInternalState } from "hooks";
 
-export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  onValueChange: (checked: boolean) => void;
+export interface CheckboxProps {
+  onChange: (checked: boolean) => void;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -15,11 +15,11 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 const makeCheckboxClassName = makeClassName("Checkbox");
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  const { onValueChange, checked, defaultChecked = false, disabled, className, ...other } = props;
+  const { onChange, checked, defaultChecked = false, disabled, className, ...other } = props;
   const [isChecked, setIsChecked] = useInternalState(defaultChecked, checked);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onValueChange(e.target.checked);
+    onChange(e.target.checked);
     setIsChecked(e.target.checked);
   };
 
