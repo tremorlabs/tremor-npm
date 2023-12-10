@@ -38,7 +38,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>((props, ref
       }}
       className={tremorTwMerge(
         makeRadioGroupClassName("root"),
-        "disabled:opacity-50 flex gap-2",
+        "disabled:opacity-50 flex flex-col gap-3",
         className,
       )}
       {...other}
