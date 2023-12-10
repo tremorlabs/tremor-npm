@@ -1,50 +1,33 @@
 import React, { useState } from "react";
-import { RadioGroup, RadioGroupOption } from "components";
-
-const platformPrices = [
-  { id: "0", title: "Starter", description: "Up to 300 requests per day", price: 0 },
-  {
-    id: "2",
-    title: "Premium",
-    description: "Unlimited requests per month",
-    price: 100,
-  },
-  { id: "3", title: "Enterprise", description: "Based on your specific needs", price: 1000 },
-];
+import { RadioGroup, RadioGroupOption, RadioGroupLabel } from "components";
 
 export function SimpleRadioGroup() {
   return (
-    <RadioGroup defaultValue="1" disabled={true}>
-      {platformPrices.map((priceTier) => (
-        <RadioGroupOption
-          disabled={true}
-          key={priceTier.id}
-          value={priceTier.id}
-          label={priceTier.title}
-          description={priceTier.description}
-        />
-      ))}
+    <RadioGroup defaultValue="startups">
+      <div className="flex flex-col gap-4">
+        <RadioGroupOption value="startups">
+          <RadioGroupLabel>Startups</RadioGroupLabel>
+        </RadioGroupOption>
+        <RadioGroupOption value="enterprise">
+          <RadioGroupLabel>Enterprise</RadioGroupLabel>
+        </RadioGroupOption>
+      </div>
     </RadioGroup>
   );
 }
 
 export function SimpleRadioGroupControlled() {
-  const [selectedPlatform, setSelectedPlatform] = useState(platformPrices[0]);
+  const [selected, setSelected] = useState("startup");
   return (
-    <RadioGroup
-      value={selectedPlatform.id}
-      onValueChange={(val) =>
-        setSelectedPlatform((prev) => platformPrices.find((ele) => ele.id === val) ?? prev)
-      }
-    >
-      {platformPrices.map((priceTier) => (
-        <RadioGroupOption
-          key={priceTier.id}
-          value={priceTier.id}
-          label={priceTier.title}
-          description={priceTier.description}
-        />
-      ))}
+    <RadioGroup value={selected} onValueChange={setSelected}>
+      <div className="flex flex-col gap-4">
+        <RadioGroupOption value="startups">
+          <RadioGroupLabel>Startups</RadioGroupLabel>
+        </RadioGroupOption>
+        <RadioGroupOption value="enterprise">
+          <RadioGroupLabel>Enterprise</RadioGroupLabel>
+        </RadioGroupOption>
+      </div>
     </RadioGroup>
   );
 }

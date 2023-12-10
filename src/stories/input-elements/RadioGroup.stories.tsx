@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadioGroup } from "components";
-import { SimpleRadioGroupControlled } from "./helpers/SimpleRadioGroup";
+import { SimpleRadioGroup, SimpleRadioGroupControlled } from "./helpers/SimpleRadioGroup";
 
 const meta: Meta<typeof RadioGroup> = {
   title: "Components/Input/RadioGroup",
@@ -11,7 +11,7 @@ export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
 export const Default: Story = {
-  render: SimpleRadioGroupControlled,
+  render: SimpleRadioGroup,
 };
 
 export const Controlled: Story = {

@@ -1,18 +1,29 @@
 "use client";
 import { RadioGroup as HeadlessRadioGroup } from "@headlessui/react";
-import { tremorTwMerge } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
 
 export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
-  defaultValue?: string;
   value?: string;
-  onValueChange?: (value: string) => void;
+  defaultValue?: string;
+  onValueChange?: (value: any) => void; //sev
   disabled?: boolean;
   name?: string;
 }
 
+const makeRadioGroupClassName = makeClassName("RadioGroup");
+
 const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
-  const { defaultValue, value, onValueChange, disabled = false, name, className, children } = props;
+  const {
+    defaultValue,
+    value,
+    onValueChange,
+    disabled = false,
+    name,
+    className,
+    children,
+    ...other
+  } = props;
 
   return (
     <HeadlessRadioGroup
@@ -23,10 +34,14 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>((props, ref
       defaultValue={defaultValue}
       value={value}
       onChange={(e) => {
-        console.log(e);
         onValueChange?.(e);
       }}
-      className={tremorTwMerge("flex gap-2", className)}
+      className={tremorTwMerge(
+        makeRadioGroupClassName("root"),
+        "disabled:opacity-50 flex gap-2",
+        className,
+      )}
+      {...other}
     >
       {children}
     </HeadlessRadioGroup>
