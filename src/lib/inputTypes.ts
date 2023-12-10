@@ -32,7 +32,7 @@ const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export type Size = (typeof sizeValues)[number];
 
-export const colorValues = [
+export const colorValues: readonly string[] = [
   "slate",
   "gray",
   "zinc",
@@ -55,7 +55,7 @@ export const colorValues = [
   "fuchsia",
   "pink",
   "rose",
-] as const;
+];
 
 export type Color = (typeof colorValues)[number];
 export const getIsBaseColor = (color: Color | string) => colorValues.includes(color as Color);

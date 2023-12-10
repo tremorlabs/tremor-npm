@@ -21,7 +21,6 @@ export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChar
             value={valueFormatter(payloadRow.value)}
             name={payloadRow.name}
             color={payloadRow.payload.color}
-            customColor={payloadRow.payload.customColor}
           />
         </div>
       </ChartTooltipFrame>

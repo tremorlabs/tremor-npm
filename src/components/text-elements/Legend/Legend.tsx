@@ -17,12 +17,11 @@ const makeLegendClassName = makeClassName("Legend");
 export interface LegendItemProps {
   name: string;
   color: Color | string;
-  customColor?: string;
   onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
 }
 
-const LegendItem = ({ name, color, customColor, onClick, activeLegend }: LegendItemProps) => {
+const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => {
   const hasOnValueChange = !!onClick;
   return (
     <li
@@ -46,7 +45,7 @@ const LegendItem = ({ name, color, customColor, onClick, activeLegend }: LegendI
       <svg
         className={tremorTwMerge(
           "flex-none",
-          getColorClassNames(color, colorPalette.text, customColor).textColor,
+          getColorClassNames(color, colorPalette.text).textColor,
           sizing.xs.height,
           sizing.xs.width,
           spacing.xs.marginRight,
