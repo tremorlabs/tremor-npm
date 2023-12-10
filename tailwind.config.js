@@ -136,5 +136,5 @@ module.exports = {
       `ui-selected:text-${customColor}`,
     ]),
   ],
-  plugins: [require("@headlessui/tailwindcss")],
+  plugins: [require("@headlessui/tailwindcss"), require("@tailwindcss/forms")],
 };
