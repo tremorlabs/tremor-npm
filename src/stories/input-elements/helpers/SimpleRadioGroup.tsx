@@ -16,14 +16,20 @@ export function SimpleRadioGroup() {
 
 export function SimpleRadioGroupControlled() {
   const [selected, setSelected] = useState("startup");
+  const [selected2, setSelected2] = useState("startup");
   return (
-    <RadioGroup value={selected} onValueChange={setSelected}>
-      <RadioGroupOption value="startups">
-        <RadioGroupLabel>Startups</RadioGroupLabel>
-      </RadioGroupOption>
-      <RadioGroupOption value="enterprise">
-        <RadioGroupLabel>Enterprise</RadioGroupLabel>
-      </RadioGroupOption>
-    </RadioGroup>
+    <div className="space-y-6">
+      <RadioGroup value={selected} onValueChange={setSelected}>
+        <RadioGroupOption value="startups">
+          <RadioGroupLabel>Startups</RadioGroupLabel>
+        </RadioGroupOption>
+        <RadioGroupOption value="enterprise">
+          <RadioGroupLabel>Enterprise</RadioGroupLabel>
+        </RadioGroupOption>
+      </RadioGroup>
+      <RadioGroup value={selected2} onValueChange={setSelected2} name="test">
+        <RadioGroupOption value="startups" id="test"></RadioGroupOption>
+      </RadioGroup>
+    </div>
   );
 }
