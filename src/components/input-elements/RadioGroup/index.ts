@@ -3,3 +3,4 @@ export type { RadioGroupProps } from "./RadioGroup";
 export { default as RadioGroupOption } from "./RadioGroupOption";
 export type { RadioGroupOptionProps } from "./RadioGroupOption";
 export { default as RadioGroupLabel } from "./RadioGroupLabel";
+export { default as RadioButton } from "./RadioButton";

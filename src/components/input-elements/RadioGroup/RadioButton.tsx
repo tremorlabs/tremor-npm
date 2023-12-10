@@ -1,16 +1,13 @@
 "use client";
 import { makeClassName, tremorTwMerge } from "lib";
-import React from "react";
-
-export interface CheckboxProps {
-  className?: string;
-}
+import React, { ComponentPropsWithRef } from "react";
 
 const makeRadioButtonClassName = makeClassName("RadioButton");
 
-const RadioButton = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  const { className, ...other } = props;
+type InputProps = ComponentPropsWithRef<"input">;
 
+const RadioButton = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  const { className, ...other } = props;
   return (
     <input
       {...other}
