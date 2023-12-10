@@ -20,7 +20,7 @@ export const SimpleIdCheckbox = (args: any) => {
             id="a"
             {...args}
             checked={checked}
-            onChange={setChecked}
+            onValueChange={setChecked}
           />
         </div>
         <div className="flex gap-4 mt-2">
