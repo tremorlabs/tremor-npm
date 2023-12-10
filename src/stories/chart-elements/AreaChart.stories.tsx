@@ -62,7 +62,7 @@ export const OtherColors: Story = {
 
 export const CustomColors: Story = {
   args: {
-    customChartColors: ["#32a852", "orange-600"],
+    colors: ["#32a852", "orange-600"],
   },
 };
 

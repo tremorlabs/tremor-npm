@@ -17,12 +17,7 @@ import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
-import {
-  constructCategoryColors,
-  constructCustomCategoryColors,
-  deepEqual,
-  getYAxisDomain,
-} from "../common/utils";
+import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
@@ -73,7 +68,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     categories = [],
     index,
     colors = themeColorRange,
-    customChartColors = [],
     valueFormatter = defaultValueFormatter,
     layout = "horizontal",
     stack = false,
@@ -104,7 +98,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const hasOnValueChange = !!onValueChange;
@@ -287,9 +280,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: customCategoryColors
-                            ? customCategoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray
-                            : categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
                         }))}
                         active={active}
                         label={label}
@@ -301,7 +292,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                         label={label}
                         valueFormatter={valueFormatter}
                         categoryColors={categoryColors}
-                        customCategoryColors={customCategoryColors}
                       />
                     )
                 ) : (
@@ -324,7 +314,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
-                    customCategoryColors,
                   )
                 }
               />
@@ -335,7 +324,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.background,
-                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).fillColor,
                   onValueChange ? "cursor-pointer" : "",
                 )}

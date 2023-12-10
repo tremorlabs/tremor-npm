@@ -5,10 +5,7 @@ import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis } from
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import {
-  constructCategoryColors,
-  constructCustomCategoryColors,
-} from "components/chart-elements/common/utils";
+import { constructCategoryColors } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
 
 export interface SparkLineChartProps extends BaseSparkChartProps {
@@ -22,7 +19,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     categories = [],
     index,
     colors = themeColorRange,
-    customChartColors = [],
     animationDuration = 900,
     showAnimation = false,
     curveType = "linear",
@@ -32,7 +28,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
@@ -46,7 +41,6 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
                     colorPalette.text,
-                    !customCategoryColors ? undefined : customCategoryColors.get(category),
                   ).strokeColor,
                 )}
                 strokeOpacity={1}

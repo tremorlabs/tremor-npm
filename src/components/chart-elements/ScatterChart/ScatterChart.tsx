@@ -22,7 +22,6 @@ import NoData from "../common/NoData";
 import {
   constructCategories,
   constructCategoryColors,
-  constructCustomCategoryColors,
   deepEqual,
   getYAxisDomain,
 } from "../common/utils";
@@ -54,8 +53,7 @@ export interface ScatterChartProps
   size?: string;
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
-  colors?: Color[];
-  customChartColors?: string[];
+  colors?: (Color | string)[];
   showOpacity?: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
@@ -110,7 +108,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     size,
     category,
     colors = themeColorRange,
-    customChartColors = [],
     showOpacity = false,
     sizeRange = [1, 1000],
     valueFormatter = {
@@ -184,7 +181,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
-  const customCategoryColors = constructCustomCategoryColors(categories, customChartColors);
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -288,9 +284,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color: customCategoryColors
-                            ? customCategoryColors.get(color) ?? BaseColors.Gray
-                            : categoryColors.get(color) ?? BaseColors.Gray,
+                          color: categoryColors.get(color) ?? BaseColors.Gray,
                         }))}
                         active={active}
                         label={color}
@@ -304,7 +298,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         axis={{ x: x, y: y, size: size }}
                         category={category}
                         categoryColors={categoryColors}
-                        customCategoryColors={customCategoryColors}
                       />
                     );
                   }
@@ -321,20 +314,16 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     getColorClassNames(
                       categoryColors.get(cat) ?? BaseColors.Gray,
                       colorPalette.text,
-                      !customCategoryColors ? undefined : customCategoryColors.get(cat),
                     ).fillColor,
                     showOpacity
                       ? getColorClassNames(
                           categoryColors.get(cat) ?? BaseColors.Gray,
                           colorPalette.text,
-                          !customCategoryColors ? undefined : customCategoryColors.get(cat),
                         ).strokeColor
                       : "",
                     onValueChange ? "cursor-pointer" : "",
                   )}
-                  fill={`url(#${
-                    !customCategoryColors ? categoryColors.get(cat) : customCategoryColors.get(cat)
-                  })`}
+                  fill={`url(#${categoryColors.get(cat)})`}
                   fillOpacity={showOpacity ? 0.7 : 1}
                   key={cat}
                   name={cat}
@@ -360,7 +349,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
-                    customCategoryColors,
                   )
                 }
               />
