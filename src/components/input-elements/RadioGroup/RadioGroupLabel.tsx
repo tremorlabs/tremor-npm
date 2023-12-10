@@ -4,13 +4,13 @@ import React from "react";
 
 const makeRadioGroupLabelClassName = makeClassName("RadioGroupLabel");
 
-const RadioGroupLabel = React.forwardRef<HTMLLabelElement, React.HTMLAttributes<HTMLDivElement>>(
+const RadioGroupLabel = React.forwardRef<HTMLLabelElement, React.HTMLAttributes<HTMLLabelElement>>(
   (props, ref) => {
     const { children, className, ...other } = props;
 
     return (
       <HeadlessRadioGroup.Label
-        as="div"
+        as="label"
         ref={ref}
         {...other}
         className={tremorTwMerge(
