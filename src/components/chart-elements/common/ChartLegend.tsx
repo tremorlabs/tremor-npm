@@ -7,12 +7,11 @@ import { Color } from "../../../lib";
 
 const ChartLegend = (
   { payload }: any,
-  categoryColors: Map<string, Color>,
+  categoryColors: Map<string, Color | string>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
-  onClick?: (category: string, color: Color, customColor?: string) => void,
+  onClick?: (category: string, color: Color | string) => void,
   enableLegendSlider?: boolean,
-  customCategoryColors?: Map<string, string>,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);
 
@@ -31,11 +30,6 @@ const ChartLegend = (
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
         colors={filteredPayload.map((entry: any) => categoryColors.get(entry.value))}
-        customColors={
-          !customCategoryColors
-            ? undefined
-            : filteredPayload.map((entry: any) => customCategoryColors.get(entry.value))
-        }
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
         enableLegendSlider={enableLegendSlider}

@@ -1,5 +1,5 @@
 import { DeltaTypes } from "./constants";
-import { Color, ValueFormatter } from "./inputTypes";
+import { Color, getIsBaseColor, ValueFormatter } from "./inputTypes";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -70,23 +70,18 @@ interface ColorClassNames {
   fillColor: string;
 }
 
-export function getColorClassNames(
-  color: Color | "white" | "black" | "transparent",
-  shade?: number,
-  customColor?: string,
-): ColorClassNames {
-  if (
-    color === "white" ||
-    color === "black" ||
-    color === "transparent" ||
-    !!customColor ||
-    !shade
-  ) {
-    const unshadedColor = !customColor
-      ? color
-      : customColor.includes("#")
-      ? `[${customColor}]`
-      : customColor;
+/**
+ * Returns boolean based on a determination that a color should be considered an "arbitrary"
+ * Tailwind CSS class.
+ * @see {@link https://tailwindcss.com/docs/background-color#arbitrary-values | Tailwind CSS docs}
+ */
+const getIsArbitraryColor = (color: Color | string) =>
+  color.includes("#") || color.includes("--") || color.includes("rgb");
+
+export function getColorClassNames(color: Color | string, shade?: number): ColorClassNames {
+  const isBaseColor = getIsBaseColor(color);
+  if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
+    const unshadedColor = !getIsArbitraryColor(color) ? color : `[${color}]`;
     return {
       bgColor: `bg-${unshadedColor}`,
       hoverBgColor: `hover:bg-${unshadedColor}`,

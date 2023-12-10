@@ -24,11 +24,10 @@ export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) =
 export interface ChartTooltipRowProps {
   value: string;
   name: string;
-  color: Color;
-  customColor?: string;
+  color: Color | string;
 }
 
-export const ChartTooltipRow = ({ value, name, color, customColor }: ChartTooltipRowProps) => (
+export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
@@ -39,7 +38,7 @@ export const ChartTooltipRow = ({ value, name, color, customColor }: ChartToolti
           "border-tremor-background shadow-tremor-card",
           // dark
           "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-          getColorClassNames(color, colorPalette.background, customColor).bgColor,
+          getColorClassNames(color, colorPalette.background).bgColor,
           sizing.sm.height,
           sizing.sm.width,
           border.md.all,
@@ -77,8 +76,7 @@ export interface ChartTooltipProps {
   active: boolean | undefined;
   payload: any;
   label: string;
-  categoryColors: Map<string, Color>;
-  customCategoryColors?: Map<string, string>;
+  categoryColors: Map<string, Color | string>;
   valueFormatter: ValueFormatter;
 }
 
@@ -87,7 +85,6 @@ const ChartTooltip = ({
   payload,
   label,
   categoryColors,
-  customCategoryColors,
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload) {
@@ -127,7 +124,6 @@ const ChartTooltip = ({
               value={valueFormatter(value)}
               name={name}
               color={categoryColors.get(name) ?? BaseColors.Blue}
-              customColor={!customCategoryColors ? undefined : customCategoryColors.get(name)}
             />
           ))}
         </div>
