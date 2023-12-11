@@ -21,6 +21,7 @@ export const SimpleIdCheckbox = (args: any) => {
             {...args}
             checked={checked}
             onChange={setChecked}
+            tooltip="Check if you agree"
           />
         </div>
         <div className="flex gap-4 mt-2">

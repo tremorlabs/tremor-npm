@@ -31,6 +31,19 @@ export const Disabled: Story = {
   },
 };
 
-export const Id: Story = {
+export const DisabledChecked: Story = {
+  args: {
+    checked: true,
+    disabled: true,
+  },
+};
+
+export const Tooltip: Story = {
+  args: {
+    tooltip: "Tooltip Text",
+  },
+};
+
+export const Form: Story = {
   render: SimpleIdCheckbox,
 };
