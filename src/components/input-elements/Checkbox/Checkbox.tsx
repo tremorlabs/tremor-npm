@@ -38,7 +38,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref) 
       className={twMerge(
         makeCheckboxClassName("root"),
         // common
-        "h-4 w-4 appearance-none cursor-pointer disabled:cursor-not-allowed rounded-tremor-small border-2 focus:ring-0 focus:outline-none focus:outline-transparent checked:border-0 checked:border-transparent focus:ring-transparent focus-visible:ring-2 transition duration-100 bg-transparent disabled:opacity-50",
+        "h-4 w-4 appearance-none cursor-pointer disabled:cursor-not-allowed rounded border focus:ring-0 focus:outline-none focus:outline-transparent checked:border-0 checked:border-transparent focus:ring-transparent focus-visible:ring-2 transition duration-100 bg-transparent disabled:opacity-50",
         // light
         "border-tremor-border text-tremor-brand focus-visible:ring-tremor-brand",
         // dark
