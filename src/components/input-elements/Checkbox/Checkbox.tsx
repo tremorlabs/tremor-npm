@@ -11,8 +11,8 @@ export interface CheckboxProps {
   disabled?: boolean;
   required?: boolean;
   id?: string;
-  className?: string;
   name?: string;
+  className?: string;
 }
 
 const makeCheckboxClassName = makeClassName("Checkbox");
