@@ -38,12 +38,6 @@ export const DisabledChecked: Story = {
   },
 };
 
-export const Tooltip: Story = {
-  args: {
-    tooltip: "Tooltip Text",
-  },
-};
-
 export const Form: Story = {
   render: SimpleIdCheckbox,
 };
