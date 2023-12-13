@@ -3,6 +3,7 @@ export * from "./DatePicker";
 export * from "./DateRangePicker";
 export * from "./MultiSelect";
 export * from "./NumberInput";
+export * from "./RadioButton";
 export * from "./SearchSelect";
 export * from "./Select";
 export * from "./Tabs";
