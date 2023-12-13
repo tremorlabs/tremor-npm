@@ -1,5 +1,6 @@
+import { RadioGroup } from "@headlessui/react";
+import { RadioGroupOption, RadioGroupLabel } from "components";
 import React, { useState } from "react";
-import { RadioGroup, RadioGroupOption, RadioGroupLabel } from "components";
 
 export function SimpleRadioGroup() {
   return (
