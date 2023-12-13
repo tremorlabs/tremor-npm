@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable max-len */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const colors = require("tailwindcss/colors");
 
 module.exports = {
@@ -43,15 +42,15 @@ module.exports = {
         // dark mode
         "dark-tremor": {
           brand: {
-            faint: "#0B1229", // custom
+            faint: "#0B1229",
             muted: colors.blue[950],
             subtle: colors.blue[800],
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[400],
-            inverted: colors.gray[950],
+            inverted: colors.blue[950],
           },
           background: {
-            muted: "#131A2B", // custom
+            muted: "#131A2B",
             subtle: colors.gray[800],
             DEFAULT: colors.gray[900],
             emphasis: colors.gray[300],
@@ -139,5 +138,5 @@ module.exports = {
       `ui-selected:text-${customColor}`,
     ]),
   ],
-  plugins: [require("@headlessui/tailwindcss"), require("@tailwindcss/forms")],
+  plugins: [require("@headlessui/tailwindcss")],
 };
