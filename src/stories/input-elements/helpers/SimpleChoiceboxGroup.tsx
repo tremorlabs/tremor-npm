@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RadioGroup, RadioGroupOption } from "components";
+import { ChoiceboxGroup, ChoiceboxGroupOption } from "components";
 
 const platformPrices = [
   { id: "0", title: "Starter", description: "Up to 300 requests per day", price: 0 },
@@ -12,11 +12,11 @@ const platformPrices = [
   { id: "3", title: "Enterprise", description: "Based on your specific needs", price: 1000 },
 ];
 
-export function SimpleRadioGroup() {
+export function SimpleChoiceboxGroup() {
   return (
-    <RadioGroup defaultValue="1" disabled={true}>
+    <ChoiceboxGroup defaultValue="1" disabled={true}>
       {platformPrices.map((priceTier) => (
-        <RadioGroupOption
+        <ChoiceboxGroupOption
           disabled={true}
           key={priceTier.id}
           value={priceTier.id}
@@ -24,27 +24,27 @@ export function SimpleRadioGroup() {
           description={priceTier.description}
         />
       ))}
-    </RadioGroup>
+    </ChoiceboxGroup>
   );
 }
 
-export function SimpleRadioGroupControlled() {
+export function SimpleChoiceboxGroupControlled() {
   const [selectedPlatform, setSelectedPlatform] = useState(platformPrices[0]);
   return (
-    <RadioGroup
+    <ChoiceboxGroup
       value={selectedPlatform.id}
       onValueChange={(val) =>
         setSelectedPlatform((prev) => platformPrices.find((ele) => ele.id === val) ?? prev)
       }
     >
       {platformPrices.map((priceTier) => (
-        <RadioGroupOption
+        <ChoiceboxGroupOption
           key={priceTier.id}
           value={priceTier.id}
           label={priceTier.title}
           description={priceTier.description}
         />
       ))}
-    </RadioGroup>
+    </ChoiceboxGroup>
   );
 }

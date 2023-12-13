@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./ChoiceboxGroup";
 export * from "./DatePicker";
 export * from "./DateRangePicker";
 export * from "./MultiSelect";
@@ -8,4 +9,3 @@ export * from "./Select";
 export * from "./Tabs";
 export * from "./TextInput";
 export * from "./Switch";
-export * from "./RadioGroup";
