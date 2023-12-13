@@ -20,6 +20,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New Feature (non-breaking change which adds functionality)
+- [ ] New Feature (BREAKING CHANGE which adds functionality)
 - [ ] Refactor
 - [ ] Build-related changes
 - [ ] Other, please describe:
