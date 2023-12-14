@@ -32,13 +32,14 @@ import {
   themeColorRange,
   tremorTwMerge,
 } from "lib";
-import { CurveType } from "../../../lib/inputTypes";
+import { CurveType, HorizontalPosition } from "../../../lib/inputTypes";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
   showGradient?: boolean;
+  orientations?: HorizontalPosition[];
 }
 
 interface ActiveDot {
@@ -78,6 +79,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     customTooltip,
     rotateLabelX,
     tickGap = 5,
+    orientations,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -188,27 +190,58 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               dy={rotateLabelX?.verticalShift}
               height={rotateLabelX?.xAxisHeight}
             />
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              axisLine={false}
-              tickLine={false}
-              type="number"
-              domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
-              fill=""
-              stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
-              tickFormatter={valueFormatter}
-              allowDecimals={allowDecimals}
-            />
+            {orientations ? (
+              categories.map((_, idx) => (
+                <YAxis
+                  width={yAxisWidth}
+                  hide={!showYAxis}
+                  axisLine={false}
+                  tickLine={false}
+                  type="number"
+                  domain={yAxisDomain as AxisDomain}
+                  tick={{
+                    transform: `translate(${orientations[idx] === "right" ? 3 : -3}, 0)`,
+                  }}
+                  fill=""
+                  stroke=""
+                  className={tremorTwMerge(
+                    // common
+                    "text-tremor-label",
+                    // light
+                    "fill-tremor-content",
+                    // dark
+                    "dark:fill-dark-tremor-content",
+                  )}
+                  tickFormatter={(value) => valueFormatter(value, idx)}
+                  allowDecimals={allowDecimals}
+                  orientation={orientations[idx]}
+                  yAxisId={idx}
+                  key={idx}
+                />
+              ))
+            ) : (
+              <YAxis
+                width={yAxisWidth}
+                hide={!showYAxis}
+                axisLine={false}
+                tickLine={false}
+                type="number"
+                domain={yAxisDomain as AxisDomain}
+                tick={{ transform: "translate(-3, 0)" }}
+                fill=""
+                stroke=""
+                className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
+                  // light
+                  "fill-tremor-content",
+                  // dark
+                  "dark:fill-dark-tremor-content",
+                )}
+                tickFormatter={valueFormatter}
+                allowDecimals={allowDecimals}
+              />
+            )}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
@@ -309,7 +342,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category) => (
+            {categories.map((category, idx) => (
               <Area
                 className={
                   getColorClassNames(
@@ -397,6 +430,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 animationDuration={animationDuration}
                 stackId={stack ? "a" : undefined}
                 connectNulls={connectNulls}
+                yAxisId={orientations ? idx : undefined}
               />
             ))}
             {onValueChange
