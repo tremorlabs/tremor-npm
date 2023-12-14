@@ -53,7 +53,7 @@ export interface ScatterChartProps
   size?: string;
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
-  colors?: Color[];
+  colors?: (Color | string)[];
   showOpacity?: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
@@ -278,30 +278,29 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) =>
-                    CustomTooltip ? (
+                  ({ active, payload, label }) => {
+                    const color = category ? payload?.[0]?.payload?.[category] : label;
+                    return CustomTooltip ? (
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color:
-                            categoryColors.get(
-                              category ? payload?.[0]?.payload?.[category] : label,
-                            ) ?? BaseColors.Gray,
+                          color: categoryColors.get(color) ?? BaseColors.Gray,
                         }))}
                         active={active}
-                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        label={color}
                       />
                     ) : (
                       <ScatterChartTooltip
                         active={active}
                         payload={payload}
-                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        label={color}
                         valueFormatter={valueFormatter}
                         axis={{ x: x, y: y, size: size }}
                         category={category}
                         categoryColors={categoryColors}
                       />
-                    )
+                    );
+                  }
                 ) : (
                   <></>
                 )

@@ -16,8 +16,8 @@ const makeLegendClassName = makeClassName("Legend");
 
 export interface LegendItemProps {
   name: string;
-  color: Color;
-  onClick?: (name: string, color: Color) => void;
+  color: Color | string;
+  onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
 }
 
@@ -142,8 +142,8 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
 
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[];
-  colors?: Color[];
-  onClickLegendItem?: (category: string, color: Color) => void;
+  colors?: (Color | string)[];
+  onClickLegendItem?: (category: string, color: Color | string) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
 }

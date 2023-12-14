@@ -77,6 +77,12 @@ export const OtherColors: Story = {
   args: { colors: ["blue", "amber", "sky", "emerald", "rose", "orange"] },
 };
 
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400", "violet-400", "rose-400"],
+  },
+};
+
 export const MoreDatapointsThanColors: Story = {
   args: {
     data: [

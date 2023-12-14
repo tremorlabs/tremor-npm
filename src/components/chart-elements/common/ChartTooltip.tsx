@@ -24,7 +24,7 @@ export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) =
 export interface ChartTooltipRowProps {
   value: string;
   name: string;
-  color: Color;
+  color: Color | string;
 }
 
 export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
@@ -76,7 +76,7 @@ export interface ChartTooltipProps {
   active: boolean | undefined;
   payload: any;
   label: string;
-  categoryColors: Map<string, Color>;
+  categoryColors: Map<string, Color | string>;
   valueFormatter: ValueFormatter;
 }
 
