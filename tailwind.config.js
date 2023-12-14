@@ -23,7 +23,7 @@ module.exports = {
             muted: colors.gray[50],
             subtle: colors.gray[100],
             DEFAULT: colors.white,
-            emphasis: colors.blue[700],
+            emphasis: colors.gray[700],
           },
           border: {
             DEFAULT: colors.gray[200],
