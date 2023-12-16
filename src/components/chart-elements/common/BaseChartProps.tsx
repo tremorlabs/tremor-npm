@@ -35,6 +35,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   onValueChange?: (value: EventProps) => void;
   enableLegendSlider?: boolean;
   customTooltip?: React.ComponentType<CustomTooltipType>;
+  padding?: { left?: number; right?: number };
   rotateLabelX?: {
     angle: number;
     verticalShift?: number;
