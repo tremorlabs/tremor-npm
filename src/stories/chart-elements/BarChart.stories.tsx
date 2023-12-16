@@ -370,3 +370,9 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
+
+export const Padding: Story = {
+  args: {
+    padding: { left: 0, right: 0 },
+  },
+};

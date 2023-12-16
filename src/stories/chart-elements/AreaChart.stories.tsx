@@ -355,6 +355,12 @@ export const CustomTooltipComplex: Story = {
   },
 };
 
+export const Padding: Story = {
+  args: {
+    padding: { left: 0, right: 0 },
+  },
+};
+
 // keep because of if statement
 // const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
 //   if (args.onValueChange?.length === 0) {
