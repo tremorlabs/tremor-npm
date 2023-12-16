@@ -12,10 +12,11 @@ const makeSelectItemClassName = makeClassName("SelectItem");
 export interface SelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   icon?: React.ElementType;
+  disabled?: boolean;
 }
 
 const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref) => {
-  const { value, icon, className, children, ...other } = props;
+  const { value, icon, disabled = false, className, children, ...other } = props;
 
   const Icon = icon;
 
@@ -36,6 +37,7 @@ const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref)
       ref={ref}
       key={value}
       value={value}
+      disabled={disabled}
       {...other}
     >
       {Icon && (

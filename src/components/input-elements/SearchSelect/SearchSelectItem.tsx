@@ -13,10 +13,11 @@ const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
 export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   icon?: React.ElementType;
+  disabled?: boolean;
 }
 
 const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>((props, ref) => {
-  const { value, icon, className, children, ...other } = props;
+  const { value, icon, disabled = false, className, children, ...other } = props;
   const Icon = icon;
 
   return (
@@ -36,6 +37,7 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
       ref={ref}
       key={value}
       value={value}
+      disabled={disabled}
       {...other}
     >
       {Icon && (
