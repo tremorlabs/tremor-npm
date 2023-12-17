@@ -32,7 +32,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 
 If yes, please describe the impact and migration path for existing applications:
 
-**How has This been tested?**
+**How has this been tested?**
 
 <!--- Please describe how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
