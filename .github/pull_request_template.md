@@ -41,7 +41,7 @@ If yes, please describe the impact and migration path for existing applications:
 **Screenshots (if appropriate):**
 
 
-**The PR fulfills these requirements:**
+**The PR fulfils these requirements:**
 
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] It's submitted to the `main` branch
