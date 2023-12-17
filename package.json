@@ -31,7 +31,6 @@
     "react-day-picker": "^8.9.1",
     "react-transition-group": "^4.4.5",
     "recharts": "^2.10.3",
-    "storybook-source-link": "^4.0.1",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
@@ -96,6 +95,7 @@
     "rollup-plugin-typescript-paths": "^1.4.0",
     "semantic-release": "^22.0.8",
     "storybook": "^7.6.3",
+    "storybook-source-link": "^4.0.1",
     "style-loader": "^3.3.3",
     "tailwindcss": "^3.3.5",
     "tslib": "^2.6.2",
