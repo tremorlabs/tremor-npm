@@ -49,14 +49,13 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
 
   const hasSelection = hasValue(value || defaultValue);
 
-  const handleFocusChange = (isFocused: boolean) => {
-    if (isFocused === false) {
-      inputRef.current?.blur();
-    } else {
+  React.useEffect(() => {
+    if (isFocused) {
       inputRef.current?.focus();
+    } else {
+      inputRef.current?.blur();
     }
-    setIsFocused(isFocused);
-  };
+  }, [isFocused]);
 
   React.useEffect(() => {
     // If the autoFocus prop is true, then set the isFocused state to true
@@ -92,14 +91,11 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         )}
         onClick={() => {
           if (!disabled) {
-            handleFocusChange(true);
+            setIsFocused(true);
           }
         }}
         onFocus={() => {
-          handleFocusChange(true);
-        }}
-        onBlur={() => {
-          handleFocusChange(false);
+          setIsFocused(true);
         }}
       >
         {Icon ? (
@@ -153,6 +149,9 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
+            onBlur={() => {
+              setIsFocused(false);
+            }}
           >
             {isPasswordVisible ? (
               <EyeOffIcon
