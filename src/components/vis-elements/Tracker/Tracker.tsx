@@ -10,7 +10,7 @@ export const makeTrackerClassName = makeClassName("Tracker");
 
 export interface TrackerBlockProps {
   key?: string | number;
-  color?: Color;
+  color?: Color | string;
   tooltip?: string;
 }
 
