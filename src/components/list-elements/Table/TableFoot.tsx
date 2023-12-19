@@ -9,24 +9,22 @@ const TableFoot = React.forwardRef<
 >((props, ref) => {
   const { children, className, ...other } = props;
   return (
-    <>
-      <tfoot
-        ref={ref}
-        className={tremorTwMerge(
-          makeTableFootClassName("root"),
-          // common
-          "text-left font-medium border-t-[1px] ",
-          // light
-          "text-tremor-content border-tremor-border",
-          // dark
-          "dark:text-dark-tremor-content dark:border-dark-tremor-border",
-          className,
-        )}
-        {...other}
-      >
-        {children}
-      </tfoot>
-    </>
+    <tfoot
+      ref={ref}
+      className={tremorTwMerge(
+        makeTableFootClassName("root"),
+        // common
+        "text-left font-medium border-t-[1px] ",
+        // light
+        "text-tremor-content border-tremor-border",
+        // dark
+        "dark:text-dark-tremor-content dark:border-dark-tremor-border",
+        className,
+      )}
+      {...other}
+    >
+      {children}
+    </tfoot>
   );
 });
 

@@ -5,8 +5,12 @@ import { NumberInput } from "components";
 import { SimpleNumberInput, SimpleNumberInputControlled } from "./helpers/SimpleNumberInput";
 
 const meta: Meta<typeof NumberInput> = {
-  title: "Components/Input/NumberInput",
+  title: "UI/Input/NumberInput",
   component: NumberInput,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/NumberInput",
+  },
 };
 
 export default meta;
@@ -42,14 +46,21 @@ export const DefaultValue: Story = {
   },
 };
 
-export const StepAttribute: Story = {
+export const StepProp: Story = {
   render: SimpleNumberInput,
   args: {
     step: ".1",
   },
 };
 
-export const MinMaxAttribute: Story = {
+export const StepPropNumber: Story = {
+  render: SimpleNumberInput,
+  args: {
+    step: 0.1,
+  },
+};
+
+export const MinMaxProp: Story = {
   render: SimpleNumberInput,
   args: {
     min: "2",

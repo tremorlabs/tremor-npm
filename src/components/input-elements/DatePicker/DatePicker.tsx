@@ -6,7 +6,7 @@ import { DayPickerSingleProps } from "react-day-picker";
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-import { Popover } from "@headlessui/react";
+import { Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { Calendar } from "components/input-elements/Calendar";
 import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
@@ -36,6 +36,7 @@ export interface DatePickerProps
   displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  disabledDates?: Date[];
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -54,6 +55,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     className,
     enableYearNavigation = false,
     weekStartsOn = 0,
+    disabledDates,
     ...other
   } = props;
 
@@ -63,8 +65,8 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
     if (maxDate) disabledDays.push({ after: maxDate });
-    return disabledDays;
-  }, [minDate, maxDate]);
+    return [...disabledDays, ...(disabledDates ?? [])];
+  }, [minDate, maxDate, disabledDates]);
 
   const formattedSelection = !selectedValue
     ? placeholder
@@ -148,39 +150,49 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           />
         </button>
       ) : null}
-      <Popover.Panel
-        className={tremorTwMerge(
-          // common
-          "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
-          // light
-          "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-          // dark
-          "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-          spacing.twoXs.marginTop,
-          spacing.twoXs.marginBottom,
-          border.sm.all,
-        )}
+      <Transition
+        className="absolute z-10 min-w-min left-0"
+        enter="transition ease duration-100 transform"
+        enterFrom="opacity-0 -translate-y-4"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease duration-100 transform"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 -translate-y-4"
       >
-        {({ close }) => (
-          <Calendar<DayPickerSingleProps>
-            showOutsideDays={true}
-            mode="single"
-            defaultMonth={defaultMonth}
-            selected={selectedValue}
-            weekStartsOn={weekStartsOn}
-            onSelect={
-              ((v: Date) => {
-                onValueChange?.(v);
-                setSelectedValue(v);
-                close();
-              }) as any
-            }
-            locale={locale}
-            disabled={disabledDays}
-            enableYearNavigation={enableYearNavigation}
-          />
-        )}
-      </Popover.Panel>
+        <Popover.Panel
+          className={tremorTwMerge(
+            // common
+            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
+            // light
+            "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+            // dark
+            "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+            spacing.twoXs.marginTop,
+            spacing.twoXs.marginBottom,
+            border.sm.all,
+          )}
+        >
+          {({ close }) => (
+            <Calendar<DayPickerSingleProps>
+              showOutsideDays={true}
+              mode="single"
+              defaultMonth={defaultMonth}
+              selected={selectedValue}
+              weekStartsOn={weekStartsOn}
+              onSelect={
+                ((v: Date) => {
+                  onValueChange?.(v);
+                  setSelectedValue(v);
+                  close();
+                }) as any
+              }
+              locale={locale}
+              disabled={disabledDays}
+              enableYearNavigation={enableYearNavigation}
+            />
+          )}
+        </Popover.Panel>
+      </Transition>
     </Popover>
   );
 });

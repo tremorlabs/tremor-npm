@@ -15,7 +15,7 @@ const TableHeaderCell = React.forwardRef<
         className={tremorTwMerge(
           makeTableHeaderCellClassName("root"),
           // common
-          "sticky whitespace-nowrap text-left font-semibold",
+          "whitespace-nowrap text-left font-semibold",
           // light
           "text-tremor-content",
           // dark

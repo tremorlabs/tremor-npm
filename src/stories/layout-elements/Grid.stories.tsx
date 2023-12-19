@@ -7,8 +7,12 @@ import { SimpleCard } from "./helpers/SimpleCard";
 import { SimpleText } from "./helpers/SimpleText";
 
 const meta: Meta<typeof Grid> = {
-  title: "Components/Layout/Grid",
+  title: "UI/Layout/Grid",
   component: Grid,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Grid",
+  },
 };
 
 export default meta;

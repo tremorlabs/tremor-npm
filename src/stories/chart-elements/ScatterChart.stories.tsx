@@ -11,10 +11,13 @@ import {
 } from "./helpers/testDataScatterChart";
 
 const meta: Meta<typeof ScatterChart> = {
-  title: "Components/Chart/ScatterChart",
+  title: "Visualizations/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/ScatterChart",
+  },
 };
 
 export default meta;
@@ -39,6 +42,12 @@ export const CustomSizeRange: Story = {
 export const OtherColors: Story = {
   args: {
     colors: ["red", "green", "blue", "yellow"],
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400"],
   },
 };
 
@@ -96,6 +105,10 @@ export const RichDataExample: Story = {
   },
 };
 
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
+};
+
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -119,6 +132,12 @@ export const MultipleZeroValues: Story = {
         "Successful Payments": 0,
       },
     ],
+  },
+};
+
+export const RotateXLabel: Story = {
+  args: {
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
   },
 };
 

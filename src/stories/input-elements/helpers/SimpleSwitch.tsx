@@ -6,7 +6,12 @@ export const SimpleSwitch = (args: any) => {
 
   return (
     <div className="space-y-4">
-      <form action="http://localhost:6006/" method="get" onReset={() => setChecked(false)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault(), alert("Submitted");
+        }}
+        onReset={() => setChecked(false)}
+      >
         <input type="hidden" name="path" value={"/docs/components-input-switch--docs"} />
         <Switch {...args} checked={checked} onChange={setChecked} />
 
@@ -15,7 +20,7 @@ export const SimpleSwitch = (args: any) => {
             Submit
           </Button>
 
-          <Button type="reset" className="mt-2 w-fit">
+          <Button type="reset" variant="secondary" className="mt-2 w-fit">
             Reset Input
           </Button>
         </div>
@@ -31,7 +36,12 @@ export const SimpleIdSwitch = (args: any) => {
 
   return (
     <div className="space-y-4">
-      <form action="http://localhost:6006/" method="get" onReset={() => setChecked(false)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault(), alert("Submitted");
+        }}
+        onReset={() => setChecked(false)}
+      >
         <div className="flex gap-3 items-center">
           <label htmlFor="a">Label</label>
           <Switch id="a" {...args} checked={checked} onChange={setChecked} />
@@ -41,7 +51,7 @@ export const SimpleIdSwitch = (args: any) => {
             Submit
           </Button>
 
-          <Button type="reset" className="mt-2 w-fit">
+          <Button type="reset" variant="secondary" className="mt-2 w-fit">
             Reset Input
           </Button>
         </div>

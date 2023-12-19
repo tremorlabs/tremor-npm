@@ -1,5 +1,5 @@
 import { DeltaTypes } from "./constants";
-import { Color, ValueFormatter } from "./inputTypes";
+import { Color, getIsBaseColor, ValueFormatter } from "./inputTypes";
 
 export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: boolean): string => {
   if (isIncreasePositive || deltaType === DeltaTypes.Unchanged) {
@@ -70,24 +70,31 @@ interface ColorClassNames {
   fillColor: string;
 }
 
-export function getColorClassNames(
-  color: Color | "white" | "black" | "transparent",
-  shade?: number,
-): ColorClassNames {
-  if (color === "white" || color === "black" || color === "transparent" || !shade) {
+/**
+ * Returns boolean based on a determination that a color should be considered an "arbitrary"
+ * Tailwind CSS class.
+ * @see {@link https://tailwindcss.com/docs/background-color#arbitrary-values | Tailwind CSS docs}
+ */
+const getIsArbitraryColor = (color: Color | string) =>
+  color.includes("#") || color.includes("--") || color.includes("rgb");
+
+export function getColorClassNames(color: Color | string, shade?: number): ColorClassNames {
+  const isBaseColor = getIsBaseColor(color);
+  if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
+    const unshadedColor = !getIsArbitraryColor(color) ? color : `[${color}]`;
     return {
-      bgColor: `bg-${color}`,
-      hoverBgColor: `hover:bg-${color}`,
-      selectBgColor: `ui-selected:bg-${color}`,
-      textColor: `text-${color}`,
-      selectTextColor: `ui-selected:text-${color}`,
-      hoverTextColor: `hover:text-${color}`,
-      borderColor: `border-${color}`,
-      selectBorderColor: `ui-selected:border-${color}`,
-      hoverBorderColor: `hover:border-${color}`,
-      ringColor: `ring-${color}`,
-      strokeColor: `stroke-${color}`,
-      fillColor: `fill-${color}`,
+      bgColor: `bg-${unshadedColor}`,
+      hoverBgColor: `hover:bg-${unshadedColor}`,
+      selectBgColor: `ui-selected:bg-${unshadedColor}`,
+      textColor: `text-${unshadedColor}`,
+      selectTextColor: `ui-selected:text-${unshadedColor}`,
+      hoverTextColor: `hover:text-${unshadedColor}`,
+      borderColor: `border-${unshadedColor}`,
+      selectBorderColor: `ui-selected:border-${unshadedColor}`,
+      hoverBorderColor: `hover:border-${unshadedColor}`,
+      ringColor: `ring-${unshadedColor}`,
+      strokeColor: `stroke-${unshadedColor}`,
+      fillColor: `fill-${unshadedColor}`,
     };
   }
   return {
