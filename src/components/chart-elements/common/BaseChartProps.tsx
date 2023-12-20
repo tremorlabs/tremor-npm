@@ -16,6 +16,7 @@ export type EventProps = BaseEventProps | null | undefined;
 interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   categories: string[];
+  categoryFormatter?: ValueFormatter<string, string>;
   index: string;
   colors?: (Color | string)[];
   valueFormatter?: ValueFormatter;
