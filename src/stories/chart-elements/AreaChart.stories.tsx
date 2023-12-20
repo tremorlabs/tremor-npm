@@ -13,7 +13,7 @@ import {
   longIndexBaseChartData,
   simpleBaseChartWithNegativeValues,
 } from "./helpers/testData";
-import { valueFormatter } from "./helpers/utils";
+import { valueFormatter, categoryFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof AreaChart> = {
   title: "Visualizations/Chart/AreaChart",
@@ -46,6 +46,10 @@ export const Stacked: Story = {
 
 export const ValueFormatter: Story = {
   args: { valueFormatter: valueFormatter, yAxisWidth: 60 },
+};
+
+export const CategoryFormatter: Story = {
+  args: { categoryFormatter: categoryFormatter },
 };
 
 export const AutoMinValue: Story = {
