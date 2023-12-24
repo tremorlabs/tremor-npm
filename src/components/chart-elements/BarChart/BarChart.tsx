@@ -22,7 +22,7 @@ import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/ut
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
-const renderShape = (
+const defaultRenderShape = (
   props: any,
   activeBar: any | undefined,
   activeLegend: string | undefined,
