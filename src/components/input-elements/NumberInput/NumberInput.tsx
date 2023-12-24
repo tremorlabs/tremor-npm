@@ -1,3 +1,4 @@
+"use client";
 import { MinusIcon, PlusIcon } from "assets";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import React, { useRef } from "react";

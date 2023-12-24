@@ -13,7 +13,10 @@ const meta: Meta<typeof BadgeDelta> = {
     children: "12.5%",
     tooltip: "Tooltip",
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/icon-elements/BadgeDelta",
+  },
 };
 
 export default meta;

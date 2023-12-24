@@ -20,7 +20,10 @@ const meta: Meta<typeof SparkAreaChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkAreaChart",
+  },
 };
 
 export default meta;
@@ -36,6 +39,12 @@ export const Stacked: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "orange-600"],
+  },
 };
 
 export const NoGradient: Story = {

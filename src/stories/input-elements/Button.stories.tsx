@@ -8,6 +8,10 @@ import { BaseColors, Sizes as InputSizes } from "lib/constants";
 const meta: Meta<typeof Button> = {
   title: "UI/Input/Button",
   component: Button,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Button",
+  },
 };
 
 export default meta;
@@ -189,6 +193,14 @@ export const Colors: Story = {
 export const Disabled: Story = {
   args: {
     children: "Disabled",
+    disabled: true,
+  },
+};
+
+export const TooltipDisabled: Story = {
+  args: {
+    children: "Disabled",
+    tooltip: "Disabled",
     disabled: true,
   },
 };

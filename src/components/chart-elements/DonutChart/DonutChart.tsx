@@ -25,7 +25,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
-  colors?: Color[];
+  colors?: (Color | string)[];
   children?: ReactNode;
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
