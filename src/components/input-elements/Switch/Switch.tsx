@@ -1,8 +1,28 @@
+"use client";
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 import { useInternalState } from "hooks";
-import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
+import {
+  Color,
+  makeClassName,
+  tremorTwMerge,
+  colorPalette,
+  getColorClassNames,
+  mergeRefs,
+} from "lib";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 import React, { useState } from "react";
+
+const getSwitchColors = (color?: Color) => {
+  return {
+    bgColor: color
+      ? getColorClassNames(color, colorPalette.background).bgColor
+      : "bg-tremor-brand dark:bg-dark-tremor-brand",
+    ringColor: color
+      ? getColorClassNames(color, colorPalette.ring).ringColor
+      : "ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted",
+  };
+};
 
 const makeSwitchClassName = makeClassName("Switch");
 
@@ -17,6 +37,7 @@ export interface SwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   disabled?: boolean;
   required?: boolean;
   id?: string;
+  tooltip?: string;
 }
 
 const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
@@ -24,25 +45,31 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
     checked,
     defaultChecked = false,
     onChange,
-    color = "blue",
+    color,
     name,
     error,
     errorMessage,
     disabled,
     required,
+    tooltip,
     id,
     ...other
   } = props;
+  const switchColorStyles = getSwitchColors(color);
 
   const [isChecked, setIsChecked] = useInternalState(defaultChecked, checked);
   const [isFocused, setIsFocused] = useState(false);
+  const delay = 300;
+  const { tooltipProps, getReferenceProps } = useTooltip(delay);
 
   return (
-    <>
+    <div className="flex flex-row items-center justify-start">
+      <Tooltip text={tooltip} {...tooltipProps} />
       <div
-        ref={ref}
-        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-col relative h-5")}
+        ref={mergeRefs([ref, tooltipProps.refs.setReference])}
+        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-row relative h-5")}
         {...other}
+        {...getReferenceProps}
       >
         <input
           type="checkbox"
@@ -66,9 +93,9 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           disabled={disabled}
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
-            "w-10 h-5  group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
+            "w-10 h-5 group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
             "focus:outline-none",
-            disabled ? "opacity-0 cursor-not-allowed" : "",
+            disabled ? "cursor-not-allowed" : "",
           )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -81,9 +108,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             aria-hidden="true"
             className={tremorTwMerge(
               makeSwitchClassName("background"),
-              isChecked
-                ? getColorClassNames(color, colorPalette.background).bgColor
-                : "bg-tremor-border dark:bg-dark-tremor-border",
+              isChecked ? switchColorStyles.bgColor : "bg-tremor-border dark:bg-dark-tremor-border",
               "pointer-events-none absolute mx-auto h-3 w-9 rounded-tremor-full transition-colors duration-100 ease-in-out",
             )}
           />
@@ -93,13 +118,12 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
               makeSwitchClassName("round"),
               isChecked
                 ? tremorTwMerge(
-                    getColorClassNames(color, colorPalette.background).bgColor,
-                    "translate-x-5 border-white",
+                    switchColorStyles.bgColor,
+                    "translate-x-5 border-tremor-background dark:border-dark-tremor-background",
                   )
-                : "translate-x-0 bg-tremor-border dark:bg-dark-tremor-border border-white",
-
+                : "translate-x-0 bg-tremor-border dark:bg-dark-tremor-border border-tremor-background dark:border-dark-tremor-background",
               "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-tremor-full border-2 shadow-tremor-input duration-100 ease-in-out transition",
-              isFocused ? tremorTwMerge("ring-2 ring-blue-200") : "",
+              isFocused ? tremorTwMerge("ring-2", switchColorStyles.ringColor) : "",
             )}
           />
         </HeadlessSwitch>
@@ -114,7 +138,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           {errorMessage}
         </p>
       ) : null}
-    </>
+    </div>
   );
 });
 

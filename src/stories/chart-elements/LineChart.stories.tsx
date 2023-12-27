@@ -11,14 +11,18 @@ import {
   singleAndMultipleData,
   longBaseChartData,
   longIndexBaseChartData,
+  simpleBaseChartWithNegativeValues,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof LineChart> = {
-  title: "Components/Chart/LineChart",
+  title: "Visualizations/Chart/LineChart",
   component: LineChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/LineChart",
+  },
 };
 
 export default meta;
@@ -26,6 +30,12 @@ type Story = StoryObj<typeof LineChart>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const DefaultNegativeValues: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+  },
 };
 
 export const ValueFormatter: Story = {
@@ -42,6 +52,12 @@ export const MinValueAndMaxValue: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "orange-600"],
+  },
 };
 
 export const ChangedCategoriesOrder: Story = {
@@ -118,6 +134,9 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
+};
 export const PreserveStartEnd: Story = {
   args: { intervalType: "preserveStartEnd" },
 };
@@ -136,6 +155,21 @@ export const LongIndexName: Story = {
 
 export const LongIndexNameAndPreserveStartEnd: Story = {
   args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const NoAxes: Story = {
+  args: { showXAxis: false, showYAxis: false },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
+};
+
+export const RotateXLabels: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
 };
 
 //Custom tooltips

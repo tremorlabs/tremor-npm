@@ -7,8 +7,12 @@ import { SimpleCard } from "./helpers/SimpleCard";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Card> = {
-  title: "Components/Layout/Card",
+  title: "UI/Layout/Card",
   component: Card,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Card",
+  },
 };
 
 export default meta;

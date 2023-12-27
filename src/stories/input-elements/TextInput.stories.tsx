@@ -5,8 +5,12 @@ import { TextInput } from "components";
 import { SimpleTextInput } from "./helpers/SimpleTextInput";
 
 const meta: Meta<typeof TextInput> = {
-  title: "Components/Input/TextInput",
+  title: "UI/Input/TextInput",
   component: TextInput,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/TextInput",
+  },
 };
 
 export default meta;

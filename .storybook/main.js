@@ -1,7 +1,7 @@
 var path = require("path");
 
 module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
 
   addons: [
     "@storybook/addon-links",
@@ -10,6 +10,7 @@ module.exports = {
     "@storybook/addon-styling-webpack",
     "@storybook/addon-themes",
     "@storybook/addon-a11y",
+    "storybook-source-link",
     {
       name: "@storybook/addon-styling-webpack",
       options: {

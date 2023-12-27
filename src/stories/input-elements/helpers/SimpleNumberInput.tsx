@@ -34,7 +34,7 @@ export const SimpleNumberInput = (args: any) => {
         <Button type="submit" className="mt-2">
           Submit
         </Button>
-        <Button type="reset" className="mt-2">
+        <Button type="reset" variant="secondary" className="mt-2">
           Reset Input
         </Button>
       </form>

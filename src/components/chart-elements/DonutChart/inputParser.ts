@@ -1,7 +1,7 @@
 import { BaseColors, colorPalette, getColorClassNames, sumNumericArray } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
-export const parseData = (data: any[], colors: Color[]) =>
+export const parseData = (data: any[], colors: (Color | string)[]) =>
   data.map((dataPoint: any, idx: number) => {
     const baseColor = idx < colors.length ? colors[idx] : BaseColors.Gray;
     return {

@@ -20,6 +20,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New Feature (non-breaking change which adds functionality)
+- [ ] New Feature (BREAKING CHANGE which adds functionality)
 - [ ] Refactor
 - [ ] Build-related changes
 - [ ] Other, please describe:
@@ -31,7 +32,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 
 If yes, please describe the impact and migration path for existing applications:
 
-**How has This been tested?**
+**How has this been tested?**
 
 <!--- Please describe how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
@@ -40,7 +41,7 @@ If yes, please describe the impact and migration path for existing applications:
 **Screenshots (if appropriate):**
 
 
-**The PR fulfills these requirements:**
+**The PR fulfils these requirements:**
 
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] It's submitted to the `main` branch

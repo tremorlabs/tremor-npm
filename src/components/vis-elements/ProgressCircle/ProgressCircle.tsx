@@ -112,7 +112,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
                 : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted",
             )}
           />
-          {value > 0 ? (
+          {value >= 0 ? (
             <circle
               r={normalizedRadius}
               cx={radius}
