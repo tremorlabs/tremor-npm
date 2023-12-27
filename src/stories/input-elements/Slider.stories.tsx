@@ -3,7 +3,7 @@ import { Slider } from "components";
 import { SimpleSlider } from "./helpers/SimpleSlider";
 
 const meta: Meta<typeof Slider> = {
-  title: "Components/Input/Slider",
+  title: "UI/Input/Slider",
   component: Slider,
 };
 
