@@ -152,6 +152,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             onBlur={() => {
               setIsFocused(false);
             }}
+            aria-label={isPasswordVisible ? "Hide password" : "Show Password"}
           >
             {isPasswordVisible ? (
               <EyeOffIcon
@@ -163,6 +164,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             ) : (
               <EyeIcon
@@ -174,6 +176,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             )}
           </button>
