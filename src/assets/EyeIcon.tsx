@@ -1,7 +1,7 @@
 import React from "react";
 
 const EyeIcon = ({ ...props }) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}>
     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
     <path
       fillRule="evenodd"
