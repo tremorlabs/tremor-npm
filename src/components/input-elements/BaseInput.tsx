@@ -35,7 +35,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     autoFocus,
     ...other
   } = props;
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(autoFocus || false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const toggleIsPasswordVisible = useCallback(
@@ -50,19 +50,27 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
   const hasSelection = hasValue(value || defaultValue);
 
   React.useEffect(() => {
-    if (isFocused) {
-      inputRef.current?.focus();
-    } else {
-      inputRef.current?.blur();
-    }
-  }, [isFocused]);
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
 
-  React.useEffect(() => {
-    // If the autoFocus prop is true, then set the isFocused state to true
-    if (autoFocus && inputRef.current) {
-      inputRef.current.focus();
-      setIsFocused(true);
+    const node = inputRef.current;
+    if (node) {
+      node.addEventListener("focus", handleFocus);
+      node.addEventListener("blur", handleBlur);
     }
+
+    // Autofocus logic
+    if (autoFocus && node && !isFocused) {
+      node.focus();
+    }
+
+    return () => {
+      if (node) {
+        node.removeEventListener("focus", handleFocus);
+        node.removeEventListener("blur", handleBlur);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoFocus]);
 
   return (
