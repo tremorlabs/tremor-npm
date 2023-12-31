@@ -7,7 +7,7 @@ const makeDisplayClassName = makeClassName("dialog");
 
 export type DialogPanelProps = React.HTMLAttributes<HTMLDivElement>;
 
-const Dialog = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) => {
+const DialogPanel = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) => {
   const { children, className, ...other } = props;
   const rootStyles =
     React.useContext(RootStylesContext) ?? tremorTwMerge(border.sm.all, "rounded-tremor-default");
@@ -31,6 +31,6 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) =
   );
 });
 
-Dialog.displayName = "Dialog";
+DialogPanel.displayName = "DialogPanel";
 
-export default Dialog;
+export default DialogPanel;
