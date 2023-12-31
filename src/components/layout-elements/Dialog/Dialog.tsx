@@ -10,10 +10,11 @@ type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T
 export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
   onClose: (val: boolean) => void;
+  overlayClassName?: string;
 } & XOR<{ unmount?: boolean }, { static?: boolean }>;
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
-  const { children, className, ...other } = props;
+  const { children, className, overlayClassName, ...other } = props;
 
   return (
     <HeadlessuiDialog
@@ -31,7 +32,13 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
         className,
       )}
     >
-      <div className="fixed backdrop-blur-sm inset-0 bg-tremor-background/30 dark:bg-dark-tremor-background/30 opacity-50"></div>
+      <div
+        className={tremorTwMerge(
+          "fixed inset-0",
+          "bg-tremor-background/20 dark:bg-dark-tremor-background/20 backdrop-blur-sm",
+          overlayClassName,
+        )}
+      ></div>
 
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center">
