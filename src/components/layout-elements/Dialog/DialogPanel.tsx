@@ -3,7 +3,7 @@ import { border, makeClassName, tremorTwMerge } from "lib";
 import { Dialog as HeadlessuiDialog } from "@headlessui/react";
 import { RootStylesContext } from "contexts";
 
-const makeDisplayClassName = makeClassName("Dialog");
+const makeDisplayClassName = makeClassName("dialog");
 
 export type DialogPanelProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -17,7 +17,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) =
       ref={ref}
       className={tremorTwMerge(
         makeDisplayClassName("panel"),
-        "w-full max-w-xl transform overflow-hidden, rounded-tremor-default",
+        "w-full max-w-xl transform overflow-hidden",
         "bg-tremor-background border-tremor-border",
         "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
         "text-left align-middle shadow-tremor transition-all p-6",
