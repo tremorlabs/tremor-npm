@@ -20,7 +20,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) =
         "w-full max-w-xl transform overflow-hidden, rounded-tremor-default",
         "bg-tremor-background border-tremor-border",
         "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
-        "p-6 text-left align-middle shadow-tremor transition-all rounded-xl",
+        "text-left align-middle shadow-tremor transition-all p-6",
         rootStyles,
         className,
       )}
