@@ -31,7 +31,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
         className,
       )}
     >
-      <div className="fixed inset-0 bg-dark-tremor-background/20 dark:bg-tremor-background/20 opacity-50"></div>
+      <div className="fixed backdrop-blur-sm inset-0 bg-tremor-background/30 dark:bg-dark-tremor-background/30 opacity-50"></div>
 
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center">

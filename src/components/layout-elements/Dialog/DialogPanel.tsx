@@ -18,8 +18,8 @@ const DialogPanel = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, r
       className={tremorTwMerge(
         makeDisplayClassName("panel"),
         "w-full max-w-xl transform overflow-hidden",
-        "bg-tremor-background border-tremor-border",
-        "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
+        "bg-tremor-background",
+        "dark:bg-dark-tremor-background",
         "text-left align-middle shadow-tremor transition-all p-6",
         rootStyles,
         className,
