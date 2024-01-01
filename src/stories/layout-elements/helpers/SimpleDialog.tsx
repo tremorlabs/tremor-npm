@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogPanel } from "components/layout-elements/Dialog";
-import { Button, Title } from "components";
+import { Dialog, DialogPanel, Button, Title } from "components";
 
 const SimpleDialog = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Dialog } from "components/layout-elements/Dialog";
+import { Dialog } from "components";
 import SimpleDialog from "./helpers/SimpleDialog";
 
 const meta: Meta<typeof Dialog> = {
