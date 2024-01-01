@@ -1,7 +1,7 @@
 import React from "react";
 import { act, render } from "@testing-library/react";
 
-import { Dialog, DialogPanel } from "components/layout-elements/Dialog";
+import { Dialog, DialogPanel } from "components";
 
 describe("Dialog", () => {
   test("renders the Dialog component", async () => {
