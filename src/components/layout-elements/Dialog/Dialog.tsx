@@ -1,6 +1,6 @@
 import React from "react";
-import { makeClassName, tremorTwMerge } from "lib";
 import { Dialog as HeadlessuiDialog, Transition } from "@headlessui/react";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeDisplayClassName = makeClassName("dialog");
 
