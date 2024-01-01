@@ -1,6 +1,6 @@
 import React from "react";
 import { makeClassName, tremorTwMerge } from "lib";
-import { Dialog as HeadlessuiDialog } from "@headlessui/react";
+import { Dialog as HeadlessuiDialog, Transition } from "@headlessui/react";
 
 const makeDisplayClassName = makeClassName("dialog");
 
@@ -17,35 +17,38 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, overlayClassName, ...other } = props;
 
   return (
-    <HeadlessuiDialog
-      as="div"
-      ref={ref}
-      {...other}
-      className={tremorTwMerge(
-        makeDisplayClassName("root"),
-        //light
-        "bg-tremor-background border-tremor-border",
-        // dark
-        "dark:bg-dark-tremor-background dark:border-dark-tremor-border",
-        // dialog
-        "relative z-50",
-        className,
-      )}
-    >
-      <div
-        className={tremorTwMerge(
-          "fixed inset-0",
-          "bg-tremor-background/20 dark:bg-dark-tremor-background/20 backdrop-blur-sm",
-          overlayClassName,
-        )}
-      ></div>
+    <Transition as={React.Fragment} appear show={props.open}>
+      <HeadlessuiDialog
+        as="div"
+        ref={ref}
+        {...other}
+        className={tremorTwMerge(makeDisplayClassName("root"), "relative z-50", className)}
+      >
+        <Transition.Child
+          as={React.Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div
+            className={tremorTwMerge(
+              "fixed inset-0 backdrop-blur-sm",
+              "bg-tremor-background/20 dark:bg-dark-tremor-background/20",
+              overlayClassName,
+            )}
+          ></div>
+        </Transition.Child>
 
-      <div className="fixed inset-0 overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-4 text-center">
-          {children}
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            {children}
+          </div>
         </div>
-      </div>
-    </HeadlessuiDialog>
+      </HeadlessuiDialog>
+    </Transition>
   );
 });
 
