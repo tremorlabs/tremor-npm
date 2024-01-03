@@ -57,11 +57,11 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     if (node) {
       node.addEventListener("focus", handleFocus);
       node.addEventListener("blur", handleBlur);
-    }
 
-    // Autofocus logic
-    if (autoFocus && node && !isFocused) {
-      node.focus();
+      // Autofocus logic
+      if (autoFocus) {
+        node.focus();
+      }
     }
 
     return () => {
@@ -70,7 +70,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         node.removeEventListener("blur", handleBlur);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoFocus]);
 
   return (
@@ -97,14 +96,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           border.sm.all,
           className,
         )}
-        onClick={() => {
-          if (!disabled) {
-            setIsFocused(true);
-          }
-        }}
-        onFocus={() => {
-          setIsFocused(true);
-        }}
       >
         {Icon ? (
           <Icon
@@ -157,9 +148,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
-            onBlur={() => {
-              setIsFocused(false);
-            }}
             aria-label={isPasswordVisible ? "Hide password" : "Show Password"}
           >
             {isPasswordVisible ? (
@@ -193,7 +181,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-rose-500 shrink-0",
+              "text-red-500 shrink-0",
               spacing.md.marginRight,
               sizing.lg.height,
               sizing.lg.width,
@@ -204,10 +192,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
       </div>
       {error && errorMessage ? (
         <p
-          className={tremorTwMerge(
-            makeInputClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
-          )}
+          className={tremorTwMerge(makeInputClassName("errorMessage"), "text-sm text-red-500 mt-1")}
         >
           {errorMessage}
         </p>
