@@ -68,7 +68,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         <p
           className={tremorTwMerge(
             makeTextareaClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
+            "text-sm text-red-500 mt-1",
           )}
         >
           {errorMessage}
