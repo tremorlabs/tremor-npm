@@ -84,3 +84,20 @@ export const ManyCategoriesWithoutScroll: Story = {
     enableLegendSlider: false,
   },
 };
+
+export const CustomColors: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "blue"],
+  },
+};
+
+export const CustomColorsConClick: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "#32a852"],
+    onClickLegendItem: (e) => {
+      console.log(e);
+    },
+  },
+};

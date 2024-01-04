@@ -14,7 +14,7 @@ const TableCell = React.forwardRef<
         ref={ref}
         className={tremorTwMerge(
           makeTableCellClassName("root"),
-          "align-middle whitespace-nowrap tabular-nums text-left",
+          "align-middle whitespace-nowrap text-left",
           spacing.twoXl.paddingAll,
           className,
         )}

@@ -35,7 +35,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     autoFocus,
     ...other
   } = props;
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(autoFocus || false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const toggleIsPasswordVisible = useCallback(
@@ -49,21 +49,27 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
 
   const hasSelection = hasValue(value || defaultValue);
 
-  const handleFocusChange = (isFocused: boolean) => {
-    if (isFocused === false) {
-      inputRef.current?.blur();
-    } else {
-      inputRef.current?.focus();
-    }
-    setIsFocused(isFocused);
-  };
-
   React.useEffect(() => {
-    // If the autoFocus prop is true, then set the isFocused state to true
-    if (autoFocus && inputRef.current) {
-      inputRef.current.focus();
-      setIsFocused(true);
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+
+    const node = inputRef.current;
+    if (node) {
+      node.addEventListener("focus", handleFocus);
+      node.addEventListener("blur", handleBlur);
+
+      // Autofocus logic
+      if (autoFocus) {
+        node.focus();
+      }
     }
+
+    return () => {
+      if (node) {
+        node.removeEventListener("focus", handleFocus);
+        node.removeEventListener("blur", handleBlur);
+      }
+    };
   }, [autoFocus]);
 
   return (
@@ -90,17 +96,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           border.sm.all,
           className,
         )}
-        onClick={() => {
-          if (!disabled) {
-            handleFocusChange(true);
-          }
-        }}
-        onFocus={() => {
-          handleFocusChange(true);
-        }}
-        onBlur={() => {
-          handleFocusChange(false);
-        }}
       >
         {Icon ? (
           <Icon
@@ -153,6 +148,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
+            aria-label={isPasswordVisible ? "Hide password" : "Show Password"}
           >
             {isPasswordVisible ? (
               <EyeOffIcon
@@ -164,6 +160,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             ) : (
               <EyeIcon
@@ -175,6 +172,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             )}
           </button>
@@ -183,7 +181,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-rose-500 shrink-0",
+              "text-red-500 shrink-0",
               spacing.md.marginRight,
               sizing.lg.height,
               sizing.lg.width,
@@ -194,10 +192,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
       </div>
       {error && errorMessage ? (
         <p
-          className={tremorTwMerge(
-            makeInputClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
-          )}
+          className={tremorTwMerge(makeInputClassName("errorMessage"), "text-sm text-red-500 mt-1")}
         >
           {errorMessage}
         </p>

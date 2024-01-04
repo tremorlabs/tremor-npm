@@ -87,6 +87,12 @@ export const WithTypePassword: Story = {
   },
 };
 
+export const WithAutoFocus: Story = {
+  args: {
+    autoFocus: true,
+  },
+};
+
 export const WithTypeEmail: Story = {
   render: SimpleTextInput,
   args: {

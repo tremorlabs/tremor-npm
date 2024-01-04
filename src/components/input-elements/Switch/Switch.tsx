@@ -132,7 +132,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         <p
           className={tremorTwMerge(
             makeSwitchClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1 ",
+            "text-sm text-red-500 mt-1 ",
           )}
         >
           {errorMessage}

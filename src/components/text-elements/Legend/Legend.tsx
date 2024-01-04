@@ -111,7 +111,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         makeLegendClassName("legendSliderButton"),
         // common
         "w-5 group inline-flex items-center truncate rounded-tremor-small transition",
-        disabled ? "cursor-not-allowed" : "ursor-pointer",
+        disabled ? "cursor-not-allowed" : "cursor-pointer",
         // light
         disabled
           ? "text-tremor-content-subtle"
