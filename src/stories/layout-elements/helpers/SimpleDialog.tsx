@@ -11,7 +11,7 @@ const SimpleDialog = () => {
         </Button>
       </div>
       <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
-        <DialogPanel className="w-full max-w-sm">
+        <DialogPanel className="max-w-md">
           <Title className="mb-3">Account Created Successfully</Title>
           Your account has been created successfully. You can now login to your account. For more
           information, please contact us.

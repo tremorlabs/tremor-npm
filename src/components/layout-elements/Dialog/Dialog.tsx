@@ -34,14 +34,15 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
           leaveTo="opacity-0"
         >
           <div
-            className={tremorTwMerge("fixed inset-0 bg-gray-900 bg-opacity-25", overlayClassName)}
+            className={tremorTwMerge(
+              "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity",
+              overlayClassName,
+            )}
           ></div>
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            {children}
-          </div>
+          <div className="flex min-h-full items-center justify-center p-4">{children}</div>
         </div>
       </HeadlessuiDialog>
     </Transition>
