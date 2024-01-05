@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Accordion } from "components";
 import { SimpleAccordion } from "./helpers/SimpleAccordion";
+import { SimpleCustomIconAccordionList } from "./helpers/SimpleCustomIconAccordion";
 
 const meta: Meta<typeof Accordion> = {
   title: "UI/Layout/Accordion",
@@ -24,4 +25,8 @@ export const DefaultOpen: Story = {
   args: {
     defaultOpen: true,
   },
+};
+
+export const WithCustomIcon: Story = {
+  render: SimpleCustomIconAccordionList,
 };
