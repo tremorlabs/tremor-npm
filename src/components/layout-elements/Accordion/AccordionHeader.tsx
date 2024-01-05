@@ -1,5 +1,5 @@
 "use client";
-import { tremorTwMerge } from "lib";
+import { BaseColors, Color, colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import React, { useContext } from "react";
 
 import { Disclosure } from "@headlessui/react";
@@ -9,13 +9,29 @@ import { makeClassName, sizing, spacing } from "lib";
 
 const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
 
-const AccordionHeader = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement>
->((props, ref) => {
-  const { children, className, ...other } = props;
+interface AccordionHeaderOptions {
+  openIcon?: React.ElementType;
+  closedIcon?: React.ElementType;
+  colors?: Color | string;
+}
+export interface AccordionHeaderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  options?: AccordionHeaderOptions;
+}
 
+export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultOpen?: boolean;
+}
+
+const AccordionHeader = React.forwardRef<HTMLButtonElement, AccordionHeaderProps>((props, ref) => {
+  const { children, className, options, ...other } = props;
   const { isOpen } = useContext(OpenContext);
+
+  const CustomIcon =
+    options?.closedIcon && options.openIcon
+      ? isOpen
+        ? options.openIcon
+        : options.closedIcon
+      : null;
 
   return (
     <Disclosure.Button
@@ -44,19 +60,31 @@ const AccordionHeader = React.forwardRef<
         {children}
       </div>
       <div>
-        <ArrowUpHeadIcon
-          className={tremorTwMerge(
-            makeAccordionHeaderClassName("arrowIcon"),
-            // light
-            "text-tremor-content-subtle",
-            // dark
-            "dark:text-dark-tremor-content-subtle",
-            spacing.twoXs.negativeMarginRight,
-            sizing.md.height,
-            sizing.md.width,
-            isOpen ? "transition-all" : "transition-all -rotate-180",
-          )}
-        />
+        {CustomIcon ? (
+          <CustomIcon
+            className={tremorTwMerge(
+              makeAccordionHeaderClassName("arrowIcon"),
+              getColorClassNames(options?.colors ?? BaseColors.Gray, colorPalette.text).textColor,
+              spacing.twoXs.negativeMarginRight,
+              sizing.md.height,
+              sizing.md.width,
+            )}
+          />
+        ) : (
+          <ArrowUpHeadIcon
+            className={tremorTwMerge(
+              makeAccordionHeaderClassName("arrowIcon"),
+              // light
+              "text-tremor-content-subtle",
+              // dark
+              "dark:text-dark-tremor-content-subtle",
+              spacing.twoXs.negativeMarginRight,
+              sizing.md.height,
+              sizing.md.width,
+              isOpen ? "transition-all" : "transition-all -rotate-180",
+            )}
+          />
+        )}
       </div>
     </Disclosure.Button>
   );
