@@ -157,7 +157,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           ) : null}
           {showLoadingText || children ? (
             <span
-              className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}
+              className={tremorTwMerge(
+                makeButtonClassName("text"),
+                "text-tremor-default whitespace-nowrap",
+              )}
             >
               {showLoadingText ? loadingText : children}
             </span>

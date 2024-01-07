@@ -128,7 +128,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 className={tremorTwMerge(
                   makeSearchSelectClassName("arrowDownIcon"),
                   // common
-                  "flex-none h-4 w-4",
+                  "flex-none h-5 w-5",
                   // light
                   "text-tremor-content-subtle",
                   // dark
