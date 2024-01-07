@@ -33,7 +33,9 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
           leaveTo="opacity-0"
         >
           <div
-            className={tremorTwMerge("fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity")}
+            className={tremorTwMerge(
+              "fixed inset-0 bg-tremor-content dark:bg-dark-tremor-content bg-opacity-75 transition-opacity",
+            )}
           ></div>
         </Transition.Child>
 
