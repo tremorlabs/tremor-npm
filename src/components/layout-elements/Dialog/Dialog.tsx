@@ -10,11 +10,10 @@ type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T
 export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
   onClose: (val: boolean) => void;
-  overlayClassName?: string;
 } & XOR<{ unmount?: boolean }, { static?: boolean }>;
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
-  const { children, className, overlayClassName, ...other } = props;
+  const { children, className, ...other } = props;
 
   return (
     <Transition as={React.Fragment} appear show={props.open}>
@@ -34,10 +33,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
           leaveTo="opacity-0"
         >
           <div
-            className={tremorTwMerge(
-              "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity",
-              overlayClassName,
-            )}
+            className={tremorTwMerge("fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity")}
           ></div>
         </Transition.Child>
 

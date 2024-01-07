@@ -1,6 +1,6 @@
 import React from "react";
 import { Dialog as HeadlessuiDialog, Transition } from "@headlessui/react";
-import { makeClassName, spacing, tremorTwMerge } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 import { RootStylesContext } from "contexts";
 
 const makeDisplayClassName = makeClassName("dialog");
@@ -10,8 +10,7 @@ export type DialogPanelProps = React.HTMLAttributes<HTMLDivElement>;
 const DialogPanel = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, ref) => {
   const { children, className, ...other } = props;
   const rootStyles =
-    React.useContext(RootStylesContext) ??
-    tremorTwMerge(spacing.threeXl.paddingAll, "rounded-tremor-default");
+    React.useContext(RootStylesContext) ?? tremorTwMerge("rounded-tremor-default p-6");
 
   return (
     <Transition.Child
