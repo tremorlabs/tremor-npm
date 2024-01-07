@@ -1,6 +1,6 @@
 "use client";
-import { border, sizing, spacing, tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
+import { tremorTwMerge } from "lib";
 import { DayPickerSingleProps } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
@@ -95,30 +95,23 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         disabled={disabled}
         className={tremorTwMerge(
           // common
-          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap",
+          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap border pl-3 py-2",
           // light
           "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
           "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-          spacing.lg.paddingLeft,
-          isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
-          spacing.sm.paddingY,
-          border.sm.all,
+          isClearEnabled ? "pr-8" : "pr-4",
           getSelectButtonColors(hasValue<Date>(selectedValue), disabled),
         )}
       >
         <CalendarIcon
           className={tremorTwMerge(
             makeDatePickerClassName("calendarIcon"),
-            "flex-none shrink-0",
+            "flex-none shrink-0 h-5 w-5 mr-2 -ml-0.5",
             // light
             "text-tremor-content-subtle",
             // light
             "dark:text-dark-tremor-content-subtle",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.threeXs.negativeMarginLeft,
-            spacing.sm.marginRight,
           )}
           aria-hidden="true"
         />
@@ -128,8 +121,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <button
           type="button"
           className={tremorTwMerge(
-            "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100",
-            spacing.twoXl.marginRight,
+            "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100 mr-4",
           )}
           onClick={(e) => {
             e.preventDefault();
@@ -139,13 +131,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           <XCircleIcon
             className={tremorTwMerge(
               // common
-              "flex-none",
+              "flex-none h-4 w-4",
               // light
               "text-tremor-content-subtle",
               // dark
               "dark:text-dark-tremor-content-subtle",
-              sizing.md.height,
-              sizing.md.width,
             )}
           />
         </button>
@@ -162,14 +152,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <Popover.Panel
           className={tremorTwMerge(
             // common
-            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
+            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark
             "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-            spacing.twoXs.marginTop,
-            spacing.twoXs.marginBottom,
-            border.sm.all,
           )}
         >
           {({ close }) => (

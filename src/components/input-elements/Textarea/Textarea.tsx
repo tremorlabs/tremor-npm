@@ -1,7 +1,7 @@
 "use client";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { useInternalState } from "hooks";
-import { border, makeClassName, mergeRefs, tremorTwMerge } from "lib";
+import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import React, { useRef } from "react";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -44,7 +44,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         className={tremorTwMerge(
           makeTextareaClassName("Textarea"),
           // common
-          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100",
+          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100 border",
           // light
           "shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
@@ -53,7 +53,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
           disabled
             ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
             : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
-          border.sm.all,
           className,
         )}
         data-testid="text-area"
