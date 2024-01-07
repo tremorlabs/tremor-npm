@@ -1,4 +1,4 @@
-import { BaseColors, DeltaTypes, getColorClassNames, Sizing, sizing, spacing } from "lib";
+import { BaseColors, DeltaTypes, getColorClassNames, spacing } from "lib";
 
 import {
   ArrowDownIcon,
@@ -75,26 +75,31 @@ export const badgeProportionsWithText: {
   },
 };
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   sm: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   md: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   lg: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   xl: {
-    height: sizing.xl.height,
-    width: sizing.xl.width,
+    height: "h-6",
+    width: "w-6",
   },
 };
 

@@ -4,7 +4,7 @@ import { tremorTwMerge } from "lib";
 import React from "react";
 import { Transition } from "react-transition-group";
 
-import { HorizontalPositions, makeClassName, mergeRefs, Sizes, sizing, spacing } from "lib";
+import { HorizontalPositions, makeClassName, mergeRefs, Sizes, spacing } from "lib";
 
 import { LoadingSpinner } from "assets";
 import { ButtonVariant, Color, HorizontalPosition, Size } from "../../../lib";
@@ -37,7 +37,7 @@ export const ButtonIconOrSpinner = ({
     ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
     : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
 
-  const defaultSpinnerSize = tremorTwMerge(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = tremorTwMerge("w-0 h-0");
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,

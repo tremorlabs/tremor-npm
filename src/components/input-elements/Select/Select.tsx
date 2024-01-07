@@ -1,13 +1,12 @@
 "use client";
 
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import { makeClassName, sizing, spacing } from "lib";
+import { makeClassName, tremorTwMerge, spacing } from "lib";
 import React, { isValidElement, useMemo } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox, Transition } from "@headlessui/react";
 import { useInternalState } from "hooks";
-import { tremorTwMerge } from "lib";
 
 const makeSelectClassName = makeClassName("Select");
 
@@ -96,13 +95,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                   className={tremorTwMerge(
                     makeSelectClassName("Icon"),
                     // common
-                    "flex-none",
+                    "flex-none h-5 w-5",
                     // light
                     "text-tremor-content-subtle",
                     // dark
                     "dark:text-dark-tremor-content-subtle",
-                    sizing.lg.height,
-                    sizing.lg.width,
                   )}
                 />
               </span>
@@ -120,13 +117,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 className={tremorTwMerge(
                   makeSelectClassName("arrowDownIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </span>
@@ -147,13 +142,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 className={tremorTwMerge(
                   makeSelectClassName("clearIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </button>

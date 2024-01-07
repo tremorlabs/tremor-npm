@@ -1,15 +1,14 @@
+import React from "react";
 import {
   Color,
   defaultValueFormatter,
   getColorClassNames,
   makeClassName,
-  sizing,
   spacing,
   tremorTwMerge,
   ValueFormatter,
 } from "lib";
 import { colorPalette } from "lib/theme";
-import React from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -54,7 +53,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
 
   const widths = getWidthsFromValues(data.map((item) => item.value));
 
-  const rowHeight = sizing.threeXl.height;
+  const rowHeight = "h-9";
 
   return (
     <div
@@ -96,14 +95,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                     className={tremorTwMerge(
                       makeBarListClassName("barIcon"),
                       // common
-                      "flex-none",
+                      "flex-none h-5 w-5 mr-2",
                       // light
                       "text-tremor-content",
                       // dark
                       "dark:text-dark-tremor-content",
-                      sizing.lg.height,
-                      sizing.lg.width,
-                      spacing.md.marginRight,
                     )}
                   />
                 ) : null}

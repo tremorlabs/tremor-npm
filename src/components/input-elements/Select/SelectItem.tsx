@@ -1,11 +1,7 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React from "react";
-
 import { Listbox } from "@headlessui/react";
-import { makeClassName } from "lib";
-import { sizing } from "lib/sizing";
-import { spacing } from "lib/spacing";
+import { makeClassName, spacing, tremorTwMerge } from "lib";
 
 const makeSelectItemClassName = makeClassName("SelectItem");
 
@@ -43,12 +39,11 @@ const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref)
           className={tremorTwMerge(
             makeSelectItemClassName("icon"),
             // common
-            "flex-none",
+            "flex-none w-5 h-5",
             // light
             "text-tremor-content-subtle",
             // dark
             "dark:text-dark-tremor-content-subtle",
-            sizing.lg.width,
             spacing.xs.marginRight,
           )}
         />

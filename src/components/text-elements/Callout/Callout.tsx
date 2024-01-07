@@ -1,7 +1,5 @@
-import { tremorTwMerge } from "lib";
 import React from "react";
-
-import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
+import { getColorClassNames, makeClassName, spacing, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib";
 
@@ -46,13 +44,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       <div className={tremorTwMerge(makeCalloutClassName("header"), "flex items-start")}>
         {Icon ? (
           <Icon
-            className={tremorTwMerge(
-              makeCalloutClassName("icon"),
-              "flex-none",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.xs.marginRight,
-            )}
+            className={tremorTwMerge(makeCalloutClassName("icon"), "flex-none h-5 w-5 mr-1.5")}
           />
         ) : null}
         <h4 className={tremorTwMerge(makeCalloutClassName("title"), "font-semibold")}>{title}</h4>

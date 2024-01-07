@@ -1,4 +1,4 @@
-import { getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, spacing, tremorTwMerge } from "lib";
 
 import { colorPalette } from "lib/theme";
 import { Color, IconVariant } from "../../../lib/inputTypes";
@@ -31,26 +31,31 @@ export const wrapperProportions: { [size: string]: WrapperProportionTypes } = {
   },
 };
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.sm.height,
-    width: sizing.sm.width,
+    height: "h-3",
+    width: "w-3",
   },
   sm: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   md: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   lg: {
-    height: sizing.twoXl.height,
-    width: sizing.twoXl.width,
+    height: "h-7",
+    width: "w-7",
   },
   xl: {
-    height: sizing.threeXl.height,
-    width: sizing.threeXl.width,
+    height: "h-9",
+    width: "w-9",
   },
 };
 

@@ -1,4 +1,3 @@
-import { Sizing, sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 
 export type BadgeProportionTypes = {
@@ -35,25 +34,30 @@ export const badgeProportions: { [char: string]: BadgeProportionTypes } = {
   },
 };
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   sm: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   md: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   lg: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   xl: {
-    height: sizing.xl.height,
-    width: sizing.xl.width,
+    height: "h-6",
+    width: "w-6",
   },
 };

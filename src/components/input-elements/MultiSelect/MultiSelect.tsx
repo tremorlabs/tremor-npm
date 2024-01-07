@@ -1,16 +1,11 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React, { isValidElement, useMemo, useState } from "react";
-
 import { SelectedValueContext } from "contexts";
-
 import { useInternalState } from "hooks";
-
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
-
 import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
-import { makeClassName, sizing, spacing } from "lib";
+import { makeClassName, tremorTwMerge, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
@@ -119,13 +114,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   className={tremorTwMerge(
                     makeMultiSelectClassName("Icon"),
                     // common
-                    "flex-none",
+                    "flex-none h-5 w-5",
                     // light
                     "text-tremor-content-subtle",
                     // dark
                     "dark:text-dark-tremor-content-subtle",
-                    sizing.lg.height,
-                    sizing.lg.width,
                   )}
                 />
               </span>
@@ -189,13 +182,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 className={tremorTwMerge(
                   makeMultiSelectClassName("arrowDownIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </span>
@@ -218,13 +209,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 className={tremorTwMerge(
                   makeMultiSelectClassName("clearIconAllItems"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </button>
@@ -265,14 +254,11 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   <SearchIcon
                     className={tremorTwMerge(
                       // common
-                      "flex-none",
+                      "flex-none w-4 h-4 mr-2",
                       // light
                       "text-tremor-content-subtle",
                       // dark
                       "dark:text-dark-tremor-content-subtle",
-                      spacing.sm.marginRight,
-                      sizing.md.height,
-                      sizing.md.width,
                     )}
                   />
                 </span>

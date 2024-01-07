@@ -1,7 +1,7 @@
 "use client";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
-import { mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
+import { mergeRefs, spacing, tremorTwMerge } from "lib";
 import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -101,14 +101,11 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(
               makeInputClassName("icon"),
               // common
-              "shrink-0",
+              "shrink-0 h-5 w-5 ml-2.5",
               // light
               "text-tremor-content-subtle",
               // light
               "dark:text-dark-tremor-content-subtle",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -180,10 +177,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-red-500 shrink-0",
-              spacing.md.marginRight,
-              sizing.lg.height,
-              sizing.lg.width,
+              "text-red-500 shrink-0 w-5 h-5 mr-2.5",
             )}
           />
         ) : null}

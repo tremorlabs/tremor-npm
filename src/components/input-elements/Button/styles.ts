@@ -1,28 +1,33 @@
-import { getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, spacing, tremorTwMerge } from "lib";
 
 import { colorPalette } from "lib/theme";
 import { ButtonVariant, Color } from "../../../lib/inputTypes";
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   sm: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   md: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   lg: {
-    height: sizing.xl.height,
-    width: sizing.xl.width,
+    height: "h-6",
+    width: "w-6",
   },
   xl: {
-    height: sizing.xl.height,
-    width: sizing.xl.width,
+    height: "h-6",
+    width: "w-6",
   },
 };
 

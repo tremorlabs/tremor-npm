@@ -3,7 +3,7 @@
 import { Listbox, Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
-import { sizing, spacing, tremorTwMerge } from "lib";
+import { spacing, tremorTwMerge } from "lib";
 import React, { ReactElement, useMemo, useState } from "react";
 import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
@@ -198,13 +198,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <CalendarIcon
               className={tremorTwMerge(
                 makeDateRangePickerClassName("calendarIcon"),
-                "flex-none shrink-0",
+                "flex-none shrink-0 h-5 w-5",
                 // light
                 "text-tremor-content-subtle",
                 // light
                 "dark:text-dark-tremor-content-subtle",
-                sizing.lg.height,
-                sizing.lg.width,
                 spacing.threeXs.negativeMarginLeft,
                 spacing.sm.marginRight,
               )}
@@ -228,13 +226,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 className={tremorTwMerge(
                   makeDateRangePickerClassName("clearIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </button>

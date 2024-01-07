@@ -1,5 +1,5 @@
 "use client";
-import { sizing, spacing, tremorTwMerge } from "lib";
+import { spacing, tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
 import { DayPickerSingleProps } from "react-day-picker";
 
@@ -109,13 +109,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <CalendarIcon
           className={tremorTwMerge(
             makeDatePickerClassName("calendarIcon"),
-            "flex-none shrink-0",
+            "flex-none shrink-0 h-5 w-5",
             // light
             "text-tremor-content-subtle",
             // light
             "dark:text-dark-tremor-content-subtle",
-            sizing.lg.height,
-            sizing.lg.width,
             spacing.threeXs.negativeMarginLeft,
             spacing.sm.marginRight,
           )}
@@ -138,13 +136,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           <XCircleIcon
             className={tremorTwMerge(
               // common
-              "flex-none",
+              "flex-none h-4 w-4",
               // light
               "text-tremor-content-subtle",
               // dark
               "dark:text-dark-tremor-content-subtle",
-              sizing.md.height,
-              sizing.md.width,
             )}
           />
         </button>

@@ -1,13 +1,6 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import {
-  colorPalette,
-  getColorClassNames,
-  tremorTwMerge,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { colorPalette, getColorClassNames, tremorTwMerge, makeClassName, spacing } from "lib";
 import React, { useContext } from "react";
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
@@ -84,9 +77,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeTabClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
+            "flex-none h-5 w-5",
             children ? spacing.sm.marginRight : "",
           )}
         />

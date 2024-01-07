@@ -3,7 +3,6 @@ import { tremorTwMerge } from "lib";
 import React from "react";
 
 import { makeClassName } from "lib";
-import { sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 
 import { Combobox } from "@headlessui/react";
@@ -43,14 +42,11 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
           className={tremorTwMerge(
             makeSearchSelectItemClassName("icon"),
             // common
-            "flex-none",
+            "flex-none h-5 w-5 mr-3",
             // light
             "text-tremor-content-subtle",
             // dark
             "dark:text-dark-tremor-content-subtle",
-            sizing.lg.height,
-            sizing.lg.width,
-            spacing.lg.marginRight,
           )}
         />
       )}
