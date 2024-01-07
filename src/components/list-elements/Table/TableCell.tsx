@@ -1,5 +1,5 @@
-import { makeClassName, spacing, tremorTwMerge } from "lib";
 import React from "react";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeTableCellClassName = makeClassName("TableCell");
 
@@ -14,8 +14,7 @@ const TableCell = React.forwardRef<
         ref={ref}
         className={tremorTwMerge(
           makeTableCellClassName("root"),
-          "align-middle whitespace-nowrap text-left",
-          spacing.twoXl.paddingAll,
+          "align-middle whitespace-nowrap text-left p-4",
           className,
         )}
         {...other}

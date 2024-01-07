@@ -1,7 +1,12 @@
 import React from "react";
-
-import { BaseColors, getColorClassNames, spacing, tremorTwMerge, Color, ValueFormatter } from "lib";
-import { colorPalette } from "lib/theme";
+import {
+  BaseColors,
+  getColorClassNames,
+  tremorTwMerge,
+  Color,
+  ValueFormatter,
+  colorPalette,
+} from "lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -89,11 +94,9 @@ const ChartTooltip = ({
         <div
           className={tremorTwMerge(
             // light
-            "border-tremor-border border-b",
+            "border-tremor-border border-b px-4 py-2",
             // dark
             "dark:border-dark-tremor-border",
-            spacing.twoXl.paddingX,
-            spacing.sm.paddingY,
           )}
         >
           <p
@@ -110,7 +113,7 @@ const ChartTooltip = ({
           </p>
         </div>
 
-        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
           {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}

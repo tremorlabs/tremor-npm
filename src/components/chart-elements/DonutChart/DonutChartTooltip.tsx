@@ -1,9 +1,7 @@
-import { tremorTwMerge } from "lib";
 import React from "react";
+import { tremorTwMerge, ValueFormatter } from "lib";
 
 import { ChartTooltipFrame, ChartTooltipRow } from "components/chart-elements/common/ChartTooltip";
-import { spacing } from "lib";
-import { ValueFormatter } from "../../../lib/inputTypes";
 
 export interface DonutChartTooltipProps {
   active: boolean | undefined;
@@ -16,7 +14,7 @@ export const DonutChartTooltip = ({ active, payload, valueFormatter }: DonutChar
     const payloadRow = payload?.[0];
     return (
       <ChartTooltipFrame>
-        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY)}>
+        <div className={tremorTwMerge("px-4 py-2")}>
           <ChartTooltipRow
             value={valueFormatter(payloadRow.value)}
             name={payloadRow.name}

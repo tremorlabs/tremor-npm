@@ -1,4 +1,4 @@
-import { BaseColors, DeltaTypes, getColorClassNames, spacing } from "lib";
+import { BaseColors, DeltaTypes, getColorClassNames, colorPalette } from "lib";
 
 import {
   ArrowDownIcon,
@@ -7,7 +7,6 @@ import {
   ArrowUpIcon,
   ArrowUpRightIcon,
 } from "assets";
-import { colorPalette } from "lib/theme";
 
 export type BadgeProportionTypes = {
   paddingX: string;
@@ -19,28 +18,28 @@ export const badgeProportionsIconOnly: {
   [char: string]: BadgeProportionTypes;
 } = {
   xs: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-0.5",
     fontSize: "text-xs",
   },
   sm: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.twoXs.paddingY,
+    paddingX: "px-2.5",
+    paddingY: "py-1",
     fontSize: "text-sm",
   },
   md: {
-    paddingX: spacing.lg.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-3",
+    paddingY: "py-1.5",
     fontSize: "text-md",
   },
   lg: {
-    paddingX: spacing.xl.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-3.5",
+    paddingY: "py-1.5",
     fontSize: "text-lg",
   },
   xl: {
-    paddingX: spacing.xl.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-3.5",
+    paddingY: "py-1.5",
     fontSize: "text-xl",
   },
 };
@@ -49,28 +48,28 @@ export const badgeProportionsWithText: {
   [char: string]: BadgeProportionTypes;
 } = {
   xs: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-0.5",
     fontSize: "text-xs",
   },
   sm: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-2.5",
+    paddingY: "py-0.5",
     fontSize: "text-sm",
   },
   md: {
-    paddingX: spacing.lg.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-3",
+    paddingY: "py-0.5",
     fontSize: "text-md",
   },
   lg: {
-    paddingX: spacing.xl.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-3.5",
+    paddingY: "py-0.5",
     fontSize: "text-lg",
   },
   xl: {
-    paddingX: spacing.twoXl.paddingX,
-    paddingY: spacing.twoXs.paddingY,
+    paddingX: "px-4",
+    paddingY: "py-1",
     fontSize: "text-xl",
   },
 };

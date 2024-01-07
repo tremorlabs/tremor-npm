@@ -4,12 +4,11 @@ import { ScatterChartValueFormatter } from "components/chart-elements/ScatterCha
 import {
   BaseColors,
   getColorClassNames,
-  spacing,
   Color,
   defaultValueFormatter,
   tremorTwMerge,
+  colorPalette,
 } from "lib";
-import { colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -87,13 +86,11 @@ const ScatterChartTooltip = ({
         <div
           className={tremorTwMerge(
             // common
-            "flex items-center space-x-2 border-b",
+            "flex items-center space-x-2 border-b px-4 py-2",
             // light
             "border-tremor-border",
             // dark
             "dark:border-dark-tremor-border",
-            spacing.twoXl.paddingX,
-            spacing.sm.paddingY,
           )}
         >
           <span
@@ -126,7 +123,7 @@ const ScatterChartTooltip = ({
           </p>
         </div>
 
-        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => {
             const valueFormatterKey = Object.keys(axis).find((key) => axis[key] === name) ?? "";
             const valueFormatterFn =

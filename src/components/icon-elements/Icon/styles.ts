@@ -1,7 +1,4 @@
-import { getColorClassNames, spacing, tremorTwMerge } from "lib";
-
-import { colorPalette } from "lib/theme";
-import { Color, IconVariant } from "../../../lib/inputTypes";
+import { getColorClassNames, tremorTwMerge, colorPalette, Color, IconVariant } from "lib";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -10,24 +7,24 @@ export type WrapperProportionTypes = {
 
 export const wrapperProportions: { [size: string]: WrapperProportionTypes } = {
   xs: {
-    paddingX: spacing.xs.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-1.5",
+    paddingY: "py-1.5",
   },
   sm: {
-    paddingX: spacing.xs.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-1.5",
+    paddingY: "py-1.5",
   },
   md: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.sm.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-2",
   },
   lg: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.sm.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-2",
   },
   xl: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.md.paddingY,
+    paddingX: "px-2.5",
+    paddingY: "py-2.5",
   },
 };
 
