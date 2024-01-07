@@ -1,7 +1,6 @@
 import React from "react";
-import { getColorClassNames, makeClassName, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, makeClassName, tremorTwMerge, Color } from "lib";
 import { colorPalette } from "lib/theme";
-import { Color } from "../../../lib";
 
 const makeCalloutClassName = makeClassName("Callout");
 
@@ -20,7 +19,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeCalloutClassName("root"),
-        "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default border-l-4",
+        "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default border-l-4 py-3 pr-3 pl-4",
         color
           ? tremorTwMerge(
               getColorClassNames(color, colorPalette.background).bgColor,
@@ -34,9 +33,6 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
               // dark
               "dark:bg-dark-tremor-brand-muted/70 dark:border-dark-tremor-brand-emphasis dark:text-dark-tremor-brand-emphasis",
             ),
-        spacing.lg.paddingY,
-        spacing.lg.paddingRight,
-        spacing.twoXl.paddingLeft,
         className,
       )}
       {...other}
@@ -53,7 +49,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
         className={tremorTwMerge(
           makeCalloutClassName("body"),
           "overflow-y-auto",
-          children ? spacing.sm.marginTop : "",
+          children ? "mt-2" : "",
         )}
       >
         {children}

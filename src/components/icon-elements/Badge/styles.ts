@@ -1,5 +1,3 @@
-import { spacing } from "lib/spacing";
-
 export type BadgeProportionTypes = {
   paddingX: string;
   paddingY: string;
@@ -8,28 +6,28 @@ export type BadgeProportionTypes = {
 
 export const badgeProportions: { [char: string]: BadgeProportionTypes } = {
   xs: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-0.5",
     fontSize: "text-xs",
   },
   sm: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-2.5",
+    paddingY: "py-0.5",
     fontSize: "text-sm",
   },
   md: {
-    paddingX: spacing.lg.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-3",
+    paddingY: "py-0.5",
     fontSize: "text-md",
   },
   lg: {
-    paddingX: spacing.xl.paddingX,
-    paddingY: spacing.threeXs.paddingY,
+    paddingX: "px-3.5",
+    paddingY: "py-0.5",
     fontSize: "text-lg",
   },
   xl: {
-    paddingX: spacing.twoXl.paddingX,
-    paddingY: spacing.twoXs.paddingY,
+    paddingX: "px-4",
+    paddingY: "py-1",
     fontSize: "text-xl",
   },
 };

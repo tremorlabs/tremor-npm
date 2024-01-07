@@ -4,7 +4,6 @@ import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   getColorClassNames,
   makeClassName,
-  spacing,
   sumNumericArray,
   themeColorRange,
   tremorTwMerge,
@@ -71,10 +70,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
           </div>
         );
       })}
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.left)}>
-        0
-      </div>
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center left-0")}>0</div>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center right-0")}>
         {sumValues}
       </div>
     </div>

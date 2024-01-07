@@ -3,7 +3,7 @@
 import { Listbox, Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
-import { spacing, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React, { ReactElement, useMemo, useState } from "react";
 import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
@@ -183,28 +183,24 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap border",
+              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap border pl-3 py-2",
               // light
               "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
               "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
-              spacing.lg.paddingLeft,
-              isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
-              spacing.sm.paddingY,
+              isClearEnabled ? "pr-8" : "pr-4",
               getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
             )}
           >
             <CalendarIcon
               className={tremorTwMerge(
                 makeDateRangePickerClassName("calendarIcon"),
-                "flex-none shrink-0 h-5 w-5",
+                "flex-none shrink-0 h-5 w-5 -ml-0.5 mr-2",
                 // light
                 "text-tremor-content-subtle",
                 // light
                 "dark:text-dark-tremor-content-subtle",
-                spacing.threeXs.negativeMarginLeft,
-                spacing.sm.marginRight,
               )}
               aria-hidden="true"
             />
@@ -214,8 +210,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <button
               type="button"
               className={tremorTwMerge(
-                "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100",
-                spacing.twoXl.marginRight,
+                "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100 mr-4",
               )}
               onClick={(e) => {
                 e.preventDefault();
@@ -249,13 +244,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             focus={true}
             className={tremorTwMerge(
               // common
-              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border",
+              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
               "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-              spacing.twoXs.marginTop,
-              spacing.twoXs.marginBottom,
             )}
           >
             <Calendar<DayPickerRangeProps>
@@ -309,14 +302,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 onBlur={() => setIsSelectButtonFocused(false)}
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border",
+                  "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border px-4 py-2",
                   // light
                   "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
                   // dark
                   "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
-                  spacing.twoXl.paddingLeft,
-                  spacing.twoXl.paddingRight,
-                  spacing.sm.paddingY,
                   getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >
@@ -334,13 +324,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 <Listbox.Options
                   className={tremorTwMerge(
                     // common
-                    "divide-y overflow-y-auto outline-none border",
+                    "divide-y overflow-y-auto outline-none border my-1",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
                     "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border",
-                    spacing.twoXs.marginTop,
-                    spacing.twoXs.marginBottom,
                   )}
                 >
                   {children ??

@@ -2,7 +2,7 @@
 import React from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { getColorClassNames, makeClassName, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib/inputTypes";
 
@@ -63,12 +63,11 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
               // common
-              "w-16 truncate text-right",
+              "w-16 truncate text-right ml-2",
               // light
               "text-tremor-content-emphasis",
               // dark
               "dark:text-dark-tremor-content-emphasis",
-              spacing.sm.marginLeft,
             )}
           >
             <p

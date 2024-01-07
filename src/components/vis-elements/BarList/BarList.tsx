@@ -4,7 +4,6 @@ import {
   defaultValueFormatter,
   getColorClassNames,
   makeClassName,
-  spacing,
   tremorTwMerge,
   ValueFormatter,
 } from "lib";
@@ -60,8 +59,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeBarListClassName("root"),
-        "flex justify-between",
-        spacing.threeXl.spaceX,
+        "flex justify-between space-x-6",
         className,
       )}
       {...other}
@@ -82,14 +80,14 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   ? getColorClassNames(item.color ?? (color as Color), colorPalette.background)
                       .bgColor
                   : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle dark:bg-opacity-30",
-                idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
+                idx === data.length - 1 ? "mb-0" : "mb-2",
               )}
               style={{
                 width: `${widths[idx]}%`,
                 transition: showAnimation ? "all 1s" : "",
               }}
             >
-              <div className={tremorTwMerge("absolute max-w-full flex", spacing.sm.left)}>
+              <div className={tremorTwMerge("absolute max-w-full flex left-2")}>
                 {Icon ? (
                   <Icon
                     className={tremorTwMerge(
@@ -148,7 +146,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",
               rowHeight,
-              idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
+              idx === data.length - 1 ? "mb-0" : "mb-2",
             )}
           >
             <p

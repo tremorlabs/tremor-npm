@@ -1,7 +1,4 @@
-import { getColorClassNames, spacing, tremorTwMerge } from "lib";
-
-import { colorPalette } from "lib/theme";
-import { ButtonVariant, Color } from "../../../lib/inputTypes";
+import { getColorClassNames, tremorTwMerge, ButtonVariant, Color, colorPalette } from "lib";
 
 export const iconSizes: {
   [size: string]: {
@@ -35,28 +32,28 @@ export const getButtonProportions = (variant: ButtonVariant) => {
   if (!(variant === "light")) {
     return {
       xs: {
-        paddingX: spacing.md.paddingX,
-        paddingY: spacing.xs.paddingY,
+        paddingX: "px-2.5",
+        paddingY: "py-1.5",
         fontSize: "text-xs",
       },
       sm: {
-        paddingX: spacing.twoXl.paddingX,
-        paddingY: spacing.sm.paddingY,
+        paddingX: "px-4",
+        paddingY: "py-2",
         fontSize: "text-sm",
       },
       md: {
-        paddingX: spacing.twoXl.paddingX,
-        paddingY: spacing.sm.paddingY,
+        paddingX: "px-4",
+        paddingY: "py-2",
         fontSize: "text-md",
       },
       lg: {
-        paddingX: spacing.twoXl.paddingX,
-        paddingY: spacing.md.paddingY,
+        paddingX: "px-4",
+        paddingY: "py-2.5",
         fontSize: "text-lg",
       },
       xl: {
-        paddingX: spacing.twoXl.paddingX,
-        paddingY: spacing.lg.paddingY,
+        paddingX: "px-4",
+        paddingY: "py-3",
         fontSize: "text-xl",
       },
     };
