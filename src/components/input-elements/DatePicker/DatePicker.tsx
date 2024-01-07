@@ -1,5 +1,5 @@
 "use client";
-import { border, sizing, spacing, tremorTwMerge } from "lib";
+import { sizing, spacing, tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
 import { DayPickerSingleProps } from "react-day-picker";
 
@@ -95,7 +95,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         disabled={disabled}
         className={tremorTwMerge(
           // common
-          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap",
+          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap border",
           // light
           "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
@@ -103,7 +103,6 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           spacing.lg.paddingLeft,
           isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
           spacing.sm.paddingY,
-          border.sm.all,
           getSelectButtonColors(hasValue<Date>(selectedValue), disabled),
         )}
       >
@@ -162,14 +161,13 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <Popover.Panel
           className={tremorTwMerge(
             // common
-            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
+            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark
             "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
             spacing.twoXs.marginTop,
             spacing.twoXs.marginBottom,
-            border.sm.all,
           )}
         >
           {({ close }) => (

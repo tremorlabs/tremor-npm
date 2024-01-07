@@ -4,7 +4,7 @@ import { tremorTwMerge } from "lib";
 import React from "react";
 import { Transition } from "react-transition-group";
 
-import { border, HorizontalPositions, makeClassName, mergeRefs, Sizes, sizing, spacing } from "lib";
+import { HorizontalPositions, makeClassName, mergeRefs, Sizes, sizing, spacing } from "lib";
 
 import { LoadingSpinner } from "assets";
 import { ButtonVariant, Color, HorizontalPosition, Size } from "../../../lib";
@@ -102,12 +102,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     variant !== "light"
       ? tremorTwMerge(
           // common
-          "rounded-tremor-default",
+          "rounded-tremor-default border",
           // light
           "shadow-tremor-input",
           // dark
           "dark:shadow-dark-tremor-input",
-          border.sm.all,
         )
       : "";
   const buttonColorStyles = getButtonColors(variant, color);

@@ -1,7 +1,7 @@
 "use client";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
-import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
+import { mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
 import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -78,7 +78,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         className={tremorTwMerge(
           makeInputClassName("root"),
           // common
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100",
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100 border",
           // light
           "shadow-tremor-input",
           // dark
@@ -93,7 +93,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               // light
               "dark:border-dark-tremor-brand-subtle dark:ring-dark-tremor-brand-muted",
             ),
-          border.sm.all,
           className,
         )}
       >

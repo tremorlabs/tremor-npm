@@ -1,7 +1,7 @@
 import { tremorTwMerge } from "lib";
 import React from "react";
 
-import { border, getColorClassNames, makeClassName, sizing, spacing } from "lib";
+import { getColorClassNames, makeClassName, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib";
 
@@ -22,7 +22,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeCalloutClassName("root"),
-        "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default",
+        "flex flex-col overflow-hidden rounded-tremor-default text-tremor-default border-l-4",
         color
           ? tremorTwMerge(
               getColorClassNames(color, colorPalette.background).bgColor,
@@ -39,7 +39,6 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
         spacing.lg.paddingY,
         spacing.lg.paddingRight,
         spacing.twoXl.paddingLeft,
-        border.lg.left,
         className,
       )}
       {...other}

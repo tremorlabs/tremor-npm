@@ -1,7 +1,7 @@
 import React from "react";
 import { tremorTwMerge } from "../../../lib";
 
-import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
+import { BaseColors, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color, ValueFormatter } from "../../../lib";
 
@@ -9,12 +9,11 @@ export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) =
   <div
     className={tremorTwMerge(
       // common
-      "rounded-tremor-default text-tremor-default",
+      "rounded-tremor-default text-tremor-default border",
       // light
       "bg-tremor-background shadow-tremor-dropdown border-tremor-border",
       // dark
       "dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
-      border.sm.all,
     )}
   >
     {children}
@@ -33,7 +32,7 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <span
         className={tremorTwMerge(
           // common
-          "shrink-0 rounded-tremor-full",
+          "shrink-0 rounded-tremor-full border-2",
           // light
           "border-tremor-background shadow-tremor-card",
           // dark
@@ -41,7 +40,6 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
           getColorClassNames(color, colorPalette.background).bgColor,
           sizing.sm.height,
           sizing.sm.width,
-          border.md.all,
         )}
       />
       <p
@@ -95,12 +93,11 @@ const ChartTooltip = ({
         <div
           className={tremorTwMerge(
             // light
-            "border-tremor-border",
+            "border-tremor-border border-b",
             // dark
             "dark:border-dark-tremor-border",
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
-            border.sm.bottom,
           )}
         >
           <p

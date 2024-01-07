@@ -5,7 +5,7 @@ import React, { isValidElement, useMemo, useState } from "react";
 
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import { border, makeClassName, sizing, spacing } from "lib";
+import { makeClassName, sizing, spacing } from "lib";
 import {
   constructValueToNameMapping,
   getFilteredOptions,
@@ -113,14 +113,13 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
             <Combobox.Input
               className={tremorTwMerge(
                 // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14",
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14 border",
                 // light
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
                 spacing.sm.paddingY,
-                border.sm.all,
                 disabled
                   ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
                   : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
@@ -191,14 +190,13 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
               <Combobox.Options
                 className={tremorTwMerge(
                   // common
-                  "divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] left-0",
+                  "divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] left-0 border",
                   // light
                   "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                   // dark
                   "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
                   spacing.twoXs.marginTop,
                   spacing.twoXs.marginBottom,
-                  border.sm.all,
                 )}
               >
                 {filteredOptions}

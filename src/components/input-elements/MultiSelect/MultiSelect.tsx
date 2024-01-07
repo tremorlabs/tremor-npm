@@ -10,7 +10,7 @@ import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
 import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
-import { border, makeClassName, sizing, spacing } from "lib";
+import { makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
@@ -97,7 +97,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
           <Listbox.Button
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
+              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border",
               // light
               "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
@@ -105,7 +105,6 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.xs.paddingY,
-              border.sm.all,
               getSelectButtonColors(value.length > 0, disabled),
             )}
           >
@@ -242,14 +241,13 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
                 "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
                 spacing.twoXs.marginTop,
                 spacing.twoXs.marginBottom,
-                border.sm.all,
               )}
             >
               <div

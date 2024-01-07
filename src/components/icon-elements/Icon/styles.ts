@@ -1,4 +1,4 @@
-import { border, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
 import { colorPalette } from "lib/theme";
 import { Color, IconVariant } from "../../../lib/inputTypes";
@@ -76,19 +76,19 @@ export const shape: { [style: string]: ShapeTypes } = {
   },
   shadow: {
     rounded: "rounded-tremor-default",
-    border: border.sm.all,
+    border: "border",
     ring: "",
     shadow: "shadow-tremor-card dark:shadow-dark-tremor-card",
   },
   solid: {
     rounded: "rounded-tremor-default",
-    border: border.md.all,
+    border: "border-2",
     ring: "ring-1",
     shadow: "",
   },
   outlined: {
     rounded: "rounded-tremor-default",
-    border: border.sm.all,
+    border: "border",
     ring: "ring-2",
     shadow: "",
   },

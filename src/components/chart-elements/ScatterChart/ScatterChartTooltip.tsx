@@ -2,19 +2,18 @@ import React from "react";
 import { Color, defaultValueFormatter, tremorTwMerge } from "../../../lib";
 
 import { ScatterChartValueFormatter } from "components/chart-elements/ScatterChart/ScatterChart";
-import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
+import { BaseColors, getColorClassNames, sizing, spacing } from "lib";
 import { colorPalette } from "lib/theme";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
       // common
-      "rounded-tremor-default text-tremor-default",
+      "rounded-tremor-default text-tremor-default border",
       // light
       "bg-tremor-background shadow-tremor-dropdown border-tremor-border",
       // dark
       "dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
-      border.sm.all,
     )}
   >
     {children}
@@ -82,20 +81,19 @@ const ScatterChartTooltip = ({
         <div
           className={tremorTwMerge(
             // common
-            "flex items-center space-x-2",
+            "flex items-center space-x-2 border-b",
             // light
             "border-tremor-border",
             // dark
             "dark:border-dark-tremor-border",
             spacing.twoXl.paddingX,
             spacing.sm.paddingY,
-            border.sm.bottom,
           )}
         >
           <span
             className={tremorTwMerge(
               // common
-              "shrink-0 rounded-tremor-full",
+              "shrink-0 rounded-tremor-full border-2",
               // light
               "border-tremor-background shadow-tremor-card",
               // dark
@@ -108,7 +106,6 @@ const ScatterChartTooltip = ({
               ).bgColor,
               sizing.sm.height,
               sizing.sm.width,
-              border.md.all,
             )}
           />
           <p

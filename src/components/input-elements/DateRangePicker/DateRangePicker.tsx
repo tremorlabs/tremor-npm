@@ -3,7 +3,7 @@
 import { Listbox, Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
-import { border, sizing, spacing, tremorTwMerge } from "lib";
+import { sizing, spacing, tremorTwMerge } from "lib";
 import React, { ReactElement, useMemo, useState } from "react";
 import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
@@ -183,7 +183,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
+              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap border",
               // light
               "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
@@ -192,7 +192,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               spacing.lg.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
               spacing.sm.paddingY,
-              border.sm.all,
               getSelectButtonColors(hasValue<Date>(selectedStartDate || selectedEndDate), disabled),
             )}
           >
@@ -254,14 +253,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             focus={true}
             className={tremorTwMerge(
               // common
-              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
+              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
               "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
               spacing.twoXs.marginTop,
               spacing.twoXs.marginBottom,
-              border.sm.all,
             )}
           >
             <Calendar<DayPickerRangeProps>
@@ -315,7 +313,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 onBlur={() => setIsSelectButtonFocused(false)}
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100",
+                  "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border",
                   // light
                   "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
                   // dark
@@ -323,7 +321,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   spacing.twoXl.paddingLeft,
                   spacing.twoXl.paddingRight,
                   spacing.sm.paddingY,
-                  border.sm.all,
                   getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >
@@ -341,14 +338,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 <Listbox.Options
                   className={tremorTwMerge(
                     // common
-                    "divide-y overflow-y-auto outline-none",
+                    "divide-y overflow-y-auto outline-none border",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
                     "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border",
                     spacing.twoXs.marginTop,
                     spacing.twoXs.marginBottom,
-                    border.sm.all,
                   )}
                 >
                   {children ??
