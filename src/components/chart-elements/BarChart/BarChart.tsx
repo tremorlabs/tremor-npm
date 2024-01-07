@@ -88,10 +88,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     allowDecimals = true,
     noDataText,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    tickGap = 5,
     className,
-    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -195,6 +196,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
+                minTickGap={tickGap}
               />
             ) : (
               <XAxis
@@ -215,7 +217,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
-                minTickGap={5}
+                minTickGap={tickGap}
                 allowDecimals={allowDecimals}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}

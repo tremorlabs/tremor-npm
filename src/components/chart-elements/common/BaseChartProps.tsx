@@ -40,6 +40,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
     verticalShift?: number;
     xAxisHeight?: number;
   };
+  tickGap?: number;
 }
 
 export default BaseChartProps;
