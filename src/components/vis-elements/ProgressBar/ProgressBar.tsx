@@ -2,7 +2,7 @@
 import React from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { getColorClassNames, makeClassName, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib/inputTypes";
 
@@ -36,11 +36,10 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full rounded-tremor-full bg-opacity-20",
+            "relative flex items-center w-full rounded-tremor-full bg-opacity-20 h-2",
             color
               ? getColorClassNames(color, colorPalette.background).bgColor
               : "bg-tremor-brand-muted/50 dark:bg-dark-tremor-brand-muted",
-            sizing.xs.height,
           )}
           {...getReferenceProps}
         >
@@ -64,12 +63,11 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
               // common
-              "w-16 truncate text-right",
+              "w-16 truncate text-right ml-2",
               // light
               "text-tremor-content-emphasis",
               // dark
               "dark:text-dark-tremor-content-emphasis",
-              spacing.sm.marginLeft,
             )}
           >
             <p

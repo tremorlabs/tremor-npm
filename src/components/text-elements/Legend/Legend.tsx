@@ -1,14 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 
-import {
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-  themeColorRange,
-  Color,
-  tremorTwMerge,
-} from "lib";
+import { getColorClassNames, makeClassName, themeColorRange, Color, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { ChevronLeftFill, ChevronRightFill } from "assets";
 
@@ -44,11 +36,8 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
     >
       <svg
         className={tremorTwMerge(
-          "flex-none",
+          "flex-none h-2 w-2 mr-1.5",
           getColorClassNames(color, colorPalette.text).textColor,
-          sizing.xs.height,
-          sizing.xs.width,
-          spacing.xs.marginRight,
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
         fill="currentColor"

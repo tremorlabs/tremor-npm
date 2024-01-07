@@ -1,8 +1,8 @@
 "use client";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
-import { mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
+import { mergeRefs, tremorTwMerge } from "lib";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -101,14 +101,11 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(
               makeInputClassName("icon"),
               // common
-              "shrink-0",
+              "shrink-0 h-5 w-5 ml-2.5",
               // light
               "text-tremor-content-subtle",
               // light
               "dark:text-dark-tremor-content-subtle",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -120,15 +117,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default transition duration-100",
+            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default transition duration-100 py-2",
             // light
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? spacing.sm.paddingLeft : spacing.lg.paddingLeft,
-            error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
-            spacing.sm.paddingY,
+            Icon ? "pl-2" : "pl-3",
+            error ? "pr-3" : "pr-4",
             disabled
               ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
               : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
@@ -180,10 +176,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-red-500 shrink-0",
-              spacing.md.marginRight,
-              sizing.lg.height,
-              sizing.lg.width,
+              "text-red-500 shrink-0 w-5 h-5 mr-2.5",
             )}
           />
         ) : null}

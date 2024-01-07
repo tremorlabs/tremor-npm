@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   Color,
@@ -7,11 +8,9 @@ import {
   mergeRefs,
   Size,
   Sizes,
-  spacing,
   tremorTwMerge,
+  colorPalette,
 } from "lib";
-import { colorPalette } from "lib/theme";
-import React from "react";
 import { badgeProportions, iconSizes } from "./styles";
 
 const makeBadgeClassName = makeClassName("Badge");
@@ -62,9 +61,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeBadgeClassName("icon"),
-            "shrink-0",
-            spacing.twoXs.negativeMarginLeft,
-            spacing.xs.marginRight,
+            "shrink-0 -ml-1 mr-1.5",
             iconSizes[size].height,
             iconSizes[size].width,
           )}

@@ -1,7 +1,4 @@
-import { getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
-
-import { colorPalette } from "lib/theme";
-import { Color, IconVariant } from "../../../lib/inputTypes";
+import { getColorClassNames, tremorTwMerge, colorPalette, Color, IconVariant } from "lib";
 
 export type WrapperProportionTypes = {
   paddingX: string;
@@ -10,47 +7,52 @@ export type WrapperProportionTypes = {
 
 export const wrapperProportions: { [size: string]: WrapperProportionTypes } = {
   xs: {
-    paddingX: spacing.xs.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-1.5",
+    paddingY: "py-1.5",
   },
   sm: {
-    paddingX: spacing.xs.paddingX,
-    paddingY: spacing.xs.paddingY,
+    paddingX: "px-1.5",
+    paddingY: "py-1.5",
   },
   md: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.sm.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-2",
   },
   lg: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.sm.paddingY,
+    paddingX: "px-2",
+    paddingY: "py-2",
   },
   xl: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.md.paddingY,
+    paddingX: "px-2.5",
+    paddingY: "py-2.5",
   },
 };
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.sm.height,
-    width: sizing.sm.width,
+    height: "h-3",
+    width: "w-3",
   },
   sm: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   md: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   lg: {
-    height: sizing.twoXl.height,
-    width: sizing.twoXl.width,
+    height: "h-7",
+    width: "w-7",
   },
   xl: {
-    height: sizing.threeXl.height,
-    width: sizing.threeXl.width,
+    height: "h-9",
+    width: "w-9",
   },
 };
 

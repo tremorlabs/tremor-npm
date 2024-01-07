@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   DeltaType,
@@ -8,10 +9,8 @@ import {
   mergeRefs,
   Size,
   Sizes,
-  spacing,
   tremorTwMerge,
 } from "lib";
-import React from "react";
 import {
   badgeProportionsIconOnly,
   badgeProportionsWithText,
@@ -67,9 +66,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
         className={tremorTwMerge(
           makeBadgeDeltaClassName("icon"),
           "shrink-0",
-          children
-            ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-            : iconSizes[size].height,
+          children ? tremorTwMerge("-ml-1 mr-1.5") : iconSizes[size].height,
           iconSizes[size].width,
         )}
       />

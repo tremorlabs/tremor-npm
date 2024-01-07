@@ -1,10 +1,9 @@
 "use client";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { tremorTwMerge } from "lib";
 import React from "react";
 import { Transition } from "react-transition-group";
 
-import { HorizontalPositions, makeClassName, mergeRefs, Sizes, sizing, spacing } from "lib";
+import { HorizontalPositions, makeClassName, mergeRefs, Sizes, tremorTwMerge } from "lib";
 
 import { LoadingSpinner } from "assets";
 import { ButtonVariant, Color, HorizontalPosition, Size } from "../../../lib";
@@ -34,10 +33,10 @@ export const ButtonIconOrSpinner = ({
   const margin = !needMargin
     ? ""
     : iconPosition === HorizontalPositions.Left
-    ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-    : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+    ? tremorTwMerge("-ml-1", "mr-1.5")
+    : tremorTwMerge("-mr-1", "ml-1.5");
 
-  const defaultSpinnerSize = tremorTwMerge(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = tremorTwMerge("w-0 h-0");
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,

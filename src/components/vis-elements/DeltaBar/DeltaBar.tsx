@@ -1,9 +1,7 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React from "react";
-
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { DeltaTypes, makeClassName, mapInputsToDeltaType, sizing } from "lib";
+import { DeltaTypes, makeClassName, mapInputsToDeltaType, tremorTwMerge } from "lib";
 import { colors } from "./styles";
 
 const makeDeltaBarClassName = makeClassName("DeltaBar");
@@ -38,12 +36,11 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         className={tremorTwMerge(
           makeDeltaBarClassName("root"),
           // common
-          "relative flex items-center w-full rounded-tremor-full",
+          "relative flex items-center w-full rounded-tremor-full h-2",
           // light
           "bg-tremor-background-subtle",
           // dark
           "dark:bg-dark-tremor-background-subtle",
-          sizing.xs.height,
           className,
         )}
         {...other}
@@ -74,13 +71,11 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
             // common
-            "ring-2 z-10 rounded-tremor-full",
+            "ring-2 z-10 rounded-tremor-full h-4 w-1",
             // light
             "ring-tremor-brand-inverted bg-tremor-background-emphasis",
             // dark
             "dark:ring-dark-tremor-brand-inverted dark:bg-dark-tremor-background-emphasis",
-            sizing.md.height,
-            sizing.twoXs.width,
           )}
         />
         <div
