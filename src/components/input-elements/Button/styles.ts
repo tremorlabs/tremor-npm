@@ -1,4 +1,4 @@
-import { fontSize, getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
+import { getColorClassNames, Sizing, sizing, spacing, tremorTwMerge } from "lib";
 
 import { colorPalette } from "lib/theme";
 import { ButtonVariant, Color } from "../../../lib/inputTypes";
@@ -32,27 +32,27 @@ export const getButtonProportions = (variant: ButtonVariant) => {
       xs: {
         paddingX: spacing.md.paddingX,
         paddingY: spacing.xs.paddingY,
-        fontSize: fontSize.xs,
+        fontSize: "text-xs",
       },
       sm: {
         paddingX: spacing.twoXl.paddingX,
         paddingY: spacing.sm.paddingY,
-        fontSize: fontSize.sm,
+        fontSize: "text-sm",
       },
       md: {
         paddingX: spacing.twoXl.paddingX,
         paddingY: spacing.sm.paddingY,
-        fontSize: fontSize.md,
+        fontSize: "text-md",
       },
       lg: {
         paddingX: spacing.twoXl.paddingX,
         paddingY: spacing.md.paddingY,
-        fontSize: fontSize.lg,
+        fontSize: "text-lg",
       },
       xl: {
         paddingX: spacing.twoXl.paddingX,
         paddingY: spacing.lg.paddingY,
-        fontSize: fontSize.xl,
+        fontSize: "text-xl",
       },
     };
   }
@@ -60,27 +60,27 @@ export const getButtonProportions = (variant: ButtonVariant) => {
     xs: {
       paddingX: "",
       paddingY: "",
-      fontSize: fontSize.xs,
+      fontSize: "text-xs",
     },
     sm: {
       paddingX: "",
       paddingY: "",
-      fontSize: fontSize.sm,
+      fontSize: "text-sm",
     },
     md: {
       paddingX: "",
       paddingY: "",
-      fontSize: fontSize.md,
+      fontSize: "text-md",
     },
     lg: {
       paddingX: "",
       paddingY: "",
-      fontSize: fontSize.lg,
+      fontSize: "text-lg",
     },
     xl: {
       paddingX: "",
       paddingY: "",
-      fontSize: fontSize.xl,
+      fontSize: "text-xl",
     },
   };
 };

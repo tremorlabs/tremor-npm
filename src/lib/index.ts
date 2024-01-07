@@ -1,5 +1,5 @@
 export * from "./constants";
-export * from "./font";
+// export * from "./font";
 export * from "./inputTypes";
 export * from "./shape";
 export * from "./sizing";

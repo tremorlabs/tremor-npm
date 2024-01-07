@@ -1,4 +1,3 @@
-import { fontSize } from "lib/font";
 import { Sizing, sizing } from "lib/sizing";
 import { spacing } from "lib/spacing";
 
@@ -12,27 +11,27 @@ export const badgeProportions: { [char: string]: BadgeProportionTypes } = {
   xs: {
     paddingX: spacing.sm.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.xs,
+    fontSize: "text-xs",
   },
   sm: {
     paddingX: spacing.md.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.sm,
+    fontSize: "text-sm",
   },
   md: {
     paddingX: spacing.lg.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.md,
+    fontSize: "text-md",
   },
   lg: {
     paddingX: spacing.xl.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.lg,
+    fontSize: "text-lg",
   },
   xl: {
     paddingX: spacing.twoXl.paddingX,
     paddingY: spacing.twoXs.paddingY,
-    fontSize: fontSize.xl,
+    fontSize: "text-xl",
   },
 };
 

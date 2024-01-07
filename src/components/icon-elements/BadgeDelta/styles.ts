@@ -1,4 +1,4 @@
-import { BaseColors, DeltaTypes, fontSize, getColorClassNames, Sizing, sizing, spacing } from "lib";
+import { BaseColors, DeltaTypes, getColorClassNames, Sizing, sizing, spacing } from "lib";
 
 import {
   ArrowDownIcon,
@@ -21,27 +21,27 @@ export const badgeProportionsIconOnly: {
   xs: {
     paddingX: spacing.sm.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.xs,
+    fontSize: "text-xs",
   },
   sm: {
     paddingX: spacing.md.paddingX,
     paddingY: spacing.twoXs.paddingY,
-    fontSize: fontSize.sm,
+    fontSize: "text-sm",
   },
   md: {
     paddingX: spacing.lg.paddingX,
     paddingY: spacing.xs.paddingY,
-    fontSize: fontSize.md,
+    fontSize: "text-md",
   },
   lg: {
     paddingX: spacing.xl.paddingX,
     paddingY: spacing.xs.paddingY,
-    fontSize: fontSize.lg,
+    fontSize: "text-lg",
   },
   xl: {
     paddingX: spacing.xl.paddingX,
     paddingY: spacing.xs.paddingY,
-    fontSize: fontSize.xl,
+    fontSize: "text-xl",
   },
 };
 
@@ -51,27 +51,27 @@ export const badgeProportionsWithText: {
   xs: {
     paddingX: spacing.sm.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.xs,
+    fontSize: "text-xs",
   },
   sm: {
     paddingX: spacing.md.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.sm,
+    fontSize: "text-sm",
   },
   md: {
     paddingX: spacing.lg.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.md,
+    fontSize: "text-md",
   },
   lg: {
     paddingX: spacing.xl.paddingX,
     paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.lg,
+    fontSize: "text-lg",
   },
   xl: {
     paddingX: spacing.twoXl.paddingX,
     paddingY: spacing.twoXs.paddingY,
-    fontSize: fontSize.xl,
+    fontSize: "text-xl",
   },
 };
 
