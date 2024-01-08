@@ -44,7 +44,7 @@ const AccordionHeader = React.forwardRef<
           className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
             //common
-            "h-4 w-4 -mr-1",
+            "h-5 w-5 -mr-1",
             // light
             "text-tremor-content-subtle",
             // dark
