@@ -10,11 +10,11 @@ type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T
 export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
   onClose: (val: boolean) => void;
+  role?: "dialog" | "alertdialog";
 } & XOR<{ unmount?: boolean }, { static?: boolean }>;
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, ...other } = props;
-
   return (
     <Transition as={React.Fragment} appear show={props.open}>
       <HeadlessuiDialog
