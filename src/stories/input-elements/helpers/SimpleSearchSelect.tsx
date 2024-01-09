@@ -27,6 +27,23 @@ export const SimpleSearchSelectWithStaticAndDynamicChildren = (args: any) => {
   );
 };
 
+export const SimpleSearchSelectForm = (args: any) => {
+  return (
+    <form className="flex flex-col gap-3 items-start" method="GET" action="http://localhost:6006/">
+      <label htmlFor="search-select-test" className="mb-5">
+        Label
+      </label>
+      <SearchSelect {...args} id="search-select-test" name="Searchselect" required>
+        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+        <SearchSelectItem value={"1"}>One</SearchSelectItem>
+      </SearchSelect>
+      <Button type="submit">Submit</Button>
+      <p>{"You'll find your selected value in the URL params after submiting the form"}</p>
+    </form>
+  );
+};
+
 export const SimpleSearchSelectControlled = (args: any) => {
   const [value, setValue] = React.useState<string>("5");
   return (

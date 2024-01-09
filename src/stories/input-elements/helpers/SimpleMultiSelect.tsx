@@ -22,12 +22,28 @@ export const SimpleMultiSelectWithStaticAndDynamicChildren = (args: any) => {
   );
 };
 
+export const SimpleMultiSelectForm = (args: any) => {
+  return (
+    <form className="flex flex-col gap-3 items-start" method="GET" action="http://localhost:6006/">
+      <label htmlFor="multi-select-test" className="mb-5">
+        Label
+      </label>
+      <MultiSelect {...args} id="multi-select-test" name="MultiSelect" required className="w-1/2">
+        <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+        <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+      </MultiSelect>
+      <Button type="submit">Submit</Button>
+      <p>{"You'll find your selected value in the URL params after submiting the form"}</p>
+    </form>
+  );
+};
+
 export const SimpleMultiSelectControlled = () => {
   const [value, setValue] = React.useState<string[]>([]);
 
   const handleValueChange = (values: string[]) => {
     setValue(values);
-    // You can perform any additional actions here when the value changes.
   };
 
   const handleReset = () => {
@@ -70,5 +86,3 @@ export const SimpleMultiSelectControlled = () => {
     </div>
   );
 };
-
-export default SimpleMultiSelectControlled;

@@ -77,3 +77,24 @@ export function SimpleSelectControlled() {
     </div>
   );
 }
+
+export const SimpleSelectForm = (args: any) => {
+  return (
+    <>
+      <p>Use Select within a form</p>
+      <form action="#" method="POST" className="mt-4">
+        <label htmlFor="select-test" className="mb-5">
+          Label
+        </label>
+        <Select {...args} name="select" className="mt-4 w-52" id="test" required>
+          <SelectItem value={"5"}>Five</SelectItem>
+          <SelectItem value={"3"}>Three</SelectItem>
+          <SelectItem value={"1"}>One</SelectItem>
+        </Select>
+        <Button type="submit" className="mt-4">
+          Submit
+        </Button>
+      </form>
+    </>
+  );
+};
