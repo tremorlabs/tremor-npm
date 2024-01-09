@@ -1,10 +1,14 @@
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
-
-import { border, getColorClassNames, makeClassName, spacing } from "lib";
+import {
+  getColorClassNames,
+  makeClassName,
+  tremorTwMerge,
+  Color,
+  HorizontalPosition,
+  VerticalPosition,
+} from "lib";
 import { HorizontalPositions, VerticalPositions } from "lib/constants";
 import { colorPalette } from "lib/theme";
-import { Color, HorizontalPosition, VerticalPosition } from "../../../lib";
 
 const makeCardClassName = makeClassName("Card");
 
@@ -12,13 +16,13 @@ const parseDecorationAlignment = (decorationAlignment: string) => {
   if (!decorationAlignment) return "";
   switch (decorationAlignment) {
     case HorizontalPositions.Left:
-      return border.lg.left;
+      return "border-l-4";
     case VerticalPositions.Top:
-      return border.lg.top;
+      return "border-t-4";
     case HorizontalPositions.Right:
-      return border.lg.right;
+      return "border-r-4";
     case VerticalPositions.Bottom:
-      return border.lg.bottom;
+      return "border-b-4";
     default:
       return "";
   }
@@ -37,7 +41,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       className={tremorTwMerge(
         makeCardClassName("root"),
         // common
-        "relative w-full text-left ring-1 rounded-tremor-default",
+        "relative w-full text-left ring-1 rounded-tremor-default p-6",
         // light
         "bg-tremor-background ring-tremor-ring shadow-tremor-card",
         // dark
@@ -47,7 +51,6 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
           ? getColorClassNames(decorationColor, colorPalette.border).borderColor
           : "border-tremor-brand dark:border-dark-tremor-brand",
         parseDecorationAlignment(decoration),
-        spacing.threeXl.paddingAll,
         className,
       )}
       {...other}

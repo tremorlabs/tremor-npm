@@ -1,7 +1,3 @@
-import { fontSize } from "lib/font";
-import { Sizing, sizing } from "lib/sizing";
-import { spacing } from "lib/spacing";
-
 export type BadgeProportionTypes = {
   paddingX: string;
   paddingY: string;
@@ -10,51 +6,56 @@ export type BadgeProportionTypes = {
 
 export const badgeProportions: { [char: string]: BadgeProportionTypes } = {
   xs: {
-    paddingX: spacing.sm.paddingX,
-    paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.xs,
+    paddingX: "px-2",
+    paddingY: "py-0.5",
+    fontSize: "text-xs",
   },
   sm: {
-    paddingX: spacing.md.paddingX,
-    paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.sm,
+    paddingX: "px-2.5",
+    paddingY: "py-0.5",
+    fontSize: "text-sm",
   },
   md: {
-    paddingX: spacing.lg.paddingX,
-    paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.md,
+    paddingX: "px-3",
+    paddingY: "py-0.5",
+    fontSize: "text-md",
   },
   lg: {
-    paddingX: spacing.xl.paddingX,
-    paddingY: spacing.threeXs.paddingY,
-    fontSize: fontSize.lg,
+    paddingX: "px-3.5",
+    paddingY: "py-0.5",
+    fontSize: "text-lg",
   },
   xl: {
-    paddingX: spacing.twoXl.paddingX,
-    paddingY: spacing.twoXs.paddingY,
-    fontSize: fontSize.xl,
+    paddingX: "px-4",
+    paddingY: "py-1",
+    fontSize: "text-xl",
   },
 };
 
-export const iconSizes: { [size: string]: Sizing } = {
+export const iconSizes: {
+  [size: string]: {
+    height: string;
+    width: string;
+  };
+} = {
   xs: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   sm: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   md: {
-    height: sizing.md.height,
-    width: sizing.md.width,
+    height: "h-4",
+    width: "w-4",
   },
   lg: {
-    height: sizing.lg.height,
-    width: sizing.lg.width,
+    height: "h-5",
+    width: "w-5",
   },
   xl: {
-    height: sizing.xl.height,
-    width: sizing.xl.width,
+    height: "h-6",
+    width: "w-6",
   },
 };

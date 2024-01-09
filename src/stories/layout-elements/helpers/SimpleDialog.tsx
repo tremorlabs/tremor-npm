@@ -6,12 +6,10 @@ const SimpleDialog = () => {
   return (
     <>
       <div className="text-center">
-        <Button variant="primary" onClick={() => setIsOpen(true)}>
-          Open Dialog
-        </Button>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
       </div>
       <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
-        <DialogPanel className="max-w-md">
+        <DialogPanel>
           <Title className="mb-3">Account Created Successfully</Title>
           Your account has been created successfully. You can now login to your account. For more
           information, please contact us.

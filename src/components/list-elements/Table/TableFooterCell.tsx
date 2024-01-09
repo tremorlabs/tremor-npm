@@ -1,5 +1,5 @@
-import { makeClassName, spacing, tremorTwMerge } from "lib";
 import React from "react";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeTableFooterCellClassName = makeClassName("TableFooterCell");
 
@@ -15,14 +15,11 @@ const TableFooterCell = React.forwardRef<
         className={tremorTwMerge(
           makeTableFooterCellClassName("root"),
           // common
-          //"whitespace-nowrap text-left font-semibold",
+          "top-0 px-4 py-3.5",
           // light
           "text-tremor-content font-medium",
           // dark
           "dark:text-dark-tremor-content",
-          spacing.none.top,
-          spacing.twoXl.paddingX,
-          spacing.xl.paddingY,
           className,
         )}
         {...other}

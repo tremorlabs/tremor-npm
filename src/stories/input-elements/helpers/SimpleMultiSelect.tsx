@@ -40,11 +40,7 @@ export const SimpleMultiSelectControlled = () => {
 
   return (
     <div className="space-y-2">
-      <MultiSelect
-        value={value}
-        onValueChange={handleValueChange}
-        // Add any other props you need
-      >
+      <MultiSelect value={value} onValueChange={handleValueChange}>
         <MultiSelectItem value="1">One</MultiSelectItem>
         <MultiSelectItem value="2">Two</MultiSelectItem>
         <MultiSelectItem value="3">Three</MultiSelectItem>
@@ -56,11 +52,7 @@ export const SimpleMultiSelectControlled = () => {
         <MultiSelectItem value="9">Nine</MultiSelectItem>
         <MultiSelectItem value="10">Ten</MultiSelectItem>
       </MultiSelect>
-      <MultiSelect
-        value={value}
-        onValueChange={handleValueChange}
-        // Add any other props you need
-      >
+      <MultiSelect value={value} onValueChange={handleValueChange}>
         <MultiSelectItem value="1">One</MultiSelectItem>
         <MultiSelectItem value="2">Two</MultiSelectItem>
         <MultiSelectItem value="3">Three</MultiSelectItem>

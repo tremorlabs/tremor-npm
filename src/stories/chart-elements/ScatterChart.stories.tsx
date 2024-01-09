@@ -80,6 +80,14 @@ export const NoDataText: Story = {
   },
 };
 
+export const Animation: Story = {
+  args: { showAnimation: true },
+};
+
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
+};
+
 export const OnValueChange: Story = {
   args: {
     onValueChange: (value) => alert(JSON.stringify(value)),

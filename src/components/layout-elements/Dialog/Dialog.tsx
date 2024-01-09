@@ -16,7 +16,6 @@ export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, overlayClassName, ...other } = props;
-
   return (
     <Transition as={React.Fragment} appear show={props.open}>
       <HeadlessuiDialog
@@ -36,8 +35,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
         >
           <div
             className={tremorTwMerge(
-              "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity",
-              overlayClassName,
+              "fixed inset-0 bg-slate-950/30  dark:bg-slate-950/50 transition-opacity",
             )}
           ></div>
         </Transition.Child>
