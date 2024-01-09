@@ -184,7 +184,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             </span>
           </Listbox.Button>
 
-          {/* coditionally showed XCircle */}
+          {/* coditionally displayed XCircle */}
           {hasSelection && !disabled ? (
             <button
               type="button"
