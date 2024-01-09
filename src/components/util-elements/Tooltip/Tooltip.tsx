@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import {
-  ExtendedRefs,
-  ReferenceType,
-  Strategy,
   autoUpdate,
+  ExtendedRefs,
   flip,
   offset,
+  ReferenceType,
   shift,
+  Strategy,
   useDismiss,
   useFloating,
   useFocus,
@@ -15,7 +14,7 @@ import {
   useRole,
 } from "@floating-ui/react";
 import { tremorTwMerge } from "lib";
-import { spacing } from "lib";
+import React, { useState } from "react";
 
 export const useTooltip = (delay?: number) => {
   const [open, setOpen] = useState(false);
@@ -84,13 +83,11 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
     <div
       className={tremorTwMerge(
         // common
-        "max-w-xs text-sm z-20 rounded-tremor-default",
+        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1",
         // light
         "text-white bg-tremor-background-emphasis",
         // dark
-        "dark:text text-white dark:bg-dark-tremor-background-subtle",
-        spacing.md.paddingX,
-        spacing.twoXs.paddingY,
+        "text-white dark:bg-dark-tremor-background-subtle",
       )}
       ref={refs.setFloating}
       style={{

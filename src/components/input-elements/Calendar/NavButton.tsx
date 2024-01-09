@@ -1,6 +1,6 @@
 import { Icon as IconComponent } from "components/icon-elements";
-import React from "react";
 import { tremorTwMerge } from "lib";
+import React from "react";
 
 interface NavButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
@@ -17,7 +17,7 @@ export const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
       )}
       {...other}
     >
-      <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="xs" />
+      <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="sm" />
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { tremorTwMerge, makeClassName } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeRowClassName = makeClassName("TableRow");
 

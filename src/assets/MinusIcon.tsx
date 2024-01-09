@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from "react";
 
 const MinusIcon = ({ ...props }) => (
@@ -10,7 +9,7 @@ const MinusIcon = ({ ...props }) => (
     stroke="currentColor"
     strokeWidth="2.5"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+    <path d="M20 12H4" />
   </svg>
 );
 

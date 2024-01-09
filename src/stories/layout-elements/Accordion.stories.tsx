@@ -1,66 +1,27 @@
-import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { Accordion, Card, Flex, Text, Title } from "components";
+import { Accordion } from "components";
 import { SimpleAccordion } from "./helpers/SimpleAccordion";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/LayoutElements/Accordion",
+const meta: Meta<typeof Accordion> = {
+  title: "UI/Layout/Accordion",
   component: Accordion,
-} as ComponentMeta<typeof Accordion>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const ResponsiveTemplate: ComponentStory<typeof Accordion> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <SimpleAccordion {...args} />
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <SimpleAccordion {...args} />
-    </Card>
-  </>
-);
-
-const FlexTemplate: ComponentStory<typeof Accordion> = (args) => (
-  <>
-    <Card>
-      <Text className="mt-2">Justify Start</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <SimpleAccordion {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <SimpleAccordion {...args} />
-      </Flex>
-      <Text className="mt-2">Justify End with inner div</Text>
-      <Flex justifyContent="end" className="mt-2">
-        <div>
-          <SimpleAccordion {...args} />
-        </div>
-      </Flex>
-      <Text className="mt-2">Justify Start with inner div</Text>
-      <Flex justifyContent="start" className="mt-2">
-        <div>
-          <SimpleAccordion {...args} />
-        </div>
-      </Flex>
-    </Card>
-  </>
-);
-
-export const DefaultResponsive = ResponsiveTemplate.bind({});
-
-export const WithFlexParent = FlexTemplate.bind({});
-
-export const WithExpanded = ResponsiveTemplate.bind({});
-WithExpanded.args = {
-  defaultOpen: true,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Accordion",
+  },
 };
 
-export const WithShadow = ResponsiveTemplate.bind({});
+export default meta;
+type Story = StoryObj<typeof Accordion>;
+
+export const Default: Story = {
+  render: SimpleAccordion,
+};
+
+export const DefaultOpen: Story = {
+  render: SimpleAccordion,
+  args: {
+    defaultOpen: true,
+  },
+};

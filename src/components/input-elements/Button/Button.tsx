@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
-import { tremorTwMerge } from "lib";
-import { Transition } from "react-transition-group";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import React from "react";
+import { Transition } from "react-transition-group";
 
-import { HorizontalPositions, Sizes, border, makeClassName, mergeRefs, sizing, spacing } from "lib";
+import { HorizontalPositions, makeClassName, mergeRefs, Sizes, tremorTwMerge } from "lib";
 
-import { Color, HorizontalPosition, ButtonVariant, Size } from "../../../lib";
-import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 import { LoadingSpinner } from "assets";
+import { ButtonVariant, Color, HorizontalPosition, Size } from "../../../lib";
+import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
 
 const makeButtonClassName = makeClassName("Button");
 
@@ -34,10 +33,10 @@ export const ButtonIconOrSpinner = ({
   const margin = !needMargin
     ? ""
     : iconPosition === HorizontalPositions.Left
-    ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-    : tremorTwMerge(spacing.twoXs.negativeMarginRight, spacing.xs.marginLeft);
+    ? tremorTwMerge("-ml-1", "mr-1.5")
+    : tremorTwMerge("-mr-1", "ml-1.5");
 
-  const defaultSpinnerSize = tremorTwMerge(sizing.none.width, sizing.none.height);
+  const defaultSpinnerSize = tremorTwMerge("w-0 h-0");
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -102,12 +101,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     variant !== "light"
       ? tremorTwMerge(
           // common
-          "rounded-tremor-default",
+          "rounded-tremor-default border",
           // light
           "shadow-tremor-input",
           // dark
           "dark:shadow-dark-tremor-input",
-          border.sm.all,
         )
       : "";
   const buttonColorStyles = getButtonColors(variant, color);
@@ -159,7 +157,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           ) : null}
           {showLoadingText || children ? (
             <span
-              className={tremorTwMerge(makeButtonClassName("text"), "text-sm whitespace-nowrap")}
+              className={tremorTwMerge(
+                makeButtonClassName("text"),
+                "text-tremor-default whitespace-nowrap",
+              )}
             >
               {showLoadingText ? loadingText : children}
             </span>

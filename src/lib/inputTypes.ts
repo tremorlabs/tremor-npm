@@ -4,6 +4,10 @@ export type ValueFormatter = {
 
 export type CurveType = "linear" | "natural" | "monotone" | "step";
 
+export type Interval = "preserveStartEnd" | "equidistantPreserveStart";
+
+export type IntervalType = "preserveStartEnd" | Interval;
+
 const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as const;
 
 export type IconVariant = (typeof iconVariantValues)[number];
@@ -54,6 +58,8 @@ const colorValues = [
 ] as const;
 
 export type Color = (typeof colorValues)[number];
+export type CustomColor = Color | string;
+export const getIsBaseColor = (color: Color | string) => colorValues.includes(color as Color);
 
 const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
 export type JustifyContent = (typeof justifyContentValues)[number];

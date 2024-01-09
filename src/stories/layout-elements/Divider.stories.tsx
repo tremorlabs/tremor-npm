@@ -1,29 +1,38 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { CalendarIcon } from "assets";
+import { Divider } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
-import { Divider, Title } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/LayoutElements/Divider",
+const meta: Meta<typeof Divider> = {
+  title: "UI/Layout/Divider",
   component: Divider,
-} as ComponentMeta<typeof Divider>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Divider",
+  },
+};
 
-const Template: ComponentStory<typeof Divider> = () => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <SimpleCard />
-      <Divider />
-      <SimpleCard />
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <SimpleCard />
-    <Divider />
-    <SimpleCard />
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof Divider>;
 
-export const Default = Template.bind({});
+const DividerTemplate: Story = {
+  render: () => (
+    <>
+      <div>
+        <SimpleCard />
+        <Divider />
+        <Divider>
+          <CalendarIcon className="h-5 w-5" />
+        </Divider>
+        <Divider>Divider</Divider>
+        <SimpleCard />
+      </div>
+    </>
+  ),
+};
+
+export const Default: Story = {
+  ...DividerTemplate,
+};

@@ -1,73 +1,96 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Card, Flex, Metric } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/LayoutElements/Flex",
+const meta: Meta<typeof Flex> = {
+  title: "UI/Layout/Flex",
   component: Flex,
-} as ComponentMeta<typeof Flex>;
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Flex",
+  },
+};
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const TemplateMaxWidth: ComponentStory<typeof Flex> = (args) => (
-  <Flex {...args}>
-    <div>
-      <SimpleCard maxWidth="max-w-sm" />
-    </div>
-    <div>
-      <Card className="max-w-sm">
+export default meta;
+type Story = StoryObj<typeof Flex>;
+
+const MaxWidthSmTemplate: Story = {
+  render: ({ ...args }) => (
+    <Flex {...args}>
+      <div>
+        <SimpleCard maxWidth="max-w-sm" />
+      </div>
+      <div>
+        <Card className="max-w-sm">
+          <Metric>$ 40,000</Metric>
+          <SimpleText />
+        </Card>
+      </div>
+    </Flex>
+  ),
+};
+
+const WFullTemplate: Story = {
+  render: ({ ...args }) => (
+    <Flex {...args}>
+      <SimpleCard />
+      <Card>
         <Metric>$ 40,000</Metric>
         <SimpleText />
       </Card>
-    </div>
-  </Flex>
-);
-
-const TemplateWFull: ComponentStory<typeof Flex> = (args) => (
-  <Flex {...args}>
-    <SimpleCard />
-    <Card>
-      <Metric>$ 40,000</Metric>
-      <SimpleText />
-    </Card>
-  </Flex>
-);
-
-export const Default = TemplateMaxWidth.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-
-export const JustifyEnd = TemplateMaxWidth.bind({});
-JustifyEnd.args = {
-  justifyContent: "end",
+    </Flex>
+  ),
 };
 
-export const JustifyStart = TemplateMaxWidth.bind({});
-JustifyStart.args = {
-  justifyContent: "start",
+export const Default: Story = {
+  ...MaxWidthSmTemplate,
+  args: {},
 };
 
-export const ItemsStart = TemplateMaxWidth.bind({});
-ItemsStart.args = {
-  alignItems: "start",
+export const JustifyEnd: Story = {
+  ...MaxWidthSmTemplate,
+  args: {
+    justifyContent: "end",
+  },
 };
 
-export const ItemsEnd = TemplateMaxWidth.bind({});
-ItemsEnd.args = {
-  alignItems: "end",
+export const JustifyStart: Story = {
+  ...MaxWidthSmTemplate,
+  args: {
+    justifyContent: "start",
+  },
 };
 
-export const ItemsStretch = TemplateWFull.bind({});
-ItemsStretch.args = {
-  alignItems: "stretch",
+export const ItemsStart: Story = {
+  ...MaxWidthSmTemplate,
+  args: {
+    alignItems: "start",
+  },
 };
 
-export const SpaceX = TemplateMaxWidth.bind({});
-SpaceX.args = {
-  justifyContent: "start",
-  alignItems: "baseline",
-  className: "space-x-8",
+export const ItemsEnd: Story = {
+  ...MaxWidthSmTemplate,
+  args: {
+    alignItems: "end",
+  },
+};
+
+export const ItemsStretch: Story = {
+  ...WFullTemplate,
+  args: {
+    alignItems: "stretch",
+  },
+};
+
+export const SpaceX: Story = {
+  ...MaxWidthSmTemplate,
+  args: {
+    justifyContent: "start",
+    alignItems: "baseline",
+    className: "space-x-8",
+  },
 };

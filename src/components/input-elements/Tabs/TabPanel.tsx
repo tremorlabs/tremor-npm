@@ -1,8 +1,7 @@
 "use client";
-import React, { useContext } from "react";
-import { tremorTwMerge } from "lib";
-import { makeClassName } from "lib";
 import { IndexContext, SelectedValueContext } from "contexts";
+import { makeClassName, tremorTwMerge } from "lib";
+import React, { useContext } from "react";
 
 const makeTabPanelClassName = makeClassName("TabPanel");
 

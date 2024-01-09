@@ -1,7 +1,5 @@
 import React from "react";
-import { tremorTwMerge } from "lib";
-
-import { makeClassName, spacing } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeListItemClassName = makeClassName("ListItem");
 
@@ -15,8 +13,7 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
           className={tremorTwMerge(
             makeListItemClassName("root"),
             // common
-            "w-full flex justify-between items-center truncate tabular-nums text-tremor-default",
-            spacing.sm.paddingY,
+            "w-full flex justify-between items-center truncate text-tremor-default py-2",
             className,
           )}
           {...other}

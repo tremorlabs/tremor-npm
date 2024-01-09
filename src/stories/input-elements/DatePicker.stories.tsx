@@ -1,35 +1,42 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button, Card, DatePicker, Text, Title } from "components";
+import { Button, DatePicker } from "components";
 import { fr } from "date-fns/locale";
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/InputElements/DatePicker",
-  component: DatePicker,
-} as ComponentMeta<typeof DatePicker>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
-const UncontrolledTemplate: ComponentStory<typeof DatePicker> = (args) => {
+const meta: Meta<typeof DatePicker> = {
+  title: "UI/Input/DatePicker",
+  component: DatePicker,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/DatePicker",
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DatePicker>;
+
+// Components
+function Uncontrolled({ ...args }) {
   const [value, setValue] = useState<Date>();
 
   return (
     <div className="space-y-4">
-      <Card>
-        <DatePicker {...args} onValueChange={(value: Date | undefined) => setValue(value)} />
-        <Title>Filtered Data</Title>
-        <Text>Date: {String(value)} </Text>
-      </Card>
+      <DatePicker {...args} onValueChange={(value: Date | undefined) => setValue(value)} />
+      <div className="text-slate-500">
+        <p>Filtered Data</p>
+        <p>Date: {String(value)} </p>
+      </div>
     </div>
   );
-};
+}
 
-const ControlledTemplate: ComponentStory<typeof DatePicker> = (args) => {
+function Controlled({ ...args }) {
   const [value, setValue] = useState<Date | undefined>(args.value!);
-
   return (
-    <Card>
+    <div className="space-y-4">
+      <DatePicker {...args} value={value} onValueChange={(v: Date | undefined) => setValue(v)} />
       <DatePicker {...args} value={value} onValueChange={(v: Date | undefined) => setValue(v)} />
       <Button
         onClick={() => {
@@ -38,62 +45,108 @@ const ControlledTemplate: ComponentStory<typeof DatePicker> = (args) => {
       >
         Reset
       </Button>
-      <Title>Filtered Data</Title>
-    </Card>
+      <div className="text-slate-500">
+        <p>Filtered Data</p>
+        <p>Date: {String(value)} </p>
+      </div>
+    </div>
   );
+}
+
+// Templates
+
+const UncontrolledTemplate: Story = {
+  render: ({ ...args }) => <Uncontrolled {...args} />,
 };
 
-export const UncontrolledDefault = UncontrolledTemplate.bind({});
-
-export const UncontrolledWithDefaultDate = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultDate.args = {
-  defaultValue: new Date(2022, 10, 1),
+const ControlledTemplate: Story = {
+  render: ({ ...args }) => <Controlled {...args} />,
 };
 
-export const UncontrolledWithDefaultFrLocale = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultFrLocale.args = {
-  locale: fr,
-  placeholder: "Sélectionnez...",
+// Stories
+export const UncontrolledDefault: Story = {
+  ...UncontrolledTemplate,
 };
 
-export const UncontrolledWithDefaultValue = UncontrolledTemplate.bind({});
-UncontrolledWithDefaultValue.args = {
-  defaultValue: new Date(2022, 10, 1),
+export const UncontrolledDefaultValue: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+  },
 };
 
-export const UncontrolledWithMinMax = UncontrolledTemplate.bind({});
-UncontrolledWithMinMax.args = {
-  defaultValue: new Date(2022, 10, 1),
-  minDate: new Date(2023, 4, 1),
-  maxDate: new Date(2023, 4, 15),
+export const UncontrolledDisplayFormat: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    displayFormat: "dd/MM/yyyy",
+  },
 };
 
-export const UncontrolledWithDisabled = UncontrolledTemplate.bind({});
-UncontrolledWithDisabled.args = {
-  defaultValue: new Date(2022, 10, 1),
-  disabled: true,
+export const UncontrolledFrLocale: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    locale: fr,
+    placeholder: "Sélectionnez...",
+  },
 };
 
-export const UncontrolledDefaultWithYearNavigation = UncontrolledTemplate.bind({});
-UncontrolledDefaultWithYearNavigation.args = {
-  enableYearNavigation: true,
+export const UncontrolledMinMax: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+    minDate: new Date(2023, 4, 1),
+    maxDate: new Date(2023, 4, 15),
+  },
 };
 
-export const ControlledDefault = ControlledTemplate.bind({});
-
-export const ControlledWithDefaultDate = ControlledTemplate.bind({});
-ControlledWithDefaultDate.args = {
-  value: new Date(2022, 10, 1),
+export const UncontrolledDisabled: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+    disabled: true,
+  },
 };
 
-export const UncontrolledWithoutAllowClear = UncontrolledTemplate.bind({});
-UncontrolledWithoutAllowClear.args = {
-  defaultValue: new Date(2022, 10, 1),
-  enableClear: false,
+export const UncontrolledDisabledDates: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2023, 10, 25),
+    minDate: new Date(2023, 10, 5),
+    maxDate: new Date(2023, 10, 28),
+    disabledDates: [new Date(2023, 10, 10), new Date(2023, 10, 11)],
+  },
 };
 
-export const UncontrolledWithWeekStartsOnWednesday = UncontrolledTemplate.bind({});
-UncontrolledWithWeekStartsOnWednesday.args = {
-  defaultValue: new Date(2022, 10, 1),
-  weekStartsOn: 3,
+export const UncontrolledYearNavigation: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    enableYearNavigation: true,
+  },
+};
+
+export const UncontrolledoutEnableClear: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+    enableClear: false,
+  },
+};
+
+export const UncontrolledWeekStartsOnWednesday: Story = {
+  ...UncontrolledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+    weekStartsOn: 3,
+  },
+};
+
+export const ControlledDefault: Story = {
+  ...ControlledTemplate,
+};
+
+export const ControlledDefaultValue: Story = {
+  ...ControlledTemplate,
+  args: {
+    defaultValue: new Date(2022, 10, 1),
+  },
 };

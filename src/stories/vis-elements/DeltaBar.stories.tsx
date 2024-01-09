@@ -1,40 +1,41 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card, DeltaBar, Metric } from "components";
+import type { Meta, StoryObj } from "@storybook/react";
+import { DeltaBar } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/VisElements/DeltaBar",
+const meta: Meta<typeof DeltaBar> = {
+  title: "Visualizations/Vis/DeltaBar",
   component: DeltaBar,
-} as ComponentMeta<typeof DeltaBar>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const Template: ComponentStory<typeof DeltaBar> = (args) => (
-  <Card>
-    <Metric>72.000 USD</Metric>
-    <DeltaBar {...args} />
-  </Card>
-);
-
-export const Increase = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Increase.args = {
-  value: 30,
-  className: "mt-5",
-  tooltip: "30%",
+  render: (args) => <DeltaBar {...args} />,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/DeltaBar",
+  },
 };
 
-export const Decrease = Template.bind({});
-Decrease.args = {
-  value: -50,
-  className: "mt-5",
-  tooltip: "-50%",
+export default meta;
+type Story = StoryObj<typeof DeltaBar>;
+
+export const Increase: Story = {
+  args: {
+    value: 30,
+    className: "mt-5",
+    tooltip: "30%",
+  },
 };
 
-export const IncreaseReversed = Template.bind({});
-IncreaseReversed.args = {
-  value: 50,
-  isIncreasePositive: false,
-  className: "mt-5",
+export const Decrease: Story = {
+  args: {
+    value: -50,
+    className: "mt-5",
+    tooltip: "-50%",
+  },
+};
+
+export const IncreaseReversed: Story = {
+  args: {
+    value: 50,
+    isIncreasePositive: false,
+    className: "mt-5",
+  },
 };

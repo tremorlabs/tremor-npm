@@ -1,23 +1,23 @@
 "use client";
+import { BaseColors, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import React, { useEffect } from "react";
-import { tremorTwMerge } from "lib";
 import {
   Pie,
   PieChart as ReChartsDonutChart,
   ResponsiveContainer,
-  Tooltip,
   Sector,
+  Tooltip,
 } from "recharts";
 
-import NoData from "../common/NoData";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
-import { defaultValueFormatter, themeColorRange } from "lib";
+import NoData from "../common/NoData";
 
-import { parseData, parseLabelInput } from "./inputParser";
 import { DonutChartTooltip } from "./DonutChartTooltip";
+import { parseData, parseLabelInput } from "./inputParser";
 
-import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import type { EventProps } from "components/chart-elements/common";
+import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -25,7 +25,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
-  colors?: Color[];
+  colors?: (Color | string)[];
   variant?: DonutChartVariant;
   valueFormatter?: ValueFormatter;
   label?: string;
@@ -33,8 +33,9 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   showAnimation?: boolean;
   showTooltip?: boolean;
   noDataText?: string;
-  onValueChange?: (value: EventProps) => void;
   className?: string;
+  onValueChange?: (value: EventProps) => void;
+  customTooltip?: React.ComponentType<CustomTooltipType>;
 }
 
 const renderInactiveShape = (props: any) => {
@@ -83,15 +84,16 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     label,
     showLabel = true,
     animationDuration = 900,
-    showAnimation = true,
+    showAnimation = false,
     showTooltip = true,
     noDataText,
     onValueChange,
+    customTooltip,
     className,
     ...other
   } = props;
+  const CustomTooltip = customTooltip;
   const isDonut = variant == "donut";
-
   const parsedLabelInput = parseLabelInput(label, valueFormatter, data, category);
 
   const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined);
@@ -123,7 +125,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   }, [activeIndex]);
 
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-44", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("w-full h-40", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsDonutChart
@@ -135,6 +137,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                   }
                 : undefined
             }
+            margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
           >
             {showLabel && isDonut ? (
               <text
@@ -175,7 +178,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               inactiveShape={renderInactiveShape}
               style={{ outline: "none" }}
             />
-            {showTooltip ? (
+            {/* {showTooltip ? (
               <Tooltip
                 wrapperStyle={{ outline: "none" }}
                 isAnimationActive={false}
@@ -185,9 +188,36 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                     payload={payload}
                     valueFormatter={valueFormatter}
                   />
-                )}
+            )}
               />
-            ) : null}
+            ) : null} */}
+            <Tooltip
+              wrapperStyle={{ outline: "none" }}
+              isAnimationActive={false}
+              content={
+                showTooltip ? (
+                  ({ active, payload }) =>
+                    CustomTooltip ? (
+                      <CustomTooltip
+                        payload={payload?.map((payloadItem) => ({
+                          ...payloadItem,
+                          color: payload?.[0]?.payload?.color ?? BaseColors.Gray,
+                        }))}
+                        active={active}
+                        label={payload?.[0]?.name}
+                      />
+                    ) : (
+                      <DonutChartTooltip
+                        active={active}
+                        payload={payload}
+                        valueFormatter={valueFormatter}
+                      />
+                    )
+                ) : (
+                  <></>
+                )
+              }
+            />
           </ReChartsDonutChart>
         ) : (
           <NoData noDataText={noDataText} />

@@ -2,9 +2,9 @@ import { Color } from "../../../lib/inputTypes";
 
 export const constructCategoryColors = (
   categories: string[],
-  colors: Color[],
-): Map<string, Color> => {
-  const categoryColors = new Map<string, Color>();
+  colors: (Color | string)[],
+): Map<string, Color | string> => {
+  const categoryColors = new Map<string, Color | string>();
   categories.forEach((category, idx) => {
     categoryColors.set(category, colors[idx]);
   });
@@ -76,12 +76,12 @@ export function deepEqual(obj1: any, obj2: any) {
 // }
 
 export function hasOnlyOneValueForThisKey(array: any[], keyToCheck: string) {
-  const uniqueValues = new Set();
+  const val = [];
 
   for (const obj of array) {
     if (Object.prototype.hasOwnProperty.call(obj, keyToCheck)) {
-      uniqueValues.add(obj[keyToCheck]);
-      if (uniqueValues.size > 1) {
+      val.push(obj[keyToCheck]);
+      if (val.length > 1) {
         return false;
       }
     }

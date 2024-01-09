@@ -1,26 +1,33 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { BaseColors } from "lib/constants";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Metric } from "components";
+import { BaseColors } from "lib/constants";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/TextElements/Metric",
+const meta: Meta<typeof Metric> = {
+  title: "UI/Text/Metric",
   component: Metric,
-} as ComponentMeta<typeof Metric>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Metric",
+  },
+};
 
-const Template: ComponentStory<typeof Metric> = () => (
-  <>
-    <Metric>USD 70,000.00</Metric>
-    {Object.values(BaseColors).map((color) => (
-      <Metric key={color} color={color}>
-        USD 70,000.00
-      </Metric>
-    ))}
-  </>
-);
+export default meta;
+type Story = StoryObj<typeof Metric>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const Default: Story = {
+  args: { children: "USD 80.000" },
+};
+
+export const Colors: Story = {
+  render: (args) => (
+    <>
+      <Metric {...args} />
+      {Object.values(BaseColors).map((color) => (
+        <Metric key={color} color={color} {...args} />
+      ))}
+    </>
+  ),
+  args: { children: "USD 80.000" },
+};

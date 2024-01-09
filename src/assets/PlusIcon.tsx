@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from "react";
 
 const PlusIcon = ({ ...props }) => (
@@ -10,7 +9,7 @@ const PlusIcon = ({ ...props }) => (
     stroke="currentColor"
     strokeWidth="2.5"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+    <path d="M12 4v16m8-8H4" />
   </svg>
 );
 

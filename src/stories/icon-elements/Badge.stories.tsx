@@ -1,96 +1,67 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { BaseColors } from "lib/constants";
-import { Sizes as InputSizes } from "lib/constants";
+import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
-import { BadgeDelta, Card, Grid, Flex, Title } from "components";
 import { ArrowUpIcon } from "assets";
-import Badge from "components/icon-elements/Badge/Badge";
+import { Badge, Grid } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/IconElements/Badge",
+const meta: Meta<typeof Badge> = {
+  title: "UI/Icon/Badge",
   component: Badge,
-} as ComponentMeta<typeof Badge>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-
-const SizesTemplate: ComponentStory<typeof Badge> = (args) => (
-  <Card className="max-w-2xl">
-    <Grid numItems={5} className="gap-y-2">
-      <p className="text-xs">Size</p>
-      <p className="text-xs">Badge</p>
-      <p className="text-xs">Badge + Icon</p>
-      <p className="text-xs">BadgeDelta + Increase</p>
-      <p className="text-xs">BadgeDelta + Decrease</p>
-      <p className="text-xs">default</p>
-      <Badge {...args} />
-      <Badge {...args} icon={ArrowUpIcon} />
-      <BadgeDelta {...args} deltaType="increase" />
-      <BadgeDelta {...args} deltaType="decrease" />
-      {Object.values(InputSizes).map((size) => (
-        <>
-          <p className="text-xs">{size}</p>
-          <Badge {...args} size={size} />
-          <Badge {...args} size={size} icon={ArrowUpIcon} />
-          <BadgeDelta {...args} size={size} deltaType="increase" />
-          <BadgeDelta {...args} size={size} deltaType="decrease" />
-        </>
-      ))}
-    </Grid>
-  </Card>
-);
-
-const ColorsTemplate: ComponentStory<typeof Badge> = (args) => (
-  <Card className="max-w-sm">
-    <Grid numItems={5} className="gap-y-2">
-      {Object.values(BaseColors).map((color) => (
-        <Badge {...args} key={color} color={color} icon={args.icon} />
-      ))}
-    </Grid>
-  </Card>
-);
-
-const ResponsiveFlexTemplate: ComponentStory<typeof Badge> = (args) => (
-  <>
-    <Title>Mobile</Title>
-    <div className="w-64">
-      <Card>
-        <Flex>
-          <Badge {...args} />
-          <Badge {...args} />
-        </Flex>
-      </Card>
-    </div>
-    <Title className="mt-5">Desktop</Title>
-    <Card>
-      <Flex>
-        <Badge {...args} />
-        <Badge {...args} />
-      </Flex>
-    </Card>
-  </>
-);
-
-export const Sizes = SizesTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Sizes.args = {
-  children: "Live",
-  tooltip: "Tooltip",
+  args: {
+    children: "Live",
+    tooltip: "Tooltip",
+    icon: ArrowUpIcon,
+  },
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/icon-elements/Badge",
+  },
 };
 
-export const Colors = ColorsTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Colors.args = {
-  children: "Live",
-  tooltip: "Tooltip",
-  icon: ArrowUpIcon,
+export default meta;
+type Story = StoryObj<typeof Badge>;
+
+const BadgeTemplateColors: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Grid className="gap-y-2">
+        <Badge tooltip="Tooltip" {...args} />
+        {Object.values(BaseColors).map((color) => (
+          <Badge key={color} color={color} tooltip="Tooltip" {...args} />
+        ))}
+      </Grid>
+    );
+  },
 };
 
-export const WithFlexParent = ResponsiveFlexTemplate.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-WithFlexParent.args = {
-  children: "Live",
-  icon: ArrowUpIcon,
+const BadgeTemplateSizes: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Grid className="gap-y-2">
+        {Object.values(InputSizes).map((size) => (
+          <Badge key={size} size={size} tooltip="Tooltip" {...args} />
+        ))}
+      </Grid>
+    );
+  },
+};
+
+export const Default: Story = {
+  args: {},
+};
+
+export const Sizes: Story = {
+  ...BadgeTemplateSizes,
+};
+
+export const Colors: Story = {
+  ...BadgeTemplateColors,
+};
+
+export const NoIcon: Story = {
+  args: {
+    icon: undefined,
+  },
 };

@@ -1,4 +1,5 @@
 import {
+  format,
   isEqual,
   max,
   min,
@@ -8,6 +9,7 @@ import {
   startOfYear,
   sub,
 } from "date-fns";
+
 import { makeClassName } from "lib";
 
 export type DateRangePickerOption = {
@@ -81,11 +83,13 @@ export const formatSelectedDates = (
   startDate: Date | undefined,
   endDate: Date | undefined,
   locale?: Locale,
+  displayFormat?: string,
 ) => {
   const localeCode = locale?.code || "en-US";
   if (!startDate && !endDate) {
     return "";
   } else if (startDate && !endDate) {
+    if (displayFormat) return format(startDate, displayFormat);
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "short",
@@ -94,6 +98,7 @@ export const formatSelectedDates = (
     return startDate.toLocaleDateString(localeCode, options);
   } else if (startDate && endDate) {
     if (isEqual(startDate, endDate)) {
+      if (displayFormat) return format(startDate, displayFormat);
       const options: Intl.DateTimeFormatOptions = {
         year: "numeric",
         month: "short",
@@ -104,6 +109,9 @@ export const formatSelectedDates = (
       startDate.getMonth() === endDate.getMonth() &&
       startDate.getFullYear() === endDate.getFullYear()
     ) {
+      if (displayFormat)
+        return `${format(startDate, displayFormat)} - ${format(endDate, displayFormat)}`;
+
       const optionsStartDate: Intl.DateTimeFormatOptions = {
         month: "short",
         day: "numeric",
@@ -111,6 +119,8 @@ export const formatSelectedDates = (
       return `${startDate.toLocaleDateString(localeCode, optionsStartDate)} - 
                     ${endDate.getDate()}, ${endDate.getFullYear()}`;
     } else {
+      if (displayFormat)
+        return `${format(startDate, displayFormat)} - ${format(endDate, displayFormat)}`;
       const options: Intl.DateTimeFormatOptions = {
         year: "numeric",
         month: "short",

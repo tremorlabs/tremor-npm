@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 
-import { getColorClassNames, makeClassName, sizing, spacing, tremorTwMerge } from "lib";
-import { Color } from "../../../lib/inputTypes";
-import { colorPalette } from "lib/theme";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
+import { getColorClassNames, makeClassName, tremorTwMerge } from "lib";
+import { colorPalette } from "lib/theme";
+import { Color } from "../../../lib/inputTypes";
 
 const makeProgressBarClassName = makeClassName("ProgressBar");
 
@@ -17,7 +17,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, ref) => {
-  const { value, label, color, tooltip, showAnimation = true, className, ...other } = props;
+  const { value, label, color, tooltip, showAnimation = false, className, ...other } = props;
   const { tooltipProps, getReferenceProps } = useTooltip();
 
   return (
@@ -36,11 +36,10 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full rounded-tremor-full",
+            "relative flex items-center w-full rounded-tremor-full bg-opacity-20 h-2",
             color
-              ? getColorClassNames(color, colorPalette.lightBackground).bgColor
-              : "bg-tremor-brand-muted dark:bg-dark-tremor-brand-muted",
-            sizing.xs.height,
+              ? getColorClassNames(color, colorPalette.background).bgColor
+              : "bg-tremor-brand-muted/50 dark:bg-dark-tremor-brand-muted",
           )}
           {...getReferenceProps}
         >
@@ -64,12 +63,11 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
               // common
-              "w-16 truncate text-right",
+              "w-16 truncate text-right ml-2",
               // light
               "text-tremor-content-emphasis",
               // dark
               "dark:text-dark-tremor-content-emphasis",
-              spacing.sm.marginLeft,
             )}
           >
             <p

@@ -1,16 +1,29 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
 import { Title } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/TextElements/Title",
+const meta: Meta<typeof Title> = {
+  title: "UI/Text/Title",
   component: Title,
-} as ComponentMeta<typeof Title>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Title",
+  },
+};
 
-const Template: ComponentStory<typeof Title> = () => <Title>Title</Title>;
+export default meta;
+type Story = StoryObj<typeof Title>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const Default: Story = {
+  render: (args) => <Title {...args}>Title</Title>,
+};
+
+export const Color: Story = {
+  render: (args) => <Title {...args}>Title</Title>,
+  args: {
+    color: "green",
+    className: "text-left",
+    children: null,
+  },
+};

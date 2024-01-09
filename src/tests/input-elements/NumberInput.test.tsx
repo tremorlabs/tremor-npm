@@ -1,6 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { NumberInput } from "components";
+import React from "react";
 
 describe("NumberInput", () => {
   test("renders the NumberInput component with default props", () => {

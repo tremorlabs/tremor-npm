@@ -1,9 +1,8 @@
 "use client";
-import React, { createContext, useContext } from "react";
-import { tremorTwMerge } from "lib";
-import { border, makeClassName } from "lib";
-import { RootStylesContext } from "contexts";
 import { Disclosure } from "@headlessui/react";
+import { RootStylesContext } from "contexts";
+import { makeClassName, tremorTwMerge } from "lib";
+import React, { createContext, useContext } from "react";
 
 const makeAccordionClassName = makeClassName("Accordion");
 
@@ -22,7 +21,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
   const { defaultOpen = false, children, className, ...other } = props;
 
   const rootStyles =
-    useContext(RootStylesContext) ?? tremorTwMerge(border.sm.all, "rounded-tremor-default");
+    useContext(RootStylesContext) ?? tremorTwMerge("rounded-tremor-default border");
 
   return (
     <Disclosure

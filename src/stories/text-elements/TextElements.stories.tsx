@@ -1,27 +1,27 @@
 import React from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Bold, Italic, Text, Title } from "components";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Tremor/TextElements/TextElements",
+const meta: Meta<typeof Title> = {
+  title: "UI/Text/TextElements",
   component: Title,
-} as ComponentMeta<typeof Title>;
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements",
+  },
+};
 
-const Template: ComponentStory<typeof Text> = () => (
-  <Text>
-    Text with <Bold>bold text</Bold> and <Italic>Italics Text</Italic> and{" "}
-    <Bold>
-      <Italic>Bold italics text</Italic>
-    </Bold>
-  </Text>
-);
+export default meta;
+type Story = StoryObj<typeof Title>;
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
-  className: "text-left",
+export const Default: Story = {
+  render: () => (
+    <Text>
+      Text with <Bold>bold text</Bold> and <Italic>Italics Text</Italic> and{" "}
+      <Bold>
+        <Italic>Bold italics text</Italic>
+      </Bold>
+    </Text>
+  ),
 };

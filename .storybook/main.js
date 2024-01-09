@@ -1,34 +1,60 @@
-var path = require('path');
+var path = require("path");
 
 module.exports = {
-  "stories": ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  "addons": ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", {
-    name: '@storybook/addon-postcss',
-    options: {
-      cssLoaderOptions: {
-        // When you have splitted your css over multiple files
-        // and use @import('./other-styles.css')
-        importLoaders: 1,
-      },
-      postcssLoaderOptions: {
-        // When using postCSS 8
-        implementation: require('postcss'),
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@storybook/addon-styling-webpack",
+    "@storybook/addon-themes",
+    "@storybook/addon-a11y",
+    "storybook-source-link",
+    {
+      name: "@storybook/addon-styling-webpack",
+      options: {
+        rules: [
+          {
+            test: /\.css$/,
+            sideEffects: true,
+            use: [
+              require.resolve("style-loader"),
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve("postcss-loader"),
+                options: {
+                  implementation: require.resolve("postcss"),
+                },
+              },
+            ],
+          },
+        ],
       },
     },
-  }],
-  "framework": "@storybook/react",
-  core: {
-    builder: "webpack5"
+  ],
+
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
   },
+
   features: {
     previewMdx2: true,
   },
+
   webpackFinal: async (config) => {
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
-      path.resolve(__dirname, "../src"),
-    ];
+    config.resolve.modules = [...(config.resolve.modules || []), path.resolve(__dirname, "../src")];
 
     return config;
+  },
+
+  docs: {
+    autodocs: true,
   },
 };
