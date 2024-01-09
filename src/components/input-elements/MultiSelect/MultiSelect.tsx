@@ -141,8 +141,8 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                Icon ? "pl-11 -ml-0.5" : "pl-3",
-                getSelectButtonColors(value.length > 0, disabled),
+                Icon ? "pl-10 -ml-0.5" : "pl-3",
+                getSelectButtonColors(value.length > 0, disabled, error),
               )}
             >
               {Icon && (
