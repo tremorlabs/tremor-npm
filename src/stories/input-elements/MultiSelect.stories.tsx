@@ -47,6 +47,11 @@ export const UncontrolledDisabled: Story = {
   args: { icon: CalendarIcon, defaultValue: ["5", "1"], disabled: true },
 };
 
+export const Controlled: Story = {
+  render: SimpleMultiSelectControlled,
+  args: {},
+};
+
 export const Error: Story = {
   render: SimpleMultiSelect,
   args: {
@@ -57,9 +62,4 @@ export const Error: Story = {
 
 export const Form: Story = {
   render: SimpleMultiSelectForm,
-};
-
-export const Controlled: Story = {
-  render: SimpleMultiSelectControlled,
-  args: {},
 };

@@ -70,7 +70,7 @@ export const Controlled: Story = {
 };
 
 export const Error: Story = {
-  render: SimpleSelectControlled,
+  render: SimpleSelect,
   args: {
     error: true,
     errorMessage: "Error message",
