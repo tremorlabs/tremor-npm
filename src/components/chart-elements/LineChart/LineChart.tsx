@@ -54,6 +54,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     animationDuration = 900,
     showAnimation = false,
     showTooltip = true,
@@ -68,10 +69,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
+    rotateLabelX,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -156,9 +160,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
+              padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
               dataKey={index}
-              interval="preserveStartEnd"
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""
@@ -173,8 +178,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               )}
               tickLine={false}
               axisLine={false}
-              padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              angle={rotateLabelX?.angle}
+              dy={rotateLabelX?.verticalShift}
+              height={rotateLabelX?.xAxisHeight}
             />
             <YAxis
               width={yAxisWidth}
@@ -242,6 +249,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

@@ -12,7 +12,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AxisDomain } from "recharts/types/util/types";
 
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
@@ -21,9 +20,24 @@ import NoData from "../common/NoData";
 import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+import { AxisDomain } from "recharts/types/util/types";
 
-const renderShape = (props: any, activeBar: any | undefined, activeLegend: string | undefined) => {
-  const { x, y, width, height, fillOpacity, name, payload, value } = props;
+const renderShape = (
+  props: any,
+  activeBar: any | undefined,
+  activeLegend: string | undefined,
+  layout: string,
+) => {
+  const { fillOpacity, name, payload, value } = props;
+  let { x, width, y, height } = props;
+
+  if (layout === "horizontal" && height < 0) {
+    y += height;
+    height = Math.abs(height); // height must be a positive number
+  } else if (layout === "vertical" && width < 0) {
+    x += width;
+    width = Math.abs(width); // width must be a positive number
+  }
 
   return (
     <rect
@@ -64,6 +78,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
@@ -74,10 +89,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     noDataText,
     onValueChange,
     customTooltip,
+    rotateLabelX,
     className,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -127,7 +145,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         {data?.length ? (
           <ReChartsBarChart
             data={data}
-            stackOffset={relative ? "expand" : "none"}
+            stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
@@ -156,9 +174,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
+                padding={{ left: paddingValue, right: paddingValue }}
                 hide={!showXAxis}
                 dataKey={index}
-                interval="preserveStartEnd"
+                interval={startEndOnly ? "preserveStartEnd" : intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
@@ -173,6 +192,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 )}
                 tickLine={false}
                 axisLine={false}
+                angle={rotateLabelX?.angle}
+                dy={rotateLabelX?.verticalShift}
+                height={rotateLabelX?.xAxisHeight}
               />
             ) : (
               <XAxis
@@ -193,9 +215,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
-                padding={{ left: 10, right: 10 }}
                 minTickGap={5}
                 allowDecimals={allowDecimals}
+                angle={rotateLabelX?.angle}
+                dy={rotateLabelX?.verticalShift}
+                height={rotateLabelX?.xAxisHeight}
               />
             )}
             {layout !== "vertical" ? (
@@ -289,6 +313,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />
@@ -310,7 +335,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props) => renderShape(props, activeBar, activeLegend)}
+                shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
                 onClick={onBarClick}
               />
             ))}

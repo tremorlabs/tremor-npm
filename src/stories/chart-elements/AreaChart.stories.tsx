@@ -9,14 +9,20 @@ import {
   simpleBaseChartData as data,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
+  longBaseChartData,
+  longIndexBaseChartData,
+  simpleBaseChartWithNegativeValues,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 const meta: Meta<typeof AreaChart> = {
-  title: "Components/Chart/AreaChart",
+  title: "Visualizations/Chart/AreaChart",
   component: AreaChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/AreaChart",
+  },
 };
 
 export default meta;
@@ -24,6 +30,12 @@ type Story = StoryObj<typeof AreaChart>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const DefaultNegativeValues: Story = {
+  args: {
+    data: simpleBaseChartWithNegativeValues,
+  },
 };
 
 export const Stacked: Story = {
@@ -46,6 +58,12 @@ export const MinValueAndMaxValue: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "orange-600"],
+  },
 };
 
 export const NoGradient: Story = {
@@ -127,6 +145,26 @@ export const SingleAndMultipleDataAndOnValueChange: Story = {
   args: { data: singleAndMultipleData, onValueChange: (v: any) => alert(JSON.stringify(v)) },
 };
 
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
+export const LongDataInput: Story = {
+  args: { data: longBaseChartData },
+};
+
+export const LongDataInputAndPreserveStartEnd: Story = {
+  args: { data: longBaseChartData, intervalType: "preserveStartEnd" },
+};
+
+export const LongIndexName: Story = {
+  args: { data: longIndexBaseChartData },
+};
+
+export const LongIndexNameAndPreserveStartEnd: Story = {
+  args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
+};
+
 export const MultipleZeroValues: Story = {
   args: {
     data: [
@@ -136,17 +174,42 @@ export const MultipleZeroValues: Story = {
         "Successful Payments": 0,
       },
       {
-        month: "Jun 21'",
+        month: "Jun 21",
         Sales: 2390,
         "Successful Payments": 0,
       },
       {
-        month: "Jul 21'",
+        month: "Jul 21",
         Sales: 3490,
         "Successful Payments": 0,
       },
     ],
   },
+};
+
+export const RotateXLabels: Story = {
+  args: {
+    data: longBaseChartData,
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
+  },
+};
+
+export const LegendSlider: Story = {
+  args: {
+    enableLegendSlider: true,
+    categories: ["Sales", "Successful Payments", "Test"],
+  },
+};
+
+export const NoAxes: Story = {
+  args: {
+    showXAxis: false,
+    showYAxis: false,
+  },
+};
+
+export const NoYAxisStartEndOnly: Story = {
+  args: { showYAxis: false, startEndOnly: true },
 };
 
 //Custom tooltips

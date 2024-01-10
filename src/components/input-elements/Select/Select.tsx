@@ -5,7 +5,7 @@ import { border, makeClassName, sizing, spacing } from "lib";
 import React, { cloneElement, isValidElement, useMemo } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
-import { Listbox } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import { useInternalState } from "hooks";
 import { tremorTwMerge } from "lib";
 
@@ -19,7 +19,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any> | React.ReactElement;
   enableClear?: boolean;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
@@ -74,7 +74,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     }
   }
 
-  const valueToNameMapping = useMemo(() => constructValueToNameMapping(children), [children]);
+  const valueToNameMapping = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const valueToNameMapping = constructValueToNameMapping(reactElementChildren);
+    return valueToNameMapping;
+  }, [children]);
 
   const handleReset = () => {
     setSelectedValue("");
@@ -179,21 +183,31 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               />
             </button>
           ) : null}
-          <Listbox.Options
-            className={tremorTwMerge(
-              // common
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default",
-              // light
-              "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-              // dark
-              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-              spacing.twoXs.marginTop,
-              spacing.twoXs.marginBottom,
-              border.sm.all,
-            )}
+          <Transition
+            className="absolute z-10 w-full"
+            enter="transition ease duration-100 transform"
+            enterFrom="opacity-0 -translate-y-4"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease duration-100 transform"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 -translate-y-4"
           >
-            {children}
-          </Listbox.Options>
+            <Listbox.Options
+              className={tremorTwMerge(
+                // common
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
+                // light
+                "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+                // dark
+                "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                spacing.twoXs.marginTop,
+                spacing.twoXs.marginBottom,
+                border.sm.all,
+              )}
+            >
+              {children}
+            </Listbox.Options>
+          </Transition>
         </>
       )}
     </Listbox>

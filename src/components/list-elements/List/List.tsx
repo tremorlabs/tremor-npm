@@ -14,7 +14,7 @@ const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListEl
         className={tremorTwMerge(
           makeListClassName("root"),
           // common
-          "w-full overflow-hidden divide-y",
+          "w-full divide-y",
           // light
           "divide-tremor-border text-tremor-content",
           // dark

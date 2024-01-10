@@ -38,6 +38,7 @@ export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
+  showGradient?: boolean;
 }
 
 interface ActiveDot {
@@ -57,6 +58,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     showAnimation = false,
     animationDuration = 900,
     showTooltip = true,
@@ -72,10 +74,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     noDataText,
     className,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
+    rotateLabelX,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
+  const paddingValue = (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -144,7 +149,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 : undefined
             }
           >
-            {" "}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(
@@ -160,6 +164,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
+              padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
@@ -174,11 +179,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 // dark
                 "dark:fill-dark-tremor-content",
               )}
-              interval="preserveStartEnd"
+              interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
               axisLine={false}
-              padding={{ left: 10, right: 10 }}
               minTickGap={5}
+              angle={rotateLabelX?.angle}
+              dy={rotateLabelX?.verticalShift}
+              height={rotateLabelX?.xAxisHeight}
             />
             <YAxis
               width={yAxisWidth}
@@ -245,6 +252,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

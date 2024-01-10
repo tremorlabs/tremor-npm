@@ -35,7 +35,7 @@ import {
   themeColorRange,
   tremorTwMerge,
 } from "lib";
-import { Color, ValueFormatter } from "../../../lib/inputTypes";
+import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -53,12 +53,13 @@ export interface ScatterChartProps
   size?: string;
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
-  colors?: Color[];
+  colors?: (Color | string)[];
   showOpacity?: boolean;
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
   yAxisWidth?: number;
+  intervalType?: IntervalType;
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
@@ -70,8 +71,14 @@ export interface ScatterChartProps
   maxYValue?: number;
   allowDecimals?: boolean;
   noDataText?: string;
+  enableLegendSlider?: boolean;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipType>;
+  rotateLabelX?: {
+    angle: number;
+    verticalShift: number;
+    xAxisHeight: number;
+  };
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -112,6 +119,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showXAxis = true,
     showYAxis = true,
     yAxisWidth = 56,
+    intervalType = "equidistantPreserveStart",
     animationDuration = 900,
     showAnimation = false,
     showTooltip = true,
@@ -127,7 +135,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     noDataText,
     onValueChange,
     customTooltip,
+    rotateLabelX,
     className,
+    enableLegendSlider = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -190,6 +200,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   }
                 : undefined
             }
+            margin={{ left: 20, right: 20 }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -209,7 +220,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <XAxis
                 hide={!showXAxis}
                 dataKey={x}
-                interval="preserveStartEnd"
+                interval={startEndOnly ? "preserveStartEnd" : intervalType}
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][x], data[data.length - 1][x]] : undefined}
                 type="number"
@@ -227,10 +238,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
-                padding={{ left: 0, right: 0 }}
                 minTickGap={5}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
+                angle={rotateLabelX?.angle}
+                dy={rotateLabelX?.verticalShift}
+                height={rotateLabelX?.xAxisHeight}
               />
             ) : null}
             {y ? (
@@ -265,30 +278,29 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               content={
                 showTooltip ? (
-                  ({ active, payload, label }) =>
-                    CustomTooltip ? (
+                  ({ active, payload, label }) => {
+                    const color = category ? payload?.[0]?.payload?.[category] : label;
+                    return CustomTooltip ? (
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color:
-                            categoryColors.get(
-                              category ? payload?.[0]?.payload?.[category] : label,
-                            ) ?? BaseColors.Gray,
+                          color: categoryColors.get(color) ?? BaseColors.Gray,
                         }))}
                         active={active}
-                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        label={color}
                       />
                     ) : (
                       <ScatterChartTooltip
                         active={active}
                         payload={payload}
-                        label={category ? payload?.[0]?.payload?.[category] : label}
+                        label={color}
                         valueFormatter={valueFormatter}
                         axis={{ x: x, y: y, size: size }}
                         category={category}
                         categoryColors={categoryColors}
                       />
-                    )
+                    );
+                  }
                 ) : (
                   <></>
                 )
@@ -318,7 +330,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={category ? data.filter((d) => d[category] === cat) : data}
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
-                  shape={(props) => renderShape(props, activeNode, activeLegend)}
+                  shape={(props: any) => renderShape(props, activeNode, activeLegend)}
                   onClick={onNodeClick}
                 />
               );
@@ -336,6 +348,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     hasOnValueChange
                       ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
                       : undefined,
+                    enableLegendSlider,
                   )
                 }
               />

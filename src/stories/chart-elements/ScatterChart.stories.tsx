@@ -11,10 +11,13 @@ import {
 } from "./helpers/testDataScatterChart";
 
 const meta: Meta<typeof ScatterChart> = {
-  title: "Components/Chart/ScatterChart",
+  title: "Visualizations/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/ScatterChart",
+  },
 };
 
 export default meta;
@@ -39,6 +42,12 @@ export const CustomSizeRange: Story = {
 export const OtherColors: Story = {
   args: {
     colors: ["red", "green", "blue", "yellow"],
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400"],
   },
 };
 
@@ -71,10 +80,22 @@ export const NoDataText: Story = {
   },
 };
 
+export const Animation: Story = {
+  args: { showAnimation: true },
+};
+
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
+};
+
 export const OnValueChange: Story = {
   args: {
     onValueChange: (value) => alert(JSON.stringify(value)),
   },
+};
+
+export const IntervalTypePreserve: Story = {
+  args: { intervalType: "preserveStartEnd" },
 };
 
 export const RichDataExample: Story = {
@@ -89,6 +110,42 @@ export const RichDataExample: Story = {
       y: (y) => `${y} yrs`,
     },
     colors: ["red", "green", "blue"],
+  },
+};
+
+export const LegendSlider: Story = {
+  args: { enableLegendSlider: true },
+};
+
+export const PreserveStartEnd: Story = {
+  args: { intervalType: "preserveStartEnd" },
+};
+
+export const MultipleZeroValues: Story = {
+  args: {
+    data: [
+      {
+        month: "May 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2390,
+        "Successful Payments": 0,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3490,
+        "Successful Payments": 0,
+      },
+    ],
+  },
+};
+
+export const RotateXLabel: Story = {
+  args: {
+    rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
   },
 };
 

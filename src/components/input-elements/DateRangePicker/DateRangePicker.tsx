@@ -1,6 +1,6 @@
 "use client";
 
-import { Listbox, Popover } from "@headlessui/react";
+import { Listbox, Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { border, sizing, spacing, tremorTwMerge } from "lib";
@@ -50,6 +50,7 @@ export interface DateRangePickerProps
   displayFormat?: string;
   enableYearNavigation?: boolean;
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  disabledDates?: Date[];
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -71,6 +72,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     className,
     enableYearNavigation = false,
     weekStartsOn = 0,
+    disabledDates,
     ...other
   } = props;
 
@@ -82,8 +84,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     const disabledDays = [];
     if (minDate) disabledDays.push({ before: minDate });
     if (maxDate) disabledDays.push({ after: maxDate });
-    return disabledDays;
-  }, [minDate, maxDate]);
+    return [...disabledDays, ...(disabledDates ?? [])];
+  }, [minDate, maxDate, disabledDates]);
 
   const selectValues = useMemo(() => {
     const selectValues = new Map<
@@ -168,13 +170,13 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
       <Popover
         as="div"
         className={tremorTwMerge(
-          "w-full overflow-hidden",
+          "w-full",
           enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
           isCalendarButtonFocused &&
-            "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
+            "ring-2 ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted z-10",
         )}
       >
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full">
           <Popover.Button
             onFocus={() => setIsCalendarButtonFocused(true)}
             onBlur={() => setIsCalendarButtonFocused(false)}
@@ -183,9 +185,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               // common
               "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap",
               // light
-              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
+              "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
-              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
+              "dark:border-dark-tremor-border dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               enableSelect ? "rounded-l-tremor-default" : "rounded-tremor-default",
               spacing.lg.paddingLeft,
               isClearEnabled ? spacing.fourXl.paddingRight : spacing.twoXl.paddingRight,
@@ -239,58 +241,68 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             </button>
           ) : null}
         </div>
-        <Popover.Panel
-          focus={true}
-          className={tremorTwMerge(
-            // common
-            "absolute z-10 divide-y overflow-y-auto min-w-min left-0 outline-none rounded-tremor-default p-3",
-            // light
-            "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-            // dark
-            "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-            spacing.twoXs.marginTop,
-            spacing.twoXs.marginBottom,
-            border.sm.all,
-          )}
+        <Transition
+          className="absolute z-10 min-w-min left-0"
+          enter="transition ease duration-100 transform"
+          enterFrom="opacity-0 -translate-y-4"
+          enterTo="opacity-100 translate-y-0"
+          leave="transition ease duration-100 transform"
+          leaveFrom="opacity-100 translate-y-0"
+          leaveTo="opacity-0 -translate-y-4"
         >
-          <Calendar<DayPickerRangeProps>
-            mode="range"
-            showOutsideDays={true}
-            defaultMonth={defaultMonth}
-            selected={{
-              from: selectedStartDate,
-              to: selectedEndDate,
-            }}
-            onSelect={
-              ((v: DateRange) => {
-                onValueChange?.({ from: v?.from, to: v?.to });
-                setSelectedValue({ from: v?.from, to: v?.to });
-              }) as any
-            }
-            locale={locale}
-            disabled={disabledDays}
-            enableYearNavigation={enableYearNavigation}
-            classNames={{
-              day_range_middle: tremorTwMerge(
-                "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
-              ),
-              day_range_start:
-                "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
-              day_range_end:
-                "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
-            }}
-            weekStartsOn={weekStartsOn}
-            {...props}
-          />
-        </Popover.Panel>
+          <Popover.Panel
+            focus={true}
+            className={tremorTwMerge(
+              // common
+              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3",
+              // light
+              "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+              // dark
+              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+              spacing.twoXs.marginTop,
+              spacing.twoXs.marginBottom,
+              border.sm.all,
+            )}
+          >
+            <Calendar<DayPickerRangeProps>
+              mode="range"
+              showOutsideDays={true}
+              defaultMonth={defaultMonth}
+              selected={{
+                from: selectedStartDate,
+                to: selectedEndDate,
+              }}
+              onSelect={
+                ((v: DateRange) => {
+                  onValueChange?.({ from: v?.from, to: v?.to });
+                  setSelectedValue({ from: v?.from, to: v?.to });
+                }) as any
+              }
+              locale={locale}
+              disabled={disabledDays}
+              enableYearNavigation={enableYearNavigation}
+              classNames={{
+                day_range_middle: tremorTwMerge(
+                  "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
+                ),
+                day_range_start:
+                  "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+                day_range_end:
+                  "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
+              }}
+              weekStartsOn={weekStartsOn}
+              {...props}
+            />
+          </Popover.Panel>
+        </Transition>
       </Popover>
       {enableSelect && (
         <Listbox
           as="div"
           className={tremorTwMerge(
-            "w-48 overflow-hidden -ml-px rounded-r-tremor-default",
+            "w-48 -ml-px rounded-r-tremor-default",
             isSelectButtonFocused &&
-              "ring-2 ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted z-10",
+              "ring-2 ring-tremor-brand-muted dark:ring-dark-tremor-brand-muted z-10",
           )}
           value={selectedSelectValue}
           onChange={handleSelectClick}
@@ -317,26 +329,36 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               >
                 {value ? valueToNameMapping.get(value) ?? selectPlaceholder : selectPlaceholder}
               </Listbox.Button>
-              <Listbox.Options
-                className={tremorTwMerge(
-                  // common
-                  "absolute z-10 divide-y overflow-y-auto w-full inset-x-0 right-0 outline-none",
-                  // light
-                  "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
-                  // dark
-                  "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border",
-                  spacing.twoXs.marginTop,
-                  spacing.twoXs.marginBottom,
-                  border.sm.all,
-                )}
+              <Transition
+                className="absolute z-10 w-full inset-x-0 right-0"
+                enter="transition ease duration-100 transform"
+                enterFrom="opacity-0 -translate-y-4"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease duration-100 transform"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 -translate-y-4"
               >
-                {children ??
-                  defaultOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.text}
-                    </SelectItem>
-                  ))}
-              </Listbox.Options>
+                <Listbox.Options
+                  className={tremorTwMerge(
+                    // common
+                    "divide-y overflow-y-auto outline-none",
+                    // light
+                    "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
+                    // dark
+                    "dark:shadow-dark-tremor-dropdown dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border",
+                    spacing.twoXs.marginTop,
+                    spacing.twoXs.marginBottom,
+                    border.sm.all,
+                  )}
+                >
+                  {children ??
+                    defaultOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.text}
+                      </SelectItem>
+                    ))}
+                </Listbox.Options>
+              </Transition>
             </>
           )}
         </Listbox>

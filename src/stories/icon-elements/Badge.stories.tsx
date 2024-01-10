@@ -8,14 +8,16 @@ import { ArrowUpIcon } from "assets";
 import { Badge, Grid } from "components";
 
 const meta: Meta<typeof Badge> = {
-  title: "Components/Icon/Badge",
+  title: "UI/Icon/Badge",
   component: Badge,
   args: {
     children: "Live",
     tooltip: "Tooltip",
     icon: ArrowUpIcon,
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/icon-elements/Badge",
+  },
 };
 
 export default meta;

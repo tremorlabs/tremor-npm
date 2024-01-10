@@ -8,7 +8,7 @@ import { useInternalState } from "hooks";
 
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 
-import { Listbox } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
 import { border, makeClassName, sizing, spacing } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
@@ -23,7 +23,7 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholderSearch?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any> | React.ReactElement;
-  children: React.ReactElement[] | React.ReactElement;
+  children: React.ReactNode;
 }
 
 const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
@@ -78,6 +78,13 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   }
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+
+  const { reactElementChildren, optionsAvailable } = useMemo(() => {
+    const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
+    const optionsAvailable = getFilteredOptions("", reactElementChildren);
+    return { reactElementChildren, optionsAvailable };
+  }, [children]);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   // checked if there are selected options
@@ -86,13 +93,17 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const hasSelection = selectedItems.length > 0;
 
   const filteredOptions = useMemo(
-    () => getFilteredOptions(searchQuery, children as React.ReactElement[]),
-    [searchQuery, children],
+    () => (searchQuery ? getFilteredOptions(searchQuery, reactElementChildren) : optionsAvailable),
+    [searchQuery, reactElementChildren, optionsAvailable],
   );
 
   const handleReset = () => {
     setSelectedValue([]);
     onValueChange?.([]);
+  };
+
+  const handleResetSearch = () => {
+    setSearchQuery("");
   };
 
   return (
@@ -146,7 +157,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
             <div className="h-6 flex items-center">
               {value.length > 0 ? (
                 <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
-                  {filteredOptions
+                  {optionsAvailable
                     .filter((option) => value.includes(option.props.value))
                     .map((option, index) => {
                       return (
@@ -242,72 +253,85 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               />
             </button>
           ) : null}
-
-          <Listbox.Options
-            className={tremorTwMerge(
-              // common
-              "absolute z-10 divide-y overflow-y-auto max-h-[228px] w-full left-0 outline-none rounded-tremor-default",
-              // light
-              "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-              // dark
-              "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-              spacing.twoXs.marginTop,
-              spacing.twoXs.marginBottom,
-              border.sm.all,
-            )}
+          <Transition
+            className="absolute z-10 w-full"
+            enter="transition ease duration-100 transform"
+            enterFrom="opacity-0 -translate-y-4"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease duration-100 transform"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 -translate-y-4"
           >
-            <div
+            <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "flex items-center w-full",
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
                 // light
-                "bg-tremor-background-muted",
+                "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
-                "dark:bg-dark-tremor-background-muted",
-                spacing.md.paddingX,
+                "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                spacing.twoXs.marginTop,
+                spacing.twoXs.marginBottom,
+                border.sm.all,
               )}
             >
-              <span>
-                <SearchIcon
-                  className={tremorTwMerge(
-                    // common
-                    "flex-none",
-                    // light
-                    "text-tremor-content-subtle",
-                    // dark
-                    "dark:text-dark-tremor-content-subtle",
-                    spacing.sm.marginRight,
-                    sizing.md.height,
-                    sizing.md.width,
-                  )}
-                />
-              </span>
-              <input
-                name="search"
-                type="input"
-                autoComplete="off"
-                placeholder={placeholderSearch}
+              <div
                 className={tremorTwMerge(
                   // common
-                  "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default",
+                  "flex items-center w-full",
                   // light
-                  "text-tremor-content-emphasis",
+                  "bg-tremor-background-muted",
                   // dark
-                  "dark:text-dark-tremor-content-emphasis",
-                  spacing.sm.paddingY,
+                  "dark:bg-dark-tremor-background-muted",
+                  spacing.md.paddingX,
                 )}
-                onKeyDown={(e) => {
-                  if (e.code === "Space" && (e.target as HTMLInputElement).value !== "") {
-                    e.stopPropagation();
-                  }
-                }}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <SelectedValueContext.Provider value={{ selectedValue: value }}>
-              {filteredOptions}
-            </SelectedValueContext.Provider>
-          </Listbox.Options>
+              >
+                <span>
+                  <SearchIcon
+                    className={tremorTwMerge(
+                      // common
+                      "flex-none",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                      spacing.sm.marginRight,
+                      sizing.md.height,
+                      sizing.md.width,
+                    )}
+                  />
+                </span>
+                <input
+                  name="search"
+                  type="input"
+                  autoComplete="off"
+                  placeholder={placeholderSearch}
+                  className={tremorTwMerge(
+                    // common
+                    "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default",
+                    // light
+                    "text-tremor-content-emphasis",
+                    // dark
+                    "dark:text-dark-tremor-content-emphasis",
+                    spacing.sm.paddingY,
+                  )}
+                  onKeyDown={(e) => {
+                    if (e.code === "Space" && (e.target as HTMLInputElement).value !== "") {
+                      e.stopPropagation();
+                    }
+                  }}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchQuery}
+                />
+              </div>
+              <SelectedValueContext.Provider
+                {...{ onBlur: { handleResetSearch } }}
+                value={{ selectedValue: value }}
+              >
+                {filteredOptions}
+              </SelectedValueContext.Provider>
+            </Listbox.Options>
+          </Transition>
         </>
       )}
     </Listbox>

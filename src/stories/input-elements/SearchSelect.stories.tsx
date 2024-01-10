@@ -6,13 +6,18 @@ import {
   SimpleSearchSelect,
   SimpleSearchSelect2,
   SimpleSearchSelectControlled,
+  SimpleSearchSelectWithStaticAndDynamicChildren,
 } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof SearchSelect> = {
-  title: "Components/Input/SearchSelect",
+  title: "UI/Input/SearchSelect",
   component: SearchSelect,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/SearchSelect",
+  },
 };
 
 export default meta;
@@ -20,6 +25,11 @@ type Story = StoryObj<typeof SearchSelect>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleSearchSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleSearchSelectWithStaticAndDynamicChildren,
   args: {},
 };
 

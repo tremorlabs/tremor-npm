@@ -6,8 +6,12 @@ import { Divider } from "components";
 import { SimpleCard } from "stories/layout-elements/helpers/SimpleCard";
 
 const meta: Meta<typeof Divider> = {
-  title: "Components/Layout/Divider",
+  title: "UI/Layout/Divider",
   component: Divider,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Divider",
+  },
 };
 
 export default meta;
