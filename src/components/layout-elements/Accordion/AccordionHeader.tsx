@@ -1,11 +1,10 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React, { useContext } from "react";
 
 import { Disclosure } from "@headlessui/react";
 import { ArrowUpHeadIcon } from "assets";
 import { OpenContext } from "components/layout-elements/Accordion/Accordion";
-import { makeClassName, sizing, spacing } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeAccordionHeaderClassName = makeClassName("AccordionHeader");
 
@@ -23,13 +22,11 @@ const AccordionHeader = React.forwardRef<
       className={tremorTwMerge(
         makeAccordionHeaderClassName("root"),
         // common
-        "w-full flex items-center justify-between",
+        "w-full flex items-center justify-between px-4 py-3",
         // light
         "text-tremor-content-emphasis",
         // dark
         "dark:text-dark-tremor-content-emphasis",
-        spacing.twoXl.paddingX,
-        spacing.lg.paddingY,
         className,
       )}
       {...other}
@@ -37,8 +34,7 @@ const AccordionHeader = React.forwardRef<
       <div
         className={tremorTwMerge(
           makeAccordionHeaderClassName("children"),
-          "flex flex-1 text-inherit",
-          spacing.twoXl.marginRight,
+          "flex flex-1 text-inherit mr-4",
         )}
       >
         {children}
@@ -47,13 +43,12 @@ const AccordionHeader = React.forwardRef<
         <ArrowUpHeadIcon
           className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
+            //common
+            "h-5 w-5 -mr-1",
             // light
             "text-tremor-content-subtle",
             // dark
             "dark:text-dark-tremor-content-subtle",
-            spacing.twoXs.negativeMarginRight,
-            sizing.md.height,
-            sizing.md.width,
             isOpen ? "transition-all" : "transition-all -rotate-180",
           )}
         />
