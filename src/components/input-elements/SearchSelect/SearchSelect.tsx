@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useState } from "react";
+import React, { isValidElement, useCallback, useMemo, useState } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -10,6 +10,7 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
+import { HiddenInput } from "../Select/Select";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
@@ -17,6 +18,8 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  name?: string;
+  required?: boolean;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -31,6 +34,8 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     defaultValue,
     value,
     onValueChange,
+    name,
+    required,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -56,11 +61,11 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     [searchQuery, reactElementChildren],
   );
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedValue("");
     setSearchQuery("");
     onValueChange?.("");
-  };
+  }, [setSelectedValue, onValueChange]);
 
   return (
     <Combobox
@@ -84,6 +89,16 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     >
       {({ value }) => (
         <>
+          {" "}
+          {name || required ? (
+            <HiddenInput
+              name={name}
+              required={required}
+              value={selectedValue}
+              onReset={handleReset}
+              className="absolute opacity-0 h-9 w-full -z-[1]"
+            />
+          ) : null}
           <Combobox.Button className="w-full">
             {Icon && (
               <span
@@ -104,7 +119,6 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 />
               </span>
             )}
-
             <Combobox.Input
               className={tremorTwMerge(
                 // common
