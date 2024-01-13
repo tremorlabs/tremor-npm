@@ -5,6 +5,7 @@ import {
   SimpleSelect,
   SimpleSelectControlled,
   SimpleSelectWithStaticAndDynamicChildren,
+  SimpleSelectRequired,
 } from "./helpers/SimpleSelect";
 
 import { CalendarIcon } from "assets";
@@ -66,4 +67,9 @@ export const UncontrolledDisabled: Story = {
 
 export const Controlled: Story = {
   render: SimpleSelectControlled,
+};
+
+export const RequiredSelect: Story = {
+  render: SimpleSelectRequired,
+  args: {},
 };

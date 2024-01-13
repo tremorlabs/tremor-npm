@@ -77,3 +77,38 @@ export function SimpleSelectControlled() {
     </div>
   );
 }
+
+export function SimpleSelectRequired() {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <form
+      className="space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        setValue(formData.get("select") as string);
+      }}
+    >
+      <Select name="select" required>
+        <SelectItem value="1">One</SelectItem>
+        <SelectItem value="2">Two</SelectItem>
+        <SelectItem value="3">Three</SelectItem>
+        <SelectItem value="4">Four</SelectItem>
+        <SelectItem value="5">Five</SelectItem>
+        <SelectItem value="6">Six</SelectItem>
+        <SelectItem value="7">Seven</SelectItem>
+        <SelectItem value="8">Eight</SelectItem>
+        <SelectItem value="9">Nine</SelectItem>
+        <SelectItem value="10">Ten</SelectItem>
+      </Select>
+      <p>Submitted value: {value}</p>
+      <div className="flex gap-4">
+        <Button type="submit">Submit</Button>
+        <Button type="reset" variant="secondary">
+          Reset
+        </Button>
+      </div>
+    </form>
+  );
+}
