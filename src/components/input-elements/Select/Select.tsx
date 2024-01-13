@@ -82,7 +82,6 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             value={selectedValue}
             onReset={handleReset}
             setInvalid={setInvalid}
-            className="absolute opacity-0 h-9 w-full -z-[1]"
           />
           <div className="relative">
             <Listbox.Button
@@ -94,7 +93,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : "pl-3",
-                getSelectButtonColors(hasValue(value), disabled),
+                getSelectButtonColors(hasValue(value), disabled, invalid),
               )}
             >
               {Icon && (
@@ -203,7 +202,6 @@ export const HiddenInput = ({
   name,
   required,
   value,
-  className,
   onReset,
   setInvalid,
 }: {
@@ -212,7 +210,6 @@ export const HiddenInput = ({
   value?: string;
   onReset: () => void;
   setInvalid: (invalid: boolean) => void;
-  className: string;
 }) => {
   const [form, setForm] = useState<HTMLFormElement | null>(null);
   const [input, setInput] = useState<HTMLInputElement | null>(null);
@@ -239,9 +236,8 @@ export const HiddenInput = ({
 
   return (
     <input
-      className={className}
-      type={required ? "text" : "hidden"}
-      hidden={!required}
+      className="hidden"
+      type="text"
       name={name}
       required={required}
       defaultValue={value}
