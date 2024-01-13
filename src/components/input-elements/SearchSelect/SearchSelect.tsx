@@ -91,15 +91,13 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     >
       {({ value }) => (
         <>
-          {name || required ? (
-            <HiddenInput
-              name={name}
-              required={required}
-              value={selectedValue}
-              onReset={handleReset}
-              setInvalid={setInvalid}
-            />
-          ) : null}
+          <HiddenInput
+            name={name}
+            required={required}
+            value={selectedValue}
+            onReset={handleReset}
+            setInvalid={setInvalid}
+          />
           <div className="relative">
             <Combobox.Button className="w-full">
               {Icon && (
