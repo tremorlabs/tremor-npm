@@ -84,27 +84,45 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             setInvalid={setInvalid}
             className="absolute opacity-0 h-9 w-full -z-[1]"
           />
-          <Listbox.Button
-            className={tremorTwMerge(
-              // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
-              // light
-              "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-              // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? "p-10 -ml-0.5" : "pl-3",
-              getSelectButtonColors(hasValue(value), disabled),
-            )}
-          >
-            {Icon && (
-              <span
-                className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
-                )}
-              >
-                <Icon
+          <div className="relative">
+            <Listbox.Button
+              className={tremorTwMerge(
+                // common
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
+                // light
+                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+                // dark
+                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                Icon ? "p-10 -ml-0.5" : "pl-3",
+                getSelectButtonColors(hasValue(value), disabled),
+              )}
+            >
+              {Icon && (
+                <span
                   className={tremorTwMerge(
-                    makeSelectClassName("Icon"),
+                    "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
+                  )}
+                >
+                  <Icon
+                    className={tremorTwMerge(
+                      makeSelectClassName("Icon"),
+                      // common
+                      "flex-none h-5 w-5",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                    )}
+                  />
+                </span>
+              )}
+              <span className="w-[90%] block truncate">
+                {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+              </span>
+              <span className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-3")}>
+                <ArrowDownHeadIcon
+                  className={tremorTwMerge(
+                    makeSelectClassName("arrowDownIcon"),
                     // common
                     "flex-none h-5 w-5",
                     // light
@@ -114,46 +132,30 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                   )}
                 />
               </span>
-            )}
-            <span className="w-[90%] block truncate">
-              {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
-            </span>
-            <span className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-3")}>
-              <ArrowDownHeadIcon
-                className={tremorTwMerge(
-                  makeSelectClassName("arrowDownIcon"),
-                  // common
-                  "flex-none h-5 w-5",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </span>
-          </Listbox.Button>
-          {enableClear && selectedValue ? (
-            <button
-              type="button"
-              className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
-              onClick={(e) => {
-                e.preventDefault();
-                handleReset();
-              }}
-            >
-              <XCircleIcon
-                className={tremorTwMerge(
-                  makeSelectClassName("clearIcon"),
-                  // common
-                  "flex-none h-4 w-4",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </button>
-          ) : null}
+            </Listbox.Button>
+            {enableClear && selectedValue ? (
+              <button
+                type="button"
+                className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleReset();
+                }}
+              >
+                <XCircleIcon
+                  className={tremorTwMerge(
+                    makeSelectClassName("clearIcon"),
+                    // common
+                    "flex-none h-4 w-4",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
+                  )}
+                />
+              </button>
+            ) : null}
+          </div>
           <Transition
             className="absolute z-10 w-full"
             enter="transition ease duration-100 transform"
