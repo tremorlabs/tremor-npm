@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useState } from "react";
+import React, { isValidElement, useCallback, useMemo, useState } from "react";
 import { SelectedValueContext } from "contexts";
 import { useInternalState } from "hooks";
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
@@ -7,6 +7,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
 import { makeClassName, tremorTwMerge } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
+import { HiddenInput } from "../Select/Select";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 
@@ -14,6 +15,8 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string[];
   value?: string[];
   onValueChange?: (value: string[]) => void;
+  name?: string;
+  required?: boolean;
   placeholder?: string;
   placeholderSearch?: string;
   disabled?: boolean;
@@ -26,6 +29,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     defaultValue,
     value,
     onValueChange,
+    name,
+    required,
     placeholder = "Select...",
     placeholderSearch = "Search",
     disabled = false,
@@ -57,10 +62,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     [searchQuery, reactElementChildren, optionsAvailable],
   );
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedValue([]);
     onValueChange?.([]);
-  };
+  }, [setSelectedValue, onValueChange]);
 
   const handleResetSearch = () => {
     setSearchQuery("");
@@ -89,6 +94,15 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     >
       {({ value }) => (
         <>
+          {name || required ? (
+            <HiddenInput
+              name={name}
+              required={required}
+              value={selectedValue?.join(", ")}
+              onReset={handleReset}
+              className="absolute opacity-0 h-9 w-full -z-[1]"
+            />
+          ) : null}
           <Listbox.Button
             className={tremorTwMerge(
               // common
