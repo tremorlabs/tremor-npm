@@ -20,6 +20,8 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLDivElement> 
   onValueChange?: (value: string) => void;
   name?: string;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   placeholder?: string;
   disabled?: boolean;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -36,6 +38,8 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
     onValueChange,
     name,
     required,
+    error,
+    errorMessage,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -131,7 +135,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                   disabled
                     ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
                     : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                  getSelectButtonColors(hasValue(value), disabled, invalid),
+                  getSelectButtonColors(hasValue(value), disabled, invalid || error),
                 )}
                 placeholder={placeholder}
                 onChange={(event) => setSearchQuery(event.target.value)}
@@ -174,14 +178,14 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
               </button>
             ) : null}
           </div>
-          {invalid ? (
+          {invalid || error ? (
             <p
               className={tremorTwMerge(
                 makeSelectClassName("errorMessage"),
                 "text-sm text-red-500 mt-1",
               )}
             >
-              Please select an option.
+              {errorMessage ?? "Please select an option."}
             </p>
           ) : null}
           {filteredOptions.length > 0 && (

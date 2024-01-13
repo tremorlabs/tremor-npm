@@ -17,6 +17,8 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string[]) => void;
   name?: string;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   placeholder?: string;
   placeholderSearch?: string;
   disabled?: boolean;
@@ -31,6 +33,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     onValueChange,
     name,
     required,
+    error,
+    errorMessage,
     placeholder = "Select...",
     placeholderSearch = "Search",
     disabled = false,
@@ -112,7 +116,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "pl-11 -ml-0.5" : "pl-3",
-                getSelectButtonColors(value.length > 0, disabled, invalid),
+                getSelectButtonColors(value.length > 0, disabled, error || invalid),
               )}
             >
               {Icon && (
@@ -224,14 +228,14 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
               </button>
             ) : null}
           </div>
-          {invalid ? (
+          {invalid || error ? (
             <p
               className={tremorTwMerge(
                 makeMultiSelectClassName("errorMessage"),
                 "text-sm text-red-500 mt-1",
               )}
             >
-              Please select an option.
+              {errorMessage ?? "Please select an option."}
             </p>
           ) : null}
           <Transition

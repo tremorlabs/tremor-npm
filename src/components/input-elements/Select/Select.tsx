@@ -17,6 +17,8 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
   name?: string;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
@@ -30,6 +32,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     onValueChange,
     name,
     required,
+    error,
+    errorMessage,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -93,7 +97,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 // dark
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : "pl-3",
-                getSelectButtonColors(hasValue(value), disabled, invalid),
+                getSelectButtonColors(hasValue(value), disabled, invalid || error),
               )}
             >
               {Icon && (
@@ -155,6 +159,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               </button>
             ) : null}
           </div>
+          {invalid || error ? (
+            <p
+              className={tremorTwMerge(
+                makeSelectClassName("errorMessage"),
+                "text-sm text-red-500 mt-1",
+              )}
+            >
+              {errorMessage ?? "Please select an option."}
+            </p>
+          ) : null}
           <Transition
             className="absolute z-10 w-full"
             enter="transition ease duration-100 transform"
@@ -177,17 +191,6 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               {children}
             </Listbox.Options>
           </Transition>
-
-          {invalid ? (
-            <p
-              className={tremorTwMerge(
-                makeSelectClassName("errorMessage"),
-                "text-sm text-red-500 mt-1",
-              )}
-            >
-              Please select an option.
-            </p>
-          ) : null}
         </>
       )}
     </Listbox>
