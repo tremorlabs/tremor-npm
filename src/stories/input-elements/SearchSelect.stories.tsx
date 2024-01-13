@@ -5,6 +5,7 @@ import {
   SimpleSearchSelect,
   SimpleSearchSelectControlled,
   SimpleSearchSelectWithStaticAndDynamicChildren,
+  SimpleSearchSelectRequired,
 } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
@@ -66,5 +67,10 @@ export const Disabled: Story = {
 
 export const Controlled: Story = {
   render: SimpleSearchSelectControlled,
+  args: {},
+};
+
+export const RequiredSelect: Story = {
+  render: SimpleSearchSelectRequired,
   args: {},
 };

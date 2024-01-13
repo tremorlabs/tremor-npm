@@ -75,3 +75,38 @@ export const SimpleSearchSelectControlled = (args: any) => {
     </div>
   );
 };
+
+export function SimpleSearchSelectRequired() {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <form
+      className="space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        setValue(formData.get("select") as string);
+      }}
+    >
+      <SearchSelect name="select" required>
+        <SearchSelectItem value="1">One</SearchSelectItem>
+        <SearchSelectItem value="2">Two</SearchSelectItem>
+        <SearchSelectItem value="3">Three</SearchSelectItem>
+        <SearchSelectItem value="4">Four</SearchSelectItem>
+        <SearchSelectItem value="5">Five</SearchSelectItem>
+        <SearchSelectItem value="6">Six</SearchSelectItem>
+        <SearchSelectItem value="7">Seven</SearchSelectItem>
+        <SearchSelectItem value="8">Eight</SearchSelectItem>
+        <SearchSelectItem value="9">Nine</SearchSelectItem>
+        <SearchSelectItem value="10">Ten</SearchSelectItem>
+      </SearchSelect>
+      <p>Submitted value: {value}</p>
+      <div className="flex gap-4">
+        <Button type="submit">Submit</Button>
+        <Button type="reset" variant="secondary">
+          Reset
+        </Button>
+      </div>
+    </form>
+  );
+}
