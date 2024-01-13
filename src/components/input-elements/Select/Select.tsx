@@ -40,6 +40,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   } = props;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
+  const [invalid, setInvalid] = useState(false);
   const Icon = icon;
   const valueToNameMapping = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
@@ -62,6 +63,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         ((value: string) => {
           onValueChange?.(value);
           setSelectedValue(value);
+          setInvalid(false);
         }) as any
       }
       disabled={disabled}
@@ -74,15 +76,14 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     >
       {({ value }) => (
         <>
-          {name || required ? (
-            <HiddenInput
-              name={name}
-              required={required}
-              value={selectedValue}
-              onReset={handleReset}
-              className="absolute opacity-0 h-9 w-full -z-[1]"
-            />
-          ) : null}
+          <HiddenInput
+            name={name}
+            required={required}
+            value={selectedValue}
+            onReset={handleReset}
+            setInvalid={setInvalid}
+            className="absolute opacity-0 h-9 w-full -z-[1]"
+          />
           <Listbox.Button
             className={tremorTwMerge(
               // common
@@ -175,6 +176,17 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               {children}
             </Listbox.Options>
           </Transition>
+
+          {invalid ? (
+            <p
+              className={tremorTwMerge(
+                makeSelectClassName("errorMessage"),
+                "text-sm text-red-500 mt-1",
+              )}
+            >
+              Please select an option.
+            </p>
+          ) : null}
         </>
       )}
     </Listbox>
@@ -191,20 +203,37 @@ export const HiddenInput = ({
   value,
   className,
   onReset,
+  setInvalid,
 }: {
   name?: string;
   required?: boolean;
   value?: string;
   onReset: () => void;
-  className?: string;
+  setInvalid: (invalid: boolean) => void;
+  className: string;
 }) => {
   const [form, setForm] = useState<HTMLFormElement | null>(null);
+  const [input, setInput] = useState<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!input) return;
+    const onInvalid = (e: Event) => {
+      e.preventDefault();
+      setInvalid(true);
+    };
+    input.addEventListener("invalid", onInvalid);
+    return () => input.removeEventListener("invalid", onInvalid);
+  }, [input, setInvalid]);
 
   useEffect(() => {
     if (!form) return;
-    form.addEventListener("reset", onReset);
-    return () => form.removeEventListener("reset", onReset);
-  }, [form, onReset]);
+    const reset = () => {
+      setInvalid(false);
+      onReset();
+    };
+    form.addEventListener("reset", reset);
+    return () => form.removeEventListener("reset", reset);
+  }, [form, onReset, setInvalid]);
 
   return (
     <input
@@ -216,7 +245,10 @@ export const HiddenInput = ({
       defaultValue={value}
       tabIndex={-1}
       ref={(el) => {
-        if (el) setForm(el.closest("form"));
+        if (el) {
+          setInput(el);
+          setForm(el.closest("form"));
+        }
       }}
     />
   );
