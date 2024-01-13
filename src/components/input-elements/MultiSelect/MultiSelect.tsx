@@ -43,7 +43,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
   const Icon = icon;
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-
+  const [invalid, setInvalid] = useState(false);
   const { reactElementChildren, optionsAvailable } = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
     const optionsAvailable = getFilteredOptions("", reactElementChildren);
@@ -81,6 +81,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
         ((values: string[]) => {
           onValueChange?.(values);
           setSelectedValue(values);
+          setInvalid(false);
         }) as any
       }
       disabled={disabled}
@@ -94,36 +95,100 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
     >
       {({ value }) => (
         <>
-          {name || required ? (
-            <HiddenInput
-              name={name}
-              required={required}
-              value={selectedValue?.join(", ")}
-              onReset={handleReset}
-              className="absolute opacity-0 h-9 w-full -z-[1]"
-            />
-          ) : null}
-          <Listbox.Button
-            className={tremorTwMerge(
-              // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
-              // light
-              "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-              // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? "pl-11 -ml-0.5" : "pl-3",
-              getSelectButtonColors(value.length > 0, disabled),
-            )}
-          >
-            {Icon && (
-              <span
-                className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
-                )}
-              >
-                <Icon
+          <HiddenInput
+            name={name}
+            required={required}
+            value={selectedValue?.join(", ")}
+            onReset={handleReset}
+            setInvalid={setInvalid}
+          />
+          <div className="relative">
+            <Listbox.Button
+              className={tremorTwMerge(
+                // common
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
+                // light
+                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+                // dark
+                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                Icon ? "pl-11 -ml-0.5" : "pl-3",
+                getSelectButtonColors(value.length > 0, disabled, invalid),
+              )}
+            >
+              {Icon && (
+                <span
                   className={tremorTwMerge(
-                    makeMultiSelectClassName("Icon"),
+                    "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
+                  )}
+                >
+                  <Icon
+                    className={tremorTwMerge(
+                      makeMultiSelectClassName("Icon"),
+                      // common
+                      "flex-none h-5 w-5",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                    )}
+                  />
+                </span>
+              )}
+              <div className="h-6 flex items-center">
+                {value.length > 0 ? (
+                  <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
+                    {optionsAvailable
+                      .filter((option) => value.includes(option.props.value))
+                      .map((option, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={tremorTwMerge(
+                              "max-w-[100px] lg:max-w-[200px] flex justify-center items-center pl-2 pr-1.5 py-1 font-medium",
+                              "rounded-tremor-small",
+                              "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
+                              "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
+                              "text-tremor-content-default dark:text-dark-tremor-content-default",
+                              "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
+                            )}
+                          >
+                            <div className="text-xs truncate ">
+                              {option.props.children ?? option.props.value}
+                            </div>
+                            <div
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const newValue = value.filter((v) => v !== option.props.value);
+                                onValueChange?.(newValue);
+                                setSelectedValue(newValue);
+                              }}
+                            >
+                              <XIcon
+                                className={tremorTwMerge(
+                                  makeMultiSelectClassName("clearIconItem"),
+                                  // common
+                                  "cursor-pointer rounded-tremor-full w-3.5 h-3.5 ml-2",
+                                  // light
+                                  "text-tremor-content-subtle hover:text-tremor-content",
+                                  // dark
+                                  "dark:text-dark-tremor-content-subtle dark:hover:text-tremor-content",
+                                )}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                ) : (
+                  <span>{placeholder}</span>
+                )}
+              </div>
+              <span
+                className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-2.5")}
+              >
+                <ArrowDownHeadIcon
+                  className={tremorTwMerge(
+                    makeMultiSelectClassName("arrowDownIcon"),
                     // common
                     "flex-none h-5 w-5",
                     // light
@@ -133,93 +198,41 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                   )}
                 />
               </span>
-            )}
-            <div className="h-6 flex items-center">
-              {value.length > 0 ? (
-                <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
-                  {optionsAvailable
-                    .filter((option) => value.includes(option.props.value))
-                    .map((option, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className={tremorTwMerge(
-                            "max-w-[100px] lg:max-w-[200px] flex justify-center items-center pl-2 pr-1.5 py-1 font-medium",
-                            "rounded-tremor-small",
-                            "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
-                            "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
-                            "text-tremor-content-default dark:text-dark-tremor-content-default",
-                            "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
-                          )}
-                        >
-                          <div className="text-xs truncate ">
-                            {option.props.children ?? option.props.value}
-                          </div>
-                          <div
-                            onClick={(e) => {
-                              e.preventDefault();
-                              const newValue = value.filter((v) => v !== option.props.value);
-                              onValueChange?.(newValue);
-                              setSelectedValue(newValue);
-                            }}
-                          >
-                            <XIcon
-                              className={tremorTwMerge(
-                                makeMultiSelectClassName("clearIconItem"),
-                                // common
-                                "cursor-pointer rounded-tremor-full w-3.5 h-3.5 ml-2",
-                                // light
-                                "text-tremor-content-subtle hover:text-tremor-content",
-                                // dark
-                                "dark:text-dark-tremor-content-subtle dark:hover:text-tremor-content",
-                              )}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              ) : (
-                <span>{placeholder}</span>
-              )}
-            </div>
-            <span className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-2.5")}>
-              <ArrowDownHeadIcon
-                className={tremorTwMerge(
-                  makeMultiSelectClassName("arrowDownIcon"),
-                  // common
-                  "flex-none h-5 w-5",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </span>
-          </Listbox.Button>
+            </Listbox.Button>
 
-          {/* coditionally displayed XCircle */}
-          {hasSelection && !disabled ? (
-            <button
-              type="button"
-              className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
-              onClick={(e) => {
-                e.preventDefault();
-                handleReset();
-              }}
+            {/* coditionally displayed XCircle */}
+            {hasSelection && !disabled ? (
+              <button
+                type="button"
+                className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleReset();
+                }}
+              >
+                <XCircleIcon
+                  className={tremorTwMerge(
+                    makeMultiSelectClassName("clearIconAllItems"),
+                    // common
+                    "flex-none h-4 w-4",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
+                  )}
+                />
+              </button>
+            ) : null}
+          </div>
+          {invalid ? (
+            <p
+              className={tremorTwMerge(
+                makeMultiSelectClassName("errorMessage"),
+                "text-sm text-red-500 mt-1",
+              )}
             >
-              <XCircleIcon
-                className={tremorTwMerge(
-                  makeMultiSelectClassName("clearIconAllItems"),
-                  // common
-                  "flex-none h-4 w-4",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </button>
+              Please select an option.
+            </p>
           ) : null}
           <Transition
             className="absolute z-10 w-full"
