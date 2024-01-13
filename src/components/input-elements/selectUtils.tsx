@@ -1,5 +1,5 @@
 import { tremorTwMerge } from "lib";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export interface SelectItemProps {
   value: string;
@@ -52,3 +52,57 @@ export const getSelectButtonColors = (
 export function hasValue<T>(value: T | null | undefined) {
   return value !== null && value !== undefined && value !== "";
 }
+
+export const HiddenInput = ({
+  name,
+  required,
+  value,
+  onReset,
+  setInvalid,
+}: {
+  name?: string;
+  required?: boolean;
+  value?: string;
+  onReset: () => void;
+  setInvalid: (invalid: boolean) => void;
+}) => {
+  const [form, setForm] = useState<HTMLFormElement | null>(null);
+  const [input, setInput] = useState<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!input) return;
+    const onInvalid = (e: Event) => {
+      e.preventDefault();
+      setInvalid(true);
+    };
+    input.addEventListener("invalid", onInvalid);
+    return () => input.removeEventListener("invalid", onInvalid);
+  }, [input, setInvalid]);
+
+  useEffect(() => {
+    if (!form) return;
+    const reset = () => {
+      setInvalid(false);
+      onReset();
+    };
+    form.addEventListener("reset", reset);
+    return () => form.removeEventListener("reset", reset);
+  }, [form, onReset, setInvalid]);
+
+  return (
+    <input
+      className="hidden"
+      type="text"
+      name={name}
+      required={required}
+      defaultValue={value}
+      tabIndex={-1}
+      ref={(el) => {
+        if (el) {
+          setInput(el);
+          setForm(el.closest("form"));
+        }
+      }}
+    />
+  );
+};

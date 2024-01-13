@@ -10,7 +10,7 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import { HiddenInput } from "../Select/Select";
+import { HiddenInput } from "../selectUtils";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
