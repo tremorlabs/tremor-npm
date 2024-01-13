@@ -215,7 +215,9 @@ export const HiddenInput = ({
       required={required}
       defaultValue={value}
       tabIndex={-1}
-      ref={(el) => (el ? setForm(el.closest("form")) : null)}
+      ref={(el) => {
+        if (el) setForm(el.closest("form"));
+      }}
     />
   );
 };
