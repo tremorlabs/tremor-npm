@@ -185,7 +185,7 @@ Select.displayName = "Select";
 
 export default Select;
 
-const HiddenInput = ({
+export const HiddenInput = ({
   name,
   required,
   value,
