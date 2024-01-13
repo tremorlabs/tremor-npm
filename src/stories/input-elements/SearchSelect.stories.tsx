@@ -70,7 +70,7 @@ export const Controlled: Story = {
   args: {},
 };
 
-export const RequiredSelect: Story = {
+export const RequiredSearchSelect: Story = {
   render: SimpleSearchSelectRequired,
   args: {},
 };

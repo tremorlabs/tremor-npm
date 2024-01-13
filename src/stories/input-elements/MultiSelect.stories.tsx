@@ -52,7 +52,7 @@ export const Controlled: Story = {
   args: {},
 };
 
-export const RequiredSelect: Story = {
+export const RequiredMultiSelect: Story = {
   render: SimpleMultiSelectRequired,
   args: {},
 };
