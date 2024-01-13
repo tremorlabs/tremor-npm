@@ -1,6 +1,6 @@
 "use client";
 
-import React, { isValidElement, useMemo } from "react";
+import React, { isValidElement, useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
@@ -15,6 +15,8 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
+  name?: string;
+  required?: boolean;
   disabled?: boolean;
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
@@ -26,6 +28,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     defaultValue,
     value,
     onValueChange,
+    name,
+    required,
     placeholder = "Select...",
     disabled = false,
     icon,
@@ -43,10 +47,10 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     return valueToNameMapping;
   }, [children]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedValue("");
     onValueChange?.("");
-  };
+  }, [setSelectedValue, onValueChange]);
 
   return (
     <Listbox
@@ -70,6 +74,15 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     >
       {({ value }) => (
         <>
+          {name || required ? (
+            <HiddenInput
+              name={name}
+              required={required}
+              value={selectedValue}
+              onReset={handleReset}
+              className="absolute opacity-0 h-9 w-full -z-[1]"
+            />
+          ) : null}
           <Listbox.Button
             className={tremorTwMerge(
               // common
@@ -171,3 +184,38 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 Select.displayName = "Select";
 
 export default Select;
+
+const HiddenInput = ({
+  name,
+  required,
+  value,
+  className,
+  onReset,
+}: {
+  name?: string;
+  required?: boolean;
+  value?: string;
+  onReset: () => void;
+  className?: string;
+}) => {
+  const [form, setForm] = useState<HTMLFormElement | null>(null);
+
+  useEffect(() => {
+    if (!form) return;
+    form.addEventListener("reset", onReset);
+    return () => form.removeEventListener("reset", onReset);
+  }, [form, onReset]);
+
+  return (
+    <input
+      className={className}
+      type={required ? "text" : "hidden"}
+      hidden={!required}
+      name={name}
+      required={required}
+      defaultValue={value}
+      tabIndex={-1}
+      ref={(el) => (el ? setForm(el.closest("form")) : null)}
+    />
+  );
+};
