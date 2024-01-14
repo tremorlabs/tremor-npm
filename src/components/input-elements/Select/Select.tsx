@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import { border, makeClassName, sizing, spacing } from "lib";
 import React, { isValidElement, useMemo } from "react";
+import { ArrowDownHeadIcon, XCircleIcon } from "assets";
+import { makeClassName, tremorTwMerge } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox, Transition } from "@headlessui/react";
 import { useInternalState } from "hooks";
-import { tremorTwMerge } from "lib";
 
 const makeSelectClassName = makeClassName("Select");
 
@@ -74,36 +73,30 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           <Listbox.Button
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
+              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
               // light
               "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
               "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
-              spacing.fourXl.paddingRight,
-              spacing.sm.paddingY,
-              border.sm.all,
+              Icon ? "p-10 -ml-0.5" : "pl-3",
               getSelectButtonColors(hasValue(value), disabled),
             )}
           >
             {Icon && (
               <span
                 className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center ml-px",
-                  spacing.md.paddingLeft,
+                  "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
                 )}
               >
                 <Icon
                   className={tremorTwMerge(
                     makeSelectClassName("Icon"),
                     // common
-                    "flex-none",
+                    "flex-none h-5 w-5",
                     // light
                     "text-tremor-content-subtle",
                     // dark
                     "dark:text-dark-tremor-content-subtle",
-                    sizing.lg.height,
-                    sizing.lg.width,
                   )}
                 />
               </span>
@@ -111,23 +104,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             <span className="w-[90%] block truncate">
               {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
             </span>
-            <span
-              className={tremorTwMerge(
-                "absolute inset-y-0 right-0 flex items-center",
-                spacing.lg.marginRight,
-              )}
-            >
+            <span className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-3")}>
               <ArrowDownHeadIcon
                 className={tremorTwMerge(
                   makeSelectClassName("arrowDownIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-5 w-5",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </span>
@@ -135,10 +121,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           {enableClear && selectedValue ? (
             <button
               type="button"
-              className={tremorTwMerge(
-                "absolute inset-y-0 right-0 flex items-center",
-                spacing.fourXl.marginRight,
-              )}
+              className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
               onClick={(e) => {
                 e.preventDefault();
                 handleReset();
@@ -148,13 +131,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 className={tremorTwMerge(
                   makeSelectClassName("clearIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-4 w-4",
                   // light
                   "text-tremor-content-subtle",
                   // dark
                   "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
                 )}
               />
             </button>
@@ -171,14 +152,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
+                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
                 "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-                spacing.twoXs.marginTop,
-                spacing.twoXs.marginBottom,
-                border.sm.all,
               )}
             >
               {children}
