@@ -235,7 +235,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>((props, r
                 "text-sm text-red-500 mt-1",
               )}
             >
-              {errorMessage ?? "Please select an option."}
+              {errorMessage ?? "Please select an option"}
             </p>
           ) : null}
           <Transition

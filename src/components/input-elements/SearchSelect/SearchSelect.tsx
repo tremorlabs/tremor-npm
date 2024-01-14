@@ -185,7 +185,7 @@ const SearchSelect = React.forwardRef<HTMLDivElement, SearchSelectProps>((props,
                 "text-sm text-red-500 mt-1",
               )}
             >
-              {errorMessage ?? "Please select an option."}
+              {errorMessage ?? "Please select an option"}
             </p>
           ) : null}
           {filteredOptions.length > 0 && (

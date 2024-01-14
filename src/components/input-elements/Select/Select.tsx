@@ -166,7 +166,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 "text-sm text-red-500 mt-1",
               )}
             >
-              {errorMessage ?? "Please select an option."}
+              {errorMessage ?? "Please select an option"}
             </p>
           ) : null}
           <Transition
