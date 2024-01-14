@@ -7,7 +7,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
 import { makeClassName, tremorTwMerge } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-import { HiddenInput } from "../Select/Select";
+import { HiddenInput } from "../selectUtils";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 
