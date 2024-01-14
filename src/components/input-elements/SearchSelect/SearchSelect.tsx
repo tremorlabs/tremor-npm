@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useRef, useState } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -45,8 +45,11 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
     errorMessage,
     children,
     className,
+    id,
     ...other
   } = props;
+  const comboboxButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
@@ -91,6 +94,11 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
         }}
         name={name}
         disabled={disabled}
+        id={id}
+        onFocus={() => {
+          const listboxButton = comboboxButtonRef.current;
+          if (listboxButton) listboxButton.click();
+        }}
       >
         <option className="hidden" value="" disabled hidden>
           {placeholder}
@@ -122,11 +130,12 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
           "w-full min-w-[10rem] relative text-tremor-default",
           className,
         )}
+        id={id}
         {...other}
       >
         {({ value }) => (
           <>
-            <Combobox.Button className="w-full">
+            <Combobox.Button ref={comboboxButtonRef} className="w-full">
               {Icon && (
                 <span
                   className={tremorTwMerge(

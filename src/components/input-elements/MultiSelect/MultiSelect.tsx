@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useState } from "react";
+import React, { isValidElement, useMemo, useRef, useState } from "react";
 import { SelectedValueContext } from "contexts";
 import { useInternalState } from "hooks";
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
@@ -40,8 +40,10 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
     name,
     error = false,
     errorMessage,
+    id,
     ...other
   } = props;
+  const listboxButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const Icon = icon;
 
@@ -97,6 +99,11 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
         name={name}
         disabled={disabled}
         multiple
+        id={id}
+        onFocus={() => {
+          const listboxButton = listboxButtonRef.current;
+          if (listboxButton) listboxButton.click();
+        }}
       >
         <option className="hidden" value="" disabled hidden>
           {placeholder}
@@ -128,8 +135,9 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
           "w-full min-w-[10rem] relative text-tremor-default",
           className,
         )}
-        {...other}
+        id={id}
         multiple
+        {...other}
       >
         {({ value }) => (
           <>
@@ -144,6 +152,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 Icon ? "pl-10 -ml-0.5" : "pl-3",
                 getSelectButtonColors(value.length > 0, disabled, error),
               )}
+              ref={listboxButtonRef}
             >
               {Icon && (
                 <span

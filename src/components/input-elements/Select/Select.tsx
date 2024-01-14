@@ -1,6 +1,6 @@
 "use client";
 
-import React, { isValidElement, useMemo, Children } from "react";
+import React, { isValidElement, useMemo, Children, useRef } from "react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 
 import { makeClassName, tremorTwMerge } from "lib";
@@ -41,8 +41,10 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
     error = false,
     errorMessage,
     className,
+    id,
     ...other
   } = props;
+  const listboxButtonRef = useRef<HTMLButtonElement | null>(null);
   const childrenArray = Children.toArray(children); // @sev
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
@@ -80,6 +82,11 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
         }}
         name={name}
         disabled={disabled}
+        id={id}
+        onFocus={() => {
+          const listboxButton = listboxButtonRef.current;
+          if (listboxButton) listboxButton.click();
+        }}
       >
         <option className="hidden" value="" disabled hidden>
           {placeholder}
@@ -111,11 +118,13 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
           "w-full min-w-[10rem] relative text-tremor-default",
           className,
         )}
+        id={id}
         {...other}
       >
         {({ value }) => (
           <>
             <Listbox.Button
+              ref={listboxButtonRef}
               className={tremorTwMerge(
                 // common
                 "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
