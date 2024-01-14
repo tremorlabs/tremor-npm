@@ -98,6 +98,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
                 Icon ? "p-10 -ml-0.5" : "pl-3",
                 getSelectButtonColors(hasValue(value), disabled, invalid || error),
+                (error || invalid) && !selectedValue?.length ? "text-tremor-content" : "",
               )}
             >
               {Icon && (
