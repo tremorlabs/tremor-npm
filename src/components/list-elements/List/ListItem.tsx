@@ -13,7 +13,7 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
           className={tremorTwMerge(
             makeListItemClassName("root"),
             // common
-            "w-full flex justify-between items-center truncate text-tremor-default py-2",
+            "w-full flex justify-between items-center text-tremor-default py-2",
             className,
           )}
           {...other}

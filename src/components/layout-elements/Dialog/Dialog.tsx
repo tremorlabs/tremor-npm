@@ -10,11 +10,11 @@ type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T
 export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
   onClose: (val: boolean) => void;
+  role?: "dialog" | "alertdialog";
 } & XOR<{ unmount?: boolean }, { static?: boolean }>;
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, ...other } = props;
-
   return (
     <Transition as={React.Fragment} appear show={props.open}>
       <HeadlessuiDialog
@@ -34,12 +34,11 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
         >
           <div
             className={tremorTwMerge(
-              "fixed inset-0 bg-tremor-content dark:bg-dark-tremor-content bg-opacity-75 transition-opacity",
+              "fixed inset-0 bg-slate-950/30  dark:bg-slate-950/50 transition-opacity",
             )}
           ></div>
         </Transition.Child>
-
-        <div className="fixed inset-0 overflow-y-auto">
+        <div className="fixed inset-0 overflow-y-auto w-screen">
           <div className="flex min-h-full items-center justify-center p-4">{children}</div>
         </div>
       </HeadlessuiDialog>
