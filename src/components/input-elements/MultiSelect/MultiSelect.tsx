@@ -141,38 +141,38 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
       >
         {({ value }) => (
           <>
-          <Listbox.Button
-            className={tremorTwMerge(
-              // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
-              // light
-              "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-              // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-              Icon ? "pl-11 -ml-0.5" : "pl-3",
-              getSelectButtonColors(value.length > 0, disabled),
-            )}
-            ref={listboxButtonRef}
-          >
-            {Icon && (
-              <span
-                className={tremorTwMerge(
-                  "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
-                )}
-              >
-                <Icon
+            <Listbox.Button
+              className={tremorTwMerge(
+                // common
+                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
+                // light
+                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+                // dark
+                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                Icon ? "pl-11 -ml-0.5" : "pl-3",
+                getSelectButtonColors(value.length > 0, disabled),
+              )}
+              ref={listboxButtonRef}
+            >
+              {Icon && (
+                <span
                   className={tremorTwMerge(
-                    makeMultiSelectClassName("Icon"),
-                    // common
-                    "flex-none h-5 w-5",
-                    // light
-                    "text-tremor-content-subtle",
-                    // dark
-                    "dark:text-dark-tremor-content-subtle",
+                    "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
                   )}
-                />
-              </span>
-            )}
+                >
+                  <Icon
+                    className={tremorTwMerge(
+                      makeMultiSelectClassName("Icon"),
+                      // common
+                      "flex-none h-5 w-5",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                    )}
+                  />
+                </span>
+              )}
               <div className="h-6 flex items-center">
                 {value.length > 0 ? (
                   <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
@@ -239,28 +239,28 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
               </span>
             </Listbox.Button>
 
-{hasSelection && !disabled ? (
-            <button
-              type="button"
-              className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
-              onClick={(e) => {
-                e.preventDefault();
-                handleReset();
-              }}
-            >
-              <XCircleIcon
-                className={tremorTwMerge(
-                  makeMultiSelectClassName("clearIconAllItems"),
-                  // common
-                  "flex-none h-4 w-4",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </button>
-          ) : null}
+            {hasSelection && !disabled ? (
+              <button
+                type="button"
+                className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleReset();
+                }}
+              >
+                <XCircleIcon
+                  className={tremorTwMerge(
+                    makeMultiSelectClassName("clearIconAllItems"),
+                    // common
+                    "flex-none h-4 w-4",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
+                  )}
+                />
+              </button>
+            ) : null}
             <Transition
               className="absolute z-10 w-full"
               enter="transition ease duration-100 transform"
@@ -270,15 +270,15 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 -translate-y-4"
             >
-            <Listbox.Options
-              className={tremorTwMerge(
-                // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
-                // light
-                "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                // dark
-                "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
-              )}
+              <Listbox.Options
+                className={tremorTwMerge(
+                  // common
+                  "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
+                  // light
+                  "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
+                  // dark
+                  "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                )}
               >
                 <div
                   className={tremorTwMerge(
@@ -340,6 +340,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
           {errorMessage}
         </p>
       ) : null}
+    </div>
   );
 });
 

@@ -164,11 +164,11 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                   // dark
                   "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                  Icon ? "pl-10 -ml-0.5" : "pl-3",
+                  Icon ? "p-10 -ml-0.5" : "pl-3",
                   disabled
                     ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
                     : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                  getSelectButtonColors(hasValue(value), disabled, error),
+                  getSelectButtonColors(hasValue(value), disabled),
                 )}
                 placeholder={placeholder}
                 onChange={(event) => setSearchQuery(event.target.value)}
@@ -188,6 +188,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 />
               </div>
             </Combobox.Button>
+
             {enableClear && selectedValue ? (
               <button
                 type="button"
@@ -208,73 +209,18 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     "dark:text-dark-tremor-content-subtle",
                   )}
                 />
-              </span>
-            )}
-
-            <Combobox.Input
-              className={tremorTwMerge(
-                // common
-                "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14 border py-2",
-                // light
-                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-                // dark
-                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                Icon ? "p-10 -ml-0.5" : "pl-3",
-                disabled
-                  ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
-                  : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                getSelectButtonColors(hasValue(value), disabled),
-              )}
-              placeholder={placeholder}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
-            />
-            <div className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}>
-              <ArrowDownHeadIcon
-                className={tremorTwMerge(
-                  makeSearchSelectClassName("arrowDownIcon"),
-                  // common
-                  "flex-none h-5 w-5",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </div>
-          </Combobox.Button>
-          {enableClear && selectedValue ? (
-            <button
-              type="button"
-              className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
-              onClick={(e) => {
-                e.preventDefault();
-                handleReset();
-              }}
-            >
-              <XCircleIcon
-                className={tremorTwMerge(
-                  makeSelectClassName("clearIcon"),
-                  // common
-                  "flex-none h-4 w-4",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                )}
-              />
-            </button>
-          ) : null}
-          {filteredOptions.length > 0 && (
-            <Transition
-              className="absolute z-10 w-full"
-              enter="transition ease duration-100 transform"
-              enterFrom="opacity-0 -translate-y-4"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease duration-100 transform"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 -translate-y-4"
-            >
+              </button>
+            ) : null}
+            {filteredOptions.length > 0 && (
+              <Transition
+                className="absolute z-10 w-full"
+                enter="transition ease duration-100 transform"
+                enterFrom="opacity-0 -translate-y-4"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease duration-100 transform"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 -translate-y-4"
+              >
                 <Combobox.Options
                   className={tremorTwMerge(
                     // common
