@@ -49,7 +49,7 @@ export const UncontrolledDefaultValue: Story = {
   },
 };
 
-export const UncontrolledIcon: Story = {
+export const Icon: Story = {
   render: SimpleSelect,
   args: {
     defaultValue: "5",
