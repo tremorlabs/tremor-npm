@@ -34,7 +34,7 @@ export const SimpleMultiSelectForm = (args: any) => {
         <TextInput name="path" id="path" defaultValue="/story/ui-input-multiselect--form" />
       </label>
       <label htmlFor="multi-select-test">Label</label>
-      <MultiSelect {...args} name="MultiSelect" id="multi-select-test" required>
+      <MultiSelect {...args} name="MultiSelect" id="multi-select-test">
         <MultiSelectItem value={"5"}>Five</MultiSelectItem>
         <MultiSelectItem value={"3"}>Three</MultiSelectItem>
         <MultiSelectItem value={"1"}>One</MultiSelectItem>

@@ -82,12 +82,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
       <select
         title="search-select-hidden"
         required={required}
-        className={tremorTwMerge(
-          // common
-          "h-full w-full",
-          className,
-          "absolute left-0 top-0 z-0 opacity-0",
-        )}
+        className={tremorTwMerge("h-full w-full", "absolute left-0 top-0 z-0 opacity-0")}
         value={selectedValue}
         onChange={(e) => {
           e.preventDefault();
@@ -96,8 +91,8 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
         disabled={disabled}
         id={id}
         onFocus={() => {
-          const listboxButton = comboboxButtonRef.current;
-          if (listboxButton) listboxButton.click();
+          const comboboxButton = comboboxButtonRef.current;
+          if (comboboxButton) comboboxButton.click();
         }}
       >
         <option className="hidden" value="" disabled hidden>

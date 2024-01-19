@@ -69,12 +69,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
       <select
         title="select-hidden"
         required={required}
-        className={tremorTwMerge(
-          // common
-          "h-full w-full",
-          className,
-          "absolute left-0 top-0 z-0 opacity-0",
-        )}
+        className={tremorTwMerge("h-full w-full", "absolute left-0 top-0 z-0 opacity-0")}
         value={selectedValue}
         onChange={(e) => {
           e.preventDefault();
@@ -84,7 +79,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
         id={id}
         onFocus={() => {
           const listboxButton = listboxButtonRef.current;
-          if (listboxButton) listboxButton.click();
+          if (listboxButton) listboxButton.focus();
         }}
       >
         <option className="hidden" value="" disabled hidden>

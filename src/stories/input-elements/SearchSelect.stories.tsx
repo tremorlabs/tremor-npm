@@ -80,4 +80,7 @@ export const Controlled: Story = {
 
 export const Form: Story = {
   render: SimpleSearchSelectForm,
+  args: {
+    required: true,
+  },
 };

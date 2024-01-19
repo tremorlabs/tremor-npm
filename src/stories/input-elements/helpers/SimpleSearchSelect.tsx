@@ -39,7 +39,7 @@ export const SimpleSearchSelectForm = (args: any) => {
         <TextInput name="path" id="path" defaultValue="/story/ui-input-searchselect--form" />
       </label>
       <label htmlFor="search-select-test">Label</label>
-      <SearchSelect {...args} id="search-select-test" name="Searchselect" required>
+      <SearchSelect {...args} id="search-select-test" name="Searchselect">
         <SearchSelectItem value={"5"}>Five</SearchSelectItem>
         <SearchSelectItem value={"3"}>Three</SearchSelectItem>
         <SearchSelectItem value={"1"}>One</SearchSelectItem>

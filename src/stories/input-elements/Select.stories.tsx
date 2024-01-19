@@ -79,4 +79,7 @@ export const Error: Story = {
 
 export const Form: Story = {
   render: SimpleSelectForm,
+  args: {
+    required: true,
+  },
 };

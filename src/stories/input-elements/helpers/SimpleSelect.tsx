@@ -90,7 +90,7 @@ export const SimpleSelectForm = (args: any) => {
         <TextInput name="path" id="path" defaultValue="/story/ui-input-select--form" />
       </label>
       <label htmlFor="select-test">Label</label>
-      <Select {...args} name="select" id="select-test" required>
+      <Select {...args} name="select" id="select-test">
         <SelectItem value={"5"}>Five</SelectItem>
         <SelectItem value={"3"}>Three</SelectItem>
         <SelectItem value={"1"}>One</SelectItem>
