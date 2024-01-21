@@ -17,7 +17,7 @@ export const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
       )}
       {...other}
     >
-      <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="xs" />
+      <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="sm" />
     </button>
   );
 };

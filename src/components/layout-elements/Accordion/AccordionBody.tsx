@@ -1,9 +1,7 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React from "react";
-
 import { Disclosure } from "@headlessui/react";
-import { makeClassName, spacing } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeAccordionBodyClassName = makeClassName("AccordionBody");
 
@@ -16,13 +14,11 @@ const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
         className={tremorTwMerge(
           makeAccordionBodyClassName("root"),
           // common
-          "w-full text-tremor-default",
+          "w-full text-tremor-default px-4 pb-3",
           // light
           "text-tremor-content",
           // dark
           "dark:text-dark-tremor-content",
-          spacing.twoXl.paddingX,
-          spacing.lg.paddingBottom,
           className,
         )}
         {...other}

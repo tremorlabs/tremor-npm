@@ -1,14 +1,19 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import {
-  colorPalette,
-  getColorClassNames,
-  tremorTwMerge,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+// <<<<<<< HEAD
+// import {
+//   colorPalette,
+//   getColorClassNames,
+//   tremorTwMerge,
+//   makeClassName,
+//   sizing,
+//   spacing,
+// } from "lib";
+// import React, { ReactElement, cloneElement, isValidElement, useContext } from "react";
+// =======
+import { colorPalette, getColorClassNames, tremorTwMerge, makeClassName } from "lib";
 import React, { ReactElement, cloneElement, isValidElement, useContext } from "react";
+// >>>>>>> main
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
 import { BaseColorContext } from "contexts";
@@ -21,7 +26,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
     case "line":
       return tremorTwMerge(
         // common
-        "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100",
+        "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100 -mb-px px-2 py-2",
         // light
         "hover:border-tremor-content hover:text-tremor-content-emphasis text-tremor-content",
         // dark
@@ -30,14 +35,11 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         color
           ? getColorClassNames(color, colorPalette.border).selectBorderColor
           : "ui-selected:border-tremor-brand dark:ui-selected:border-dark-tremor-brand",
-        spacing.px.negativeMarginBottom,
-        spacing.sm.paddingX,
-        spacing.sm.paddingY,
       );
     case "solid":
       return tremorTwMerge(
         // common
-        "border-transparent border rounded-tremor-small",
+        "border-transparent border rounded-tremor-small px-2.5 py-1",
         // light
         "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input hover:text-tremor-content-emphasis ui-selected:text-tremor-brand",
         // dark
@@ -46,8 +48,6 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
           : "text-tremor-content dark:text-dark-tremor-content",
-        spacing.md.paddingX,
-        spacing.twoXs.paddingY,
       );
   }
 }
@@ -67,10 +67,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       Icon = cloneElement(icon as ReactElement, {
         className: tremorTwMerge(
           makeTabClassName("icon"),
-          "flex-none",
-          sizing.lg.height,
-          sizing.lg.width,
-          children ? spacing.sm.marginRight : "",
+          "flex-none h-5 w-5",
+          children ? "mr-2" : "",
         ),
       });
     } else {
@@ -79,10 +77,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         <IconElm
           className={tremorTwMerge(
             makeTabClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            children ? spacing.sm.marginRight : "",
+            "flex-none h-5 w-5",
+            children ? "mr-2" : "",
           )}
         />
       );

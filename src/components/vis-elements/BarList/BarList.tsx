@@ -1,15 +1,13 @@
+import React, { cloneElement, isValidElement } from "react";
 import {
   Color,
   defaultValueFormatter,
   getColorClassNames,
   makeClassName,
-  sizing,
-  spacing,
   tremorTwMerge,
   ValueFormatter,
 } from "lib";
 import { colorPalette } from "lib/theme";
-import React, { cloneElement, isValidElement } from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -54,15 +52,14 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
 
   const widths = getWidthsFromValues(data.map((item) => item.value));
 
-  const rowHeight = sizing.threeXl.height;
+  const rowHeight = "h-9";
 
   return (
     <div
       ref={ref}
       className={tremorTwMerge(
         makeBarListClassName("root"),
-        "flex justify-between",
-        spacing.threeXl.spaceX,
+        "flex justify-between space-x-6",
         className,
       )}
       {...other}
@@ -76,14 +73,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 className: tremorTwMerge(
                   makeBarListClassName("barIcon"),
                   // common
-                  "flex-none",
+                  "flex-none h-5 w-5 mr-2",
                   // light
                   "text-tremor-content",
                   // dark
                   "dark:text-dark-tremor-content",
-                  sizing.lg.height,
-                  sizing.lg.width,
-                  spacing.md.marginRight,
                 ),
               });
             } else {
@@ -93,14 +87,11 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   className={tremorTwMerge(
                     makeBarListClassName("barIcon"),
                     // common
-                    "flex-none",
+                    "flex-none h-5 w-5 mr-2",
                     // light
                     "text-tremor-content",
                     // dark
                     "dark:text-dark-tremor-content",
-                    sizing.lg.height,
-                    sizing.lg.width,
-                    spacing.md.marginRight,
                   )}
                 />
               );
@@ -119,14 +110,14 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   ? getColorClassNames(item.color ?? (color as Color), colorPalette.background)
                       .bgColor
                   : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle dark:bg-opacity-30",
-                idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
+                idx === data.length - 1 ? "mb-0" : "mb-2",
               )}
               style={{
                 width: `${widths[idx]}%`,
                 transition: showAnimation ? "all 1s" : "",
               }}
             >
-              <div className={tremorTwMerge("absolute max-w-full flex", spacing.sm.left)}>
+              <div className={tremorTwMerge("absolute max-w-full flex left-2")}>
                 {Icon}
                 {item.href ? (
                   <a
@@ -173,7 +164,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
               makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",
               rowHeight,
-              idx === data.length - 1 ? spacing.none.marginBottom : spacing.sm.marginBottom,
+              idx === data.length - 1 ? "mb-0" : "mb-2",
             )}
           >
             <p

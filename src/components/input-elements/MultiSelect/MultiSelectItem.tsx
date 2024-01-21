@@ -1,10 +1,7 @@
 "use client";
 import { SelectedValueContext } from "contexts";
-import { tremorTwMerge } from "lib";
 import React, { useContext } from "react";
-
-import { isValueInArray, makeClassName, spacing } from "lib";
-
+import { isValueInArray, makeClassName, tremorTwMerge } from "lib";
 import { Listbox } from "@headlessui/react";
 
 const makeMultiSelectItemClassName = makeClassName("MultiSelectItem");
@@ -24,14 +21,12 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
       className={tremorTwMerge(
         makeMultiSelectItemClassName("root"),
         // common
-        "flex justify-start items-center cursor-default text-tremor-default",
+        "flex justify-start items-center cursor-default text-tremor-default p-2.5",
         // light
         // "ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted text-tremor-content-emphasis",
         "ui-active:bg-tremor-background-muted ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong text-tremor-content-emphasis",
         // dark
         "dark:ui-active:bg-dark-tremor-background-muted dark:ui-active:text-dark-tremor-content-strong dark:ui-selected:text-dark-tremor-content-strong dark:ui-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
-        spacing.md.paddingX,
-        spacing.md.paddingY,
         className,
       )}
       ref={ref}
@@ -44,12 +39,11 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
         className={tremorTwMerge(
           makeMultiSelectItemClassName("checkbox"),
           // common
-          "flex-none focus:ring-none focus:outline-none cursor-pointer",
+          "flex-none focus:ring-none focus:outline-none cursor-pointer mr-2.5",
           // light
           "accent-tremor-brand",
           // dark
           "dark:accent-dark-tremor-brand",
-          spacing.md.marginRight,
         )}
         checked={isSelected}
         readOnly={true}

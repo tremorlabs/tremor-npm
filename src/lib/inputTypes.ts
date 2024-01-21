@@ -58,6 +58,7 @@ const colorValues = [
 ] as const;
 
 export type Color = (typeof colorValues)[number];
+export type CustomColor = Color | string;
 export const getIsBaseColor = (color: Color | string) => colorValues.includes(color as Color);
 
 const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
