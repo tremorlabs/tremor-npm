@@ -314,3 +314,10 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
+
+export const tickGap: Story = {
+  args: {
+    data: longBaseChartData,
+    tickGap: 200,
+  },
+};
