@@ -1,2 +1,2 @@
 export type { EventProps } from "./BaseChartProps";
-export type { CustomTooltipType } from "./CustomTooltipProps";
+export type { CustomTooltipProps } from "./CustomTooltipProps";

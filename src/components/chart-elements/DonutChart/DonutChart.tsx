@@ -16,7 +16,7 @@ import { DonutChartTooltip } from "./DonutChartTooltip";
 import { parseData, parseLabelInput } from "./inputParser";
 
 import type { EventProps } from "components/chart-elements/common";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
@@ -35,7 +35,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   noDataText?: string;
   className?: string;
   onValueChange?: (value: EventProps) => void;
-  customTooltip?: React.ComponentType<CustomTooltipType>;
+  customTooltip?: React.ComponentType<CustomTooltipProps>;
 }
 
 const renderInactiveShape = (props: any) => {
