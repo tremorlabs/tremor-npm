@@ -4,6 +4,7 @@ import { MultiSelect } from "components";
 import {
   SimpleMultiSelect,
   SimpleMultiSelectControlled,
+  SimpleMultiSelectForm,
   SimpleMultiSelectWithStaticAndDynamicChildren,
 } from "./helpers/SimpleMultiSelect";
 
@@ -49,4 +50,19 @@ export const UncontrolledDisabled: Story = {
 export const Controlled: Story = {
   render: SimpleMultiSelectControlled,
   args: {},
+};
+
+export const Error: Story = {
+  render: SimpleMultiSelect,
+  args: {
+    error: true,
+    errorMessage: "Error message",
+  },
+};
+
+export const Form: Story = {
+  render: SimpleMultiSelectForm,
+  args: {
+    required: true,
+  },
 };

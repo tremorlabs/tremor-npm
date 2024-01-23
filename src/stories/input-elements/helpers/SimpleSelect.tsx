@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CalendarIcon } from "assets";
-import { Button, Select, SelectItem } from "components";
+import { Button, Select, SelectItem, TextInput } from "components";
 
 export const SimpleSelect = (args: any) => (
   <Select {...args}>
@@ -77,3 +77,26 @@ export function SimpleSelectControlled() {
     </div>
   );
 }
+
+export const SimpleSelectForm = (args: any) => {
+  return (
+    <form
+      className="flex flex-col gap-3 items-start max-w-md"
+      method="GET"
+      action="http://localhost:6006/"
+    >
+      <label htmlFor="path" className="w-full">
+        <p>Redirect path</p>
+        <TextInput name="path" id="path" defaultValue="/story/ui-input-select--form" />
+      </label>
+      <label htmlFor="select-test">Label</label>
+      <Select {...args} name="select" id="select-test">
+        <SelectItem value={"5"}>Five</SelectItem>
+        <SelectItem value={"3"}>Three</SelectItem>
+        <SelectItem value={"1"}>One</SelectItem>
+      </Select>
+      <Button type="submit">Submit</Button>
+      <p>You will find your selected value in the URL params after submiting the form</p>
+    </form>
+  );
+};

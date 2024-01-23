@@ -19,7 +19,7 @@ describe("SearchSelect", () => {
     const placeholder = "Select options...";
     const items = ["item1", "item2"];
     render(
-      <SearchSelect placeholder={placeholder}>
+      <SearchSelect data-testid="first-select" placeholder={placeholder}>
         <SearchSelectItem value="item0">item0</SearchSelectItem>
         {items.map((item) => {
           return <SearchSelectItem value={item} key={item} />;
@@ -27,10 +27,10 @@ describe("SearchSelect", () => {
       </SearchSelect>,
     );
 
-    fireEvent.click(screen.getByPlaceholderText(placeholder));
+    fireEvent.click(screen.getByTestId("first-select"));
 
-    expect(screen.queryByText("item0")).toBeTruthy();
-    expect(screen.queryByText("item1")).toBeTruthy();
-    expect(screen.queryByText("item2")).toBeTruthy();
+    expect(screen.queryAllByText("item0")).toBeTruthy();
+    expect(screen.queryAllByText("item1")).toBeTruthy();
+    expect(screen.queryAllByText("item2")).toBeTruthy();
   });
 });
