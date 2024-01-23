@@ -34,7 +34,6 @@ export function SimpleSelectControlled() {
 
   const handleValueChange = (newValue: string) => {
     setValue(newValue);
-    alert(newValue);
   };
 
   const handleReset = () => {
@@ -47,7 +46,7 @@ export function SimpleSelectControlled() {
 
   return (
     <div className="space-y-4">
-      <Select value={value} onValueChange={handleValueChange}>
+      <Select enableClear={true} value={value} onValueChange={handleValueChange}>
         <SelectItem value="1">One</SelectItem>
         <SelectItem value="2">Two</SelectItem>
         <SelectItem value="3">Three</SelectItem>
@@ -90,7 +89,7 @@ export const SimpleSelectForm = (args: any) => {
         <TextInput name="path" id="path" defaultValue="/story/ui-input-select--form" />
       </label>
       <label htmlFor="select-test">Label</label>
-      <Select {...args} name="select" id="select-test">
+      <Select enableClear={true} {...args} name="select" id="select-test">
         <SelectItem value={"5"}>Five</SelectItem>
         <SelectItem value={"3"}>Three</SelectItem>
         <SelectItem value={"1"}>One</SelectItem>

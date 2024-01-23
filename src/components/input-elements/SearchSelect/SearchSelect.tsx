@@ -38,7 +38,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
     placeholder = "Select...",
     disabled = false,
     icon,
-    enableClear = true,
+    enableClear = false,
     name,
     required,
     error = false,

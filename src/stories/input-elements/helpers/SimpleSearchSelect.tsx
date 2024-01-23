@@ -50,18 +50,24 @@ export const SimpleSearchSelectForm = (args: any) => {
   );
 };
 
-export const SimpleSearchSelectControlled = (args: any) => {
-  const [value, setValue] = React.useState<string>("5");
+export function SimpleSearchSelectControlled() {
+  const [value, setValue] = React.useState("5");
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+  };
+
+  const handleReset = () => {
+    setValue("");
+  };
+
+  const handleSetToOne = () => {
+    setValue("1");
+  };
+
   return (
     <div className="space-y-4">
-      <SearchSelect
-        value={value}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(value);
-        }}
-        {...args}
-      >
+      <SearchSelect value={value} onValueChange={handleValueChange}>
         <SearchSelectItem value="1">One</SearchSelectItem>
         <SearchSelectItem value="2">Two</SearchSelectItem>
         <SearchSelectItem value="3">Three</SearchSelectItem>
@@ -73,14 +79,7 @@ export const SimpleSearchSelectControlled = (args: any) => {
         <SearchSelectItem value="9">Nine</SearchSelectItem>
         <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
-      <SearchSelect
-        value={value}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(value);
-        }}
-        {...args}
-      >
+      <SearchSelect enableClear={false} value={value} onValueChange={handleValueChange}>
         <SearchSelectItem value="1">One</SearchSelectItem>
         <SearchSelectItem value="2">Two</SearchSelectItem>
         <SearchSelectItem value="3">Three</SearchSelectItem>
@@ -92,9 +91,9 @@ export const SimpleSearchSelectControlled = (args: any) => {
         <SearchSelectItem value="9">Nine</SearchSelectItem>
         <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
-      <Button onClick={() => setValue("")}>Reset</Button>
-      <Button onClick={() => setValue("1")}>One</Button>
+      <Button onClick={handleReset}>Reset</Button>
+      <Button onClick={handleSetToOne}>Set to One</Button>
       <p>value: {value}</p>
     </div>
   );
-};
+}
