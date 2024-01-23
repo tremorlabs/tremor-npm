@@ -29,7 +29,7 @@
     "@headlessui/tailwindcss": "^0.2.0",
     "date-fns": "^2.30.0",
     "react-day-picker": "^8.9.1",
-    "react-transition-group": "^4.4.5",
+    "react-transition-state": "^2.1.1",
     "recharts": "^2.10.3",
     "tailwind-merge": "^1.14.0"
   },
@@ -64,7 +64,6 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^20.10.2",
     "@types/react": "^18.2.41",
-    "@types/react-transition-group": "^4.4.9",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "autoprefixer": "^10.4.16",

@@ -26,7 +26,7 @@ import {
   getYAxisDomain,
 } from "../common/utils";
 
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import {
   BaseColors,
   colorPalette,
@@ -73,7 +73,7 @@ export interface ScatterChartProps
   noDataText?: string;
   enableLegendSlider?: boolean;
   onValueChange?: (value: EventProps) => void;
-  customTooltip?: React.ComponentType<CustomTooltipType>;
+  customTooltip?: React.ComponentType<CustomTooltipProps>;
   rotateLabelX?: {
     angle: number;
     verticalShift: number;
