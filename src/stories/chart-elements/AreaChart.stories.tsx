@@ -355,36 +355,9 @@ export const CustomTooltipComplex: Story = {
   },
 };
 
-// keep because of if statement
-// const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
-//   if (args.onValueChange?.length === 0) {
-//     args.onValueChange = undefined;
-//   }
-
-//   return (
-//     <>
-//       <Title>Desktop</Title>
-//       <Card>
-//         <AreaChart {...args} yAxisWidth={60} />
-//       </Card>
-//       <Title className="mt-5">Mobile</Title>
-//       <div className="w-64">
-//         <Card>
-//           <AreaChart {...args} yAxisWidth={60} />
-//         </Card>
-//       </div>
-//     </>
-//   );
-// };
-
-// const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
-//   if (args.onValueChange?.length === 0) {
-//     args.onValueChange = undefined;
-//   }
-
-//   return (
-//     <Card>
-//       <AreaChart {...args} yAxisWidth={60} />
-//     </Card>
-//   );
-//
+export const tickGap: Story = {
+  args: {
+    data: longBaseChartData,
+    tickGap: 200,
+  },
+};

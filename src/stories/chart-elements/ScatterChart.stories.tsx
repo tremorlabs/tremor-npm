@@ -184,3 +184,9 @@ export const CustomTooltip: Story = {
     },
   },
 };
+
+export const tickGap: Story = {
+  args: {
+    tickGap: 500,
+  },
+};
