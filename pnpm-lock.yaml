@@ -110,8 +110,8 @@ devDependencies:
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.4.1)
   '@testing-library/react':
-    specifier: ^13.4.0
-    version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^14.1.2
+    version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
   '@types/jest':
     specifier: ^27.5.2
     version: 27.5.2
@@ -4515,20 +4515,6 @@ packages:
     resolution: {integrity: sha512-SYXOBTjJb05rXa2vl55TTwO40A6wKu0R5i1qQwhJYNDIqaIGF7D0HsLw+pJAyi2OvntlEIVusx3xtbbgSUi6zg==}
     dev: false
 
-  /@testing-library/dom@8.20.0:
-    resolution: {integrity: sha512-d9ULIT+a4EXLX3UU8FBjauG9NnsZHkHztXoIcTsOKoOw030fyjheN9svkTULjJxtYag9DZz5Jz5qkWZDPxTFwA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@babel/code-frame': 7.23.5
-      '@babel/runtime': 7.22.5
-      '@types/aria-query': 5.0.1
-      aria-query: 5.2.1
-      chalk: 4.1.2
-      dom-accessibility-api: 0.5.16
-      lz-string: 1.5.0
-      pretty-format: 27.5.1
-    dev: true
-
   /@testing-library/dom@9.3.3:
     resolution: {integrity: sha512-fB0R+fa3AUqbLHWyxXa2kGVtf1Fe1ZZFr0Zp6AIbIAzXb2mKbEXl+PCQNUOaq5lbTab5tfctfXRNsWXxa2f7Aw==}
     engines: {node: '>=14'}
@@ -4543,15 +4529,15 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/react@13.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-sXOGON+WNTh3MLE9rve97ftaZukN3oNf2KjDy7YTx6hcTO2uuLHuCGynMDhFwGw/jYf4OJ2Qk0i4i79qMNNkyw==}
-    engines: {node: '>=12'}
+  /@testing-library/react@14.1.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-z4p7DVBTPjKM5qDZ0t5ZjzkpSNb+fZy1u6bzO7kk8oeGagpPCAtgh4cx1syrfp7a+QWkM021jGqjJaxJJnXAZg==}
+    engines: {node: '>=14'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
       '@babel/runtime': 7.22.5
-      '@testing-library/dom': 8.20.0
+      '@testing-library/dom': 9.3.3
       '@types/react-dom': 18.2.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -5480,12 +5466,6 @@ packages:
     resolution: {integrity: sha512-R5iJ5lkuHybztUfuOAznmboyjWq8O6sqNqtK7CLOqdydi54VNbORp49mb14KbWgG1QD3JFO9hJdZ+y4KutfdOQ==}
     dependencies:
       deep-equal: 2.2.2
-    dev: true
-
-  /aria-query@5.2.1:
-    resolution: {integrity: sha512-7uFg4b+lETFgdaJyETnILsXgnnzVnkHcgRbwbPwevm5x/LmUlt3MjczMRe1zg824iBgXZNRPTBftNYyRSKLp2g==}
-    dependencies:
-      dequal: 2.0.3
     dev: true
 
   /array-buffer-byte-length@1.0.0:
