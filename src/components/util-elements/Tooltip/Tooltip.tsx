@@ -87,7 +87,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
         // light
         "text-white bg-tremor-background-emphasis",
         // dark
-        "text-white dark:bg-dark-tremor-background-subtle",
+        "text-white dark:bg-dark-tremor-background-subtle whitespace-nowrap",
       )}
       ref={refs.setFloating}
       style={{
