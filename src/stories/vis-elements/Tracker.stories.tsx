@@ -118,7 +118,7 @@ export const Default: Story = {};
 export const MaxWidthMd: Story = {
   render: () => (
     <Card className="max-w-md">
-      <Tracker data={data.slice(60, 90)} className="mt-3" />
+      <Tracker data={data.slice(60, 90)} />
     </Card>
   ),
 };
@@ -126,7 +126,7 @@ export const MaxWidthMd: Story = {
 export const MaxWidthXs: Story = {
   render: () => (
     <Card className="max-w-xs">
-      <Tracker data={data.slice(60, 90)} className="mt-3" />
+      <Tracker data={data.slice(60, 90)} />
     </Card>
   ),
 };
