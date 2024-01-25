@@ -34,7 +34,7 @@ export const Default: Story = {
     args: {},
 };
 
-export const WithVariantCenter: Story = {
+export const VariantCenter: Story = {
     args: {
         variant: "center",
     },
@@ -91,7 +91,6 @@ export const WithValueFormatter: Story = {
 export const CalculateFromPreviousValue: Story = {
     args: {
         calculateFrom: "previous",
-        className: 'h-[600px]'
     },
 };
 

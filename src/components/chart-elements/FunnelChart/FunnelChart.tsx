@@ -274,7 +274,10 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
                         </div>
                         {showName ? (
                             <div
-                                className='h-7 truncate px-2'
+                                className={tremorTwMerge(
+                                    "h-7 truncate px-2 text-center",
+                                    "text-tremor-content dark:text-dark-tremor-content"
+                                )}
                             >
                                 {bar.name}
                             </div>
