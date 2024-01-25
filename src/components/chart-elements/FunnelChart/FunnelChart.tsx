@@ -16,7 +16,7 @@ import {
     tremorTwMerge,
     //   tremortremorTwMerge,
 } from "lib";
-import { Color, CurveType, FunnelValuePositionType, FunnelVariantType } from "../../../lib/inputTypes";
+import { Color, CurveType, FunnelValuePositionType, FunnelVariantType, ValueFormatter } from "../../../lib/inputTypes";
 
 const geValuePositionClassnames = (position: FunnelValuePositionType) => {
     switch (position) {
@@ -56,6 +56,30 @@ const geValuePositionStyle = (val: number) => {
     }
 }
 
+type CalculateFrom = "first" | "previous";
+
+// const percentage = (bar.value / maxValue) * 100;
+// const topBottomPercentage = (100 - percentage) / (variant === "center" ? 2 : 1);
+
+
+const getBarHeightPercentage = (bar: DataT, comparedValue: number) => {
+    const percentage = bar.value / comparedValue * 100;
+
+    return percentage;
+}
+
+
+type FormattedData = DataT & {
+    percentage: number;
+    prevValue?: number;
+    prevPercentage?: number;
+    prevTopBottomPercentage?: number;
+    topBottomPercentage?: number;
+    prevEmptySpace?: number;
+    emptySpace?: number;
+
+}
+
 type DataT = {
     value: number;
     name: string;
@@ -71,6 +95,8 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     showGradient?: boolean;
     color?: Color;
     // color?: Color | string;
+    valueFormatter?: ValueFormatter;
+    calculateFrom?: CalculateFrom;
 }
 
 const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, ref) => {
@@ -83,11 +109,45 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
         showPercentage = true,
         showGradient = true,
         color,
+        valueFormatter = defaultValueFormatter,
+        calculateFrom = "first",
         className,
         ...other
     } = props;
 
-    const maxValue = Math.max(...data.map((data) => data.value))
+    const maxValue = React.useMemo(() => {
+        return Math.max(...data.map((e) => e.value));
+    }, [data])
+
+    const formattedData = React.useMemo(() => {
+        return data.reduce((acc: FormattedData[], curr, index) => {
+            const prev = acc[index - 1];
+            const prevEmptySpace = prev ? prev.emptySpace : undefined;
+            const prevValue = prev ? prev.value : undefined;
+            const prevPercentage = prev ? prev.percentage : undefined;
+
+            const percentage = getBarHeightPercentage(curr, (calculateFrom === "previous" ? (prevValue ?? curr.value) : maxValue));
+
+            const prevTopBottomPercentage = prev ? prev.topBottomPercentage : undefined;
+            const topBottomPercentage = (100 - percentage) / (variant === "center" ? 2 : 1);
+
+            const emptySpace = 100 - ((100 - (prevEmptySpace ?? 0)) * (prevPercentage ?? 100) / 100);
+
+            return [
+                ...acc,
+                {
+                    ...curr,
+                    percentage,
+                    prevValue,
+                    prevPercentage,
+                    prevTopBottomPercentage,
+                    topBottomPercentage,
+                    prevEmptySpace,
+                    emptySpace,
+                }
+            ]
+        }, [])
+    }, [data, maxValue])
 
     return (
         <div
@@ -98,9 +158,11 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
             )}
             {...other}
         >
-            {data.map((bar) => {
-                const percentage = (bar.value / maxValue) * 100;
-                const topBottomPercentage = (100 - percentage) / (variant === "center" ? 2 : 1);
+            {formattedData.map((bar) => {
+                const percentage = bar.percentage;
+                const topBottomPercentage = bar.topBottomPercentage ?? 0;
+
+                const emptySpace = variant === "center" ? (bar.emptySpace ?? 0) / 2 : bar.emptySpace;
 
                 return (
                     <div
@@ -115,40 +177,22 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
                                 showName ? "h-[calc(100%-28px)]" : "h-full",
                             )}
                         >
+                            {calculateFrom === "previous" ? (
+                                <div
+                                    style={{ height: `${emptySpace}%` }}
+                                />
+                            ) : null}
                             <div
-                                className={tremorTwMerge(
-                                    "relative w-full",
-                                    showGradient ? (
-                                        tremorTwMerge(
-                                            "bg-gradient-to-b",
-                                            color ? (
-                                                getColorClassNames(color, colorPalette.lightBackground).fromColor
-                                            ) : (
-                                                " from-tremor-brand-muted dark:from-dark-tremor-brand-faint"
-                                            ),
-                                            "to-transparent"
-                                        )
-                                    ) : "",
-                                    "transition-all duration-500 ease-in-out"
-                                )}
-                                style={{ height: `${topBottomPercentage}%` }}
-                            />
-                            <div
-                                className={tremorTwMerge(
-                                    // "absolute bottom-0 left-0 right-0",
-                                    // "bg-blue-500",
-                                    "transition-all duration-500 ease-in-out",
-                                    color ? getColorClassNames(color, colorPalette.background).bgColor : "bg-tremor-brand dark:bg-dark-tremor-brand"
-                                )}
-                                style={{ height: `${percentage}%` }}
-                            ></div>
-                            {variant === "center" ? (
+                                className="w-full"
+                                style={{ height: `${calculateFrom === "previous" ? 100 - (bar.emptySpace ?? 0) : 100}%` }}
+                            >
+
                                 <div
                                     className={tremorTwMerge(
                                         "relative w-full",
                                         showGradient ? (
                                             tremorTwMerge(
-                                                "bg-gradient-to-t",
+                                                "bg-gradient-to-b",
                                                 color ? (
                                                     getColorClassNames(color, colorPalette.lightBackground).fromColor
                                                 ) : (
@@ -161,42 +205,72 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
                                     )}
                                     style={{ height: `${topBottomPercentage}%` }}
                                 />
-                            ) : null}
-                            {showValue ? (
                                 <div
                                     className={tremorTwMerge(
-                                        "absolute left-1/2 transform -translate-x-1/2",
-                                        "flex justify-center items-center",
-                                        "bg-tremor-background dark:bg-dark-tremor-background text-2xl font-semibold border border-tremor-border dark:border-dark-tremor-border",
-                                        "w-[80%] truncate p-1",
-                                        "flex flex-col gap-1",
-                                        "rounded-md text-sm",
-                                        "shadow-md",
                                         "transition-all duration-500 ease-in-out",
-                                        valuePosition === "auto" ? "" : geValuePositionClassnames(valuePosition),
+                                        color ? getColorClassNames(color, colorPalette.background).bgColor : "bg-tremor-brand dark:bg-dark-tremor-brand"
                                     )}
-                                    // style={valuePosition === "auto" ?  {
-                                    //     top: `${topBottomPercentage > 5 ? (topBottomPercentage < 85 ? topBottomPercentage : 85) : 5}%`, 
-                                    //     transform:  topBottomPercentage > 5 ? `translateY(-50%) translateX(-50%)` : `translateX(-50%)`
-                                    // } : {}}
-                                    style={valuePosition === "auto" ? geValuePositionStyle(topBottomPercentage) : {}}
-                                >
-                                    <span>
-                                        {bar.value}
-                                    </span>
-                                    {showPercentage ? (
-                                        <span
-                                            className={tremorTwMerge(
-                                                "text-xs font-normal px-2 py-0.5 rounded-tremor-small",
-                                                color ? getColorClassNames(color, colorPalette.lightBackground).bgColor : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint",
-                                                color ? getColorClassNames(color, colorPalette.background).textColor : "text-tremor-brand dark:text-dark-tremor-brand"
-                                            )}
-                                        >
-                                            {`${percentage.toFixed(0)}%`}
-                                        </span>
+                                    style={{ height: `${percentage}%` }}
+                                ></div>
+                                {variant === "center" ? (
+                                    <>
+                                    <div
+                                        className={tremorTwMerge(
+                                            "relative w-full",
+                                            showGradient ? (
+                                                tremorTwMerge(
+                                                    "bg-gradient-to-t",
+                                                    color ? (
+                                                        getColorClassNames(color, colorPalette.lightBackground).fromColor
+                                                    ) : (
+                                                        " from-tremor-brand-muted dark:from-dark-tremor-brand-faint"
+                                                    ),
+                                                    "to-transparent"
+                                                )
+                                            ) : "",
+                                            "transition-all duration-500 ease-in-out"
+                                        )}
+                                        style={{ height: `${topBottomPercentage}%` }}
+                                    />
+                                    {calculateFrom === "previous" ? (
+                                        <div
+                                            style={{ height: `${emptySpace}%` }}
+                                        />
                                     ) : null}
-                                </div>
-                            ) : null}
+                                    </>
+                                ) : null}
+                                {showValue ? (
+                                    <div
+                                        className={tremorTwMerge(
+                                            "absolute left-1/2 transform -translate-x-1/2",
+                                            "flex justify-center items-center",
+                                            "bg-tremor-background dark:bg-dark-tremor-background text-2xl font-semibold border border-tremor-border dark:border-dark-tremor-border",
+                                            "w-[80%] truncate p-1",
+                                            "flex flex-col gap-1",
+                                            "rounded-md text-sm",
+                                            "shadow-md",
+                                            "transition-all duration-500 ease-in-out",
+                                            valuePosition === "auto" ? "" : geValuePositionClassnames(valuePosition),
+                                        )}
+                                        style={valuePosition === "auto" ? geValuePositionStyle(emptySpace ? (emptySpace + ((100 - emptySpace) * topBottomPercentage) / 100 ) : topBottomPercentage) : {}}
+                                    >
+                                        <span>
+                                            {valueFormatter(bar.value)}
+                                        </span>
+                                        {showPercentage ? (
+                                            <span
+                                                className={tremorTwMerge(
+                                                    "text-xs font-normal px-2 py-0.5 rounded-tremor-small",
+                                                    color ? getColorClassNames(color, colorPalette.lightBackground).bgColor : "bg-tremor-brand-faint dark:bg-dark-tremor-brand-faint",
+                                                    color ? getColorClassNames(color, colorPalette.background).textColor : "text-tremor-brand dark:text-dark-tremor-brand"
+                                                )}
+                                            >
+                                                {`${percentage.toFixed(0)}%`}
+                                            </span>
+                                        ) : null}
+                                    </div>
+                                ) : null}
+                            </div>
                         </div>
                         {showName ? (
                             <div

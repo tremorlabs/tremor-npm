@@ -81,3 +81,23 @@ export const CustomColor: Story = {
 //         color: "orange-100"
 //     },
 // };
+
+export const WithValueFormatter: Story = {
+    args: {
+        valueFormatter: (e) => `${e} users`
+    },
+};
+
+export const CalculateFromPreviousValue: Story = {
+    args: {
+        calculateFrom: "previous",
+        className: 'h-[600px]'
+    },
+};
+
+export const CalculateFromPreviousValueAndCenter: Story = {
+    args: {
+        calculateFrom: "previous",
+        variant: "center",
+    },
+};
