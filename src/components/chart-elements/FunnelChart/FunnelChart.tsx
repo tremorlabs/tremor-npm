@@ -243,12 +243,11 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props, r
                                     <div
                                         className={tremorTwMerge(
                                             "absolute left-1/2 transform -translate-x-1/2",
-                                            "flex justify-center items-center",
+                                            "flex flex-col gap-1 justify-center items-center",
                                             "bg-tremor-background dark:bg-dark-tremor-background text-2xl font-semibold border border-tremor-border dark:border-dark-tremor-border",
                                             "w-[80%] truncate p-1",
-                                            "flex flex-col gap-1",
-                                            "rounded-md text-sm",
-                                            "shadow-md",
+                                            "rounded-tremor-default text-sm",
+                                            "shadow-tremor-card dark:shadow-tremor-card",
                                             "transition-all duration-500 ease-in-out",
                                             valuePosition === "auto" ? "" : geValuePositionClassnames(valuePosition),
                                         )}
