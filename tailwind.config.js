@@ -56,7 +56,7 @@ module.exports = {
             emphasis: colors.gray[300],
           },
           border: {
-            DEFAULT: colors.gray[700],
+            DEFAULT: colors.gray[800],
           },
           ring: {
             DEFAULT: colors.gray[800],

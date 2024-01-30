@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CalendarIcon } from "assets";
-import { Button, SearchSelect, SearchSelectItem } from "components";
+import { Button, SearchSelect, SearchSelectItem, TextInput } from "components";
 
 export const SimpleSearchSelect = (args: any) => (
   <SearchSelect {...args}>
@@ -27,18 +27,47 @@ export const SimpleSearchSelectWithStaticAndDynamicChildren = (args: any) => {
   );
 };
 
-export const SimpleSearchSelectControlled = (args: any) => {
-  const [value, setValue] = React.useState<string>("5");
+export const SimpleSearchSelectForm = (args: any) => {
+  return (
+    <form
+      className="flex flex-col gap-3 items-start max-w-md"
+      method="GET"
+      action="http://localhost:6006/"
+    >
+      <label htmlFor="path" className="w-full">
+        <p>Redirect path</p>
+        <TextInput name="path" id="path" defaultValue="/story/ui-input-searchselect--form" />
+      </label>
+      <label htmlFor="search-select-test">Label</label>
+      <SearchSelect {...args} id="search-select-test" name="Searchselect">
+        <SearchSelectItem value={"5"}>Five</SearchSelectItem>
+        <SearchSelectItem value={"3"}>Three</SearchSelectItem>
+        <SearchSelectItem value={"1"}>One</SearchSelectItem>
+      </SearchSelect>
+      <Button type="submit">Submit</Button>
+      <p>You will find your selected value in the URL params after submiting the form</p>
+    </form>
+  );
+};
+
+export function SimpleSearchSelectControlled() {
+  const [value, setValue] = React.useState("5");
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+  };
+
+  const handleReset = () => {
+    setValue("");
+  };
+
+  const handleSetToOne = () => {
+    setValue("1");
+  };
+
   return (
     <div className="space-y-4">
-      <SearchSelect
-        value={value}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(value);
-        }}
-        {...args}
-      >
+      <SearchSelect value={value} onValueChange={handleValueChange}>
         <SearchSelectItem value="1">One</SearchSelectItem>
         <SearchSelectItem value="2">Two</SearchSelectItem>
         <SearchSelectItem value="3">Three</SearchSelectItem>
@@ -50,14 +79,7 @@ export const SimpleSearchSelectControlled = (args: any) => {
         <SearchSelectItem value="9">Nine</SearchSelectItem>
         <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
-      <SearchSelect
-        value={value}
-        onValueChange={(value) => {
-          setValue(value);
-          alert(value);
-        }}
-        {...args}
-      >
+      <SearchSelect enableClear={false} value={value} onValueChange={handleValueChange}>
         <SearchSelectItem value="1">One</SearchSelectItem>
         <SearchSelectItem value="2">Two</SearchSelectItem>
         <SearchSelectItem value="3">Three</SearchSelectItem>
@@ -69,9 +91,9 @@ export const SimpleSearchSelectControlled = (args: any) => {
         <SearchSelectItem value="9">Nine</SearchSelectItem>
         <SearchSelectItem value="10">Ten</SearchSelectItem>
       </SearchSelect>
-      <Button onClick={() => setValue("")}>Reset</Button>
-      <Button onClick={() => setValue("1")}>One</Button>
+      <Button onClick={handleReset}>Reset</Button>
+      <Button onClick={handleSetToOne}>Set to One</Button>
       <p>value: {value}</p>
     </div>
   );
-};
+}
