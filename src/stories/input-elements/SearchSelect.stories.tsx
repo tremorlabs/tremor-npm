@@ -6,6 +6,7 @@ import {
   SimpleSearchSelectControlled,
   SimpleSearchSelectWithStaticAndDynamicChildren,
   SimpleSearchSelectForm,
+  SimpleSearchSelectServerSideRendering,
 } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
@@ -80,6 +81,13 @@ export const Controlled: Story = {
 
 export const Form: Story = {
   render: SimpleSearchSelectForm,
+  args: {
+    required: true,
+  },
+};
+
+export const ServerSideRendering: Story = {
+  render: SimpleSearchSelectServerSideRendering,
   args: {
     required: true,
   },
