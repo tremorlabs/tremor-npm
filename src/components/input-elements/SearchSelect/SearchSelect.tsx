@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useRef, useState } from "react";
+import React, { isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
