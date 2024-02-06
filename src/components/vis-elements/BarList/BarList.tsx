@@ -38,7 +38,7 @@ export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
   valueFormatter?: ValueFormatter;
   color?: Color;
   showAnimation?: boolean;
-  onValueChange?: (payload: Bar) => void
+  onValueChange?: (payload: Bar) => void;
 }
 
 const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
@@ -112,13 +112,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       makeBarListClassName("barLink"),
                       // common
                       "whitespace-nowrap hover:underline truncate text-tremor-default",
-                      !!onValueChange ? "cursor-pointer" : "",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
-                    onClick={() => {onValueChange?.(item)}}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </a>
@@ -128,13 +130,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       makeBarListClassName("barText"),
                       // common
                       "whitespace-nowrap truncate text-tremor-default",
-                      !!onValueChange ? "cursor-pointer" : "",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
-                    onClick={() => {onValueChange?.(item)}}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </p>

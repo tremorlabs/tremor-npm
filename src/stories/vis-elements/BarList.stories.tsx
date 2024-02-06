@@ -85,9 +85,9 @@ export const IndividualColors: Story = {
 };
 
 export const WithOnValueChange: Story = {
-    render: (args) => <BarList {...args} />,
-    args: {
-        data: getData(),
-        onValueChange: (data) => alert(JSON.stringify(data))
-    },
-  };
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    onValueChange: (data) => alert(JSON.stringify(data)),
+  },
+};
