@@ -83,3 +83,11 @@ export const IndividualColors: Story = {
     valueFormatter: (value) => `${value} USD`,
   },
 };
+
+export const WithOnValueChange: Story = {
+    render: (args) => <BarList {...args} />,
+    args: {
+        data: getData(),
+        onValueChange: (data) => alert(JSON.stringify(data))
+    },
+  };
