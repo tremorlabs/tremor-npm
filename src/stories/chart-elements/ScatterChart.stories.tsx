@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ScatterChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color } from "lib";
 import {
   simpleScatterChartData as data,
@@ -157,7 +157,7 @@ export const CustomTooltip: Story = {
   args: {
     colors: customTooltipColors,
     category: customTooltipIndex,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -182,5 +182,11 @@ export const CustomTooltip: Story = {
         </div>
       );
     },
+  },
+};
+
+export const tickGap: Story = {
+  args: {
+    tickGap: 500,
   },
 };
