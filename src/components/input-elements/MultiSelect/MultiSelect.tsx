@@ -81,6 +81,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
       className={tremorTwMerge(
         // common
         "w-full min-w-[10rem] relative text-tremor-default",
+        className
       )}
     >
       <select
@@ -125,11 +126,6 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
           }) as any
         }
         disabled={disabled}
-        className={tremorTwMerge(
-          // common
-          "w-full min-w-[10rem] relative text-tremor-default",
-          className,
-        )}
         id={id}
         multiple
         {...other}

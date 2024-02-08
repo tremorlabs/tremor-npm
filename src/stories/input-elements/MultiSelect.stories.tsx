@@ -66,3 +66,12 @@ export const Form: Story = {
     required: true,
   },
 };
+
+
+export const WithCustomMinWidth: Story = {
+    render: SimpleMultiSelect,
+    args: {
+        className: "min-w-min w-[95px]"
+    },
+  };
+  
