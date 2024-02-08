@@ -85,11 +85,9 @@ export const Form: Story = {
   },
 };
 
-
 export const WithCustomMinWidth: Story = {
-    render: SimpleSearchSelect,
-    args: {
-      className: "min-w-min w-[95px]"
-    },
-  };
-  
+  render: SimpleSearchSelect,
+  args: {
+    className: "min-w-min w-[95px]",
+  },
+};

@@ -81,7 +81,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
       className={tremorTwMerge(
         // common
         "w-full min-w-[10rem] relative text-tremor-default",
-        className
+        className,
       )}
     >
       <select
