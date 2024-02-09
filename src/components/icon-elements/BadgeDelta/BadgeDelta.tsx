@@ -50,7 +50,7 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
       className={tremorTwMerge(
         makeBadgeDeltaClassName("root"),
         // common
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full bg-opacity-20 dark:bg-opacity-25",
+        "w-max shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full bg-opacity-20 dark:bg-opacity-25",
         colors[mappedDeltaType].bgColor,
         colors[mappedDeltaType].textColor,
         badgeProportions[size].paddingX,

@@ -35,7 +35,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       className={tremorTwMerge(
         makeBadgeClassName("root"),
         // common
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
+        "w-max shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
         color
           ? tremorTwMerge(
               getColorClassNames(color, colorPalette.background).bgColor,
