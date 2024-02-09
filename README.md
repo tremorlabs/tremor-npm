@@ -1,8 +1,16 @@
 <br />
 <br />
 <br />
+<p align="center">
+  <a href="https://tremor.so">
+    <picture>
+       <source media="(prefers-color-scheme: dark)" srcset="images/tremor-logo-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="images/tremor-logo-light.svg">
+    <img alt="Tremor Logo" src="images/tremor-logo-light.svg" height="50"/>
+    </picture>
+  </a>
+</p>
 <div align="center">
-  <img alt="Tremor Logo" src="images/tremor-logo.svg" height="50"/>
 <br />
 <br />
 <br />
