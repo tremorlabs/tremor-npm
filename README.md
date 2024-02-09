@@ -1,11 +1,11 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <div align="center">
   <img alt="Tremor Logo" src="images/tremor-logo.svg" height="50"/>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 
 <div align="center">
   <a href="https://www.npmjs.com/package/@tremor/react">
@@ -28,20 +28,17 @@
   <a href="https://www.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
   <a href="https://www.tremor.so">Website</a>
 </h3>
-
-<br>
-
+<br />
   <h1>The react library to build dashboards fast</h1>
-
 </div>
 
-[Tremor](https://tremor.so/) lets you create simple and modular components to build insightful dashboards in a breeze. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
+[Tremor](https://tremor.so/) provides React components to build charts and dashboards. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
 
-<br>
+<br />
 
 ![Tremor Banner](images/banner-github-readme.png)
 
-<br>
+<br />
 
 ## Getting Started
 
@@ -67,14 +64,14 @@ export default () => (
 );
 ```
 
-<br>
+<br />
 
 ![Tremor Example](images/example.png)
 
 
 ## Community and Contribution
 
-We are always looking for new ideas or other ways to improve Tremor. If you have developed anything cool or found a bug, send us a pull request.
+We are always looking for new ideas or other ways to improve Tremor. If you have developed anything cool or found a bug, send us a pull request. Check out our Contributor License Agreement [here](https://www.tremor.so/contributors).
 
 ## License
 
