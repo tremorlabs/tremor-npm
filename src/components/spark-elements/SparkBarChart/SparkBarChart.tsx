@@ -2,12 +2,13 @@
 import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import React from "react";
 
-import { Bar, BarChart as ReChartsBarChart, ResponsiveContainer, XAxis } from "recharts";
+import { Bar, BarChart as ReChartsBarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { BaseColors, themeColorRange } from "lib";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors } from "components/chart-elements/common/utils";
+import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
+import { AxisDomain } from "recharts/types/util/types";
 
 export interface SparkBarChartProps extends BaseSparkChartProps {
   stack?: boolean;
@@ -25,10 +26,14 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     animationDuration = 900,
     showAnimation = false,
     noDataText,
+    autoMinValue = false,
+    minValue,
+    maxValue,
     className,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
+  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
@@ -39,6 +44,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
             stackOffset={relative ? "expand" : "none"}
             margin={{ top: 0, left: -1.5, right: -1.5, bottom: 0 }}
           >
+            <YAxis hide domain={yAxisDomain as AxisDomain} />
             <XAxis hide dataKey={index} />
             {categories.map((category) => (
               <Bar

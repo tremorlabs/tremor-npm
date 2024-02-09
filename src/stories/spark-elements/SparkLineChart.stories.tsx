@@ -10,6 +10,7 @@ import {
 } from "../chart-elements/helpers/testData";
 import { SparkLineChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
+import { smallVariantionDatas } from "./helpers/testData";
 
 const meta: Meta<typeof SparkLineChart> = {
   title: "Visualizations/Chart/SparkLineChart",
@@ -129,4 +130,13 @@ export const WithCard: Story = {
       </ExampleCard>
     ),
   ],
+};
+
+export const WithAutoMinValue: Story = {
+  args: {
+    data: smallVariantionDatas,
+    index: "ts",
+    categories: ["avg_price"],
+    autoMinValue: true,
+  },
 };

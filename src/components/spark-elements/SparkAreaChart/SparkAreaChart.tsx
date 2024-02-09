@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
-import { Area, AreaChart as ReChartsAreaChart, ResponsiveContainer, XAxis } from "recharts";
+import { Area, AreaChart as ReChartsAreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors } from "components/chart-elements/common/utils";
+import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
+import { AxisDomain } from "recharts/types/util/types";
 
 export interface SparkAreaChartProps extends BaseSparkChartProps {
   stack?: boolean;
@@ -28,16 +29,21 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     curveType = "linear",
     connectNulls = false,
     noDataText,
+    autoMinValue = false,
+    minValue,
+    maxValue,
     className,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
+  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsAreaChart data={data} margin={{ top: 1, left: 1, right: 1, bottom: 1 }}>
+            <YAxis hide domain={yAxisDomain as AxisDomain} />
             <XAxis hide dataKey={index} />
             {categories.map((category) => {
               return (

@@ -120,11 +120,15 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                       makeBarListClassName("barLink"),
                       // common
                       "whitespace-nowrap hover:underline truncate text-tremor-default",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </a>
@@ -134,11 +138,15 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                       makeBarListClassName("barText"),
                       // common
                       "whitespace-nowrap truncate text-tremor-default",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </p>
