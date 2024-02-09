@@ -97,3 +97,58 @@ export function SimpleSearchSelectControlled() {
     </div>
   );
 }
+
+export function SimpleSearchSelectServerSideRendering() {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  interface User {
+    id: number;
+    name: string;
+    email: string;
+  }
+  const [options, setOptions] = React.useState<User[]>([]);
+
+  const [value, setValue] = React.useState<string>();
+
+  const handleSearchQueryChange = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+  };
+
+  const handleReset = () => {
+    setValue("");
+  };
+
+  React.useEffect(() => {
+    if (searchQuery) {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json())
+        .then((data) => {
+          setOptions(data);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+  }, [searchQuery]);
+
+  return (
+    <div className="space-y-4">
+      <SearchSelect
+        value={value}
+        onValueChange={handleValueChange}
+        searchValue={searchQuery}
+        onSearchValueChange={handleSearchQueryChange}
+      >
+        {options.map((option) => (
+          <SearchSelectItem key={option.id} value={option.id.toString()}>
+            {`${option.name} (${option.email})`}
+          </SearchSelectItem>
+        ))}
+      </SearchSelect>
+      <Button onClick={handleReset}>Reset</Button>
+      <p>Selected User ID: {value}</p>
+    </div>
+  );
+}
