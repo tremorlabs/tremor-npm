@@ -1,4 +1,4 @@
-<br />
+
 <br />
 <br />
 <p align="center">
@@ -11,7 +11,6 @@
   </a>
 </p>
 <div align="center">
-<br />
 <br />
 <br />
 
