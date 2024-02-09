@@ -41,11 +41,7 @@ export interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivEleme
   onValueChange?: (payload: Bar<T>) => void;
 }
 
-function BarListInner<T> (  
-    props: BarListProps<T>,
-    ref: React.ForwardedRef<HTMLDivElement>,
-){
-
+function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDivElement>) {
   const {
     data = [],
     color,
@@ -93,15 +89,15 @@ function BarListInner<T> (
                 transition: showAnimation ? "all 1s" : "",
               }}
             >
-              <div 
+              <div
                 className={tremorTwMerge(
-                    "absolute max-w-full flex left-2",
-                    onValueChange ? "cursor-pointer" : "",
+                  "absolute max-w-full flex left-2",
+                  onValueChange ? "cursor-pointer" : "",
                 )}
                 onClick={() => {
-                    onValueChange?.(item);
-                  }}
-                >
+                  onValueChange?.(item);
+                }}
+              >
                 {Icon ? (
                   <Icon
                     className={tremorTwMerge(
@@ -181,14 +177,12 @@ function BarListInner<T> (
       </div>
     </div>
   );
-};
+}
 
 BarListInner.displayName = "BarList";
 
 const BarList = React.forwardRef(BarListInner) as <T>(
-    p: BarListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
+  p: BarListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
 ) => ReturnType<typeof BarListInner>;
-
-
 
 export default BarList;
