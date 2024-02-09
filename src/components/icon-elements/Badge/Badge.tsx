@@ -41,8 +41,10 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
               getColorClassNames(color, colorPalette.background).bgColor,
               getColorClassNames(color, colorPalette.iconText).textColor,
               getColorClassNames(color, colorPalette.iconRing).ringColor,
-              "bg-opacity-10 dark:bg-opacity-5 ring-opacity-20 dark:ring-opacity-60",
-              "dark:",
+              // light
+              "bg-opacity-10 ring-opacity-20",
+              // dark
+              "dark:bg-opacity-5 dark:ring-opacity-60",
             )
           : tremorTwMerge(
               // light
@@ -69,9 +71,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
           )}
         />
       ) : null}
-      <span
-        className={tremorTwMerge(makeBadgeClassName("text"), "text-tremor-label whitespace-nowrap")}
-      >
+      <span className={tremorTwMerge(makeBadgeClassName("text"), "whitespace-nowrap")}>
         {children}
       </span>
     </span>

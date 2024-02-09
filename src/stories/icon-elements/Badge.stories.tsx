@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 import { ArrowUpIcon } from "assets";
-import { Card, Badge, Grid } from "components";
+import { Badge, Grid } from "components";
 
 const meta: Meta<typeof Badge> = {
   title: "UI/Icon/Badge",
@@ -27,12 +27,10 @@ const BadgeTemplateColors: Story = {
   render: ({ ...args }) => {
     return (
       <Grid className="gap-y-2">
-        <Card className="space-x-2 space-y-2">
-          <Badge tooltip="Tooltip" {...args} />
-          {Object.values(BaseColors).map((color) => (
-            <Badge key={color} color={color} tooltip="Tooltip" {...args} />
-          ))}
-        </Card>
+        <Badge tooltip="Tooltip" {...args} />
+        {Object.values(BaseColors).map((color) => (
+          <Badge key={color} color={color} tooltip="Tooltip" {...args} />
+        ))}
       </Grid>
     );
   },
