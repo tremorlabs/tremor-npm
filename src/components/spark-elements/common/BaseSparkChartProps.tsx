@@ -20,6 +20,9 @@ interface BaseSparkChartProps
   index: string;
   colors?: (Color | string)[];
   noDataText?: string;
+  autoMinValue?: boolean;
+  minValue?: number;
+  maxValue?: number;
 }
 
 export default BaseSparkChartProps;
