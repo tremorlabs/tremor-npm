@@ -68,7 +68,7 @@ const IconTemplateColors: Story = {
 const IconShrink: Story = {
   render: ({ ...args }) => {
     return (
-      <div className="flex justify-center space-x-3 sm:space-x-12">
+      <div className="flex flex-wrap items-center justify-center space-x-3 sm:space-x-12">
         <Icon variant="simple" tooltip="simple" {...args} />
         <Icon variant="shadow" tooltip="shadow" {...args} />
         <Icon variant="outlined" tooltip="outlined" {...args} />

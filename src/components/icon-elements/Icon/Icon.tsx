@@ -44,7 +44,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={tremorTwMerge(
         makeIconClassName("root"),
-        "inline-flex shrink-0 items-center",
+        "inline-flex shrink-0 items-center justify-center",
         iconColorStyles.bgColor,
         iconColorStyles.textColor,
         iconColorStyles.borderColor,
