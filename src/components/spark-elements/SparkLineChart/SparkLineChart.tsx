@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
-import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis } from "recharts";
+import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors } from "components/chart-elements/common/utils";
+import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
+import { AxisDomain } from "recharts/types/util/types";
 
 export interface SparkLineChartProps extends BaseSparkChartProps {
   curveType?: CurveType;
@@ -24,16 +25,21 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     curveType = "linear",
     connectNulls = false,
     noDataText,
+    autoMinValue = false,
+    minValue,
+    maxValue,
     className,
     ...other
   } = props;
   const categoryColors = constructCategoryColors(categories, colors);
+  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
   return (
     <div ref={ref} className={tremorTwMerge("w-28 h-12", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsLineChart data={data} margin={{ top: 1, left: 1, right: 1, bottom: 1 }}>
+            <YAxis hide domain={yAxisDomain as AxisDomain} />
             <XAxis hide dataKey={index} />
             {categories.map((category) => (
               <Line

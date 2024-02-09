@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useRef, useState } from "react";
+import React, { isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -16,6 +16,8 @@ const makeSearchSelectClassName = makeClassName("SearchSelect");
 export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
   name?: string;
+  searchValue?: string;
+  onSearchValueChange?: (value: string) => void;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
@@ -33,6 +35,8 @@ const makeSelectClassName = makeClassName("SearchSelect");
 const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((props, ref) => {
   const {
     defaultValue = "",
+    searchValue,
+    onSearchValueChange,
     value,
     onValueChange,
     placeholder = "Select...",
@@ -50,7 +54,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
   } = props;
   const comboboxButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useInternalState("", searchValue);
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
   const Icon = icon;
@@ -62,7 +66,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
   }, [children]);
 
   const filteredOptions = useMemo(
-    () => getFilteredOptions(searchQuery, reactElementChildren),
+    () => getFilteredOptions(searchQuery ?? "", reactElementChildren),
     [searchQuery, reactElementChildren],
   );
 
@@ -70,6 +74,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
     setSelectedValue("");
     setSearchQuery("");
     onValueChange?.("");
+    onSearchValueChange?.("");
   };
 
   return (
@@ -166,7 +171,10 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   getSelectButtonColors(hasValue(value), disabled),
                 )}
                 placeholder={placeholder}
-                onChange={(event) => setSearchQuery(event.target.value)}
+                onChange={(event) => {
+                  onSearchValueChange?.(event.target.value);
+                  setSearchQuery(event.target.value);
+                }}
                 displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
               />
               <div className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}>

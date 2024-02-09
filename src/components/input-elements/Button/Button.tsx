@@ -126,7 +126,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       className={tremorTwMerge(
         makeButtonClassName("root"),
         // common
-        "flex-shrink-0 inline-flex justify-center items-center group font-medium outline-none",
+        "shrink-0 inline-flex justify-center items-center group font-medium outline-none",
         buttonShapeStyles,
         buttonProportionStyles.paddingX,
         buttonProportionStyles.paddingY,

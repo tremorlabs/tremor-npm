@@ -11,7 +11,7 @@ import { colorPalette } from "lib/theme";
 
 const makeBarListClassName = makeClassName("BarList");
 
-type Bar = {
+type Bar<T> = T & {
   key?: string;
   value: number;
   name: string;
@@ -33,19 +33,21 @@ const getWidthsFromValues = (dataValues: number[]) => {
   });
 };
 
-export interface BarListProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: Bar[];
+export interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivElement> {
+  data: Bar<T>[];
   valueFormatter?: ValueFormatter;
   color?: Color;
   showAnimation?: boolean;
+  onValueChange?: (payload: Bar<T>) => void;
 }
 
-const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
+function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDivElement>) {
   const {
     data = [],
     color,
     valueFormatter = defaultValueFormatter,
     showAnimation = false,
+    onValueChange,
     className,
     ...other
   } = props;
@@ -87,7 +89,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                 transition: showAnimation ? "all 1s" : "",
               }}
             >
-              <div className={tremorTwMerge("absolute max-w-full flex left-2")}>
+              <div
+                className={tremorTwMerge(
+                  "absolute max-w-full flex left-2",
+                  onValueChange ? "cursor-pointer" : "",
+                )}
+                onClick={() => {
+                  onValueChange?.(item);
+                }}
+              >
                 {Icon ? (
                   <Icon
                     className={tremorTwMerge(
@@ -110,11 +120,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       makeBarListClassName("barLink"),
                       // common
                       "whitespace-nowrap hover:underline truncate text-tremor-default",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </a>
@@ -124,11 +138,15 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                       makeBarListClassName("barText"),
                       // common
                       "whitespace-nowrap truncate text-tremor-default",
+                      onValueChange ? "cursor-pointer" : "",
                       // light
                       "text-tremor-content-emphasis",
                       // dark
                       "dark:text-dark-tremor-content-emphasis",
                     )}
+                    onClick={() => {
+                      onValueChange?.(item);
+                    }}
                   >
                     {item.name}
                   </p>
@@ -167,8 +185,12 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
       </div>
     </div>
   );
-});
+}
 
-BarList.displayName = "BarList";
+BarListInner.displayName = "BarList";
+
+const BarList = React.forwardRef(BarListInner) as <T>(
+  p: BarListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
+) => ReturnType<typeof BarListInner>;
 
 export default BarList;
