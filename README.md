@@ -36,10 +36,10 @@
   <a href="https://www.tremor.so">Website</a>
 </h3>
 <br />
-  <h1>The react library to build dashboards fast</h1>
+  <h1>React components to build charts and dashboards</h1>
 </div>
 
-[Tremor](https://tremor.so/) provides React components to build charts and dashboards. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
+[Tremor](https://tremor.so/) 20+ open-source components built on top of Tailwind CSS to make visualizing data simple again. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
 
 <br />
 
@@ -56,7 +56,6 @@ See our [Installation Guide](https://www.tremor.so/docs/getting-started/installa
 With Tremor creating an analytical interface is easy.
 
 ```jsx
-//Card.tsx
 import { Card, ProgressBar } from "@tremor/react";
 export default () => (
 <Card className="max-w-sm">
