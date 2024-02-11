@@ -93,9 +93,9 @@ export default function Example() {
 <br />
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/example-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/example-light.png">
-  <img alt="Tremor Example" src="images/example-light.png"/>
+  <source media="(prefers-color-scheme: dark)" srcset="images/example-border-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="images/example-border-light.png">
+  <img alt="Tremor Example" src="images/example-border-light.png"/>
 </picture>
 
 ## Community and Contribution
