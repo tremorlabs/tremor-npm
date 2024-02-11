@@ -1,4 +1,3 @@
-
 <br />
 <br />
 <p align="center">
@@ -56,24 +55,48 @@ See our [Installation Guide](https://www.tremor.so/docs/getting-started/installa
 With Tremor creating an analytical interface is easy.
 
 ```jsx
-import { Card, ProgressBar } from "@tremor/react";
-export default () => (
-<Card className="max-w-sm">
-  <span className="text-tremor-default text-tremor-content">Sales</span>
-  <p className="text-tremor-metric text-tremor-content-strong font-semibold">$71,465</p>
-  <div className="flex items-center justify-between">
-    <span className="text-tremor-default text-tremor-content">32% of annual target</span>
-    <span className="text-tremor-default text-tremor-content">$ 225,000</span>
-  </div>
-  <ProgressBar value={32} className="mt-2" />
-</Card>
-);
+"use client";
+import { AreaChart, Card } from "@tremor/react";
+
+const chartdata = [
+  {
+    date: "Jan 23",
+    "Route Requests": 289,
+    "Station Requests": 233,
+  },
+  // ...
+  {
+    date: "Oct 23",
+    "Route Requests": 283,
+    "Station Requests": 247,
+  },
+];
+
+export default function Example() {
+  return (
+    <Card className="max-w-4xl">
+      <span className="text-tremor-default text-tremor-content">Total Requests</span>
+      <p className="text-tremor-metric font-semibold text-tremor-content-strong">6,568</p>
+      <AreaChart
+        className="mt-2 h-80"
+        data={chartdata}
+        index="date"
+        categories={["Route Requests", "Station Requests"]}
+        colors={["indigo", "rose"]}
+        yAxisWidth={33}
+      />
+    </Card>
+  );
+}
 ```
 
 <br />
 
-![Tremor Example](images/example.png)
-
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/example-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="images/example-light.png">
+  <img alt="Tremor Example" src="images/example-light.png"/>
+</picture>
 
 ## Community and Contribution
 
