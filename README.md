@@ -75,8 +75,12 @@ const chartdata = [
 export default function Example() {
   return (
     <Card className="max-w-4xl">
-      <span className="text-tremor-default text-tremor-content">Total Requests</span>
-      <p className="text-tremor-metric font-semibold text-tremor-content-strong">6,568</p>
+      <span className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+        Total Requests
+      </span>
+      <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
+        6,568
+      </p>
       <AreaChart
         className="mt-2 h-80"
         data={chartdata}
