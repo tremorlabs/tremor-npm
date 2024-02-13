@@ -46,10 +46,6 @@ export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
 
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
-};
-
 export const NoData: Story = {
   args: { data: [] },
 };
