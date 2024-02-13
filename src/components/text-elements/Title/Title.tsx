@@ -19,7 +19,7 @@ const Title = React.forwardRef<HTMLParagraphElement, TitleProps>((props, ref) =>
         "font-medium text-tremor-title",
         color
           ? getColorClassNames(color, colorPalette.darkText).textColor
-          : "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
+          : "text-tremor-content-strong dark:text-dark-tremor-content-strong",
         className,
       )}
       {...other}

@@ -1,9 +1,8 @@
 "use client";
-import { tremorTwMerge } from "lib";
 import React from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { getColorClassNames, makeClassName, sizing } from "lib";
+import { getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib";
 
@@ -43,12 +42,11 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       className={tremorTwMerge(
         makeMarkerBarClassName("root"),
         // common
-        "relative flex items-center w-full rounded-tremor-full",
+        "relative flex items-center w-full rounded-tremor-full h-2",
         // light
         "bg-tremor-background-subtle",
         // dark
         "dark:bg-dark-tremor-background-subtle",
-        sizing.xs.height,
         className,
       )}
       {...other}
@@ -81,8 +79,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         ref={markerTooltipProps.refs.setReference}
         className={tremorTwMerge(
           makeMarkerBarClassName("markerWrapper"),
-          "absolute right-1/2 -translate-x-1/2",
-          sizing.lg.width, // wide transparent wrapper for tooltip activation
+          "absolute right-1/2 -translate-x-1/2 w-5",
         )}
         style={{
           left: `${value}%`,
@@ -93,14 +90,12 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         <div
           className={tremorTwMerge(
             makeMarkerBarClassName("marker"),
-            "ring-2 mx-auto rounded-tremor-full",
+            "ring-2 mx-auto rounded-tremor-full h-4 w-1",
             "ring-tremor-brand-inverted",
             "dark:ring-dark-tremor-brand-inverted",
             color
               ? getColorClassNames(color, colorPalette.background).bgColor
               : "dark:bg-dark-tremor-brand bg-tremor-brand",
-            sizing.md.height,
-            sizing.twoXs.width,
           )}
         />
       </div>

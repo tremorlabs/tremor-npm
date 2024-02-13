@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { LineChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
@@ -62,10 +62,6 @@ export const CustomColors: Story = {
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const LongValues: Story = {
@@ -188,7 +184,7 @@ export const CustomTooltipSimple: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -223,7 +219,7 @@ export const CustomTooltipPreviousDay: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -267,7 +263,7 @@ export const CustomTooltipComplex: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -312,5 +308,12 @@ export const CustomTooltipComplex: Story = {
         </div>
       );
     },
+  },
+};
+
+export const tickGap: Story = {
+  args: {
+    data: longBaseChartData,
+    tickGap: 200,
   },
 };

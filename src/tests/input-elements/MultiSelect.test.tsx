@@ -19,7 +19,7 @@ describe("MultiSelect", () => {
     const placeholder = "Select options...";
     const items = ["item1", "item2"];
     render(
-      <MultiSelect placeholder={placeholder}>
+      <MultiSelect data-testid="first-select" placeholder={placeholder}>
         <MultiSelectItem value="item0">item0</MultiSelectItem>
         {items.map((item) => {
           return <MultiSelectItem value={item} key={item} />;
@@ -27,10 +27,10 @@ describe("MultiSelect", () => {
       </MultiSelect>,
     );
 
-    fireEvent.click(screen.getByText(placeholder));
+    fireEvent.click(screen.getByTestId("first-select"));
 
-    expect(screen.queryByText("item0")).toBeTruthy();
-    expect(screen.queryByText("item1")).toBeTruthy();
-    expect(screen.queryByText("item2")).toBeTruthy();
+    expect(screen.queryAllByText("item0")).toBeTruthy();
+    expect(screen.queryAllByText("item1")).toBeTruthy();
+    expect(screen.queryAllByText("item2")).toBeTruthy();
   });
 });

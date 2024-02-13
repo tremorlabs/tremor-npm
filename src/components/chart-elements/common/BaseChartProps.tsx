@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Color, ValueFormatter, IntervalType } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
-import { CustomTooltipType } from "./CustomTooltipProps";
+import { CustomTooltipProps } from "./CustomTooltipProps";
 
 type FixedProps = {
   eventType: "dot" | "category" | "bar" | "slice" | "bubble";
@@ -36,7 +36,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
   enableLegendSlider?: boolean;
-  customTooltip?: React.ComponentType<CustomTooltipType>;
+  customTooltip?: React.ComponentType<CustomTooltipProps>;
   rotateLabelX?: {
     angle: number;
     verticalShift?: number;
@@ -50,6 +50,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   gridProps?: any;
   barProps?: any;
   tooltipValueFormatter?: ValueFormatter;
+  tickGap?: number;
 }
 
 export default BaseChartProps;
