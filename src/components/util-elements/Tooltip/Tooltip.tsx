@@ -76,29 +76,43 @@ export interface TooltipProps {
   getFloatingProps: (
     userProps?: React.HTMLProps<HTMLElement> | undefined,
   ) => Record<string, unknown>;
+  darkTheme?: boolean;  // for dark theme, light default
+  preventWrap?: boolean;  // prevent text wrapping
+  width?: string | number;  // setting width by string or number
 }
 
-const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: TooltipProps) => {
+
+const Tooltip = ({
+                   text,
+                   open,
+                   x,
+                   y,
+                   refs,
+                   strategy,
+                   getFloatingProps,
+                   darkTheme = false,
+                   preventWrap = false,
+                   width = 'auto'  // Default width set to 'auto'
+                 }: TooltipProps) => {
   return open && text ? (
-    <div
-      className={tremorTwMerge(
-        // common
-        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1 whitespace-nowrap",
-        // light
-        "text-white bg-tremor-background-emphasis",
-        // dark
-        "text-white dark:bg-dark-tremor-background-subtle",
-      )}
-      ref={refs.setFloating}
-      style={{
-        position: strategy,
-        top: y ?? 0,
-        left: x ?? 0,
-      }}
-      {...getFloatingProps()}
-    >
-      {text}
-    </div>
+      <div
+          className={tremorTwMerge(
+              "text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1",
+              "overflow-hidden",
+              preventWrap ? "whitespace-nowrap" : "",  // Apply based on preventWrap
+              darkTheme ? "text-white dark:bg-dark-tremor-background-subtle" : "text-white bg-tremor-background-emphasis",  // Apply theme based on darkTheme
+          )}
+          ref={refs.setFloating}
+          style={{
+            position: strategy,
+            top: y ?? 0,
+            left: x ?? 0,
+            width: typeof width === 'number' ? `${width}px` : width  // Set width
+          }}
+          {...getFloatingProps()}
+      >
+        {text}
+      </div>
   ) : null;
 };
 
