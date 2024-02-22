@@ -171,3 +171,12 @@ export const CustomTooltipSimple: Story = {
     },
   },
 };
+
+export const ActiveValue: Story = {
+  args: { activeSector: "New York" },
+};
+
+export const ActiveValueNoDefaultValue: Story = {
+  // Setting activeValue to null shows legend without preselcted value
+  args: { activeSector: null },
+};
