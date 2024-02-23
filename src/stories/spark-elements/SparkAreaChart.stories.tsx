@@ -10,6 +10,7 @@ import {
 } from "../chart-elements/helpers/testData";
 import { SparkAreaChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
+import { smallVariantionDatas } from "./helpers/testData";
 
 const meta: Meta<typeof SparkAreaChart> = {
   title: "Visualizations/Chart/SparkAreaChart",
@@ -53,10 +54,6 @@ export const NoGradient: Story = {
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const NoData: Story = {
@@ -139,4 +136,13 @@ export const WithCard: Story = {
       </ExampleCard>
     ),
   ],
+};
+
+export const WithAutoMinValue: Story = {
+  args: {
+    data: smallVariantionDatas,
+    index: "ts",
+    categories: ["avg_price"],
+    autoMinValue: true,
+  },
 };
