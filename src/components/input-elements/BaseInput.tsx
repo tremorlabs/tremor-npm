@@ -117,7 +117,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full block focus:outline-none focus:ring-0 border-none bg-indigo-200 text-tremor-default rounded-tremor-default transition duration-100 py-2",
+            "w-full bg-transparent focus:outline-none focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
             // light
             "text-tremor-content-emphasis",
             // dark
@@ -142,7 +142,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <button
             className={tremorTwMerge(
               makeInputClassName("toggleButton"),
-              "absolute inset-y-0 right-0 flex items-center px-2.5 bg-red-400/20 rounded-lg",
+              "absolute inset-y-0 right-0 flex items-center px-2.5 rounded-lg",
             )}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
