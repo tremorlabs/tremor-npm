@@ -179,8 +179,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-red-500 shrink-0 h-5 w-5 mx-2.5 absolute right-0 flex items-center",
-              type === "password" && error === true ? "mr-10" : "mx-2.5",
+              "text-red-500 shrink-0 h-5 w-5 absolute right-0 flex items-center",
+              type === "password"
+                ? "mr-10"
+                : type === "number"
+                ? stepper
+                  ? "mr-20"
+                  : "mr-3"
+                : "mx-2.5",
             )}
           />
         ) : null}
