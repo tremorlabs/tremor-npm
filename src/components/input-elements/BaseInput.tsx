@@ -101,7 +101,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(
               makeInputClassName("icon"),
               // common
-              "shrink-0 h-5 w-5 ml-2.5",
+              "shrink-0 h-5 w-5 mx-2.5 absolute left-0 flex items-center",
               // light
               "text-tremor-content-subtle",
               // light
@@ -117,14 +117,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default transition duration-100 py-2",
+            "w-full bg-transparent focus:outline-none focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
             // light
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? "pl-2" : "pl-3",
-            error ? "pr-3" : "pr-4",
+            type === "password" ? (error ? "pr-16" : "pr-12") : error ? "pr-8" : "pr-3",
+            Icon ? "pl-10" : "pl-3",
             disabled
               ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
               : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
@@ -140,7 +140,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         />
         {type === "password" && !disabled ? (
           <button
-            className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
+            className={tremorTwMerge(
+              makeInputClassName("toggleButton"),
+              "absolute inset-y-0 right-0 flex items-center px-2.5 rounded-lg",
+            )}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
             aria-label={isPasswordVisible ? "Hide password" : "Show Password"}
@@ -176,7 +179,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-red-500 shrink-0 w-5 h-5 mr-2.5",
+              "text-red-500 shrink-0 h-5 w-5 absolute right-0 flex items-center",
+              type === "password"
+                ? "mr-10"
+                : type === "number"
+                ? stepper
+                  ? "mr-20"
+                  : "mr-3"
+                : "mx-2.5",
             )}
           />
         ) : null}
