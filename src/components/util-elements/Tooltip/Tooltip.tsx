@@ -83,7 +83,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
     <div
       className={tremorTwMerge(
         // common
-        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1",
+        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1 whitespace-nowrap",
         // light
         "text-white bg-tremor-background-emphasis",
         // dark

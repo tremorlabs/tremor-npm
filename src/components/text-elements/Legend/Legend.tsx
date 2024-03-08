@@ -266,17 +266,12 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         <>
           <div
             className={tremorTwMerge(
-              "absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-white to-transparent pointer-events-none",
-            )}
-          />
-          <div
-            className={tremorTwMerge(
-              "absolute top-0 bottom-0 right-10 w-4 bg-gradient-to-r from-transparent to-white pointer-events-none",
-            )}
-          />
-          <div
-            className={tremorTwMerge(
-              "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full bg-tremor-background",
+              // light mode
+              "bg-tremor-background",
+              // dark mode
+              "dark:bg-dark-tremor-background",
+              // common
+              "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full",
             )}
           >
             <ScrollButton
