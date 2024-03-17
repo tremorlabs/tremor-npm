@@ -5,3 +5,4 @@ export { CustomTooltipProps } from "./common/CustomTooltipProps";
 export * from "./DonutChart";
 export * from "./LineChart";
 export * from "./ScatterChart";
+export * from "./FunnelChart";
