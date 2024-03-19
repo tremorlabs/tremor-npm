@@ -43,6 +43,7 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     yAxisPadding?: number;
     showYAxis?: boolean;
     showGridLines?: boolean;
+    showTooltip?: boolean;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -59,6 +60,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         showGridLines = true,
         showYAxis = calculateFrom === "previous" ? false : true,
         yAxisPadding = showYAxis ? 45 : 0,
+        showTooltip = true,
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -371,54 +373,54 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 </linearGradient>
             </svg>
             {/* TBD: Deal with tooltip that can overflow */}
-            {/* {tooltip.data ? ( */}
-            <div
-                ref={tooltipRef}
-                className={tremorTwMerge(
-                    "absolute top-0 pointer-events-none",
-                    tooltip.data ? "visible" : "hidden",
-                )}
-                tabIndex={-1}
-                role='dialog'
-                style={{
-                    left: tooltip.x + barWidth * 0.66,
-                }}
-            >
-                <ChartTooltipFrame>
-                    <div
-                        className={tremorTwMerge(
-                            // light
-                            "border-tremor-border border-b px-4 py-2",
-                            // dark
-                            "dark:border-dark-tremor-border",
-                        )}
-                    >
-                        <p
+            {showTooltip ? (
+                <div
+                    ref={tooltipRef}
+                    className={tremorTwMerge(
+                        "absolute top-0 pointer-events-none",
+                        tooltip.data ? "visible" : "hidden",
+                    )}
+                    tabIndex={-1}
+                    role='dialog'
+                    style={{
+                        left: tooltip.x + barWidth * 0.66,
+                    }}
+                >
+                    <ChartTooltipFrame>
+                        <div
                             className={tremorTwMerge(
-                                // common
-                                "font-medium",
                                 // light
-                                "text-tremor-content-emphasis",
+                                "border-tremor-border border-b px-4 py-2",
                                 // dark
-                                "dark:text-dark-tremor-content-emphasis",
+                                "dark:border-dark-tremor-border",
                             )}
                         >
-                            {tooltip?.data?.name}
-                        </p>
-                    </div>
+                            <p
+                                className={tremorTwMerge(
+                                    // common
+                                    "font-medium",
+                                    // light
+                                    "text-tremor-content-emphasis",
+                                    // dark
+                                    "dark:text-dark-tremor-content-emphasis",
+                                )}
+                            >
+                                {tooltip?.data?.name}
+                            </p>
+                        </div>
 
-                    <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
-                        {tooltip.data ? (
-                            <ChartTooltipRow
-                                value={valueFormatter(tooltip.data.value)}
-                                name={`${(tooltip.data.normalizedValue * 100).toFixed(2)}%`}
-                                color={color ?? BaseColors.Blue}
-                            />
-                        ) : null}
-                    </div>
-                </ChartTooltipFrame>
-            </div>
-            {/* ) : null} */}
+                        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                            {tooltip.data ? (
+                                <ChartTooltipRow
+                                    value={valueFormatter(tooltip.data.value)}
+                                    name={`${(tooltip.data.normalizedValue * 100).toFixed(2)}%`}
+                                    color={color ?? BaseColors.Blue}
+                                />
+                            ) : null}
+                        </div>
+                    </ChartTooltipFrame>
+                </div>
+            ) : null}
         </div>
     );
 });
