@@ -28,6 +28,7 @@ type DataT = {
 }
 
 const GLOBAL_PADDING = 20;
+const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
 export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     data: DataT[];
@@ -38,6 +39,7 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     calculateFrom?: CalculateFrom;
     color?: Color;
     variant?: FunnelVariantType;
+    yAxisPadding?: number;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -51,6 +53,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         calculateFrom = "first",
         color,
         variant = "base",
+        yAxisPadding = 45,
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -60,7 +63,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
     const maxValue = Math.max(...data.map(item => item.value));
 
-    const widthWithoutPadding = width - GLOBAL_PADDING;
+    const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
     const barWidth = ((widthWithoutPadding - (data.length - 1) * tickGap) - tickGap) / data.length;
     const realHeight = height - GLOBAL_PADDING - 30
 
@@ -127,25 +130,62 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 className={tremorTwMerge('w-full h-full', className)}
                 {...other}
             >
+                {/* Draw Y axis labels and lines */}
+                {Y_AXIS_LABELS.map((label, index) => (
+                    <>
+                        <line
+                            key={index}
+                            x1={yAxisPadding}
+                            y1={index * realHeight / 4 + GLOBAL_PADDING / 2}
+                            x2={width - GLOBAL_PADDING}
+                            y2={index * realHeight / 4 + GLOBAL_PADDING / 2}
+                            stroke="currentColor"
+                            className={tremorTwMerge(
+                                // common
+                                "stroke-1",
+                                // light
+                                "stroke-tremor-border",
+                                // dark
+                                "dark:stroke-dark-tremor-border",
+                            )}
+                        />
+                        <text
+                            x={yAxisPadding - 10}
+                            y={index * realHeight / 4 + 5 + GLOBAL_PADDING / 2}
+                            textAnchor="end"
+                            fontSize="0.75rem"
+                            fill=""
+                            stroke=""
+                            className={tremorTwMerge(
+                                // light
+                                "fill-tremor-content",
+                                // dark
+                                "dark:fill-dark-tremor-content",
+                            )}
+                        >
+                            {label}
+                        </text>
+                    </>
+                ))}
                 {formattedData.map((item, index) => (
                     <g key={index}>
                         {/* Hover gray rect */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2}
+                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2 + yAxisPadding}
                             y={GLOBAL_PADDING / 2}
                             width={barWidth + tickGap}
                             height={realHeight}
                             fill="currentColor"
                             className={tremorTwMerge(
-                                "z-0",
-                                tooltip.index === index ? 'text-tremor-background-muted' : 'text-transparent',
+                                "z-0 opacity-5",
+                                tooltip.index === index ? 'text-tremor-background-emphasis' : 'text-transparent',
                             )}
                         />
 
                         {/* Draw gradient bar to fill space */}
                         {gradient ? (
                             <rect
-                                x={item.startX + GLOBAL_PADDING / 2}
+                                x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
                                 y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + GLOBAL_PADDING / 2}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
@@ -155,7 +195,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
                         {/* Draw bar */}
                         <rect
-                            x={item.startX + GLOBAL_PADDING / 2}
+                            x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
                             y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + GLOBAL_PADDING / 2}
                             width={barWidth}
                             height={item.barHeight}
@@ -171,7 +211,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw bottom gradient bar to fill space */}
                         {gradient && isVariantCenter ? (
                             <rect
-                                x={item.startX + GLOBAL_PADDING / 2}
+                                x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
                                 y={realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight) / 2}
@@ -181,19 +221,75 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
                         {/* Draw label */}
                         <text
-                            x={item.startX + barWidth / 2 + GLOBAL_PADDING / 2}
+                            x={item.startX + barWidth / 2 + GLOBAL_PADDING / 2 + yAxisPadding}
                             y={realHeight + 15 + GLOBAL_PADDING / 2}
                             textAnchor="middle"
-                            fontSize="12px"
-                            className='truncate'
+                            fontSize="0.75rem"
+                            fill=""
+                            stroke=""
+                            className={tremorTwMerge(
+                                // light
+                                "fill-tremor-content",
+                                // dark
+                                "dark:fill-dark-tremor-content",
+                            )}
                             width={barWidth}
                         >
                             {item.name}
                         </text>
 
+                        
+                    </g>
+                ))}
+                {/* Draw gradient polygon between bars */}
+                {formattedData.map((item, index) => (
+                    <>
+                        {index < data.length - 1 && evolutionGradient ? (
+                            <>
+
+                                {isVariantCenter ? (
+                                    <>
+                                        <polygon
+                                            key={index}
+                                            points={`
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                        `}
+                                            fill={`url(#base-gradient)`}
+                                            className='z-10'
+                                        />
+                                        <polygon
+                                            key={index}
+                                            points={`
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                        `}
+                                            fill={`url(#base-gradient-revert)`}
+                                            className='z-10'
+                                        />
+                                    </>
+                                ) : (
+                                    <polygon
+                                        key={index}
+                                        points={`
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${item.startY + GLOBAL_PADDING / 2} 
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight - item.nextBarHeight + GLOBAL_PADDING / 2} 
+                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight + GLOBAL_PADDING / 2} 
+                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight + GLOBAL_PADDING / 2}
+                                        `}
+                                        fill={`url(#base-gradient)`}
+                                        className='z-10'
+                                    />
+                                )}
+                            </>
+                        ) : null}
                         {/* hover trasnparent rect for tooltip */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2}
+                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2 + yAxisPadding}
                             y={GLOBAL_PADDING / 2}
                             width={barWidth + tickGap}
                             height={realHeight}
@@ -201,53 +297,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             onMouseEnter={() => setTooltip({ x: item.startX, y: item.startY, data: item, index })}
                             onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
                         />
-                    </g>
-                ))}
-                {/* Draw gradient polygon between bars */}
-                {formattedData.map((item, index) => (
-                    index < data.length - 1 && evolutionGradient ? (
-                        <>
-
-                            {isVariantCenter ? (
-                                <>
-                                    <polygon
-                                        key={index}
-                                        points={`
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.barHeight / 2 + GLOBAL_PADDING / 2}
-                                    `}
-                                        fill={`url(#base-gradient)`}
-                                        className='z-10'
-                                    />
-                                    <polygon
-                                        key={index}
-                                        points={`
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                    `}
-                                        fill={`url(#base-gradient-revert)`}
-                                        className='z-10'
-                                    />
-                                </>
-                            ) : (
-                                <polygon
-                                    key={index}
-                                    points={`
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${item.startY + GLOBAL_PADDING / 2} 
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight - item.nextBarHeight + GLOBAL_PADDING / 2} 
-                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight + GLOBAL_PADDING / 2} 
-                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight + GLOBAL_PADDING / 2}
-                                    `}
-                                    fill={`url(#base-gradient)`}
-                                    className='z-10'
-                                />
-                            )}
-                        </>
-                    ) : null
+                    </>
                 ))}
                 <linearGradient
                     id={"base-gradient"}
