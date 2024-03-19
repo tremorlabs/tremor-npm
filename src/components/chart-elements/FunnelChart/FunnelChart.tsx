@@ -135,9 +135,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                     <>
                         <line
                             key={index}
-                            x1={yAxisPadding}
+                            x1={yAxisPadding + GLOBAL_PADDING / 2}
                             y1={index * realHeight / 4 + GLOBAL_PADDING / 2}
-                            x2={width - GLOBAL_PADDING}
+                            x2={width - GLOBAL_PADDING / 2}
                             y2={index * realHeight / 4 + GLOBAL_PADDING / 2}
                             stroke="currentColor"
                             className={tremorTwMerge(
@@ -150,7 +150,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             )}
                         />
                         <text
-                            x={yAxisPadding - 10}
+                            x={yAxisPadding - 10 + GLOBAL_PADDING / 2}
                             y={index * realHeight / 4 + 5 + GLOBAL_PADDING / 2}
                             textAnchor="end"
                             fontSize="0.75rem"
