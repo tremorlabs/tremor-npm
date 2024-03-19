@@ -40,6 +40,8 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     color?: Color;
     variant?: FunnelVariantType;
     yAxisPadding?: number;
+    showYAxis?: boolean;
+    showGridLines?: boolean;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -53,7 +55,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         calculateFrom = "first",
         color,
         variant = "base",
-        yAxisPadding = 45,
+        showGridLines = true,
+        showYAxis = true,
+        yAxisPadding = showYAxis ? 45 : 0,
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -133,22 +137,24 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 {/* Draw Y axis labels and lines */}
                 {Y_AXIS_LABELS.map((label, index) => (
                     <>
-                        <line
-                            key={index}
-                            x1={yAxisPadding + GLOBAL_PADDING / 2}
-                            y1={index * realHeight / 4 + GLOBAL_PADDING / 2}
-                            x2={width - GLOBAL_PADDING / 2}
-                            y2={index * realHeight / 4 + GLOBAL_PADDING / 2}
-                            stroke="currentColor"
-                            className={tremorTwMerge(
-                                // common
-                                "stroke-1",
-                                // light
-                                "stroke-tremor-border",
-                                // dark
-                                "dark:stroke-dark-tremor-border",
-                            )}
-                        />
+                        {showGridLines ? (
+                            <line
+                                key={index}
+                                x1={yAxisPadding + GLOBAL_PADDING / 2}
+                                y1={index * realHeight / 4 + GLOBAL_PADDING / 2}
+                                x2={width - GLOBAL_PADDING / 2}
+                                y2={index * realHeight / 4 + GLOBAL_PADDING / 2}
+                                stroke="currentColor"
+                                className={tremorTwMerge(
+                                    // common
+                                    "stroke-1",
+                                    // light
+                                    "stroke-tremor-border",
+                                    // dark
+                                    "dark:stroke-dark-tremor-border",
+                                )}
+                            />
+                        ) : null}
                         <text
                             x={yAxisPadding - 10 + GLOBAL_PADDING / 2}
                             y={index * realHeight / 4 + 5 + GLOBAL_PADDING / 2}

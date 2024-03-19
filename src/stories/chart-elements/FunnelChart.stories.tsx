@@ -82,3 +82,15 @@ export const variantCenterWithEvolutionGradient: Story = {
         evolutionGradient: true
     },
 };  
+
+export const withoutGridLines: Story = {
+    args: {
+        showGridLines: false
+    },
+};
+
+export const withoutYLabels: Story = {
+    args: {
+        showYAxis: false
+    },
+};
