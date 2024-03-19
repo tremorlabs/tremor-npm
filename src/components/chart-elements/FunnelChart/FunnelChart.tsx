@@ -28,6 +28,7 @@ type DataT = {
 }
 
 const GLOBAL_PADDING = 20;
+const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
 export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
@@ -61,6 +62,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
+    const tooltipRef = React.useRef<HTMLDivElement>(null);
+
     const [width, setWidth] = React.useState(0);
     const [height, setHeight] = React.useState(0);
     const [tooltip, setTooltip] = React.useState<Tooltip>({ x: 0, y: 0 })
@@ -85,11 +88,30 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         };
 
         handleResize();
+
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    React.useEffect(() => {
+        const handleTooltipOverflows = () => {
+            if (tooltipRef.current) {
+                const boundingBox = tooltipRef.current.getBoundingClientRect();
+                
+                if (boundingBox.right > window.innerWidth) {
+                    tooltipRef.current.style.left = `${width - boundingBox.width}px`;
+                }
+            }
+        }
+
+        handleTooltipOverflows();
+        window.addEventListener('resize', handleTooltipOverflows);
+        return () => {
+            window.removeEventListener('resize', handleTooltipOverflows);
+        };
+    }, [tooltip, width]);
 
     //TBD: Add calculation for an empty space at to of each bar when calculateFrom is "previous"
     const formattedData = React.useMemo(() => {
@@ -127,7 +149,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
     }, [data, width, realHeight, isPreviousCalculation, isVariantCenter]);
 
     return (
-        <div className="relative">
+        <div className="tremor-wrapper relative">
             <svg
                 ref={svgRef}
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,10 +162,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {showGridLines ? (
                             <line
                                 key={index}
-                                x1={yAxisPadding + GLOBAL_PADDING / 2}
-                                y1={index * realHeight / 4 + GLOBAL_PADDING / 2}
-                                x2={width - GLOBAL_PADDING / 2}
-                                y2={index * realHeight / 4 + GLOBAL_PADDING / 2}
+                                x1={yAxisPadding + HALF_PADDING}
+                                y1={index * realHeight / 4 + HALF_PADDING}
+                                x2={width - HALF_PADDING}
+                                y2={index * realHeight / 4 + HALF_PADDING}
                                 stroke="currentColor"
                                 className={tremorTwMerge(
                                     // common
@@ -156,8 +178,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             />
                         ) : null}
                         <text
-                            x={yAxisPadding - 10 + GLOBAL_PADDING / 2}
-                            y={index * realHeight / 4 + 5 + GLOBAL_PADDING / 2}
+                            x={yAxisPadding - 10 + HALF_PADDING}
+                            y={index * realHeight / 4 + 5 + HALF_PADDING}
                             textAnchor="end"
                             fontSize="0.75rem"
                             fill=""
@@ -177,8 +199,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                     <g key={index}>
                         {/* Hover gray rect */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2 + yAxisPadding}
-                            y={GLOBAL_PADDING / 2}
+                            x={item.startX - 0.5 * tickGap + HALF_PADDING + yAxisPadding}
+                            y={HALF_PADDING}
                             width={barWidth + tickGap}
                             height={realHeight}
                             fill="currentColor"
@@ -191,8 +213,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw gradient bar to fill space */}
                         {gradient ? (
                             <rect
-                                x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
-                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + GLOBAL_PADDING / 2}
+                                x={item.startX + HALF_PADDING + yAxisPadding}
+                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + HALF_PADDING}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
                                 fill={`url(#base-gradient)`}
@@ -201,8 +223,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
                         {/* Draw bar */}
                         <rect
-                            x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
-                            y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + GLOBAL_PADDING / 2}
+                            x={item.startX + HALF_PADDING + yAxisPadding}
+                            y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + HALF_PADDING}
                             width={barWidth}
                             height={item.barHeight}
                             fill='currentColor'
@@ -217,8 +239,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw bottom gradient bar to fill space */}
                         {gradient && isVariantCenter ? (
                             <rect
-                                x={item.startX + GLOBAL_PADDING / 2 + yAxisPadding}
-                                y={realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                x={item.startX + HALF_PADDING + yAxisPadding}
+                                y={realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight) / 2}
                                 fill={`url(#base-gradient-revert)`}
@@ -227,8 +249,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
                         {/* Draw label */}
                         <text
-                            x={item.startX + barWidth / 2 + GLOBAL_PADDING / 2 + yAxisPadding}
-                            y={realHeight + 15 + GLOBAL_PADDING / 2}
+                            x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
+                            y={realHeight + 15 + HALF_PADDING}
                             textAnchor="middle"
                             fontSize="0.75rem"
                             fill=""
@@ -244,7 +266,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             {item.name}
                         </text>
 
-                        
+
                     </g>
                 ))}
                 {/* Draw gradient polygon between bars */}
@@ -258,10 +280,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                         <polygon
                                             key={index}
                                             points={`
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 2 + HALF_PADDING}
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + HALF_PADDING}
                                         `}
                                             fill={`url(#base-gradient)`}
                                             className='z-10'
@@ -269,10 +291,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                         <polygon
                                             key={index}
                                             points={`
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 2 + HALF_PADDING}
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
                                         `}
                                             fill={`url(#base-gradient-revert)`}
                                             className='z-10'
@@ -282,10 +304,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                     <polygon
                                         key={index}
                                         points={`
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${item.startY + GLOBAL_PADDING / 2} 
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight - item.nextBarHeight + GLOBAL_PADDING / 2} 
-                                            ${item.nextStartX + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight + GLOBAL_PADDING / 2} 
-                                            ${item.startX + barWidth + GLOBAL_PADDING / 2 + yAxisPadding}, ${realHeight + GLOBAL_PADDING / 2}
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${item.startY + HALF_PADDING} 
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight - item.nextBarHeight + HALF_PADDING} 
+                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING} 
+                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING}
                                         `}
                                         fill={`url(#base-gradient)`}
                                         className='z-10'
@@ -295,8 +317,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         ) : null}
                         {/* hover trasnparent rect for tooltip */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2 + yAxisPadding}
-                            y={GLOBAL_PADDING / 2}
+                            x={item.startX - 0.5 * tickGap + HALF_PADDING + yAxisPadding}
+                            y={HALF_PADDING}
                             width={barWidth + tickGap}
                             height={realHeight}
                             fill="transparent"
@@ -349,46 +371,54 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 </linearGradient>
             </svg>
             {/* TBD: Deal with tooltip that can overflow */}
-            {tooltip.data ? (
-                <div
-                    className="absolute top-0"
-                    style={{
-                        left: tooltip.x + barWidth * 0.66,
-                    }}
-                >
-                    <ChartTooltipFrame>
-                        <div
+            {/* {tooltip.data ? ( */}
+            <div
+                ref={tooltipRef}
+                className={tremorTwMerge(
+                    "absolute top-0 pointer-events-none",
+                    tooltip.data ? "visible" : "hidden",
+                )}
+                tabIndex={-1}
+                role='dialog'
+                style={{
+                    left: tooltip.x + barWidth * 0.66,
+                }}
+            >
+                <ChartTooltipFrame>
+                    <div
+                        className={tremorTwMerge(
+                            // light
+                            "border-tremor-border border-b px-4 py-2",
+                            // dark
+                            "dark:border-dark-tremor-border",
+                        )}
+                    >
+                        <p
                             className={tremorTwMerge(
+                                // common
+                                "font-medium",
                                 // light
-                                "border-tremor-border border-b px-4 py-2",
+                                "text-tremor-content-emphasis",
                                 // dark
-                                "dark:border-dark-tremor-border",
+                                "dark:text-dark-tremor-content-emphasis",
                             )}
                         >
-                            <p
-                                className={tremorTwMerge(
-                                    // common
-                                    "font-medium",
-                                    // light
-                                    "text-tremor-content-emphasis",
-                                    // dark
-                                    "dark:text-dark-tremor-content-emphasis",
-                                )}
-                            >
-                                {tooltip.data.name}
-                            </p>
-                        </div>
+                            {tooltip?.data?.name}
+                        </p>
+                    </div>
 
-                        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                    <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                        {tooltip.data ? (
                             <ChartTooltipRow
                                 value={valueFormatter(tooltip.data.value)}
                                 name={`${(tooltip.data.normalizedValue * 100).toFixed(2)}%`}
                                 color={color ?? BaseColors.Blue}
                             />
-                        </div>
-                    </ChartTooltipFrame>
-                </div>
-            ) : null}
+                        ) : null}
+                    </div>
+                </ChartTooltipFrame>
+            </div>
+            {/* ) : null} */}
         </div>
     );
 });
