@@ -101,3 +101,17 @@ export const CustomColorsConClick: Story = {
     },
   },
 };
+
+export const CustomItem: Story = {
+  ...LegendTemplate,
+  args: {
+    renderItem: ({ name, Circle }: any) => {
+      return (
+        <>
+          <Circle />
+          <p>custom - {name}</p>
+        </>
+      );
+    },
+  },
+};
