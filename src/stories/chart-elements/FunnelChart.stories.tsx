@@ -94,3 +94,9 @@ export const withoutYLabels: Story = {
         showYAxis: false
     },
 };
+
+export const onValueChange: Story = {
+    args: {
+        onValueChange: (value) => alert(JSON.stringify(value))
+    },
+};

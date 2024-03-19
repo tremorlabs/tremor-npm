@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChartTooltipFrame, ChartTooltipRow } from '../common/ChartTooltip';
 import { BaseColors, Color, FunnelVariantType, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
+import { EventProps } from '../common';
 
 type FormattedDataT = DataT & {
     normalizedValue: number;
@@ -33,7 +34,7 @@ const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
 export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     data: DataT[];
-    tickGap?: number;
+    gap?: number;
     evolutionGradient?: boolean;
     gradient?: boolean;
     valueFormatter?: (value: number) => string;
@@ -44,12 +45,13 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     showYAxis?: boolean;
     showGridLines?: boolean;
     showTooltip?: boolean;
+    onValueChange?: (value: EventProps) => void;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
     const {
         data,
-        tickGap = 30,
+        gap = 30,
         gradient = true,
         evolutionGradient = false,
         valueFormatter = defaultValueFormatter,
@@ -61,6 +63,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         showYAxis = calculateFrom === "previous" ? false : true,
         yAxisPadding = showYAxis ? 45 : 0,
         showTooltip = true,
+        onValueChange,
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -70,10 +73,29 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
     const [height, setHeight] = React.useState(0);
     const [tooltip, setTooltip] = React.useState<Tooltip>({ x: 0, y: 0 })
 
-    const maxValue = Math.max(...data.map(item => item.value));
+    const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
+    const hasOnValueChange = !!onValueChange;
+
+    function onBarClick(data: any, idx: number, event: React.MouseEvent) {
+        event.stopPropagation();
+        if (!hasOnValueChange) return;
+        if (idx === activeBar?.index) {
+            setActiveBar(undefined);
+            onValueChange(undefined);
+        } else {
+            setActiveBar({ data, index: idx });
+            onValueChange({
+                eventType: "bar",
+                categoryClicked: data.name,
+                [data.name]: data.value,
+                percentage: data.normalizedValue,
+            })
+        }
+    }
+    const maxValue = React.useMemo(() => Math.max(...data.map(item => item.value)), [data]);
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
-    const barWidth = ((widthWithoutPadding - (data.length - 1) * tickGap) - tickGap) / data.length;
+    const barWidth = React.useMemo(() => ((widthWithoutPadding - (data.length - 1) * gap) - gap) / data.length, [widthWithoutPadding, gap, data.length]);
     const realHeight = height - GLOBAL_PADDING - 30
 
     const isPreviousCalculation = calculateFrom === "previous";
@@ -101,7 +123,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         const handleTooltipOverflows = () => {
             if (tooltipRef.current) {
                 const boundingBox = tooltipRef.current.getBoundingClientRect();
-                
+
                 if (boundingBox.right > window.innerWidth) {
                     tooltipRef.current.style.left = `${width - boundingBox.width}px`;
                 }
@@ -126,12 +148,12 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
             const normalizedValue = value / valueToCompareWith;
             const barHeight = normalizedValue * calculationHeight;
-            const startX = index * (barWidth + tickGap) + 0.5 * tickGap;
+            const startX = index * (barWidth + gap) + 0.5 * gap;
             const startY = calculationHeight - barHeight + (isPreviousCalculation ? realHeight - (prev?.barHeight ?? realHeight) : 0);
             const nextValue = data[index + 1]?.value;
             const nextNormalizedValue = nextValue / valueToCompareWith;
             const nextBarHeight = nextNormalizedValue * calculationHeight;
-            const nextStartX = (index + 1) * (barWidth + tickGap) + 0.5 * tickGap;
+            const nextStartX = (index + 1) * (barWidth + gap) + 0.5 * gap;
 
             acc.push({
                 value,
@@ -201,9 +223,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                     <g key={index}>
                         {/* Hover gray rect */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + HALF_PADDING + yAxisPadding}
+                            x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
                             y={HALF_PADDING}
-                            width={barWidth + tickGap}
+                            width={barWidth + gap}
                             height={realHeight}
                             fill="currentColor"
                             className={tremorTwMerge(
@@ -220,6 +242,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                 width={barWidth}
                                 height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
                                 fill={`url(#base-gradient)`}
+                                className={tremorTwMerge(
+                                    !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                )}
                             />
                         ) : null}
 
@@ -234,7 +259,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                 getColorClassNames(
                                     color ?? BaseColors.Blue,
                                     colorPalette.text,
-                                ).textColor
+                                ).textColor,
+                                !activeBar || activeBar.index === index ? '' : "opacity-30"
                             )}
                         />
 
@@ -246,6 +272,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                 width={barWidth}
                                 height={(realHeight - item.barHeight) / 2}
                                 fill={`url(#base-gradient-revert)`}
+                                className={tremorTwMerge(
+                                    !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                )}
                             />
                         ) : null}
 
@@ -288,7 +317,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                             ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + HALF_PADDING}
                                         `}
                                             fill={`url(#base-gradient)`}
-                                            className='z-10'
+                                            className={tremorTwMerge(
+                                                "z-10",
+                                                !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                            )}
                                         />
                                         <polygon
                                             key={index}
@@ -299,7 +331,10 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                             ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
                                         `}
                                             fill={`url(#base-gradient-revert)`}
-                                            className='z-10'
+                                            className={tremorTwMerge(
+                                                "z-10",
+                                                !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                            )}
                                         />
                                     </>
                                 ) : (
@@ -312,20 +347,27 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                             ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING}
                                         `}
                                         fill={`url(#base-gradient)`}
-                                        className='z-10'
+                                        className={tremorTwMerge(
+                                            "z-10",
+                                            !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                        )}
                                     />
                                 )}
                             </>
                         ) : null}
                         {/* hover trasnparent rect for tooltip */}
                         <rect
-                            x={item.startX - 0.5 * tickGap + HALF_PADDING + yAxisPadding}
+                            x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
                             y={HALF_PADDING}
-                            width={barWidth + tickGap}
+                            width={barWidth + gap}
                             height={realHeight}
                             fill="transparent"
                             onMouseEnter={() => setTooltip({ x: item.startX, y: item.startY, data: item, index })}
                             onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
+                            onClick={(e) => onBarClick(item, index, e)}
+                            className={tremorTwMerge(
+                                hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
+                            )}
                         />
                     </>
                 ))}
