@@ -4,6 +4,7 @@ import { BaseColors, Color, colorPalette, defaultValueFormatter, getColorClassNa
 
 type FormattedDataT = {
     value: number;
+    normalizedValue: number;
     name: string;
     startX: number;
     startY: number;
@@ -19,7 +20,7 @@ type CalculateFrom = "first" | "previous";
 type Tooltip = {
     x: number;
     y: number;
-    data?: DataT;
+    data?: FormattedDataT;
     index?: number;
 };
 
@@ -99,6 +100,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
             acc.push({
                 value,
+                normalizedValue,
                 name: item.name,
                 startX,
                 startY,
@@ -268,7 +270,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
                             <ChartTooltipRow
                                 value={valueFormatter(tooltip.data.value)}
-                                name={tooltip.data.name}
+                                name={`${(tooltip.data.normalizedValue * 100).toFixed(2)}%`}
                                 color={color ?? BaseColors.Blue}
                             />
                         </div>
