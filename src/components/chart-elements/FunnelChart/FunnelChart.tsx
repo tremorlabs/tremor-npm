@@ -27,6 +27,8 @@ type DataT = {
     name: string;
 }
 
+const GLOBAL_PADDING = 20;
+
 export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     data: DataT[];
     tickGap?: number;
@@ -58,8 +60,9 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
     const maxValue = Math.max(...data.map(item => item.value));
 
-    const barWidth = ((width - (data.length - 1) * tickGap) - tickGap) / data.length;
-    const realHeight = height - 30
+    const widthWithoutPadding = width - GLOBAL_PADDING;
+    const barWidth = ((widthWithoutPadding - (data.length - 1) * tickGap) - tickGap) / data.length;
+    const realHeight = height - GLOBAL_PADDING - 30
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center"
@@ -128,8 +131,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                     <g key={index}>
                         {/* Hover gray rect */}
                         <rect
-                            x={item.startX - 0.5 * tickGap}
-                            y={0}
+                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2}
+                            y={GLOBAL_PADDING / 2}
                             width={barWidth + tickGap}
                             height={realHeight}
                             fill="currentColor"
@@ -142,8 +145,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw gradient bar to fill space */}
                         {gradient ? (
                             <rect
-                                x={item.startX}
-                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight)}
+                                x={item.startX + GLOBAL_PADDING / 2}
+                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + GLOBAL_PADDING / 2}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
                                 fill={`url(#base-gradient)`}
@@ -152,8 +155,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
                         {/* Draw bar */}
                         <rect
-                            x={item.startX}
-                            y={isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY}
+                            x={item.startX + GLOBAL_PADDING / 2}
+                            y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + GLOBAL_PADDING / 2}
                             width={barWidth}
                             height={item.barHeight}
                             fill='currentColor'
@@ -168,8 +171,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw bottom gradient bar to fill space */}
                         {gradient && isVariantCenter ? (
                             <rect
-                                x={item.startX}
-                                y={realHeight / 2 + item.barHeight / 2}
+                                x={item.startX + GLOBAL_PADDING / 2}
+                                y={realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
                                 width={barWidth}
                                 height={(realHeight - item.barHeight) / 2}
                                 fill={`url(#base-gradient-revert)`}
@@ -177,14 +180,21 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         ) : null}
 
                         {/* Draw label */}
-                        <text x={item.startX + barWidth / 2} y={realHeight + 15} textAnchor="middle" fontSize="12px" className='truncate' width={barWidth}>
+                        <text
+                            x={item.startX + barWidth / 2 + GLOBAL_PADDING / 2}
+                            y={realHeight + 15 + GLOBAL_PADDING / 2}
+                            textAnchor="middle"
+                            fontSize="12px"
+                            className='truncate'
+                            width={barWidth}
+                        >
                             {item.name}
                         </text>
 
                         {/* hover trasnparent rect for tooltip */}
                         <rect
-                            x={item.startX - 0.5 * tickGap}
-                            y={0}
+                            x={item.startX - 0.5 * tickGap + GLOBAL_PADDING / 2}
+                            y={GLOBAL_PADDING / 2}
                             width={barWidth + tickGap}
                             height={realHeight}
                             fill="transparent"
@@ -197,35 +207,45 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 {formattedData.map((item, index) => (
                     index < data.length - 1 && evolutionGradient ? (
                         <>
-                            <polygon
-                                key={index}
-                                points={!isVariantCenter ? `
-                                        ${item.startX + barWidth}, ${item.startY} 
-                                        ${item.nextStartX}, ${realHeight - item.nextBarHeight} 
-                                        ${item.nextStartX}, ${realHeight} 
-                                        ${item.startX + barWidth}, ${realHeight}
-                                    ` : `
-                                        ${item.startX + barWidth}, ${realHeight / 2 + item.nextBarHeight / 4}
-                                        ${item.nextStartX}, ${realHeight / 2 + item.nextBarHeight / 4}
-                                        ${item.nextStartX}, ${realHeight / 2 - item.nextBarHeight / 2}
-                                        ${item.startX + barWidth}, ${realHeight / 2 - item.barHeight / 2}
-                                    `}
-                                fill={`url(#base-gradient)`}
-                                className='z-10'
-                            />
+
                             {isVariantCenter ? (
+                                <>
+                                    <polygon
+                                        key={index}
+                                        points={`
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                    `}
+                                        fill={`url(#base-gradient)`}
+                                        className='z-10'
+                                    />
+                                    <polygon
+                                        key={index}
+                                        points={`
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.barHeight / 2 + GLOBAL_PADDING / 2}
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 + item.nextBarHeight / 2 + GLOBAL_PADDING / 2}
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight / 2 - item.nextBarHeight / 4 + GLOBAL_PADDING / 2}
+                                    `}
+                                        fill={`url(#base-gradient-revert)`}
+                                        className='z-10'
+                                    />
+                                </>
+                            ) : (
                                 <polygon
                                     key={index}
                                     points={`
-                                        ${item.startX + barWidth}, ${realHeight / 2 + item.barHeight / 2}
-                                        ${item.nextStartX}, ${realHeight / 2 + item.nextBarHeight / 2}
-                                        ${item.nextStartX}, ${realHeight / 2 - item.nextBarHeight / 4}
-                                        ${item.startX + barWidth}, ${realHeight / 2 - item.nextBarHeight / 4}
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${item.startY + GLOBAL_PADDING / 2} 
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight - item.nextBarHeight + GLOBAL_PADDING / 2} 
+                                        ${item.nextStartX + GLOBAL_PADDING / 2}, ${realHeight + GLOBAL_PADDING / 2} 
+                                        ${item.startX + barWidth + GLOBAL_PADDING / 2}, ${realHeight + GLOBAL_PADDING / 2}
                                     `}
-                                    fill={`url(#base-gradient-revert)`}
+                                    fill={`url(#base-gradient)`}
                                     className='z-10'
                                 />
-                            ) : null} 
+                            )}
                         </>
                     ) : null
                 ))}
