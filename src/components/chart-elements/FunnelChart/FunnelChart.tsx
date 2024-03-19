@@ -56,7 +56,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         color,
         variant = "base",
         showGridLines = true,
-        showYAxis = true,
+        showYAxis = calculateFrom === "previous" ? false : true,
         yAxisPadding = showYAxis ? 45 : 0,
         ...other
     } = props;
