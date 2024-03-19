@@ -2,6 +2,18 @@ import React from 'react';
 import { ChartTooltipFrame, ChartTooltipRow } from '../common/ChartTooltip';
 import { BaseColors, Color, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
 
+type FormattedDataT = {
+    value: number;
+    name: string;
+    startX: number;
+    startY: number;
+    barHeight: number;
+    nextValue: number;
+    nextNormalizedValue: number;
+    nextBarHeight: number;
+    nextStartX: number;
+};
+
 type CalculateFrom = "first" | "previous";
 
 type Tooltip = {
@@ -48,11 +60,15 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
     const barWidth = ((width - (data.length - 1) * tickGap) - tickGap) / data.length;
     const realHeight = height - 30
 
+    const isPreviousCalculation = calculateFrom === "previous";
+
     React.useLayoutEffect(() => {
         const handleResize = () => {
             if (svgRef.current) {
-                setWidth(svgRef.current.getBoundingClientRect().width);
-                setHeight(svgRef.current.getBoundingClientRect().height);
+                const boundingBox = svgRef.current.getBoundingClientRect();
+                
+                setWidth(boundingBox.width);
+                setHeight(boundingBox.height);
             }
         };
 
@@ -61,22 +77,27 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [svgRef]);
+    }, []);
 
     //TBD: Add calculation for an empty space at to of each bar when calculateFrom is "previous"
     const formattedData = React.useMemo(() => {
-        return data.map((item, index) => {
+        if(realHeight <= 0) return [];
+        return data.reduce((acc: FormattedDataT[], item, index) => {
+            const prev = acc[index - 1];
             const value = item.value;
-            const normalizedValue = value / maxValue;
-            const barHeight = normalizedValue * realHeight;
+            const valueToCompareWith = isPreviousCalculation ? (prev?.value ?? value) : maxValue;
+            const calculationHeight = isPreviousCalculation ? (prev?.barHeight ?? realHeight) : realHeight;
+            
+            const normalizedValue = value / valueToCompareWith;
+            const barHeight = normalizedValue * calculationHeight;
             const startX = index * (barWidth + tickGap) + 0.5 * tickGap;
-            const startY = realHeight - barHeight;
+            const startY = calculationHeight - barHeight + (isPreviousCalculation ? realHeight - (prev?.barHeight ?? realHeight) : 0);
             const nextValue = data[index + 1]?.value;
-            const nextNormalizedValue = nextValue / maxValue;
-            const nextBarHeight = nextNormalizedValue * realHeight;
+            const nextNormalizedValue = nextValue / valueToCompareWith;
+            const nextBarHeight = nextNormalizedValue * calculationHeight;
             const nextStartX = (index + 1) * (barWidth + tickGap) + 0.5 * tickGap;
 
-            return {
+            acc.push({
                 value,
                 name: item.name,
                 startX,
@@ -85,9 +106,11 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 nextValue,
                 nextNormalizedValue,
                 nextBarHeight,
-                nextStartX,
-            };
-        });
+                nextStartX
+            });
+
+            return acc
+        },[]);
     }, [data, width, realHeight]);
 
     return (
@@ -100,7 +123,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
             >
                 {formattedData.map((item, index) => (
                     <g key={index}>
-                        {/* hover gray rect */}
+                        {/* Hover gray rect */}
                         <rect
                             x={item.startX - 0.5 * tickGap}
                             y={0}
@@ -113,15 +136,13 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             )}
                         />
 
-                        {/* TBD: Draw empty rect when calculateFrom is "previous" */}
-
                         {/* Draw gradient bar to fill space */}
                         {gradient ? (
                             <rect
                                 x={item.startX}
-                                y={0}
+                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight)}
                                 width={barWidth}
-                                height={realHeight - item.barHeight}
+                                height={realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)}
                                 fill={`url(#base-gradient)`}
                             />
                         ) : null}
@@ -133,7 +154,6 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             width={barWidth}
                             height={item.barHeight}
                             fill='currentColor'
-                            // className='text-tremor-brand'
                             className={tremorTwMerge(
                                 getColorClassNames(
                                     color ?? BaseColors.Blue,
@@ -162,7 +182,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             {item.name}
                         </text>
 
-                        {/* hover gray rect */}
+                        {/* hover trasnparent rect for tooltip */}
                         <rect
                             x={item.startX - 0.5 * tickGap}
                             y={0}
@@ -177,6 +197,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                 {formattedData.map((item, index) => (
                     index < data.length - 1 && evolutionGradient ? (
                         <polygon
+                            key={index}
                             points={`
                                 ${item.startX + barWidth},
                                 ${item.startY} ${item.nextStartX},

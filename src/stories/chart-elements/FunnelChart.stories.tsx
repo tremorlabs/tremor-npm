@@ -53,3 +53,11 @@ export const fromPrevious: Story = {
         calculateFrom: "previous"
     },
 };
+
+export const fromPreviousWithEvolutionGradient: Story = {
+    args: {
+        calculateFrom: "previous",
+        gradient: false,
+        evolutionGradient: true
+    },
+};
