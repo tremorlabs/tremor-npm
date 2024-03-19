@@ -1,11 +1,9 @@
 import React from 'react';
 import { ChartTooltipFrame, ChartTooltipRow } from '../common/ChartTooltip';
-import { BaseColors, Color, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
+import { BaseColors, Color, FunnelVariantType, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
 
-type FormattedDataT = {
-    value: number;
+type FormattedDataT = DataT & {
     normalizedValue: number;
-    name: string;
     startX: number;
     startY: number;
     barHeight: number;
@@ -37,6 +35,7 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     valueFormatter?: (value: number) => string;
     calculateFrom?: CalculateFrom;
     color?: Color;
+    variant?: FunnelVariantType;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -49,6 +48,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         className,
         calculateFrom = "first",
         color,
+        variant = "base",
         ...other
     } = props;
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -62,12 +62,13 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
     const realHeight = height - 30
 
     const isPreviousCalculation = calculateFrom === "previous";
+    const isVariantCenter = variant === "center"
 
     React.useLayoutEffect(() => {
         const handleResize = () => {
             if (svgRef.current) {
                 const boundingBox = svgRef.current.getBoundingClientRect();
-                
+
                 setWidth(boundingBox.width);
                 setHeight(boundingBox.height);
             }
@@ -82,13 +83,13 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
 
     //TBD: Add calculation for an empty space at to of each bar when calculateFrom is "previous"
     const formattedData = React.useMemo(() => {
-        if(realHeight <= 0) return [];
+        if (realHeight <= 0) return [];
         return data.reduce((acc: FormattedDataT[], item, index) => {
             const prev = acc[index - 1];
             const value = item.value;
             const valueToCompareWith = isPreviousCalculation ? (prev?.value ?? value) : maxValue;
             const calculationHeight = isPreviousCalculation ? (prev?.barHeight ?? realHeight) : realHeight;
-            
+
             const normalizedValue = value / valueToCompareWith;
             const barHeight = normalizedValue * calculationHeight;
             const startX = index * (barWidth + tickGap) + 0.5 * tickGap;
@@ -112,8 +113,8 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
             });
 
             return acc
-        },[]);
-    }, [data, width, realHeight]);
+        }, []);
+    }, [data, width, realHeight, isPreviousCalculation, isVariantCenter]);
 
     return (
         <div className="relative">
@@ -144,7 +145,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                                 x={item.startX}
                                 y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight)}
                                 width={barWidth}
-                                height={realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)}
+                                height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
                                 fill={`url(#base-gradient)`}
                             />
                         ) : null}
@@ -152,7 +153,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         {/* Draw bar */}
                         <rect
                             x={item.startX}
-                            y={item.startY}
+                            y={isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY}
                             width={barWidth}
                             height={item.barHeight}
                             fill='currentColor'
@@ -164,18 +165,14 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             )}
                         />
 
-                        {/* Draw gradient polygon between bars */}
-                        {index < data.length - 1 && evolutionGradient ? (
-                            <polygon
-                                points={`
-                                    ${item.startX + barWidth},
-                                    ${item.startY} ${item.nextStartX},
-                                    ${realHeight - item.nextBarHeight} ${item.nextStartX},
-                                    ${realHeight} ${item.startX + barWidth},
-                                    ${realHeight}
-                                `}
-                                fill={`url(#base-gradient)`}
-                                className='z-10'
+                        {/* Draw bottom gradient bar to fill space */}
+                        {gradient && isVariantCenter ? (
+                            <rect
+                                x={item.startX}
+                                y={realHeight / 2 + item.barHeight / 2}
+                                width={barWidth}
+                                height={(realHeight - item.barHeight) / 2}
+                                fill={`url(#base-gradient-revert)`}
                             />
                         ) : null}
 
@@ -196,23 +193,42 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         />
                     </g>
                 ))}
+                {/* Draw gradient polygon between bars */}
                 {formattedData.map((item, index) => (
                     index < data.length - 1 && evolutionGradient ? (
-                        <polygon
-                            key={index}
-                            points={`
-                                ${item.startX + barWidth},
-                                ${item.startY} ${item.nextStartX},
-                                ${realHeight - item.nextBarHeight} ${item.nextStartX},
-                                ${realHeight} ${item.startX + barWidth},
-                                ${realHeight}
-                            `}
-                            fill={`url(#base-gradient)`}
-                            className='z-10'
-                        />
+                        <>
+                            <polygon
+                                key={index}
+                                points={!isVariantCenter ? `
+                                        ${item.startX + barWidth}, ${item.startY} 
+                                        ${item.nextStartX}, ${realHeight - item.nextBarHeight} 
+                                        ${item.nextStartX}, ${realHeight} 
+                                        ${item.startX + barWidth}, ${realHeight}
+                                    ` : `
+                                        ${item.startX + barWidth}, ${realHeight / 2 + item.nextBarHeight / 4}
+                                        ${item.nextStartX}, ${realHeight / 2 + item.nextBarHeight / 4}
+                                        ${item.nextStartX}, ${realHeight / 2 - item.nextBarHeight / 2}
+                                        ${item.startX + barWidth}, ${realHeight / 2 - item.barHeight / 2}
+                                    `}
+                                fill={`url(#base-gradient)`}
+                                className='z-10'
+                            />
+                            {isVariantCenter ? (
+                                <polygon
+                                    key={index}
+                                    points={`
+                                        ${item.startX + barWidth}, ${realHeight / 2 + item.barHeight / 2}
+                                        ${item.nextStartX}, ${realHeight / 2 + item.nextBarHeight / 2}
+                                        ${item.nextStartX}, ${realHeight / 2 - item.nextBarHeight / 4}
+                                        ${item.startX + barWidth}, ${realHeight / 2 - item.nextBarHeight / 4}
+                                    `}
+                                    fill={`url(#base-gradient-revert)`}
+                                    className='z-10'
+                                />
+                            ) : null} 
+                        </>
                     ) : null
                 ))}
-
                 <linearGradient
                     id={"base-gradient"}
                     x1="0%"
@@ -234,6 +250,26 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         }
                     />
                     <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient
+                    id={"base-gradient-revert"}
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                    className={tremorTwMerge(
+                        getColorClassNames(
+                            color ?? BaseColors.Blue,
+                            colorPalette.text,
+                        ).textColor
+                    )}
+                >
+                    <stop
+                        offset="5%"
+                        stopColor="currentColor"
+                        stopOpacity={0}
+                    />
+                    <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
                 </linearGradient>
             </svg>
             {/* TBD: Deal with tooltip that can overflow */}

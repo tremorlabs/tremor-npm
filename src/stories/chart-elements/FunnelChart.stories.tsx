@@ -61,3 +61,24 @@ export const fromPreviousWithEvolutionGradient: Story = {
         evolutionGradient: true
     },
 };
+
+export const variantCenter: Story = {
+    args: {
+        variant: "center"
+    },
+};
+
+export const variantCenterWithoutGradient: Story = {
+    args: {
+        variant: "center",
+        gradient: false
+    },
+};  
+
+export const variantCenterWithEvolutionGradient: Story = {
+    args: {
+        variant: "center",
+        gradient: false,
+        evolutionGradient: true
+    },
+};  
