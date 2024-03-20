@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartTooltipFrame, ChartTooltipRow } from '../common/ChartTooltip';
 import { BaseColors, Color, FunnelVariantType, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
-import { EventProps } from '../common';
+import { CustomTooltipProps, EventProps } from '../common';
 
 type FormattedDataT = DataT & {
     normalizedValue: number;
@@ -19,7 +19,15 @@ type CalculateFrom = "first" | "previous";
 type Tooltip = {
     x: number;
     y: number;
-    data?: FormattedDataT;
+    data?: {
+        className?: string,
+        name: string,
+        fill?: string,
+        dataKey: string,
+        color?: Color,
+        value: number,
+        payload?: any
+    }
     index?: number;
 };
 
@@ -46,6 +54,7 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     showGridLines?: boolean;
     showTooltip?: boolean;
     onValueChange?: (value: EventProps) => void;
+    customTooltip?: React.ComponentType<CustomTooltipProps>;
 };
 
 const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -64,8 +73,11 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         yAxisPadding = showYAxis ? 45 : 0,
         showTooltip = true,
         onValueChange,
+        customTooltip,
         ...other
     } = props;
+    const CustomTooltip = customTooltip;
+
     const svgRef = React.useRef<SVGSVGElement>(null);
     const tooltipRef = React.useRef<HTMLDivElement>(null);
 
@@ -362,7 +374,26 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                             width={barWidth + gap}
                             height={realHeight}
                             fill="transparent"
-                            onMouseEnter={() => setTooltip({ x: item.startX, y: item.startY, data: item, index })}
+                            onMouseEnter={() => setTooltip({ 
+                                x: item.startX, 
+                                y: item.startY, 
+                                data: {
+                                    dataKey: item.name,
+                                    name: item.name,
+                                    value: item.value,
+                                    color: color ?? BaseColors.Blue,
+                                    className: tremorTwMerge(
+                                        getColorClassNames(
+                                            color ?? BaseColors.Blue,
+                                            colorPalette.text,
+                                        ).textColor,
+                                        hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
+                                    ),
+                                    fill: "",
+                                    payload: item
+                                },
+                                index 
+                            })}
                             onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
                             onClick={(e) => onBarClick(item, index, e)}
                             className={tremorTwMerge(
@@ -428,39 +459,48 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
                         left: tooltip.x + barWidth * 0.66,
                     }}
                 >
-                    <ChartTooltipFrame>
-                        <div
-                            className={tremorTwMerge(
-                                // light
-                                "border-tremor-border border-b px-4 py-2",
-                                // dark
-                                "dark:border-dark-tremor-border",
-                            )}
-                        >
-                            <p
+                    {CustomTooltip ? (
+                        <CustomTooltip
+                            payload={tooltip.data ? [tooltip.data] : []}
+                            active={!!tooltip.data}
+                            label={tooltip.data?.name}
+                        />
+                    ) : (
+
+                        <ChartTooltipFrame>
+                            <div
                                 className={tremorTwMerge(
-                                    // common
-                                    "font-medium",
                                     // light
-                                    "text-tremor-content-emphasis",
+                                    "border-tremor-border border-b px-4 py-2",
                                     // dark
-                                    "dark:text-dark-tremor-content-emphasis",
+                                    "dark:border-dark-tremor-border",
                                 )}
                             >
-                                {tooltip?.data?.name}
-                            </p>
-                        </div>
+                                <p
+                                    className={tremorTwMerge(
+                                        // common
+                                        "font-medium",
+                                        // light
+                                        "text-tremor-content-emphasis",
+                                        // dark
+                                        "dark:text-dark-tremor-content-emphasis",
+                                    )}
+                                >
+                                    {tooltip?.data?.name}
+                                </p>
+                            </div>
 
-                        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
-                            {tooltip.data ? (
-                                <ChartTooltipRow
-                                    value={valueFormatter(tooltip.data.value)}
-                                    name={`${(tooltip.data.normalizedValue * 100).toFixed(2)}%`}
-                                    color={color ?? BaseColors.Blue}
-                                />
-                            ) : null}
-                        </div>
-                    </ChartTooltipFrame>
+                            <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                                {tooltip.data ? (
+                                    <ChartTooltipRow
+                                        value={valueFormatter(tooltip.data.value)}
+                                        name={`${(tooltip.data.payload.normalizedValue * 100).toFixed(2)}%`}
+                                        color={color ?? BaseColors.Blue}
+                                    />
+                                ) : null}
+                            </div>
+                        </ChartTooltipFrame>
+                    )}
                 </div>
             ) : null}
         </div>

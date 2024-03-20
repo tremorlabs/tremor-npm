@@ -73,7 +73,7 @@ export const variantCenterWithoutGradient: Story = {
         variant: "center",
         gradient: false
     },
-};  
+};
 
 export const variantCenterWithEvolutionGradient: Story = {
     args: {
@@ -81,7 +81,7 @@ export const variantCenterWithEvolutionGradient: Story = {
         gradient: false,
         evolutionGradient: true
     },
-};  
+};
 
 export const withoutGridLines: Story = {
     args: {
@@ -100,3 +100,34 @@ export const onValueChange: Story = {
         onValueChange: (value) => alert(JSON.stringify(value))
     },
 };
+
+export const CustomTooltipSimple: Story = {
+    args: {
+        customTooltip: (props: CustomTooltipProps) => {
+            const { payload, active, label } = props;
+            
+            if (!active || !payload) return null;
+
+            const categoryPayload = payload?.[0];
+            if (!categoryPayload) return null;
+            return (
+                <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+                    <div className="flex flex-1 space-x-2.5">
+                        <div className={`w-1.5 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
+                        <div className="w-full">
+                            <p className="font-medium text-tremor-content-emphasis">{label}</p>
+                            <div className="flex items-center justify-between space-x-8">
+                                <p className="text-right text-tremor-content whitespace-nowrap">
+                                    {(categoryPayload.payload.normalizedValue * 100).toFixed(2)}%
+                                </p>
+                                <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                                    {currencyValueFormatter(categoryPayload.value as number)}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        },
+    }
+}
