@@ -114,6 +114,12 @@ export const NoDataText: Story = {
     }
 };
 
+export const RotateXLabelsHorizontal: Story = {
+    args: {
+      rotateLabelX: { angle: -45, verticalShift: 0, xAxisHeight: 100 },
+    },
+  };
+
 export const CustomTooltipSimple: Story = {
     args: {
         customTooltip: (props: CustomTooltipProps) => {

@@ -37,6 +37,7 @@ type DataT = {
     name: string;
 }
 
+const DEFAULT_X_AXIS_HEIGHT = 30;
 const GLOBAL_PADDING = 20;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
@@ -57,6 +58,11 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     onValueChange?: (value: EventProps) => void;
     customTooltip?: React.ComponentType<CustomTooltipProps>;
     noDataText?: string;
+    rotateLabelX?: {
+        angle: number;
+        verticalShift?: number;
+        xAxisHeight?: number;
+    };
 };
 
 const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
@@ -77,6 +83,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
         onValueChange,
         customTooltip,
         noDataText,
+        rotateLabelX,
         ...other
     } = props;
     const CustomTooltip = customTooltip;
@@ -111,7 +118,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
     const barWidth = React.useMemo(() => ((widthWithoutPadding - (data.length - 1) * gap) - gap) / data.length, [widthWithoutPadding, gap, data.length]);
-    const realHeight = height - GLOBAL_PADDING - 30
+    const realHeight = height - GLOBAL_PADDING - (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT)
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center"
@@ -300,7 +307,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
                                 {/* Draw label */}
                                 <text
                                     x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
-                                    y={realHeight + 15 + HALF_PADDING}
+                                    y={realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING}
                                     textAnchor="middle"
                                     fontSize="0.75rem"
                                     fill=""
@@ -312,6 +319,8 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
                                         "dark:fill-dark-tremor-content",
                                     )}
                                     width={barWidth}
+                                    height={rotateLabelX?.xAxisHeight}
+                                    transform={`rotate(${rotateLabelX?.angle}, ${item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}, ${realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING + (rotateLabelX?.verticalShift || 0)})`}
                                 >
                                     {item.name}
                                 </text>
