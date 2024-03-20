@@ -101,6 +101,19 @@ export const onValueChange: Story = {
     },
 };
 
+export const NoData = {
+    args: {
+        data: [],
+    }
+};
+
+export const NoDataText: Story = {
+    args: {
+        data: [],
+        noDataText: "No data, try again later."
+    }
+};
+
 export const CustomTooltipSimple: Story = {
     args: {
         customTooltip: (props: CustomTooltipProps) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { ChartTooltipFrame, ChartTooltipRow } from '../common/ChartTooltip';
 import { BaseColors, Color, FunnelVariantType, colorPalette, defaultValueFormatter, getColorClassNames, tremorTwMerge } from 'lib';
 import { CustomTooltipProps, EventProps } from '../common';
+import NoData from '../common/NoData';
 
 type FormattedDataT = DataT & {
     normalizedValue: number;
@@ -40,7 +41,7 @@ const GLOBAL_PADDING = 20;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
-export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
+export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     data: DataT[];
     gap?: number;
     evolutionGradient?: boolean;
@@ -55,9 +56,10 @@ export interface FunnelChartProps extends React.SVGProps<SVGSVGElement> {
     showTooltip?: boolean;
     onValueChange?: (value: EventProps) => void;
     customTooltip?: React.ComponentType<CustomTooltipProps>;
+    noDataText?: string;
 };
 
-const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
+const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: FunnelChartProps, ref) => {
     const {
         data,
         gap = 30,
@@ -74,6 +76,7 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
         showTooltip = true,
         onValueChange,
         customTooltip,
+        noDataText,
         ...other
     } = props;
     const CustomTooltip = customTooltip;
@@ -185,324 +188,328 @@ const FunnelChart = React.forwardRef<SVGSVGElement, FunnelChartProps>((props: Fu
     }, [data, width, realHeight, isPreviousCalculation, isVariantCenter]);
 
     return (
-        <div className="tremor-wrapper relative">
-            <svg
-                ref={svgRef}
-                xmlns="http://www.w3.org/2000/svg"
-                className={tremorTwMerge('w-full h-full', className)}
-                {...other}
-            >
-                {/* Draw Y axis labels and lines */}
-                {Y_AXIS_LABELS.map((label, index) => (
-                    <>
-                        {showGridLines ? (
-                            <line
-                                key={index}
-                                x1={yAxisPadding + HALF_PADDING}
-                                y1={index * realHeight / 4 + HALF_PADDING}
-                                x2={width - HALF_PADDING}
-                                y2={index * realHeight / 4 + HALF_PADDING}
-                                stroke="currentColor"
-                                className={tremorTwMerge(
-                                    // common
-                                    "stroke-1",
-                                    // light
-                                    "stroke-tremor-border",
-                                    // dark
-                                    "dark:stroke-dark-tremor-border",
-                                )}
-                            />
-                        ) : null}
-                        <text
-                            x={yAxisPadding - 10 + HALF_PADDING}
-                            y={index * realHeight / 4 + 5 + HALF_PADDING}
-                            textAnchor="end"
-                            fontSize="0.75rem"
-                            fill=""
-                            stroke=""
-                            className={tremorTwMerge(
-                                // light
-                                "fill-tremor-content",
-                                // dark
-                                "dark:fill-dark-tremor-content",
-                            )}
-                        >
-                            {label}
-                        </text>
-                    </>
-                ))}
-                {formattedData.map((item, index) => (
-                    <g key={index}>
-                        {/* Hover gray rect */}
-                        <rect
-                            x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
-                            y={HALF_PADDING}
-                            width={barWidth + gap}
-                            height={realHeight}
-                            fill="currentColor"
-                            className={tremorTwMerge(
-                                "z-0 opacity-5",
-                                tooltip.index === index ? 'text-tremor-background-emphasis' : 'text-transparent',
-                            )}
-                        />
+        <div 
+            ref={ref}
+            className={tremorTwMerge('tremor-wrapper relative w-full h-full', className)}
+            {...other}
+        >
+            {data?.length ? (
+                <>
+                    <svg
+                        ref={svgRef}
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={tremorTwMerge('w-full h-full')}
+                    >
+                        {/* Draw Y axis labels and lines */}
+                        {Y_AXIS_LABELS.map((label, index) => (
+                            <React.Fragment key={`y-axis-${index}`}>
+                                {showGridLines ? (
+                                    <line
+                                        x1={yAxisPadding + HALF_PADDING}
+                                        y1={index * realHeight / 4 + HALF_PADDING}
+                                        x2={width - HALF_PADDING}
+                                        y2={index * realHeight / 4 + HALF_PADDING}
+                                        stroke="currentColor"
+                                        className={tremorTwMerge(
+                                            // common
+                                            "stroke-1",
+                                            // light
+                                            "stroke-tremor-border",
+                                            // dark
+                                            "dark:stroke-dark-tremor-border",
+                                        )}
+                                    />
+                                ) : null}
+                                <text
+                                    x={yAxisPadding - 10 + HALF_PADDING}
+                                    y={index * realHeight / 4 + 5 + HALF_PADDING}
+                                    textAnchor="end"
+                                    fontSize="0.75rem"
+                                    fill=""
+                                    stroke=""
+                                    className={tremorTwMerge(
+                                        // light
+                                        "fill-tremor-content",
+                                        // dark
+                                        "dark:fill-dark-tremor-content",
+                                    )}
+                                >
+                                    {label}
+                                </text>
+                            </React.Fragment>
+                        ))}
+                        {formattedData.map((item, index) => (
+                            <g key={`bar-${index}`}>
+                                {/* Hover gray rect */}
+                                <rect
+                                    x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
+                                    y={HALF_PADDING}
+                                    width={barWidth + gap}
+                                    height={realHeight}
+                                    fill="currentColor"
+                                    className={tremorTwMerge(
+                                        "z-0 opacity-5",
+                                        tooltip.index === index ? 'text-tremor-background-emphasis' : 'text-transparent',
+                                    )}
+                                />
 
-                        {/* Draw gradient bar to fill space */}
-                        {gradient ? (
-                            <rect
-                                x={item.startX + HALF_PADDING + yAxisPadding}
-                                y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + HALF_PADDING}
-                                width={barWidth}
-                                height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
-                                fill={`url(#base-gradient)`}
-                                className={tremorTwMerge(
-                                    !activeBar || activeBar.index === index ? '' : "opacity-30"
-                                )}
-                            />
-                        ) : null}
-
-                        {/* Draw bar */}
-                        <rect
-                            x={item.startX + HALF_PADDING + yAxisPadding}
-                            y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + HALF_PADDING}
-                            width={barWidth}
-                            height={item.barHeight}
-                            fill='currentColor'
-                            className={tremorTwMerge(
-                                getColorClassNames(
-                                    color ?? BaseColors.Blue,
-                                    colorPalette.text,
-                                ).textColor,
-                                !activeBar || activeBar.index === index ? '' : "opacity-30"
-                            )}
-                        />
-
-                        {/* Draw bottom gradient bar to fill space */}
-                        {gradient && isVariantCenter ? (
-                            <rect
-                                x={item.startX + HALF_PADDING + yAxisPadding}
-                                y={realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
-                                width={barWidth}
-                                height={(realHeight - item.barHeight) / 2}
-                                fill={`url(#base-gradient-revert)`}
-                                className={tremorTwMerge(
-                                    !activeBar || activeBar.index === index ? '' : "opacity-30"
-                                )}
-                            />
-                        ) : null}
-
-                        {/* Draw label */}
-                        <text
-                            x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
-                            y={realHeight + 15 + HALF_PADDING}
-                            textAnchor="middle"
-                            fontSize="0.75rem"
-                            fill=""
-                            stroke=""
-                            className={tremorTwMerge(
-                                // light
-                                "fill-tremor-content",
-                                // dark
-                                "dark:fill-dark-tremor-content",
-                            )}
-                            width={barWidth}
-                        >
-                            {item.name}
-                        </text>
-
-
-                    </g>
-                ))}
-                {/* Draw gradient polygon between bars */}
-                {formattedData.map((item, index) => (
-                    <>
-                        {index < data.length - 1 && evolutionGradient ? (
-                            <>
-
-                                {isVariantCenter ? (
-                                    <>
-                                        <polygon
-                                            key={index}
-                                            points={`
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 2 + HALF_PADDING}
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + HALF_PADDING}
-                                        `}
-                                            fill={`url(#base-gradient)`}
-                                            className={tremorTwMerge(
-                                                "z-10",
-                                                !activeBar || activeBar.index === index ? '' : "opacity-30"
-                                            )}
-                                        />
-                                        <polygon
-                                            key={index}
-                                            points={`
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 2 + HALF_PADDING}
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
-                                        `}
-                                            fill={`url(#base-gradient-revert)`}
-                                            className={tremorTwMerge(
-                                                "z-10",
-                                                !activeBar || activeBar.index === index ? '' : "opacity-30"
-                                            )}
-                                        />
-                                    </>
-                                ) : (
-                                    <polygon
-                                        key={index}
-                                        points={`
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${item.startY + HALF_PADDING} 
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight - item.nextBarHeight + HALF_PADDING} 
-                                            ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING} 
-                                            ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING}
-                                        `}
+                                {/* Draw gradient bar to fill space */}
+                                {gradient ? (
+                                    <rect
+                                        x={item.startX + HALF_PADDING + yAxisPadding}
+                                        y={realHeight - (isPreviousCalculation ? formattedData[index - 1]?.barHeight || realHeight : realHeight) + HALF_PADDING}
+                                        width={barWidth}
+                                        height={(realHeight - item.barHeight - (isPreviousCalculation ? realHeight - formattedData[index - 1]?.barHeight || 0 : 0)) / (isVariantCenter ? 2 : 1)}
                                         fill={`url(#base-gradient)`}
                                         className={tremorTwMerge(
-                                            "z-10",
                                             !activeBar || activeBar.index === index ? '' : "opacity-30"
                                         )}
                                     />
-                                )}
-                            </>
-                        ) : null}
-                        {/* hover trasnparent rect for tooltip */}
-                        <rect
-                            x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
-                            y={HALF_PADDING}
-                            width={barWidth + gap}
-                            height={realHeight}
-                            fill="transparent"
-                            onMouseEnter={() => setTooltip({ 
-                                x: item.startX, 
-                                y: item.startY, 
-                                data: {
-                                    dataKey: item.name,
-                                    name: item.name,
-                                    value: item.value,
-                                    color: color ?? BaseColors.Blue,
-                                    className: tremorTwMerge(
+                                ) : null}
+
+                                {/* Draw bar */}
+                                <rect
+                                    x={item.startX + HALF_PADDING + yAxisPadding}
+                                    y={(isVariantCenter ? realHeight / 2 - item.barHeight / 2 : item.startY) + HALF_PADDING}
+                                    width={barWidth}
+                                    height={item.barHeight}
+                                    fill='currentColor'
+                                    className={tremorTwMerge(
                                         getColorClassNames(
                                             color ?? BaseColors.Blue,
                                             colorPalette.text,
                                         ).textColor,
-                                        hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
-                                    ),
-                                    fill: "",
-                                    payload: item
-                                },
-                                index 
-                            })}
-                            onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
-                            onClick={(e) => onBarClick(item, index, e)}
-                            className={tremorTwMerge(
-                                hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
-                            )}
-                        />
-                    </>
-                ))}
-                <linearGradient
-                    id={"base-gradient"}
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                    className={tremorTwMerge(
-                        getColorClassNames(
-                            color ?? BaseColors.Blue,
-                            colorPalette.text,
-                        ).textColor
-                    )}
-                >
-                    <stop
-                        offset="5%"
-                        stopColor="currentColor"
-                        stopOpacity={
-                            0.4
-                        }
-                    />
-                    <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient
-                    id={"base-gradient-revert"}
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                    className={tremorTwMerge(
-                        getColorClassNames(
-                            color ?? BaseColors.Blue,
-                            colorPalette.text,
-                        ).textColor
-                    )}
-                >
-                    <stop
-                        offset="5%"
-                        stopColor="currentColor"
-                        stopOpacity={0}
-                    />
-                    <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
-                </linearGradient>
-            </svg>
-            {/* TBD: Deal with tooltip that can overflow */}
-            {showTooltip ? (
-                <div
-                    ref={tooltipRef}
-                    className={tremorTwMerge(
-                        "absolute top-0 pointer-events-none",
-                        tooltip.data ? "visible" : "hidden",
-                    )}
-                    tabIndex={-1}
-                    role='dialog'
-                    style={{
-                        left: tooltip.x + barWidth * 0.66,
-                    }}
-                >
-                    {CustomTooltip ? (
-                        <CustomTooltip
-                            payload={tooltip.data ? [tooltip.data] : []}
-                            active={!!tooltip.data}
-                            label={tooltip.data?.name}
-                        />
-                    ) : (
-
-                        <ChartTooltipFrame>
-                            <div
-                                className={tremorTwMerge(
-                                    // light
-                                    "border-tremor-border border-b px-4 py-2",
-                                    // dark
-                                    "dark:border-dark-tremor-border",
-                                )}
-                            >
-                                <p
-                                    className={tremorTwMerge(
-                                        // common
-                                        "font-medium",
-                                        // light
-                                        "text-tremor-content-emphasis",
-                                        // dark
-                                        "dark:text-dark-tremor-content-emphasis",
+                                        !activeBar || activeBar.index === index ? '' : "opacity-30"
                                     )}
-                                >
-                                    {tooltip?.data?.name}
-                                </p>
-                            </div>
+                                />
 
-                            <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
-                                {tooltip.data ? (
-                                    <ChartTooltipRow
-                                        value={valueFormatter(tooltip.data.value)}
-                                        name={`${(tooltip.data.payload.normalizedValue * 100).toFixed(2)}%`}
-                                        color={color ?? BaseColors.Blue}
+                                {/* Draw bottom gradient bar to fill space */}
+                                {gradient && isVariantCenter ? (
+                                    <rect
+                                        x={item.startX + HALF_PADDING + yAxisPadding}
+                                        y={realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
+                                        width={barWidth}
+                                        height={(realHeight - item.barHeight) / 2}
+                                        fill={`url(#base-gradient-revert)`}
+                                        className={tremorTwMerge(
+                                            !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                        )}
                                     />
                                 ) : null}
-                            </div>
-                        </ChartTooltipFrame>
-                    )}
-                </div>
-            ) : null}
+
+                                {/* Draw label */}
+                                <text
+                                    x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
+                                    y={realHeight + 15 + HALF_PADDING}
+                                    textAnchor="middle"
+                                    fontSize="0.75rem"
+                                    fill=""
+                                    stroke=""
+                                    className={tremorTwMerge(
+                                        // light
+                                        "fill-tremor-content",
+                                        // dark
+                                        "dark:fill-dark-tremor-content",
+                                    )}
+                                    width={barWidth}
+                                >
+                                    {item.name}
+                                </text>
+                            </g>
+                        ))}
+                        {/* Draw gradient polygon between bars */}
+                        {formattedData.map((item, index) => (
+                            <React.Fragment key={`gradient-${index}`}>
+                                {index < data.length - 1 && evolutionGradient ? (
+                                    <>
+
+                                        {isVariantCenter ? (
+                                            <>
+                                                <polygon
+                                                    points={`
+                                                        ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
+                                                        ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING}
+                                                        ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 2 + HALF_PADDING}
+                                                        ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.barHeight / 2 + HALF_PADDING}
+                                                    `}
+                                                    fill={`url(#base-gradient)`}
+                                                    className={tremorTwMerge(
+                                                        "z-10",
+                                                        !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                                    )}
+                                                />
+                                                <polygon
+                                                    points={`
+                                                        ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
+                                                        ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 + item.nextBarHeight / 2 + HALF_PADDING}
+                                                        ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
+                                                        ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING}
+                                                    `}
+                                                    fill={`url(#base-gradient-revert)`}
+                                                    className={tremorTwMerge(
+                                                        "z-10",
+                                                        !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                                    )}
+                                                />
+                                            </>
+                                        ) : (
+                                            <polygon
+                                                points={`
+                                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${item.startY + HALF_PADDING} 
+                                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight - item.nextBarHeight + HALF_PADDING} 
+                                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING} 
+                                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${realHeight + HALF_PADDING}
+                                                `}
+                                                fill={`url(#base-gradient)`}
+                                                className={tremorTwMerge(
+                                                    "z-10",
+                                                    !activeBar || activeBar.index === index ? '' : "opacity-30"
+                                                )}
+                                            />
+                                        )}
+                                    </>
+                                ) : null}
+                                {/* hover trasnparent rect for tooltip */}
+                                <rect
+                                    x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
+                                    y={HALF_PADDING}
+                                    width={barWidth + gap}
+                                    height={realHeight}
+                                    fill="transparent"
+                                    onMouseEnter={() => setTooltip({
+                                        x: item.startX,
+                                        y: item.startY,
+                                        data: {
+                                            dataKey: item.name,
+                                            name: item.name,
+                                            value: item.value,
+                                            color: color ?? BaseColors.Blue,
+                                            className: tremorTwMerge(
+                                                getColorClassNames(
+                                                    color ?? BaseColors.Blue,
+                                                    colorPalette.text,
+                                                ).textColor,
+                                                hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
+                                            ),
+                                            fill: "",
+                                            payload: item
+                                        },
+                                        index
+                                    })}
+                                    onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
+                                    onClick={(e) => onBarClick(item, index, e)}
+                                    className={tremorTwMerge(
+                                        hasOnValueChange ? 'cursor-pointer' : 'cursor-default',
+                                    )}
+                                />
+                            </React.Fragment>
+                        ))}
+                        <linearGradient
+                            id={"base-gradient"}
+                            x1="0%"
+                            y1="0%"
+                            x2="0%"
+                            y2="100%"
+                            className={tremorTwMerge(
+                                getColorClassNames(
+                                    color ?? BaseColors.Blue,
+                                    colorPalette.text,
+                                ).textColor
+                            )}
+                        >
+                            <stop
+                                offset="5%"
+                                stopColor="currentColor"
+                                stopOpacity={
+                                    0.4
+                                }
+                            />
+                            <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient
+                            id={"base-gradient-revert"}
+                            x1="0%"
+                            y1="0%"
+                            x2="0%"
+                            y2="100%"
+                            className={tremorTwMerge(
+                                getColorClassNames(
+                                    color ?? BaseColors.Blue,
+                                    colorPalette.text,
+                                ).textColor
+                            )}
+                        >
+                            <stop
+                                offset="5%"
+                                stopColor="currentColor"
+                                stopOpacity={0}
+                            />
+                            <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
+                        </linearGradient>
+                    </svg>
+                    {/* TBD: Deal with tooltip that can overflow */}
+                    {showTooltip ? (
+                        <div
+                            ref={tooltipRef}
+                            className={tremorTwMerge(
+                                "absolute top-0 pointer-events-none",
+                                tooltip.data ? "visible" : "hidden",
+                            )}
+                            tabIndex={-1}
+                            role='dialog'
+                            style={{
+                                left: tooltip.x + barWidth * 0.66,
+                            }}
+                        >
+                            {CustomTooltip ? (
+                                <CustomTooltip
+                                    payload={tooltip.data ? [tooltip.data] : []}
+                                    active={!!tooltip.data}
+                                    label={tooltip.data?.name}
+                                />
+                            ) : (
+
+                                <ChartTooltipFrame>
+                                    <div
+                                        className={tremorTwMerge(
+                                            // light
+                                            "border-tremor-border border-b px-4 py-2",
+                                            // dark
+                                            "dark:border-dark-tremor-border",
+                                        )}
+                                    >
+                                        <p
+                                            className={tremorTwMerge(
+                                                // common
+                                                "font-medium",
+                                                // light
+                                                "text-tremor-content-emphasis",
+                                                // dark
+                                                "dark:text-dark-tremor-content-emphasis",
+                                            )}
+                                        >
+                                            {tooltip?.data?.name}
+                                        </p>
+                                    </div>
+
+                                    <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                                        {tooltip.data ? (
+                                            <ChartTooltipRow
+                                                value={valueFormatter(tooltip.data.value)}
+                                                name={`${(tooltip.data.payload.normalizedValue * 100).toFixed(2)}%`}
+                                                color={color ?? BaseColors.Blue}
+                                            />
+                                        ) : null}
+                                    </div>
+                                </ChartTooltipFrame>
+                            )}
+                        </div>
+                    ) : null}
+                </>
+            ) : (
+                <NoData noDataText={noDataText}/>
+            )}
+
         </div>
     );
 });
