@@ -95,6 +95,16 @@ export const withoutYLabels: Story = {
     },
 };
 
+export const withouXAxis: Story = {
+    args: {
+        showXAxis: false
+    },
+};
+
+export const NoAxes: Story = {
+    args: { showXAxis: false, showYAxis: false },
+  };
+
 export const onValueChange: Story = {
     args: {
         onValueChange: (value) => alert(JSON.stringify(value))
@@ -118,7 +128,7 @@ export const RotateXLabelsHorizontal: Story = {
     args: {
       rotateLabelX: { angle: -45, verticalShift: 0, xAxisHeight: 100 },
     },
-  };
+};
 
 export const CustomTooltipSimple: Story = {
     args: {

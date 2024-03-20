@@ -53,6 +53,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: FunnelVariantType;
     yAxisPadding?: number;
     showYAxis?: boolean;
+    showXAxis?: boolean;
     showGridLines?: boolean;
     showTooltip?: boolean;
     onValueChange?: (value: EventProps) => void;
@@ -78,6 +79,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
         variant = "base",
         showGridLines = true,
         showYAxis = calculateFrom === "previous" ? false : true,
+        showXAxis = true,
         yAxisPadding = showYAxis ? 45 : 0,
         showTooltip = true,
         onValueChange,
@@ -118,7 +120,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
     const barWidth = React.useMemo(() => ((widthWithoutPadding - (data.length - 1) * gap) - gap) / data.length, [widthWithoutPadding, gap, data.length]);
-    const realHeight = height - GLOBAL_PADDING - (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT)
+    const realHeight = height - GLOBAL_PADDING - (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) : 0)
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center"
@@ -305,25 +307,27 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>((props: F
                                 ) : null}
 
                                 {/* Draw label */}
-                                <text
-                                    x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
-                                    y={realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING}
-                                    textAnchor="middle"
-                                    fontSize="0.75rem"
-                                    fill=""
-                                    stroke=""
-                                    className={tremorTwMerge(
-                                        // light
-                                        "fill-tremor-content",
-                                        // dark
-                                        "dark:fill-dark-tremor-content",
-                                    )}
-                                    width={barWidth}
-                                    height={rotateLabelX?.xAxisHeight}
-                                    transform={`rotate(${rotateLabelX?.angle}, ${item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}, ${realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING + (rotateLabelX?.verticalShift || 0)})`}
-                                >
-                                    {item.name}
-                                </text>
+                                {showXAxis ? (
+                                    <text
+                                        x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
+                                        y={realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING}
+                                        textAnchor="middle"
+                                        fontSize="0.75rem"
+                                        fill=""
+                                        stroke=""
+                                        className={tremorTwMerge(
+                                            // light
+                                            "fill-tremor-content",
+                                            // dark
+                                            "dark:fill-dark-tremor-content",
+                                        )}
+                                        width={barWidth}
+                                        height={rotateLabelX?.xAxisHeight}
+                                        transform={`rotate(${rotateLabelX?.angle}, ${item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}, ${realHeight + (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 + HALF_PADDING + (rotateLabelX?.verticalShift || 0)})`}
+                                    >
+                                        {item.name}
+                                    </text>
+                                ) : null}
                             </g>
                         ))}
                         {/* Draw gradient polygon between bars */}
