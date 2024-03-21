@@ -105,11 +105,14 @@ export const CustomColorsConClick: Story = {
 export const CustomItem: Story = {
   ...LegendTemplate,
   args: {
-    renderItem: ({ name, Circle }: any) => {
+    categories: ["Category A", "Category B", "Category C"],
+    renderItem: ({ name, index, Circle }) => {
       return (
         <>
           <Circle />
-          <p>custom - {name}</p>
+          <p>
+            {index} - {name}
+          </p>
         </>
       );
     },
