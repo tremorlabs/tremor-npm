@@ -33,18 +33,24 @@ export interface LegendItemProps {
   color: Color | string;
   onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
+  index: number;
   customRender:
-    | (({
-        name,
-        Circle,
-      }: {
+    | ((params: {
         name: string;
-        Circle: () => React.ReactNode;
+        index: number;
+        Circle: () => React.JSX.Element;
       }) => React.ReactNode | undefined)
     | undefined;
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend, customRender }: LegendItemProps) => {
+const LegendItem = ({
+  name,
+  color,
+  onClick,
+  activeLegend,
+  customRender,
+  index,
+}: LegendItemProps) => {
   const hasOnValueChange = !!onClick;
 
   return (
@@ -69,6 +75,7 @@ const LegendItem = ({ name, color, onClick, activeLegend, customRender }: Legend
       {customRender ? (
         customRender({
           name,
+          index,
           Circle: () => <ColorCircle name={name} activeLegend={activeLegend} color={color} />,
         })
       ) : (
@@ -166,12 +173,10 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   onClickLegendItem?: (category: string, color: Color | string) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
-  renderItem?: ({
-    name,
-    Circle,
-  }: {
+  renderItem?: (params: {
     name: string;
-    Circle: () => React.ReactNode;
+    index: number;
+    Circle: () => React.JSX.Element;
   }) => React.ReactNode | undefined;
 }
 
@@ -299,6 +304,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
             customRender={renderItem}
+            index={idx}
           />
         ))}
       </div>
