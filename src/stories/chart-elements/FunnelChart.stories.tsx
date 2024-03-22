@@ -43,7 +43,7 @@ export const Variant: Story = {
 
 export const CustomColor: Story = {
   args: {
-    color: "emerald",
+    color: "#32a852",
   },
 };
 

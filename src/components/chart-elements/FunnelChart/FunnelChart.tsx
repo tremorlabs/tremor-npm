@@ -33,7 +33,7 @@ type Tooltip = {
     name: string;
     fill?: string;
     dataKey: string;
-    color?: Color;
+    color?: Color | string;
     value: number;
     payload?: any;
   };
@@ -57,7 +57,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   gradient?: boolean;
   valueFormatter?: (value: number) => string;
   calculateFrom?: CalculateFrom;
-  color?: Color;
+  color?: Color | string;
   variant?: FunnelVariantType;
   yAxisPadding?: number;
   showYAxis?: boolean;
