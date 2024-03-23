@@ -65,6 +65,20 @@ const IconTemplateColors: Story = {
   },
 };
 
+const IconShrink: Story = {
+  render: ({ ...args }) => {
+    return (
+      <div className="flex flex-wrap items-center justify-center space-x-3 sm:space-x-12">
+        <Icon variant="simple" tooltip="simple" {...args} />
+        <Icon variant="shadow" tooltip="shadow" {...args} />
+        <Icon variant="outlined" tooltip="outlined" {...args} />
+        <Icon variant="light" tooltip="light" {...args} />
+        <Icon variant="solid" tooltip="solid" {...args} />
+      </div>
+    );
+  },
+};
+
 export const Default: Story = {
   args: {},
 };
@@ -95,4 +109,8 @@ export const ColorsWithIconAsReactElement: Story = {
   args: {
     icon: <ArrowUpIcon />,
   },
+};
+
+export const Shrink: Story = {
+  ...IconShrink,
 };

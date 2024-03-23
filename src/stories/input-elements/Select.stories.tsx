@@ -6,6 +6,7 @@ import {
   SimpleSelect,
   SimpleSelect2,
   SimpleSelectControlled,
+  SimpleSelectForm,
   SimpleSelectWithStaticAndDynamicChildren,
 } from "./helpers/SimpleSelect";
 
@@ -50,7 +51,7 @@ export const UncontrolledDefaultValue: Story = {
   },
 };
 
-export const UncontrolledIcon: Story = {
+export const Icon: Story = {
   render: SimpleSelect,
   args: {
     defaultValue: "5",
@@ -84,4 +85,19 @@ export const UncontrolledDisabled: Story = {
 
 export const Controlled: Story = {
   render: SimpleSelectControlled,
+};
+
+export const Error: Story = {
+  render: SimpleSelect,
+  args: {
+    error: true,
+    errorMessage: "Error message",
+  },
+};
+
+export const Form: Story = {
+  render: SimpleSelectForm,
+  args: {
+    required: true,
+  },
 };

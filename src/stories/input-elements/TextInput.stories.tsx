@@ -95,6 +95,14 @@ export const WithTypePassword: Story = {
   },
 };
 
+export const WithTypePasswordError: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "password",
+    error: true,
+  },
+};
+
 export const WithAutoFocus: Story = {
   args: {
     autoFocus: true,

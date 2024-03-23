@@ -4,3 +4,4 @@ dist
 storybook-static
 package-lock.json
 .vscode
+yarn.lock

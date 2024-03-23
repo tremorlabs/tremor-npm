@@ -304,9 +304,9 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   // common
                   "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border px-4 py-2",
                   // light
-                  "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle",
+                  "border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
                   // dark
-                  "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
+                  "dark:border-dark-tremor-border  dark:text-dark-tremor-content-emphasis dark:focus:border-dark-tremor-brand-subtle",
                   getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >

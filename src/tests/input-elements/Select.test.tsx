@@ -73,7 +73,7 @@ describe("Select", () => {
     const placeholder = "Select options...";
     const items = ["item1", "item2"];
     render(
-      <Select placeholder={placeholder}>
+      <Select data-testid="first-select" placeholder={placeholder}>
         <SelectItem value="item0">item0</SelectItem>
         {items.map((item) => {
           return <SelectItem value={item} key={item} />;
@@ -81,10 +81,10 @@ describe("Select", () => {
       </Select>,
     );
 
-    fireEvent.click(screen.getByText(placeholder));
+    fireEvent.click(screen.getByTestId("first-select"));
 
-    expect(screen.queryByText("item0")).toBeTruthy();
-    expect(screen.queryByText("item1")).toBeTruthy();
-    expect(screen.queryByText("item2")).toBeTruthy();
+    expect(screen.queryAllByText("item0")).toBeTruthy();
+    expect(screen.queryAllByText("item1")).toBeTruthy();
+    expect(screen.queryAllByText("item2")).toBeTruthy();
   });
 });

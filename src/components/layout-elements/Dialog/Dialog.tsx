@@ -38,7 +38,6 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
             )}
           ></div>
         </Transition.Child>
-
         <div className="fixed inset-0 overflow-y-auto w-screen">
           <div className="flex min-h-full items-center justify-center p-4">{children}</div>
         </div>

@@ -59,18 +59,22 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       className={tremorTwMerge(
         makeBadgeClassName("root"),
         // common
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full",
+        "w-max shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-small ring-1 ring-inset",
         color
           ? tremorTwMerge(
               getColorClassNames(color, colorPalette.background).bgColor,
-              getColorClassNames(color, colorPalette.text).textColor,
-              "bg-opacity-20 dark:bg-opacity-25",
+              getColorClassNames(color, colorPalette.iconText).textColor,
+              getColorClassNames(color, colorPalette.iconRing).ringColor,
+              // light
+              "bg-opacity-10 ring-opacity-20",
+              // dark
+              "dark:bg-opacity-5 dark:ring-opacity-60",
             )
           : tremorTwMerge(
               // light
-              "bg-tremor-brand-muted text-tremor-brand-emphasis",
+              "bg-tremor-brand-faint text-tremor-brand-emphasis ring-tremor-brand/20",
               // dark
-              "dark:bg-dark-tremor-brand-muted dark:text-dark-tremor-brand-emphasis",
+              "dark:bg-dark-tremor-brand-muted/50 dark:text-dark-tremor-brand dark:ring-dark-tremor-subtle/20",
             ),
         badgeProportions[size].paddingX,
         badgeProportions[size].paddingY,
@@ -82,9 +86,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
     >
       <Tooltip text={tooltip} {...tooltipProps} />
       {Icon}
-      <p className={tremorTwMerge(makeBadgeClassName("text"), "text-sm whitespace-nowrap")}>
+      <span className={tremorTwMerge(makeBadgeClassName("text"), "whitespace-nowrap")}>
         {children}
-      </p>
+      </span>
     </span>
   );
 });
