@@ -1,4 +1,5 @@
 "use client";
+
 import React, { cloneElement, isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
@@ -174,7 +175,6 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 >
                   {Icon}
                 </span>
-              )}
               <Combobox.Input
                 className={tremorTwMerge(
                   // common
