@@ -78,9 +78,9 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   (props: FunnelChartProps, ref) => {
     const {
       data,
-      gap = 30,
-      gradient = true,
       evolutionGradient = false,
+      gap = evolutionGradient ? 30 : 10,
+      gradient = true,
       valueFormatter = defaultValueFormatter,
       className,
       calculateFrom = "first",
@@ -135,7 +135,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const realHeight =
       height -
       GLOBAL_PADDING -
-      (showXAxis ? rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT : 0);
+      (showXAxis ? ((rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 10) : 0);
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center";
@@ -348,6 +348,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                         realHeight +
                         (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
                         HALF_PADDING
+                        + 10
                       }
                       textAnchor="middle"
                       fontSize="0.75rem"
@@ -361,14 +362,14 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       )}
                       width={barWidth}
                       height={rotateLabelX?.xAxisHeight}
-                      transform={`rotate(${rotateLabelX?.angle}, ${
+                      transform={rotateLabelX ? `rotate(${rotateLabelX?.angle}, ${
                         item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding
                       }, ${
                         realHeight +
                         (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
                         HALF_PADDING +
                         (rotateLabelX?.verticalShift || 0)
-                      })`}
+                      })` : undefined}
                     >
                       {item.name}
                     </text>
