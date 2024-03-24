@@ -52,7 +52,6 @@ const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
 export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: DataT[];
-  gap?: number;
   evolutionGradient?: boolean;
   gradient?: boolean;
   valueFormatter?: (value: number) => string;
@@ -79,7 +78,6 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const {
       data,
       evolutionGradient = false,
-      gap = evolutionGradient ? 30 : 10,
       gradient = true,
       valueFormatter = defaultValueFormatter,
       className,
@@ -97,6 +95,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       rotateLabelX,
       ...other
     } = props;
+    const maxGap = 30
     const CustomTooltip = customTooltip;
 
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -128,6 +127,11 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const maxValue = React.useMemo(() => Math.max(...data.map((item) => item.value)), [data]);
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
+    const gap = React.useMemo(
+        () => Math.min(maxGap, (widthWithoutPadding / (data.length * 2)) * 0.25),
+        [widthWithoutPadding, data.length],
+    );
+
     const barWidth = React.useMemo(
       () => (widthWithoutPadding - (data.length - 1) * gap - gap) / data.length,
       [widthWithoutPadding, gap, data.length],
