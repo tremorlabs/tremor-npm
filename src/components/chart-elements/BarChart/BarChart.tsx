@@ -92,7 +92,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
-    barCategoryGap = "10%",
+    barCategoryGap,
     tickGap = 5,
     className,
     ...other
