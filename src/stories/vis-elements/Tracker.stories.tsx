@@ -6,6 +6,10 @@ import { Card, Tracker } from "components";
 import { TrackerBlockProps } from "components/vis-elements/Tracker/Tracker";
 
 const data: TrackerBlockProps[] = [
+  { color: "emerald", tooltip: "Tracker Info asjdfh sk as df sdjfhksadfhjjh asdjfhsk fsk" },
+  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "red", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
@@ -13,15 +17,11 @@ const data: TrackerBlockProps[] = [
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
-  { color: "red", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "emerald", tooltip: "Tracker Info  asjdfh sk as df sdjfhksadfhjjh asdjfhsk fsk" },
   { color: "yellow", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
