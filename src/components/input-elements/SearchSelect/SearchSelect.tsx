@@ -175,6 +175,8 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 >
                   {Icon}
                 </span>
+              )}
+
               <Combobox.Input
                 className={tremorTwMerge(
                   // common
