@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 
 import { makeClassName, tremorTwMerge } from "lib";
 
@@ -9,12 +9,43 @@ const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
 
 export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
 }
 
 const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
-  const Icon = icon;
+
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSearchSelectItemClassName("icon"),
+          // common
+          "flex-none h-5 w-5 mr-3",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSearchSelectItemClassName("icon"),
+            // common
+            "flex-none h-5 w-5 mr-3",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+          )}
+        />
+      );
+    }
+  }
 
   return (
     <Combobox.Option
@@ -33,19 +64,7 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
       value={value}
       {...other}
     >
-      {Icon && (
-        <Icon
-          className={tremorTwMerge(
-            makeSearchSelectItemClassName("icon"),
-            // common
-            "flex-none h-5 w-5 mr-3",
-            // light
-            "text-tremor-content-subtle",
-            // dark
-            "dark:text-dark-tremor-content-subtle",
-          )}
-        />
-      )}
+      {Icon}
       <span className="whitespace-nowrap truncate">{children ?? value}</span>
     </Combobox.Option>
   );

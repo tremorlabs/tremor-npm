@@ -91,6 +91,26 @@ export const Colors: Story = {
   ...IconTemplateColors,
 };
 
+export const IconAsReactElement: Story = {
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
+export const SizesWithIconAsReactElement: Story = {
+  ...IconTemplateSizes,
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
+export const ColorsWithIconAsReactElement: Story = {
+  ...IconTemplateColors,
+  args: {
+    icon: <ArrowUpIcon />,
+  },
+};
+
 export const Shrink: Story = {
   ...IconShrink,
 };

@@ -1,5 +1,5 @@
 "use client";
-import React, { isValidElement, useMemo, useRef, useState } from "react";
+import React, { cloneElement, isValidElement, useMemo, useRef, useState } from "react";
 import { SelectedValueContext } from "contexts";
 import { useInternalState } from "hooks";
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
@@ -18,7 +18,7 @@ export interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement>
   placeholder?: string;
   placeholderSearch?: string;
   disabled?: boolean;
-  icon?: React.ElementType | React.JSXElementConstructor<any>;
+  icon?: React.ElementType | React.JSXElementConstructor<any> | React.ReactElement;
   required?: boolean;
   error?: boolean;
   errorMessage?: string;
@@ -45,7 +45,38 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
   } = props;
   const listboxButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const Icon = icon;
+  let Icon: React.ReactElement | undefined;
+
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeMultiSelectClassName("Icon"),
+          // common
+          "flex-none h-5 w-5",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType | React.JSXElementConstructor<any>;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeMultiSelectClassName("Icon"),
+            // common
+            "flex-none h-5 w-5",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+          )}
+        />
+      );
+    }
+  }
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
@@ -155,17 +186,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                     "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
                   )}
                 >
-                  <Icon
-                    className={tremorTwMerge(
-                      makeMultiSelectClassName("Icon"),
-                      // common
-                      "flex-none h-5 w-5",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
-                  />
+                  {Icon}
                 </span>
               )}
               <div className="h-6 flex items-center">

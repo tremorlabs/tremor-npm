@@ -1,6 +1,6 @@
 "use client";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import React, { useEffect } from "react";
+import React, { cloneElement, isValidElement, useEffect } from "react";
 import { useTransition, type TransitionStatus } from "react-transition-state";
 
 import { HorizontalPositions, makeClassName, mergeRefs, Sizes, tremorTwMerge } from "lib";
@@ -15,7 +15,7 @@ export interface ButtonIconOrSpinnerProps {
   loading: boolean;
   iconSize: string;
   iconPosition: string;
-  Icon: React.ElementType | undefined;
+  icon: React.ReactElement | undefined;
   needMargin: boolean;
   transitionStatus: TransitionStatus;
 }
@@ -24,12 +24,10 @@ export const ButtonIconOrSpinner = ({
   loading,
   iconSize,
   iconPosition,
-  Icon,
+  icon,
   needMargin,
   transitionStatus,
 }: ButtonIconOrSpinnerProps) => {
-  Icon = Icon!;
-
   const margin = !needMargin
     ? ""
     : iconPosition === HorizontalPositions.Left
@@ -45,6 +43,13 @@ export const ButtonIconOrSpinner = ({
     exited: defaultSpinnerSize,
   };
 
+  let Icon: React.ReactElement | null = null;
+  if (icon) {
+    Icon = cloneElement(icon, {
+      className: tremorTwMerge(makeButtonClassName("icon"), "shrink-0", iconSize, margin),
+    });
+  }
+
   return loading ? (
     <LoadingSpinner
       className={tremorTwMerge(
@@ -57,12 +62,12 @@ export const ButtonIconOrSpinner = ({
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={tremorTwMerge(makeButtonClassName("icon"), "shrink-0", iconSize, margin)} />
+    Icon
   );
 };
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
   iconPosition?: HorizontalPosition;
   size?: Size;
   color?: Color;
@@ -89,7 +94,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     ...other
   } = props;
 
-  const Icon = icon;
+  let Icon: React.ReactElement | undefined;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = icon as React.ReactElement;
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = <IconElm />;
+    }
+  }
 
   const isDisabled = loading || disabled;
   const showButtonIconOrSpinner = Icon !== undefined || loading;
@@ -154,7 +167,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           loading={loading}
           iconSize={iconSize}
           iconPosition={iconPosition}
-          Icon={Icon}
+          icon={Icon}
           transitionStatus={transitionState.status}
           needMargin={needIconMargin}
         />
@@ -174,7 +187,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
           loading={loading}
           iconSize={iconSize}
           iconPosition={iconPosition}
-          Icon={Icon}
+          icon={Icon}
           transitionStatus={transitionState.status}
           needMargin={needIconMargin}
         />

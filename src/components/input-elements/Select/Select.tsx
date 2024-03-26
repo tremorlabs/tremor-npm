@@ -1,6 +1,6 @@
 "use client";
 
-import React, { isValidElement, useMemo, Children, useRef } from "react";
+import React, { isValidElement, useMemo, Children, useRef, cloneElement } from "react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
@@ -17,7 +17,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
-  icon?: React.JSXElementConstructor<any>;
+  icon?: React.JSXElementConstructor<any> | React.ReactElement;
   enableClear?: boolean;
   required?: boolean;
   error?: boolean;
@@ -47,7 +47,39 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
   const childrenArray = Children.toArray(children); // @sev
 
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
-  const Icon = icon;
+
+  let Icon: React.ReactElement | undefined;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSelectClassName("Icon"),
+          // common
+          "flex-none h-5 w-5",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.JSXElementConstructor<any>;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSelectClassName("Icon"),
+            // common
+            "flex-none h-5 w-5",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+          )}
+        />
+      );
+    }
+  }
+
   const valueToNameMapping = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
     const valueToNameMapping = constructValueToNameMapping(reactElementChildren);
@@ -136,17 +168,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                     "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
                   )}
                 >
-                  <Icon
-                    className={tremorTwMerge(
-                      makeSelectClassName("Icon"),
-                      // common
-                      "flex-none h-5 w-5",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
-                  />
+                  {Icon}
                 </span>
               )}
               <span className="w-[90%] block truncate">

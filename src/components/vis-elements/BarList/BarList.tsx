@@ -1,4 +1,4 @@
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 import {
   Color,
   defaultValueFormatter,
@@ -15,7 +15,7 @@ type Bar<T> = T & {
   key?: string;
   value: number;
   name: string;
-  icon?: React.JSXElementConstructor<any>;
+  icon?: React.JSXElementConstructor<any> | React.ReactElement;
   href?: string;
   target?: string;
   color?: Color;
@@ -68,7 +68,37 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
     >
       <div className={tremorTwMerge(makeBarListClassName("bars"), "relative w-full")}>
         {data.map((item, idx) => {
-          const Icon = item.icon;
+          let Icon;
+          if (item.icon) {
+            if (isValidElement(item.icon)) {
+              Icon = cloneElement(item.icon as React.ReactElement, {
+                className: tremorTwMerge(
+                  makeBarListClassName("barIcon"),
+                  // common
+                  "flex-none h-5 w-5 mr-2",
+                  // light
+                  "text-tremor-content",
+                  // dark
+                  "dark:text-dark-tremor-content",
+                ),
+              });
+            } else {
+              const IconElm = item.icon as React.ElementType;
+              Icon = (
+                <IconElm
+                  className={tremorTwMerge(
+                    makeBarListClassName("barIcon"),
+                    // common
+                    "flex-none h-5 w-5 mr-2",
+                    // light
+                    "text-tremor-content",
+                    // dark
+                    "dark:text-dark-tremor-content",
+                  )}
+                />
+              );
+            }
+          }
 
           return (
             <div
@@ -98,19 +128,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                   onValueChange?.(item);
                 }}
               >
-                {Icon ? (
-                  <Icon
-                    className={tremorTwMerge(
-                      makeBarListClassName("barIcon"),
-                      // common
-                      "flex-none h-5 w-5 mr-2",
-                      // light
-                      "text-tremor-content",
-                      // dark
-                      "dark:text-dark-tremor-content",
-                    )}
-                  />
-                ) : null}
+                {Icon}
                 {item.href ? (
                   <a
                     href={item.href}

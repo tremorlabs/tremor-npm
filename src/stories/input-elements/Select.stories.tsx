@@ -1,8 +1,10 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Select } from "components";
 import {
   SimpleSelect,
+  SimpleSelect2,
   SimpleSelectControlled,
   SimpleSelectForm,
   SimpleSelectWithStaticAndDynamicChildren,
@@ -54,6 +56,22 @@ export const Icon: Story = {
   args: {
     defaultValue: "5",
     icon: CalendarIcon,
+  },
+};
+
+export const UncontrolledWithIconAsReactElement: Story = {
+  render: SimpleSelect,
+  args: {
+    defaultValue: "5",
+    icon: <CalendarIcon />,
+  },
+};
+
+export const UncontrolledWithIconAsReactElement2: Story = {
+  render: SimpleSelect2,
+  args: {
+    defaultValue: "5",
+    icon: <CalendarIcon />,
   },
 };
 

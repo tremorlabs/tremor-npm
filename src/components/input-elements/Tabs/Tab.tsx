@@ -1,7 +1,19 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
+// <<<<<<< HEAD
+// import {
+//   colorPalette,
+//   getColorClassNames,
+//   tremorTwMerge,
+//   makeClassName,
+//   sizing,
+//   spacing,
+// } from "lib";
+// import React, { ReactElement, cloneElement, isValidElement, useContext } from "react";
+// =======
 import { colorPalette, getColorClassNames, tremorTwMerge, makeClassName } from "lib";
-import React, { useContext } from "react";
+import React, { ReactElement, cloneElement, isValidElement, useContext } from "react";
+// >>>>>>> main
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
 import { BaseColorContext } from "contexts";
@@ -41,7 +53,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
 }
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
 }
 
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
@@ -49,7 +61,29 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
 
   const variant = useContext(TabVariantContext);
   const color = useContext(BaseColorContext);
-  const Icon = icon;
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as ReactElement, {
+        className: tremorTwMerge(
+          makeTabClassName("icon"),
+          "flex-none h-5 w-5",
+          children ? "mr-2" : "",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeTabClassName("icon"),
+            "flex-none h-5 w-5",
+            children ? "mr-2" : "",
+          )}
+        />
+      );
+    }
+  }
   return (
     <HeadlessTab
       ref={ref}
@@ -68,15 +102,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       )}
       {...other}
     >
-      {Icon ? (
-        <Icon
-          className={tremorTwMerge(
-            makeTabClassName("icon"),
-            "flex-none h-5 w-5",
-            children ? "mr-2" : "",
-          )}
-        />
-      ) : null}
+      {Icon}
       {children ? <span>{children}</span> : null}
     </HeadlessTab>
   );

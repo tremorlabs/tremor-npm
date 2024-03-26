@@ -15,6 +15,30 @@ describe("MultiSelect", () => {
     );
   });
 
+  test("renders with the Icon as ElementType", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <MultiSelect icon={Icon}>
+        <MultiSelectItem value="1" />
+        <MultiSelectItem value="2">Option Two</MultiSelectItem>
+        <MultiSelectItem value="3">Option Three</MultiSelectItem>
+      </MultiSelect>,
+    );
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders with the Icon as ReactElement", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <MultiSelect icon={<Icon />}>
+        <MultiSelectItem value="1" />
+        <MultiSelectItem value="2">Option Two</MultiSelectItem>
+        <MultiSelectItem value="3">Option Three</MultiSelectItem>
+      </MultiSelect>,
+    );
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
   test("renders the MultiSelect component with static and dynamic children", () => {
     const placeholder = "Select options...";
     const items = ["item1", "item2"];

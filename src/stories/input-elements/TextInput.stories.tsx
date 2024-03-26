@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { CalendarIcon } from "assets";
@@ -29,6 +30,13 @@ export const WithIcon: Story = {
   render: SimpleTextInput,
   args: {
     icon: CalendarIcon,
+  },
+};
+
+export const WithIconAsReactElement: Story = {
+  render: SimpleTextInput,
+  args: {
+    icon: <CalendarIcon />,
   },
 };
 

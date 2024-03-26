@@ -1,5 +1,6 @@
 "use client";
-import React, { isValidElement, useMemo, useRef } from "react";
+
+import React, { cloneElement, isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
 import { Combobox, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
@@ -22,7 +23,7 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
-  icon?: React.ElementType | React.JSXElementConstructor<any>;
+  icon?: React.ElementType | React.JSXElementConstructor<any> | React.ReactElement;
   required?: boolean;
   error?: boolean;
   errorMessage?: string;
@@ -57,7 +58,37 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
   const [searchQuery, setSearchQuery] = useInternalState("", searchValue);
   const [selectedValue, setSelectedValue] = useInternalState(defaultValue, value);
 
-  const Icon = icon;
+  let Icon: React.ReactElement | undefined;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSearchSelectClassName("Icon"),
+          // common
+          "flex-none h-5 w-5",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType | React.JSXElementConstructor<any>;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSearchSelectClassName("Icon"),
+            // common
+            "flex-none h-5 w-5",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+          )}
+        />
+      );
+    }
+  }
 
   const { reactElementChildren, valueToNameMapping } = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(isValidElement);
@@ -142,17 +173,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
                   )}
                 >
-                  <Icon
-                    className={tremorTwMerge(
-                      makeSearchSelectClassName("Icon"),
-                      // common
-                      "flex-none h-5 w-5",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
-                  />
+                  {Icon}
                 </span>
               )}
 

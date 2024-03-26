@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   Color,
@@ -18,14 +18,38 @@ const makeBadgeClassName = makeClassName("Badge");
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: Color;
   size?: Size;
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
   tooltip?: string;
 }
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   const { color, icon, size = Sizes.SM, tooltip, className, children, ...other } = props;
 
-  const Icon = icon ? icon : null;
+  let Icon;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeBadgeClassName("icon"),
+          "shrink-0 -ml-1 mr-1.5",
+          iconSizes[size].height,
+          iconSizes[size].width,
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeBadgeClassName("icon"),
+            "shrink-0 -ml-1 mr-1.5",
+            iconSizes[size].height,
+            iconSizes[size].width,
+          )}
+        />
+      );
+    }
+  }
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
@@ -61,16 +85,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       {...other}
     >
       <Tooltip text={tooltip} {...tooltipProps} />
-      {Icon ? (
-        <Icon
-          className={tremorTwMerge(
-            makeBadgeClassName("icon"),
-            "shrink-0 -ml-1 mr-1.5",
-            iconSizes[size].height,
-            iconSizes[size].width,
-          )}
-        />
-      ) : null}
+      {Icon}
       <span className={tremorTwMerge(makeBadgeClassName("text"), "whitespace-nowrap")}>
         {children}
       </span>

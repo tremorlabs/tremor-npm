@@ -15,7 +15,61 @@ describe("SearchSelect", () => {
     );
   });
 
-  test("renders the SelectBox component with static and dynamic children", () => {
+  test("renders with Icon as ElementType", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <SearchSelect icon={Icon}>
+        <SearchSelectItem value="1" />
+        <SearchSelectItem value="2">Option Two</SearchSelectItem>
+        <SearchSelectItem value="3">Option Three</SearchSelectItem>
+      </SearchSelect>,
+    );
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders with Icon as ReactElement", () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <SearchSelect icon={<Icon />}>
+        <SearchSelectItem value="1" />
+        <SearchSelectItem value="2">Option Two</SearchSelectItem>
+        <SearchSelectItem value="3">Option Three</SearchSelectItem>
+      </SearchSelect>,
+    );
+    expect(screen.queryByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders the SearchSelectItem component with Icon as ElementType", async () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <SearchSelect>
+        <SearchSelectItem value="1" icon={Icon} />
+        <SearchSelectItem value="2">Option Two</SearchSelectItem>
+        <SearchSelectItem value="3">Option Three</SearchSelectItem>
+      </SearchSelect>,
+    );
+    expect(screen.queryByTestId("icon")).not.toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByRole("combobox")[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders the SearchSelectItem component with Icon as ReatElement", async () => {
+    const Icon = () => <span data-testid="icon">Icon</span>;
+    render(
+      <SearchSelect>
+        <SearchSelectItem value="1" icon={<Icon />} />
+        <SearchSelectItem value="2">Option Two</SearchSelectItem>
+        <SearchSelectItem value="3">Option Three</SearchSelectItem>
+      </SearchSelect>,
+    );
+    expect(screen.queryByTestId("icon")).not.toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByRole("combobox")[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
+  });
+
+  test("renders the SearchSelect component with static and dynamic children", () => {
     const placeholder = "Select options...";
     const items = ["item1", "item2"];
     render(

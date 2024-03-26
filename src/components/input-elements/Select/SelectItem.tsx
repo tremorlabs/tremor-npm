@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { cloneElement, isValidElement } from "react";
 import { Listbox } from "@headlessui/react";
 import { makeClassName, tremorTwMerge } from "lib";
 
@@ -7,13 +7,43 @@ const makeSelectItemClassName = makeClassName("SelectItem");
 
 export interface SelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactElement;
 }
 
 const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
 
-  const Icon = icon;
+  let Icon: React.ReactElement | undefined;
+  if (icon) {
+    if (isValidElement(icon)) {
+      Icon = cloneElement(icon as React.ReactElement, {
+        className: tremorTwMerge(
+          makeSelectItemClassName("icon"),
+          // common
+          "flex-none w-5 h-5 mr-1.5",
+          // light
+          "text-tremor-content-subtle",
+          // dark
+          "dark:text-dark-tremor-content-subtle",
+        ),
+      });
+    } else {
+      const IconElm = icon as React.ElementType;
+      Icon = (
+        <IconElm
+          className={tremorTwMerge(
+            makeSelectItemClassName("icon"),
+            // common
+            "flex-none w-5 h-5 mr-1.5",
+            // light
+            "text-tremor-content-subtle",
+            // dark
+            "dark:text-dark-tremor-content-subtle",
+          )}
+        />
+      );
+    }
+  }
 
   return (
     <Listbox.Option
@@ -32,19 +62,7 @@ const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref)
       value={value}
       {...other}
     >
-      {Icon && (
-        <Icon
-          className={tremorTwMerge(
-            makeSelectItemClassName("icon"),
-            // common
-            "flex-none w-5 h-5 mr-1.5",
-            // light
-            "text-tremor-content-subtle",
-            // dark
-            "dark:text-dark-tremor-content-subtle",
-          )}
-        />
-      )}
+      {Icon}
       <span className="whitespace-nowrap truncate">{children ?? value}</span>
     </Listbox.Option>
   );

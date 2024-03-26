@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { MultiSelect } from "components";
@@ -42,9 +43,19 @@ export const UncontrolledIcon: Story = {
   args: { icon: CalendarIcon, defaultValue: ["5", "1"] },
 };
 
+export const UncontrolledWithIconAsReactElement: Story = {
+  render: SimpleMultiSelect,
+  args: { icon: <CalendarIcon />, defaultValue: ["5", "1"] },
+};
+
 export const UncontrolledDisabled: Story = {
   render: SimpleMultiSelect,
   args: { icon: CalendarIcon, defaultValue: ["5", "1"], disabled: true },
+};
+
+export const UncontrolledDisabledWithIconAsReactElement: Story = {
+  render: SimpleMultiSelect,
+  args: { icon: <CalendarIcon />, defaultValue: ["5", "1"], disabled: true },
 };
 
 export const Controlled: Story = {
