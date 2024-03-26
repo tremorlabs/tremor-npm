@@ -3,14 +3,14 @@ import { tremorTwMerge } from "lib";
 import React from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { colorPalette, getColorClassNames, makeClassName, mergeRefs, spacing } from "lib";
+import { colorPalette, getColorClassNames, makeClassName, mergeRefs } from "lib";
 import { Color } from "../../../lib/inputTypes";
 
 export const makeTrackerClassName = makeClassName("Tracker");
 
 export interface TrackerBlockProps {
   key?: string | number;
-  color?: Color;
+  color?: Color | string;
   tooltip?: string;
 }
 
@@ -24,7 +24,7 @@ const TrackerBlock = React.forwardRef<HTMLDivElement, TrackerBlockProps>((props,
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}
       className={tremorTwMerge(
         makeTrackerClassName("trackingBlock"),
-        "w-full h-full rounded-tremor-small",
+        "w-full h-full rounded-[1px] first:rounded-l-[4px] last:rounded-r-[4px]",
         getColorClassNames(color ?? "gray", colorPalette.background).bgColor,
       )}
       {...other}
@@ -48,8 +48,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>((props, ref) => {
       ref={ref}
       className={tremorTwMerge(
         makeTrackerClassName("root"),
-        "w-full flex items-center h-10",
-        spacing.threeXs.spaceX,
+        "h-10 flex items-center space-x-0.5",
         className,
       )}
       {...other}

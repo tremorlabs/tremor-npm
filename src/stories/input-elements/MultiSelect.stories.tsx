@@ -1,13 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { MultiSelect } from "components";
-import { SimpleMultiSelect, SimpleMultiSelectControlled } from "./helpers/SimpleMultiSelect";
+import {
+  SimpleMultiSelect,
+  SimpleMultiSelectControlled,
+  SimpleMultiSelectForm,
+  SimpleMultiSelectWithStaticAndDynamicChildren,
+} from "./helpers/SimpleMultiSelect";
 
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof MultiSelect> = {
   title: "UI/Input/MultiSelect",
   component: MultiSelect,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/MultiSelect",
+  },
 };
 
 export default meta;
@@ -15,6 +24,11 @@ type Story = StoryObj<typeof MultiSelect>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleMultiSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleMultiSelectWithStaticAndDynamicChildren,
   args: {},
 };
 
@@ -36,4 +50,19 @@ export const UncontrolledDisabled: Story = {
 export const Controlled: Story = {
   render: SimpleMultiSelectControlled,
   args: {},
+};
+
+export const Error: Story = {
+  render: SimpleMultiSelect,
+  args: {
+    error: true,
+    errorMessage: "Error message",
+  },
+};
+
+export const Form: Story = {
+  render: SimpleMultiSelectForm,
+  args: {
+    required: true,
+  },
 };

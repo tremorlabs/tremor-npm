@@ -1,5 +1,5 @@
-import { makeClassName, tremorTwMerge } from "lib";
 import React from "react";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeTableBodyClassName = makeClassName("TableBody");
 
@@ -15,7 +15,7 @@ const TableBody = React.forwardRef<
         className={tremorTwMerge(
           makeTableBodyClassName("root"),
           // common
-          "align-top overflow-x-auto divide-y",
+          "align-top divide-y",
           // light
           "divide-tremor-border",
           // dark

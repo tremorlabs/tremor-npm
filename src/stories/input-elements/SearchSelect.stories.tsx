@@ -1,13 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { SearchSelect } from "components";
-import { SimpleSearchSelect, SimpleSearchSelectControlled } from "./helpers/SimpleSearchSelect";
+import {
+  SimpleSearchSelect,
+  SimpleSearchSelectControlled,
+  SimpleSearchSelectWithStaticAndDynamicChildren,
+  SimpleSearchSelectForm,
+  SimpleSearchSelectServerSideRendering,
+} from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof SearchSelect> = {
   title: "UI/Input/SearchSelect",
   component: SearchSelect,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/SearchSelect",
+  },
 };
 
 export default meta;
@@ -15,6 +25,11 @@ type Story = StoryObj<typeof SearchSelect>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleSearchSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleSearchSelectWithStaticAndDynamicChildren,
   args: {},
 };
 
@@ -43,6 +58,14 @@ export const Icon: Story = {
   },
 };
 
+export const Error: Story = {
+  render: SimpleSearchSelect,
+  args: {
+    error: true,
+    errorMessage: "Error message",
+  },
+};
+
 export const Disabled: Story = {
   render: SimpleSearchSelect,
   args: {
@@ -54,4 +77,18 @@ export const Disabled: Story = {
 export const Controlled: Story = {
   render: SimpleSearchSelectControlled,
   args: {},
+};
+
+export const Form: Story = {
+  render: SimpleSearchSelectForm,
+  args: {
+    required: true,
+  },
+};
+
+export const ServerSideRendering: Story = {
+  render: SimpleSearchSelectServerSideRendering,
+  args: {
+    required: true,
+  },
 };

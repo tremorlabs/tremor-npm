@@ -1,8 +1,8 @@
 "use client";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
-import { border, mergeRefs, sizing, spacing, tremorTwMerge } from "lib";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
+import { mergeRefs, tremorTwMerge } from "lib";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number";
@@ -32,9 +32,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     className,
     onChange,
     onValueChange,
+    autoFocus,
     ...other
   } = props;
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(autoFocus || false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const toggleIsPasswordVisible = useCallback(
@@ -48,14 +49,28 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
 
   const hasSelection = hasValue(value || defaultValue);
 
-  const handleFocusChange = (isFocused: boolean) => {
-    if (isFocused === false) {
-      inputRef.current?.blur();
-    } else {
-      inputRef.current?.focus();
+  React.useEffect(() => {
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+
+    const node = inputRef.current;
+    if (node) {
+      node.addEventListener("focus", handleFocus);
+      node.addEventListener("blur", handleBlur);
+
+      // Autofocus logic
+      if (autoFocus) {
+        node.focus();
+      }
     }
-    setIsFocused(isFocused);
-  };
+
+    return () => {
+      if (node) {
+        node.removeEventListener("focus", handleFocus);
+        node.removeEventListener("blur", handleBlur);
+      }
+    };
+  }, [autoFocus]);
 
   return (
     <>
@@ -63,7 +78,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         className={tremorTwMerge(
           makeInputClassName("root"),
           // common
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100",
+          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100 border",
           // light
           "shadow-tremor-input",
           // dark
@@ -78,34 +93,19 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               // light
               "dark:border-dark-tremor-brand-subtle dark:ring-dark-tremor-brand-muted",
             ),
-          border.sm.all,
           className,
         )}
-        onClick={() => {
-          if (!disabled) {
-            handleFocusChange(true);
-          }
-        }}
-        onFocus={() => {
-          handleFocusChange(true);
-        }}
-        onBlur={() => {
-          handleFocusChange(false);
-        }}
       >
         {Icon ? (
           <Icon
             className={tremorTwMerge(
               makeInputClassName("icon"),
               // common
-              "shrink-0",
+              "shrink-0 h-5 w-5 mx-2.5 absolute left-0 flex items-center",
               // light
               "text-tremor-content-subtle",
               // light
               "dark:text-dark-tremor-content-subtle",
-              sizing.lg.height,
-              sizing.lg.width,
-              spacing.md.marginLeft,
             )}
           />
         ) : null}
@@ -117,15 +117,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full focus:outline-none focus:ring-0 border-none bg-transparent text-tremor-default rounded-tremor-default transition duration-100",
+            "w-full bg-transparent focus:outline-none focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
             // light
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
             "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-            Icon ? spacing.sm.paddingLeft : spacing.lg.paddingLeft,
-            error ? spacing.lg.paddingRight : spacing.twoXl.paddingRight,
-            spacing.sm.paddingY,
+            type === "password" ? (error ? "pr-16" : "pr-12") : error ? "pr-8" : "pr-3",
+            Icon ? "pl-10" : "pl-3",
             disabled
               ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
               : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
@@ -141,9 +140,13 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         />
         {type === "password" && !disabled ? (
           <button
-            className={tremorTwMerge(makeInputClassName("toggleButton"), "mr-2")}
+            className={tremorTwMerge(
+              makeInputClassName("toggleButton"),
+              "absolute inset-y-0 right-0 flex items-center px-2.5 rounded-lg",
+            )}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
+            aria-label={isPasswordVisible ? "Hide password" : "Show Password"}
           >
             {isPasswordVisible ? (
               <EyeOffIcon
@@ -155,6 +158,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             ) : (
               <EyeIcon
@@ -166,6 +170,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // dark
                   "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
                 )}
+                aria-hidden
               />
             )}
           </button>
@@ -174,10 +179,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-rose-500 shrink-0",
-              spacing.md.marginRight,
-              sizing.lg.height,
-              sizing.lg.width,
+              "text-red-500 shrink-0 h-5 w-5 absolute right-0 flex items-center",
+              type === "password"
+                ? "mr-10"
+                : type === "number"
+                ? stepper
+                  ? "mr-20"
+                  : "mr-3"
+                : "mx-2.5",
             )}
           />
         ) : null}
@@ -185,10 +194,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
       </div>
       {error && errorMessage ? (
         <p
-          className={tremorTwMerge(
-            makeInputClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
-          )}
+          className={tremorTwMerge(makeInputClassName("errorMessage"), "text-sm text-red-500 mt-1")}
         >
           {errorMessage}
         </p>

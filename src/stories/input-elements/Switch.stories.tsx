@@ -5,6 +5,10 @@ import { SimpleSwitch, SimpleIdSwitch } from "./helpers/SimpleSwitch";
 const meta: Meta<typeof Switch> = {
   title: "UI/Input/Switch",
   component: Switch,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Switch",
+  },
 };
 
 export default meta;
@@ -29,6 +33,19 @@ export const Disabled: Story = {
 export const CustomColor: Story = {
   args: {
     color: "emerald",
+  },
+};
+
+export const Tooltip: Story = {
+  args: {
+    tooltip: "Action disabled",
+  },
+};
+
+export const TooltipDisabled: Story = {
+  args: {
+    tooltip: "Action disabled",
+    disabled: true,
   },
 };
 

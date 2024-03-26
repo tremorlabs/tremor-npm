@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { DonutChart } from "components";
 
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data2,
@@ -15,7 +15,10 @@ const meta: Meta<typeof DonutChart> = {
   title: "Visualizations/Chart/DonutChart",
   component: DonutChart,
   args: { category: "sales", index: "city", data },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/DonutChart",
+  },
 };
 
 export default meta;
@@ -72,6 +75,12 @@ export const LabelDisabled: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["blue", "amber", "sky", "emerald", "rose", "orange"] },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400", "violet-400", "rose-400"],
+  },
 };
 
 export const MoreDatapointsThanColors: Story = {
@@ -135,7 +144,7 @@ export const CustomTooltipSimple: Story = {
     index: "month",
     category: "Sales",
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
       const categoryPayload = payload?.[0];

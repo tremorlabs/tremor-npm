@@ -1,13 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Select } from "components";
-import { SimpleSelect, SimpleSelectControlled } from "./helpers/SimpleSelect";
+import {
+  SimpleSelect,
+  SimpleSelectControlled,
+  SimpleSelectForm,
+  SimpleSelectWithStaticAndDynamicChildren,
+} from "./helpers/SimpleSelect";
 
 import { CalendarIcon } from "assets";
 
 const meta: Meta<typeof Select> = {
   title: "UI/Input/Select",
   component: Select,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Select",
+  },
 };
 
 export default meta;
@@ -15,6 +24,11 @@ type Story = StoryObj<typeof Select>;
 
 export const UncontrolledDefault: Story = {
   render: SimpleSelect,
+  args: {},
+};
+
+export const UncontrolledDefaultWithStaticAndDynamicChildren: Story = {
+  render: SimpleSelectWithStaticAndDynamicChildren,
   args: {},
 };
 
@@ -35,7 +49,7 @@ export const UncontrolledDefaultValue: Story = {
   },
 };
 
-export const UncontrolledIcon: Story = {
+export const Icon: Story = {
   render: SimpleSelect,
   args: {
     defaultValue: "5",
@@ -53,4 +67,19 @@ export const UncontrolledDisabled: Story = {
 
 export const Controlled: Story = {
   render: SimpleSelectControlled,
+};
+
+export const Error: Story = {
+  render: SimpleSelect,
+  args: {
+    error: true,
+    errorMessage: "Error message",
+  },
+};
+
+export const Form: Story = {
+  render: SimpleSelectForm,
+  args: {
+    required: true,
+  },
 };

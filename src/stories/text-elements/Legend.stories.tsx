@@ -14,6 +14,10 @@ const meta: Meta<typeof Legend> = {
       "Category D",
     ],
   },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Legend",
+  },
 };
 
 export default meta;
@@ -64,7 +68,7 @@ export const ManyCategories: Story = {
   },
 };
 
-export const ManyCategoriesWithoutScroll: Story = {
+export const ManyCategoriesWithScroll: Story = {
   ...LegendTemplate,
   args: {
     categories: [
@@ -77,6 +81,23 @@ export const ManyCategoriesWithoutScroll: Story = {
       "Category C",
       "Category D",
     ],
-    enableLegendSlider: false,
+    enableLegendSlider: true,
+  },
+};
+
+export const CustomColors: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "blue"],
+  },
+};
+
+export const CustomColorsConClick: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "#32a852"],
+    onClickLegendItem: (e) => {
+      console.log(e);
+    },
   },
 };

@@ -1,15 +1,12 @@
 "use client";
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
-
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   getColorClassNames,
   makeClassName,
-  sizing,
-  spacing,
   sumNumericArray,
   themeColorRange,
+  tremorTwMerge,
 } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib";
@@ -44,13 +41,11 @@ const BarLabels = ({ values }: { values: number[] }) => {
       className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
         // common
-        "relative flex w-full text-tremor-default",
+        "relative flex w-full text-tremor-default h-5 mb-2",
         // light
         "text-tremor-content",
         // dark
         "dark:text-dark-tremor-content",
-        spacing.sm.marginBottom,
-        sizing.lg.height,
       )}
     >
       {values.slice(0, values.length).map((widthPercentage, idx) => {
@@ -75,10 +70,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
           </div>
         );
       })}
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.left)}>
-        0
-      </div>
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center left-0")}>0</div>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center right-0")}>
         {sumValues}
       </div>
     </div>
@@ -122,8 +115,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         <div
           className={tremorTwMerge(
             makeCategoryBarClassName("barWrapper"),
-            "relative w-full flex items-center",
-            sizing.xs.height,
+            "relative w-full flex items-center h-2",
           )}
         >
           <div
@@ -152,8 +144,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
                 makeCategoryBarClassName("markerWrapper"),
-                "absolute right-1/2 -translate-x-1/2",
-                sizing.lg.width,
+                "absolute right-1/2 -translate-x-1/2 w-5",
               )}
               style={{
                 left: `${markerValue}%`,
@@ -165,14 +156,12 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 className={tremorTwMerge(
                   makeCategoryBarClassName("marker"),
                   // common
-                  "ring-2 mx-auto rounded-tremor-full",
+                  "ring-2 mx-auto rounded-tremor-full h-4 w-1",
                   // light
                   "ring-tremor-brand-inverted",
                   // dark
                   "dark:ring-dark-tremor-brand-inverted",
                   markerBgColor,
-                  sizing.md.height,
-                  sizing.twoXs.width,
                 )}
               />
             </div>

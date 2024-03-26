@@ -18,8 +18,11 @@ interface BaseSparkChartProps
   data: any[];
   categories: string[];
   index: string;
-  colors?: Color[];
+  colors?: (Color | string)[];
   noDataText?: string;
+  autoMinValue?: boolean;
+  minValue?: number;
+  maxValue?: number;
 }
 
 export default BaseSparkChartProps;

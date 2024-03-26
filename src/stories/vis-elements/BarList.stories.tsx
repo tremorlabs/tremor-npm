@@ -10,6 +10,10 @@ import { BaseColors } from "lib";
 const meta: Meta<typeof BarList> = {
   title: "Visualizations/Vis/BarList",
   component: BarList,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/BarList",
+  },
 };
 
 export default meta;
@@ -77,5 +81,13 @@ export const IndividualColors: Story = {
   args: {
     data: getData(["blue", "amber", "cyan", "emerald", "indigo"].map((color) => ({ color }))),
     valueFormatter: (value) => `${value} USD`,
+  },
+};
+
+export const WithOnValueChange: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    onValueChange: (data) => alert(JSON.stringify(data)),
   },
 };

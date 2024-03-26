@@ -1,3 +1,4 @@
+"use client";
 import { MinusIcon, PlusIcon } from "assets";
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
 import React, { useRef } from "react";
@@ -5,7 +6,7 @@ import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export interface NumberInputProps
   extends Omit<BaseInputProps, "type" | "stepper" | "onSubmit" | "makeInputClassName"> {
-  step?: string;
+  step?: string | number;
   enableStepper?: boolean;
   onSubmit?: (value: number) => void;
   onValueChange?: (value: number) => void;

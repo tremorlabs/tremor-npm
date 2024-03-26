@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AreaChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
@@ -19,7 +19,10 @@ const meta: Meta<typeof AreaChart> = {
   title: "Visualizations/Chart/AreaChart",
   component: AreaChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/AreaChart",
+  },
 };
 
 export default meta;
@@ -57,16 +60,18 @@ export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
 };
 
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "orange-600"],
+  },
+};
+
 export const NoGradient: Story = {
   args: { showGradient: false },
 };
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const LongValues: Story = {
@@ -219,7 +224,7 @@ export const CustomTooltipSimple: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -254,7 +259,7 @@ export const CustomTooltipPreviousDay: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -298,7 +303,7 @@ export const CustomTooltipComplex: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -346,36 +351,9 @@ export const CustomTooltipComplex: Story = {
   },
 };
 
-// keep because of if statement
-// const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
-//   if (args.onValueChange?.length === 0) {
-//     args.onValueChange = undefined;
-//   }
-
-//   return (
-//     <>
-//       <Title>Desktop</Title>
-//       <Card>
-//         <AreaChart {...args} yAxisWidth={60} />
-//       </Card>
-//       <Title className="mt-5">Mobile</Title>
-//       <div className="w-64">
-//         <Card>
-//           <AreaChart {...args} yAxisWidth={60} />
-//         </Card>
-//       </div>
-//     </>
-//   );
-// };
-
-// const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
-//   if (args.onValueChange?.length === 0) {
-//     args.onValueChange = undefined;
-//   }
-
-//   return (
-//     <Card>
-//       <AreaChart {...args} yAxisWidth={60} />
-//     </Card>
-//   );
-//
+export const tickGap: Story = {
+  args: {
+    data: longBaseChartData,
+    tickGap: 200,
+  },
+};

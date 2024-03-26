@@ -10,6 +10,7 @@ import {
 } from "../chart-elements/helpers/testData";
 import { SparkAreaChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
+import { smallVariantionDatas } from "./helpers/testData";
 
 const meta: Meta<typeof SparkAreaChart> = {
   title: "Visualizations/Chart/SparkAreaChart",
@@ -20,7 +21,10 @@ const meta: Meta<typeof SparkAreaChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkAreaChart",
+  },
 };
 
 export default meta;
@@ -38,16 +42,18 @@ export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
 };
 
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "orange-600"],
+  },
+};
+
 export const NoGradient: Story = {
   args: { showGradient: false },
 };
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const NoData: Story = {
@@ -130,4 +136,13 @@ export const WithCard: Story = {
       </ExampleCard>
     ),
   ],
+};
+
+export const WithAutoMinValue: Story = {
+  args: {
+    data: smallVariantionDatas,
+    index: "ts",
+    categories: ["avg_price"],
+    autoMinValue: true,
+  },
 };

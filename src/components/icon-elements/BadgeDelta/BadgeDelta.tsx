@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   DeltaType,
@@ -8,10 +9,8 @@ import {
   mergeRefs,
   Size,
   Sizes,
-  spacing,
   tremorTwMerge,
 } from "lib";
-import React from "react";
 import {
   badgeProportionsIconOnly,
   badgeProportionsWithText,
@@ -51,12 +50,17 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
       className={tremorTwMerge(
         makeBadgeDeltaClassName("root"),
         // common
-        "w-max flex-shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-full bg-opacity-20 dark:bg-opacity-25",
+        "w-max shrink-0 inline-flex justify-center items-center cursor-default rounded-tremor-small ring-1 ring-inset",
         colors[mappedDeltaType].bgColor,
         colors[mappedDeltaType].textColor,
+        colors[mappedDeltaType].ringColor,
         badgeProportions[size].paddingX,
         badgeProportions[size].paddingY,
         badgeProportions[size].fontSize,
+        // light
+        "bg-opacity-10 ring-opacity-20",
+        // dark
+        "dark:bg-opacity-5 dark:ring-opacity-60",
         className,
       )}
       {...getReferenceProps}
@@ -67,16 +71,14 @@ const BadgeDelta = React.forwardRef<HTMLSpanElement, BadgeDeltaProps>((props, re
         className={tremorTwMerge(
           makeBadgeDeltaClassName("icon"),
           "shrink-0",
-          children
-            ? tremorTwMerge(spacing.twoXs.negativeMarginLeft, spacing.xs.marginRight)
-            : iconSizes[size].height,
+          children ? tremorTwMerge("-ml-1 mr-1.5") : iconSizes[size].height,
           iconSizes[size].width,
         )}
       />
       {children ? (
-        <p className={tremorTwMerge(makeBadgeDeltaClassName("text"), "text-sm whitespace-nowrap")}>
+        <span className={tremorTwMerge(makeBadgeDeltaClassName("text"), "whitespace-nowrap")}>
           {children}
-        </p>
+        </span>
       ) : null}
     </span>
   );

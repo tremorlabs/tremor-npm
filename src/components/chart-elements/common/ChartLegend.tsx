@@ -7,10 +7,10 @@ import { Color } from "../../../lib";
 
 const ChartLegend = (
   { payload }: any,
-  categoryColors: Map<string, Color>,
+  categoryColors: Map<string, Color | string>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
-  onClick?: (category: string, color: Color) => void,
+  onClick?: (category: string, color: Color | string) => void,
   enableLegendSlider?: boolean,
 ) => {
   const legendRef = useRef<HTMLDivElement>(null);

@@ -18,7 +18,7 @@ const Metric = React.forwardRef<HTMLParagraphElement, MetricProps>((props, ref) 
         "font-semibold text-tremor-metric",
         color
           ? getColorClassNames(color, colorPalette.darkText).textColor
-          : "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
+          : "text-tremor-content-strong dark:text-dark-tremor-content-strong",
         className,
       )}
       {...other}

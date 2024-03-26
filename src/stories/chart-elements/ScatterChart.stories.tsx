@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ScatterChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color } from "lib";
 import {
   simpleScatterChartData as data,
@@ -14,7 +14,10 @@ const meta: Meta<typeof ScatterChart> = {
   title: "Visualizations/Chart/ScatterChart",
   component: ScatterChart,
   args: { x: "x", y: "y", size: "z", category: "location", data, className: "h-72" },
-  // parameters: { layout: "centered" },
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/ScatterChart",
+  },
 };
 
 export default meta;
@@ -39,6 +42,12 @@ export const CustomSizeRange: Story = {
 export const OtherColors: Story = {
   args: {
     colors: ["red", "green", "blue", "yellow"],
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400"],
   },
 };
 
@@ -69,6 +78,14 @@ export const NoDataText: Story = {
     data: [],
     noDataText: "No data, try again later.",
   },
+};
+
+export const Animation: Story = {
+  args: { showAnimation: true },
+};
+
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
 };
 
 export const OnValueChange: Story = {
@@ -140,7 +157,7 @@ export const CustomTooltip: Story = {
   args: {
     colors: customTooltipColors,
     category: customTooltipIndex,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -165,5 +182,11 @@ export const CustomTooltip: Story = {
         </div>
       );
     },
+  },
+};
+
+export const tickGap: Story = {
+  args: {
+    tickGap: 500,
   },
 };

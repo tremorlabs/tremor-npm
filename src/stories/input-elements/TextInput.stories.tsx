@@ -7,6 +7,10 @@ import { SimpleTextInput } from "./helpers/SimpleTextInput";
 const meta: Meta<typeof TextInput> = {
   title: "UI/Input/TextInput",
   component: TextInput,
+  parameters: {
+    sourceLink:
+      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/TextInput",
+  },
 };
 
 export default meta;
@@ -80,6 +84,20 @@ export const WithTypePassword: Story = {
   render: SimpleTextInput,
   args: {
     type: "password",
+  },
+};
+
+export const WithTypePasswordError: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "password",
+    error: true,
+  },
+};
+
+export const WithAutoFocus: Story = {
+  args: {
+    autoFocus: true,
   },
 };
 

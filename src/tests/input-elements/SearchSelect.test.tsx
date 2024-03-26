@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import SearchSelect from "components/input-elements/SearchSelect/SearchSelect";
@@ -13,5 +13,24 @@ describe("SearchSelect", () => {
         <SearchSelectItem value="3">Option Three</SearchSelectItem>
       </SearchSelect>,
     );
+  });
+
+  test("renders the SelectBox component with static and dynamic children", () => {
+    const placeholder = "Select options...";
+    const items = ["item1", "item2"];
+    render(
+      <SearchSelect data-testid="first-select" placeholder={placeholder}>
+        <SearchSelectItem value="item0">item0</SearchSelectItem>
+        {items.map((item) => {
+          return <SearchSelectItem value={item} key={item} />;
+        })}
+      </SearchSelect>,
+    );
+
+    fireEvent.click(screen.getByTestId("first-select"));
+
+    expect(screen.queryAllByText("item0")).toBeTruthy();
+    expect(screen.queryAllByText("item1")).toBeTruthy();
+    expect(screen.queryAllByText("item2")).toBeTruthy();
   });
 });

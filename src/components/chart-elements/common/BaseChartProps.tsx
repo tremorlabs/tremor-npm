@@ -1,6 +1,6 @@
 import { Color, ValueFormatter, IntervalType } from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
-import { CustomTooltipType } from "./CustomTooltipProps";
+import { CustomTooltipProps } from "./CustomTooltipProps";
 
 type FixedProps = {
   eventType: "dot" | "category" | "bar" | "slice" | "bubble";
@@ -17,7 +17,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   data: any[];
   categories: string[];
   index: string;
-  colors?: Color[];
+  colors?: (Color | string)[];
   valueFormatter?: ValueFormatter;
   startEndOnly?: boolean;
   showXAxis?: boolean;
@@ -34,12 +34,13 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   noDataText?: string;
   onValueChange?: (value: EventProps) => void;
   enableLegendSlider?: boolean;
-  customTooltip?: React.ComponentType<CustomTooltipType>;
+  customTooltip?: React.ComponentType<CustomTooltipProps>;
   rotateLabelX?: {
     angle: number;
     verticalShift?: number;
     xAxisHeight?: number;
   };
+  tickGap?: number;
 }
 
 export default BaseChartProps;
