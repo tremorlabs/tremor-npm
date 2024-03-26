@@ -60,6 +60,7 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
+  barCategoryGap?: string | number;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -91,6 +92,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    barCategoryGap = "10%",
     tickGap = 5,
     className,
     ...other
@@ -145,6 +147,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart
+            barCategoryGap={barCategoryGap}
             data={data}
             stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
