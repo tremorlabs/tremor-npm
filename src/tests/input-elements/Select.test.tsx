@@ -39,7 +39,7 @@ describe("Select", () => {
     expect(screen.queryByTestId("icon")).toBeTruthy();
   });
 
-  test("renders the SelectItem component with Icon as ElementType", () => {
+  test("renders the SelectItem component with Icon as ElementType", async () => {
     const Icon = () => <span data-testid="icon">Icon</span>;
     const placeholder = "Select...";
     render(
@@ -50,11 +50,12 @@ describe("Select", () => {
       </Select>,
     );
     expect(screen.queryByTestId("icon")).not.toBeTruthy();
-    fireEvent.click(screen.getByText(placeholder));
-    expect(screen.queryByTestId("icon")).toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByText(placeholder)[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
   });
 
-  test("renders the SelectItem component with Icon as ReactElement", () => {
+  test("renders the SelectItem component with Icon as ReactElement", async () => {
     const Icon = () => <span data-testid="icon">Icon</span>;
     const placeholder = "Select...";
     render(
@@ -65,8 +66,9 @@ describe("Select", () => {
       </Select>,
     );
     expect(screen.queryByTestId("icon")).not.toBeTruthy();
-    fireEvent.click(screen.getByText(placeholder));
-    expect(screen.queryByTestId("icon")).toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByText(placeholder)[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
   });
 
   test("renders the Select component with static and dynamic children", () => {

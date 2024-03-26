@@ -39,7 +39,7 @@ describe("SearchSelect", () => {
     expect(screen.queryByTestId("icon")).toBeTruthy();
   });
 
-  test("renders the SearchSelectItem component with Icon as ElementType", () => {
+  test("renders the SearchSelectItem component with Icon as ElementType", async () => {
     const Icon = () => <span data-testid="icon">Icon</span>;
     render(
       <SearchSelect>
@@ -49,11 +49,12 @@ describe("SearchSelect", () => {
       </SearchSelect>,
     );
     expect(screen.queryByTestId("icon")).not.toBeTruthy();
-    fireEvent.click(screen.getByRole("combobox"));
-    expect(screen.queryByTestId("icon")).toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByRole("combobox")[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
   });
 
-  test("renders the SearchSelectItem component with Icon as ReatElement", () => {
+  test("renders the SearchSelectItem component with Icon as ReatElement", async () => {
     const Icon = () => <span data-testid="icon">Icon</span>;
     render(
       <SearchSelect>
@@ -63,8 +64,9 @@ describe("SearchSelect", () => {
       </SearchSelect>,
     );
     expect(screen.queryByTestId("icon")).not.toBeTruthy();
-    fireEvent.click(screen.getByRole("combobox"));
-    expect(screen.queryByTestId("icon")).toBeTruthy();
+    // Need to click the interactive component
+    fireEvent.click(screen.getAllByRole("combobox")[1]);
+    expect(await screen.findByTestId("icon")).toBeTruthy();
   });
 
   test("renders the SearchSelect component with static and dynamic children", () => {
