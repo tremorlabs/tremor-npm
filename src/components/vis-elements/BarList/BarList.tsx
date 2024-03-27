@@ -172,7 +172,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
         })}
       </div>
       <div className={makeBarListClassName("labels")}>
-        {data.map((item, index) => (
+        {sortedData.map((item, index) => (
           <div
             key={item.key ?? item.name}
             className={tremorTwMerge(
