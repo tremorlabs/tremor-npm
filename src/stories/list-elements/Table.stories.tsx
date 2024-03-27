@@ -142,7 +142,7 @@ export const Default: Story = {
     <Table {...args}>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell colSpan={3}>Name</TableHeaderCell>
           <TableHeaderCell>Sales ($)</TableHeaderCell>
           <TableHeaderCell>Region</TableHeaderCell>
           <TableHeaderCell>Status</TableHeaderCell>

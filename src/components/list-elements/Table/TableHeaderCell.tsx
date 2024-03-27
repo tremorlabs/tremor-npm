@@ -5,7 +5,7 @@ const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
 const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
-  React.HTMLAttributes<HTMLTableCellElement>
+  React.ThHTMLAttributes<HTMLTableCellElement>
 >((props, ref) => {
   const { children, className, ...other } = props;
   return (
