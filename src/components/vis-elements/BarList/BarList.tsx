@@ -102,12 +102,15 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                   "flex items-center rounded transition-all bg-opacity-40",
                   rowHeight,
                   item.color || color
-                    ? getColorClassNames(item.color ?? (color as Color), colorPalette.background)
-                        .bgColor
+                    ? [
+                        getColorClassNames(item.color ?? (color as Color), colorPalette.background)
+                          .bgColor,
+                        onValueChange ? "group-hover:bg-opacity-30" : "",
+                      ]
                     : "bg-tremor-brand-subtle dark:bg-dark-tremor-brand-subtle/60",
                   onValueChange && !(item.color || color)
                     ? "group-hover:bg-tremor-brand-subtle/30 group-hover:dark:bg-dark-tremor-brand-subtle/70"
-                    : "group-hover:bg-opacity-80",
+                    : "",
                   // margin and duration
                   index === sortedData.length - 1 ? "mb-0" : "",
                   showAnimation ? "duration-500" : "",
