@@ -373,3 +373,10 @@ export const tickGap: Story = {
     tickGap: 200,
   },
 };
+
+export const barCategoryGap: Story = {
+  args: {
+    data: data,
+    barCategoryGap: "20%",
+  },
+};

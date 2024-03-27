@@ -73,6 +73,7 @@ export const Colors: Story = {
   args: {
     data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
     valueFormatter: (value) => `${value} USD`,
+    onValueChange: (data) => alert(JSON.stringify(data)),
   },
 };
 
