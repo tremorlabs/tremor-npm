@@ -48,6 +48,7 @@ interface ActiveDot {
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
   const {
+    children,
     data = [],
     categories = [],
     index,
@@ -77,6 +78,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    rechartProps,
     tickGap = 5,
     ...other
   } = props;
@@ -139,6 +141,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsAreaChart
+          {...rechartProps}
             data={data}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
@@ -150,6 +153,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 : undefined
             }
           >
+            {children}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(

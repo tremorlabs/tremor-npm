@@ -64,6 +64,7 @@ export interface BarChartProps extends BaseChartProps {
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
   const {
+    children,
     data = [],
     categories = [],
     index,
@@ -93,6 +94,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     rotateLabelX,
     tickGap = 5,
     className,
+    rechartProps,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -145,6 +147,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart
+          {...rechartProps}
             data={data}
             stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
@@ -158,6 +161,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 : undefined
             }
           >
+            {children}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(

@@ -45,6 +45,7 @@ interface ActiveDot {
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
   const {
+    children,
     data = [],
     categories = [],
     index,
@@ -73,6 +74,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     customTooltip,
     rotateLabelX,
     tickGap = 5,
+    rechartProps,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -135,6 +137,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsLineChart
+            {...rechartProps}
             data={data}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
@@ -146,6 +149,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 : undefined
             }
           >
+            {children}
             {showGridLines ? (
               <CartesianGrid
                 className={tremorTwMerge(

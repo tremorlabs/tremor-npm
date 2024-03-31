@@ -1,6 +1,6 @@
 {
-  "name": "@tremor/react",
-  "version": "0.0.0-development",
+  "name": "@traceloop/tremor",
+  "version": "0.0.0",
   "description": "The React library to build dashboards faster.",
   "scripts": {
     "prebuild": "rm -rf dist",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tremorlabs/tremor.git"
+    "url": "https://github.com/traceloop/tremor.git"
   },
-  "author": "tremor",
+  "author": "tremor (forked by traceloop)",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/tremorlabs/tremor/issues"
+    "url": "https://github.com/traceloop/tremor/issues"
   },
-  "homepage": "https://github.com/tremorlabs/tremor#readme",
+  "homepage": "https://github.com/traceloop/tremor#readme",
   "dependencies": {
     "@floating-ui/react": "^0.19.2",
     "@headlessui/react": "^1.7.18",
