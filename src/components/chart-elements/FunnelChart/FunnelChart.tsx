@@ -95,7 +95,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       rotateLabelX,
       ...other
     } = props;
-    const maxGap = 30
+    const maxGap = 30;
     const CustomTooltip = customTooltip;
 
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -128,8 +128,8 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
     const gap = React.useMemo(
-        () => Math.min(maxGap, (widthWithoutPadding / (data.length * 2)) * 0.25),
-        [widthWithoutPadding, data.length],
+      () => Math.min(maxGap, (widthWithoutPadding / (data.length * 2)) * 0.25),
+      [widthWithoutPadding, data.length],
     );
 
     const barWidth = React.useMemo(
@@ -139,7 +139,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const realHeight =
       height -
       GLOBAL_PADDING -
-      (showXAxis ? ((rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 10) : 0);
+      (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 10 : 0);
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center";
@@ -351,8 +351,8 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       y={
                         realHeight +
                         (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
-                        HALF_PADDING
-                        + 10
+                        HALF_PADDING +
+                        10
                       }
                       textAnchor="middle"
                       fontSize="0.75rem"
@@ -366,14 +366,18 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       )}
                       width={barWidth}
                       height={rotateLabelX?.xAxisHeight}
-                      transform={rotateLabelX ? `rotate(${rotateLabelX?.angle}, ${
-                        item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding
-                      }, ${
-                        realHeight +
-                        (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
-                        HALF_PADDING +
-                        (rotateLabelX?.verticalShift || 0)
-                      })` : undefined}
+                      transform={
+                        rotateLabelX
+                          ? `rotate(${rotateLabelX?.angle}, ${
+                              item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding
+                            }, ${
+                              realHeight +
+                              (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
+                              HALF_PADDING +
+                              (rotateLabelX?.verticalShift || 0)
+                            })`
+                          : undefined
+                      }
                     >
                       {item.name}
                     </text>

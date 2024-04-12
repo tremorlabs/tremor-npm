@@ -130,10 +130,10 @@ export const RotateXLabelsHorizontal: Story = {
 };
 
 export const ValueFormatter: Story = {
-    args: {
-        valueFormatter: (e) => currencyValueFormatter(e)
-    },
-  };
+  args: {
+    valueFormatter: (e) => currencyValueFormatter(e),
+  },
+};
 
 export const CustomTooltipSimple: Story = {
   args: {
