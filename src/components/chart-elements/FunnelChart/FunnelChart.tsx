@@ -393,45 +393,19 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                         <>
                           <polygon
                             points={`
-                                                        ${
-                                                          item.startX +
-                                                          barWidth +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 +
-                                                          item.nextBarHeight / 4 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.nextStartX +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 +
-                                                          item.nextBarHeight / 4 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.nextStartX +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 -
-                                                          item.nextBarHeight / 2 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.startX +
-                                                          barWidth +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 -
-                                                          item.barHeight / 2 +
-                                                          HALF_PADDING
-                                                        }
-                                                    `}
+                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING
+                                    }
+                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 + item.nextBarHeight / 4 + HALF_PADDING
+                                    }
+                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 - item.nextBarHeight / 2 + HALF_PADDING
+                                    }
+                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 - item.barHeight / 2 + HALF_PADDING
+                                    }
+                                  `}
                             fill={`url(#base-gradient)`}
                             className={tremorTwMerge(
                               "z-10",
@@ -440,45 +414,19 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                           />
                           <polygon
                             points={`
-                                                        ${
-                                                          item.startX +
-                                                          barWidth +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 +
-                                                          item.barHeight / 2 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.nextStartX +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 +
-                                                          item.nextBarHeight / 2 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.nextStartX +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 -
-                                                          item.nextBarHeight / 4 +
-                                                          HALF_PADDING
-                                                        }
-                                                        ${
-                                                          item.startX +
-                                                          barWidth +
-                                                          HALF_PADDING +
-                                                          yAxisPadding
-                                                        }, ${
-                                                          realHeight / 2 -
-                                                          item.nextBarHeight / 4 +
-                                                          HALF_PADDING
-                                                        }
-                                                    `}
+                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 + item.barHeight / 2 + HALF_PADDING
+                                    }
+                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 + item.nextBarHeight / 2 + HALF_PADDING
+                                    }
+                                    ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING
+                                    }
+                                    ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                      realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING
+                                    }
+                                  `}
                             fill={`url(#base-gradient-revert)`}
                             className={tremorTwMerge(
                               "z-10",
@@ -489,27 +437,19 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       ) : (
                         <polygon
                           points={`
-                                                    ${
-                                                      item.startX +
-                                                      barWidth +
-                                                      HALF_PADDING +
-                                                      yAxisPadding
-                                                    }, ${item.startY + HALF_PADDING} 
-                                                    ${
-                                                      item.nextStartX + HALF_PADDING + yAxisPadding
-                                                    }, ${
-                                                      realHeight - item.nextBarHeight + HALF_PADDING
-                                                    } 
-                                                    ${
-                                                      item.nextStartX + HALF_PADDING + yAxisPadding
-                                                    }, ${realHeight + HALF_PADDING} 
-                                                    ${
-                                                      item.startX +
-                                                      barWidth +
-                                                      HALF_PADDING +
-                                                      yAxisPadding
-                                                    }, ${realHeight + HALF_PADDING}
-                                                `}
+                                  ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                    item.startY + HALF_PADDING
+                                  } 
+                                  ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                    realHeight - item.nextBarHeight + HALF_PADDING
+                                  } 
+                                  ${item.nextStartX + HALF_PADDING + yAxisPadding}, ${
+                                    realHeight + HALF_PADDING
+                                  } 
+                                  ${item.startX + barWidth + HALF_PADDING + yAxisPadding}, ${
+                                    realHeight + HALF_PADDING
+                                  }
+                                `}
                           fill={`url(#base-gradient)`}
                           className={tremorTwMerge(
                             "z-10",
