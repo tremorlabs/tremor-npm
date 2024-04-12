@@ -51,10 +51,10 @@ export const CustomHeight: Story = {
   args: { className: "h-30" },
 };
 
-export const PreviousSmallerThanNext: Story = {
+export const PreviousValueSmallerThanNext: Story = {
   args: {
     data: [
-      { name: "/home", value: -20 },
+      { name: "/home", value: 200 },
       { name: "/imprint", value: 351 },
       { name: "/cancellation", value: 271 },
       {
@@ -71,6 +71,53 @@ export const fromPrevious: Story = {
     calculateFrom: "previous",
   },
 };
+
+export const fromPreviousWithPreviousValueSmallerThanNext: Story = {
+  args: {
+    calculateFrom: "previous",
+    data: [
+      { name: "/home", value: 200 },
+      { name: "/imprint", value: 351 },
+      { name: "/cancellation", value: 271 },
+      {
+        name: `/special-offer`,
+        value: 191,
+      },
+      { name: "/documentation", value: 10 },
+    ],
+  },
+};
+
+export const With0: Story = {
+  args: {
+    data: [
+      { name: "/home", value: 0 },
+      { name: "/imprint", value: 351 },
+      { name: "/cancellation", value: 271 },
+      {
+        name: `/special-offer`,
+        value: 191,
+      },
+      { name: "/documentation", value: 10 },
+    ],
+  },
+};
+
+// export const fromPreviousWith0: Story = {
+//   args: {
+//     calculateFrom: "previous",
+//     data: [
+//       { name: "/home", value: 0 },
+//       { name: "/imprint", value: 351 },
+//       { name: "/cancellation", value: 271 },
+//       {
+//         name: `/special-offer`,
+//         value: 191,
+//       },
+//       { name: "/documentation", value: 10 },
+//     ],
+//   },
+// };
 
 export const fromPreviousWithEvolutionGradient: Story = {
   args: {
