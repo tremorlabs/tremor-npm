@@ -103,7 +103,7 @@ export const With0: Story = {
   },
 };
 
-export const fromPreviousWith0: Story = {
+export const fromPreviousWith0ErrorExpected: Story = {
   args: {
     calculateFrom: "previous",
     data: [
