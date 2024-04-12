@@ -29,9 +29,9 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         // common
         "border-transparent border rounded-tremor-small px-2.5 py-1",
         // light
-        "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input hover:text-tremor-content-emphasis ui-selected:text-tremor-brand",
+        "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input ui-not-selected:hover:text-tremor-content-emphasis ui-selected:text-tremor-brand ui-not-selected:text-tremor-content",
         // dark
-        "dark:ui-selected:border-dark-tremor-border dark:ui-selected:bg-dark-tremor-background dark:ui-selected:shadow-dark-tremor-input dark:hover:text-dark-tremor-content-emphasis dark:ui-selected:text-dark-tremor-brand dark:ui-not-selected:text-dark-tremor-content",
+        "dark:ui-selected:border-dark-tremor-border dark:ui-selected:bg-dark-tremor-background dark:ui-selected:shadow-dark-tremor-input dark:ui-not-selected:hover:text-dark-tremor-content-emphasis dark:ui-selected:text-dark-tremor-brand dark:ui-not-selected:text-dark-tremor-content",
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
@@ -58,11 +58,9 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         // common
         "flex whitespace-nowrap truncate max-w-xs outline-none ui-focus-visible:ring text-tremor-default transition duration-100",
         // brand
-        color
-          ? getColorClassNames(color, colorPalette.text).selectTextColor
-          : variant === "solid"
-          ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis"
-          : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
+        color && getColorClassNames(color, colorPalette.text).selectTextColor,
+        // solid ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis"
+        // : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
         getVariantStyles(variant, color),
         className,
       )}
