@@ -56,7 +56,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       className={tremorTwMerge(
         makeTabClassName("root"),
         // common
-        "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring text-tremor-default transition duration-100",
+        "flex whitespace-nowrap truncate max-w-xs outline-none ui-focus-visible:ring text-tremor-default transition duration-100",
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
