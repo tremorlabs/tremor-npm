@@ -160,7 +160,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       return () => {
         window.removeEventListener("resize", handleResize);
       };
-    }, []);
+    }, [className]);
 
     React.useEffect(() => {
       const handleTooltipOverflows = () => {
@@ -185,7 +185,7 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       return data.reduce((acc: FormattedDataT[], item, index) => {
         const prev = acc[index - 1];
         const value = item.value;
-        const valueToCompareWith = isPreviousCalculation ? prev?.value ?? value : maxValue;
+        const valueToCompareWith = isPreviousCalculation ? prev?.value ?? maxValue : maxValue;
         const calculationHeight = isPreviousCalculation
           ? prev?.barHeight ?? realHeight
           : realHeight;
