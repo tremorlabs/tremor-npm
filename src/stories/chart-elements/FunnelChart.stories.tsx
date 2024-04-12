@@ -103,21 +103,21 @@ export const With0: Story = {
   },
 };
 
-// export const fromPreviousWith0: Story = {
-//   args: {
-//     calculateFrom: "previous",
-//     data: [
-//       { name: "/home", value: 0 },
-//       { name: "/imprint", value: 351 },
-//       { name: "/cancellation", value: 271 },
-//       {
-//         name: `/special-offer`,
-//         value: 191,
-//       },
-//       { name: "/documentation", value: 10 },
-//     ],
-//   },
-// };
+export const fromPreviousWith0: Story = {
+  args: {
+    calculateFrom: "previous",
+    data: [
+      { name: "/home", value: 0 },
+      { name: "/imprint", value: 351 },
+      { name: "/cancellation", value: 271 },
+      {
+        name: `/special-offer`,
+        value: 191,
+      },
+      { name: "/documentation", value: 10 },
+    ],
+  },
+};
 
 export const fromPreviousWithEvolutionGradient: Story = {
   args: {

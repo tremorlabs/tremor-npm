@@ -73,7 +73,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   };
 }
 
-const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
+const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   (props: FunnelChartProps, ref) => {
     const {
       data,
@@ -587,6 +587,38 @@ const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   },
 );
 
-FunnelChart.displayName = "FunnelChart";
+FunnelChartPrimitive.displayName = "FunnelChart";
+
+//#region Data Validation
+// ============================================================================
+
+const validateData = (data: DataT[], calculatedFrom?: CalculateFrom) => {
+  if (data && data.length > 0) {
+    if (calculatedFrom === "previous" && data[0].value <= 0) {
+      throw new Error(
+        `The value of the first item "${data[0].name}" is not greater than 0. This is not allowed when setting the "calculateFrom" prop to "previous". Please enter a value greater than 0.`,
+      );
+    }
+
+    data.forEach((item) => {
+      if (item.value < 0) {
+        throw new Error(
+          `Item "${item.name}" has a negative value: ${item.value}. This is not allowed. The value must be greater than or equal to 0.`,
+        );
+      }
+    });
+  }
+};
+
+// Exports
+// ============================================================================
+
+const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
+  if (data) {
+    validateData(data, props.calculateFrom);
+  }
+
+  return <FunnelChartPrimitive data={data} {...props} />;
+};
 
 export default FunnelChart;
