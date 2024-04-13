@@ -7,14 +7,13 @@ import { CustomTooltipProps } from "components/chart-elements/common/CustomToolt
 import { currencyValueFormatter } from "lib";
 
 const data = [
-  { name: "/home", value: 1010 },
-  { name: "/imprint", value: 351 },
-  { name: "/cancellation", value: 271 },
+  { name: "opens", value: -200 },
+  { name: "visitors", value: 351 },
   {
-    name: `/special-offer`,
+    name: `added to cart`,
     value: 191,
   },
-  { name: "/documentation", value: 10 },
+  { name: "orders", value: 10 },
 ];
 
 const meta: Meta<typeof FunnelChart> = {
@@ -54,14 +53,13 @@ export const CustomHeight: Story = {
 export const PreviousValueSmallerThanNext: Story = {
   args: {
     data: [
-      { name: "/home", value: 200 },
-      { name: "/imprint", value: 351 },
-      { name: "/cancellation", value: 271 },
+      { name: "opens", value: 200 },
+      { name: "visitors", value: 351 },
       {
-        name: `/special-offer`,
+        name: `added to cart`,
         value: 191,
       },
-      { name: "/documentation", value: 10 },
+      { name: "orders", value: 10 },
     ],
   },
 };
@@ -76,14 +74,13 @@ export const fromPreviousWithPreviousValueSmallerThanNext: Story = {
   args: {
     calculateFrom: "previous",
     data: [
-      { name: "/home", value: 200 },
-      { name: "/imprint", value: 351 },
-      { name: "/cancellation", value: 271 },
+      { name: "opens", value: 200 },
+      { name: "visitors", value: 351 },
       {
-        name: `/special-offer`,
+        name: `added to cart`,
         value: 191,
       },
-      { name: "/documentation", value: 10 },
+      { name: "orders", value: 10 },
     ],
   },
 };
@@ -91,14 +88,13 @@ export const fromPreviousWithPreviousValueSmallerThanNext: Story = {
 export const With0: Story = {
   args: {
     data: [
-      { name: "/home", value: 0 },
-      { name: "/imprint", value: 351 },
-      { name: "/cancellation", value: 271 },
+      { name: "opens", value: 0 },
+      { name: "visitors", value: 351 },
       {
-        name: `/special-offer`,
+        name: `added to cart`,
         value: 191,
       },
-      { name: "/documentation", value: 10 },
+      { name: "orders", value: 10 },
     ],
   },
 };
@@ -107,14 +103,13 @@ export const fromPreviousWith0ErrorExpected: Story = {
   args: {
     calculateFrom: "previous",
     data: [
-      { name: "/home", value: 0 },
-      { name: "/imprint", value: 351 },
-      { name: "/cancellation", value: 271 },
+      { name: "opens", value: 0 },
+      { name: "visitors", value: 351 },
       {
-        name: `/special-offer`,
+        name: `added to cart`,
         value: 191,
       },
-      { name: "/documentation", value: 10 },
+      { name: "orders", value: 10 },
     ],
   },
 };

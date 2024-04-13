@@ -222,7 +222,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     return (
       <div
         ref={ref}
-        className={tremorTwMerge("tremor-wrapper relative w-full h-full", className)}
+        className={tremorTwMerge("tremor-wrapper relative w-full h-80", className)}
         {...other}
       >
         {data?.length ? (
@@ -592,33 +592,31 @@ FunnelChartPrimitive.displayName = "FunnelChart";
 //#region Data Validation
 // ============================================================================
 
-const validateData = (data: DataT[], calculatedFrom?: CalculateFrom) => {
+const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | null => {
   if (data && data.length > 0) {
     if (calculatedFrom === "previous" && data[0].value <= 0) {
-      throw new Error(
-        `The value of the first item "${data[0].name}" is not greater than 0. This is not allowed when setting the "calculateFrom" prop to "previous". Please enter a value greater than 0.`,
-      );
+      return `The value of the first item "${data[0].name}" is not greater than 0. This is not allowed when setting the "calculateFrom" prop to "previous". Please enter a value greater than 0.`;
     }
 
-    data.forEach((item) => {
+    for (const item of data) {
       if (item.value < 0) {
-        throw new Error(
-          `Item "${item.name}" has a negative value: ${item.value}. This is not allowed. The value must be greater than or equal to 0.`,
-        );
+        return `Item "${item.name}" has a negative value: ${item.value}. This is not allowed. The value must be greater than or equal to 0.`;
       }
-    });
+    }
   }
+  return null;
 };
 
 // Exports
 // ============================================================================
 
 const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
-  if (data) {
-    validateData(data, props.calculateFrom);
-  }
-
-  return <FunnelChartPrimitive data={data} {...props} />;
+  const errorMessage = data ? validateData(data, props.calculateFrom) : null;
+  return errorMessage ? (
+    <NoData noDataText={`Calculation error: ${errorMessage}`} />
+  ) : (
+    <FunnelChartPrimitive data={data} {...props} />
+  );
 };
 
 export default FunnelChart;
