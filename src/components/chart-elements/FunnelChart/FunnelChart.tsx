@@ -349,25 +349,45 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
 
                   {/* Draw label */}
                   {showXAxis ? (
-                    <text
-                      x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
-                      y={
-                        realHeight +
-                        (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
-                        HALF_PADDING +
-                        10
-                      }
-                      textAnchor="middle"
-                      fill=""
-                      stroke=""
-                      className={tremorTwMerge(
-                        // light
-                        "fill-tremor-content text-tremor-label",
-                        // dark
-                        "dark:fill-dark-tremor-content",
-                      )}
+                    // <text
+                    //   x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
+                    //   y={
+                    //     realHeight +
+                    //     (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
+                    //     HALF_PADDING +
+                    //     10
+                    //   }
+                    //   textAnchor="middle"
+                    //   fill=""
+                    //   stroke=""
+                    //   className={tremorTwMerge(
+                    //     // light
+                    //     "fill-tremor-content text-tremor-label",
+                    //     // dark
+                    //     "dark:fill-dark-tremor-content",
+                    //   )}
+                    //   width={barWidth}
+                    //   height={rotateLabelX?.xAxisHeight}
+                    //   transform={
+                    //     rotateLabelX
+                    //       ? `rotate(${rotateLabelX?.angle}, ${
+                    //           item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding
+                    //         }, ${
+                    //           realHeight +
+                    //           (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
+                    //           HALF_PADDING +
+                    //           (rotateLabelX?.verticalShift || 0)
+                    //         })`
+                    //       : undefined
+                    //   }
+                    // >
+                    //   {item.name}
+                    // </text>
+                    <foreignObject
+                      x={item.startX + HALF_PADDING + yAxisPadding}
+                      y={realHeight + HALF_PADDING + 10}
                       width={barWidth}
-                      height={rotateLabelX?.xAxisHeight}
+                      height={rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT}
                       transform={
                         rotateLabelX
                           ? `rotate(${rotateLabelX?.angle}, ${
@@ -381,8 +401,19 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                           : undefined
                       }
                     >
-                      {item.name}
-                    </text>
+                      <div
+                        className={tremorTwMerge(
+                          //common
+                          "truncate text-center text-xs",
+                          // light
+                          "text-tremor-content",
+                          // dark
+                          "dark:text-dark-tremor-content",
+                        )}
+                      >
+                        {item.name}
+                      </div>
+                    </foreignObject>
                   ) : null}
                 </g>
               ))}
