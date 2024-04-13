@@ -512,7 +512,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                           "dark:text-dark-tremor-content",
                         )}
                       >
-                        <ArrowRightIcon className="w-3 h-3" />
+                        <ArrowRightIcon className="size-3.5 shrink-0" />
                       </div>
                     </foreignObject>
                   ) : null}
