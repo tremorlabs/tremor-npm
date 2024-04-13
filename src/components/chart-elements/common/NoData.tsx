@@ -3,8 +3,9 @@ import React from "react";
 
 interface NoDataProps {
   noDataText?: string;
+  className?: string;
 }
-const NoData = ({ noDataText = "No data" }: NoDataProps) => {
+const NoData = ({ className, noDataText = "No data" }: NoDataProps) => {
   return (
     <div
       className={tremorTwMerge(
@@ -14,6 +15,7 @@ const NoData = ({ noDataText = "No data" }: NoDataProps) => {
         "border-tremor-border",
         // dark
         "dark:border-dark-tremor-border",
+        className,
       )}
     >
       <p

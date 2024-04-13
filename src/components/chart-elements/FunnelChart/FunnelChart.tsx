@@ -73,6 +73,9 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   };
 }
 
+//#region Funnel Chart Primitive
+// ============================================================================
+
 const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   (props: FunnelChartProps, ref) => {
     const {
@@ -355,12 +358,11 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                         10
                       }
                       textAnchor="middle"
-                      fontSize="0.75rem"
                       fill=""
                       stroke=""
                       className={tremorTwMerge(
                         // light
-                        "fill-tremor-content",
+                        "fill-tremor-content text-tremor-label",
                         // dark
                         "dark:fill-dark-tremor-content",
                       )}
@@ -607,13 +609,13 @@ const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | n
   return null;
 };
 
-// Exports
+//#region  Exports
 // ============================================================================
 
 const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
   const errorMessage = data ? validateData(data, props.calculateFrom) : null;
   return errorMessage ? (
-    <NoData noDataText={`Calculation error: ${errorMessage}`} />
+    <NoData className="h-full w-full p-6" noDataText={`Calculation error: ${errorMessage}`} />
   ) : (
     <FunnelChartPrimitive data={data} {...props} />
   );
