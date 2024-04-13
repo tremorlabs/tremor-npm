@@ -46,7 +46,7 @@ export const CustomColor: Story = {
   },
 };
 
-export const NoArrow: Story = {
+export const ShowArrowFalse: Story = {
   args: {
     showArrow: false,
   },
