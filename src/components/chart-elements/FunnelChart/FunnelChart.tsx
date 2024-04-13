@@ -11,6 +11,7 @@ import {
 } from "lib";
 import { CustomTooltipProps, EventProps } from "../common";
 import NoData from "../common/NoData";
+import { ArrowRightIcon } from "assets";
 
 type FormattedDataT = DataT & {
   normalizedValue: number;
@@ -61,6 +62,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisPadding?: number;
   showYAxis?: boolean;
   showXAxis?: boolean;
+  showArrow?: boolean;
   showGridLines?: boolean;
   showTooltip?: boolean;
   onValueChange?: (value: EventProps) => void;
@@ -90,6 +92,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       showGridLines = true,
       showYAxis = calculateFrom === "previous" ? false : true,
       showXAxis = true,
+      showArrow = true,
       yAxisPadding = showYAxis ? 45 : 0,
       showTooltip = true,
       onValueChange,
@@ -349,40 +352,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
 
                   {/* Draw label */}
                   {showXAxis ? (
-                    // <text
-                    //   x={item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding}
-                    //   y={
-                    //     realHeight +
-                    //     (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
-                    //     HALF_PADDING +
-                    //     10
-                    //   }
-                    //   textAnchor="middle"
-                    //   fill=""
-                    //   stroke=""
-                    //   className={tremorTwMerge(
-                    //     // light
-                    //     "fill-tremor-content text-tremor-label",
-                    //     // dark
-                    //     "dark:fill-dark-tremor-content",
-                    //   )}
-                    //   width={barWidth}
-                    //   height={rotateLabelX?.xAxisHeight}
-                    //   transform={
-                    //     rotateLabelX
-                    //       ? `rotate(${rotateLabelX?.angle}, ${
-                    //           item.startX + barWidth / 2 + HALF_PADDING + yAxisPadding
-                    //         }, ${
-                    //           realHeight +
-                    //           (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) / 2 +
-                    //           HALF_PADDING +
-                    //           (rotateLabelX?.verticalShift || 0)
-                    //         })`
-                    //       : undefined
-                    //   }
-                    // >
-                    //   {item.name}
-                    // </text>
                     <foreignObject
                       x={item.startX + HALF_PADDING + yAxisPadding}
                       y={realHeight + HALF_PADDING + 10}
@@ -525,6 +494,28 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       hasOnValueChange ? "cursor-pointer" : "cursor-default",
                     )}
                   />
+                  {/* Add arrow between labels */}
+                  {index < data.length - 1 && showXAxis && showArrow && gap >= 12 ? (
+                    <foreignObject
+                      x={item.startX + barWidth + HALF_PADDING + yAxisPadding - 6 + gap / 2}
+                      y={realHeight + HALF_PADDING + 12}
+                      width={12}
+                      height={rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT}
+                    >
+                      <div
+                        className={tremorTwMerge(
+                          // common
+                          "text-center text-xs",
+                          // light
+                          "text-tremor-content",
+                          // dark
+                          "dark:text-dark-tremor-content",
+                        )}
+                      >
+                        <ArrowRightIcon className="w-3 h-3" />
+                      </div>
+                    </foreignObject>
+                  ) : null}
                 </React.Fragment>
               ))}
               <linearGradient
