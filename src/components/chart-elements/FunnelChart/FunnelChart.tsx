@@ -46,7 +46,7 @@ type DataT = {
   name: string;
 };
 
-const DEFAULT_X_AXIS_HEIGHT = 30;
+const DEFAULT_X_AXIS_HEIGHT = 15;
 const GLOBAL_PADDING = 20;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
@@ -461,7 +461,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       )}
                     </>
                   ) : null}
-                  {/* hover trasnparent rect for tooltip */}
+                  {/* Hover transparent rect for tooltip */}
                   <rect
                     x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
                     y={HALF_PADDING}
@@ -545,7 +545,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
               </linearGradient>
             </svg>
-            {/* TBD: Deal with tooltip that can overflow */}
             {showTooltip ? (
               <div
                 ref={tooltipRef}
