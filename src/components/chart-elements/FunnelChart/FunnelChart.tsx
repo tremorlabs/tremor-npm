@@ -495,7 +495,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     )}
                   />
                   {/* Add arrow between labels */}
-                  {index < data.length - 1 && showXAxis && showArrow && gap >= 12 ? (
+                  {index < data.length - 1 && showXAxis && showArrow && gap >= 14 ? (
                     <foreignObject
                       x={item.startX + barWidth + HALF_PADDING + yAxisPadding - 6 + gap / 2}
                       y={realHeight + HALF_PADDING + 12}
