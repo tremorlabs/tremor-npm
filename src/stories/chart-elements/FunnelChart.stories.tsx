@@ -46,6 +46,12 @@ export const CustomColor: Story = {
   },
 };
 
+export const NoArrow: Story = {
+  args: {
+    showArrow: false,
+  },
+};
+
 export const CustomHeight: Story = {
   args: { className: "h-30" },
 };
