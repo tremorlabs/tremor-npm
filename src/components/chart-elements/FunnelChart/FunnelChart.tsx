@@ -239,34 +239,36 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     }, [data, realHeight, isPreviousCalculation, barWidth, gap, maxValue]);
 
     const handleTooltip = (touch: React.Touch) => {
-      //   console.log(touch);
       const chartBoundingRect = svgRef.current?.getBoundingClientRect();
       if (!chartBoundingRect) return;
-      const chartWidth = chartBoundingRect.width;
-      const chartHeight = chartBoundingRect.height;
       const chartX = chartBoundingRect.x;
       const chartY = chartBoundingRect.y;
       const chartTop = chartY + window.scrollY;
       const chartLeft = chartX + window.scrollX + yAxisPadding + HALF_PADDING;
+      const chartWidth = chartBoundingRect.width - yAxisPadding - HALF_PADDING;
+      const chartHeight =
+        chartBoundingRect.height - HALF_PADDING - (showXAxis ? DEFAULT_X_AXIS_HEIGHT : 0);
       const chartRight = chartLeft + chartWidth;
-      const chartBottom =
-        chartTop + chartHeight + (showXAxis ? DEFAULT_X_AXIS_HEIGHT : 0) + GLOBAL_PADDING;
+      const chartBottom = chartTop + chartHeight;
 
       if (
-        touch.clientX < chartLeft ||
-        touch.clientX > chartRight ||
-        touch.clientY < chartTop ||
-        touch.clientY > chartBottom
+        touch.pageX < chartLeft ||
+        touch.pageX > chartRight ||
+        touch.pageY < chartTop ||
+        touch.pageY > chartBottom
       ) {
+        console.log("out of bounds");
         return setTooltip({ x: 0, y: 0 });
       }
-      const barDistance = barWidth - touch.clientX + gap;
+
+      const pageX = touch.pageX - chartX - barWidth / 2 - yAxisPadding - HALF_PADDING;
       const closestBar = formattedData.reduce((acc, current) => {
-        const currentDistance = Math.abs(current.startX + barDistance);
-        const accDistance = Math.abs(acc.startX + barDistance);
+        const currentDistance = Math.abs(current.startX - pageX);
+        const accDistance = Math.abs(acc.startX - pageX);
         return currentDistance < accDistance ? current : acc;
       });
       const closestBarIndex = formattedData.findIndex((bar) => bar === closestBar);
+
       setTooltip({
         x: closestBar.startX,
         y: closestBar.startY,
@@ -284,38 +286,8 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
         },
         index: closestBarIndex,
       });
-
-      //   if (
-      //     touch.clientX <= yAxisPadding + gap / 2 ||
-      //     touch.clientY >= height - DEFAULT_X_AXIS_HEIGHT
-      //   )
-      //     return setTooltip({ x: 0, y: 0 });
-
-      //   const barDistance = barWidth - touch.clientX;
-      //   const closestBar = formattedData.reduce((acc, current) => {
-      //     const currentDistance = Math.abs(current.startX + barDistance);
-      //     const accDistance = Math.abs(acc.startX + barDistance);
-      //     return currentDistance < accDistance ? current : acc;
-      //   });
-      //   const closestBarIndex = formattedData.findIndex((bar) => bar === closestBar);
-      //   setTooltip({
-      //     x: closestBar.startX,
-      //     y: closestBar.startY,
-      //     data: {
-      //       dataKey: closestBar.name,
-      //       name: closestBar.name,
-      //       value: closestBar.value,
-      //       color: color ?? BaseColors.Blue,
-      //       className: tremorTwMerge(
-      //         getColorClassNames(color ?? BaseColors.Blue, colorPalette.text).textColor,
-      //         hasOnValueChange ? "cursor-pointer" : "cursor-default",
-      //       ),
-      //       fill: "",
-      //       payload: closestBar,
-      //     },
-      //     index: closestBarIndex,
-      //   });
     };
+
     return (
       <div
         ref={ref}
@@ -329,8 +301,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
               xmlns="http://www.w3.org/2000/svg"
               className={tremorTwMerge("w-full h-full")}
               onMouseMove={(e) => {
-                console.log(e);
-
                 const fakeTouch = {
                   clientX: e.clientX,
                   clientY: e.clientY,
