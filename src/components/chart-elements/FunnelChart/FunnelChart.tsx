@@ -511,7 +511,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                   {index < data.length - 1 && showXAxis && showArrow && gap >= 14 ? (
                     <foreignObject
                       x={item.startX + barWidth + HALF_PADDING + yAxisPadding - 6 + gap / 2}
-                      y={realHeight + HALF_PADDING + 12}
+                      y={realHeight + HALF_PADDING + 11}
                       width={12}
                       height={rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT}
                     >
