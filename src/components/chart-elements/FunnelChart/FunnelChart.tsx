@@ -460,6 +460,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                           // dark
                           "dark:text-dark-tremor-content",
                         )}
+                        title={item.name}
                       >
                         {item.name}
                       </div>
