@@ -73,6 +73,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     verticalShift?: number;
     xAxisHeight?: number;
   };
+  barGap?: number | `${number}%`;
 }
 
 //#region Funnel Chart Primitive
@@ -99,9 +100,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       customTooltip,
       noDataText,
       rotateLabelX,
+      barGap = "20%",
       ...other
     } = props;
-    const maxGap = 30;
     const CustomTooltip = customTooltip;
 
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -133,10 +134,21 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const maxValue = React.useMemo(() => Math.max(...data.map((item) => item.value)), [data]);
 
     const widthWithoutPadding = width - GLOBAL_PADDING - yAxisPadding;
-    const gap = React.useMemo(
-      () => Math.min(maxGap, (widthWithoutPadding / (data.length * 2)) * 0.25),
-      [widthWithoutPadding, data.length],
-    );
+    const gap = React.useMemo(() => {
+      if (typeof barGap === "number") {
+        return barGap;
+      } else if (typeof barGap === "string" && barGap.endsWith("%")) {
+        const percentage = parseFloat(barGap.slice(0, -1));
+        const totalWidthForGaps = (widthWithoutPadding * percentage) / 100;
+        const numberOfGaps = data.length - 1;
+        return totalWidthForGaps / numberOfGaps;
+      } else {
+        console.error(
+          'Invalid barGap value. It must be a number or a percentage string (e.g., "10%").',
+        );
+        return 30;
+      }
+    }, [widthWithoutPadding, data.length, barGap]);
 
     const barWidth = React.useMemo(
       () => (widthWithoutPadding - (data.length - 1) * gap - gap) / data.length,
@@ -262,10 +274,11 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     x={yAxisPadding - 10 + HALF_PADDING}
                     y={(index * realHeight) / 4 + 5 + HALF_PADDING}
                     textAnchor="end"
-                    fontSize="0.75rem"
                     fill=""
                     stroke=""
                     className={tremorTwMerge(
+                      // base
+                      "text-tremor-label",
                       // light
                       "fill-tremor-content",
                       // dark
@@ -373,7 +386,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       <div
                         className={tremorTwMerge(
                           //common
-                          "truncate text-center text-xs",
+                          "truncate text-center !text-tremor-label",
                           // light
                           "text-tremor-content",
                           // dark
@@ -504,8 +517,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     >
                       <div
                         className={tremorTwMerge(
-                          // common
-                          "text-center text-xs",
                           // light
                           "text-tremor-content",
                           // dark

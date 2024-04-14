@@ -7,8 +7,8 @@ import { CustomTooltipProps } from "components/chart-elements/common/CustomToolt
 import { currencyValueFormatter } from "lib";
 
 const data = [
-  { name: "opens", value: 200 },
-  { name: "visitors ajdf asfkdjhs dkfjhas dfjas jfkhasd kjk ", value: 351 },
+  { name: "opens", value: 351 },
+  { name: "visitors and a longer label to test the truncate class", value: 200 },
   {
     name: `added to cart`,
     value: 191,
