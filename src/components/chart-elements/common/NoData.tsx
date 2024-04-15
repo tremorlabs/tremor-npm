@@ -1,36 +1,34 @@
 import { tremorTwMerge } from "lib";
 import React from "react";
-import { Flex } from "../../../components/layout-elements/Flex";
-import { Text } from "../../../components/text-elements/Text";
 
 interface NoDataProps {
   noDataText?: string;
+  className?: string;
 }
-const NoData = ({ noDataText = "No data" }: NoDataProps) => {
+const NoData = ({ className, noDataText = "No data" }: NoDataProps) => {
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="center"
+    <div
       className={tremorTwMerge(
         // common
-        "w-full h-full border border-dashed rounded-tremor-default",
+        "flex items-center justify-center w-full h-full border border-dashed rounded-tremor-default",
         // light
         "border-tremor-border",
         // dark
         "dark:border-dark-tremor-border",
+        className,
       )}
     >
-      <Text
+      <p
         className={tremorTwMerge(
           // light
-          "text-tremor-content",
+          "text-tremor-content text-tremor-default",
           // dark
           "dark:text-dark-tremor-content",
         )}
       >
         {noDataText}
-      </Text>
-    </Flex>
+      </p>
+    </div>
   );
 };
 
