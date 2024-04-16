@@ -1,16 +1,7 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFoot,
-  TableFooterCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "components";
+import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "components";
 
 import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
 import { DeltaType } from "lib";
@@ -35,7 +26,6 @@ const data = [
     status: "overperforming",
     deltaType: "moderateIncrease",
     hours: 100,
-    productivity: "n/a",
   },
   {
     id: 2,
@@ -45,7 +35,6 @@ const data = [
     status: "overperforming",
     deltaType: "moderateIncrease",
     hours: 110,
-    productivity: "n/a",
   },
   {
     id: 3,
@@ -55,7 +44,6 @@ const data = [
     status: "underperforming",
     deltaType: "moderateDecrease",
     hours: 90,
-    productivity: "n/a",
   },
   {
     id: 4,
@@ -65,7 +53,6 @@ const data = [
     status: "overperforming",
     deltaType: "moderateDecrease",
     hours: 92,
-    productivity: "n/a",
   },
   {
     id: 5,
@@ -75,7 +62,6 @@ const data = [
     status: "underperforming",
     deltaType: "moderateDecrease",
     hours: 95,
-    productivity: "n/a",
   },
   {
     id: 6,
@@ -85,17 +71,15 @@ const data = [
     status: "overperforming",
     deltaType: "moderateIncrease",
     hours: 98,
-    productivity: "n/a",
   },
   {
     id: 7,
     name: "Employee 7",
     sales: "800000",
     region: "Region G",
-    status: "underperforming",
-    deltaType: "moderateDecrease",
+    status: "average",
+    deltaType: "unchanged",
     hours: 101,
-    productivity: "n/a",
   },
   {
     id: 8,
@@ -105,7 +89,6 @@ const data = [
     status: "overperforming",
     deltaType: "moderateDecrease",
     hours: 104,
-    productivity: "n/a",
   },
   {
     id: 9,
@@ -115,17 +98,15 @@ const data = [
     status: "underperforming",
     deltaType: "moderateIncrease",
     hours: 107,
-    productivity: "n/a",
   },
   {
     id: 10,
     name: "Employee 10",
     sales: "1100000",
     region: "Region J",
-    status: "overperforming",
-    deltaType: "moderateDecrease",
+    status: "average",
+    deltaType: "unchanged",
     hours: 110,
-    productivity: "n/a",
   },
   {
     id: 11,
@@ -135,7 +116,6 @@ const data = [
     status: "underperforming",
     deltaType: "moderateDecrease",
     hours: 113,
-    productivity: "n/a",
   },
   {
     id: 12,
@@ -145,7 +125,6 @@ const data = [
     status: "overperforming",
     deltaType: "moderateIncrease",
     hours: 116,
-    productivity: "n/a",
   },
   {
     id: 13,
@@ -155,7 +134,6 @@ const data = [
     status: "underperforming",
     deltaType: "moderateDecrease",
     hours: 119,
-    productivity: "n/a",
   },
 ];
 
@@ -164,15 +142,13 @@ export const Default: Story = {
     <Table {...args}>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell colSpan={3}>Name</TableHeaderCell>
           <TableHeaderCell>Sales ($)</TableHeaderCell>
           <TableHeaderCell>Region</TableHeaderCell>
           <TableHeaderCell>Status</TableHeaderCell>
           <TableHeaderCell className="text-right">Working Hours (h)</TableHeaderCell>
-          <TableHeaderCell className="text-right">Productivity</TableHeaderCell>
         </TableRow>
       </TableHead>
-
       <TableBody>
         {data.map((item) => (
           <TableRow key={item.id}>
@@ -180,7 +156,7 @@ export const Default: Story = {
             <TableCell className="text-right">{item.sales}</TableCell>
             <TableCell>{item.region}</TableCell>
             <TableCell>
-              <BadgeDelta deltaType={item.deltaType as DeltaType} size="xs">
+              <BadgeDelta deltaType={item.deltaType as DeltaType} size="sm">
                 {item.status}
               </BadgeDelta>
             </TableCell>
@@ -188,15 +164,6 @@ export const Default: Story = {
           </TableRow>
         ))}
       </TableBody>
-      <TableFoot>
-        <TableRow>
-          <TableFooterCell></TableFooterCell>
-          <TableFooterCell className="text-right">4642</TableFooterCell>
-          <TableFooterCell></TableFooterCell>
-          <TableFooterCell></TableFooterCell>
-          <TableFooterCell className="text-right">15h</TableFooterCell>
-        </TableRow>
-      </TableFoot>
     </Table>
   ),
   args: {

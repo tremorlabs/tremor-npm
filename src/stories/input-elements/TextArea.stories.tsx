@@ -87,3 +87,9 @@ export const DefaultValue: Story = {
 export const ControlledDefault: Story = {
   ...ControlledTemplate,
 };
+
+export const AutoHeight: Story = {
+  args: {
+    autoHeight: true,
+  },
+};

@@ -1,8 +1,9 @@
 "use client";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { useInternalState } from "hooks";
+
 import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   defaultValue?: string | number;
@@ -10,6 +11,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
+  autoHeight?: boolean;
   onValueChange?: (value: any) => void;
 }
 
@@ -26,6 +28,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     className,
     onChange,
     onValueChange,
+    autoHeight = false,
     ...other
   } = props;
   const [val, setVal] = useInternalState(defaultValue, value);
@@ -33,6 +36,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const hasSelection = hasValue(val);
+
+  useEffect(() => {
+    const textAreaHTMLRef = inputRef.current;
+    if (autoHeight && textAreaHTMLRef) {
+      textAreaHTMLRef.style.height = "60px";
+      // Calculates the height dynamically
+      const scrollHeight = textAreaHTMLRef.scrollHeight;
+      textAreaHTMLRef.style.height = scrollHeight + "px";
+    }
+  }, [autoHeight, inputRef, val]);
 
   return (
     <>
