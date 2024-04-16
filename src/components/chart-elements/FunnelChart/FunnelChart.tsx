@@ -364,10 +364,12 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     width={barWidth + gap}
                     height={realHeight}
                     fill="currentColor"
-                    className={tremorTwMerge(
-                      "z-0 "
-                    )}
-                    style={tooltip.index === index ? { color: "#d1d5db", opacity: "0.15" } : { color: "transparent"}}
+                    className={tremorTwMerge("z-0 ")}
+                    style={
+                      tooltip.index === index
+                        ? { color: "#d1d5db", opacity: "0.15" }
+                        : { color: "transparent" }
+                    }
                   />
 
                   {/* Draw gradient bar to fill space */}
