@@ -365,11 +365,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     height={realHeight}
                     fill="currentColor"
                     className={tremorTwMerge(
-                      "z-0 opacity-5",
-                      tooltip.index === index
-                        ? "text-tremor-background-emphasis"
-                        : "text-transparent",
+                      "z-0 "
                     )}
+                    style={tooltip.index === index ? { color: "#d1d5db", opacity: "0.15" } : { color: "transparent"}}
                   />
 
                   {/* Draw gradient bar to fill space */}
@@ -543,34 +541,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       )}
                     </>
                   ) : null}
-                  {/* Hover transparent rect for tooltip */}
-                  {/*<rect
-                    x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
-                    y={HALF_PADDING}
-                    width={barWidth + gap}
-                    height={realHeight}
-                    fill="transparent"
-                    onMouseEnter={() => handleTooltip(index, item)}
-                    onTouchStart={() => handleTooltip(index, item)}
-                    onTouchMove={(e) => {
-                        const touch = e.touches[0];
-                        const distance = barWidth + gap * 2 + yAxisPadding - touch.clientX;
-                        const closestBar = formattedData.reduce((acc, current) => {
-                            const currentDistance = Math.abs(current.startX + distance);
-                            const accDistance = Math.abs(acc.startX + distance);
-                            return currentDistance < accDistance ? current : acc;
-                        });
-                        const closestBarIndex = formattedData.findIndex((bar) => bar === closestBar);
-
-                        handleTooltip(closestBarIndex, closestBar);
-                    }}
-                    onMouseLeave={() => setTooltip({ x: 0, y: 0 })}
-                    onTouchEnd={() => setTooltip({ x: 0, y: 0 })}
-                    onClick={(e) => onBarClick(item, index, e)}
-                    className={tremorTwMerge(
-                      hasOnValueChange ? "cursor-pointer" : "cursor-default",
-                    )}
-                /> */}
                   {/* Add arrow between labels */}
                   {index < data.length - 1 && showXAxis && showArrow && gap >= 14 ? (
                     <foreignObject
@@ -624,7 +594,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
               <div
                 ref={tooltipRef}
                 className={tremorTwMerge(
-                  "absolute top-0 pointer-events-none",
+                  "absolute top-0 pointer-events-none whitespace-nowrap",
                   tooltip.data ? "visible" : "hidden",
                 )}
                 tabIndex={-1}
