@@ -650,7 +650,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       <p
                         className={tremorTwMerge(
                           // common
-                          "font-medium",
+                          "font-medium whitespace-nowrap",
                           // light
                           "text-tremor-content-emphasis",
                           // dark
