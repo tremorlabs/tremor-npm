@@ -359,16 +359,14 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 <g key={`bar-${index}`}>
                   {/* Hover gray rect */}
                   <rect
-                    x={item.startX - 0.5 * gap + HALF_PADDING + yAxisPadding}
+                    x={item.startX - gap * 0.5 + HALF_PADDING + yAxisPadding}
                     y={HALF_PADDING}
                     width={barWidth + gap}
                     height={realHeight}
                     fill="currentColor"
                     className={tremorTwMerge(
-                      "z-0 opacity-5",
-                      tooltip.index === index
-                        ? "text-tremor-background-emphasis"
-                        : "text-transparent",
+                      "z-0",
+                      tooltip.index === index ? "text-[#d1d5db]/15" : "text-transparent",
                     )}
                   />
 
