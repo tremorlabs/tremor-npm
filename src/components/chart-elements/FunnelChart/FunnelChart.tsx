@@ -359,9 +359,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 <g key={`bar-${index}`}>
                   {/* Hover gray rect */}
                   <rect
-                    x={item.startX - gap / 4 + HALF_PADDING + yAxisPadding}
+                    x={item.startX - gap * 0.5 + HALF_PADDING + yAxisPadding}
                     y={HALF_PADDING}
-                    width={barWidth + gap * 0.5}
+                    width={barWidth + gap}
                     height={realHeight}
                     fill="currentColor"
                     className={tremorTwMerge(
