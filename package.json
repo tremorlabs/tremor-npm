@@ -112,7 +112,8 @@
   ],
   "types": "dist/index.d.ts",
   "publishConfig": {
-    "access": "public"
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
   },
   "release": {
     "branches": [
