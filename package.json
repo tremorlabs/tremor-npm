@@ -143,7 +143,7 @@
       [
         "@semantic-release/github",
         {
-          "githubUrl": "https://github.com/Upsolve-Labs/tremor2axis"
+          "githubUrl": "git+ssh://git@github.com/upsolve-labs/tremor2axis.git"
         }
       ]
     ]
