@@ -117,7 +117,7 @@ const ChartTooltip = ({
           {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}
-              value={valueFormatter(value)}
+              value={valueFormatter(value, idx)}
               name={name}
               color={categoryColors.get(name) ?? BaseColors.Blue}
             />
