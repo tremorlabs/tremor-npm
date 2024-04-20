@@ -1,0 +1,2 @@
+'use client';
+import{__rest as r}from"tslib";import e from"react";import{Disclosure as t}from"@headlessui/react";import{tremorTwMerge as o}from"../../../lib/tremorTwMerge.js";import{makeClassName as a}from"../../../lib/utils.js";const m=a("AccordionBody"),s=e.forwardRef(((a,s)=>{const{children:c,className:l}=a,i=r(a,["children","className"]);return e.createElement(t.Panel,Object.assign({ref:s,className:o(m("root"),"w-full text-tremor-default px-4 pb-3","text-tremor-content","dark:text-dark-tremor-content",l)},i),c)}));s.displayName="AccordionBody";export{s as default};

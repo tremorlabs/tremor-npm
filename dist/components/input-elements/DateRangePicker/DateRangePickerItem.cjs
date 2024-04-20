@@ -1,0 +1,2 @@
+'use client';
+"use strict";var e=require("tslib"),t=require("react");require("../Select/Select.cjs");var r=require("../Select/SelectItem.cjs");function a(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var l=a(t);const c=l.default.forwardRef(((t,a)=>{const{value:c,className:s,children:u}=t,i=e.__rest(t,["value","className","children"]);return l.default.createElement(r,Object.assign({ref:a,className:s,value:c},i),null!=u?u:c)}));c.displayName="DateRangePickerItem",module.exports=c;

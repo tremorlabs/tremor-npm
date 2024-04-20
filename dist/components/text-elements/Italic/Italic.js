@@ -1,0 +1,1 @@
+import{__rest as e}from"tslib";import{tremorTwMerge as r}from"../../../lib/tremorTwMerge.js";import t from"react";const a=t.forwardRef(((a,i)=>{const{children:s,className:c}=a,l=e(a,["children","className"]);return t.createElement("i",Object.assign({ref:i,className:r("italic text-inherit",c)},l),s)}));a.displayName="Italic";export{a as default};

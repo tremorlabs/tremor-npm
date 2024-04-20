@@ -1,0 +1,1 @@
+import{__rest as e}from"tslib";import{tremorTwMerge as r}from"../../../lib/tremorTwMerge.js";import t from"react";const a=t.forwardRef(((a,o)=>{const{children:s,className:l}=a,m=e(a,["children","className"]);return t.createElement("b",Object.assign({ref:o,className:r("text-inherit font-bold",l)},m),s)}));a.displayName="Bold";export{a as default};
