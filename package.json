@@ -139,8 +139,12 @@
           ]
         }
       ],
-      "@semantic-release/npm",
-      "@semantic-release/github"
+      [
+        "@semantic-release/github",
+        {
+          "githubUrl": "git+ssh://git@github.com/upsolve-labs/tremor2axis.git"
+        }
+      ]
     ]
   }
 }
