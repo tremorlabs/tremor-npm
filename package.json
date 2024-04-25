@@ -1,7 +1,7 @@
 {
   "name": "tremor2axis",
   "version": "0.0.4",
-  "type": "commonjs",
+  "type": "module",
   "description": "The React library to build dashboards faster.",
   "scripts": {
     "prebuild": "rm -rf dist",
