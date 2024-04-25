@@ -1,6 +1,6 @@
 {
-  "name": "@upsolve-labs/tremor2axis",
-  "version": "0.0.3",
+  "name": "tremor2axis",
+  "version": "0.0.4",
   "type": "commonjs",
   "description": "The React library to build dashboards faster.",
   "scripts": {
