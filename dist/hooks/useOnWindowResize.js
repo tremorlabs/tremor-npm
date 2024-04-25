@@ -1,1 +1,0 @@
-import{useState as e,useEffect as n}from"react";const t=(t,r)=>{const[i,o]=e(r);n((()=>{const e=()=>{o(window.innerWidth),t()};return e(),window.addEventListener("resize",e),()=>window.removeEventListener("resize",e)}),[t,i])};export{t as default};

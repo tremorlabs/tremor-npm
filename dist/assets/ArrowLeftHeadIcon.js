@@ -1,1 +1,0 @@
-import{__rest as t}from"tslib";import e from"react";const r=r=>{var o=t(r,[]);return e.createElement("svg",Object.assign({xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24",fill:"currentColor"},o),e.createElement("path",{d:"M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"}))};export{r as default};

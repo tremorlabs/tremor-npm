@@ -1,2 +1,0 @@
-'use client';
-"use strict";var e=require("tslib"),t=require("react");require("../../../lib/tremorTwMerge.cjs");var r=require("../../../lib/utils.cjs"),a=require("../BaseInput.cjs");function s(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var u=s(t);const i=r.makeClassName("TextInput"),l=u.default.forwardRef(((t,r)=>{const{type:s="text"}=t,l=e.__rest(t,["type"]);return u.default.createElement(a,Object.assign({ref:r,type:s,makeInputClassName:i},l))}));l.displayName="TextInput",module.exports=l;
