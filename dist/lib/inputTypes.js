@@ -1,1 +1,0 @@
-const e=["slate","gray","zinc","neutral","stone","red","orange","amber","yellow","lime","green","emerald","teal","cyan","sky","blue","indigo","violet","purple","fuchsia","pink","rose"],l=l=>e.includes(l);export{l as getIsBaseColor};
