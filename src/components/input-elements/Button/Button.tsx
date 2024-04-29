@@ -33,8 +33,8 @@ export const ButtonIconOrSpinner = ({
   const margin = !needMargin
     ? ""
     : iconPosition === HorizontalPositions.Left
-    ? tremorTwMerge("-ml-1", "mr-1.5")
-    : tremorTwMerge("-mr-1", "ml-1.5");
+      ? tremorTwMerge("-ml-1", "mr-1.5")
+      : tremorTwMerge("-mr-1", "ml-1.5");
 
   const defaultSpinnerSize = tremorTwMerge("w-0 h-0");
   const spinnerSize: { [key: string]: any } = {

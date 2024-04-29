@@ -183,10 +183,10 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               type === "password"
                 ? "mr-10"
                 : type === "number"
-                ? stepper
-                  ? "mr-20"
-                  : "mr-3"
-                : "mx-2.5",
+                  ? stepper
+                    ? "mr-20"
+                    : "mr-3"
+                  : "mx-2.5",
             )}
           />
         ) : null}
