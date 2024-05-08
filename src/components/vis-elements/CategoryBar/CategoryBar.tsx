@@ -38,7 +38,7 @@ const getPositionLeft = (value: number | undefined, maxValue: number): number =>
 const BarLabels = ({ values }: { values: number[] }) => {
   const sumValues = useMemo(() => sumNumericArray(values), [values]);
   let prefixSum = 0;
-  let sumConsecutveHiddenLabels = 0;
+  let sumConsecutiveHiddenLabels = 0;
   return (
     <div
       className={tremorTwMerge(
@@ -54,10 +54,10 @@ const BarLabels = ({ values }: { values: number[] }) => {
       {values.slice(0, values.length).map((widthPercentage, idx) => {
         prefixSum += widthPercentage;
         const showLabel =
-          (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
+          (widthPercentage >= 0.1 * sumValues || sumConsecutiveHiddenLabels >= 0.09 * sumValues) &&
           sumValues - prefixSum >= 0.15 * sumValues &&
           prefixSum >= 0.1 * sumValues;
-        sumConsecutveHiddenLabels = showLabel ? 0 : (sumConsecutveHiddenLabels += widthPercentage);
+        sumConsecutiveHiddenLabels = showLabel ? 0 : (sumConsecutiveHiddenLabels += widthPercentage);
 
         const widthPositionLeft = getPositionLeft(widthPercentage, sumValues);
 
