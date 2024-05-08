@@ -36,7 +36,7 @@ const getPositionLeft = (value: number | undefined, maxValue: number): number =>
   value ? (value / maxValue) * 100 : 0;
 
 const BarLabels = ({ values }: { values: number[] }) => {
-  const sumValues = sumNumericArray(values);
+  const sumValues = useMemo(() => sumNumericArray(values), [values]);
   let prefixSum = 0;
   let sumConsecutveHiddenLabels = 0;
   return (
@@ -104,7 +104,10 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     ...other
   } = props;
 
-  const markerBgColor = getMarkerBgColor(markerValue, values, colors);
+  const markerBgColor = useMemo(
+    () => getMarkerBgColor(markerValue, values, colors),
+    [markerValue, values, colors],
+  );
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
