@@ -37,6 +37,8 @@ module.exports = {
         ],
       },
     },
+    "@storybook/addon-webpack5-compiler-babel",
+    "@chromatic-com/storybook"
   ],
 
   framework: {
