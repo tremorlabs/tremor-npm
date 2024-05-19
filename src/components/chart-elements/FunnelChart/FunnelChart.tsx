@@ -46,8 +46,8 @@ type DataT = {
   name: string;
 };
 
-const DEFAULT_X_AXIS_HEIGHT = 15;
-const GLOBAL_PADDING = 20;
+const DEFAULT_X_AXIS_HEIGHT = 25;
+const GLOBAL_PADDING = 10;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
@@ -79,7 +79,6 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 //#region Funnel Chart Primitive
-// ============================================================================
 
 const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   (props: FunnelChartProps, ref) => {
@@ -98,7 +97,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       showArrow = true,
       xAxisLabel = "",
       yAxisLabel = "",
-      yAxisPadding = showYAxis ? (yAxisLabel ? 75 : 45) : 0,
+      yAxisPadding = showYAxis ? (yAxisLabel ? 70 : 45) : 0,
       showTooltip = true,
       onValueChange,
       customTooltip,
@@ -623,14 +622,14 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
               </linearGradient>
               {showXAxis && xAxisLabel ? (
                 <text
-                  x={width / 2}
+                  x={width / 2 + yAxisPadding / 2}
                   y={realHeight + HALF_PADDING + 50}
                   style={{ textAnchor: "middle" }}
                   fill=""
                   stroke=""
                   className={tremorTwMerge(
                     // base
-                    "text-tremor-default",
+                    "text-tremor-default cursor-default font-medium",
                     // light
                     "fill-tremor-content-emphasis",
                     // dark
@@ -640,56 +639,10 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                   {xAxisLabel}
                 </text>
               ) : null}
-              {/* {showXAxis && xAxisLabel ? (
-                <foreignObject
-                  x={HALF_PADDING}
-                  y={realHeight + HALF_PADDING + 35}
-                  width="100%"
-                  height="100%"
-                >
-                  <div
-                    className={tremorTwMerge(
-                      //common
-                      "truncate bg-blue-200 text-center !text-tremor-default font-medium",
-                      // light
-                      "text-tremor-content-emphasis",
-                      // dark
-                      "dark:text-dark-tremor-content-emphasis",
-                    )}
-                    title={xAxisLabel}
-                  >
-                    {xAxisLabel}
-                  </div>
-                </foreignObject>
-              ) : null} */}
-              {/* {showYAxis && yAxisLabel ? (
-                <foreignObject
-                  x={0}
-                  y={realHeight / 2}
-                  transform="rotate(20)"
-                  width="fit-content"
-                  height="100%"
-                  style={{ textAnchor: "middle" }}
-                >
-                  <div
-                    className={tremorTwMerge(
-                      //common
-                      "truncate !text-tremor-default font-medium bg-rose-200",
-                      // light
-                      "text-tremor-content-emphasis",
-                      // dark
-                      "dark:text-dark-tremor-content-emphasis",
-                    )}
-                    title={yAxisLabel}
-                  >
-                    {yAxisLabel}
-                  </div>
-                </foreignObject>
-              ) : null} */}
               {showYAxis && yAxisLabel ? (
                 <text
-                  x={0}
-                  y={realHeight / 2 + 25}
+                  x={-5}
+                  y={realHeight / 2 + 10}
                   textAnchor="middle"
                   style={{ textAnchor: "middle" }}
                   transform={`rotate(-90, 0, ${realHeight / 2})`}
@@ -697,7 +650,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                   stroke=""
                   className={tremorTwMerge(
                     // base
-                    "text-tremor-default",
+                    "text-tremor-default cursor-default font-medium",
                     // light
                     "fill-tremor-content-emphasis",
                     // dark
@@ -776,7 +729,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
 FunnelChartPrimitive.displayName = "FunnelChart";
 
 //#region Data Validation
-// ============================================================================
 
 const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | null => {
   if (data && data.length > 0) {
@@ -794,7 +746,6 @@ const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | n
 };
 
 //#region  Exports
-// ============================================================================
 
 const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
   const errorMessage = data ? validateData(data, props.calculateFrom) : null;
