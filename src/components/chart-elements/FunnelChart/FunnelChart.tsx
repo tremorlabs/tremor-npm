@@ -46,7 +46,6 @@ type DataT = {
   name: string;
 };
 
-const DEFAULT_X_AXIS_HEIGHT = 25;
 const GLOBAL_PADDING = 10;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
@@ -106,6 +105,8 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       barGap = "20%",
       ...other
     } = props;
+    const DEFAULT_X_AXIS_HEIGHT = showXAxis && xAxisLabel ? 25 : 15;
+
     const CustomTooltip = customTooltip;
 
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -161,7 +162,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const realHeight =
       height -
       GLOBAL_PADDING -
-      (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 30 : 0);
+      (showXAxis
+        ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + (showXAxis && xAxisLabel ? 30 : 10)
+        : 0);
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center";
