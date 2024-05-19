@@ -100,10 +100,6 @@ export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
 };
 
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
-};
-
 export const LongValues: Story = {
   args: { categories: ["This is an edge case"] },
 };
@@ -375,5 +371,12 @@ export const tickGap: Story = {
   args: {
     data: longBaseChartData,
     tickGap: 200,
+  },
+};
+
+export const barCategoryGap: Story = {
+  args: {
+    data: data,
+    barCategoryGap: "20%",
   },
 };

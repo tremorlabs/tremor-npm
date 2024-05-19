@@ -73,6 +73,7 @@ export const Colors: Story = {
   args: {
     data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
     valueFormatter: (value) => `${value} USD`,
+    onValueChange: (data) => alert(JSON.stringify(data)),
   },
 };
 
@@ -81,5 +82,13 @@ export const IndividualColors: Story = {
   args: {
     data: getData(["blue", "amber", "cyan", "emerald", "indigo"].map((color) => ({ color }))),
     valueFormatter: (value) => `${value} USD`,
+  },
+};
+
+export const WithOnValueChange: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    onValueChange: (data) => alert(JSON.stringify(data)),
   },
 };

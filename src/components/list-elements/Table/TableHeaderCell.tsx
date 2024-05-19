@@ -5,7 +5,7 @@ const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
 const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
-  React.HTMLAttributes<HTMLTableCellElement>
+  React.ThHTMLAttributes<HTMLTableCellElement>
 >((props, ref) => {
   const { children, className, ...other } = props;
   return (
@@ -17,9 +17,9 @@ const TableHeaderCell = React.forwardRef<
           // common
           "whitespace-nowrap text-left font-semibold top-0 px-4 py-3.5",
           // light
-          "text-tremor-content",
+          "text-tremor-content-strong",
           // dark
-          "dark:text-dark-tremor-content",
+          "dark:text-dark-tremor-content-strong",
           className,
         )}
         {...other}

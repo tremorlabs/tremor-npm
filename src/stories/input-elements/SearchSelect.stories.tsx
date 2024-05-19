@@ -6,6 +6,7 @@ import {
   SimpleSearchSelectControlled,
   SimpleSearchSelectWithStaticAndDynamicChildren,
   SimpleSearchSelectForm,
+  SimpleSearchSelectServerSideRendering,
 } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";
@@ -85,9 +86,16 @@ export const Form: Story = {
   },
 };
 
+export const ServerSideRendering: Story = {
+  render: SimpleSearchSelectServerSideRendering,
+  args: {
+    required: true,
+  },
+};
+
 export const WithCustomMinWidth: Story = {
   render: SimpleSearchSelect,
   args: {
     className: "min-w-min w-[95px]",
-  },
+        },
 };
