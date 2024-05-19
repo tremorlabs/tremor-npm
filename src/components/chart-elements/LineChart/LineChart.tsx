@@ -10,6 +10,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -73,6 +74,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     customTooltip,
     rotateLabelX,
     tickGap = 5,
+    xAxisLabel,
+    yAxisLabel,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -145,6 +148,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{
+              bottom: xAxisLabel ? 30 : undefined,
+              left: yAxisLabel ? 20 : undefined,
+              right: yAxisLabel ? 5 : undefined,
+              top: 5,
+            }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -183,7 +192,17 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               angle={rotateLabelX?.angle}
               dy={rotateLabelX?.verticalShift}
               height={rotateLabelX?.xAxisHeight}
-            />
+            >
+              {xAxisLabel && (
+                <Label
+                  position="insideBottom"
+                  offset={-20}
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                >
+                  {xAxisLabel}
+                </Label>
+              )}
+            </XAxis>
             <YAxis
               width={yAxisWidth}
               hide={!showYAxis}
@@ -204,7 +223,19 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
-            />
+            >
+              {yAxisLabel && (
+                <Label
+                  position="insideLeft"
+                  style={{ textAnchor: "middle" }}
+                  angle={-90}
+                  offset={-15}
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                >
+                  {yAxisLabel}
+                </Label>
+              )}
+            </YAxis>
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}

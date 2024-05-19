@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         **Before submitting a feature request**
-        
+
         The issue list is reserved for bug reports and feature requests. If you have a usage question, you can:
 
         - Read the [documentation](https://www.tremor.so/docs/getting-started/installation)

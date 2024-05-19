@@ -14,7 +14,7 @@
     "sourceMap": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": true
   },
-  "include": ["**/*.tsx", "**/*.ts", "setupTests.js"],
+  "include": ["**/*.tsx", "**/*.ts", "setupTests.js"]
 }
