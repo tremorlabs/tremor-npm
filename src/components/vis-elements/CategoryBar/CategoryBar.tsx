@@ -57,7 +57,9 @@ const BarLabels = ({ values }: { values: number[] }) => {
           (widthPercentage >= 0.1 * sumValues || sumConsecutiveHiddenLabels >= 0.09 * sumValues) &&
           sumValues - prefixSum >= 0.15 * sumValues &&
           prefixSum >= 0.1 * sumValues;
-        sumConsecutiveHiddenLabels = showLabel ? 0 : (sumConsecutiveHiddenLabels += widthPercentage);
+        sumConsecutiveHiddenLabels = showLabel
+          ? 0
+          : (sumConsecutiveHiddenLabels += widthPercentage);
 
         const widthPositionLeft = getPositionLeft(widthPercentage, sumValues);
 
