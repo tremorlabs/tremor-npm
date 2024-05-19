@@ -32,4 +32,4 @@ jobs:
       - name: unit tests
         run: npm run tests
       - name: build
-        run: npm run buil
+        run: npm run build
