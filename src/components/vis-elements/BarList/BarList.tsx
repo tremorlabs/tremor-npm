@@ -29,7 +29,7 @@ export interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivEleme
   color?: Color;
   showAnimation?: boolean;
   onValueChange?: (payload: Bar<T>) => void;
-  sortOrder?: "ascending" | "descending";
+  sortOrder?: "ascending" | "descending" | "none";
 }
 
 function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDivElement>) {
@@ -46,12 +46,12 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
 
   const Component = onValueChange ? "button" : "div";
   const sortedData = React.useMemo(() => {
-    if (sortOrder) {
-      return [...data].sort((a, b) => {
-        return sortOrder === "ascending" ? a.value - b.value : b.value - a.value;
-      });
+    if (sortOrder === "none") {
+      return data;
     }
-    return data;
+    return [...data].sort((a, b) => {
+      return sortOrder === "ascending" ? a.value - b.value : b.value - a.value;
+    });
   }, [data, sortOrder]);
 
   const widths = React.useMemo(() => {
