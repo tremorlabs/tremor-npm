@@ -73,6 +73,26 @@ export const WithZeroValues: Story = {
   },
 };
 
+export const WithValuesMoreThan100: Story = {
+  args: {
+    values: [400, 400, 800],
+    colors: ["emerald", "yellow", "orange", "rose"],
+    markerValue: 1400,
+    tooltip: "90%",
+    className: "mt-5",
+  },
+};
+
+export const WithValuesLessThan100: Story = {
+  args: {
+    values: [8, 7, 9, 8],
+    colors: ["emerald", "yellow", "orange", "rose"],
+    markerValue: 20,
+    tooltip: "90%",
+    className: "mt-5",
+  },
+};
+
 export const WithConsecutiveSmallValues: Story = {
   args: {
     values: [10, 5, 5, 5, 5, 5, 50, 15, 0],
