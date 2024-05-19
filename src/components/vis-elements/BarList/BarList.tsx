@@ -80,7 +80,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
 
           return (
             <Component
-              key={item.key ?? crypto.randomUUID()}
+              key={item.key ?? index}
               onClick={() => {
                 onValueChange?.(item);
               }}
@@ -174,7 +174,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
       <div className={makeBarListClassName("labels")}>
         {sortedData.map((item, index) => (
           <div
-            key={item.key ?? crypto.randomUUID()}
+            key={item.key ?? index}
             className={tremorTwMerge(
               makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",
