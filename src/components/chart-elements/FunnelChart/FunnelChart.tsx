@@ -74,6 +74,8 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     xAxisHeight?: number;
   };
   barGap?: number | `${number}%`;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
 }
 
 //#region Funnel Chart Primitive
@@ -94,7 +96,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       showYAxis = calculateFrom === "previous" ? false : true,
       showXAxis = true,
       showArrow = true,
-      yAxisPadding = showYAxis ? 45 : 0,
+      xAxisLabel = "",
+      yAxisLabel = "",
+      yAxisPadding = showYAxis ? (yAxisLabel ? 75 : 45) : 0,
       showTooltip = true,
       onValueChange,
       customTooltip,
@@ -158,7 +162,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const realHeight =
       height -
       GLOBAL_PADDING -
-      (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 10 : 0);
+      (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 30 : 0);
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center";
@@ -617,6 +621,92 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 <stop offset="5%" stopColor="currentColor" stopOpacity={0} />
                 <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
               </linearGradient>
+              {showXAxis && xAxisLabel ? (
+                <text
+                  x={width / 2}
+                  y={realHeight + HALF_PADDING + 50}
+                  style={{ textAnchor: "middle" }}
+                  fill=""
+                  stroke=""
+                  className={tremorTwMerge(
+                    // base
+                    "text-tremor-default",
+                    // light
+                    "fill-tremor-content-emphasis",
+                    // dark
+                    "dark:fill-dark-tremor-content-emphasis",
+                  )}
+                >
+                  {xAxisLabel}
+                </text>
+              ) : null}
+              {/* {showXAxis && xAxisLabel ? (
+                <foreignObject
+                  x={HALF_PADDING}
+                  y={realHeight + HALF_PADDING + 35}
+                  width="100%"
+                  height="100%"
+                >
+                  <div
+                    className={tremorTwMerge(
+                      //common
+                      "truncate bg-blue-200 text-center !text-tremor-default font-medium",
+                      // light
+                      "text-tremor-content-emphasis",
+                      // dark
+                      "dark:text-dark-tremor-content-emphasis",
+                    )}
+                    title={xAxisLabel}
+                  >
+                    {xAxisLabel}
+                  </div>
+                </foreignObject>
+              ) : null} */}
+              {/* {showYAxis && yAxisLabel ? (
+                <foreignObject
+                  x={0}
+                  y={realHeight / 2}
+                  transform="rotate(20)"
+                  width="fit-content"
+                  height="100%"
+                  style={{ textAnchor: "middle" }}
+                >
+                  <div
+                    className={tremorTwMerge(
+                      //common
+                      "truncate !text-tremor-default font-medium bg-rose-200",
+                      // light
+                      "text-tremor-content-emphasis",
+                      // dark
+                      "dark:text-dark-tremor-content-emphasis",
+                    )}
+                    title={yAxisLabel}
+                  >
+                    {yAxisLabel}
+                  </div>
+                </foreignObject>
+              ) : null} */}
+              {showYAxis && yAxisLabel ? (
+                <text
+                  x={0}
+                  y={realHeight / 2 + 25}
+                  textAnchor="middle"
+                  style={{ textAnchor: "middle" }}
+                  transform={`rotate(-90, 0, ${realHeight / 2})`}
+                  fill=""
+                  stroke=""
+                  className={tremorTwMerge(
+                    // base
+                    "text-tremor-default",
+                    // light
+                    "fill-tremor-content-emphasis",
+                    // dark
+                    "dark:fill-dark-tremor-content-emphasis",
+                  )}
+                >
+                  {yAxisLabel}
+                </text>
+              ) : null}
             </svg>
             {showTooltip ? (
               <div

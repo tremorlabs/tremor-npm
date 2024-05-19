@@ -357,3 +357,10 @@ export const tickGap: Story = {
     tickGap: 200,
   },
 };
+
+export const AxisLabels: Story = {
+  args: {
+    xAxisLabel: "Month of Year",
+    yAxisLabel: "Amount (USD)",
+  },
+};
