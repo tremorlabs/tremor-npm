@@ -11,7 +11,6 @@ on:
       - '**'
       - '!main'
 
-
 jobs:
   build:
     name: Build dist
@@ -33,5 +32,4 @@ jobs:
       - name: unit tests
         run: npm run tests
       - name: build
-        run: npm run build
-
+        run: npm run buil
