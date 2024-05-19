@@ -111,8 +111,9 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                   onValueChange && !(item.color || color)
                     ? "group-hover:bg-tremor-brand-subtle/30 group-hover:dark:bg-dark-tremor-brand-subtle/70"
                     : "",
-                  // margin and duration
+                  // margin
                   index === sortedData.length - 1 ? "mb-0" : "",
+                  // duration
                   showAnimation ? "duration-500" : "",
                 )}
                 style={{ width: `${widths[index]}%`, transition: showAnimation ? "all 1s" : "" }}
