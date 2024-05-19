@@ -232,3 +232,10 @@ export const CustomTooltipSimple: Story = {
     },
   },
 };
+
+export const AxisLabels: Story = {
+  args: {
+    xAxisLabel: "Flow",
+    yAxisLabel: "Amount (USD)",
+  },
+};

@@ -16,7 +16,7 @@ const makeBarListClassName = makeClassName("BarList");
 type Bar<T> = T & {
   key?: string;
   value: number;
-  name: string;
+  name: React.ReactNode;
   icon?: React.JSXElementConstructor<any>;
   href?: string;
   target?: string;
@@ -29,7 +29,7 @@ export interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivEleme
   color?: Color;
   showAnimation?: boolean;
   onValueChange?: (payload: Bar<T>) => void;
-  sortOrder?: "ascending" | "descending";
+  sortOrder?: "ascending" | "descending" | "none";
 }
 
 function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDivElement>) {
@@ -46,12 +46,12 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
 
   const Component = onValueChange ? "button" : "div";
   const sortedData = React.useMemo(() => {
-    if (sortOrder) {
-      return [...data].sort((a, b) => {
-        return sortOrder === "ascending" ? a.value - b.value : b.value - a.value;
-      });
+    if (sortOrder === "none") {
+      return data;
     }
-    return data;
+    return [...data].sort((a, b) => {
+      return sortOrder === "ascending" ? a.value - b.value : b.value - a.value;
+    });
   }, [data, sortOrder]);
 
   const widths = React.useMemo(() => {
@@ -80,7 +80,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
 
           return (
             <Component
-              key={item.key ?? item.name}
+              key={item.key ?? index}
               onClick={() => {
                 onValueChange?.(item);
               }}
@@ -111,8 +111,9 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                   onValueChange && !(item.color || color)
                     ? "group-hover:bg-tremor-brand-subtle/30 group-hover:dark:bg-dark-tremor-brand-subtle/70"
                     : "",
-                  // margin and duration
+                  // margin
                   index === sortedData.length - 1 ? "mb-0" : "",
+                  // duration
                   showAnimation ? "duration-500" : "",
                 )}
                 style={{ width: `${widths[index]}%`, transition: showAnimation ? "all 1s" : "" }}
@@ -174,7 +175,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
       <div className={makeBarListClassName("labels")}>
         {sortedData.map((item, index) => (
           <div
-            key={item.key ?? item.name}
+            key={item.key ?? index}
             className={tremorTwMerge(
               makeBarListClassName("labelWrapper"),
               "flex justify-end items-center",

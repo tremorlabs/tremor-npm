@@ -33,3 +33,4 @@ export const decorators = [
     attributeName: "data-mode",
   }),
 ];
+export const tags = ["autodocs"];

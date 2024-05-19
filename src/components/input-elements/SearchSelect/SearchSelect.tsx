@@ -82,6 +82,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
       className={tremorTwMerge(
         // common
         "w-full min-w-[10rem] relative text-tremor-default",
+        className,
       )}
     >
       <select
@@ -125,11 +126,6 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
           }) as any
         }
         disabled={disabled}
-        className={tremorTwMerge(
-          // common
-          "w-full min-w-[10rem] relative text-tremor-default",
-          className,
-        )}
         id={id}
         {...other}
       >
@@ -176,6 +172,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   setSearchQuery(event.target.value);
                 }}
                 displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
+                autoComplete="off"
               />
               <div className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}>
                 <ArrowDownHeadIcon
