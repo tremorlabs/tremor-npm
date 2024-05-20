@@ -87,7 +87,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
       <select
         title="multi-select-hidden"
         required={required}
-        className={tremorTwMerge("h-full w-full absolute left-0 top-0 z-0 opacity-0")}
+        className={tremorTwMerge("h-full w-full absolute left-0 top-0 -z-10 opacity-0")}
         value={selectedValue}
         onChange={(e) => {
           e.preventDefault();
