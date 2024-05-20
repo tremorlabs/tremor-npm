@@ -2,7 +2,6 @@
 
 Thanks for your interest in contributing to Tremor. Please take a moment to review this document before submitting a pull request. This document will outline how to submit changes to this repository and which conventions to follow. If you are ever in doubt about anything we encourage you to reach out on [Slack](https://join.slack.com/t/tremor-community/shared_invite/zt-1u8jqmcmq-Fdr9B6MbnO7u8FkGh~2Ylg), [open a discussion](#discussions), or [shoot us an email](mailto:hello@tremor.so).
 
-
 ### **Prerequisites**
 
 - You are familiar with [issues](#issues) and [pull requests](#pulls).
@@ -55,7 +54,8 @@ We encourage that you do a self-review prior to requesting a review. To do a sel
 ### **Documentation**
 
 - We generally encourage you to document your changes through comments in your code.
-- If you alter user-facing behavior you must provide documentation for such changes, for reference, check out [our documentation]([url](https://www.tremor.so/docs/getting-started/introduction)).
+- If you alter user-facing behavior you must provide documentation for such changes, for reference, check out [our documentation](<[url](https://www.tremor.so/docs/getting-started/introduction)>).
 
 ### **Licensing**
+
 By contributing to Tremor, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/tremorlabs/tremor/blob/main/License) license. By submitting your pull request, you agree to our [Contributor License Agreement (CLA)](https://www.tremor.so/contributors). This agreement clarifies our ability to incorporate your contributions.

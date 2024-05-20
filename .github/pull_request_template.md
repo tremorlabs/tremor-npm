@@ -4,6 +4,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 -->
 
 <!-- PULL REQUEST TEMPLATE -->
+
 **Description**
 
 <!--- Describe your changes in detail -->
@@ -16,6 +17,7 @@ https://github.com/tremorlabs/tremor/blob/main/CONTRIBUTING.md
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
 
 **What kind of change does this PR introduce?** (check at least one)
+
 <!-- (Update "[ ]" to "[x]" to check a box) -->
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
@@ -40,10 +42,10 @@ If yes, please describe the impact and migration path for existing applications:
 
 **Screenshots (if appropriate):**
 
-
 **The PR fulfils these requirements:**
 
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+
 - [ ] It's submitted to the `main` branch
 - [ ] When resolving a specific issue, it's referenced in the related issue section above
 - [ ] My change requires a change to the documentation. (Managed by Tremor Team)

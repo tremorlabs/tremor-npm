@@ -8,12 +8,12 @@ import { currencyValueFormatter } from "lib";
 
 const data = [
   { name: "opens", value: 351 },
-  { name: "visitors and a longer label to test the truncate class", value: 200 },
+  { name: "visitors", value: 200 },
   {
     name: `added to cart`,
     value: 191,
   },
-  { name: "orders", value: 10 },
+  { name: "orders and a longer label to test the truncate class", value: 10 },
 ];
 
 const meta: Meta<typeof FunnelChart> = {
@@ -230,5 +230,12 @@ export const CustomTooltipSimple: Story = {
         </div>
       );
     },
+  },
+};
+
+export const AxisLabels: Story = {
+  args: {
+    xAxisLabel: "Flow",
+    yAxisLabel: "Amount (USD)",
   },
 };
