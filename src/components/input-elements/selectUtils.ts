@@ -44,7 +44,7 @@ export const getSelectButtonColors = (
       ? "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis"
       : "text-tremor-content dark:text-dark-tremor-content",
     isDisabled && "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
-    hasError && "text-red-500",
+    hasError && "text-red-500 placeholder:text-red-500",
     hasError ? "border-red-500" : "border-tremor-border dark:border-dark-tremor-border",
   );
 };

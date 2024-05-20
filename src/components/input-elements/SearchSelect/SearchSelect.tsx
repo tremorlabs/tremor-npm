@@ -168,7 +168,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                         disabled
                             ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
                             : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
-                        getSelectButtonColors(hasValue(value), disabled),
+                        getSelectButtonColors(hasValue(value), disabled, error),
                         )}
                         placeholder={placeholder}
                         onChange={(event) => {
@@ -185,9 +185,9 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                             // common
                             "flex-none h-5 w-5",
                             // light
-                            "text-tremor-content-subtle",
+                            "!text-tremor-content-subtle",
                             // dark
-                            "dark:text-dark-tremor-content-subtle",
+                            "!dark:text-dark-tremor-content-subtle",
                         )}
                         />
                     </div>
