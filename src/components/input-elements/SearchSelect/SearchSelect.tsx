@@ -99,8 +99,8 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
         disabled={disabled}
         id={id}
         onFocus={() => {
-          const comboboxButton = comboboxInputRef.current;
-          if (comboboxButton) comboboxButton.focus();
+          const comboboxInput = comboboxInputRef.current;
+          if (comboboxInput) comboboxInput.focus();
         }}
       >
         <option className="hidden" value="" disabled hidden>
@@ -176,7 +176,6 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 }}
                 displayValue={(value: string) => valueToNameMapping.get(value) ?? ""}
                 autoComplete={autoComplete}
-                required={false}
               />
               <div className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}>
                 <ArrowDownHeadIcon
