@@ -387,3 +387,29 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const DataLabelsSimple: Story = {
+  args: {
+    renderLabel: true,
+  },
+};
+
+export const DataLabelsObject: Story = {
+  args: {
+    renderLabel: { fill: "white", fontSize: 20, position: "insideTop" },
+  },
+};
+
+const renderCustomizedLabel = ({ x, y, value }: { x: number; y: number; value: number }) => {
+  return (
+    <text x={x} y={y} fill="black" textAnchor="end" dominantBaseline="central">
+      {value}
+    </text>
+  );
+};
+
+export const DataLabelsFunction: Story = {
+  args: {
+    renderLabel: renderCustomizedLabel,
+  },
+};
