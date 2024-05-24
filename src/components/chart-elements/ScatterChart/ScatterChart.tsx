@@ -248,6 +248,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
@@ -291,6 +297,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}

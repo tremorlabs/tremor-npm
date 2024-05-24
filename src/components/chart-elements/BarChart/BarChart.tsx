@@ -203,6 +203,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 tickLine={false}
                 axisLine={showAxisLine}
@@ -236,6 +242,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 tickLine={false}
                 axisLine={showAxisLine}
@@ -275,6 +287,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
@@ -313,6 +331,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
               >
                 {yAxisLabel && (

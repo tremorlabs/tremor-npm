@@ -189,6 +189,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 "fill-tremor-content",
                 // dark
                 "dark:fill-dark-tremor-content",
+                // common
+                "stroke-1",
+                // light
+                "stroke-tremor-border",
+                // dark
+                "dark:stroke-dark-tremor-border",
               )}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
@@ -225,6 +231,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 "fill-tremor-content",
                 // dark
                 "dark:fill-dark-tremor-content",
+                // common
+                "stroke-1",
+                // light
+                "stroke-tremor-border",
+                // dark
+                "dark:stroke-dark-tremor-border",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}

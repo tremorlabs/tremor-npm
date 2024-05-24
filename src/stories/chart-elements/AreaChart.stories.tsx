@@ -364,3 +364,9 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const ShowAxisLine: Story = {
+  args: {
+    showAxisLine: true,
+  },
+};

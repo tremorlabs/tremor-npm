@@ -186,6 +186,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 "fill-tremor-content",
                 // dark
                 "dark:fill-dark-tremor-content",
+                // common
+                "stroke-1",
+                // light
+                "stroke-tremor-border",
+                // dark
+                "dark:stroke-dark-tremor-border",
               )}
               tickLine={false}
               axisLine={showAxisLine}
@@ -221,6 +227,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 "fill-tremor-content",
                 // dark
                 "dark:fill-dark-tremor-content",
+                // common
+                "stroke-1",
+                // light
+                "stroke-tremor-border",
+                // dark
+                "dark:stroke-dark-tremor-border",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
