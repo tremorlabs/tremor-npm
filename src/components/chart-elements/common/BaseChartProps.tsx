@@ -27,6 +27,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
+  showAxisLine?: boolean;
   autoMinValue?: boolean;
   minValue?: number;
   maxValue?: number;

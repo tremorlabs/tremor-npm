@@ -64,6 +64,7 @@ export interface ScatterChartProps
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
+  showAxisLine?: boolean;
   autoMinXValue?: boolean;
   minXValue?: number;
   maxXValue?: number;
@@ -129,6 +130,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
+    showAxisLine = false,
     autoMinXValue = false,
     minXValue,
     maxXValue,
@@ -249,7 +251,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
-                axisLine={false}
+                axisLine={showAxisLine}
                 minTickGap={tickGap}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
@@ -272,7 +274,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showAxisLine}
                 tickLine={false}
                 dataKey={y}
                 type="number"

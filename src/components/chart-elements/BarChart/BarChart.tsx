@@ -84,6 +84,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
+    showAxisLine = false,
     autoMinValue = false,
     minValue,
     maxValue,
@@ -204,7 +205,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
-                axisLine={false}
+                axisLine={showAxisLine}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
@@ -237,7 +238,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
-                axisLine={false}
+                axisLine={showAxisLine}
                 tickFormatter={valueFormatter}
                 minTickGap={tickGap}
                 allowDecimals={allowDecimals}
@@ -260,7 +261,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showAxisLine}
                 tickLine={false}
                 type="number"
                 domain={yAxisDomain as AxisDomain}
@@ -297,7 +298,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 width={yAxisWidth}
                 hide={!showYAxis}
                 dataKey={index}
-                axisLine={false}
+                axisLine={showAxisLine}
                 tickLine={false}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 type="category"
