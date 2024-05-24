@@ -171,3 +171,56 @@ export const CustomTooltipSimple: Story = {
     },
   },
 };
+
+export const DataLabelsSimple: Story = {
+  args: {
+    renderLabel: true,
+  },
+};
+
+export const DataLabelsObject: Story = {
+  args: {
+    renderLabel: { fill: "red", fontSize: 20 },
+  },
+};
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}: {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}) => {
+  const radius = innerRadius + 10 + (outerRadius - innerRadius) * 0.6;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      fontSize="9"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="auto"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+export const DataLabelsFunction: Story = {
+  args: {
+    renderLabel: renderCustomizedLabel,
+    variant: "pie",
+  },
+};
