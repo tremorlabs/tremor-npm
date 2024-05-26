@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import AreaChart from "components/chart-elements/AreaChart/AreaChart";
 
-//  28 |    39.02 |      20 |   29.16 | 97-138,149-285,354-451
 describe("AreaChart", () => {
   beforeAll(() => {
     global.ResizeObserver = class MockedResizeObserver {
@@ -30,8 +29,6 @@ describe("AreaChart", () => {
     const { container } = render(
       <AreaChart data={data} categories={["A", "B", "C"]} index="name" ref={ref} />,
     );
-    //console.log("test ut");
-    //screen.debug();
     expect(container.getElementsByClassName("w-full h-80").length).toBe(1);
   });
 
