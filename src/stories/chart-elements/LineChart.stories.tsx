@@ -324,3 +324,9 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const xAxisNoPadding: Story = {
+  args: {
+    xAxisPadding: 0,
+  },
+};

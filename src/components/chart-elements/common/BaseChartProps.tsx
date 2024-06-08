@@ -42,6 +42,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   };
   tickGap?: number;
   xAxisLabel?: string;
+  xAxisPadding?: number;
   yAxisLabel?: string;
 }
 

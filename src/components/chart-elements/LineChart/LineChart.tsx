@@ -76,10 +76,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    xAxisPadding,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
-  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
+  const paddingValue = xAxisPadding ?? (!showXAxis && !showYAxis ? 0 : 20);
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
