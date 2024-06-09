@@ -390,6 +390,12 @@ export const AxisLabels: Story = {
 
 export const xAxisNoPadding: Story = {
   args: {
-    xAxisPadding: 0,
+    xAxisPadding: { left: 0, right: 0 },
+  },
+};
+
+export const xAxisNoLeftPadding: Story = {
+  args: {
+    xAxisPadding: { left: 0 },
   },
 };
