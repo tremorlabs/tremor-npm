@@ -37,6 +37,8 @@ import { CurveType } from "../../../lib/inputTypes";
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
+  displayedCategories?: string[];
+  onDisplayCategoriesChange?: (categories: string[]) => void;
 }
 
 interface ActiveDot {
@@ -76,6 +78,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    displayedCategories = categories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -87,6 +91,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -278,9 +283,19 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                        if(hasOnValueChange) {
+                            onCategoryClick(clickedLegendItem)
+                        }
+
+                        if(hasOnDisplayCategoriesChange) {
+                            const newDisplayedCategories = displayedCategories.includes(clickedLegendItem)
+                              ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                              : [...displayedCategories, clickedLegendItem];
+                            onDisplayCategoriesChange(newDisplayedCategories);
+                        }
+                    },
                     enableLegendSlider,
                   )
                 }
@@ -317,6 +332,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
                       onClick={(dotProps: any, event) => onDotClick(props, event)}
+                    //   visibility={displayedCategories.includes(dataKey) ? "visible" : "hidden"}
+                      
                     />
                   );
                 }}
@@ -364,7 +381,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 key={category}
                 name={category}
                 type={curveType}
-                dataKey={category}
+                dataKey={displayedCategories.includes(category) ? category : undefined}
                 stroke=""
                 strokeWidth={2}
                 strokeLinejoin="round"
@@ -372,6 +389,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
+                // visibility={displayedCategories.includes(category) ? "visible" : "hidden"}
               />
             ))}
             {onValueChange
@@ -382,7 +400,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     key={category}
                     name={category}
                     type={curveType}
-                    dataKey={category}
+                    dataKey={displayedCategories.includes(category) ? category : undefined}
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"

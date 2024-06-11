@@ -10,6 +10,7 @@ const ChartLegend = (
   categoryColors: Map<string, Color | string>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
+  displayedCategories: string[],
   onClick?: (category: string, color: Color | string) => void,
   enableLegendSlider?: boolean,
 ) => {
@@ -33,6 +34,7 @@ const ChartLegend = (
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
         enableLegendSlider={enableLegendSlider}
+        displayedCategories={displayedCategories}
       />
     </div>
   );

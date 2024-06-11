@@ -11,9 +11,10 @@ export interface LegendItemProps {
   color: Color | string;
   onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
+    displayedCategories: string[];
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => {
+const LegendItem = ({ name, color, onClick, activeLegend, displayedCategories }: LegendItemProps) => {
   const hasOnValueChange = !!onClick;
   return (
     <li
@@ -38,7 +39,8 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
         className={tremorTwMerge(
           "flex-none h-2 w-2 mr-1.5",
           getColorClassNames(color, colorPalette.text).textColor,
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+          (activeLegend && activeLegend !== name) || !displayedCategories.includes(name)
+          ? "opacity-40" : "opacity-100",
         )}
         fill="currentColor"
         viewBox="0 0 8 8"
@@ -54,7 +56,7 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
           hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
           // dark
           "dark:text-dark-tremor-content",
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+          (activeLegend && activeLegend !== name) || !displayedCategories.includes(name) ? "opacity-40" : "opacity-100",
           hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
         )}
       >
@@ -135,6 +137,7 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   onClickLegendItem?: (category: string, color: Color | string) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
+  displayedCategories: string[];
 }
 
 type HasScrollProps = {
@@ -150,6 +153,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     onClickLegendItem,
     activeLegend,
     enableLegendSlider = false,
+    displayedCategories,
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);
@@ -259,6 +263,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             color={colors[idx]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
+            displayedCategories={displayedCategories}
           />
         ))}
       </div>
