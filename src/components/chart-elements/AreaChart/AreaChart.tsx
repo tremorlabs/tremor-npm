@@ -81,6 +81,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    displayedCategories = categories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -92,6 +94,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -281,9 +284,21 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
+
+                      if (hasOnDisplayCategoriesChange) {
+                        const newDisplayedCategories = displayedCategories.includes(
+                          clickedLegendItem,
+                        )
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [...displayedCategories, clickedLegendItem];
+                        onDisplayCategoriesChange(newDisplayedCategories);
+                      }
+                    },
                     enableLegendSlider,
                   )
                 }
@@ -418,7 +433,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 key={category}
                 name={category}
                 type={curveType}
-                dataKey={category}
+                dataKey={displayedCategories.includes(category) ? category : ""}
                 stroke=""
                 fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
@@ -438,7 +453,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     key={category}
                     name={category}
                     type={curveType}
-                    dataKey={category}
+                    dataKey={displayedCategories.includes(category) ? category : undefined}
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"

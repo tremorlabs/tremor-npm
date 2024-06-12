@@ -387,3 +387,71 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const DisplayedCategories: Story = {
+  args: {
+    displayedCategories: ["Sales"],
+  },
+};
+
+export const ControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <BarChart
+        {...args}
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};
+
+export const SatckedControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <BarChart
+        {...args}
+        stack
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};
+export const RelativeControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <BarChart
+        {...args}
+        relative
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};
+
+export const VerticalControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <BarChart
+        {...args}
+        layout="vertical"
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};

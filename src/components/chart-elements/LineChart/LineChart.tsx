@@ -37,8 +37,6 @@ import { CurveType } from "../../../lib/inputTypes";
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
-  displayedCategories?: string[];
-  onDisplayCategoriesChange?: (categories: string[]) => void;
 }
 
 interface ActiveDot {
@@ -285,16 +283,18 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     activeLegend,
                     displayedCategories,
                     (clickedLegendItem: string) => {
-                        if(hasOnValueChange) {
-                            onCategoryClick(clickedLegendItem)
-                        }
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
 
-                        if(hasOnDisplayCategoriesChange) {
-                            const newDisplayedCategories = displayedCategories.includes(clickedLegendItem)
-                              ? displayedCategories.filter((category) => category !== clickedLegendItem)
-                              : [...displayedCategories, clickedLegendItem];
-                            onDisplayCategoriesChange(newDisplayedCategories);
-                        }
+                      if (hasOnDisplayCategoriesChange) {
+                        const newDisplayedCategories = displayedCategories.includes(
+                          clickedLegendItem,
+                        )
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [...displayedCategories, clickedLegendItem];
+                        onDisplayCategoriesChange(newDisplayedCategories);
+                      }
                     },
                     enableLegendSlider,
                   )
@@ -332,8 +332,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
                       onClick={(dotProps: any, event) => onDotClick(props, event)}
-                    //   visibility={displayedCategories.includes(dataKey) ? "visible" : "hidden"}
-                      
                     />
                   );
                 }}

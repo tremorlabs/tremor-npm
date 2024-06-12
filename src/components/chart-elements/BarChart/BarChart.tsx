@@ -28,6 +28,7 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
+  widthFactor: number,
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
@@ -38,6 +39,12 @@ const renderShape = (
   } else if (layout === "vertical" && width < 0) {
     x += width;
     width = Math.abs(width); // width must be a positive number
+  }
+
+  if (layout === "horizontal") {
+    width *= widthFactor;
+  } else if (layout === "vertical") {
+    height *= widthFactor;
   }
 
   return (
@@ -98,6 +105,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     xAxisLabel,
     yAxisLabel,
     className,
+    displayedCategories = categories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -106,7 +115,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+
   const hasOnValueChange = !!onValueChange;
+  const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onBarClick(data: any, idx: number, event: React.MouseEvent) {
     event.stopPropagation();
@@ -368,9 +379,21 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
+
+                      if (hasOnDisplayCategoriesChange) {
+                        const newDisplayedCategories = displayedCategories.includes(
+                          clickedLegendItem,
+                        )
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [...displayedCategories, clickedLegendItem];
+                        onDisplayCategoriesChange(newDisplayedCategories);
+                      }
+                    },
                     enableLegendSlider,
                   )
                 }
@@ -389,11 +412,28 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 name={category}
                 type="linear"
                 stackId={stack || relative ? "a" : undefined}
-                dataKey={category}
+                dataKey={displayedCategories.includes(category) ? category : ""}
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
-                shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
+                shape={(props: any) =>
+                  renderShape(
+                    props,
+                    activeBar,
+                    activeLegend,
+                    layout,
+                    (stack || relative ? 0 : categories.length - displayedCategories.length) + 1,
+                  )
+                }
+                activeBar={(props: any) =>
+                  renderShape(
+                    props,
+                    activeBar,
+                    activeLegend,
+                    layout,
+                    (stack || relative ? 0 : categories.length - displayedCategories.length) + 1,
+                  )
+                }
                 onClick={onBarClick}
               />
             ))}

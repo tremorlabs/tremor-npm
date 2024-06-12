@@ -326,23 +326,22 @@ export const AxisLabels: Story = {
 };
 
 export const DisplayedCategories: Story = {
-    args: {
-      displayedCategories: ["Sales"],
-    },
-  };
+  args: {
+    displayedCategories: ["Sales"],
+  },
+};
 
-  export const ControlledDisplayedCategories: Story = {
-    render: (args) => {
-      const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
-      return (
-        <LineChart
-          {...args}
-          displayedCategories={displayedCategories}
-          onDisplayCategoriesChange={(v) => {
-            setDisplayedCategories(v);
-          }}
-        />
-      );
-
-    }
-    };
+export const ControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <LineChart
+        {...args}
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};
