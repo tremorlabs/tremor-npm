@@ -69,6 +69,8 @@ const LegendItem = ({
             ? "opacity-40"
             : "opacity-100",
           hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
+          (displayedCategories && !displayedCategories.includes(name)) ? "line-through" : ""
+
         )}
       >
         {name}
