@@ -366,11 +366,11 @@ export const AxisLabels: Story = {
 };
 
 export const DefaultDisplayedCategories: Story = {
-    args: {
-      defaultDisplayedCategories: ["Sales"],
-    },
-  };
-  
+  args: {
+    defaultDisplayedCategories: ["Sales"],
+  },
+};
+
 export const DisplayedCategories: Story = {
   args: {
     displayedCategories: ["Sales"],

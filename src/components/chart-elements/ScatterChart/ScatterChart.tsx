@@ -84,7 +84,7 @@ export interface ScatterChartProps
   tickGap?: number;
   xAxisLabel?: string;
   yAxisLabel?: string;
-  defaultDisplayedCategories?: string[]
+  defaultDisplayedCategories?: string[];
   displayedCategories?: string[];
   onDisplayCategoriesChange?: (categories: string[]) => void;
 }
@@ -160,7 +160,6 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
 
   const hasOnValueChange = !!onValueChange;
-  const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
@@ -197,7 +196,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
-  const [displayedCategories, setDisplayedCategories] = useInternalState(inputDefaultDisplayedCategories || categories, inputDisplayedCategories)
+  const [displayedCategories, setDisplayedCategories] = useInternalState(
+    inputDefaultDisplayedCategories || categories,
+    inputDisplayedCategories,
+  );
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -375,7 +377,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={
                     category
                       ? data.filter(
-                          (d) => displayedCategories && displayedCategories.includes(d[category]) && d[category] === cat,
+                          (d) =>
+                            displayedCategories &&
+                            displayedCategories.includes(d[category]) &&
+                            d[category] === cat,
                         )
                       : data
                   }
@@ -402,13 +407,15 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         onCategoryClick(clickedLegendItem);
                       }
 
-                      const newDisplayedCategories = displayedCategories && displayedCategories.includes(
-                        clickedLegendItem,
-                    )
-                        ? displayedCategories.filter((category) => category !== clickedLegendItem)
-                        : [...(displayedCategories ? displayedCategories : []), clickedLegendItem];
-                    onDisplayCategoriesChange?.(newDisplayedCategories);
-                    setDisplayedCategories(newDisplayedCategories)
+                      const newDisplayedCategories =
+                        displayedCategories && displayedCategories.includes(clickedLegendItem)
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [
+                              ...(displayedCategories ? displayedCategories : []),
+                              clickedLegendItem,
+                            ];
+                      onDisplayCategoriesChange?.(newDisplayedCategories);
+                      setDisplayedCategories(newDisplayedCategories);
                     },
                     enableLegendSlider,
                   )

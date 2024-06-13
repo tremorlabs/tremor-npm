@@ -45,7 +45,8 @@ const LegendItem = ({
         className={tremorTwMerge(
           "flex-none h-2 w-2 mr-1.5",
           getColorClassNames(color, colorPalette.text).textColor,
-          (activeLegend && activeLegend !== name) || (displayedCategories && !displayedCategories.includes(name))
+          (activeLegend && activeLegend !== name) ||
+            (displayedCategories && !displayedCategories.includes(name))
             ? "opacity-40"
             : "opacity-100",
         )}
@@ -63,7 +64,8 @@ const LegendItem = ({
           hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
           // dark
           "dark:text-dark-tremor-content",
-          (activeLegend && activeLegend !== name) || (displayedCategories && !displayedCategories.includes(name))
+          (activeLegend && activeLegend !== name) ||
+            (displayedCategories && !displayedCategories.includes(name))
             ? "opacity-40"
             : "opacity-100",
           hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",

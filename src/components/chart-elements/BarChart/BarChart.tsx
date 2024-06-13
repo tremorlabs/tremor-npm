@@ -108,7 +108,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     className,
     defaultDisplayedCategories: inputDefaultDisplayedCategories = categories,
     displayedCategories: inputDisplayedCategories,
-        onDisplayCategoriesChange,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -117,10 +117,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
-  const [displayedCategories, setDisplayedCategories] = useInternalState(inputDefaultDisplayedCategories, inputDisplayedCategories)
+  const [displayedCategories, setDisplayedCategories] = useInternalState(
+    inputDefaultDisplayedCategories,
+    inputDisplayedCategories,
+  );
 
   const hasOnValueChange = !!onValueChange;
-//   const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
+  //   const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onBarClick(data: any, idx: number, event: React.MouseEvent) {
     event.stopPropagation();
@@ -388,13 +391,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                         onCategoryClick(clickedLegendItem);
                       }
 
-                      const newDisplayedCategories = displayedCategories && displayedCategories.includes(
-                        clickedLegendItem,
-                    )
-                        ? displayedCategories.filter((category) => category !== clickedLegendItem)
-                        : [...(displayedCategories ? displayedCategories : []), clickedLegendItem];
-                    onDisplayCategoriesChange?.(newDisplayedCategories);
-                    setDisplayedCategories(newDisplayedCategories)
+                      const newDisplayedCategories =
+                        displayedCategories && displayedCategories.includes(clickedLegendItem)
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [
+                              ...(displayedCategories ? displayedCategories : []),
+                              clickedLegendItem,
+                            ];
+                      onDisplayCategoriesChange?.(newDisplayedCategories);
+                      setDisplayedCategories(newDisplayedCategories);
                     },
                     enableLegendSlider,
                   )
@@ -414,7 +419,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 name={category}
                 type="linear"
                 stackId={stack || relative ? "a" : undefined}
-                dataKey={displayedCategories && displayedCategories.includes(category) ? category : ""}
+                dataKey={
+                  displayedCategories && displayedCategories.includes(category) ? category : ""
+                }
                 fill=""
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
@@ -424,7 +431,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     activeBar,
                     activeLegend,
                     layout,
-                    (stack || relative ? 0 : categories.length - (displayedCategories ? displayedCategories.length : 0)) + 1,
+                    (stack || relative
+                      ? 0
+                      : categories.length -
+                        (displayedCategories ? displayedCategories.length : 0)) + 1,
                   )
                 }
                 activeBar={(props: any) =>
@@ -433,7 +443,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     activeBar,
                     activeLegend,
                     layout,
-                    (stack || relative ? 0 : categories.length - (displayedCategories ? displayedCategories.length : 0)) + 1,
+                    (stack || relative
+                      ? 0
+                      : categories.length -
+                        (displayedCategories ? displayedCategories.length : 0)) + 1,
                   )
                 }
                 onClick={onBarClick}

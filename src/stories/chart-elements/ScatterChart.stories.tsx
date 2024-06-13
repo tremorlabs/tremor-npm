@@ -199,10 +199,10 @@ export const AxisLabels: Story = {
 };
 
 export const DefaultDisplayedCategories: Story = {
-    args: {
-      defaultDisplayedCategories: ["Location A"],
-    },
-  };
+  args: {
+    defaultDisplayedCategories: ["Location A"],
+  },
+};
 
 export const DisplayedCategories: Story = {
   args: {
