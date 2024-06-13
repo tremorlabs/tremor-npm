@@ -37,6 +37,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
+import { useInternalState } from "hooks";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -83,6 +84,7 @@ export interface ScatterChartProps
   tickGap?: number;
   xAxisLabel?: string;
   yAxisLabel?: string;
+  defaultDisplayedCategories?: string[]
   displayedCategories?: string[];
   onDisplayCategoriesChange?: (categories: string[]) => void;
 }
@@ -147,6 +149,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    defaultDisplayedCategories: inputDefaultDisplayedCategories,
     displayedCategories: inputDisplayedCategories,
     onDisplayCategoriesChange,
     ...other
@@ -194,7 +197,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
-  const displayedCategories = inputDisplayedCategories || categories;
+  const [displayedCategories, setDisplayedCategories] = useInternalState(inputDefaultDisplayedCategories || categories, inputDisplayedCategories)
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -372,7 +375,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   data={
                     category
                       ? data.filter(
-                          (d) => displayedCategories.includes(d[category]) && d[category] === cat,
+                          (d) => displayedCategories && displayedCategories.includes(d[category]) && d[category] === cat,
                         )
                       : data
                   }
@@ -399,14 +402,13 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         onCategoryClick(clickedLegendItem);
                       }
 
-                      if (hasOnDisplayCategoriesChange) {
-                        const newDisplayedCategories = displayedCategories.includes(
-                          clickedLegendItem,
-                        )
-                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
-                          : [...displayedCategories, clickedLegendItem];
-                        onDisplayCategoriesChange(newDisplayedCategories);
-                      }
+                      const newDisplayedCategories = displayedCategories && displayedCategories.includes(
+                        clickedLegendItem,
+                    )
+                        ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                        : [...(displayedCategories ? displayedCategories : []), clickedLegendItem];
+                    onDisplayCategoriesChange?.(newDisplayedCategories);
+                    setDisplayedCategories(newDisplayedCategories)
                     },
                     enableLegendSlider,
                   )

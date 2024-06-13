@@ -44,6 +44,7 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   xAxisLabel?: string;
   yAxisLabel?: string;
   displayedCategories?: string[];
+  defaultDisplayedCategories?: string[];
   onDisplayCategoriesChange?: (categories: string[]) => void;
 }
 
