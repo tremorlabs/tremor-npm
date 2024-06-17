@@ -313,27 +313,6 @@ export const CustomTooltipPreviousDay: Story = {
   },
 };
 
-export const tickGap: Story = {
-  args: {
-    data: longBaseChartData,
-    tickGap: 200,
-  },
-};
-
-export const barCategoryGap: Story = {
-  args: {
-    data: data,
-    barCategoryGap: "20%",
-  },
-};
-
-export const AxisLabels: Story = {
-  args: {
-    xAxisLabel: "Month of Year",
-    yAxisLabel: "Amount (USD)",
-  },
-};
-
 export const CustomTooltipComplex: Story = {
   args: {
     yAxisWidth: 65,
