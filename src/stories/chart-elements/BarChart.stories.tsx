@@ -313,42 +313,6 @@ export const CustomTooltipPreviousDay: Story = {
   },
 };
 
-export function LongTooltip() {
-  return (
-    <>
-      <div className="grid grid-cols-2">
-        <div className="flex flex-wrap">
-          <BarChart
-            className="mt-6"
-            data={longDataName}
-            index="name"
-            categories={[
-              'Group A',
-              'Group B',
-              'Group C',
-            ]}
-            colors={['blue', 'teal', 'amber']}
-          />
-        </div>
-        <div className="flex flex-wrap">
-          <BarChart
-            className="mt-6"
-            data={longDataName}
-            index="name"
-            categories={[
-              'Group A',
-              'Group B',
-              'Group C',
-            ]}
-            colors={['blue', 'teal', 'amber']}
-          />
-        </div>
-      </div>
-    </>
-  );
-}
-
-
 export const tickGap: Story = {
   args: {
     data: longBaseChartData,
