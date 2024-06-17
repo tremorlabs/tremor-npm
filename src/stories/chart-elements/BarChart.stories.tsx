@@ -11,6 +11,7 @@ import {
   longBaseChartData,
   longIndexBaseChartData,
   simpleBaseChartWithNegativeValues,
+  longDataName,
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
@@ -312,60 +313,41 @@ export const CustomTooltipPreviousDay: Story = {
   },
 };
 
-export const CustomTooltipComplex: Story = {
-  args: {
-    yAxisWidth: 65,
-    index: customTooltipIndex,
-    categories: ["Sales"],
-    colors: customTooltipColors,
-    valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipProps) => {
-      const { payload, active, label } = props;
-      if (!active || !payload) return null;
-
-      const categoryPayload = payload?.[0];
-      if (!categoryPayload) return null;
-      const value = categoryPayload.value as number;
-      const dataKey = categoryPayload.dataKey as number;
-
-      const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
-      const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
-      const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
-      const badgeColor = getBadgeColor(percentage);
-
-      return (
-        <div className="rounded-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
-          <div className="flex flex-1 space-x-2.5">
-            <div className={`w-1 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
-            <div className="w-full">
-              <p className="text-tremor-default font-medium text-tremor-content-emphasis">
-                {dataKey}
-              </p>
-              <p className="text-tremor-default text-tremor-content-subtle">{label}</p>
-              <p className="mt-2 font-medium whitespace-nowrap text-tremor-content-emphasis">
-                {currencyValueFormatter(value)}
-              </p>
-              {percentage ? (
-                <div className="mt-1 flex items-end space-x-2">
-                  <div
-                    className={`inline-flex text-tremor-default px-1.5 py-0.5 bg-${badgeColor}-100 text-${badgeColor}-600 rounded`}
-                  >
-                    {percentage > 0 ? "+" : null}
-                    {percentage.toFixed(1)}%
-                  </div>
-                  <div className="whitespace-nowrap text-tremor-default text-tremor-content-subtle">
-                    from previous month
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
+export function LongTooltip() {
+  return (
+    <>
+      <div className="grid grid-cols-2">
+        <div className="flex flex-wrap">
+          <BarChart
+            className="mt-6"
+            data={longDataName}
+            index="name"
+            categories={[
+              'Group A',
+              'Group B',
+              'Group C',
+            ]}
+            colors={['blue', 'teal', 'amber']}
+          />
         </div>
-      );
-    },
-  },
-};
+        <div className="flex flex-wrap">
+          <BarChart
+            className="mt-6"
+            data={longDataName}
+            index="name"
+            categories={[
+              'Group A',
+              'Group B',
+              'Group C',
+            ]}
+            colors={['blue', 'teal', 'amber']}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
 
 export const tickGap: Story = {
   args: {
