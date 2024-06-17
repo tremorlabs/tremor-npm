@@ -11,6 +11,7 @@ import {
   longBaseChartData,
   longIndexBaseChartData,
   simpleBaseChartWithNegativeValues,
+  longDataName,
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
@@ -387,3 +388,39 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+
+export function LongTooltip() {
+  return (
+    <>
+      <div className="grid grid-cols-2">
+        <div className="flex flex-wrap">
+          <BarChart
+            className="mt-6"
+            data={longDataName}
+            index="name"
+            categories={[
+              'Group A',
+              'Group B',
+              'Group C',
+            ]}
+            colors={['blue', 'teal', 'amber']}
+          />
+        </div>
+        <div className="flex flex-wrap">
+          <BarChart
+            className="mt-6"
+            data={longDataName}
+            index="name"
+            categories={[
+              'Group A',
+              'Group B',
+              'Group C',
+            ]}
+            colors={['blue', 'teal', 'amber']}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
