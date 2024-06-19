@@ -85,6 +85,37 @@ export const ManyCategoriesWithScroll: Story = {
   },
 };
 
+export const MoreCategoriesThanColors: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: [
+      "Indeed Sponsorisé",
+      "Moteurs de recherche",
+      "Autres",
+      "Linkedin",
+      "Jobteaser",
+      "Glassdoor",
+      "Talent.com",
+      "Facebook",
+      "Mailing",
+      "Non Tracable",
+      "Apec",
+      "Figaro Emploi",
+      "OptionCarriere",
+      "Welcome to the jungle",
+      "JobiJoba",
+      "kedgebs.p.iagora",
+      "Instagram",
+      "Engagement Jeunes",
+      "Hellowork",
+      "Pole Emploi",
+      "ezafterdark",
+      "ezafterdark1",
+      "afterdarkmode",
+    ],
+  },
+};
+
 export const CustomColors: Story = {
   ...LegendTemplate,
   args: {
