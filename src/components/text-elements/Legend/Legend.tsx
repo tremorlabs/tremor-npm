@@ -153,6 +153,8 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);
+  const scrollButtonsRef = React.useRef<HTMLDivElement>(null);
+  
   const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null);
   const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -170,11 +172,13 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const scrollToTest = useCallback(
     (direction: "left" | "right") => {
       const element = scrollableRef?.current;
+      const scrollButtons = scrollButtonsRef?.current
       const width = element?.clientWidth ?? 0;
+      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0;
 
       if (element && enableLegendSlider) {
         element.scrollTo({
-          left: direction === "left" ? element.scrollLeft - width : element.scrollLeft + width,
+          left: direction === "left" ? element.scrollLeft - width + scrollButtonsWith : element.scrollLeft + width - scrollButtonsWith,
           behavior: "smooth",
         });
         setTimeout(() => {
@@ -273,6 +277,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               // common
               "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full",
             )}
+            ref={scrollButtonsRef}
           >
             <ScrollButton
               icon={ChevronLeftFill}
