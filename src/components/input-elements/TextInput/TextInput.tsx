@@ -4,7 +4,6 @@ import { makeClassName } from "lib";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
 export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassName"> & {
-  type?: "text" | "password" | "email" | "url";
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
