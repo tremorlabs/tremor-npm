@@ -256,7 +256,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           <LegendItem
             key={`item-${idx}`}
             name={category}
-            color={colors[idx]}
+            color={colors[idx % colors.length]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />
