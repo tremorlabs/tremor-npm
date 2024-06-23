@@ -114,3 +114,10 @@ export const WithTypeUrl: Story = {
     type: "url",
   },
 };
+
+export const WithTypeSearch: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "search",
+  },
+};
