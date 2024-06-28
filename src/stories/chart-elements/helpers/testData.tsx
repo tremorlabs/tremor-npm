@@ -1751,3 +1751,245 @@ export const singleAndMultipleData = [
     Sales: 3612,
   },
 ];
+
+export const multipleXAxisChartData = [
+  {
+    name: "2021",
+    data: [
+      {
+        month: "Jan 21",
+        Sales: 4400,
+      },
+      {
+        month: "Feb 21",
+        Sales: 3612,
+      },
+      {
+        month: "Mar 21",
+        Sales: 145,
+      },
+      {
+        month: "Apr 21",
+        Sales: 5142,
+      },
+      {
+        month: "May 21",
+        Sales: 1234,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2345,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3456,
+      },
+      {
+        month: "Aug 21",
+        Sales: 4567,
+      },
+      {
+        month: "Sep 21",
+        Sales: 5678,
+      },
+      {
+        month: "Oct 21",
+        Sales: 6789,
+      },
+      {
+        month: "Nov 21",
+        Sales: 7890,
+      },
+      {
+        month: "Dec 21",
+        Sales: 8901,
+      },
+    ],
+  },
+  {
+    name: "2022",
+    data: [
+      {
+        month: "Jan 22",
+        Sales: 571,
+      },
+      {
+        month: "Feb 22",
+        Sales: 234,
+      },
+      {
+        month: "Mar 22",
+        Sales: 2345,
+      },
+      {
+        month: "Apr 22",
+        Sales: 3456,
+      },
+      {
+        month: "May 22",
+        Sales: 4567,
+      },
+      {
+        month: "Jun 22",
+        Sales: 5678,
+      },
+      {
+        month: "Jul 22",
+        Sales: 6789,
+      },
+      {
+        month: "Aug 22",
+        Sales: 7890,
+      },
+      {
+        month: "Sep 22",
+        Sales: 8901,
+      },
+      {
+        month: "Oct 22",
+        Sales: 9012,
+      },
+      {
+        month: "Nov 22",
+        Sales: 1234,
+      },
+      {
+        month: "Dec 22",
+        Sales: 2345,
+      },
+    ],
+  },
+];
+
+export const multiSeriesMultiCategoriesChartData = [
+  {
+    name: "2021",
+    data: [
+      {
+        month: "Jan 21",
+        Sales: 4400,
+        Cost: 400,
+      },
+      {
+        month: "Feb 21",
+        Sales: 3612,
+        Cost: 310,
+      },
+      {
+        month: "Mar 21",
+        Sales: 145,
+        Cost: 100,
+      },
+      {
+        month: "Apr 21",
+        Sales: 5142,
+        Cost: 500,
+      },
+      {
+        month: "May 21",
+        Sales: 1234,
+        Cost: 100,
+      },
+      {
+        month: "Jun 21",
+        Sales: 2345,
+        Cost: 200,
+      },
+      {
+        month: "Jul 21",
+        Sales: 3456,
+        Cost: 300,
+      },
+      {
+        month: "Aug 21",
+        Sales: 4567,
+        Cost: 400,
+      },
+      {
+        month: "Sep 21",
+        Sales: 5678,
+        Cost: 500,
+      },
+      {
+        month: "Oct 21",
+        Sales: 6789,
+        Cost: 600,
+      },
+      {
+        month: "Nov 21",
+        Sales: 7890,
+        Cost: 700,
+      },
+      {
+        month: "Dec 21",
+        Sales: 8901,
+        Cost: 800,
+      },
+    ],
+  },
+  {
+    name: "2022",
+    data: [
+      {
+        month: "Jan 22",
+        Sales: 571,
+        Cost: 5,
+      },
+      {
+        month: "Feb 22",
+        Sales: 234,
+        Cost: 2,
+      },
+      {
+        month: "Mar 22",
+        Sales: 2345,
+        Cost: 23,
+      },
+      {
+        month: "Apr 22",
+        Sales: 3456,
+        Cost: 34,
+      },
+      {
+        month: "May 22",
+        Sales: 4567,
+        Cost: 45,
+      },
+      {
+        month: "Jun 22",
+        Sales: 5678,
+        Cost: 56,
+      },
+      {
+        month: "Jul 22",
+        Sales: 6789,
+        Cost: 67,
+      },
+      {
+        month: "Aug 22",
+        Sales: 7890,
+        Cost: 78,
+      },
+      {
+        month: "Sep 22",
+        Sales: 8901,
+        Cost: 89,
+      },
+      {
+        month: "Oct 22",
+        Sales: 9012,
+        Cost: 90,
+      },
+      {
+        month: "Nov 22",
+        Sales: 1234,
+        Cost: 12,
+      },
+      {
+        month: "Dec 22",
+        Sales: 2345,
+        Cost: 23,
+      },
+    ],
+  },
+];

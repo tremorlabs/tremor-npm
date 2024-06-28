@@ -1,16 +1,11 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import {
   CartesianGrid,
-  Dot,
   Legend,
-  Line,
   LineChart as ReChartsLineChart,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
-  YAxis,
-  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -24,15 +19,11 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import {
-  BaseColors,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  themeColorRange,
-  tremorTwMerge,
-} from "lib";
+import { BaseColors, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
+import { renderHorizontalXAxis } from "../common/XAxis";
+import { renderLine } from "../common/Line";
+import { renderHorizontalYAxis } from "../common/YAxis";
 
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
@@ -76,6 +67,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    xAxisConfigs = [{ orientation: "bottom" }],
+    yAxisConfigs = [{ orientation: "left" }],
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -85,7 +78,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
-  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const isSeriesData: boolean = data?.[0]?.data && data[0].data !== undefined;
+  const seriesData = isSeriesData ? data : [{ data }];
+
   const hasOnValueChange = !!onValueChange;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
@@ -133,12 +128,24 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     setActiveDot(undefined);
   }
 
+  const yAxisConfigsValueFormatter = yAxisConfigs.flatMap((yAxisConfig) => {
+    return (
+      yAxisConfig.categories?.map((c) => [c, yAxisConfig.valueFormatter ?? valueFormatter]) ?? []
+    );
+  });
+  const yAxisValueFormatters = Object.fromEntries(
+    yAxisConfigsValueFormatter.length > 0
+      ? yAxisConfigsValueFormatter
+      : categories.map((c, idx) => [c, yAxisConfigs[idx]?.valueFormatter ?? valueFormatter]),
+  );
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsLineChart
-            data={data}
+            // This is necessary because recharts uses the length of the chart data (if provided) to slice the child (X-axis, Y-axis) data
+            data={isSeriesData ? undefined : data}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
@@ -169,73 +176,45 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 vertical={false}
               />
             ) : null}
-            <XAxis
-              padding={{ left: paddingValue, right: paddingValue }}
-              hide={!showXAxis}
-              dataKey={index}
-              interval={startEndOnly ? "preserveStartEnd" : intervalType}
-              tick={{ transform: "translate(0, 6)" }}
-              ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-              fill=""
-              stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
-              tickLine={false}
-              axisLine={false}
-              minTickGap={tickGap}
-              angle={rotateLabelX?.angle}
-              dy={rotateLabelX?.verticalShift}
-              height={rotateLabelX?.xAxisHeight}
-            >
-              {xAxisLabel && (
-                <Label
-                  position="insideBottom"
-                  offset={-20}
-                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                >
-                  {xAxisLabel}
-                </Label>
-              )}
-            </XAxis>
-            <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
-              axisLine={false}
-              tickLine={false}
-              type="number"
-              domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
-              fill=""
-              stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
-              tickFormatter={valueFormatter}
-              allowDecimals={allowDecimals}
-            >
-              {yAxisLabel && (
-                <Label
-                  position="insideLeft"
-                  style={{ textAnchor: "middle" }}
-                  angle={-90}
-                  offset={-15}
-                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                >
-                  {yAxisLabel}
-                </Label>
-              )}
-            </YAxis>
+            {xAxisConfigs.map((xAxisConfig, idx) => {
+              const d = seriesData
+                .filter((d) => xAxisConfig.series?.includes(d.name))
+                .flatMap((d) => d.data);
+              return renderHorizontalXAxis({
+                key: `x-axis-${idx}`,
+                padding: { left: paddingValue, right: paddingValue },
+                showAxis: showXAxis,
+                dataKey: index,
+                startEndOnly,
+                data: d.length === 0 ? seriesData[idx].data : d,
+                intervalType,
+                rotateLabel: rotateLabelX,
+                label: xAxisLabel,
+                orientation: xAxisConfig.orientation,
+                xAxisId: idx,
+                minTickGap: tickGap,
+                xAxisCount: xAxisConfigs.length,
+              });
+            })}
+            {yAxisConfigs.map((yAxisConfig, idx) => {
+              const domain: AxisDomain = getYAxisDomain(
+                yAxisConfig.autoMinValue ?? autoMinValue,
+                yAxisConfig.minValue ?? minValue,
+                yAxisConfig.maxValue ?? maxValue,
+              );
+              return renderHorizontalYAxis({
+                key: `y-axis-${idx}`,
+                width: yAxisWidth,
+                showAxis: showYAxis,
+                domain,
+                valueFormatter: yAxisConfig.valueFormatter ?? valueFormatter,
+                allowDecimals,
+                orientation: yAxisConfig.orientation,
+                yAxisId: idx,
+                label: yAxisLabel,
+                xAxisCount: xAxisConfigs.length,
+              });
+            })}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
@@ -257,8 +236,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                         active={active}
                         payload={payload}
                         label={label}
-                        valueFormatter={valueFormatter}
+                        valueFormatters={yAxisValueFormatters}
                         categoryColors={categoryColors}
+                        index={index}
+                        xAxisCount={xAxisConfigs.length}
                       />
                     )
                 ) : (
@@ -286,117 +267,51 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 }
               />
             ) : null}
-            {categories.map((category) => (
-              <Line
-                className={tremorTwMerge(
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor,
-                )}
-                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
-                activeDot={(props: any) => {
-                  const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
-                    props;
-                  return (
-                    <Dot
-                      className={tremorTwMerge(
-                        "stroke-tremor-background dark:stroke-dark-tremor-background",
-                        onValueChange ? "cursor-pointer" : "",
-                        getColorClassNames(
-                          categoryColors.get(dataKey) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).fillColor,
-                      )}
-                      cx={cx}
-                      cy={cy}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
-                      onClick={(dotProps: any, event) => onDotClick(props, event)}
-                    />
-                  );
-                }}
-                dot={(props: any) => {
-                  const {
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    cx,
-                    cy,
-                    dataKey,
-                    index,
-                  } = props;
-
-                  if (
-                    (hasOnlyOneValueForThisKey(data, category) &&
-                      !(activeDot || (activeLegend && activeLegend !== category))) ||
-                    (activeDot?.index === index && activeDot?.dataKey === category)
-                  ) {
-                    return (
-                      <Dot
-                        key={index}
-                        cx={cx}
-                        cy={cy}
-                        r={5}
-                        stroke={stroke}
-                        fill=""
-                        strokeLinecap={strokeLinecap}
-                        strokeLinejoin={strokeLinejoin}
-                        strokeWidth={strokeWidth}
-                        className={tremorTwMerge(
-                          "stroke-tremor-background dark:stroke-dark-tremor-background",
-                          onValueChange ? "cursor-pointer" : "",
-                          getColorClassNames(
-                            categoryColors.get(dataKey) ?? BaseColors.Gray,
-                            colorPalette.text,
-                          ).fillColor,
-                        )}
-                      />
-                    );
-                  }
-                  return <Fragment key={index}></Fragment>;
-                }}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                connectNulls={connectNulls}
-              />
-            ))}
-            {onValueChange
-              ? categories.map((category) => (
-                  <Line
-                    className={tremorTwMerge("cursor-pointer")}
-                    strokeOpacity={0}
-                    key={category}
-                    name={category}
-                    type={curveType}
-                    dataKey={category}
-                    stroke="transparent"
-                    fill="transparent"
-                    legendType="none"
-                    tooltipType="none"
-                    strokeWidth={12}
-                    connectNulls={connectNulls}
-                    onClick={(props: any, event) => {
-                      event.stopPropagation();
-                      const { name } = props;
-                      onCategoryClick(name);
-                    }}
-                  />
-                ))
-              : null}
+            {seriesData.map((series, seriesIndex) => {
+              return (
+                <>
+                  {categories.map((category, idx) => {
+                    const yAxisId =
+                      yAxisConfigs.length === 1
+                        ? 0
+                        : yAxisConfigs.findIndex((yAxisConfig) =>
+                            yAxisConfig.categories?.includes(category),
+                          );
+                    const xAxisId =
+                      xAxisConfigs.length === 1
+                        ? 0
+                        : xAxisConfigs.findIndex((xAxisConfig) =>
+                            xAxisConfig.series?.includes(series.name),
+                          );
+                    const dataRange = series.data
+                      .filter((d: any) => d[category])
+                      .map((d: any) => ({
+                        [index]: d[index],
+                        [category]: d[category],
+                      }));
+                    return renderLine({
+                      key: ["line", series.name, category].filter(Boolean).join("-"),
+                      name: [series.name, category].filter(Boolean).join("-"),
+                      seriesIndex,
+                      category,
+                      color: categoryColors.get(category),
+                      activeDot,
+                      activeLegend,
+                      onValueChange,
+                      onDotClick,
+                      curveType,
+                      connectNulls,
+                      yAxisId: yAxisId === -1 ? idx : yAxisId,
+                      xAxisId: xAxisId === -1 ? seriesIndex : xAxisId,
+                      data: dataRange,
+                      showAnimation,
+                      animationDuration,
+                      xAxisCount: xAxisConfigs.length,
+                    });
+                  })}
+                </>
+              );
+            })}
           </ReChartsLineChart>
         ) : (
           <NoData noDataText={noDataText} />
@@ -405,7 +320,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     </div>
   );
 });
-
 LineChart.displayName = "LineChart";
 
 export default LineChart;
