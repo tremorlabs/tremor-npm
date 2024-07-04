@@ -175,6 +175,10 @@ export const LongIndexName: Story = {
   args: { data: longIndexBaseChartData },
 };
 
+export const ShowLabels: Story = {
+  args: { dataLabelPosition: { Sales: "top", "Successful Payments": "top" } },
+};
+
 export const LongIndexNameAndPreserveStartEnd: Story = {
   args: { data: longIndexBaseChartData, intervalType: "preserveStartEnd" },
 };

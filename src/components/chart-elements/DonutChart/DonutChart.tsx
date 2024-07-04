@@ -18,6 +18,7 @@ import { parseData, parseLabelInput } from "./inputParser";
 import type { EventProps } from "components/chart-elements/common";
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import { LabelPosition } from "recharts/types/component/Label";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -36,6 +37,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   className?: string;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipProps>;
+  dataLabelPosition?: Record<string, LabelPosition>;
 }
 
 const renderInactiveShape = (props: any) => {
@@ -90,6 +92,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     onValueChange,
     customTooltip,
     className,
+    dataLabelPosition,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -177,6 +180,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               activeIndex={activeIndex}
               inactiveShape={renderInactiveShape}
               style={{ outline: "none" }}
+              label={dataLabelPosition?.[category] != null}
             />
             {/* {showTooltip ? (
               <Tooltip

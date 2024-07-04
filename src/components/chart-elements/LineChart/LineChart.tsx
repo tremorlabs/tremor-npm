@@ -74,6 +74,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     customTooltip,
     rotateLabelX,
     tickGap = 5,
+    dataLabelPosition,
     orientations,
     ...other
   } = props;
@@ -365,6 +366,21 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   return <Fragment key={index}></Fragment>;
                 }}
                 key={category}
+                label={
+                  dataLabelPosition?.[category] == null
+                    ? undefined
+                    : {
+                        style: {
+                          fontSize: "12px",
+                          fontWeight: "300",
+                          fill: categoryColors.get(category) ?? BaseColors.Gray,
+                          stroke: "#000",
+                          strokeWidth: 0.3,
+                        },
+                        position: dataLabelPosition[category],
+                        offset: 10,
+                      }
+                }
                 name={category}
                 type={curveType}
                 dataKey={category}

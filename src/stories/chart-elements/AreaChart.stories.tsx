@@ -113,6 +113,10 @@ export const ConnectNullsTrue: Story = {
   args: { data: simpleBaseChartDataWithNulls, connectNulls: true },
 };
 
+export const ShowLabels: Story = {
+  args: { dataLabelPosition: { Sales: "top", "Successful Payments": "bottom" } },
+};
+
 export const ConnectNullsFalse: Story = {
   args: { data: simpleBaseChartDataWithNulls, connectNulls: false },
 };

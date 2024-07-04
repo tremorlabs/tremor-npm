@@ -143,6 +143,10 @@ export const MultipleZeroValues: Story = {
   },
 };
 
+export const ShowLabels: Story = {
+  args: { dataLabelPosition: { "Location A": "top" } },
+};
+
 export const RotateXLabel: Story = {
   args: {
     rotateLabelX: { angle: -45, verticalShift: 15, xAxisHeight: 50 },
