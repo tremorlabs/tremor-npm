@@ -94,6 +94,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     rotateLabelX,
     barCategoryGap,
     tickGap = 5,
+    dataLabelPosition,
     className,
     ...other
   } = props;
@@ -338,6 +339,21 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 stackId={stack || relative ? "a" : undefined}
                 dataKey={category}
                 fill=""
+                label={
+                  dataLabelPosition?.[category] == null
+                    ? undefined
+                    : {
+                        style: {
+                          fontSize: "12px",
+                          fontWeight: "300",
+                          fill: categoryColors.get(category) ?? BaseColors.Gray,
+                          stroke: "#000",
+                          strokeWidth: 0.3,
+                        },
+                        position: dataLabelPosition[category],
+                        offset: 10,
+                      }
+                }
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}

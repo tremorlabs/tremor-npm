@@ -83,6 +83,14 @@ export const CustomColors: Story = {
   },
 };
 
+export const ShowLabels: Story = {
+  args: { dataLabelPosition: { sales: "outside" } },
+};
+
+export const ShowLabelsPie: Story = {
+  args: { variant: "pie", dataLabelPosition: { sales: "outside" } },
+};
+
 export const MoreDatapointsThanColors: Story = {
   args: {
     data: [

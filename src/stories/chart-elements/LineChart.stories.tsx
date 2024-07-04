@@ -180,6 +180,10 @@ export const NoYAxisStartEndOnly: Story = {
   args: { showYAxis: false, startEndOnly: true },
 };
 
+export const ShowLabels: Story = {
+  args: { dataLabelPosition: { Sales: "top", "Successful Payments": "bottom" } },
+};
+
 export const RotateXLabels: Story = {
   args: {
     data: longBaseChartData,
