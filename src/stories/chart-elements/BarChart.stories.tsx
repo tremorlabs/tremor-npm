@@ -176,7 +176,12 @@ export const LongIndexName: Story = {
 };
 
 export const ShowLabels: Story = {
-  args: { dataLabelPosition: { Sales: "top", "Successful Payments": "top" } },
+  args: {
+    dataLabelOptions: {
+      Sales: { position: "top", angle: -45, offset: 30, fontSize: 6 },
+      "Successful Payments": { position: "bottom" },
+    },
+  },
 };
 
 export const LongIndexNameAndPreserveStartEnd: Story = {

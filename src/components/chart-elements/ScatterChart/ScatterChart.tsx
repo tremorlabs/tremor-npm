@@ -36,7 +36,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
-import { LabelPosition } from "recharts/types/component/Label";
+import { DataLabelOptions } from "../common/BaseChartProps";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -81,7 +81,7 @@ export interface ScatterChartProps
     xAxisHeight: number;
   };
   tickGap?: number;
-  dataLabelPosition?: Record<string, LabelPosition>;
+  dataLabelOptions?: Record<string, DataLabelOptions>;
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -142,7 +142,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     className,
     enableLegendSlider = false,
     tickGap = 5,
-    dataLabelPosition,
+    dataLabelOptions,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -332,18 +332,19 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   fillOpacity={showOpacity ? 0.7 : 1}
                   key={cat}
                   label={
-                    dataLabelPosition?.[category] == null
+                    dataLabelOptions?.[category] == null
                       ? undefined
                       : {
                           style: {
-                            fontSize: "12px",
+                            fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
                             fontWeight: "300",
                             fill: categoryColors.get(category) ?? BaseColors.Gray,
                             stroke: "#000",
                             strokeWidth: 0.3,
                           },
-                          position: dataLabelPosition[category],
-                          offset: 10,
+                          position: dataLabelOptions[category].position ?? "top",
+                          offset: dataLabelOptions?.[category].offset ?? 10,
+                          angle: dataLabelOptions?.[category].angle ?? 0,
                         }
                   }
                   name={cat}

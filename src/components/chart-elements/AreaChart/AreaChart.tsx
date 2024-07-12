@@ -79,7 +79,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     customTooltip,
     rotateLabelX,
     tickGap = 5,
-    dataLabelPosition,
+    dataLabelOptions,
     orientations,
     ...other
   } = props;
@@ -420,18 +420,19 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 }}
                 key={category}
                 label={
-                  dataLabelPosition?.[category] == null
+                  dataLabelOptions?.[category] == null
                     ? undefined
                     : {
                         style: {
-                          fontSize: "12px",
+                          fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
                           fontWeight: "300",
                           fill: categoryColors.get(category) ?? BaseColors.Gray,
                           stroke: "#000",
                           strokeWidth: 0.3,
                         },
-                        position: dataLabelPosition[category],
-                        offset: 10,
+                        position: dataLabelOptions[category].position ?? "top",
+                        offset: dataLabelOptions?.[category].offset ?? 10,
+                        angle: dataLabelOptions?.[category].angle ?? 0,
                       }
                 }
                 name={category}

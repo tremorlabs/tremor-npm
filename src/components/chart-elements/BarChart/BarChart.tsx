@@ -94,7 +94,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     rotateLabelX,
     barCategoryGap,
     tickGap = 5,
-    dataLabelPosition,
+    dataLabelOptions,
     className,
     ...other
   } = props;
@@ -340,18 +340,19 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 dataKey={category}
                 fill=""
                 label={
-                  dataLabelPosition?.[category] == null
+                  dataLabelOptions?.[category] == null
                     ? undefined
                     : {
                         style: {
-                          fontSize: "12px",
+                          fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
                           fontWeight: "300",
                           fill: categoryColors.get(category) ?? BaseColors.Gray,
                           stroke: "#000",
                           strokeWidth: 0.3,
                         },
-                        position: dataLabelPosition[category],
-                        offset: 10,
+                        position: dataLabelOptions[category].position ?? "top",
+                        offset: dataLabelOptions?.[category].offset ?? 10,
+                        angle: dataLabelOptions?.[category].angle ?? 0,
                       }
                 }
                 isAnimationActive={showAnimation}

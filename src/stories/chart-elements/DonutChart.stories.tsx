@@ -84,11 +84,14 @@ export const CustomColors: Story = {
 };
 
 export const ShowLabels: Story = {
-  args: { dataLabelPosition: { sales: "outside" } },
+  args: { dataLabelOptions: { sales: { position: "top", angle: -45, offset: 30, fontSize: 6 } } },
 };
 
 export const ShowLabelsPie: Story = {
-  args: { variant: "pie", dataLabelPosition: { sales: "outside" } },
+  args: {
+    variant: "pie",
+    dataLabelOptions: { sales: { position: "top", angle: -45, offset: 30, fontSize: 6 } },
+  },
 };
 
 export const MoreDatapointsThanColors: Story = {
