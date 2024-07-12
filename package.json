@@ -1,6 +1,6 @@
 {
-  "name": "tremor2axis",
-  "version": "0.0.9",
+  "name": "@upsolve-labs/tremor",
+  "version": "0.1.0",
   "type": "module",
   "description": "The React library to build dashboards faster.",
   "scripts": {
