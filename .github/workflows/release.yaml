@@ -41,12 +41,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: node (gh registry)
-      #   uses: actions/setup-node@v3.4.1
-      #   with:
-      #     node-version: 18
-      #     registry-url: https://npm.pkg.github.com
-      # - name: publish (gh registry)
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: npm publish
