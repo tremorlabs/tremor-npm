@@ -25,9 +25,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
       - name: Authenticate with GitHub package registry
-        run:
-          echo -e "@upsolve-labs:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=${{ secrets.PAT }}" >
-          ~/.npmrc
+        run: echo -e "@upsolve-labs:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=${{ secrets.PAT }}" >> .npmrc
       - name: install react
         run: npm i react
       - name: install dependencies
