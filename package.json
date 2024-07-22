@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Upsolve-Labs/tremor2axis.git"
+    "url": "git+https://github.com/Upsolve-Labs/tremor.git"
   },
   "author": "tremor",
   "license": "Apache 2.0",
@@ -147,7 +147,7 @@
       [
         "@semantic-release/github",
         {
-          "githubUrl": "git+ssh://git@github.com/upsolve-labs/tremor2axis.git"
+          "githubUrl": "git+ssh://git@github.com:Upsolve-Labs/tremor.git"
         }
       ]
     ]
