@@ -1,5 +1,5 @@
 {
-  "name": "@upsolve-labs/tremor",
+  "name": "upsolve-labs-tremor",
   "version": "0.1.1",
   "type": "module",
   "description": "The React library to build dashboards faster.",
