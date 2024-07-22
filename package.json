@@ -1,6 +1,6 @@
 {
   "name": "@upsolve-labs/tremor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "The React library to build dashboards faster.",
   "scripts": {
@@ -114,7 +114,7 @@
   "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://npm.pkg.github.com"
   },
   "release": {
     "branches": [
