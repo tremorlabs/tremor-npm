@@ -269,7 +269,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     style={{ textAnchor: "middle" }}
                     angle={-90}
                     offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                    className="fill-tremor-content-emphasis s text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
                   >
                     {yAxisLabel}
                   </Label>
