@@ -46,8 +46,7 @@ type DataT = {
   name: string;
 };
 
-const DEFAULT_X_AXIS_HEIGHT = 15;
-const GLOBAL_PADDING = 20;
+const GLOBAL_PADDING = 10;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
@@ -74,10 +73,11 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
     xAxisHeight?: number;
   };
   barGap?: number | `${number}%`;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
 }
 
 //#region Funnel Chart Primitive
-// ============================================================================
 
 const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
   (props: FunnelChartProps, ref) => {
@@ -94,7 +94,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       showYAxis = calculateFrom === "previous" ? false : true,
       showXAxis = true,
       showArrow = true,
-      yAxisPadding = showYAxis ? 45 : 0,
+      xAxisLabel = "",
+      yAxisLabel = "",
+      yAxisPadding = showYAxis ? (yAxisLabel ? 70 : 45) : 0,
       showTooltip = true,
       onValueChange,
       customTooltip,
@@ -103,6 +105,8 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       barGap = "20%",
       ...other
     } = props;
+    const DEFAULT_X_AXIS_HEIGHT = showXAxis && xAxisLabel ? 25 : 15;
+
     const CustomTooltip = customTooltip;
 
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -158,7 +162,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     const realHeight =
       height -
       GLOBAL_PADDING -
-      (showXAxis ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + 10 : 0);
+      (showXAxis
+        ? (rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT) + (showXAxis && xAxisLabel ? 30 : 10)
+        : 0);
 
     const isPreviousCalculation = calculateFrom === "previous";
     const isVariantCenter = variant === "center";
@@ -617,6 +623,46 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 <stop offset="5%" stopColor="currentColor" stopOpacity={0} />
                 <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
               </linearGradient>
+              {showXAxis && xAxisLabel ? (
+                <text
+                  x={width / 2 + yAxisPadding / 2}
+                  y={realHeight + HALF_PADDING + 50}
+                  style={{ textAnchor: "middle" }}
+                  fill=""
+                  stroke=""
+                  className={tremorTwMerge(
+                    // base
+                    "text-tremor-default cursor-default font-medium",
+                    // light
+                    "fill-tremor-content-emphasis",
+                    // dark
+                    "dark:fill-dark-tremor-content-emphasis",
+                  )}
+                >
+                  {xAxisLabel}
+                </text>
+              ) : null}
+              {showYAxis && yAxisLabel ? (
+                <text
+                  x={-5}
+                  y={realHeight / 2 + 10}
+                  textAnchor="middle"
+                  style={{ textAnchor: "middle" }}
+                  transform={`rotate(-90, 0, ${realHeight / 2})`}
+                  fill=""
+                  stroke=""
+                  className={tremorTwMerge(
+                    // base
+                    "text-tremor-default cursor-default font-medium",
+                    // light
+                    "fill-tremor-content-emphasis",
+                    // dark
+                    "dark:fill-dark-tremor-content-emphasis",
+                  )}
+                >
+                  {yAxisLabel}
+                </text>
+              ) : null}
             </svg>
             {showTooltip ? (
               <div
@@ -686,7 +732,6 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
 FunnelChartPrimitive.displayName = "FunnelChart";
 
 //#region Data Validation
-// ============================================================================
 
 const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | null => {
   if (data && data.length > 0) {
@@ -704,7 +749,6 @@ const validateData = (data: DataT[], calculatedFrom?: CalculateFrom): string | n
 };
 
 //#region  Exports
-// ============================================================================
 
 const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
   const errorMessage = data ? validateData(data, props.calculateFrom) : null;

@@ -11,6 +11,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -81,6 +82,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     tickGap = 5,
     dataLabelOptions,
     orientations,
+    xAxisLabel,
+    yAxisLabel,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -152,6 +155,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   }
                 : undefined
             }
+            margin={{
+              bottom: xAxisLabel ? 30 : undefined,
+              left: yAxisLabel ? 20 : undefined,
+              right: yAxisLabel ? 5 : undefined,
+              top: 5,
+            }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -218,7 +227,19 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   orientation={orientations[idx]}
                   yAxisId={idx}
                   key={idx}
-                />
+                >
+                  {yAxisLabel && (
+                    <Label
+                      position="insideLeft"
+                      style={{ textAnchor: "middle" }}
+                      angle={-90}
+                      offset={-15}
+                      className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                    >
+                      {yAxisLabel}
+                    </Label>
+                  )}
+                </YAxis>
               ))
             ) : (
               <YAxis
@@ -241,7 +262,19 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 )}
                 tickFormatter={valueFormatter}
                 allowDecimals={allowDecimals}
-              />
+              >
+                {yAxisLabel && (
+                  <Label
+                    position="insideLeft"
+                    style={{ textAnchor: "middle" }}
+                    angle={-90}
+                    offset={-15}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {yAxisLabel}
+                  </Label>
+                )}
+              </YAxis>
             )}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
