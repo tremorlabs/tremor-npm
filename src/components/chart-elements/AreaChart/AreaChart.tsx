@@ -48,6 +48,7 @@ interface ActiveDot {
   dataKey?: string;
 }
 
+// Placeholder
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) => {
   const {
     data = [],
