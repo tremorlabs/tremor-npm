@@ -23,8 +23,6 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
-      - name: Authenticate with GitHub package registry
-        run: echo -e "@upsolve-labs:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=${{ secrets.PAT }}" >> .npmrc
       - name: install react
         run: npm i react
       - name: install dependencies
@@ -35,8 +33,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-      # - name: publish
-      #   run: npm publish --access public
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.PAT }}
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
