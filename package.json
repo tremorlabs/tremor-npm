@@ -144,12 +144,8 @@
           ]
         }
       ],
-      [
-        "@semantic-release/github",
-        {
-          "githubUrl": "git+ssh://git@github.com:Upsolve-Labs/tremor.git"
-        }
-      ]
+      "@semantic-release/npm",
+      "@semantic-release/github"
     ]
   }
 }
