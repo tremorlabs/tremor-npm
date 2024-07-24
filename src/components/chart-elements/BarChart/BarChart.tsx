@@ -197,7 +197,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(0, 6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
-                stroke=""
+                stroke={showXAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "mt-4 text-tremor-label",
@@ -230,7 +231,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(-3, 0)" }}
                 domain={yAxisDomain as AxisDomain}
                 fill=""
-                stroke=""
+                stroke={showXAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
@@ -269,7 +271,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 domain={yAxisDomain as AxisDomain}
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
-                stroke=""
+                stroke={showYAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
@@ -307,7 +310,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 interval="preserveStartEnd"
                 tick={{ transform: "translate(0, 6)" }}
                 fill=""
-                stroke=""
+                stroke={showYAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",

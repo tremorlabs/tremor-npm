@@ -182,7 +182,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               tick={{ transform: "translate(0, 6)" }}
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""
-              stroke=""
+              stroke={showXAxisLine ? "gray" : ""}
+              strokeOpacity={0.2}
               className={tremorTwMerge(
                 // common
                 "text-tremor-label",
@@ -211,7 +212,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     transform: `translate(${orientations[idx] === "right" ? 3 : -3}, 0)`,
                   }}
                   fill=""
-                  stroke=""
+                  stroke={showYAxisLine ? "gray" : ""}
+                  strokeOpacity={0.2}
                   className={tremorTwMerge(
                     // common
                     "text-tremor-label",
@@ -249,7 +251,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 domain={yAxisDomain as AxisDomain}
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
-                stroke=""
+                stroke={showYAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",

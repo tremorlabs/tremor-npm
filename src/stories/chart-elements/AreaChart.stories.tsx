@@ -32,6 +32,15 @@ export const Default: Story = {
   args: {},
 };
 
+export const ShowAxisLines: Story = {
+  args: {
+    showXAxis: true,
+    showXAxisLine: true,
+    showYAxis: true,
+    showYAxisLine: true,
+  },
+};
+
 export const DefaultNegativeValues: Story = {
   args: {
     data: simpleBaseChartWithNegativeValues,

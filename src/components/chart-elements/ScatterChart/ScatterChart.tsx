@@ -245,7 +245,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 type="number"
                 name={x}
                 fill=""
-                stroke=""
+                stroke={showXAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
@@ -288,7 +289,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tick={{ transform: "translate(-3, 0)" }}
                 tickFormatter={valueFormatter.y}
                 fill=""
-                stroke=""
+                stroke={showYAxisLine ? "gray" : ""}
+                strokeOpacity={0.2}
                 className={tremorTwMerge(
                   // common
                   "text-tremor-label",
