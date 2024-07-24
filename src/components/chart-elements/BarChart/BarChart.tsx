@@ -79,6 +79,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     showAnimation = false,
     showXAxis = true,
     showYAxis = true,
+    showXAxisLine = false,
+    showYAxisLine = false,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
     showTooltip = true,
@@ -205,7 +207,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
-                axisLine={false}
+                axisLine={showXAxis && showXAxisLine}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
@@ -238,7 +240,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   "dark:fill-dark-tremor-content",
                 )}
                 tickLine={false}
-                axisLine={false}
+                axisLine={showXAxis && showXAxisLine}
                 tickFormatter={valueFormatter}
                 minTickGap={tickGap}
                 allowDecimals={allowDecimals}
@@ -261,7 +263,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showYAxis && showYAxisLine}
                 tickLine={false}
                 type="number"
                 domain={yAxisDomain as AxisDomain}
@@ -298,7 +300,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 width={yAxisWidth}
                 hide={!showYAxis}
                 dataKey={index}
-                axisLine={false}
+                axisLine={showYAxis && showYAxisLine}
                 tickLine={false}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 type="category"

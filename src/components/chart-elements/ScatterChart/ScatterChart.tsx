@@ -60,6 +60,8 @@ export interface ScatterChartProps
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
+  showXAxisLine?: boolean;
+  showYAxisLine?: boolean;
   yAxisWidth?: number;
   intervalType?: IntervalType;
   showTooltip?: boolean;
@@ -124,6 +126,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
+    showXAxisLine = false,
+    showYAxisLine = false,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
     animationDuration = 900,
@@ -252,7 +256,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
-                axisLine={false}
+                axisLine={showXAxis && showXAxisLine}
                 minTickGap={tickGap}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
@@ -275,7 +279,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showYAxis && showYAxisLine}
                 tickLine={false}
                 dataKey={y}
                 type="number"

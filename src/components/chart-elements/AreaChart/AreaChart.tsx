@@ -60,6 +60,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
+    showXAxisLine = false,
+    showYAxisLine = false,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
     showAnimation = false,
@@ -195,7 +197,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               )}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
-              axisLine={false}
+              axisLine={showXAxis && showXAxisLine}
               minTickGap={tickGap}
               angle={rotateLabelX?.angle}
               dy={rotateLabelX?.verticalShift}
@@ -246,7 +248,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showYAxis && showYAxisLine}
                 tickLine={false}
                 type="number"
                 domain={yAxisDomain as AxisDomain}

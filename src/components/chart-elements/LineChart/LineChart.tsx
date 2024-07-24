@@ -55,6 +55,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
+    showXAxisLine = false,
+    showYAxisLine = false,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
     animationDuration = 900,
@@ -190,7 +192,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 "dark:fill-dark-tremor-content",
               )}
               tickLine={false}
-              axisLine={false}
+              axisLine={showXAxis && showXAxisLine}
               minTickGap={tickGap}
               angle={rotateLabelX?.angle}
               dy={rotateLabelX?.verticalShift}
@@ -201,7 +203,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 <YAxis
                   width={yAxisWidth}
                   hide={!showYAxis}
-                  axisLine={false}
+                  axisLine={showYAxis && showYAxisLine}
                   tickLine={false}
                   type="number"
                   domain={yAxisDomain as AxisDomain}
@@ -241,7 +243,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showYAxis && showYAxisLine}
                 tickLine={false}
                 type="number"
                 domain={yAxisDomain as AxisDomain}
