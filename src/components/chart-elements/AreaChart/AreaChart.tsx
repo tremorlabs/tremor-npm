@@ -134,15 +134,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     setActiveDot(undefined);
   }
 
-  const yAxisConfigsValueFormatter = yAxisConfigs.flatMap((yAxisConfig) => {
-    return (
-      yAxisConfig.categories?.map((c) => [c, yAxisConfig.valueFormatter ?? valueFormatter]) ?? []
-    );
-  });
   const yAxisValueFormatters = Object.fromEntries(
-    yAxisConfigsValueFormatter.length > 0
-      ? yAxisConfigsValueFormatter
-      : categories.map((c, idx) => [c, yAxisConfigs[idx]?.valueFormatter ?? valueFormatter]),
+    yAxisConfigs.flatMap((yAxisConfig, i) => {
+      return (
+        yAxisConfig.categories?.map((c) => [c, yAxisConfig.valueFormatter ?? valueFormatter]) ??
+        categories.map((c) => [c, yAxisConfigs[i]?.valueFormatter ?? valueFormatter])
+      );
+    }),
   );
 
   return (
