@@ -96,12 +96,17 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     barCategoryGap,
     tickGap = 5,
     xAxisLabel,
+    xAxisPadding,
     yAxisLabel,
     className,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
-  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
+  const defaultPadding: number = !showXAxis && !showYAxis ? 0 : 20;
+  const paddingValue: Required<typeof xAxisPadding> = {
+    left: xAxisPadding?.left ?? defaultPadding,
+    right: xAxisPadding?.right ?? defaultPadding,
+  };
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -187,7 +192,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
-                padding={{ left: paddingValue, right: paddingValue }}
+                padding={paddingValue}
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}

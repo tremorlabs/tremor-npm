@@ -80,11 +80,18 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     rotateLabelX,
     tickGap = 5,
     xAxisLabel,
+    xAxisPadding,
     yAxisLabel,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
-  const paddingValue = (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
+
+  const defaultPadding: number =
+    (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
+  const paddingValue: Required<typeof xAxisPadding> = {
+    left: xAxisPadding?.left ?? defaultPadding,
+    right: xAxisPadding?.right ?? defaultPadding,
+  };
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -174,7 +181,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
-              padding={{ left: paddingValue, right: paddingValue }}
+              padding={paddingValue}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}
