@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
+import React, { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { mergeRefs, tremorTwMerge } from "lib";
@@ -15,6 +15,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   stepper?: ReactNode;
   onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
+  formatter?: Intl.NumberFormat;
 }
 
 const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
@@ -33,15 +34,43 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     onChange,
     onValueChange,
     autoFocus,
+    formatter,
     ...other
   } = props;
+
   const [isFocused, setIsFocused] = useState(autoFocus || false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const [numberValue, setNumberValue] = useState<number | undefined>(() => {
+    if (type === "number" && (typeof defaultValue === "number" || typeof value === "number")) {
+      return Number(value) ?? Number(defaultValue);
+    }
+  });
+  const [formatedValue, setFormatedValue] = useState<string | undefined>(() => {
+    if (formatter && formatter instanceof Intl.NumberFormat && type === "number") {
+      return formatter.format(Number(value) ?? defaultValue);
+    }
+  });
 
   const toggleIsPasswordVisible = useCallback(
     () => setIsPasswordVisible(!isPasswordVisible),
     [isPasswordVisible, setIsPasswordVisible],
   );
+
+  const { resolvedType, resolvedValue } = useMemo(() => {
+    let resolvedType = isPasswordVisible ? "text" : type;
+    if (type === "number") {
+      resolvedType = isFocused ? "number" : "text";
+    }
+
+    let resolvedValue = value;
+    if (type === "number") {
+      const valueOrNumberValue = value ?? numberValue;
+      resolvedValue = isFocused ? valueOrNumberValue : formatedValue;
+    }
+
+    return { resolvedType, resolvedValue };
+  }, [isPasswordVisible, type, value, numberValue, formatedValue, isFocused]);
 
   const Icon = icon;
 
@@ -112,8 +141,8 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         <input
           ref={mergeRefs([inputRef, ref])}
           defaultValue={defaultValue}
-          value={value}
-          type={isPasswordVisible ? "text" : type}
+          value={resolvedValue}
+          type={resolvedType}
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
@@ -133,8 +162,20 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           disabled={disabled}
           data-testid="base-input"
           onChange={(e) => {
-            onChange?.(e);
-            onValueChange?.(e.target.value);
+            if (type === "number") {
+              const value = Number(e.target.value);
+              onChange?.(e);
+              onValueChange?.(value);
+              setNumberValue(value);
+
+              if (formatter && formatter instanceof Intl.NumberFormat) {
+                const formattedValue = formatter.format(value);
+                setFormatedValue(formattedValue);
+              }
+            } else {
+              onChange?.(e);
+              onValueChange?.(e.target.value);
+            }
           }}
           {...other}
         />

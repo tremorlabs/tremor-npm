@@ -44,29 +44,40 @@ export const SimpleNumberInput = (args: any) => {
 };
 
 export const SimpleNumberInputControlled = (args: any) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(333);
   return (
     <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        onReset={() => setValue(0)}
       >
         <label htmlFor="a">
-          <p>Controlled with onChange</p>
+          <p>Controlled with Intl.NumberFormat ptBR</p>
         </label>
         <NumberInput
           {...args}
           id={"a"}
           value={value}
           onChange={(e) => setValue(Number(e.target.value))}
+          formatter={new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })}
         />
+        <label htmlFor="a">
+          <p>Controlled with Intl.NumberFormat US</p>
+        </label>
+        <NumberInput
+          {...args}
+          id={"a"}
+          value={value}
+          onChange={(e) => setValue(Number(e.target.value))}
+          formatter={new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })}
+        />
+
+        <p>value: {value}</p>
         <Button type="submit" className="mt-2">
           Submit
         </Button>
       </form>
-      <p>value: {value}</p>
     </>
   );
 };

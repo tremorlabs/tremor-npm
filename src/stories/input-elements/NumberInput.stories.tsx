@@ -106,3 +106,8 @@ export const ControlledWithOnChange: Story = {
   render: SimpleNumberInputControlled,
   args: {},
 };
+
+export const WithIntlNumberFormatter: Story = {
+  render: SimpleNumberInputControlled,
+  args: {},
+};
