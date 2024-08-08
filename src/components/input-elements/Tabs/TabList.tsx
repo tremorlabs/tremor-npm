@@ -38,7 +38,7 @@ export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const { color = "blue", variant = "line", children, className, ...other } = props;
+  const { color, variant = "line", children, className, ...other } = props;
 
   return (
     <Tab.List

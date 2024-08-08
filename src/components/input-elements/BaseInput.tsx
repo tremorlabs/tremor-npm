@@ -5,7 +5,7 @@ import { getSelectButtonColors, hasValue } from "components/input-elements/selec
 import { mergeRefs, tremorTwMerge } from "lib";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: "text" | "password" | "email" | "url" | "number";
+  type?: "text" | "password" | "email" | "url" | "number" | "search";
   defaultValue?: string | number;
   value?: string | number;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
