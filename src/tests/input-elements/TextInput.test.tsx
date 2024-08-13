@@ -18,4 +18,8 @@ describe("TextInput", () => {
   test("renders the TextInput component with url type", () => {
     render(<TextInput type="url" defaultValue="Test" />);
   });
+
+  test("renders the TextInput component with tel type", () => {
+    render(<TextInput type="tel" defaultValue="Test" />);
+  });
 });
