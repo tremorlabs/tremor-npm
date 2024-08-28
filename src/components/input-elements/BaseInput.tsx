@@ -15,7 +15,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   stepper?: ReactNode;
   onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
-  pattern?: string
+  pattern?: string;
 }
 
 const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
@@ -35,7 +35,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     onValueChange,
     autoFocus,
     pattern,
-  ...other
+    ...other
   } = props;
   const [isFocused, setIsFocused] = useState(autoFocus || false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
