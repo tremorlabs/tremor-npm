@@ -25,7 +25,7 @@
   "homepage": "https://github.com/tremorlabs/tremor#readme",
   "dependencies": {
     "@floating-ui/react": "^0.19.2",
-    "@headlessui/react": "1.7.10",
+    "@headlessui/react": "1.7.19",
     "@headlessui/tailwindcss": "^0.2.1",
     "date-fns": "^3.6.0",
     "react-day-picker": "^8.10.1",
