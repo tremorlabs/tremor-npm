@@ -98,7 +98,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     xAxisLabel,
     yAxisLabel,
     className,
-    enableLegendSlider = false,
     padding = !showXAxis && !showYAxis ? { left: 0, right: 0 } : { left: 20, right: 20 },
     ...other
   } = props;

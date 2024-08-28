@@ -404,4 +404,3 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
-
