@@ -1,7 +1,7 @@
 <br />
 <br />
 <p align="center">
-  <a href="https://tremor.so">
+  <a href="https://npm.tremor.so">
     <picture>
        <source media="(prefers-color-scheme: dark)" srcset="images/tremor-logo-dark.svg">
       <source media="(prefers-color-scheme: light)" srcset="images/tremor-logo-light.svg">
@@ -14,7 +14,7 @@
 <br />
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/@tremor/react">
+  <a href="https://npmjs.com/package/@tremor/react">
     <img alt="npm" src="https://img.shields.io/npm/dm/@tremor/react?color=3b82f6&label=npm&logo=npm&labelColor=334155">
   </a>
   <a href="https://npm.tremor.so/docs/getting-started/installation">
@@ -104,7 +104,7 @@ export default function Example() {
 
 ## Community and Contribution
 
-We are always looking for new ideas or other ways to improve Tremor NPM. If you have developed anything cool or found a bug, send us a pull request. Check out our Contributor License Agreement [here](https://www.tremor.so/contributors).
+We are always looking for new ideas or other ways to improve Tremor NPM. If you have developed anything cool or found a bug, send us a pull request. Check out our Contributor License Agreement [here](https://tremor.so/contributors).
 
 ## License
 
