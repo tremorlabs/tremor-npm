@@ -1,4 +1,10 @@
-import { Color, ValueFormatter, IntervalType } from "../../../lib";
+import {
+  Color,
+  ValueFormatter,
+  IntervalType,
+  HorizontalPosition,
+  VerticalPosition,
+} from "../../../lib";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 import { CustomTooltipProps } from "./CustomTooltipProps";
 
@@ -12,6 +18,21 @@ type BaseEventProps = FixedProps & {
 };
 
 export type EventProps = BaseEventProps | null | undefined;
+
+interface XAxisConfig {
+  orientation: VerticalPosition;
+  series?: string[];
+  valueFormatter?: ValueFormatter;
+}
+
+export interface YAxisConfig {
+  autoMinValue?: boolean;
+  minValue?: number;
+  maxValue?: number;
+  orientation: HorizontalPosition;
+  categories?: string[];
+  valueFormatter?: ValueFormatter;
+}
 
 interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
@@ -43,6 +64,8 @@ interface BaseChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<
   tickGap?: number;
   xAxisLabel?: string;
   yAxisLabel?: string;
+  xAxisConfigs?: XAxisConfig[];
+  yAxisConfigs?: YAxisConfig[];
 }
 
 export default BaseChartProps;

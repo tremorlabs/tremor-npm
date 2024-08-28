@@ -12,6 +12,8 @@ import {
   longBaseChartData,
   longIndexBaseChartData,
   simpleBaseChartWithNegativeValues,
+  multipleXAxisChartData,
+  multiSeriesMultiCategoriesChartData,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
@@ -75,7 +77,10 @@ export const ChangedCategoriesOrder: Story = {
 };
 
 export const LongValues: Story = {
-  args: { categories: ["This is an edge case"] },
+  args: {
+    categories: ["This is an edge case"],
+    yAxisWidth: 110,
+  },
 };
 
 export const MultipleCategories: Story = {
@@ -362,5 +367,72 @@ export const AxisLabels: Story = {
   args: {
     xAxisLabel: "Month of Year",
     yAxisLabel: "Amount (USD)",
+  },
+};
+
+export const RightOrientation: Story = {
+  args: {
+    categories: ["Sales"],
+    yAxisConfigs: [{ orientation: "right" }],
+  },
+};
+
+export const MultipleYAxes: Story = {
+  args: {
+    yAxisConfigs: [
+      { orientation: "left", valueFormatter: (value: number) => `${value} S` },
+      { orientation: "right", valueFormatter: (value: number) => `${value} P` },
+    ],
+  },
+};
+
+export const SingleYAxisWithValueFormatter: Story = {
+  args: {
+    categories: ["Sales", "Successful Payments"],
+    yAxisConfigs: [{ orientation: "left", valueFormatter: (value: number) => `${value} S` }],
+  },
+};
+
+export const MultipleYAxesWithExplicitCategories: Story = {
+  args: {
+    yAxisConfigs: [
+      {
+        orientation: "left",
+        categories: ["Successful Payments"],
+        valueFormatter: (value: number) => `${value} S`,
+      },
+      {
+        orientation: "right",
+        categories: ["Sales"],
+        valueFormatter: (value: number) => `${value} P`,
+      },
+    ],
+  },
+};
+
+export const TopOrientation: Story = {
+  args: {
+    categories: ["Sales"],
+    xAxisConfigs: [{ orientation: "top" }],
+  },
+};
+
+export const MultipleXAxes: Story = {
+  args: {
+    categories: ["Sales"],
+    data: multipleXAxisChartData,
+    xAxisConfigs: [{ orientation: "bottom" }, { orientation: "top" }],
+  },
+};
+
+export const MultipleXAndYAxes: Story = {
+  args: {
+    categories: ["Sales", "Cost"],
+    data: multiSeriesMultiCategoriesChartData,
+    yAxisConfigs: [
+      { orientation: "left", valueFormatter: (value: number) => `${value} S` },
+      { orientation: "right", valueFormatter: (value: number) => `${value} P` },
+    ],
+    xAxisConfigs: [{ orientation: "bottom" }, { orientation: "top" }],
   },
 };

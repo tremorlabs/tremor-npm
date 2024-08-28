@@ -387,3 +387,43 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const RightOrientation: Story = {
+  args: {
+    categories: ["Sales"],
+    yAxisConfigs: [{ orientation: "right" }],
+  },
+};
+
+export const MultipleYAxes: Story = {
+  args: {
+    yAxisConfigs: [
+      { orientation: "left", valueFormatter: (value: number) => `${value} S` },
+      { orientation: "right", valueFormatter: (value: number) => `${value} P` },
+    ],
+  },
+};
+
+export const MultipleYAxesWithExplicitCategories: Story = {
+  args: {
+    yAxisConfigs: [
+      {
+        orientation: "left",
+        categories: ["Successful Payments"],
+        valueFormatter: (value: number) => `${value} S`,
+      },
+      {
+        orientation: "right",
+        categories: ["Sales"],
+        valueFormatter: (value: number) => `${value} P`,
+      },
+    ],
+  },
+};
+
+export const TopOrientation: Story = {
+  args: {
+    categories: ["Sales"],
+    xAxisConfigs: [{ orientation: "top" }],
+  },
+};

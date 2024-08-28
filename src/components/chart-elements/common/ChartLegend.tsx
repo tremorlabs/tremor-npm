@@ -24,12 +24,11 @@ const ChartLegend = (
   });
 
   const filteredPayload = payload.filter((item: any) => item.type !== "none");
-
   return (
     <div ref={legendRef} className="flex items-center justify-end">
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
-        colors={filteredPayload.map((entry: any) => categoryColors.get(entry.value))}
+        colors={filteredPayload.map((entry: any) => categoryColors.get(entry.dataKey))}
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
         enableLegendSlider={enableLegendSlider}

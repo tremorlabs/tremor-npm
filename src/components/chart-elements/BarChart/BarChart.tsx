@@ -1,17 +1,13 @@
 "use client";
-import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React, { useState } from "react";
 
 import {
-  Bar,
   BarChart as ReChartsBarChart,
   CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
-  YAxis,
-  Label,
 } from "recharts";
 
 import BaseChartProps from "../common/BaseChartProps";
@@ -22,40 +18,9 @@ import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/ut
 
 import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
-
-const renderShape = (
-  props: any,
-  activeBar: any | undefined,
-  activeLegend: string | undefined,
-  layout: string,
-) => {
-  const { fillOpacity, name, payload, value } = props;
-  let { x, width, y, height } = props;
-
-  if (layout === "horizontal" && height < 0) {
-    y += height;
-    height = Math.abs(height); // height must be a positive number
-  } else if (layout === "vertical" && width < 0) {
-    x += width;
-    width = Math.abs(width); // width must be a positive number
-  }
-
-  return (
-    <rect
-      x={x}
-      y={y}
-      width={width}
-      height={height}
-      opacity={
-        activeBar || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeBar, { ...payload, value })
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-    />
-  );
-};
+import { renderHorizontalXAxis, renderVerticalXAxis } from "../common/XAxis";
+import { renderHorizontalYAxis, renderVerticalYAxis } from "../common/YAxis";
+import { renderBar } from "../common/Bar";
 
 export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
@@ -98,6 +63,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     xAxisLabel,
     yAxisLabel,
     className,
+    xAxisConfigs = [{ orientation: "bottom" }],
+    yAxisConfigs = [{ orientation: "left" }],
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -107,6 +74,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const hasOnValueChange = !!onValueChange;
+
+  const isSeriesData: boolean = data?.[0]?.data && data[0].data !== undefined;
+  const seriesData = isSeriesData ? data : [{ data }];
 
   function onBarClick(data: any, idx: number, event: React.MouseEvent) {
     event.stopPropagation();
@@ -143,7 +113,17 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     }
     setActiveBar(undefined);
   }
-  const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+
+  const yAxisConfigsValueFormatter = yAxisConfigs.flatMap((yAxisConfig) => {
+    return (
+      yAxisConfig.categories?.map((c) => [c, yAxisConfig.valueFormatter ?? valueFormatter]) ?? []
+    );
+  });
+  const yAxisValueFormatters = Object.fromEntries(
+    yAxisConfigsValueFormatter.length > 0
+      ? yAxisConfigsValueFormatter
+      : categories.map((c, idx) => [c, yAxisConfigs[idx]?.valueFormatter ?? valueFormatter]),
+  );
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -151,7 +131,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
         {data?.length ? (
           <ReChartsBarChart
             barCategoryGap={barCategoryGap}
-            data={data}
+            // This is necessary because recharts uses the length of the chart data (if provided) to slice the child (X-axis, Y-axis) data
+            data={isSeriesData ? undefined : data}
             stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
             onClick={
@@ -185,148 +166,70 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               />
             ) : null}
 
-            {layout !== "vertical" ? (
-              <XAxis
-                padding={{ left: paddingValue, right: paddingValue }}
-                hide={!showXAxis}
-                dataKey={index}
-                interval={startEndOnly ? "preserveStartEnd" : intervalType}
-                tick={{ transform: "translate(0, 6)" }}
-                ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-                fill=""
-                stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "mt-4 text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
-                tickLine={false}
-                axisLine={false}
-                angle={rotateLabelX?.angle}
-                dy={rotateLabelX?.verticalShift}
-                height={rotateLabelX?.xAxisHeight}
-                minTickGap={tickGap}
-              >
-                {xAxisLabel && (
-                  <Label
-                    position="insideBottom"
-                    offset={-20}
-                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                  >
-                    {xAxisLabel}
-                  </Label>
-                )}
-              </XAxis>
-            ) : (
-              <XAxis
-                hide={!showXAxis}
-                type="number"
-                tick={{ transform: "translate(-3, 0)" }}
-                domain={yAxisDomain as AxisDomain}
-                fill=""
-                stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
-                tickLine={false}
-                axisLine={false}
-                tickFormatter={valueFormatter}
-                minTickGap={tickGap}
-                allowDecimals={allowDecimals}
-                angle={rotateLabelX?.angle}
-                dy={rotateLabelX?.verticalShift}
-                height={rotateLabelX?.xAxisHeight}
-              >
-                {xAxisLabel && (
-                  <Label
-                    position="insideBottom"
-                    offset={-20}
-                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                  >
-                    {xAxisLabel}
-                  </Label>
-                )}
-              </XAxis>
-            )}
-            {layout !== "vertical" ? (
-              <YAxis
-                width={yAxisWidth}
-                hide={!showYAxis}
-                axisLine={false}
-                tickLine={false}
-                type="number"
-                domain={yAxisDomain as AxisDomain}
-                tick={{ transform: "translate(-3, 0)" }}
-                fill=""
-                stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
-                tickFormatter={
-                  relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
-                }
-                allowDecimals={allowDecimals}
-              >
-                {yAxisLabel && (
-                  <Label
-                    position="insideLeft"
-                    style={{ textAnchor: "middle" }}
-                    angle={-90}
-                    offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                  >
-                    {yAxisLabel}
-                  </Label>
-                )}
-              </YAxis>
-            ) : (
-              <YAxis
-                width={yAxisWidth}
-                hide={!showYAxis}
-                dataKey={index}
-                axisLine={false}
-                tickLine={false}
-                ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
-                type="category"
-                interval="preserveStartEnd"
-                tick={{ transform: "translate(0, 6)" }}
-                fill=""
-                stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
-              >
-                {yAxisLabel && (
-                  <Label
-                    position="insideLeft"
-                    style={{ textAnchor: "middle" }}
-                    angle={-90}
-                    offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
-                  >
-                    {yAxisLabel}
-                  </Label>
-                )}
-              </YAxis>
-            )}
+            {xAxisConfigs.map((xAxisConfig, idx) => {
+              const d = seriesData
+                .filter((d) => xAxisConfig.series?.includes(d.name))
+                .flatMap((d) => d.data);
+              const commonProps = {
+                key: `x-axis-${idx}`,
+                showAxis: showXAxis,
+                data: d.length === 0 ? seriesData[idx].data : d,
+                rotateLabel: rotateLabelX,
+                label: xAxisLabel,
+                orientation: xAxisConfig.orientation,
+                xAxisId: idx,
+                layout,
+                padding: { left: paddingValue, right: paddingValue },
+                xAxisCount: xAxisConfigs.length,
+              };
+              return layout && layout === "vertical"
+                ? renderVerticalXAxis({
+                    ...commonProps,
+                    relative,
+                    valueFormatter,
+                    width: yAxisWidth,
+                  })
+                : renderHorizontalXAxis({
+                    ...commonProps,
+                    intervalType,
+                    startEndOnly,
+                    minTickGap: tickGap,
+                    dataKey: index,
+                  });
+            })}
+            {yAxisConfigs.map((yAxisConfig, idx) => {
+              const domain: AxisDomain = getYAxisDomain(
+                yAxisConfig.autoMinValue ?? autoMinValue,
+                yAxisConfig.minValue ?? minValue,
+                yAxisConfig.maxValue ?? maxValue,
+              );
+              const commonProps = {
+                key: `y-axis-${idx}`,
+                showAxis: showYAxis,
+                allowDecimals,
+                orientation: yAxisConfig.orientation,
+                yAxisId: idx,
+                label: yAxisLabel,
+                layout,
+                xAxisCount: xAxisConfigs.length,
+              };
+              return layout && layout === "vertical"
+                ? renderVerticalYAxis({
+                    ...commonProps,
+                    intervalType,
+                    startEndOnly,
+                    data,
+                    minTickGap: tickGap,
+                    dataKey: index,
+                  })
+                : renderHorizontalYAxis({
+                    ...commonProps,
+                    width: yAxisWidth,
+                    domain,
+                    valueFormatter: yAxisConfig.valueFormatter ?? valueFormatter,
+                    relative,
+                  });
+            })}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
@@ -348,8 +251,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                         active={active}
                         payload={payload}
                         label={label}
-                        valueFormatter={valueFormatter}
+                        valueFormatters={yAxisValueFormatters}
                         categoryColors={categoryColors}
+                        index={index}
+                        xAxisCount={xAxisConfigs.length}
                       />
                     )
                 ) : (
@@ -376,27 +281,51 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 }
               />
             ) : null}
-            {categories.map((category) => (
-              <Bar
-                className={tremorTwMerge(
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.background,
-                  ).fillColor,
-                  onValueChange ? "cursor-pointer" : "",
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                stackId={stack || relative ? "a" : undefined}
-                dataKey={category}
-                fill=""
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
-                onClick={onBarClick}
-              />
-            ))}
+            {seriesData.map((series, seriesIndex) => {
+              return (
+                <>
+                  {categories.map((category, idx) => {
+                    const yAxisId =
+                      yAxisConfigs.length === 1
+                        ? 0
+                        : yAxisConfigs.findIndex((yAxisConfig) =>
+                            yAxisConfig.categories?.includes(category),
+                          );
+                    const xAxisId =
+                      xAxisConfigs.length === 1
+                        ? 0
+                        : xAxisConfigs.findIndex((xAxisConfig) =>
+                            xAxisConfig.series?.includes(series.name),
+                          );
+                    const dataRange = series.data
+                      .filter((d: any) => d[category])
+                      .map((d: any) => ({
+                        [index]: d[index],
+                        [category]: d[category],
+                      }));
+                    return renderBar({
+                      key: ["bar", series.name, category].filter(Boolean).join("-"),
+                      name: [series.name, category].filter(Boolean).join("-"),
+                      seriesIndex,
+                      category,
+                      color: categoryColors.get(category),
+                      activeBar,
+                      activeLegend,
+                      onValueChange,
+                      onBarClick,
+                      stackId: stack || relative ? "a" : undefined,
+                      yAxisId: yAxisId === -1 ? idx : yAxisId,
+                      xAxisId: xAxisId === -1 ? seriesIndex : xAxisId,
+                      data: dataRange,
+                      showAnimation,
+                      animationDuration,
+                      xAxisCount: xAxisConfigs.length,
+                      layout,
+                    });
+                  })}
+                </>
+              );
+            })}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />
