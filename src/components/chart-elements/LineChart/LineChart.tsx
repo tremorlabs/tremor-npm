@@ -133,6 +133,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     setActiveDot(undefined);
   }
 
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The LineChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/line-chart (This is only shown in development)",
+    );
+  }
+
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">

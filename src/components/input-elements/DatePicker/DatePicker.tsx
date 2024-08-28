@@ -80,6 +80,12 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
     setSelectedValue(undefined);
   };
 
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The DatePicker is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/date-picker (This is only shown in development)",
+    );
+  }
+
   return (
     <Popover
       ref={ref}
