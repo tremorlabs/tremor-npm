@@ -1,7 +1,7 @@
 <br />
 <br />
 <p align="center">
-  <a href="https://tremor.so">
+  <a href="https://npm.tremor.so">
     <picture>
        <source media="(prefers-color-scheme: dark)" srcset="images/tremor-logo-dark.svg">
       <source media="(prefers-color-scheme: light)" srcset="images/tremor-logo-light.svg">
@@ -14,10 +14,10 @@
 <br />
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/@tremor/react">
+  <a href="https://npmjs.com/package/@tremor/react">
     <img alt="npm" src="https://img.shields.io/npm/dm/@tremor/react?color=3b82f6&label=npm&logo=npm&labelColor=334155">
   </a>
-  <a href="https://tremor.so/docs/getting-started/introduction">
+  <a href="https://npm.tremor.so/docs/getting-started/installation">
     <img alt="Read the documentation" src="https://img.shields.io/badge/Docs-blue?style=flat&logo=readthedocs&color=3b82f6&labelColor=334155&logoColor=f5f5f5" height="20" width="auto">
   </a>
   <a href="https://github.com/tremorlabs/tremor/blob/main/License">
@@ -31,14 +31,14 @@
   </a>
 </div>
 <h3 align="center">
-  <a href="https://www.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
-  <a href="https://www.tremor.so">Website</a>
+  <a href="https://npm.tremor.so/docs/getting-started/installation">Documentation</a> &bull;
+  <a href="https://npm.tremor.so">Website</a>
 </h3>
 <br />
   <h1>React components to build charts and dashboards</h1>
 </div>
 
-[Tremor](https://tremor.so/) 20+ open-source components built on top of Tailwind CSS to make visualizing data simple again. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
+[Tremor NPM](https://npm.tremor.so/) 20+ open-source components built on top of Tailwind CSS to make visualizing data simple again. Fully open-source, made by data scientists and software engineers with a sweet spot for design.
 
 <br />
 
@@ -48,7 +48,7 @@
 
 ## Getting Started
 
-See our [Installation Guide](https://www.tremor.so/docs/getting-started/installation). To make use of the library we also need Tailwind CSS setup in the project.
+See our [Installation Guide](https://npm.tremor.so/docs/getting-started/installation). To make use of the library we also need Tailwind CSS setup in the project.
 
 ## Example
 
@@ -104,7 +104,7 @@ export default function Example() {
 
 ## Community and Contribution
 
-We are always looking for new ideas or other ways to improve Tremor. If you have developed anything cool or found a bug, send us a pull request. Check out our Contributor License Agreement [here](https://www.tremor.so/contributors).
+We are always looking for new ideas or other ways to improve Tremor NPM. If you have developed anything cool or found a bug, send us a pull request. Check out our Contributor License Agreement [here](https://tremor.so/contributors).
 
 ## License
 
