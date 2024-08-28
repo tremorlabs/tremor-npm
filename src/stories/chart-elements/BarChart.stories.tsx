@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { BarChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
@@ -98,10 +98,6 @@ export const CustomColors: Story = {
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const LongValues: Story = {
@@ -244,7 +240,7 @@ export const CustomTooltipSimple: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -279,7 +275,7 @@ export const CustomTooltipPreviousDay: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -323,7 +319,7 @@ export const CustomTooltipComplex: Story = {
     categories: ["Sales"],
     colors: customTooltipColors,
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -374,5 +370,25 @@ export const CustomTooltipComplex: Story = {
 export const Padding: Story = {
   args: {
     padding: { left: 0, right: 0 },
+  },
+};
+export const tickGap: Story = {
+  args: {
+    data: longBaseChartData,
+    tickGap: 200,
+  },
+};
+
+export const barCategoryGap: Story = {
+  args: {
+    data: data,
+    barCategoryGap: "20%",
+  },
+};
+
+export const AxisLabels: Story = {
+  args: {
+    xAxisLabel: "Month of Year",
+    yAxisLabel: "Amount (USD)",
   },
 };

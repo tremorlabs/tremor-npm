@@ -11,6 +11,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Label,
 } from "recharts";
 
 import BaseChartProps from "../common/BaseChartProps";
@@ -60,6 +61,7 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
+  barCategoryGap?: string | number;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -88,8 +90,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     allowDecimals = true,
     noDataText,
     onValueChange,
+    enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    barCategoryGap,
+    tickGap = 5,
+    xAxisLabel,
+    yAxisLabel,
     className,
     enableLegendSlider = false,
     padding = !showXAxis && !showYAxis ? { left: 0, right: 0 } : { left: 20, right: 20 },
@@ -144,6 +151,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsBarChart
+            barCategoryGap={barCategoryGap}
             data={data}
             stackOffset={stack ? "sign" : relative ? "expand" : "none"}
             layout={layout === "vertical" ? "vertical" : "horizontal"}
@@ -156,6 +164,12 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   }
                 : undefined
             }
+            margin={{
+              bottom: xAxisLabel ? 30 : undefined,
+              left: yAxisLabel ? 20 : undefined,
+              right: yAxisLabel ? 5 : undefined,
+              top: 5,
+            }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -195,7 +209,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
-              />
+                minTickGap={tickGap}
+              >
+                {xAxisLabel && (
+                  <Label
+                    position="insideBottom"
+                    offset={-20}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {xAxisLabel}
+                  </Label>
+                )}
+              </XAxis>
             ) : (
               <XAxis
                 hide={!showXAxis}
@@ -215,12 +240,22 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
-                minTickGap={5}
+                minTickGap={tickGap}
                 allowDecimals={allowDecimals}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
-              />
+              >
+                {xAxisLabel && (
+                  <Label
+                    position="insideBottom"
+                    offset={-20}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {xAxisLabel}
+                  </Label>
+                )}
+              </XAxis>
             )}
             {layout !== "vertical" ? (
               <YAxis
@@ -245,7 +280,19 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
                 allowDecimals={allowDecimals}
-              />
+              >
+                {yAxisLabel && (
+                  <Label
+                    position="insideLeft"
+                    style={{ textAnchor: "middle" }}
+                    angle={-90}
+                    offset={-15}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {yAxisLabel}
+                  </Label>
+                )}
+              </YAxis>
             ) : (
               <YAxis
                 width={yAxisWidth}
@@ -267,7 +314,19 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   // dark
                   "dark:fill-dark-tremor-content",
                 )}
-              />
+              >
+                {yAxisLabel && (
+                  <Label
+                    position="insideLeft"
+                    style={{ textAnchor: "middle" }}
+                    angle={-90}
+                    offset={-15}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {yAxisLabel}
+                  </Label>
+                )}
+              </YAxis>
             )}
             <Tooltip
               wrapperStyle={{ outline: "none" }}

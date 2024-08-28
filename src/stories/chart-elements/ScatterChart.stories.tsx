@@ -3,7 +3,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ScatterChart } from "components";
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { Color } from "lib";
 import {
   simpleScatterChartData as data,
@@ -80,6 +80,14 @@ export const NoDataText: Story = {
   },
 };
 
+export const Animation: Story = {
+  args: { showAnimation: true },
+};
+
+export const LongAnimationDuration: Story = {
+  args: { showAnimation: true, animationDuration: 5000 },
+};
+
 export const OnValueChange: Story = {
   args: {
     onValueChange: (value) => alert(JSON.stringify(value)),
@@ -149,7 +157,7 @@ export const CustomTooltip: Story = {
   args: {
     colors: customTooltipColors,
     category: customTooltipIndex,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
 
@@ -174,5 +182,18 @@ export const CustomTooltip: Story = {
         </div>
       );
     },
+  },
+};
+
+export const tickGap: Story = {
+  args: {
+    tickGap: 500,
+  },
+};
+
+export const AxisLabels: Story = {
+  args: {
+    xAxisLabel: "Month of Year",
+    yAxisLabel: "Amount (USD)",
   },
 };

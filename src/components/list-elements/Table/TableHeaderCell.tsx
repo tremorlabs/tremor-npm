@@ -1,11 +1,11 @@
-import { makeClassName, spacing, tremorTwMerge } from "lib";
 import React from "react";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeTableHeaderCellClassName = makeClassName("TableHeaderCell");
 
 const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
-  React.HTMLAttributes<HTMLTableCellElement>
+  React.ThHTMLAttributes<HTMLTableCellElement>
 >((props, ref) => {
   const { children, className, ...other } = props;
   return (
@@ -15,14 +15,11 @@ const TableHeaderCell = React.forwardRef<
         className={tremorTwMerge(
           makeTableHeaderCellClassName("root"),
           // common
-          "whitespace-nowrap text-left font-semibold",
+          "whitespace-nowrap text-left font-semibold top-0 px-4 py-3.5",
           // light
-          "text-tremor-content",
+          "text-tremor-content-strong",
           // dark
-          "dark:text-dark-tremor-content",
-          spacing.none.top,
-          spacing.twoXl.paddingX,
-          spacing.xl.paddingY,
+          "dark:text-dark-tremor-content-strong",
           className,
         )}
         {...other}

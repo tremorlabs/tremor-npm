@@ -56,7 +56,7 @@ module.exports = {
             emphasis: colors.gray[300],
           },
           border: {
-            DEFAULT: colors.gray[700],
+            DEFAULT: colors.gray[800],
           },
           ring: {
             DEFAULT: colors.gray[800],
@@ -86,7 +86,7 @@ module.exports = {
         "tremor-full": "9999px",
       },
       fontSize: {
-        "tremor-label": ["0.75rem"],
+        "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
         "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
         "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],

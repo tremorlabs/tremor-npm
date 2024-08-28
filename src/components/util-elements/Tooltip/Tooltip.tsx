@@ -13,7 +13,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { spacing, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React, { useState } from "react";
 
 export const useTooltip = (delay?: number) => {
@@ -83,13 +83,11 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
     <div
       className={tremorTwMerge(
         // common
-        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100",
+        "max-w-xs text-sm z-20 rounded-tremor-default opacity-100 px-2.5 py-1",
         // light
         "text-white bg-tremor-background-emphasis",
         // dark
-        "text-white dark:bg-dark-tremor-background-subtle",
-        spacing.md.paddingX,
-        spacing.twoXs.paddingY,
+        "dark:text-tremor-content-emphasis dark:bg-white",
       )}
       ref={refs.setFloating}
       style={{

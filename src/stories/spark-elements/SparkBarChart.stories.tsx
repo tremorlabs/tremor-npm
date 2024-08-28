@@ -10,6 +10,7 @@ import {
 } from "../chart-elements/helpers/testData";
 import { SparkBarChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
+import { smallVariantionDatas } from "./helpers/testData";
 
 const meta: Meta<typeof SparkBarChart> = {
   title: "Visualizations/Chart/SparkBarChart",
@@ -57,10 +58,6 @@ export const CustomColors: Story = {
 
 export const ChangedCategoriesOrder: Story = {
   args: { categories: ["Successful Payments", "Sales"] },
-};
-
-export const LessColorsThanCategories: Story = {
-  args: { colors: ["green"] },
 };
 
 export const NoData: Story = {
@@ -132,4 +129,13 @@ export const WithCard: Story = {
       </ExampleCard>
     ),
   ],
+};
+
+export const WithAutoMinValue: Story = {
+  args: {
+    data: smallVariantionDatas,
+    index: "ts",
+    categories: ["avg_price"],
+    autoMinValue: true,
+  },
 };

@@ -93,7 +93,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           disabled={disabled}
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
-            "w-10 h-5 group relative inline-flex flex-shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
+            "w-10 h-5 group relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
             "focus:outline-none",
             disabled ? "cursor-not-allowed" : "",
           )}
@@ -132,7 +132,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         <p
           className={tremorTwMerge(
             makeSwitchClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1 ",
+            "text-sm text-red-500 mt-1 ",
           )}
         >
           {errorMessage}

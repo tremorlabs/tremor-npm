@@ -6,6 +6,10 @@ import { Card, Tracker } from "components";
 import { TrackerBlockProps } from "components/vis-elements/Tracker/Tracker";
 
 const data: TrackerBlockProps[] = [
+  { color: "emerald", tooltip: "Tracker Info asjdfh sk as df sdjfhksadfhjjh asdjfhsk fsk" },
+  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "red", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
@@ -13,15 +17,11 @@ const data: TrackerBlockProps[] = [
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
-  { color: "red", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
-  { color: "emerald", tooltip: "Tracker Info" },
+  { color: "emerald", tooltip: "Tracker Info  asjdfh sk as df sdjfhksadfhjjh asdjfhsk fsk" },
   { color: "yellow", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
   { color: "emerald", tooltip: "Tracker Info" },
@@ -129,4 +129,19 @@ export const MaxWidthXs: Story = {
       <Tracker data={data.slice(60, 90)} className="mt-3" />
     </Card>
   ),
+};
+
+export const CustomColors: Story = {
+  args: {
+    data: [
+      { color: "#32a852", tooltip: "Tracker Info" },
+      { color: "#fcba03", tooltip: "Tracker Info" },
+      { color: "orange-500", tooltip: "Tracker Info" },
+      { color: "purple-100", tooltip: "Tracker Info" },
+      { color: "purple-300", tooltip: "Tracker Info" },
+      { color: "purple-500", tooltip: "Tracker Info" },
+      { color: "purple-700", tooltip: "Tracker Info" },
+      { color: "purple-900", tooltip: "Tracker Info" },
+    ],
+  },
 };

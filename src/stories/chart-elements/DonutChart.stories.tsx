@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { DonutChart } from "components";
 
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import { currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data2,
@@ -144,7 +144,7 @@ export const CustomTooltipSimple: Story = {
     index: "month",
     category: "Sales",
     valueFormatter: currencyValueFormatter,
-    customTooltip: (props: CustomTooltipType) => {
+    customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
       const categoryPayload = payload?.[0];

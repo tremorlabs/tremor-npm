@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
   ZAxis,
+  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -26,7 +27,7 @@ import {
   getYAxisDomain,
 } from "../common/utils";
 
-import { CustomTooltipType } from "components/chart-elements/common/CustomTooltipProps";
+import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import {
   BaseColors,
   colorPalette,
@@ -73,12 +74,15 @@ export interface ScatterChartProps
   noDataText?: string;
   enableLegendSlider?: boolean;
   onValueChange?: (value: EventProps) => void;
-  customTooltip?: React.ComponentType<CustomTooltipType>;
+  customTooltip?: React.ComponentType<CustomTooltipProps>;
   rotateLabelX?: {
     angle: number;
     verticalShift: number;
     xAxisHeight: number;
   };
+  tickGap?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -138,6 +142,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     rotateLabelX,
     className,
     enableLegendSlider = false,
+    tickGap = 5,
+    xAxisLabel,
+    yAxisLabel,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -200,7 +207,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   }
                 : undefined
             }
-            margin={{ left: 20, right: 20 }}
+            margin={{
+              bottom: xAxisLabel ? 20 : undefined,
+              left: 20,
+              right: 20,
+              top: 5,
+            }}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -238,13 +250,23 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
-                minTickGap={5}
+                minTickGap={tickGap}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
                 height={rotateLabelX?.xAxisHeight}
-              />
+              >
+                {xAxisLabel && (
+                  <Label
+                    position="insideBottom"
+                    offset={-20}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {xAxisLabel}
+                  </Label>
+                )}
+              </XAxis>
             ) : null}
             {y ? (
               <YAxis
@@ -270,7 +292,19 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 )}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}
-              />
+              >
+                {yAxisLabel && (
+                  <Label
+                    position="insideLeft"
+                    style={{ textAnchor: "middle" }}
+                    angle={-90}
+                    offset={-15}
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  >
+                    {yAxisLabel}
+                  </Label>
+                )}
+              </YAxis>
             ) : null}
             <Tooltip
               wrapperStyle={{ outline: "none" }}

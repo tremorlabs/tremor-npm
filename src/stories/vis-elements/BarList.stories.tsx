@@ -24,9 +24,9 @@ const getData = (
   additionalItems: BarListProps["data"] = [],
 ) => {
   const basicData = [
-    { name: "/home", value: 100000000 },
-    { name: "/imprint", value: 351 },
+    { name: "/home", value: 10000 },
     { name: "/cancellation", value: 271 },
+    { name: "/imprint", value: 3351 },
     {
       name: `/special-offer-august-getsahdkjhagskdfjhgakshjgdfkjahsgdfjkgasdjkhfgajkshgdfjkhagsdkjhfgajhksdgfjkhasdg
           fjkhagsdjhkgfasjkdgfjkasdhgkjgfdsk`,
@@ -73,6 +73,7 @@ export const Colors: Story = {
   args: {
     data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
     valueFormatter: (value) => `${value} USD`,
+    onValueChange: (data) => alert(JSON.stringify(data)),
   },
 };
 
@@ -81,5 +82,36 @@ export const IndividualColors: Story = {
   args: {
     data: getData(["blue", "amber", "cyan", "emerald", "indigo"].map((color) => ({ color }))),
     valueFormatter: (value) => `${value} USD`,
+  },
+};
+
+export const WithOnValueChange: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    onValueChange: (data) => alert(JSON.stringify(data)),
+  },
+};
+
+export const SortOrderDescending: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+  },
+};
+
+export const SortOrderAscending: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    sortOrder: "ascending",
+  },
+};
+
+export const SortOrderNone: Story = {
+  render: (args) => <BarList {...args} />,
+  args: {
+    data: getData(),
+    sortOrder: "none",
   },
 };

@@ -1,14 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 
-import {
-  getColorClassNames,
-  makeClassName,
-  sizing,
-  spacing,
-  themeColorRange,
-  Color,
-  tremorTwMerge,
-} from "lib";
+import { getColorClassNames, makeClassName, themeColorRange, Color, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
 import { ChevronLeftFill, ChevronRightFill } from "assets";
 
@@ -44,11 +36,8 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
     >
       <svg
         className={tremorTwMerge(
-          "flex-none",
+          "flex-none h-2 w-2 mr-1.5",
           getColorClassNames(color, colorPalette.text).textColor,
-          sizing.xs.height,
-          sizing.xs.width,
-          spacing.xs.marginRight,
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
         fill="currentColor"
@@ -111,7 +100,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         makeLegendClassName("legendSliderButton"),
         // common
         "w-5 group inline-flex items-center truncate rounded-tremor-small transition",
-        disabled ? "cursor-not-allowed" : "ursor-pointer",
+        disabled ? "cursor-not-allowed" : "cursor-pointer",
         // light
         disabled
           ? "text-tremor-content-subtle"
@@ -164,6 +153,8 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);
+  const scrollButtonsRef = React.useRef<HTMLDivElement>(null);
+
   const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null);
   const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -181,11 +172,16 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const scrollToTest = useCallback(
     (direction: "left" | "right") => {
       const element = scrollableRef?.current;
+      const scrollButtons = scrollButtonsRef?.current;
       const width = element?.clientWidth ?? 0;
+      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0;
 
       if (element && enableLegendSlider) {
         element.scrollTo({
-          left: direction === "left" ? element.scrollLeft - width : element.scrollLeft + width,
+          left:
+            direction === "left"
+              ? element.scrollLeft - width + scrollButtonsWith
+              : element.scrollLeft + width - scrollButtonsWith,
           behavior: "smooth",
         });
         setTimeout(() => {
@@ -267,7 +263,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           <LegendItem
             key={`item-${idx}`}
             name={category}
-            color={colors[idx]}
+            color={colors[idx % colors.length]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />
@@ -277,18 +273,14 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         <>
           <div
             className={tremorTwMerge(
-              "absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-white to-transparent pointer-events-none",
+              // light mode
+              "bg-tremor-background",
+              // dark mode
+              "dark:bg-dark-tremor-background",
+              // common
+              "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full",
             )}
-          />
-          <div
-            className={tremorTwMerge(
-              "absolute top-0 bottom-0 right-10 w-4 bg-gradient-to-r from-transparent to-white pointer-events-none",
-            )}
-          />
-          <div
-            className={tremorTwMerge(
-              "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full bg-tremor-background",
-            )}
+            ref={scrollButtonsRef}
           >
             <ScrollButton
               icon={ChevronLeftFill}

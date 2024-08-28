@@ -1,15 +1,12 @@
 "use client";
-import React from "react";
-import { tremorTwMerge } from "../../../lib";
-
+import React, { useMemo } from "react";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import {
   getColorClassNames,
   makeClassName,
-  sizing,
-  spacing,
   sumNumericArray,
   themeColorRange,
+  tremorTwMerge,
 } from "lib";
 import { colorPalette } from "lib/theme";
 import { Color } from "../../../lib";
@@ -35,37 +32,42 @@ const getMarkerBgColor = (
   return "";
 };
 
+const getPositionLeft = (value: number | undefined, maxValue: number): number =>
+  value ? (value / maxValue) * 100 : 0;
+
 const BarLabels = ({ values }: { values: number[] }) => {
-  const sumValues = sumNumericArray(values);
+  const sumValues = useMemo(() => sumNumericArray(values), [values]);
   let prefixSum = 0;
-  let sumConsecutveHiddenLabels = 0;
+  let sumConsecutiveHiddenLabels = 0;
   return (
     <div
       className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
         // common
-        "relative flex w-full text-tremor-default",
+        "relative flex w-full text-tremor-default h-5 mb-2",
         // light
         "text-tremor-content",
         // dark
         "dark:text-dark-tremor-content",
-        spacing.sm.marginBottom,
-        sizing.lg.height,
       )}
     >
       {values.slice(0, values.length).map((widthPercentage, idx) => {
         prefixSum += widthPercentage;
         const showLabel =
-          (widthPercentage >= 0.1 * sumValues || sumConsecutveHiddenLabels >= 0.09 * sumValues) &&
+          (widthPercentage >= 0.1 * sumValues || sumConsecutiveHiddenLabels >= 0.09 * sumValues) &&
           sumValues - prefixSum >= 0.15 * sumValues &&
           prefixSum >= 0.1 * sumValues;
-        sumConsecutveHiddenLabels = showLabel ? 0 : (sumConsecutveHiddenLabels += widthPercentage);
+        sumConsecutiveHiddenLabels = showLabel
+          ? 0
+          : (sumConsecutiveHiddenLabels += widthPercentage);
+
+        const widthPositionLeft = getPositionLeft(widthPercentage, sumValues);
 
         return (
           <div
             key={`item-${idx}`}
             className="flex items-center justify-end"
-            style={{ width: `${widthPercentage}%` }}
+            style={{ width: `${widthPositionLeft}%` }}
           >
             <span
               className={tremorTwMerge(showLabel ? "block" : "hidden", "left-1/2 translate-x-1/2")}
@@ -75,10 +77,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
           </div>
         );
       })}
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.left)}>
-        0
-      </div>
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center", spacing.none.right)}>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center left-0")}>0</div>
+      <div className={tremorTwMerge("absolute bottom-0 flex items-center right-0")}>
         {sumValues}
       </div>
     </div>
@@ -106,9 +106,19 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
     ...other
   } = props;
 
-  const markerBgColor = getMarkerBgColor(markerValue, values, colors);
+  const markerBgColor = useMemo(
+    () => getMarkerBgColor(markerValue, values, colors),
+    [markerValue, values, colors],
+  );
 
   const { tooltipProps, getReferenceProps } = useTooltip();
+
+  const maxValue = useMemo(() => sumNumericArray(values), [values]);
+
+  const markerPositionLeft: number = useMemo(
+    () => getPositionLeft(markerValue, maxValue),
+    [markerValue, maxValue],
+  );
 
   return (
     <>
@@ -122,8 +132,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         <div
           className={tremorTwMerge(
             makeCategoryBarClassName("barWrapper"),
-            "relative w-full flex items-center",
-            sizing.xs.height,
+            "relative w-full flex items-center h-2",
           )}
         >
           <div
@@ -134,6 +143,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
           >
             {values.map((value, idx) => {
               const baseColor = colors[idx] ?? "gray";
+              const percentage = (value / maxValue) * 100;
               return (
                 <div
                   key={`item-${idx}`}
@@ -142,7 +152,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                     "h-full",
                     getColorClassNames(baseColor, colorPalette.background).bgColor,
                   )}
-                  style={{ width: `${value}%` }}
+                  style={{ width: `${percentage}%` }}
                 />
               );
             })}
@@ -152,11 +162,10 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
                 makeCategoryBarClassName("markerWrapper"),
-                "absolute right-1/2 -translate-x-1/2",
-                sizing.lg.width,
+                "absolute right-1/2 -translate-x-1/2 w-5",
               )}
               style={{
-                left: `${markerValue}%`,
+                left: `${markerPositionLeft}%`,
                 transition: showAnimation ? "all 1s" : "",
               }}
               {...getReferenceProps}
@@ -165,14 +174,12 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 className={tremorTwMerge(
                   makeCategoryBarClassName("marker"),
                   // common
-                  "ring-2 mx-auto rounded-tremor-full",
+                  "ring-2 mx-auto rounded-tremor-full h-4 w-1",
                   // light
                   "ring-tremor-brand-inverted",
                   // dark
                   "dark:ring-dark-tremor-brand-inverted",
                   markerBgColor,
-                  sizing.md.height,
-                  sizing.twoXs.width,
                 )}
               />
             </div>

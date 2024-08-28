@@ -1,9 +1,9 @@
 "use client";
-import { tremorTwMerge } from "lib";
+
 import React from "react";
 
 import { RootStylesContext } from "contexts";
-import { border, makeClassName } from "lib";
+import { makeClassName, tremorTwMerge } from "lib";
 
 const makeAccordionListClassName = makeClassName("AccordionList");
 
@@ -33,15 +33,7 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
       {React.Children.map(children, (child, idx) => {
         if (idx === 0) {
           return (
-            <RootStylesContext.Provider
-              value={tremorTwMerge(
-                "rounded-t-tremor-default",
-                border.sm.left,
-                border.sm.top,
-                border.sm.right,
-                border.sm.bottom,
-              )}
-            >
+            <RootStylesContext.Provider value={tremorTwMerge("rounded-t-tremor-default border")}>
               {React.cloneElement(child)}
             </RootStylesContext.Provider>
           );
@@ -49,21 +41,14 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={tremorTwMerge(
-                "rounded-b-tremor-default",
-                border.sm.left,
-                border.sm.right,
-                border.sm.bottom,
-              )}
+              value={tremorTwMerge("rounded-b-tremor-default border-l border-r border-b")}
             >
               {React.cloneElement(child)}
             </RootStylesContext.Provider>
           );
         }
         return (
-          <RootStylesContext.Provider
-            value={tremorTwMerge(border.sm.left, border.sm.right, border.sm.bottom)}
-          >
+          <RootStylesContext.Provider value={tremorTwMerge("border-l border-r border-b")}>
             {React.cloneElement(child)}
           </RootStylesContext.Provider>
         );

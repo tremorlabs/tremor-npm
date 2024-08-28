@@ -87,6 +87,20 @@ export const WithTypePassword: Story = {
   },
 };
 
+export const WithTypePasswordError: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "password",
+    error: true,
+  },
+};
+
+export const WithAutoFocus: Story = {
+  args: {
+    autoFocus: true,
+  },
+};
+
 export const WithTypeEmail: Story = {
   render: SimpleTextInput,
   args: {
@@ -98,5 +112,12 @@ export const WithTypeUrl: Story = {
   render: SimpleTextInput,
   args: {
     type: "url",
+  },
+};
+
+export const WithTypeSearch: Story = {
+  render: SimpleTextInput,
+  args: {
+    type: "search",
   },
 };

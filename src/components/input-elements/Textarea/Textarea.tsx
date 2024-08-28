@@ -1,8 +1,9 @@
 "use client";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { useInternalState } from "hooks";
-import { border, makeClassName, mergeRefs, tremorTwMerge } from "lib";
-import React, { useRef } from "react";
+
+import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
+import React, { useEffect, useRef } from "react";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   defaultValue?: string | number;
@@ -10,6 +11,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
+  autoHeight?: boolean;
   onValueChange?: (value: any) => void;
 }
 
@@ -26,6 +28,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
     className,
     onChange,
     onValueChange,
+    autoHeight = false,
     ...other
   } = props;
   const [val, setVal] = useInternalState(defaultValue, value);
@@ -33,6 +36,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const hasSelection = hasValue(val);
+
+  useEffect(() => {
+    const textAreaHTMLRef = inputRef.current;
+    if (autoHeight && textAreaHTMLRef) {
+      textAreaHTMLRef.style.height = "60px";
+      // Calculates the height dynamically
+      const scrollHeight = textAreaHTMLRef.scrollHeight;
+      textAreaHTMLRef.style.height = scrollHeight + "px";
+    }
+  }, [autoHeight, inputRef, val]);
 
   return (
     <>
@@ -44,7 +57,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         className={tremorTwMerge(
           makeTextareaClassName("Textarea"),
           // common
-          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100",
+          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100 border",
           // light
           "shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
@@ -53,7 +66,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
           disabled
             ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"
             : "placeholder:text-tremor-content dark:placeholder:text-dark-tremor-content",
-          border.sm.all,
           className,
         )}
         data-testid="text-area"
@@ -68,7 +80,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         <p
           className={tremorTwMerge(
             makeTextareaClassName("errorMessage"),
-            "text-sm text-rose-500 mt-1",
+            "text-sm text-red-500 mt-1",
           )}
         >
           {errorMessage}

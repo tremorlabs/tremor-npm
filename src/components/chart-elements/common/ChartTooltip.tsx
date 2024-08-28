@@ -1,20 +1,22 @@
 import React from "react";
-import { tremorTwMerge } from "../../../lib";
-
-import { BaseColors, border, getColorClassNames, sizing, spacing } from "lib";
-import { colorPalette } from "lib/theme";
-import { Color, ValueFormatter } from "../../../lib";
+import {
+  BaseColors,
+  getColorClassNames,
+  tremorTwMerge,
+  Color,
+  ValueFormatter,
+  colorPalette,
+} from "lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
       // common
-      "rounded-tremor-default text-tremor-default",
+      "rounded-tremor-default text-tremor-default border",
       // light
       "bg-tremor-background shadow-tremor-dropdown border-tremor-border",
       // dark
       "dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
-      border.sm.all,
     )}
   >
     {children}
@@ -33,15 +35,12 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
       <span
         className={tremorTwMerge(
           // common
-          "shrink-0 rounded-tremor-full",
+          "shrink-0 rounded-tremor-full border-2 h-3 w-3",
           // light
           "border-tremor-background shadow-tremor-card",
           // dark
           "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
           getColorClassNames(color, colorPalette.background).bgColor,
-          sizing.sm.height,
-          sizing.sm.width,
-          border.md.all,
         )}
       />
       <p
@@ -95,12 +94,9 @@ const ChartTooltip = ({
         <div
           className={tremorTwMerge(
             // light
-            "border-tremor-border",
+            "border-tremor-border border-b px-4 py-2",
             // dark
             "dark:border-dark-tremor-border",
-            spacing.twoXl.paddingX,
-            spacing.sm.paddingY,
-            border.sm.bottom,
           )}
         >
           <p
@@ -117,7 +113,7 @@ const ChartTooltip = ({
           </p>
         </div>
 
-        <div className={tremorTwMerge(spacing.twoXl.paddingX, spacing.sm.paddingY, "space-y-1")}>
+        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
           {filteredPayload.map(({ value, name }: { value: number; name: string }, idx: number) => (
             <ChartTooltipRow
               key={`id-${idx}`}

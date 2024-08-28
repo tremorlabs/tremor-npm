@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, MultiSelect, MultiSelectItem } from "components";
+import { Button, MultiSelect, MultiSelectItem, TextInput } from "components";
 
 export const SimpleMultiSelect = (args: any) => (
   <MultiSelect {...args}>
@@ -22,12 +22,34 @@ export const SimpleMultiSelectWithStaticAndDynamicChildren = (args: any) => {
   );
 };
 
+export const SimpleMultiSelectForm = (args: any) => {
+  return (
+    <form
+      className="flex flex-col gap-3 items-start max-w-md"
+      method="GET"
+      action="http://localhost:6006/"
+    >
+      <label htmlFor="path" className="w-full">
+        <p>Redirect path</p>
+        <TextInput name="path" id="path" defaultValue="/story/ui-input-multiselect--form" />
+      </label>
+      <label htmlFor="multi-select-test">Label</label>
+      <MultiSelect {...args} name="MultiSelect" id="multi-select-test">
+        <MultiSelectItem value={"5"}>Five</MultiSelectItem>
+        <MultiSelectItem value={"3"}>Three</MultiSelectItem>
+        <MultiSelectItem value={"1"}>One</MultiSelectItem>
+      </MultiSelect>
+      <Button type="submit">Submit</Button>
+      <p>You will find your selected value in the URL params after submiting the form</p>
+    </form>
+  );
+};
+
 export const SimpleMultiSelectControlled = () => {
   const [value, setValue] = React.useState<string[]>([]);
 
   const handleValueChange = (values: string[]) => {
     setValue(values);
-    // You can perform any additional actions here when the value changes.
   };
 
   const handleReset = () => {
@@ -40,11 +62,7 @@ export const SimpleMultiSelectControlled = () => {
 
   return (
     <div className="space-y-2">
-      <MultiSelect
-        value={value}
-        onValueChange={handleValueChange}
-        // Add any other props you need
-      >
+      <MultiSelect value={value} onValueChange={handleValueChange}>
         <MultiSelectItem value="1">One</MultiSelectItem>
         <MultiSelectItem value="2">Two</MultiSelectItem>
         <MultiSelectItem value="3">Three</MultiSelectItem>
@@ -56,11 +74,7 @@ export const SimpleMultiSelectControlled = () => {
         <MultiSelectItem value="9">Nine</MultiSelectItem>
         <MultiSelectItem value="10">Ten</MultiSelectItem>
       </MultiSelect>
-      <MultiSelect
-        value={value}
-        onValueChange={handleValueChange}
-        // Add any other props you need
-      >
+      <MultiSelect value={value} onValueChange={handleValueChange}>
         <MultiSelectItem value="1">One</MultiSelectItem>
         <MultiSelectItem value="2">Two</MultiSelectItem>
         <MultiSelectItem value="3">Three</MultiSelectItem>
@@ -78,5 +92,3 @@ export const SimpleMultiSelectControlled = () => {
     </div>
   );
 };
-
-export default SimpleMultiSelectControlled;

@@ -1,13 +1,6 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import {
-  colorPalette,
-  getColorClassNames,
-  tremorTwMerge,
-  makeClassName,
-  sizing,
-  spacing,
-} from "lib";
+import { colorPalette, getColorClassNames, tremorTwMerge, makeClassName } from "lib";
 import React, { useContext } from "react";
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
@@ -21,33 +14,31 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
     case "line":
       return tremorTwMerge(
         // common
-        "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100",
+        "ui-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100 -mb-px px-2 py-2",
         // light
         "hover:border-tremor-content hover:text-tremor-content-emphasis text-tremor-content",
         // dark
-        "dark:hover:border-dark-tremor-content-emphasis dark:hover:text-dark-tremor-content-emphasis dark:text-dark-tremor-content",
+        "ui-not-selected:dark:hover:border-dark-tremor-content-emphasis ui-not-selected:dark:hover:text-dark-tremor-content-emphasis ui-not-selected:dark:text-dark-tremor-content",
         // brand
         color
           ? getColorClassNames(color, colorPalette.border).selectBorderColor
-          : "ui-selected:border-tremor-brand dark:ui-selected:border-dark-tremor-brand",
-        spacing.px.negativeMarginBottom,
-        spacing.sm.paddingX,
-        spacing.sm.paddingY,
+          : [
+              "ui-selected:border-tremor-brand ui-selected:text-tremor-brand",
+              "ui-selected:dark:border-dark-tremor-brand ui-selected:dark:text-dark-tremor-brand",
+            ],
       );
     case "solid":
       return tremorTwMerge(
         // common
-        "border-transparent border rounded-tremor-small",
+        "border-transparent border rounded-tremor-small px-2.5 py-1",
         // light
-        "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input hover:text-tremor-content-emphasis ui-selected:text-tremor-brand",
+        "ui-selected:border-tremor-border ui-selected:bg-tremor-background ui-selected:shadow-tremor-input ui-not-selected:hover:text-tremor-content-emphasis ui-selected:text-tremor-brand ui-not-selected:text-tremor-content",
         // dark
-        "dark:ui-selected:border-dark-tremor-border dark:ui-selected:bg-dark-tremor-background dark:ui-selected:shadow-dark-tremor-input dark:hover:text-dark-tremor-content-emphasis dark:ui-selected:text-dark-tremor-brand",
+        "dark:ui-selected:border-dark-tremor-border dark:ui-selected:bg-dark-tremor-background dark:ui-selected:shadow-dark-tremor-input dark:ui-not-selected:hover:text-dark-tremor-content-emphasis dark:ui-selected:text-dark-tremor-brand dark:ui-not-selected:text-dark-tremor-content",
         // brand
         color
           ? getColorClassNames(color, colorPalette.text).selectTextColor
           : "text-tremor-content dark:text-dark-tremor-content",
-        spacing.md.paddingX,
-        spacing.twoXs.paddingY,
       );
   }
 }
@@ -68,15 +59,10 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       className={tremorTwMerge(
         makeTabClassName("root"),
         // common
-        "flex whitespace-nowrap truncate max-w-xs outline-none focus:ring-0 text-tremor-default transition duration-100",
-        // brand
-        color
-          ? getColorClassNames(color, colorPalette.text).selectTextColor
-          : variant === "solid"
-          ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis"
-          : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
+        "flex whitespace-nowrap truncate max-w-xs outline-none ui-focus-visible:ring text-tremor-default transition duration-100",
         getVariantStyles(variant, color),
         className,
+        color && getColorClassNames(color, colorPalette.text).selectTextColor,
       )}
       {...other}
     >
@@ -84,10 +70,8 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeTabClassName("icon"),
-            "flex-none",
-            sizing.lg.height,
-            sizing.lg.width,
-            children ? spacing.sm.marginRight : "",
+            "flex-none h-5 w-5",
+            children ? "mr-2" : "",
           )}
         />
       ) : null}

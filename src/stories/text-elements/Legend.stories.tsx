@@ -68,7 +68,7 @@ export const ManyCategories: Story = {
   },
 };
 
-export const ManyCategoriesWithoutScroll: Story = {
+export const ManyCategoriesWithScroll: Story = {
   ...LegendTemplate,
   args: {
     categories: [
@@ -81,6 +81,54 @@ export const ManyCategoriesWithoutScroll: Story = {
       "Category C",
       "Category D",
     ],
-    enableLegendSlider: false,
+    enableLegendSlider: true,
+  },
+};
+
+export const MoreCategoriesThanColors: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: [
+      "Blueberry Pie",
+      "Electric Sheep",
+      "Moonlight Sonata",
+      "Quantum Leap",
+      "Crimson Clover",
+      "Neon Mirage",
+      "Solar Flare",
+      "Velvet Thunder",
+      "Silent Echo",
+      "Shadow Dance",
+      "Silver Lining",
+      "Golden Hour",
+      "Eclipse Chaser",
+      "Starry Night",
+      "Mystic Dawn",
+      "Enchanted Forest",
+      "Aurora Borealis",
+      "Dream Weaver",
+      "Celestial Harmony",
+      "Frosted Twilight",
+      "Thunderstrike",
+      "Lunar Eclipse",
+      "Galactic Voyage",
+    ],
+  },
+};
+
+export const CustomColors: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "blue"],
+  },
+};
+
+export const CustomColorsConClick: Story = {
+  ...LegendTemplate,
+  args: {
+    colors: ["red", "rose", "green", "#32a852"],
+    onClickLegendItem: (e) => {
+      console.log(e);
+    },
   },
 };

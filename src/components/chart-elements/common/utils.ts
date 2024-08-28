@@ -6,7 +6,7 @@ export const constructCategoryColors = (
 ): Map<string, Color | string> => {
   const categoryColors = new Map<string, Color | string>();
   categories.forEach((category, idx) => {
-    categoryColors.set(category, colors[idx]);
+    categoryColors.set(category, colors[idx % colors.length]);
   });
   return categoryColors;
 };
