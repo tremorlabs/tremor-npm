@@ -142,7 +142,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
   if (process.env.NODE_ENV === "development") {
     console.info(
-      "The AreaChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/area-chart",
+      "The AreaChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/area-chart (This is only shown in development)",
     );
   }
   return (

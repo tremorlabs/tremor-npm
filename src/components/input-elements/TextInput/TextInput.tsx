@@ -17,6 +17,11 @@ const makeTextInputClassName = makeClassName("TextInput");
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const { type = "text", ...other } = props;
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The TextInput is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/input (This is only shown in development)",
+    );
+  }
   return <BaseInput ref={ref} type={type} makeInputClassName={makeTextInputClassName} {...other} />;
 });
 

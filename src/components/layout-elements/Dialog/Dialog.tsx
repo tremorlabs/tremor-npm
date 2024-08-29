@@ -15,6 +15,11 @@ export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, ...other } = props;
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The Dialog is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/dialog (This is only shown in development)",
+    );
+  }
   return (
     <Transition as={React.Fragment} appear show={props.open}>
       <HeadlessuiDialog

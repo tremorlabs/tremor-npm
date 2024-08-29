@@ -35,6 +35,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   const { decoration = "", decorationColor, children, className, ...other } = props;
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The Card is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/card (This is only shown in development)",
+    );
+  }
   return (
     <div
       ref={ref}
