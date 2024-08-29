@@ -22,7 +22,11 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
 
   const rootStyles =
     useContext(RootStylesContext) ?? tremorTwMerge("rounded-tremor-default border");
-
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The Accordion is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/accordion (This is only shown in development)",
+    );
+  }
   return (
     <Disclosure
       as="div"

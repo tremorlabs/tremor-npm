@@ -59,6 +59,12 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
     onValueChange?.("");
   };
 
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The Select is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/select (This is only shown in development)",
+    );
+  }
+
   return (
     <div
       className={tremorTwMerge(
@@ -147,7 +153,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   </span>
                 )}
                 <span className="w-[90%] block truncate">
-                  {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+                  {value ? (valueToNameMapping.get(value) ?? placeholder) : placeholder}
                 </span>
                 <span
                   className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-3")}

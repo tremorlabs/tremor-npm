@@ -78,13 +78,15 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    padding = (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis)
+      ? { left: 0, right: 0 }
+      : { left: 20, right: 20 },
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
-  const paddingValue = (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
@@ -137,6 +139,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     }
     setActiveDot(undefined);
   }
+
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The AreaChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/area-chart (This is only shown in development)",
+    );
+  }
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
@@ -174,7 +182,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             <XAxis
-              padding={{ left: paddingValue, right: paddingValue }}
+              padding={padding}
               hide={!showXAxis}
               dataKey={index}
               tick={{ transform: "translate(0, 6)" }}

@@ -98,10 +98,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     xAxisLabel,
     yAxisLabel,
     className,
+    padding = !showXAxis && !showYAxis ? { left: 0, right: 0 } : { left: 20, right: 20 },
     ...other
   } = props;
   const CustomTooltip = customTooltip;
-  const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
   const categoryColors = constructCategoryColors(categories, colors);
   const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined);
@@ -144,7 +144,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     setActiveBar(undefined);
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
-
+  if (process.env.NODE_ENV === "development") {
+    console.info(
+      "The BarChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/bar-chart (This is only shown in development)",
+    );
+  }
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
@@ -187,7 +191,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
             {layout !== "vertical" ? (
               <XAxis
-                padding={{ left: paddingValue, right: paddingValue }}
+                padding={padding}
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}
