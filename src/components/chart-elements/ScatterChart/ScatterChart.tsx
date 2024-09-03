@@ -51,7 +51,7 @@ export interface ScatterChartProps
   data: any[];
   x: string;
   y: string;
-  category: string;
+  category?: string;
   size?: string;
   valueFormatter?: ScatterChartValueFormatter;
   sizeRange?: number[];
@@ -169,12 +169,21 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
       onValueChange?.(null);
     } else {
       setActiveNode(data.node);
-      setActiveLegend(data.payload[category]);
-      onValueChange?.({
-        eventType: "bubble",
-        categoryClicked: data.payload[category],
-        ...data.payload,
-      });
+
+      // set active legends and categoryClicked state only if category is not undefined (ie there are categories to click!)
+      if (category) {
+        setActiveLegend(data.payload[category]);
+        onValueChange?.({
+          eventType: "bubble",
+          categoryClicked: data.payload[category],
+          ...data.payload,
+        });
+      } else {
+        onValueChange?.({
+          eventType: "bubble",
+          ...data.payload,
+        });
+      }
     }
   }
 
@@ -193,8 +202,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     setActiveNode(undefined);
   }
 
+  console.log("category: ", category);
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
+
+  console.log("categories: ", categories);
+  console.log("categoryColors: ", categoryColors);
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -339,8 +352,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         label={color}
                         valueFormatter={valueFormatter}
                         axis={{ x: x, y: y, size: size }}
-                        category={category}
-                        categoryColors={categoryColors}
+                        category={category ? category : undefined}
+                        categoryColors={category ? categoryColors : undefined}
                       />
                     );
                   }
@@ -350,51 +363,87 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               }
             />
             {size ? <ZAxis dataKey={size} type="number" range={sizeRange} name={size} /> : null}
-            {categories.map((cat) => {
-              return (
-                <Scatter
-                  className={tremorTwMerge(
-                    getColorClassNames(
-                      categoryColors.get(cat) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).fillColor,
-                    showOpacity
-                      ? getColorClassNames(
-                          categoryColors.get(cat) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).strokeColor
-                      : "",
-                    onValueChange ? "cursor-pointer" : "",
-                  )}
-                  fill={`url(#${categoryColors.get(cat)})`}
-                  fillOpacity={showOpacity ? 0.7 : 1}
-                  key={cat}
-                  label={
-                    dataLabelOptions?.[category] == null
-                      ? undefined
-                      : {
-                          style: {
-                            fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
-                            fontWeight: "300",
-                            fill: categoryColors.get(category) ?? BaseColors.Gray,
-                            stroke: "#000",
-                            strokeWidth: 0.3,
-                          },
-                          position: dataLabelOptions[category].position ?? "top",
-                          offset: dataLabelOptions?.[category].offset ?? 10,
-                          angle: dataLabelOptions?.[category].angle ?? 0,
-                        }
-                  }
-                  name={cat}
-                  data={category ? data.filter((d) => d[category] === cat) : data}
-                  isAnimationActive={showAnimation}
-                  animationDuration={animationDuration}
-                  shape={(props: any) => renderShape(props, activeNode, activeLegend)}
-                  onClick={onNodeClick}
-                />
-              );
-            })}
-            {showLegend ? (
+            {category ? (
+              categories?.map((cat) => {
+                return (
+                  <Scatter
+                    className={tremorTwMerge(
+                      getColorClassNames(
+                        categoryColors.get(cat) ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).fillColor,
+                      showOpacity
+                        ? getColorClassNames(
+                            categoryColors.get(cat) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).strokeColor
+                        : "",
+                      onValueChange ? "cursor-pointer" : "",
+                    )}
+                    fill={`url(#${categoryColors.get(cat)})`}
+                    fillOpacity={showOpacity ? 0.7 : 1}
+                    key={cat}
+                    label={
+                      dataLabelOptions?.[category] == null
+                        ? undefined
+                        : {
+                            style: {
+                              fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
+                              fontWeight: "300",
+                              fill: categoryColors.get(category) ?? BaseColors.Gray,
+                              stroke: "#000",
+                              strokeWidth: 0.3,
+                            },
+                            position: dataLabelOptions[category].position ?? "top",
+                            offset: dataLabelOptions?.[category].offset ?? 10,
+                            angle: dataLabelOptions?.[category].angle ?? 0,
+                          }
+                    }
+                    name={cat}
+                    data={category ? data.filter((d) => d[category] === cat) : data}
+                    isAnimationActive={showAnimation}
+                    animationDuration={animationDuration}
+                    shape={(props: any) => renderShape(props, activeNode, activeLegend)}
+                    onClick={onNodeClick}
+                  />
+                );
+              })
+            ) : (
+              <Scatter
+                className={tremorTwMerge(
+                  getColorClassNames(BaseColors.Gray, colorPalette.text).fillColor,
+                  showOpacity
+                    ? getColorClassNames(BaseColors.Gray, colorPalette.text).strokeColor
+                    : "",
+                  onValueChange ? "cursor-pointer" : "",
+                )}
+                fill={`url(#000000)`}
+                fillOpacity={showOpacity ? 0.7 : 1}
+                // label={
+                //   dataLabelOptions?.[category] == null
+                //     ? undefined
+                //     : {
+                //         style: {
+                //           fontSize: `${dataLabelOptions?.[category].fontSize ?? 12}px`,
+                //           fontWeight: "300",
+                //           fill: categoryColors.get(category) ?? BaseColors.Gray,
+                //           stroke: "#000",
+                //           strokeWidth: 0.3,
+                //         },
+                //         position: dataLabelOptions[category].position ?? "top",
+                //         offset: dataLabelOptions?.[category].offset ?? 10,
+                //         angle: dataLabelOptions?.[category].angle ?? 0,
+                //       }
+                // }
+                // name={cat}
+                data={data}
+                isAnimationActive={showAnimation}
+                animationDuration={animationDuration}
+                shape={(props: any) => renderShape(props, activeNode, activeLegend)}
+                onClick={onNodeClick}
+              />
+            )}
+            {showLegend && category ? (
               <Legend
                 verticalAlign="top"
                 height={legendHeight}

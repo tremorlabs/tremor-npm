@@ -63,7 +63,7 @@ export const ChartTooltipRow = ({ value, name }: ChartTooltipRowProps) => (
 
 export interface ScatterChartTooltipProps {
   label: string;
-  categoryColors: Map<string, Color | string>;
+  categoryColors?: Map<string, Color | string>;
   active: boolean | undefined;
   payload: any;
   valueFormatter: ScatterChartValueFormatter;
@@ -103,8 +103,8 @@ const ScatterChartTooltip = ({
               "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
               getColorClassNames(
                 category
-                  ? categoryColors.get(payload?.[0]?.payload[category]) ?? BaseColors.Blue
-                  : BaseColors.Blue,
+                  ? categoryColors?.get(payload?.[0]?.payload[category]) ?? BaseColors.Gray
+                  : BaseColors.Gray,
                 colorPalette.background,
               ).bgColor,
             )}
