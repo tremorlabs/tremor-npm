@@ -72,6 +72,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     onValueChange,
     enableLegendSlider = false,
     customTooltip,
+    renderLabel,
     rotateLabelX,
     padding = !showXAxis && !showYAxis ? { left: 0, right: 0 } : { left: 20, right: 20 },
     tickGap = 5,
@@ -378,6 +379,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
+                label={renderLabel}
               />
             ))}
             {onValueChange
@@ -400,6 +402,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       const { name } = props;
                       onCategoryClick(name);
                     }}
+                    label={renderLabel}
                   />
                 ))
               : null}
