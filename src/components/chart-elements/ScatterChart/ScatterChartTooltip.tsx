@@ -104,7 +104,7 @@ const ScatterChartTooltip = ({
               getColorClassNames(
                 category
                   ? categoryColors.get(payload?.[0]?.payload[category]) ?? BaseColors.Blue
-                  : BaseColors.Blue,
+                  : categoryColors.get("cat_1") ?? BaseColors.Blue,
                 colorPalette.background,
               ).bgColor,
             )}

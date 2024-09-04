@@ -5,6 +5,12 @@ export const constructCategoryColors = (
   colors: (Color | string)[],
 ): Map<string, Color | string> => {
   const categoryColors = new Map<string, Color | string>();
+
+  // cat_1 key is a hardcoded key that allows access to a colour from a categoryless scatterchart. The colour is set to the first one passed in - default is blue if no custom colour provided.
+  if (categories.length === 0) {
+    categoryColors.set("cat_1", colors[0]);
+  }
+
   categories.forEach((category, idx) => {
     categoryColors.set(category, colors[idx % colors.length]);
   });

@@ -203,3 +203,63 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const NoCategory: Story = {
+  args: {
+    x: "x",
+    y: "y",
+    size: "z",
+    category: undefined,
+    data,
+    className: "h-72",
+  },
+};
+
+export const NoCategoryOtherColors: Story = {
+  args: {
+    x: "x",
+    y: "y",
+    size: "z",
+    category: undefined,
+    data,
+    className: "h-72",
+    colors: ["purple"],
+  },
+};
+
+export const NoCategoryOtherColorsCustomTooltip: Story = {
+  args: {
+    x: "x",
+    y: "y",
+    size: "z",
+    category: undefined,
+    data,
+    className: "h-72",
+    colors: ["green"],
+    customTooltip: (props: CustomTooltipProps) => {
+      const { payload, active, label } = props;
+      if (!active || !payload) return null;
+
+      return (
+        <div className="w-48 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
+          <div className="flex flex-1 space-x-2.5">
+            <div className={`w-1.5 flex flex-col bg-${payload?.[0]?.color}-500 rounded`} />
+            <div className="w-full">
+              <p className="mb-2 font-medium text-tremor-content-emphasis">{label}</p>
+              {payload.map((payloadItem: any, index: number) => (
+                <div key={index} className="flex items-center justify-between space-x-8">
+                  <p className="text-right text-tremor-content whitespace-nowrap">
+                    {payloadItem.name}
+                  </p>
+                  <p className="font-medium text-right whitespace-nowrap text-tremor-content-emphasis">
+                    {payloadItem.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+};
