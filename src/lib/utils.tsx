@@ -79,11 +79,8 @@ const getIsArbitraryColor = (color: Color | string) =>
   color.includes("#") || color.includes("--") || color.includes("rgb");
 
 export function getColorClassNames(color: Color | string, shade?: number): ColorClassNames {
-  console.log("color (outside if): ", color);
   const isBaseColor = getIsBaseColor(color);
-  console.log("isBaseColor: ", isBaseColor);
   if (color === "white" || color === "black" || color === "transparent" || !shade || !isBaseColor) {
-    console.log("color: ", color);
     const unshadedColor = !getIsArbitraryColor(color) ? color : `[${color}]`;
     return {
       bgColor: `bg-${unshadedColor} dark:bg-${unshadedColor}`,
