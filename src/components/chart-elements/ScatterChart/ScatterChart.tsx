@@ -202,12 +202,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     setActiveNode(undefined);
   }
 
-  console.log("category: ", category);
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
 
-  console.log("categories: ", categories);
-  console.log("categoryColors: ", categoryColors);
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -340,7 +337,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color: categoryColors.get(color) ?? BaseColors.Gray,
+                          color:
+                            categoryColors.get(color) ??
+                            categoryColors.get("cat_1") ??
+                            BaseColors.Gray,
                         }))}
                         active={active}
                         label={color}
@@ -352,8 +352,8 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                         label={color}
                         valueFormatter={valueFormatter}
                         axis={{ x: x, y: y, size: size }}
-                        category={category ? category : undefined}
-                        categoryColors={category ? categoryColors : undefined}
+                        category={category}
+                        categoryColors={categoryColors}
                       />
                     );
                   }
@@ -411,9 +411,15 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
             ) : (
               <Scatter
                 className={tremorTwMerge(
-                  getColorClassNames(BaseColors.Gray, colorPalette.text).fillColor,
+                  getColorClassNames(
+                    categoryColors.get("cat_1") ?? BaseColors.Gray,
+                    colorPalette.text,
+                  ).fillColor,
                   showOpacity
-                    ? getColorClassNames(BaseColors.Gray, colorPalette.text).strokeColor
+                    ? getColorClassNames(
+                        categoryColors.get("cat_1") ?? BaseColors.Gray,
+                        colorPalette.text,
+                      ).strokeColor
                     : "",
                   onValueChange ? "cursor-pointer" : "",
                 )}
