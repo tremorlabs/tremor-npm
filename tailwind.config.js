@@ -123,7 +123,24 @@ module.exports = {
     },
 
     // custom colors charts
-    ...["[#32a852]", "[#fcba03]"].flatMap((customColor) => [
+    ...[
+      "[#32a852]",
+      "[#fcba03]",
+      "[#22d3ee]",
+      "[#f87171]",
+      "[#fb923c]",
+      "[#4ade80]",
+      "[#2dd4bf]",
+      "[#60a5fa]",
+      "[#c084fc]",
+      "[#f472b6]",
+      "[#facc15]",
+      "[#a3e635]",
+      "[#818cf8]",
+      "[#a78bfa]",
+      "[#e879f9]",
+      "[#9ca3af]",
+    ].flatMap((customColor) => [
       `bg-${customColor}`,
       `border-${customColor}`,
       `hover:bg-${customColor}`,

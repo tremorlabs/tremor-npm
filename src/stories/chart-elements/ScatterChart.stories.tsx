@@ -227,6 +227,18 @@ export const NoCategoryOtherColors: Story = {
   },
 };
 
+export const CategoryCustomColors: Story = {
+  args: {
+    x: "x",
+    y: "y",
+    size: "z",
+    category: "location",
+    data,
+    className: "h-72",
+    colors: ["#32a852", "#fcba03", "orange-600", "blue-400"],
+  },
+};
+
 export const NoCategoryOtherColorsCustomTooltip: Story = {
   args: {
     x: "x",
@@ -235,7 +247,7 @@ export const NoCategoryOtherColorsCustomTooltip: Story = {
     category: undefined,
     data,
     className: "h-72",
-    colors: ["green"],
+    colors: ["#fcba03"],
     customTooltip: (props: CustomTooltipProps) => {
       const { payload, active, label } = props;
       if (!active || !payload) return null;
