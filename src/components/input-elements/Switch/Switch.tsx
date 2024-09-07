@@ -62,12 +62,6 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
   const delay = 300;
   const { tooltipProps, getReferenceProps } = useTooltip(delay);
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Switch is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/switch (This is only shown in development)",
-    );
-  }
-
   return (
     <div className="flex flex-row items-center justify-start">
       <Tooltip text={tooltip} {...tooltipProps} />

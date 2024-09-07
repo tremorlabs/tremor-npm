@@ -62,11 +62,6 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
   }, [sortedData]);
 
   const rowHeight = "h-8";
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The BarList is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/barlist (This is only shown in development)",
-    );
-  }
 
   return (
     <div

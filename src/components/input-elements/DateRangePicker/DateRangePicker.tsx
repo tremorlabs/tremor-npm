@@ -158,12 +158,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     setSelectedValue({});
   };
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The DateRangePicker is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/date-range-picker (This is only shown in development)",
-    );
-  }
-
   return (
     <div
       ref={ref}

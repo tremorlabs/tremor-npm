@@ -139,12 +139,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     }
     setActiveDot(undefined);
   }
-
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The AreaChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/area-chart (This is only shown in development)",
-    );
-  }
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">

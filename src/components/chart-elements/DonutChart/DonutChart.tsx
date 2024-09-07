@@ -124,12 +124,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     }
   }, [activeIndex]);
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The DonutChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/donut-chart (This is only shown in development)",
-    );
-  }
-
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-40", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">

@@ -29,12 +29,6 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
 
   const { tooltipProps, getReferenceProps } = useTooltip();
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Badge is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/badge (This is only shown in development)",
-    );
-  }
-
   return (
     <span
       ref={mergeRefs([ref, tooltipProps.refs.setReference])}

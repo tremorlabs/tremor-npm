@@ -119,12 +119,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     toggleTransition(loading);
   }, [loading]);
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Button is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/button (This is only shown in development)",
-    );
-  }
-
   return (
     // eslint-disable-next-line react/button-has-type
     <button

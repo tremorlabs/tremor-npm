@@ -144,11 +144,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     setActiveBar(undefined);
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The BarChart is also available as a copy-and-paste component. Visit https://tremor.so/docs/visualizations/bar-chart (This is only shown in development)",
-    );
-  }
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">

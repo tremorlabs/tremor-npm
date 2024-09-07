@@ -59,12 +59,6 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
     onValueChange?.("");
   };
 
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Select is also available as a copy-and-paste component. Visit https://tremor.so/docs/inputs/select (This is only shown in development)",
-    );
-  }
-
   return (
     <div
       className={tremorTwMerge(

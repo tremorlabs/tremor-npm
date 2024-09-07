@@ -79,11 +79,6 @@ export interface TooltipProps {
 }
 
 const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: TooltipProps) => {
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Tooltip is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/tooltip (This is only shown in development)",
-    );
-  }
   return open && text ? (
     <div
       className={tremorTwMerge(
