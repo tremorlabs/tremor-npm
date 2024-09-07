@@ -6,11 +6,6 @@ const makeDividerClassName = makeClassName("Divider");
 const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
     const { className, children, ...other } = props;
-    if (process.env.NODE_ENV === "development") {
-      console.info(
-        "The Divider is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/divider (This is only shown in development)",
-      );
-    }
     return (
       <div
         ref={ref}

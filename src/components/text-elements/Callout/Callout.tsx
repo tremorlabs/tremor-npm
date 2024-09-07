@@ -12,11 +12,6 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
   const { title, icon, color, className, children, ...other } = props;
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Callout is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/callout (This is only shown in development)",
-    );
-  }
   const Icon = icon;
   return (
     <div

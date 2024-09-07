@@ -14,11 +14,6 @@ export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) => {
   const { defaultIndex, index, onIndexChange, children, className, ...other } = props;
-  if (process.env.NODE_ENV === "development") {
-    console.info(
-      "The Tab is also available as a copy-and-paste component. Visit https://tremor.so/docs/ui/tabs (This is only shown in development)",
-    );
-  }
   return (
     <Tab.Group
       as="div"
