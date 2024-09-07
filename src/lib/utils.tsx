@@ -20,6 +20,8 @@ export const mapInputsToDeltaType = (deltaType: string, isIncreasePositive: bool
 
 export const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
+export const defaultCategoryFormatter: ValueFormatter<string, string> = (value: string) => value;
+
 export const currencyValueFormatter: ValueFormatter = (e: number) =>
   `$ ${Intl.NumberFormat("en-US").format(e)}`;
 

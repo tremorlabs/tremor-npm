@@ -1,5 +1,5 @@
-export type ValueFormatter = {
-  (value: number): string;
+export type ValueFormatter<T = number, E = string> = {
+  (value: T): E;
 };
 
 export type CurveType = "linear" | "natural" | "monotone" | "step";

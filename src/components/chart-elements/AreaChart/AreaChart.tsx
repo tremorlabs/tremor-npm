@@ -29,6 +29,7 @@ import {
   BaseColors,
   colorPalette,
   defaultValueFormatter,
+  defaultCategoryFormatter,
   getColorClassNames,
   themeColorRange,
   tremorTwMerge,
@@ -51,6 +52,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const {
     data = [],
     categories = [],
+    categoryFormatter = defaultCategoryFormatter,
     index,
     stack = false,
     colors = themeColorRange,
@@ -90,7 +92,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
-  const categoryColors = constructCategoryColors(categories, colors);
+  const formattedCategories = categories.map((category: string) => categoryFormatter(category));
+  const categoryColors = constructCategoryColors(formattedCategories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
@@ -291,7 +294,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 }
               />
             ) : null}
-            {categories.map((category) => {
+            {formattedCategories.map((category) => {
               return (
                 <defs key={category}>
                   {showGradient ? (
@@ -342,7 +345,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category) => (
+            {formattedCategories.map((category) => (
               <Area
                 className={
                   getColorClassNames(
@@ -433,7 +436,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ))}
             {onValueChange
-              ? categories.map((category) => (
+              ? formattedCategories.map((category) => (
                   <Line
                     className={tremorTwMerge("cursor-pointer")}
                     strokeOpacity={0}
