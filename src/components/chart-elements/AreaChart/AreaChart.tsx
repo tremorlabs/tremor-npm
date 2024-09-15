@@ -291,23 +291,24 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 }
               />
             ) : null}
-            {categories.map((category) => {
-              return (
-                <defs key={category}>
-                  {showGradient ? (
-                    <linearGradient
-                      className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
-                      }
-                      id={categoryColors.get(category)}
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
+              {categories.map((category) => {
+                const gradientId = (categoryColors.get(category) ?? BaseColors.Gray).replace('#', '');
+                return (
+                  <defs key={category}>
+                    {showGradient ? (
+                      <linearGradient
+                        className={
+                          getColorClassNames(
+                            categoryColors.get(category) ?? BaseColors.Gray,
+                            colorPalette.text,
+                          ).textColor
+                        }
+                        id={gradientId}
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
                       <stop
                         offset="5%"
                         stopColor="currentColor"
@@ -319,13 +320,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     </linearGradient>
                   ) : (
                     <linearGradient
-                      className={
+                    className={
                         getColorClassNames(
                           categoryColors.get(category) ?? BaseColors.Gray,
                           colorPalette.text,
                         ).textColor
                       }
-                      id={categoryColors.get(category)}
+                      id={gradientId}
                       x1="0"
                       y1="0"
                       x2="0"
@@ -342,7 +343,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 </defs>
               );
             })}
-            {categories.map((category) => (
+            {categories.map((category) => {
+              const gradientId = (categoryColors.get(category) ?? BaseColors.Gray).replace('#', '');
               <Area
                 className={
                   getColorClassNames(
@@ -350,6 +352,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     colorPalette.text,
                   ).strokeColor
                 }
+                fill={`url(#${gradientId})`}
                 strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
                 activeDot={(props: any) => {
                   const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
