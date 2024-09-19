@@ -85,6 +85,37 @@ export const ManyCategoriesWithScroll: Story = {
   },
 };
 
+export const MoreCategoriesThanColors: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: [
+      "Blueberry Pie",
+      "Electric Sheep",
+      "Moonlight Sonata",
+      "Quantum Leap",
+      "Crimson Clover",
+      "Neon Mirage",
+      "Solar Flare",
+      "Velvet Thunder",
+      "Silent Echo",
+      "Shadow Dance",
+      "Silver Lining",
+      "Golden Hour",
+      "Eclipse Chaser",
+      "Starry Night",
+      "Mystic Dawn",
+      "Enchanted Forest",
+      "Aurora Borealis",
+      "Dream Weaver",
+      "Celestial Harmony",
+      "Frosted Twilight",
+      "Thunderstrike",
+      "Lunar Eclipse",
+      "Galactic Voyage",
+    ],
+  },
+};
+
 export const CustomColors: Story = {
   ...LegendTemplate,
   args: {

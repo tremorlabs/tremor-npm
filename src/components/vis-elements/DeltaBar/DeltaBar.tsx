@@ -61,7 +61,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
               )}
               style={{
                 width: `${Math.abs(value)}%`,
-                transition: showAnimation ? "all 1s" : "",
+                transition: showAnimation ? "all duration-300" : "",
               }}
               {...getReferenceProps}
             />

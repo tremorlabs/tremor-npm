@@ -310,7 +310,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   getSelectButtonColors(hasValue<string>(value), disabled),
                 )}
               >
-                {value ? valueToNameMapping.get(value) ?? selectPlaceholder : selectPlaceholder}
+                {value ? (valueToNameMapping.get(value) ?? selectPlaceholder) : selectPlaceholder}
               </Listbox.Button>
               <Transition
                 className="absolute z-10 w-full inset-x-0 right-0"

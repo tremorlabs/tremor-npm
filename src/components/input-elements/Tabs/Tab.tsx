@@ -22,7 +22,10 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
         // brand
         color
           ? getColorClassNames(color, colorPalette.border).selectBorderColor
-          : "ui-selected:border-tremor-brand dark:ui-selected:border-dark-tremor-brand",
+          : [
+              "ui-selected:border-tremor-brand ui-selected:text-tremor-brand",
+              "ui-selected:dark:border-dark-tremor-brand ui-selected:dark:text-dark-tremor-brand",
+            ],
       );
     case "solid":
       return tremorTwMerge(
@@ -57,12 +60,9 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         makeTabClassName("root"),
         // common
         "flex whitespace-nowrap truncate max-w-xs outline-none ui-focus-visible:ring text-tremor-default transition duration-100",
-        // brand
-        color && getColorClassNames(color, colorPalette.text).selectTextColor,
-        // solid ? "ui-selected:text-tremor-content-emphasis dark:ui-selected:text-dark-tremor-content-emphasis"
-        // : "ui-selected:text-tremor-brand dark:ui-selected:text-dark-tremor-brand",
         getVariantStyles(variant, color),
         className,
+        color && getColorClassNames(color, colorPalette.text).selectTextColor,
       )}
       {...other}
     >

@@ -27,7 +27,7 @@ interface MyTabProps {
 
 //Components
 function MyTab(props: MyTabProps) {
-  const { variant = "line", defaultIndex = 0, showText = true, color = "blue", args } = props;
+  const { variant = "line", defaultIndex = 0, showText = true, color, args } = props;
 
   const tabLabels = ["This is a very Long Tab Value that is used as an edge case", "Three", "One"];
 

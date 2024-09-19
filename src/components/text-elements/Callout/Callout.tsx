@@ -12,7 +12,6 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>((props, ref) => {
   const { title, icon, color, className, children, ...other } = props;
-
   const Icon = icon;
   return (
     <div
