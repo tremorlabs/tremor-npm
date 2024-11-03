@@ -8,7 +8,7 @@ import dts from "rollup-plugin-dts";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
 import terser from "@rollup/plugin-terser";
-import preserveDirectives from "rollup-plugin-preserve-directives";
+import preserveDirectives from "rollup-preserve-directives";
 
 const outputOptions = {
   sourcemap: false,
@@ -36,9 +36,9 @@ export default [
     external: [/node_modules/],
     plugins: [
       peerDepsExternal(),
+      preserveDirectives(),
       resolve(),
       commonjs(),
-      preserveDirectives(),
       terser(),
       typescript({
         tsconfig: "./tsconfig.json",
