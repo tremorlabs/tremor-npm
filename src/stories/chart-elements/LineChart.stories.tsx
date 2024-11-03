@@ -231,7 +231,7 @@ export const CustomTooltipPreviousDay: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const color = getBadgeColor(percentage);
 
       return (
@@ -275,7 +275,7 @@ export const CustomTooltipComplex: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const badgeColor = getBadgeColor(percentage);
 
       return (
