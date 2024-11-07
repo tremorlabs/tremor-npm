@@ -96,7 +96,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-preserve-directives": "^0.1.1",
     "rollup-plugin-typescript-paths": "^1.4.0",
-    "semantic-release": "^22.0.8",
+    "semantic-release": "^24.1.0",
     "storybook": "^8.2.4",
     "storybook-source-link": "^4.0.1",
     "style-loader": "^3.3.3",
