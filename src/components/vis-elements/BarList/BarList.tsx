@@ -99,7 +99,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
             >
               <div
                 className={tremorTwMerge(
-                  "flex items-center rounded transition-all bg-opacity-40",
+                  "flex items-center rounded",
                   rowHeight,
                   item.color || color
                     ? [
