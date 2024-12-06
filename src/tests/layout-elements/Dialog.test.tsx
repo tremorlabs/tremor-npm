@@ -6,7 +6,7 @@ import { Dialog, DialogPanel } from "components";
 describe("Dialog", () => {
   test("renders the Dialog component", async () => {
     const { findByText } = render(
-      <Dialog open onClose={() => {}}>
+      <Dialog open={true} onClose={() => {}} static={true}>
         <DialogPanel>Test</DialogPanel>
       </Dialog>,
     );
