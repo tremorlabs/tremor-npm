@@ -21,9 +21,7 @@ describe("Legend", () => {
     fireEvent.click(getByText("Category A"));
   });
   it("tests the keydown handler", () => {
-    const { container, getByRole } = render(
-      <Legend categories={["Category A"]} enableLegendSlider={true} />,
-    );
+    render(<Legend categories={["Category A"]} enableLegendSlider={true} />);
     const event = new KeyboardEvent("keydown", { key: "ArrowLeft" });
     document.dispatchEvent(event);
   });

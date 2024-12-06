@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { render } from "@testing-library/react";
 import AreaChart from "components/spark-elements/SparkAreaChart/SparkAreaChart";
 
