@@ -149,9 +149,10 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         leaveTo="opacity-0 -translate-y-4"
       >
         <PopoverPanel
+          anchor="bottom start"
           className={tremorTwMerge(
             // common
-            "absolute z-10 min-w-min left-0 divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
+            "z-10 min-w-min divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border [--anchor-gap:4px]",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark

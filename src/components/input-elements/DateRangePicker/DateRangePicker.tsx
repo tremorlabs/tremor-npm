@@ -248,10 +248,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           leaveTo="opacity-0 -translate-y-4"
         >
           <PopoverPanel
+            anchor="bottom start"
             focus={true}
             className={tremorTwMerge(
               // common
-              "absolute z-10 min-w-min left-0 divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
+              "min-w-min divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border [--anchor-gap:4px]",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
@@ -328,9 +329,10 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 leaveTo="opacity-0 -translate-y-4"
               >
                 <ListboxOptions
+                  anchor="bottom end"
                   className={tremorTwMerge(
                     // common
-                    "absolute z-10 w-full inset-x-0 right-0 divide-y overflow-y-auto outline-none border my-1",
+                    "[--anchor-gap:4px] divide-y overflow-y-auto outline-none border",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
