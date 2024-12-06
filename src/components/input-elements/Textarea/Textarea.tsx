@@ -56,11 +56,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         className={tremorTwMerge(
           makeTextareaClassName("Textarea"),
           // common
-          "w-full flex items-center outline-none rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100 border",
+          "w-full flex items-center outline-hidden rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100 border",
           // light
           "shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
-          "dark:shadow-dark-tremor-input focus:dark:border-dark-tremor-brand-subtle focus:dark:ring-dark-tremor-brand-muted",
+          "dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
           getSelectButtonColors(hasSelection, disabled, error),
           disabled
             ? "placeholder:text-tremor-content-subtle dark:placeholder:text-dark-tremor-content-subtle"

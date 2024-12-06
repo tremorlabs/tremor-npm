@@ -1,10 +1,15 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "components";
-
-import BadgeDelta from "components/icon-elements/BadgeDelta/BadgeDelta";
-import { DeltaType } from "lib";
+import {
+  Badge,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "components";
 
 const meta: Meta<typeof Table> = {
   title: "UI/List/Table",
@@ -153,9 +158,7 @@ export const Default: Story = {
             <TableCell className="text-right">{item.sales}</TableCell>
             <TableCell>{item.region}</TableCell>
             <TableCell>
-              <BadgeDelta deltaType={item.deltaType as DeltaType} size="sm">
-                {item.status}
-              </BadgeDelta>
+              <Badge size="sm">{item.status}</Badge>
             </TableCell>
             <TableCell className="text-right">{item.hours}</TableCell>
           </TableRow>

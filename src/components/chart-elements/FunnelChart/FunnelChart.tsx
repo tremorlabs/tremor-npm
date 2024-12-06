@@ -458,7 +458,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       <div
                         className={tremorTwMerge(
                           //common
-                          "truncate text-center !text-tremor-label",
+                          "truncate text-center text-tremor-label!",
                           // light
                           "text-tremor-content",
                           // dark

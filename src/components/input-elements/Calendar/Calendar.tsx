@@ -14,7 +14,6 @@ import {
   DoubleArrowRightHeadIcon,
 } from "assets";
 import { addYears, format } from "date-fns";
-import { Text } from "../../text-elements/Text";
 import { NavButton } from "./NavButton";
 
 function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
@@ -47,7 +46,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
           "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
         nav: "space-x-1 flex items-center",
         nav_button:
-          "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
+          "flex items-center justify-center p-1 h-7 w-7 outline-hidden focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
@@ -86,9 +85,9 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
                 />
               </div>
 
-              <Text className="text-tremor-default tabular-nums capitalize text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+              <span className="text-tremor-default tabular-nums capitalize text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
                 {format(props.displayMonth, "LLLL yyy", { locale })}
-              </Text>
+              </span>
 
               <div className="flex items-center space-x-1">
                 <NavButton

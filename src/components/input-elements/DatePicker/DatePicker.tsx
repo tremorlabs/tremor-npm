@@ -95,7 +95,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         disabled={disabled}
         className={tremorTwMerge(
           // common
-          "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap border pl-3 py-2",
+          "w-full outline-hidden text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-tremor-default flex flex-nowrap border pl-3 py-2",
           // light
           "border-tremor-border shadow-tremor-input text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
@@ -121,7 +121,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         <button
           type="button"
           className={tremorTwMerge(
-            "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100 mr-4",
+            "absolute outline-hidden inset-y-0 right-0 flex items-center transition duration-100 mr-4",
           )}
           onClick={(e) => {
             e.preventDefault();
@@ -152,7 +152,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           anchor="bottom start"
           className={tremorTwMerge(
             // common
-            "z-10 min-w-min divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border [--anchor-gap:4px]",
+            "z-10 min-w-min divide-y overflow-y-auto outline-hidden rounded-tremor-default p-3 border [--anchor-gap:4px]",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark

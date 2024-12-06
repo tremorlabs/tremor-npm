@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Dialog, DialogPanel, Button, Title } from "components";
+import { Dialog, DialogPanel, Button } from "components";
 import React from "react";
 
 const SimpleDialog = () => {
@@ -12,7 +12,7 @@ const SimpleDialog = () => {
       </div>
       <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
         <DialogPanel>
-          <Title className="mb-3">Account Created Successfully</Title>
+          <p className="mb-3">Account Created Successfully</p>
           Your account has been created successfully. You can now login to your account. For more
           information, please contact us.
           <div className="mt-3">

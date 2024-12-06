@@ -42,7 +42,7 @@ export default [
       terser(),
       typescript({
         tsconfig: "./tsconfig.json",
-        exclude: ["**/stories/**", "**/tests/**", "./styles.css"],
+        exclude: ["**/stories/**", "**/tests/**", "./tremor.css"],
       }),
       typescriptPaths(),
     ],

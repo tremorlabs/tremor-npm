@@ -245,7 +245,7 @@ export const CustomTooltipSimple: Story = {
       return (
         <div className="w-56 rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
           <div className="flex flex-1 space-x-2.5">
-            <div className={`w-1.5 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
+            <div className={`w-1.5 flex flex-col bg-${categoryPayload.color}-500 rounded-sm`} />
             <div className="w-full">
               <p className="font-medium text-tremor-content-emphasis">{label}</p>
               <div className="flex items-center justify-between space-x-8">
@@ -295,7 +295,7 @@ export const CustomTooltipPreviousDay: Story = {
             </span>
             {percentage ? (
               <span
-                className={`inline-flex text-xs px-1.5 py-0.5 bg-${color}-100 text-${color}-600 rounded`}
+                className={`inline-flex text-xs px-1.5 py-0.5 bg-${color}-100 text-${color}-600 rounded-sm`}
               >
                 {percentage > 0 ? "+" : ""}
                 {percentage.toFixed(1)}%
@@ -333,7 +333,7 @@ export const CustomTooltipComplex: Story = {
       return (
         <div className="rounded-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border">
           <div className="flex flex-1 space-x-2.5">
-            <div className={`w-1 flex flex-col bg-${categoryPayload.color}-500 rounded`} />
+            <div className={`w-1 flex flex-col bg-${categoryPayload.color}-500 rounded-sm`} />
             <div className="w-full">
               <p className="text-tremor-default font-medium text-tremor-content-emphasis">
                 {dataKey}
@@ -345,7 +345,7 @@ export const CustomTooltipComplex: Story = {
               {percentage ? (
                 <div className="mt-1 flex items-end space-x-2">
                   <div
-                    className={`inline-flex text-tremor-default px-1.5 py-0.5 bg-${badgeColor}-100 text-${badgeColor}-600 rounded`}
+                    className={`inline-flex text-tremor-default px-1.5 py-0.5 bg-${badgeColor}-100 text-${badgeColor}-600 rounded-sm`}
                   >
                     {percentage > 0 ? "+" : null}
                     {percentage.toFixed(1)}%

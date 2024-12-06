@@ -118,7 +118,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                 ref={listboxButtonRef}
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
+                  "w-full outline-hidden text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-2",
                   // light
                   "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                   // dark
@@ -199,7 +199,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   anchor="bottom start"
                   className={tremorTwMerge(
                     // common
-                    "z-10 divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
+                    "z-10 divide-y overflow-y-auto outline-hidden rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
                     // light
                     "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                     // dark

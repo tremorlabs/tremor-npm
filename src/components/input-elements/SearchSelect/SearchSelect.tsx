@@ -166,7 +166,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   ref={comboboxInputRef}
                   className={tremorTwMerge(
                     // common
-                    "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14 border py-2",
+                    "w-full outline-hidden text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14 border py-2",
                     // light
                     "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                     // dark
@@ -194,7 +194,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                       // common
                       "flex-none h-5 w-5",
                       // light
-                      "!text-tremor-content-subtle",
+                      "text-tremor-content-subtle!",
                       // dark
                       "!dark:text-dark-tremor-content-subtle",
                     )}
@@ -237,7 +237,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     anchor="bottom start"
                     className={tremorTwMerge(
                       // common
-                      "z-10 divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] border [--anchor-gap:4px]",
+                      "z-10 divide-y overflow-y-auto outline-hidden rounded-tremor-default text-tremor-default max-h-[228px] border [--anchor-gap:4px]",
                       // light
                       "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                       // dark

@@ -94,7 +94,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
             "w-10 h-5 group relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
-            "focus:outline-none",
+            "focus:outline-hidden",
             disabled ? "cursor-not-allowed" : "",
           )}
           onFocus={() => setIsFocused(true)}

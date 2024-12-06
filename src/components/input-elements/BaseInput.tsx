@@ -58,7 +58,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     const node = inputRef.current;
     if (node) {
       node.addEventListener("focus", handleFocus);
-      node.addEventListener("blur", handleBlur);
+      node.addEventListener("blur-sm", handleBlur);
 
       // Autofocus logic
       if (autoFocus) {
@@ -69,7 +69,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     return () => {
       if (node) {
         node.removeEventListener("focus", handleFocus);
-        node.removeEventListener("blur", handleBlur);
+        node.removeEventListener("blur-sm", handleBlur);
       }
     };
   }, [autoFocus]);
@@ -80,7 +80,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         className={tremorTwMerge(
           makeInputClassName("root"),
           // common
-          "relative w-full flex items-center min-w-[10rem] outline-none rounded-tremor-default transition duration-100 border",
+          "relative w-full flex items-center min-w-[10rem] outline-hidden rounded-tremor-default transition duration-100 border",
           // light
           "shadow-tremor-input",
           // dark
@@ -119,7 +119,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full bg-transparent focus:outline-none focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
+            "w-full bg-transparent focus:outline-hidden focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
             // light
             "text-tremor-content-emphasis",
             // dark
@@ -159,7 +159,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // light
                   "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                  "dark:text-dark-tremor-content-subtle dark:hover:text-dark-tremor-content",
                 )}
                 aria-hidden
               />
@@ -171,7 +171,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
                   // light
                   "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
-                  "dark:text-dark-tremor-content-subtle hover:dark:text-dark-tremor-content",
+                  "dark:text-dark-tremor-content-subtle dark:hover:text-dark-tremor-content",
                 )}
                 aria-hidden
               />

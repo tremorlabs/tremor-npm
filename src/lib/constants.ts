@@ -9,6 +9,7 @@ export const DeltaTypes: { [key: string]: DeltaType } = {
 };
 
 export const BaseColors: { [key: string]: Color } = {
+  Brand: "brand",
   Slate: "slate",
   Gray: "gray",
   Zinc: "zinc",

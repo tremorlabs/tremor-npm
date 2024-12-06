@@ -136,7 +136,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
               <ListboxButton
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
+                  "w-full outline-hidden text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
                   // light
                   "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                   // dark
@@ -265,7 +265,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   anchor="bottom start"
                   className={tremorTwMerge(
                     // common
-                    "z-10 divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
+                    "z-10 divide-y overflow-y-auto outline-hidden rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
                     // light
                     "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                     // dark
@@ -301,7 +301,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                       placeholder={placeholderSearch}
                       className={tremorTwMerge(
                         // common
-                        "w-full focus:outline-none focus:ring-none bg-transparent text-tremor-default py-2",
+                        "w-full focus:outline-hidden focus:ring-none bg-transparent text-tremor-default py-2",
                         // light
                         "text-tremor-content-emphasis",
                         // dark

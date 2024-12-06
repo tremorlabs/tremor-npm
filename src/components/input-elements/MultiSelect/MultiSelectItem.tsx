@@ -23,10 +23,10 @@ const MultiSelectItem = React.forwardRef<HTMLDivElement, MultiSelectItemProps>((
         // common
         "flex justify-start items-center cursor-default text-tremor-default p-2.5",
         // light
-        // "data-[focus]:bg-tremor-background-muted data-[focus]:text-tremor-content-strong data-[select]ed:text-tremor-content-strong data-[select]ed:bg-tremor-background-muted text-tremor-content-emphasis",
-        "data-[focus]:bg-tremor-background-muted data-[focus]:text-tremor-content-strong data-[select]ed:text-tremor-content-strong text-tremor-content-emphasis",
+        // "data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-[select]ed:text-tremor-content-strong data-[select]ed:bg-tremor-background-muted text-tremor-content-emphasis",
+        "data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-[select]ed:text-tremor-content-strong text-tremor-content-emphasis",
         // dark
-        "dark:data-[focus]:bg-dark-tremor-background-muted dark:data-[focus]:text-dark-tremor-content-strong dark:data-[select]ed:text-dark-tremor-content-strong dark:data-[select]ed:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "dark:data-focus:bg-dark-tremor-background-muted dark:data-focus:text-dark-tremor-content-strong dark:data-[select]ed:text-dark-tremor-content-strong dark:data-[select]ed:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
         className,
       )}
       ref={ref}
@@ -39,7 +39,7 @@ const MultiSelectItem = React.forwardRef<HTMLDivElement, MultiSelectItemProps>((
         className={tremorTwMerge(
           makeMultiSelectItemClassName("checkbox"),
           // common
-          "flex-none focus:ring-none focus:outline-none cursor-pointer mr-2.5",
+          "flex-none focus:ring-none focus:outline-hidden cursor-pointer mr-2.5",
           // light
           "accent-tremor-brand",
           // dark

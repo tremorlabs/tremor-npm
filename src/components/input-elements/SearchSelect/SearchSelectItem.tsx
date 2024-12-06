@@ -23,9 +23,9 @@ const SearchSelectItem = React.forwardRef<HTMLDivElement, SearchSelectItemProps>
         // common
         "flex justify-start items-center cursor-default text-tremor-default p-2.5",
         // light
-        "data-[focus]:bg-tremor-background-muted  data-[focus]:text-tremor-content-strong data-[selected]:text-tremor-content-strong data-[selected]:bg-tremor-background-muted text-tremor-content-emphasis",
+        "data-focus:bg-tremor-background-muted  data-focus:text-tremor-content-strong data-selected:text-tremor-content-strong data-selected:bg-tremor-background-muted text-tremor-content-emphasis",
         // dark
-        "dark:data-[focus]:bg-dark-tremor-background-muted  dark:data-[focus]:text-dark-tremor-content-strong dark:data-[selected]:text-dark-tremor-content-strong dark:data-[selected]:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "dark:data-focus:bg-dark-tremor-background-muted  dark:data-focus:text-dark-tremor-content-strong dark:data-selected:text-dark-tremor-content-strong dark:data-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
         className,
       )}
       ref={ref}

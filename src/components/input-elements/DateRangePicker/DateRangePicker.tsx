@@ -191,7 +191,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             disabled={disabled}
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap border pl-3 py-2",
+              "w-full outline-hidden text-left whitespace-nowrap truncate focus:ring-2 transition duration-100 rounded-l-tremor-default flex flex-nowrap border pl-3 py-2",
               // light
               "rounded-l-tremor-default border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
@@ -218,7 +218,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             <button
               type="button"
               className={tremorTwMerge(
-                "absolute outline-none inset-y-0 right-0 flex items-center transition duration-100 mr-4",
+                "absolute outline-hidden inset-y-0 right-0 flex items-center transition duration-100 mr-4",
               )}
               onClick={(e) => {
                 e.preventDefault();
@@ -252,7 +252,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             focus={true}
             className={tremorTwMerge(
               // common
-              "min-w-min divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border [--anchor-gap:4px]",
+              "min-w-min divide-y overflow-y-auto outline-hidden rounded-tremor-default p-3 border [--anchor-gap:4px]",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
@@ -278,7 +278,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               enableYearNavigation={enableYearNavigation}
               classNames={{
                 day_range_middle: tremorTwMerge(
-                  "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
+                  "rounded-none! aria-selected:bg-tremor-background-subtle! dark:aria-selected:bg-dark-tremor-background-subtle! aria-selected:text-tremor-content! dark:aria-selected:bg-dark-tremor-background-subtle!",
                 ),
                 day_range_start:
                   "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
@@ -310,7 +310,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 onBlur={() => setIsSelectButtonFocused(false)}
                 className={tremorTwMerge(
                   // common
-                  "w-full outline-none text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border px-4 py-2",
+                  "w-full outline-hidden text-left whitespace-nowrap truncate rounded-r-tremor-default transition duration-100 border px-4 py-2",
                   // light
                   "border-tremor-border text-tremor-content-emphasis focus:border-tremor-brand-subtle",
                   // dark
@@ -332,7 +332,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   anchor="bottom end"
                   className={tremorTwMerge(
                     // common
-                    "[--anchor-gap:4px] divide-y overflow-y-auto outline-none border min-w-44",
+                    "[--anchor-gap:4px] divide-y overflow-y-auto outline-hidden border min-w-44",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark

@@ -21,12 +21,13 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 const BadgeTemplateColors: Story = {
-  render: ({ ...args }) => {
+  render: () => {
     return (
       <Grid className="gap-y-2">
-        <Badge tooltip="Tooltip" {...args} />
         {Object.values(BaseColors).map((color) => (
-          <Badge key={color} color={color} tooltip="Tooltip" {...args} />
+          <Badge key={color} icon={ArrowUpIcon} color={color} tooltip="Tooltip">
+            {color}
+          </Badge>
         ))}
       </Grid>
     );
@@ -45,9 +46,7 @@ const BadgeTemplateSizes: Story = {
   },
 };
 
-export const Default: Story = {
-  args: {},
-};
+export const Default: Story = {};
 
 export const Sizes: Story = {
   ...BadgeTemplateSizes,
