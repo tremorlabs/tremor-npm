@@ -262,9 +262,10 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 leaveTo="opacity-0 -translate-y-4"
               >
                 <ListboxOptions
+                  anchor="bottom start"
                   className={tremorTwMerge(
                     // common
-                    "absolute z-10 w-full divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
+                    "z-10 divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
                     // light
                     "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                     // dark

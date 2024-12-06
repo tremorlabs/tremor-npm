@@ -332,7 +332,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                   anchor="bottom end"
                   className={tremorTwMerge(
                     // common
-                    "[--anchor-gap:4px] divide-y overflow-y-auto outline-none border",
+                    "[--anchor-gap:4px] divide-y overflow-y-auto outline-none border min-w-40",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
