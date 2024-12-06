@@ -1,6 +1,4 @@
-"use client";
 import React from "react";
-
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import { colorPalette } from "lib/theme";
@@ -46,15 +44,14 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
-              // common
               "flex-col h-full rounded-tremor-full",
               color
                 ? getColorClassNames(color, colorPalette.background).bgColor
                 : "bg-tremor-brand dark:bg-dark-tremor-brand",
+              showAnimation ? "transition-all duration-300 ease-in-out" : "",
             )}
             style={{
               width: `${value}%`,
-              transition: showAnimation ? "all 1s" : "",
             }}
           />
         </div>
@@ -62,18 +59,14 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
-              // common
               "w-16 truncate text-right ml-2",
-              // light
               "text-tremor-content-emphasis",
-              // dark
               "dark:text-dark-tremor-content-emphasis",
             )}
           >
             <p
               className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                // common
                 "shrink-0 whitespace-nowrap truncate text-tremor-default",
               )}
             >

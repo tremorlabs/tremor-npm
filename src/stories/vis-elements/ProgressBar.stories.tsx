@@ -21,6 +21,7 @@ type Story = StoryObj<typeof ProgressBar>;
 
 export const Default: Story = {
   args: {
+    showAnimation: true,
     value: 50,
     tooltip: "50%",
     label: "90%",

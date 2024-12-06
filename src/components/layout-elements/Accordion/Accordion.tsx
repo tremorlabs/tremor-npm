@@ -22,7 +22,6 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>((props, ref) 
 
   const rootStyles =
     useContext(RootStylesContext) ?? tremorTwMerge("rounded-tremor-default border");
-
   return (
     <Disclosure
       as="div"

@@ -46,7 +46,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
       textAreaHTMLRef.style.height = scrollHeight + "px";
     }
   }, [autoHeight, inputRef, val]);
-
   return (
     <>
       <textarea
