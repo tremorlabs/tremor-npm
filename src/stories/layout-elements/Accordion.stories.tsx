@@ -6,10 +6,6 @@ import { SimpleAccordion } from "./helpers/SimpleAccordion";
 const meta: Meta<typeof Accordion> = {
   title: "UI/Layout/Accordion",
   component: Accordion,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Accordion",
-  },
 };
 
 export default meta;

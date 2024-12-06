@@ -7,10 +7,6 @@ import { BaseColors } from "lib/constants";
 const meta: Meta<typeof Metric> = {
   title: "UI/Text/Metric",
   component: Metric,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Metric",
-  },
 };
 
 export default meta;

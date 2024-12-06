@@ -8,10 +8,6 @@ const meta: Meta<typeof MarkerBar> = {
   title: "Visualizations/Vis/MarkerBar",
   component: MarkerBar,
   render: (args) => <MarkerBar {...args} />,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/MarkerBar",
-  },
 };
 
 export default meta;

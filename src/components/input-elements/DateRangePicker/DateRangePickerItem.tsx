@@ -3,13 +3,13 @@ import React from "react";
 
 import { SelectItem } from "../Select";
 
-export interface DateRangePickerItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface DateRangePickerItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   from: Date;
   to?: Date;
 }
 
-const DateRangePickerItem = React.forwardRef<HTMLLIElement, DateRangePickerItemProps>(
+const DateRangePickerItem = React.forwardRef<HTMLDivElement, DateRangePickerItemProps>(
   (props, ref) => {
     const { value, className, children, ...other } = props;
 

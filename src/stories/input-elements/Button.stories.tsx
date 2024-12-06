@@ -8,10 +8,6 @@ import { BaseColors, Sizes as InputSizes } from "lib/constants";
 const meta: Meta<typeof Button> = {
   title: "UI/Input/Button",
   component: Button,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Button",
-  },
 };
 
 export default meta;

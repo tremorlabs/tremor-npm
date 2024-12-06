@@ -16,14 +16,14 @@ export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, ...other } = props;
   return (
-    <Transition as={React.Fragment} appear show={props.open}>
+    <Transition appear show={props.open}>
       <HeadlessuiDialog
         as="div"
         ref={ref}
         {...other}
         className={tremorTwMerge(makeDisplayClassName("root"), "relative z-50", className)}
       >
-        <Transition.Child
+        <Transition
           as={React.Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -37,7 +37,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
               "fixed inset-0 bg-slate-950/30  dark:bg-slate-950/50 transition-opacity",
             )}
           ></div>
-        </Transition.Child>
+        </Transition>
         <div className="fixed inset-0 overflow-y-auto w-screen">
           <div className="flex min-h-full items-center justify-center p-4">{children}</div>
         </div>

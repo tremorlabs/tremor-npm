@@ -13,10 +13,6 @@ import { CalendarIcon } from "assets";
 const meta: Meta<typeof Select> = {
   title: "UI/Input/Select",
   component: Select,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Select",
-  },
 };
 
 export default meta;

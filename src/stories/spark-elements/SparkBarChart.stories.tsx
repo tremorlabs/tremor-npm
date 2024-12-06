@@ -21,10 +21,6 @@ const meta: Meta<typeof SparkBarChart> = {
     data,
     colors: ["emerald", "rose"],
   },
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/spark-elements/SparkBarChart",
-  },
 };
 
 export default meta;

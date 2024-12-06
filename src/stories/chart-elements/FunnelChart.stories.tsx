@@ -20,10 +20,6 @@ const meta: Meta<typeof FunnelChart> = {
   title: "Visualizations/Chart/FunnelChart",
   component: FunnelChart,
   args: { data, className: "h-72" },
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/FunnelChart",
-  },
 };
 
 export default meta;

@@ -1,6 +1,5 @@
 "use client";
 
-import { Listbox, Popover, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { tremorTwMerge } from "lib";
@@ -26,6 +25,15 @@ import { SelectItem } from "components/input-elements/Select";
 import { enUS } from "date-fns/locale";
 import { useInternalState } from "hooks";
 import { Color } from "../../../lib/inputTypes";
+import {
+  Popover,
+  PopoverButton,
+  Transition,
+  PopoverPanel,
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+} from "@headlessui/react";
 
 const TODAY = startOfToday();
 
@@ -177,7 +185,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         )}
       >
         <div className="relative w-full">
-          <Popover.Button
+          <PopoverButton
             onFocus={() => setIsCalendarButtonFocused(true)}
             onBlur={() => setIsCalendarButtonFocused(false)}
             disabled={disabled}
@@ -205,7 +213,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               aria-hidden="true"
             />
             <p className="truncate">{formattedSelection}</p>
-          </Popover.Button>
+          </PopoverButton>
           {isClearEnabled && selectedStartDate ? (
             <button
               type="button"
@@ -232,7 +240,6 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           ) : null}
         </div>
         <Transition
-          className="absolute z-10 min-w-min left-0"
           enter="transition ease duration-100 transform"
           enterFrom="opacity-0 -translate-y-4"
           enterTo="opacity-100 translate-y-0"
@@ -240,11 +247,11 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 -translate-y-4"
         >
-          <Popover.Panel
+          <PopoverPanel
             focus={true}
             className={tremorTwMerge(
               // common
-              "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
+              "absolute z-10 min-w-min left-0 divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
               // light
               "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
               // dark
@@ -280,7 +287,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               weekStartsOn={weekStartsOn}
               {...props}
             />
-          </Popover.Panel>
+          </PopoverPanel>
         </Transition>
       </Popover>
       {enableSelect && (
@@ -297,7 +304,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
         >
           {({ value }) => (
             <>
-              <Listbox.Button
+              <ListboxButton
                 onFocus={() => setIsSelectButtonFocused(true)}
                 onBlur={() => setIsSelectButtonFocused(false)}
                 className={tremorTwMerge(
@@ -311,9 +318,8 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 )}
               >
                 {value ? (valueToNameMapping.get(value) ?? selectPlaceholder) : selectPlaceholder}
-              </Listbox.Button>
+              </ListboxButton>
               <Transition
-                className="absolute z-10 w-full inset-x-0 right-0"
                 enter="transition ease duration-100 transform"
                 enterFrom="opacity-0 -translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -321,10 +327,10 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 -translate-y-4"
               >
-                <Listbox.Options
+                <ListboxOptions
                   className={tremorTwMerge(
                     // common
-                    "divide-y overflow-y-auto outline-none border my-1",
+                    "absolute z-10 w-full inset-x-0 right-0 divide-y overflow-y-auto outline-none border my-1",
                     // light
                     "shadow-tremor-dropdown bg-tremor-background border-tremor-border divide-tremor-border rounded-tremor-default",
                     // dark
@@ -337,7 +343,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
                         {option.text}
                       </SelectItem>
                     ))}
-                </Listbox.Options>
+                </ListboxOptions>
               </Transition>
             </>
           )}

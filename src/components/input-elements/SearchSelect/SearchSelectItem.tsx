@@ -3,29 +3,29 @@ import React from "react";
 
 import { makeClassName, tremorTwMerge } from "lib";
 
-import { Combobox } from "@headlessui/react";
+import { ComboboxOption } from "@headlessui/react";
 
 const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
 
-export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   icon?: React.ElementType;
 }
 
-const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>((props, ref) => {
+const SearchSelectItem = React.forwardRef<HTMLDivElement, SearchSelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
   const Icon = icon;
 
   return (
-    <Combobox.Option
+    <ComboboxOption
       className={tremorTwMerge(
         makeSearchSelectItemClassName("root"),
         // common
         "flex justify-start items-center cursor-default text-tremor-default p-2.5",
         // light
-        "ui-active:bg-tremor-background-muted  ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted text-tremor-content-emphasis",
+        "data-[focus]:bg-tremor-background-muted  data-[focus]:text-tremor-content-strong data-[selected]:text-tremor-content-strong data-[selected]:bg-tremor-background-muted text-tremor-content-emphasis",
         // dark
-        "dark:ui-active:bg-dark-tremor-background-muted  dark:ui-active:text-dark-tremor-content-strong dark:ui-selected:text-dark-tremor-content-strong dark:ui-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "dark:data-[focus]:bg-dark-tremor-background-muted  dark:data-[focus]:text-dark-tremor-content-strong dark:data-[selected]:text-dark-tremor-content-strong dark:data-[selected]:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
         className,
       )}
       ref={ref}
@@ -47,7 +47,7 @@ const SearchSelectItem = React.forwardRef<HTMLLIElement, SearchSelectItemProps>(
         />
       )}
       <span className="whitespace-nowrap truncate">{children ?? value}</span>
-    </Combobox.Option>
+    </ComboboxOption>
   );
 });
 
