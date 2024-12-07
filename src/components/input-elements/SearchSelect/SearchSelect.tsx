@@ -1,7 +1,14 @@
 "use client";
-import React, { isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
+import React, { isValidElement, useMemo, useRef } from "react";
 
+import {
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOptions,
+  Transition,
+} from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
 import {
@@ -10,13 +17,6 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import {
-  Combobox,
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxOptions,
-  Transition,
-} from "@headlessui/react";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
@@ -237,7 +237,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     anchor="bottom start"
                     className={tremorTwMerge(
                       // common
-                      "z-10 divide-y overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] border [--anchor-gap:4px]",
+                      "z-10 divide-y w-[var(--button-width)] overflow-y-auto outline-none rounded-tremor-default text-tremor-default max-h-[228px] border [--anchor-gap:4px]",
                       // light
                       "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                       // dark
