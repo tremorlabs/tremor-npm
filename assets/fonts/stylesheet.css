@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Geist Sans";
+  src: url("./GeistVariable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./GeistMonoVariable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  --font-geist-sans: "Geist Sans";
+  --font-geist-mono: "Geist Mono";
+}
+
+/* @theme {
+  --font-geist-sans: "Geist Sans";
+  --font-geist-mono: "Geist Mono";
+} */

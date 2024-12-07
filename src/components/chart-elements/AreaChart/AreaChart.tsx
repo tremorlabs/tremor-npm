@@ -2,16 +2,16 @@
 import React, { Fragment, useState } from "react";
 import {
   Area,
-  AreaChart as ReChartsAreaChart,
   CartesianGrid,
   Dot,
+  Label,
   Legend,
   Line,
+  AreaChart as ReChartsAreaChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -140,7 +140,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     setActiveDot(undefined);
   }
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("h-80 w-full", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsAreaChart
@@ -203,7 +203,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 <Label
                   position="insideBottom"
                   offset={-20}
-                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
                 >
                   {xAxisLabel}
                 </Label>
@@ -236,7 +236,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   style={{ textAnchor: "middle" }}
                   angle={-90}
                   offset={-15}
-                  className="fill-tremor-content-emphasis text-tremor-default font-medium dark:fill-dark-tremor-content-emphasis"
+                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
                 >
                   {yAxisLabel}
                 </Label>

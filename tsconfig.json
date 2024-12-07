@@ -16,5 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true
   },
-  "include": ["**/*.tsx", "**/*.ts", "setupTests.js"]
+  "include": ["**/*.tsx", "**/*.ts", "setupTests.js"],
+  "exclude": ["node_modules"]
 }

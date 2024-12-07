@@ -9,9 +9,9 @@
     "prettier": "prettier --write \"{src,types,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "tests": "jest",
     "fix-lint": "eslint . --ext .ts --ext .tsx --fix",
-    "build-storybook": "storybook build",
     "semantic-release": "semantic-release",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -46,19 +46,14 @@
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/github": "github:semantic-release/github",
     "@semantic-release/npm": "github:semantic-release/npm",
-    "@storybook/addon-a11y": "^8.4.7",
-    "@storybook/addon-actions": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
-    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/addon-onboarding": "^8.4.7",
     "@storybook/addon-themes": "^8.4.7",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
+    "@storybook/blocks": "^8.4.7",
     "@storybook/manager-api": "^8.4.7",
-    "@storybook/mdx2-csf": "^1.1.0",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
-    "@storybook/react-webpack5": "^8.4.7",
     "@storybook/test": "^8.4.7",
     "@storybook/theming": "^8.4.7",
     "@tailwindcss/forms": "^0.5.9",
@@ -69,6 +64,7 @@
     "@types/react": "^18.3.9",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.4.1",
     "conventional-changelog-conventionalcommits": "^5.0.0",
@@ -78,7 +74,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "html-webpack-plugin": "^5.6.0",
+    "eslint-plugin-storybook": "^0.11.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -102,7 +98,7 @@
     "tailwindcss": "4.0.0-beta.5",
     "tslib": "^2.7.0",
     "typescript": "^4.9.5",
-    "webpack": "^5.97.1"
+    "vite": "^6.0.3"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -144,6 +140,11 @@
       ],
       "@semantic-release/npm",
       "@semantic-release/github"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
     ]
   }
 }

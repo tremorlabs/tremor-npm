@@ -1,0 +1,25 @@
+import { create } from "@storybook/theming";
+
+export default create({
+  base: "light",
+  fontBase: "var(--font-geist-sans)",
+  fontCode: "var(--font-geist-mono)",
+  //   appContentBg: "#161618",
+  //   appBg: "#161618",
+  //   barBg: "#161618",
+  //   inputBg: "#232326",
+  //   buttonBg: "#232326",
+  //   booleanBg: "#232326",
+  //   appBorderColor: "#1C1C1F",
+  //   inputBorder: "#383A43",
+  //   buttonBorder: "#383A43",
+  //   textColor: "#ECEEF0",
+  //   colorSecondary: "#1e3a8a",
+  //   colorPrimary: "#3b82f6",
+  //   barTextColor: "#ECEEF0",
+  //   barHoverColor: "#3E63DD",
+  //   barSelectedColor: "#3E63DD",
+  //   inputTextColor: "#ECEEF0",
+  //   textMutedColor: "#CCCED3",
+  //   textInverseColor: "#161618",
+});
