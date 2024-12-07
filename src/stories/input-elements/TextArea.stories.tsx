@@ -5,10 +5,6 @@ import React from "react";
 const meta: Meta<typeof Textarea> = {
   title: "UI/Input/Textarea",
   component: Textarea,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/Textarea",
-  },
 };
 
 export default meta;

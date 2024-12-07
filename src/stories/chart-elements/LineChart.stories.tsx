@@ -19,10 +19,6 @@ const meta: Meta<typeof LineChart> = {
   title: "Visualizations/Chart/LineChart",
   component: LineChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/LineChart",
-  },
 };
 
 export default meta;
@@ -231,7 +227,7 @@ export const CustomTooltipPreviousDay: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const color = getBadgeColor(percentage);
 
       return (
@@ -275,7 +271,7 @@ export const CustomTooltipComplex: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const badgeColor = getBadgeColor(percentage);
 
       return (

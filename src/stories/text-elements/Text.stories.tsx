@@ -9,9 +9,6 @@ const meta: Meta<typeof Text> = {
     children:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor lorem non est congue blandit. Praesent non lorem sodales, suscipit est sed, hendrerit dolor.",
   },
-  parameters: {
-    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Text",
-  },
 };
 
 export default meta;

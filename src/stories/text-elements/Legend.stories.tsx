@@ -14,10 +14,6 @@ const meta: Meta<typeof Legend> = {
       "Category D",
     ],
   },
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Legend",
-  },
 };
 
 export default meta;

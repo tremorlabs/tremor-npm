@@ -13,10 +13,6 @@ import { CalendarIcon } from "assets";
 const meta: Meta<typeof MultiSelect> = {
   title: "UI/Input/MultiSelect",
   component: MultiSelect,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/MultiSelect",
-  },
 };
 
 export default meta;

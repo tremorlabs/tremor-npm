@@ -10,10 +10,6 @@ const meta: Meta<typeof ProgressBar> = {
   title: "Visualizations/Vis/ProgressBar",
   component: ProgressBar,
   render: (args) => <ProgressBar {...args} />,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/ProgressBar",
-  },
 };
 
 export default meta;

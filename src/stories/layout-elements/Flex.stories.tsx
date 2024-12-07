@@ -9,10 +9,6 @@ import { SimpleText } from "stories/layout-elements/helpers/SimpleText";
 const meta: Meta<typeof Flex> = {
   title: "UI/Layout/Flex",
   component: Flex,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/layout-elements/Flex",
-  },
 };
 
 export default meta;

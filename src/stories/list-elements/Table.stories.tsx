@@ -9,9 +9,6 @@ import { DeltaType } from "lib";
 const meta: Meta<typeof Table> = {
   title: "UI/List/Table",
   component: Table,
-  parameters: {
-    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/list-elements/Table",
-  },
 };
 
 export default meta;

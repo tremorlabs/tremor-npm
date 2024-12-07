@@ -10,10 +10,6 @@ const meta: Meta<typeof DateRangePicker> = {
   title: "UI/Input/DateRangePicker",
   component: DateRangePicker,
   decorators: [(Story) => <Story />],
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/DateRangePicker",
-  },
 };
 
 export default meta;
