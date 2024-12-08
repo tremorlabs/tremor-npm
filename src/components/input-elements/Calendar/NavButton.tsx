@@ -1,4 +1,4 @@
-import { Icon as IconComponent } from "components/icon-elements";
+// import { Icon as IconComponent } from "components/icon-elements";
 import { tremorTwMerge } from "lib";
 import React from "react";
 
@@ -17,7 +17,7 @@ export const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
       )}
       {...other}
     >
-      <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="sm" />
+      {/* <IconComponent onClick={onClick} icon={Icon} variant="simple" color="slate" size="sm" /> */}
     </button>
   );
 };

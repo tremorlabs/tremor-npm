@@ -1,7 +1,7 @@
-import React from "react";
 import { DialogPanel as HeadlessuiDialogPanel, TransitionChild } from "@headlessui/react";
-import { makeClassName, tremorTwMerge } from "lib";
 import { RootStylesContext } from "contexts";
+import { makeClassName, tremorTwMerge } from "lib";
+import React from "react";
 
 const makeDisplayClassName = makeClassName("dialog");
 
@@ -26,9 +26,9 @@ const DialogPanel = React.forwardRef<HTMLDivElement, DialogPanelProps>((props, r
         className={tremorTwMerge(
           makeDisplayClassName("panel"),
           // common
-          "w-full max-w-lg overflow-visible text-left ring-1 shadow-tremor transition-all transform",
+          "shadow-tremor w-full max-w-lg transform overflow-visible text-left ring-1 transition-all",
           // light
-          "bg-tremor-background  text-tremor-content ring-tremor-ring",
+          "bg-tremor-background text-tremor-content ring-tremor-ring",
           // dark
           "dark:bg-dark-tremor-background dark:text-dark-tremor-content dark:ring-dark-tremor-ring",
           rootStyles,

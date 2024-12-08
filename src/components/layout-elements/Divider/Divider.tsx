@@ -1,44 +1,25 @@
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React from "react";
 
-const makeDividerClassName = makeClassName("Divider");
-
 const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  (props, ref) => {
-    const { className, children, ...other } = props;
+  ({ className, children, ...other }, ref) => {
     return (
       <div
         ref={ref}
         className={tremorTwMerge(
-          makeDividerClassName("root"),
-          // common
-          "w-full mx-auto my-6 flex justify-between gap-3 items-center text-tremor-default",
-          // light
-          "text-tremor-content",
-          // dark
-          "dark:text-dark-tremor-content",
+          "text-tremor-default text-tremor-content-default mx-auto my-6 flex w-full items-center justify-between gap-3",
           className,
         )}
         {...other}
       >
         {children ? (
           <>
-            <div
-              className={tremorTwMerge(
-                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
-              )}
-            />
-            <div className={tremorTwMerge("text-inherit whitespace-nowrap")}>{children}</div>
-            <div
-              className={tremorTwMerge(
-                "w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border",
-              )}
-            />
+            <div className="bg-tremor-border-default h-[1px] w-full" />
+            <div className="whitespace-nowrap text-inherit">{children}</div>
+            <div className="bg-tremor-border-default h-[1px] w-full" />
           </>
         ) : (
-          <div
-            className={tremorTwMerge("w-full h-[1px] bg-tremor-border dark:bg-dark-tremor-border")}
-          />
+          <div className="bg-tremor-border-default h-[1px] w-full" />
         )}
       </div>
     );
@@ -47,4 +28,4 @@ const Divider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
 
 Divider.displayName = "Divider";
 
-export default Divider;
+export { Divider };

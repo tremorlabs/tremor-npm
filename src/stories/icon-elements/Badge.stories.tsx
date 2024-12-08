@@ -5,14 +5,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 import { ArrowUpIcon } from "assets";
-import { Badge, Grid } from "components";
+import { Badge } from "components";
 
 const meta: Meta<typeof Badge> = {
   title: "UI/Icon/Badge",
   component: Badge,
   args: {
     children: "Live",
-    tooltip: "Tooltip",
     icon: ArrowUpIcon,
   },
 };
@@ -23,13 +22,13 @@ type Story = StoryObj<typeof Badge>;
 const BadgeTemplateColors: Story = {
   render: () => {
     return (
-      <Grid className="gap-y-2">
+      <div>
         {Object.values(BaseColors).map((color) => (
-          <Badge key={color} icon={ArrowUpIcon} color={color} tooltip="Tooltip">
+          <Badge key={color} icon={ArrowUpIcon} color={color}>
             {color}
           </Badge>
         ))}
-      </Grid>
+      </div>
     );
   },
 };
@@ -37,11 +36,11 @@ const BadgeTemplateColors: Story = {
 const BadgeTemplateSizes: Story = {
   render: ({ ...args }) => {
     return (
-      <Grid className="gap-y-2">
+      <div>
         {Object.values(InputSizes).map((size) => (
-          <Badge key={size} size={size} tooltip="Tooltip" {...args} />
+          <Badge key={size} size={size} {...args} />
         ))}
-      </Grid>
+      </div>
     );
   },
 };

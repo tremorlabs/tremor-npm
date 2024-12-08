@@ -1,72 +1,5 @@
 @import "tailwindcss";
 
-/* @variant dark (&:is(.dark *)); */
-/* @variant dark (&:where(.dark, .dark *)); */
-
-:root {
-  /* Shadow Tokens */
-  --shadow-input: color-0 1px 2px 0 oklch(0 0 0 / 0.05);
-  --shadow-card: color-0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
-  --shadow-dropdown: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
-
-  /* Border Radius Tokens */
-  --radius-small: 0.375rem;
-  --radius-default: 0.5rem;
-  --radius-full: 9999px;
-
-  /* Typography Scale Tokens */
-  --font-label-size: 0.75rem;
-  --font-label-line-height: 1rem;
-  --font-default-size: 0.875rem;
-  --font-default-line-height: 1.25rem;
-
-  /* Light Colors Tokens */
-  --color-brand-faint: oklch(0.97 0.014 254.604);
-  --color-brand-muted: oklch(0.882 0.059 254.128);
-  --color-brand-subtle: oklch(0.707 0.165 254.624);
-  --color-brand-default: oklch(0.623 0.214 259.815);
-  --color-brand-emphasis: oklch(0.488 0.243 264.376);
-  --color-brand-inverted: oklch(1 0 0);
-
-  --color-background-muted: oklch(0.985 0.002 247.839);
-  --color-background-subtle: oklch(0.967 0.003 264.542);
-  --color-background-default: oklch(1 0 0);
-  --color-background-emphasis: oklch(0.373 0.034 259.733);
-
-  --color-border-default: oklch(0.928 0.006 264.531);
-  --color-ring-default: oklch(0.928 0.006 264.531);
-
-  --color-content-subtle: oklch(0.707 0.022 261.325);
-  --color-content-default: oklch(0.551 0.027 264.364);
-  --color-content-emphasis: oklch(0.373 0.034 259.733);
-  --color-content-strong: oklch(0.21 0.034 264.665);
-  --color-content-inverted: oklch(1 0 0);
-}
-
-.dark {
-  /* Dark Colors Tokens */
-  --color-brand-faint: oklch(0.07 0.02 265);
-  --color-brand-muted: oklch(0.282 0.091 267.935);
-  --color-brand-subtle: oklch(0.424 0.199 265.638);
-  --color-brand-default: oklch(0.623 0.214 259.815);
-  --color-brand-emphasis: oklch(0.707 0.165 254.624);
-  --color-brand-inverted: oklch(0.282 0.091 267.935);
-
-  --color-background-muted: oklch(0.08 0.02 265);
-  --color-background-subtle: oklch(0.278 0.033 256.848);
-  --color-background-default: oklch(0.21 0.034 264.665);
-  --color-background-emphasis: oklch(0.872 0.01 258.338);
-
-  --color-border-default: oklch(0.278 0.033 256.848);
-  --color-ring-default: oklch(0.278 0.033 256.848);
-
-  --color-content-subtle: oklch(0.446 0.03 256.802);
-  --color-content-default: oklch(0.551 0.027 264.364);
-  --color-content-emphasis: oklch(0.928 0.006 264.531);
-  --color-content-strong: oklch(0.985 0.002 247.839);
-  --color-content-inverted: oklch(0.13 0.028 261.692);
-}
-
 @theme {
   /* Shadows */
   --shadow-tremor-input: var(--shadow-input);
@@ -79,27 +12,98 @@
   --radius-tremor-full: var(--radius-full);
 
   /* Typography Scale */
-  --font-tremor-label-size: var(--font-label-size);
-  --font-tremor-label-line-height: var(--font-label-line-height);
-  --font-tremor-default-size: var(--font-default-size);
-  --font-tremor-default-line-height: var(--font-default-line-height);
+  --text-tremor-default: var(--text-default);
+  --text-tremor-default--line-height: var(--text-default--line-height);
+  --text-tremor-label: var(--text-label);
+  --text-tremor-label--line-height: var(--text-label--line-height);
 
-  /* Typography Colors */
+  /* Colors */
   --color-tremor-brand-faint: var(--color-brand-faint);
   --color-tremor-brand-muted: var(--color-brand-muted);
   --color-tremor-brand-subtle: var(--color-brand-subtle);
   --color-tremor-brand-default: var(--color-brand-default);
   --color-tremor-brand-emphasis: var(--color-brand-emphasis);
   --color-tremor-brand-inverted: var(--color-brand-inverted);
-  --color-background-tremor-muted: var(--color-background-muted);
-  --color-background-tremor-subtle: var(--color-background-subtle);
-  --color-background-tremor-default: var(--color-background-default);
-  --color-background-tremor-emphasis: var(--color-background-emphasis);
-  --color-border-tremor-default: var(--color-border-default);
-  --ring-tremor-default: var(--ring-default);
-  --color-content-tremor-subtle: var(--color-content-subtle);
-  --color-content-tremor-default: var(--color-content-default);
-  --color-content-tremor-emphasis: var(--color-content-emphasis);
-  --color-content-tremor-strong: var(--color-content-strong);
-  --color-content-tremor-inverted: var(--color-content-inverted);
+
+  --color-tremor-background-muted: var(--color-background-muted);
+  --color-tremor-background-subtle: var(--color-background-subtle);
+  --color-tremor-background-default: var(--color-background-default);
+  --color-tremor-background-emphasis: var(--color-background-emphasis);
+
+  --color-tremor-border-default: var(--color-border-default);
+  --color-tremor-ring-default: var(--color-ring-default);
+
+  --color-tremor-content-subtle: var(--color-content-subtle);
+  --color-tremor-content-default: var(--color-content-default);
+  --color-tremor-content-emphasis: var(--color-content-emphasis);
+  --color-tremor-content-strong: var(--color-content-strong);
+  --color-tremor-content-inverted: var(--color-content-inverted);
+}
+
+@layer utilities {
+  :root {
+    /* Shadow Tokens */
+    --shadow-input: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+    --shadow-card: 0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+    --shadow-dropdown: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+
+    /* Border Radius Tokens */
+    --radius-small: 0.375rem;
+    --radius-default: 0.5rem;
+    --radius-full: 9999px;
+
+    /* Typography Scale Tokens */
+    --text-default: 0.875rem;
+    --text-default--line-height: 1.25rem;
+    --text-label: 0.75rem;
+    --text-label--line-height: 1rem;
+
+    /* Light Colors Tokens */
+    --color-brand-faint: var(--color-blue-50);
+    --color-brand-muted: var(--color-blue-200);
+    --color-brand-subtle: var(--color-blue-400);
+    --color-brand-default: var(--color-blue-500);
+    --color-brand-emphasis: var(--color-blue-700);
+    --color-brand-inverted: var(--color-white);
+
+    --color-background-muted: var(--color-gray-50);
+    --color-background-subtle: var(--color-gray-100);
+    --color-background-default: var(--color-white);
+    --color-background-emphasis: var(--color-gray-700);
+
+    --color-border-default: var(--color-gray-200);
+    --color-ring-default: var(--color-gray-200);
+
+    --color-content-subtle: var(--color-gray-400);
+    --color-content-default: var(--color-gray-500);
+    --color-content-emphasis: var(--color-gray-700);
+    --color-content-strong: var(--color-gray-900);
+    --color-content-inverted: var(--color-white);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Dark Colors Tokens */
+      --color-brand-faint: #0b1229;
+      --color-brand-muted: var(--color-blue-950);
+      --color-brand-subtle: var(--color-blue-800);
+      --color-brand-default: var(--color-blue-500);
+      --color-brand-emphasis: var(--color-blue-400);
+      --color-brand-inverted: var(--color-blue-950);
+
+      --color-background-muted: #131a2b;
+      --color-background-subtle: var(--color-gray-800);
+      --color-background-default: var(--color-gray-900);
+      --color-background-emphasis: var(--color-gray-300);
+
+      --color-border-default: var(--color-gray-800);
+      --color-ring-default: var(--color-gray-800);
+
+      --color-content-subtle: var(--color-gray-600);
+      --color-content-default: var(--color-gray-500);
+      --color-content-emphasis: var(--color-gray-200);
+      --color-content-strong: var(--color-gray-50);
+      --color-content-inverted: var(--color-gray-950);
+    }
+  }
 }

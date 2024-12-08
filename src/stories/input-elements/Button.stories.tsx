@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRightIcon } from "assets";
-import { Button, Grid } from "components";
+import { Button } from "components";
 import { BaseColors, Sizes as InputSizes } from "lib/constants";
 
 const meta: Meta<typeof Button> = {
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof Button>;
 const SizesTemplate: Story = {
   render: ({ ...args }) => {
     return (
-      <Grid numItems={5} className="gap-4">
+      <div>
         <Button {...args}>Button</Button>
         <Button {...args} icon={ArrowRightIcon}>
           Button
@@ -61,7 +61,7 @@ const SizesTemplate: Story = {
             </Button>
           </>
         ))}
-      </Grid>
+      </div>
     );
   },
 };
@@ -69,7 +69,7 @@ const SizesTemplate: Story = {
 const SizesTemplateNoText: Story = {
   render: ({ ...args }) => {
     return (
-      <Grid numItems={5} className="gap-4">
+      <div>
         <Button {...args} icon={ArrowRightIcon}></Button>
         <Button {...args} icon={ArrowRightIcon}></Button>
         <Button {...args} variant="secondary" icon={ArrowRightIcon}></Button>
@@ -83,7 +83,7 @@ const SizesTemplateNoText: Story = {
             <Button {...args} size={size} variant="light" icon={ArrowRightIcon}></Button>
           </>
         ))}
-      </Grid>
+      </div>
     );
   },
 };
@@ -91,7 +91,7 @@ const SizesTemplateNoText: Story = {
 const ColorsTemplate: Story = {
   render: ({ ...args }) => {
     return (
-      <Grid numItems={4} numItemsLg={4} className="gap-y-2">
+      <div>
         {Object.values(BaseColors).map((color) => (
           <>
             <Button {...args} color={color}>
@@ -108,7 +108,7 @@ const ColorsTemplate: Story = {
             </Button>
           </>
         ))}
-      </Grid>
+      </div>
     );
   },
 };
@@ -139,13 +139,13 @@ function LoadingState({ ...args }) {
       <Button onClick={() => setLoading(!loading)} color="gray">
         Click to Load
       </Button>
-      <div className="flex flex-col max-w-fit gap-y-2 mt-10">
+      <div className="mt-10 flex max-w-fit flex-col gap-y-2">
         {Object.values(InputSizes).map((size, index) => (
           <React.Fragment key={index}>{RenderButtons(args, loading)}</React.Fragment>
         ))}
       </div>
       With Loading Text
-      <div className="flex flex-col max-w-fit gap-y-2 mt-10">
+      <div className="mt-10 flex max-w-fit flex-col gap-y-2">
         {RenderButtons({ ...args, loadingText: "Loading" }, loading)}
       </div>
     </>

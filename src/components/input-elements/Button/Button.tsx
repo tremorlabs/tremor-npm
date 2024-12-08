@@ -1,15 +1,90 @@
 "use client";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import React, { useEffect } from "react";
-import { useTransition, type TransitionStatus } from "react-transition-state";
 
-import { HorizontalPositions, makeClassName, mergeRefs, Sizes, tremorTwMerge } from "lib";
+import React from "react";
+
+export type HorizontalPosition = "left" | "right";
+
+export type VerticalPosition = "top" | "bottom";
+
+export const HorizontalPositions: { [key: string]: HorizontalPosition } = {
+  Left: "left",
+  Right: "right",
+};
+
+export const VerticalPositions: { [key: string]: VerticalPosition } = {
+  Top: "top",
+  Bottom: "bottom",
+};
+
+import { tremorTwMerge } from "lib";
 
 import { LoadingSpinner } from "assets";
-import { ButtonVariant, Color, HorizontalPosition, Size } from "../../../lib";
-import { getButtonColors, getButtonProportions, iconSizes } from "./styles";
+import { tv, VariantProps } from "tailwind-variants";
 
-const makeButtonClassName = makeClassName("Button");
+const buttonVariants = {
+  primary: [
+    "border-tremor-brand",
+    "hover:border-tremor-brand-emphasis ",
+    "text-tremor-brand-inverted ",
+    "hover:text-tremor-brand-inverted ",
+    "bg-tremor-brand ",
+    "hover:bg-tremor-brand-emphasis",
+  ],
+  secondary: [
+    "border-tremor-brand ",
+    "text-tremor-brand ",
+    "hover:text-tremor-brand-emphasis ",
+    "bg-transparent",
+    "hover:bg-tremor-brand-faint ",
+    "hover:bg-opacity-20 ",
+  ],
+  light: [
+    "border-transparent",
+    "text-tremor-brand ",
+    "hover:text-tremor-brand-emphasis ",
+    "bg-transparent",
+  ],
+};
+
+const buttonSizes = {
+  xs: "px-2.5 py-1.5 text-xs",
+  sm: "px-4 py-2 text-sm",
+  md: "px-4 py-2 text-md",
+  lg: "px-4 py-2.5 text-lg",
+  xl: "px-4 py-3 text-xl",
+};
+
+const iconSizes = {
+  xs: "h-4 w-4",
+  sm: "h-4 w-4",
+  md: "h-4 w-4",
+  lg: "h-5 w-5",
+  xl: "h-6 w-6",
+};
+
+const buttonStyles = tv({
+  base: "group disabled:cursor-not-allowed disabled:opacity-50 inline-flex shrink-0 items-center justify-center font-medium outline-hidden",
+  variants: {
+    variant: { ...buttonVariants },
+    size: { ...buttonSizes },
+  },
+  defaultVariants: {
+    color: "brand",
+    size: "sm",
+  },
+});
+
+type ButtonProps = Omit<
+  React.ComponentPropsWithoutRef<"button">,
+  keyof VariantProps<typeof buttonStyles>
+> &
+  VariantProps<typeof buttonStyles> & {
+    icon?: React.ElementType;
+    iconPosition?: HorizontalPosition;
+    disabled?: boolean;
+    loading?: boolean;
+    loadingText?: string;
+  };
 
 export interface ButtonIconOrSpinnerProps {
   loading: boolean;
@@ -17,7 +92,6 @@ export interface ButtonIconOrSpinnerProps {
   iconPosition: string;
   Icon: React.ElementType | undefined;
   needMargin: boolean;
-  transitionStatus: TransitionStatus;
 }
 
 export const ButtonIconOrSpinner = ({
@@ -26,7 +100,6 @@ export const ButtonIconOrSpinner = ({
   iconPosition,
   Icon,
   needMargin,
-  transitionStatus,
 }: ButtonIconOrSpinnerProps) => {
   Icon = Icon!;
 
@@ -36,7 +109,7 @@ export const ButtonIconOrSpinner = ({
       ? tremorTwMerge("-ml-1", "mr-1.5")
       : tremorTwMerge("-mr-1", "ml-1.5");
 
-  const defaultSpinnerSize = tremorTwMerge("w-0 h-0");
+  const defaultSpinnerSize = tremorTwMerge("h-0 w-0");
   const spinnerSize: { [key: string]: any } = {
     default: defaultSpinnerSize,
     entering: defaultSpinnerSize,
@@ -47,44 +120,25 @@ export const ButtonIconOrSpinner = ({
 
   return loading ? (
     <LoadingSpinner
-      className={tremorTwMerge(
-        makeButtonClassName("icon"),
-        "animate-spin shrink-0",
-        margin,
-        spinnerSize.default,
-        spinnerSize[transitionStatus],
-      )}
+      className={tremorTwMerge("shrink-0 animate-spin", margin, spinnerSize.default)}
       style={{ transition: `width 150ms` }}
     />
   ) : (
-    <Icon className={tremorTwMerge(makeButtonClassName("icon"), "shrink-0", iconSize, margin)} />
+    <Icon className={tremorTwMerge("shrink-0", iconSize, margin)} />
   );
 };
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: React.ElementType;
-  iconPosition?: HorizontalPosition;
-  size?: Size;
-  color?: Color;
-  variant?: ButtonVariant;
-  disabled?: boolean;
-  loading?: boolean;
-  loadingText?: string;
-  tooltip?: string;
-}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     icon,
     iconPosition = HorizontalPositions.Left,
-    size = Sizes.SM,
-    color,
+    size = "sm",
+    // color = "brand",
     variant = "primary",
     disabled,
     loading = false,
     loadingText,
     children,
-    tooltip,
     className,
     ...other
   } = props;
@@ -96,86 +150,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   const showLoadingText = loading && loadingText;
   const needIconMargin = children || showLoadingText ? true : false;
 
-  const iconSize = tremorTwMerge(iconSizes[size].height, iconSizes[size].width);
-  const buttonShapeStyles =
-    variant !== "light"
-      ? tremorTwMerge(
-          // common
-          "rounded-tremor-default border",
-          // light
-          "shadow-tremor-input",
-          // dark
-          "dark:shadow-dark-tremor-input",
-        )
-      : "";
-  const buttonColorStyles = getButtonColors(variant, color);
-  const buttonProportionStyles = getButtonProportions(variant)[size];
-  const delay = 300;
-  const { tooltipProps, getReferenceProps } = useTooltip(delay);
-
-  const [transitionState, toggleTransition] = useTransition({ timeout: 50 });
-
-  useEffect(() => {
-    toggleTransition(loading);
-  }, [loading]);
-
   return (
     // eslint-disable-next-line react/button-has-type
     <button
-      ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-      className={tremorTwMerge(
-        makeButtonClassName("root"),
-        // common
-        "shrink-0 inline-flex justify-center items-center group font-medium outline-hidden",
-        buttonShapeStyles,
-        buttonProportionStyles.paddingX,
-        buttonProportionStyles.paddingY,
-        buttonProportionStyles.fontSize,
-        buttonColorStyles.textColor,
-        buttonColorStyles.bgColor,
-        buttonColorStyles.borderColor,
-        buttonColorStyles.hoverBorderColor,
-        !isDisabled
-          ? tremorTwMerge(
-              getButtonColors(variant, color).hoverTextColor,
-              getButtonColors(variant, color).hoverBgColor,
-              getButtonColors(variant, color).hoverBorderColor,
-            )
-          : "opacity-50 cursor-not-allowed",
-        className,
-      )}
+      ref={ref}
+      className={tremorTwMerge(buttonStyles({ size, variant, className }))}
       disabled={isDisabled}
-      {...getReferenceProps}
       {...other}
     >
-      <Tooltip text={tooltip} {...tooltipProps} />
       {showButtonIconOrSpinner && iconPosition !== HorizontalPositions.Right ? (
         <ButtonIconOrSpinner
           loading={loading}
-          iconSize={iconSize}
+          iconSize={iconSizes[size]}
           iconPosition={iconPosition}
           Icon={Icon}
-          transitionStatus={transitionState.status}
           needMargin={needIconMargin}
         />
       ) : null}
       {showLoadingText || children ? (
-        <span
-          className={tremorTwMerge(
-            makeButtonClassName("text"),
-            "text-tremor-default whitespace-nowrap",
-          )}
-        >
+        <span className={tremorTwMerge("text-tremor-default whitespace-nowrap")}>
           {showLoadingText ? loadingText : children}
         </span>
       ) : null}
       {showButtonIconOrSpinner && iconPosition === HorizontalPositions.Right ? (
         <ButtonIconOrSpinner
           loading={loading}
-          iconSize={iconSize}
+          iconSize={iconSizes[size]}
           iconPosition={iconPosition}
           Icon={Icon}
-          transitionStatus={transitionState.status}
           needMargin={needIconMargin}
         />
       ) : null}

@@ -13,10 +13,6 @@ const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as 
 
 export type IconVariant = (typeof iconVariantValues)[number];
 
-export type HorizontalPosition = "left" | "right";
-
-export type VerticalPosition = "top" | "bottom";
-
 export type ButtonVariant = "primary" | "secondary" | "light";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
