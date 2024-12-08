@@ -20,15 +20,15 @@ importers:
       react-day-picker:
         specifier: ^8.10.1
         version: 8.10.1(date-fns@3.6.0)(react@18.3.1)
-      react-transition-state:
-        specifier: ^2.1.2
-        version: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       recharts:
         specifier: ^2.13.3
         version: 2.13.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
-        specifier: ^2.5.2
-        version: 2.5.2
+        specifier: ^2.5.5
+        version: 2.5.5
+      tailwind-variants:
+        specifier: ^0.3.0
+        version: 0.3.0(tailwindcss@4.0.0-beta.6)
     devDependencies:
       '@babel/core':
         specifier: ^7.25.2
@@ -101,7 +101,7 @@ importers:
         version: 8.4.7(storybook@8.4.7(prettier@3.4.2))
       '@tailwindcss/forms':
         specifier: ^0.5.9
-        version: 0.5.9(tailwindcss@4.0.0-beta.5)
+        version: 0.5.9(tailwindcss@4.0.0-beta.6)
       '@tailwindcss/postcss':
         specifier: 4.0.0-beta.5
         version: 4.0.0-beta.5
@@ -217,8 +217,8 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4(webpack@5.97.1(esbuild@0.24.0))
       tailwindcss:
-        specifier: 4.0.0-beta.5
-        version: 4.0.0-beta.5
+        specifier: 4.0.0-beta.6
+        version: 4.0.0-beta.6
       tslib:
         specifier: ^2.7.0
         version: 2.7.0
@@ -5027,12 +5027,6 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
 
-  react-transition-state@2.1.2:
-    resolution: {integrity: sha512-RkDYBkj1V1ZqBA5AwQPrMt2Uagwsx6b//GVJdRDhs/t0o66w2nhQiyHyFGQEI60mgtbaIdLm8yhBRCvhA+FxEg==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -5488,11 +5482,20 @@ packages:
   tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
 
-  tailwind-merge@2.5.2:
-    resolution: {integrity: sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==}
+  tailwind-merge@2.5.5:
+    resolution: {integrity: sha512-0LXunzzAZzo0tEPxV3I297ffKZPlKDrjj7NXphC8V5ak9yHC5zRmxnOe2m/Rd/7ivsOMJe3JZ2JVocoDdQTRBA==}
+
+  tailwind-variants@0.3.0:
+    resolution: {integrity: sha512-ho2k5kn+LB1fT5XdNS3Clb96zieWxbStE9wNLK7D0AV64kdZMaYzAKo0fWl6fXLPY99ffF9oBJnIj5escEl/8A==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwindcss: '*'
 
   tailwindcss@4.0.0-beta.5:
     resolution: {integrity: sha512-59zeDyaVE5z1iQnhk5cGeBJvb6Z/Iym4qSFzPddiotWbnqWcIqj0kRgZH8OyR4VZU+solTRQaWRgfDZ8PQ+p8A==}
+
+  tailwindcss@4.0.0-beta.6:
+    resolution: {integrity: sha512-eCCuMk3H65w4J/QWkjxfeWoBSKbCD3E6Uj2LA6Xkkl4eMa1MXuwVpIU1RXcLIp+BVsXGEZMP7i7uJig7KxfAXQ==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -7910,10 +7913,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@tailwindcss/forms@0.5.9(tailwindcss@4.0.0-beta.5)':
+  '@tailwindcss/forms@0.5.9(tailwindcss@4.0.0-beta.6)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.0.0-beta.5
+      tailwindcss: 4.0.0-beta.6
 
   '@tailwindcss/node@4.0.0-beta.5':
     dependencies:
@@ -11451,11 +11454,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-transition-state@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   react@18.3.1:
     dependencies:
       loose-envify: 1.4.0
@@ -12016,9 +12014,16 @@ snapshots:
 
   tabbable@6.2.0: {}
 
-  tailwind-merge@2.5.2: {}
+  tailwind-merge@2.5.5: {}
+
+  tailwind-variants@0.3.0(tailwindcss@4.0.0-beta.6):
+    dependencies:
+      tailwind-merge: 2.5.5
+      tailwindcss: 4.0.0-beta.6
 
   tailwindcss@4.0.0-beta.5: {}
+
+  tailwindcss@4.0.0-beta.6: {}
 
   tapable@2.2.1: {}
 

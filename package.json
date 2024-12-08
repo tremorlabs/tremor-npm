@@ -28,9 +28,9 @@
     "@headlessui/react": "2.2.0",
     "date-fns": "^3.6.0",
     "react-day-picker": "^8.10.1",
-    "react-transition-state": "^2.1.2",
     "recharts": "^2.13.3",
-    "tailwind-merge": "^2.5.2"
+    "tailwind-merge": "^2.5.5",
+    "tailwind-variants": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -95,7 +95,7 @@
     "semantic-release": "^24.1.1",
     "storybook": "^8.4.7",
     "style-loader": "^3.3.4",
-    "tailwindcss": "4.0.0-beta.5",
+    "tailwindcss": "4.0.0-beta.6",
     "tslib": "^2.7.0",
     "typescript": "^4.9.5",
     "vite": "^6.0.3"
