@@ -2,7 +2,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 
-import Button from "components/input-elements/Button/Button";
+import { Button } from "components";
 
 describe("Button", () => {
   test("renders the Button component with default props", () => {

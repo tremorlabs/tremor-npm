@@ -16,32 +16,26 @@ type Story = StoryObj<typeof Button>;
 const SizesTemplate: Story = {
   render: ({ ...args }) => {
     return (
-      <div>
-        <Button {...args}>Button</Button>
-        <Button {...args} icon={ArrowRightIcon}>
-          Button
-        </Button>
-        <Button {...args} icon={ArrowRightIcon} iconPosition="right">
-          Button
-        </Button>
-        <Button {...args} variant="secondary" icon={ArrowRightIcon} iconPosition="left">
-          Button
-        </Button>
-        <Button {...args} variant="light" icon={ArrowRightIcon} iconPosition="right">
-          Button
-        </Button>
+      <div className="grid grid-cols-5 gap-4">
         {Object.values(InputSizes).map((size) => (
           <>
-            <Button {...args} size={size}>
+            <Button className="w-fit" {...args} size={size}>
               Button
             </Button>
-            <Button {...args} size={size} icon={ArrowRightIcon}>
-              Button
-            </Button>
-            <Button {...args} size={size} icon={ArrowRightIcon} iconPosition="right">
+            <Button className="w-fit" {...args} size={size} icon={ArrowRightIcon}>
               Button
             </Button>
             <Button
+              className="w-fit"
+              {...args}
+              size={size}
+              icon={ArrowRightIcon}
+              iconPosition="right"
+            >
+              Button
+            </Button>
+            <Button
+              className="w-fit"
               {...args}
               size={size}
               variant="secondary"
@@ -51,6 +45,7 @@ const SizesTemplate: Story = {
               Button
             </Button>
             <Button
+              className="w-fit"
               {...args}
               size={size}
               variant="light"
@@ -69,11 +64,7 @@ const SizesTemplate: Story = {
 const SizesTemplateNoText: Story = {
   render: ({ ...args }) => {
     return (
-      <div>
-        <Button {...args} icon={ArrowRightIcon}></Button>
-        <Button {...args} icon={ArrowRightIcon}></Button>
-        <Button {...args} variant="secondary" icon={ArrowRightIcon}></Button>
-        <Button {...args} variant="light" icon={ArrowRightIcon}></Button>
+      <div className="grid grid-cols-5 gap-4">
         {Object.values(InputSizes).map((size) => (
           <>
             <Button {...args} size={size}></Button>
@@ -91,20 +82,17 @@ const SizesTemplateNoText: Story = {
 const ColorsTemplate: Story = {
   render: ({ ...args }) => {
     return (
-      <div>
+      <div className="grid grid-cols-3 gap-4">
         {Object.values(BaseColors).map((color) => (
           <>
             <Button {...args} color={color}>
-              Button
-            </Button>
-            <Button {...args} color={color} icon={ArrowRightIcon}>
-              Button
+              Primary
             </Button>
             <Button {...args} color={color} variant="secondary">
-              Button
+              Secondary
             </Button>
             <Button {...args} color={color} variant="light">
-              Button
+              Light
             </Button>
           </>
         ))}
@@ -166,7 +154,6 @@ export const Sizes: Story = {
   ...SizesTemplate,
   args: {
     onClick: () => alert(2),
-    className: "max-w-fit",
   },
 };
 
@@ -189,14 +176,6 @@ export const Colors: Story = {
 export const Disabled: Story = {
   args: {
     children: "Disabled",
-    disabled: true,
-  },
-};
-
-export const TooltipDisabled: Story = {
-  args: {
-    children: "Disabled",
-    tooltip: "Disabled",
     disabled: true,
   },
 };

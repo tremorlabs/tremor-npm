@@ -1,15 +1,15 @@
 "use client";
 import { Switch as HeadlessSwitch } from "@headlessui/react";
+import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 import { useInternalState } from "hooks";
 import {
   Color,
-  makeClassName,
-  tremorTwMerge,
   colorPalette,
   getColorClassNames,
+  makeClassName,
   mergeRefs,
+  tremorTwMerge,
 } from "lib";
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
 
 import React, { useState } from "react";
 
@@ -67,7 +67,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
       <Tooltip text={tooltip} {...tooltipProps} />
       <div
         ref={mergeRefs([ref, tooltipProps.refs.setReference])}
-        className={tremorTwMerge(makeSwitchClassName("root"), "flex flex-row relative h-5")}
+        className={tremorTwMerge(makeSwitchClassName("root"), "relative flex h-5 flex-row")}
         {...other}
         {...getReferenceProps}
       >
@@ -75,7 +75,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           type="checkbox"
           className={tremorTwMerge(
             makeSwitchClassName("input"),
-            "absolute w-5 h-5 cursor-pointer left-0 top-0 opacity-0",
+            "absolute top-0 left-0 h-5 w-5 cursor-pointer opacity-0",
           )}
           name={name}
           required={required}
@@ -93,8 +93,8 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
           disabled={disabled}
           className={tremorTwMerge(
             makeSwitchClassName("switch"),
-            "w-10 h-5 group relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-tremor-full",
-            "focus:outline-hidden",
+            "group rounded-tremor-full relative inline-flex h-5 w-10 shrink-0 cursor-pointer items-center justify-center",
+            "focus:outline-none",
             disabled ? "cursor-not-allowed" : "",
           )}
           onFocus={() => setIsFocused(true)}
@@ -109,7 +109,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             className={tremorTwMerge(
               makeSwitchClassName("background"),
               isChecked ? switchColorStyles.bgColor : "bg-tremor-border dark:bg-dark-tremor-border",
-              "pointer-events-none absolute mx-auto h-3 w-9 rounded-tremor-full transition-colors duration-100 ease-in-out",
+              "rounded-tremor-full pointer-events-none absolute mx-auto h-3 w-9 transition-colors duration-100 ease-in-out",
             )}
           />
           <span
@@ -119,10 +119,10 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
               isChecked
                 ? tremorTwMerge(
                     switchColorStyles.bgColor,
-                    "translate-x-5 border-tremor-background dark:border-dark-tremor-background",
+                    "border-tremor-background dark:border-dark-tremor-background translate-x-5",
                   )
-                : "translate-x-0 bg-tremor-border dark:bg-dark-tremor-border border-tremor-background dark:border-dark-tremor-background",
-              "pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-tremor-full border-2 shadow-tremor-input duration-100 ease-in-out transition",
+                : "bg-tremor-border dark:bg-dark-tremor-border border-tremor-background dark:border-dark-tremor-background translate-x-0",
+              "rounded-tremor-full shadow-tremor-input pointer-events-none absolute left-0 inline-block h-5 w-5 transform border-2 transition duration-100 ease-in-out",
               isFocused ? tremorTwMerge("ring-2", switchColorStyles.ringColor) : "",
             )}
           />
@@ -132,7 +132,7 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         <p
           className={tremorTwMerge(
             makeSwitchClassName("errorMessage"),
-            "text-sm text-red-500 mt-1 ",
+            "mt-1 text-sm text-red-500",
           )}
         >
           {errorMessage}

@@ -56,7 +56,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         className={tremorTwMerge(
           makeTextareaClassName("Textarea"),
           // common
-          "w-full flex items-center outline-hidden rounded-tremor-default px-3 py-2 text-tremor-default focus:ring-2 transition duration-100 border",
+          "rounded-tremor-default text-tremor-default flex w-full items-center border px-3 py-2 transition duration-100 outline-none focus:ring-2",
           // light
           "shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
           // dark
@@ -79,7 +79,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, re
         <p
           className={tremorTwMerge(
             makeTextareaClassName("errorMessage"),
-            "text-sm text-red-500 mt-1",
+            "mt-1 text-sm text-red-500",
           )}
         >
           {errorMessage}

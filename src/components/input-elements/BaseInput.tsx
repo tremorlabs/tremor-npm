@@ -1,8 +1,8 @@
 "use client";
-import React, { ReactNode, useCallback, useRef, useState } from "react";
 import { ExclamationFilledIcon, EyeIcon, EyeOffIcon } from "assets";
 import { getSelectButtonColors, hasValue } from "components/input-elements/selectUtils";
 import { mergeRefs, tremorTwMerge } from "lib";
+import React, { ReactNode, useCallback, useRef, useState } from "react";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "email" | "url" | "number" | "search" | "tel";
@@ -80,7 +80,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
         className={tremorTwMerge(
           makeInputClassName("root"),
           // common
-          "relative w-full flex items-center min-w-[10rem] outline-hidden rounded-tremor-default transition duration-100 border",
+          "rounded-tremor-default relative flex w-full min-w-[10rem] items-center border transition duration-100 outline-none",
           // light
           "shadow-tremor-input",
           // dark
@@ -103,7 +103,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             className={tremorTwMerge(
               makeInputClassName("icon"),
               // common
-              "shrink-0 h-5 w-5 mx-2.5 absolute left-0 flex items-center",
+              "absolute left-0 mx-2.5 flex h-5 w-5 shrink-0 items-center",
               // light
               "text-tremor-content-subtle",
               // light
@@ -119,12 +119,12 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           className={tremorTwMerge(
             makeInputClassName("input"),
             // common
-            "w-full bg-transparent focus:outline-hidden focus:ring-0 border-none text-tremor-default rounded-tremor-default transition duration-100 py-2",
+            "text-tremor-default rounded-tremor-default w-full border-none bg-transparent py-2 transition duration-100 focus:ring-0 focus:outline-none",
             // light
             "text-tremor-content-emphasis",
             // dark
             "dark:text-dark-tremor-content-emphasis",
-            "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+            "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
             type === "password" ? (error ? "pr-16" : "pr-12") : error ? "pr-8" : "pr-3",
             Icon ? "pl-10" : "pl-3",
             disabled
@@ -145,7 +145,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <button
             className={tremorTwMerge(
               makeInputClassName("toggleButton"),
-              "absolute inset-y-0 right-0 flex items-center px-2.5 rounded-lg",
+              "absolute inset-y-0 right-0 flex items-center rounded-lg px-2.5",
             )}
             type="button"
             onClick={() => toggleIsPasswordVisible()}
@@ -155,7 +155,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               <EyeOffIcon
                 className={tremorTwMerge(
                   // common
-                  "flex-none h-5 w-5 transition",
+                  "h-5 w-5 flex-none transition",
                   // light
                   "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
@@ -167,7 +167,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
               <EyeIcon
                 className={tremorTwMerge(
                   // common
-                  "flex-none h-5 w-5 transition",
+                  "h-5 w-5 flex-none transition",
                   // light
                   "text-tremor-content-subtle hover:text-tremor-content",
                   // dark
@@ -182,7 +182,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
           <ExclamationFilledIcon
             className={tremorTwMerge(
               makeInputClassName("errorIcon"),
-              "text-red-500 shrink-0 h-5 w-5 absolute right-0 flex items-center",
+              "absolute right-0 flex h-5 w-5 shrink-0 items-center text-red-500",
               type === "password"
                 ? "mr-10"
                 : type === "number"
@@ -197,7 +197,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
       </div>
       {error && errorMessage ? (
         <p
-          className={tremorTwMerge(makeInputClassName("errorMessage"), "text-sm text-red-500 mt-1")}
+          className={tremorTwMerge(makeInputClassName("errorMessage"), "mt-1 text-sm text-red-500")}
         >
           {errorMessage}
         </p>

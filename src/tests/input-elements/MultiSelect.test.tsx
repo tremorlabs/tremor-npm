@@ -1,8 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
-import MultiSelect from "components/input-elements/MultiSelect/MultiSelect";
-import MultiSelectItem from "components/input-elements/MultiSelect/MultiSelectItem";
+import { MultiSelect, MultiSelectItem } from "components";
 
 describe("MultiSelect", () => {
   test("renders the MultiSelect component with default props", () => {

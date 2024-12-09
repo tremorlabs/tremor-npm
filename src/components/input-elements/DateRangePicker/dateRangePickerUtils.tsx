@@ -1,6 +1,7 @@
 import {
   format,
   isEqual,
+  Locale,
   max,
   min,
   startOfDay,
@@ -8,10 +9,7 @@ import {
   startOfToday,
   startOfYear,
   sub,
-  Locale,
 } from "date-fns";
-
-import { makeClassName } from "lib";
 
 export type DateRangePickerOption = {
   value: string;
@@ -20,8 +18,6 @@ export type DateRangePickerOption = {
   to?: Date;
 };
 export type DropdownValues = Map<string, Omit<DateRangePickerOption, "value">>;
-
-export const makeDateRangePickerClassName = makeClassName("DateRangePicker");
 
 export const parseStartDate = (
   startDate: Date | undefined,

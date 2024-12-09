@@ -42,26 +42,23 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-2 relative items-center",
-        caption_label:
-          "text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium",
+        caption_label: "text-tremor-default text-tremor-content-emphasis font-medium",
         nav: "space-x-1 flex items-center",
         nav_button:
-          "flex items-center justify-center p-1 h-7 w-7 outline-hidden focus:ring-2 transition duration-100 border border-tremor-border dark:border-dark-tremor-border hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-tremor-small focus:border-tremor-brand-subtle dark:focus:border-dark-tremor-brand-subtle focus:ring-tremor-brand-muted dark:focus:ring-dark-tremor-brand-muted text-tremor-content-subtle dark:text-dark-tremor-content-subtle hover:text-tremor-content dark:hover:text-dark-tremor-content",
+          "flex items-center justify-center p-1 h-7 w-7 outline-none focus:ring-2 transition duration-100 border border-tremor-border-default hover:bg-tremor-background-muted  rounded-tremor-small focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted text-tremor-content-subtle  hover:text-tremor-content-default",
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
-        head_cell:
-          "w-9 font-normal text-center text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
+        head_cell: "w-9 font-normal text-center text-tremor-content-subtle",
         row: "flex w-full mt-0.5",
-        cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
-        day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle dark:hover:bg-dark-tremor-background-subtle outline-tremor-brand dark:outline-dark-tremor-brand rounded-tremor-default",
+        cell: "text-center p-0 relative focus-within:relative text-tremor-default text-tremor-content-emphasis ",
+        day: "h-9 w-9 p-0 hover:bg-tremor-background-subtle outline-tremor-brand rounded-tremor-default",
         day_today: "font-bold",
         day_selected:
-          "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted dark:aria-selected:bg-dark-tremor-background-emphasis dark:aria-selected:text-dark-tremor-content-inverted ",
-        day_disabled:
-          "text-tremor-content-subtle dark:text-dark-tremor-content-subtle disabled:hover:bg-transparent",
-        day_outside: "text-tremor-content-subtle dark:text-dark-tremor-content-subtle",
+          "aria-selected:bg-tremor-background-emphasis aria-selected:text-tremor-content-inverted",
+        day_disabled: "text-tremor-content-subtle disabled:hover:bg-transparent",
+        day_outside: "text-tremor-content-subtle ",
         ...classNames,
       }}
       components={{
@@ -71,7 +68,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
           const { goToMonth, nextMonth, previousMonth, currentMonth } = useNavigation();
 
           return (
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="flex items-center space-x-1">
                 {enableYearNavigation && (
                   <NavButton
@@ -85,7 +82,7 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
                 />
               </div>
 
-              <span className="text-tremor-default tabular-nums capitalize text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+              <span className="text-tremor-default text-tremor-content-emphasis font-medium capitalize tabular-nums">
                 {format(props.displayMonth, "LLLL yyy", { locale })}
               </span>
 
@@ -110,6 +107,6 @@ function Calendar<T extends DayPickerSingleProps | DayPickerRangeProps>({
   );
 }
 
-Calendar.displayName = "DateRangePicker";
+Calendar.displayName = "Calendar";
 
-export default Calendar;
+export { Calendar };

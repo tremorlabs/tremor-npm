@@ -1,6 +1,6 @@
 "use client";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import { colorPalette, getColorClassNames, tremorTwMerge, makeClassName } from "lib";
+import { colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
 import React, { useContext } from "react";
 
 import { TabVariant, TabVariantContext } from "components/input-elements/Tabs/TabList";
@@ -14,7 +14,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
     case "line":
       return tremorTwMerge(
         // common
-        "data-selected:border-b-2 hover:border-b-2 border-transparent transition duration-100 -mb-px px-2 py-2",
+        "-mb-px border-transparent px-2 py-2 transition duration-100 hover:border-b-2 data-selected:border-b-2",
         // light
         "hover:border-tremor-content hover:text-tremor-content-emphasis text-tremor-content",
         // dark
@@ -30,7 +30,7 @@ function getVariantStyles(tabVariant: TabVariant, color?: Color) {
     case "solid":
       return tremorTwMerge(
         // common
-        "border-transparent border rounded-tremor-small px-2.5 py-1",
+        "rounded-tremor-small border border-transparent px-2.5 py-1",
         // light
         "data-selected:border-tremor-border data-selected:bg-tremor-background data-selected:shadow-tremor-input [&:not([data-selected])]:hover:text-tremor-content-emphasis data-selected:text-tremor-brand [&:not([data-selected])]:text-tremor-content",
         // dark
@@ -59,7 +59,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
       className={tremorTwMerge(
         makeTabClassName("root"),
         // common
-        "flex whitespace-nowrap truncate max-w-xs outline-hidden data-focus-visible:ring-3 text-tremor-default transition duration-100",
+        "text-tremor-default flex max-w-xs truncate whitespace-nowrap transition duration-100 outline-none data-focus-visible:ring-3",
         getVariantStyles(variant, color),
         className,
         color && getColorClassNames(color, colorPalette.text).selectTextColor,
@@ -70,7 +70,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeTabClassName("icon"),
-            "flex-none h-5 w-5",
+            "h-5 w-5 flex-none",
             children ? "mr-2" : "",
           )}
         />

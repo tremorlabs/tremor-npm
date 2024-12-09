@@ -1,12 +1,12 @@
 "use client";
-import { SelectedValueContext } from "contexts";
-import React, { useContext } from "react";
-import { isValueInArray, makeClassName, tremorTwMerge } from "lib";
 import { ListboxOption } from "@headlessui/react";
+import { SelectedValueContext } from "contexts";
+import { isValueInArray, makeClassName, tremorTwMerge } from "lib";
+import React, { useContext } from "react";
 
 const makeMultiSelectItemClassName = makeClassName("MultiSelectItem");
 
-export interface MultiSelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MultiSelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
@@ -20,13 +20,7 @@ const MultiSelectItem = React.forwardRef<HTMLDivElement, MultiSelectItemProps>((
     <ListboxOption
       className={tremorTwMerge(
         makeMultiSelectItemClassName("root"),
-        // common
-        "flex justify-start items-center cursor-default text-tremor-default p-2.5",
-        // light
-        // "data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-[select]ed:text-tremor-content-strong data-[select]ed:bg-tremor-background-muted text-tremor-content-emphasis",
-        "data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-[select]ed:text-tremor-content-strong text-tremor-content-emphasis",
-        // dark
-        "dark:data-focus:bg-dark-tremor-background-muted dark:data-focus:text-dark-tremor-content-strong dark:data-[select]ed:text-dark-tremor-content-strong dark:data-[select]ed:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "text-tremor-default data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-[select]ed:text-tremor-content-strong text-tremor-content-emphasis flex cursor-default items-center justify-start p-2.5",
         className,
       )}
       ref={ref}
@@ -38,21 +32,16 @@ const MultiSelectItem = React.forwardRef<HTMLDivElement, MultiSelectItemProps>((
         type="checkbox"
         className={tremorTwMerge(
           makeMultiSelectItemClassName("checkbox"),
-          // common
-          "flex-none focus:ring-none focus:outline-hidden cursor-pointer mr-2.5",
-          // light
-          "accent-tremor-brand",
-          // dark
-          "dark:accent-dark-tremor-brand",
+          "focus:ring-none accent-tremor-brand-default mr-2.5 flex-none cursor-pointer focus:outline-none",
         )}
         checked={isSelected}
         readOnly={true}
       />
-      <span className="whitespace-nowrap truncate">{children ?? value}</span>
+      <span className="truncate whitespace-nowrap">{children ?? value}</span>
     </ListboxOption>
   );
 });
 
 MultiSelectItem.displayName = "MultiSelectItem";
 
-export default MultiSelectItem;
+export { MultiSelectItem, type MultiSelectItemProps };

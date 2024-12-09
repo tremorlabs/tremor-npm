@@ -1,7 +1,14 @@
 "use client";
-import React, { isValidElement, useMemo, useRef } from "react";
 import { useInternalState } from "hooks";
+import React, { isValidElement, useMemo, useRef } from "react";
 
+import {
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOptions,
+  Transition,
+} from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
 import {
@@ -10,13 +17,6 @@ import {
   getSelectButtonColors,
   hasValue,
 } from "../selectUtils";
-import {
-  Combobox,
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxOptions,
-  Transition,
-} from "@headlessui/react";
 
 const makeSearchSelectClassName = makeClassName("SearchSelect");
 
@@ -90,7 +90,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
     <div
       className={tremorTwMerge(
         // common
-        "w-full min-w-[10rem] text-tremor-default",
+        "text-tremor-default w-full min-w-[10rem]",
         className,
       )}
     >
@@ -98,7 +98,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
         <select
           title="search-select-hidden"
           required={required}
-          className={tremorTwMerge("h-full w-full absolute left-0 top-0 -z-10 opacity-0")}
+          className={tremorTwMerge("absolute top-0 left-0 -z-10 h-full w-full opacity-0")}
           value={selectedValue}
           onChange={(e) => {
             e.preventDefault();
@@ -145,14 +145,14 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 {Icon && (
                   <span
                     className={tremorTwMerge(
-                      "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
+                      "absolute inset-y-0 left-0 ml-px flex items-center pl-2.5",
                     )}
                   >
                     <Icon
                       className={tremorTwMerge(
                         makeSearchSelectClassName("Icon"),
                         // common
-                        "flex-none h-5 w-5",
+                        "h-5 w-5 flex-none",
                         // light
                         "text-tremor-content-subtle",
                         // dark
@@ -166,7 +166,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   ref={comboboxInputRef}
                   className={tremorTwMerge(
                     // common
-                    "w-full outline-hidden text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 text-tremor-default pr-14 border py-2",
+                    "rounded-tremor-default text-tremor-default w-full truncate border py-2 pr-14 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
                     // light
                     "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
                     // dark
@@ -192,7 +192,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     className={tremorTwMerge(
                       makeSearchSelectClassName("arrowDownIcon"),
                       // common
-                      "flex-none h-5 w-5",
+                      "h-5 w-5 flex-none",
                       // light
                       "text-tremor-content-subtle!",
                       // dark
@@ -205,7 +205,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
               {enableClear && selectedValue ? (
                 <button
                   type="button"
-                  className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
+                  className={tremorTwMerge("absolute inset-y-0 right-0 mr-8 flex items-center")}
                   onClick={(e) => {
                     e.preventDefault();
                     handleReset();
@@ -215,7 +215,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     className={tremorTwMerge(
                       makeSelectClassName("clearIcon"),
                       // common
-                      "flex-none h-4 w-4",
+                      "h-4 w-4 flex-none",
                       // light
                       "text-tremor-content-subtle",
                       // dark
@@ -237,7 +237,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     anchor="bottom start"
                     className={tremorTwMerge(
                       // common
-                      "z-10 divide-y overflow-y-auto outline-hidden rounded-tremor-default text-tremor-default max-h-[228px] border [--anchor-gap:4px]",
+                      "rounded-tremor-default text-tremor-default z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
                       // light
                       "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                       // dark
@@ -253,7 +253,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
         </Combobox>
       </div>
       {error && errorMessage ? (
-        <p className={tremorTwMerge("errorMessage", "text-sm text-rose-500 mt-1")}>
+        <p className={tremorTwMerge("errorMessage", "mt-1 text-sm text-rose-500")}>
           {errorMessage}
         </p>
       ) : null}

@@ -1,16 +1,16 @@
 "use client";
-import React, { isValidElement, useMemo, useRef, useState } from "react";
-import { SelectedValueContext } from "contexts";
-import { useInternalState } from "hooks";
+import { Listbox, ListboxButton, ListboxOptions, Transition } from "@headlessui/react";
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 import XIcon from "assets/XIcon";
+import { SelectedValueContext } from "contexts";
+import { useInternalState } from "hooks";
 import { makeClassName, tremorTwMerge } from "lib";
+import React, { isValidElement, useMemo, useRef, useState } from "react";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-import { Listbox, ListboxButton, ListboxOptions, Transition } from "@headlessui/react";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 
-export interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement> {
+interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string[];
   name?: string;
   value?: string[];
@@ -77,18 +77,12 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
   };
 
   return (
-    <div
-      className={tremorTwMerge(
-        // common
-        "w-full min-w-[10rem] text-tremor-default",
-        className,
-      )}
-    >
+    <div className={tremorTwMerge("text-tremor-default w-full min-w-[10rem]", className)}>
       <div className="relative">
         <select
           title="multi-select-hidden"
           required={required}
-          className={tremorTwMerge("h-full w-full absolute left-0 top-0 -z-10 opacity-0")}
+          className={tremorTwMerge("absolute top-0 left-0 -z-10 h-full w-full opacity-0")}
           value={selectedValue}
           onChange={(e) => {
             e.preventDefault();
@@ -135,13 +129,8 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
             <>
               <ListboxButton
                 className={tremorTwMerge(
-                  // common
-                  "w-full outline-hidden text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
-                  // light
-                  "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-                  // dark
-                  "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
-                  Icon ? "pl-11 -ml-0.5" : "pl-3",
+                  "rounded-tremor-default border-tremor-border-default shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted w-full truncate border py-1.5 pr-8 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
+                  Icon ? "-ml-0.5 pl-11" : "pl-3",
                   getSelectButtonColors(value.length > 0, disabled, error),
                 )}
                 ref={listboxButtonRef}
@@ -149,25 +138,20 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 {Icon && (
                   <span
                     className={tremorTwMerge(
-                      "absolute inset-y-0 left-0 flex items-center ml-px pl-2.5",
+                      "absolute inset-y-0 left-0 ml-px flex items-center pl-2.5",
                     )}
                   >
                     <Icon
                       className={tremorTwMerge(
                         makeMultiSelectClassName("Icon"),
-                        // common
-                        "flex-none h-5 w-5",
-                        // light
-                        "text-tremor-content-subtle",
-                        // dark
-                        "dark:text-dark-tremor-content-subtle",
+                        "text-tremor-content-subtle h-5 w-5 shrink-0",
                       )}
                     />
                   </span>
                 )}
-                <div className="h-6 flex items-center">
+                <div className="flex h-6 items-center">
                   {value.length > 0 ? (
-                    <div className="flex flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [scrollbar-width:none] gap-x-1 mr-5 -ml-1.5 relative">
+                    <div className="relative mr-5 -ml-1.5 flex flex-nowrap gap-x-1 overflow-x-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                       {optionsAvailable
                         .filter((option) => value.includes(option.props.value))
                         .map((option, index) => {
@@ -175,15 +159,10 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                             <div
                               key={index}
                               className={tremorTwMerge(
-                                "max-w-[100px] lg:max-w-[200px] flex justify-center items-center pl-2 pr-1.5 py-1 font-medium",
-                                "rounded-tremor-small",
-                                "bg-tremor-background-muted dark:bg-dark-tremor-background-muted",
-                                "bg-tremor-background-subtle dark:bg-dark-tremor-background-subtle",
-                                "text-tremor-content-default dark:text-dark-tremor-content-default",
-                                "text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis",
+                                "rounded-tremor-small bg-tremor-background-muted text-tremor-content-default flex max-w-[100px] items-center justify-center py-1 pr-1.5 pl-2 font-medium lg:max-w-[200px]",
                               )}
                             >
-                              <div className="text-xs truncate ">
+                              <div className="truncate text-xs">
                                 {option.props.children ?? option.props.value}
                               </div>
                               <div
@@ -197,12 +176,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                                 <XIcon
                                   className={tremorTwMerge(
                                     makeMultiSelectClassName("clearIconItem"),
-                                    // common
-                                    "cursor-pointer rounded-tremor-full w-3.5 h-3.5 ml-2",
-                                    // light
-                                    "text-tremor-content-subtle hover:text-tremor-content",
-                                    // dark
-                                    "dark:text-dark-tremor-content-subtle dark:hover:text-tremor-content",
+                                    "rounded-tremor-full text-tremor-content-subtle hover:text-tremor-content ml-2 h-3.5 w-3.5 cursor-pointer",
                                   )}
                                 />
                               </div>
@@ -215,17 +189,12 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   )}
                 </div>
                 <span
-                  className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-2.5")}
+                  className={tremorTwMerge("absolute inset-y-0 right-0 mr-2.5 flex items-center")}
                 >
                   <ArrowDownHeadIcon
                     className={tremorTwMerge(
                       makeMultiSelectClassName("arrowDownIcon"),
-                      // common
-                      "flex-none h-5 w-5",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
+                      "text-tremor-content-subtle h-5 w-5 flex-none",
                     )}
                   />
                 </span>
@@ -234,7 +203,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
               {hasSelection && !disabled ? (
                 <button
                   type="button"
-                  className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-8")}
+                  className={tremorTwMerge("absolute inset-y-0 right-0 mr-8 flex items-center")}
                   onClick={(e) => {
                     e.preventDefault();
                     handleReset();
@@ -243,12 +212,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   <XCircleIcon
                     className={tremorTwMerge(
                       makeMultiSelectClassName("clearIconAllItems"),
-                      // common
-                      "flex-none h-4 w-4",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
+                      "text-tremor-content-subtle h-4 w-4 flex-none",
                     )}
                   />
                 </button>
@@ -264,33 +228,18 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 <ListboxOptions
                   anchor="bottom start"
                   className={tremorTwMerge(
-                    // common
-                    "z-10 divide-y overflow-y-auto outline-hidden rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
-                    // light
-                    "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                    // dark
-                    "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                    "rounded-tremor-default bg-tremor-background-defualt border-tremor-border-default divide-tremor-border-default shadow-tremor-dropdown z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
                   )}
                 >
                   <div
                     className={tremorTwMerge(
-                      // common
-                      "flex items-center w-full px-2.5",
-                      // light
-                      "bg-tremor-background-muted",
-                      // dark
-                      "dark:bg-dark-tremor-background-muted",
+                      "bg-tremor-background-muted flex w-full items-center px-2.5",
                     )}
                   >
                     <span>
                       <SearchIcon
                         className={tremorTwMerge(
-                          // common
-                          "flex-none w-4 h-4 mr-2",
-                          // light
-                          "text-tremor-content-subtle",
-                          // dark
-                          "dark:text-dark-tremor-content-subtle",
+                          "text-tremor-content-subtle mr-2 h-4 w-4 flex-none",
                         )}
                       />
                     </span>
@@ -300,12 +249,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                       autoComplete="off"
                       placeholder={placeholderSearch}
                       className={tremorTwMerge(
-                        // common
-                        "w-full focus:outline-hidden focus:ring-none bg-transparent text-tremor-default py-2",
-                        // light
-                        "text-tremor-content-emphasis",
-                        // dark
-                        "dark:text-dark-tremor-content-subtle",
+                        "focus:ring-none text-tremor-default text-tremor-content-emphasis w-full bg-transparent py-2 focus:outline-none",
                       )}
                       onKeyDown={(e) => {
                         if (e.code === "Space" && (e.target as HTMLInputElement).value !== "") {
@@ -329,7 +273,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
         </Listbox>
       </div>
       {error && errorMessage ? (
-        <p className={tremorTwMerge("errorMessage", "text-sm text-rose-500 mt-1")}>
+        <p className={tremorTwMerge("errorMessage", "mt-1 text-sm text-rose-500")}>
           {errorMessage}
         </p>
       ) : null}
@@ -339,4 +283,4 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
 
 MultiSelect.displayName = "MultiSelect";
 
-export default MultiSelect;
+export { MultiSelect, type MultiSelectProps };

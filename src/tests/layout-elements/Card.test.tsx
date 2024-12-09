@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 
-import Card from "components/layout-elements/Card/Card";
+import { Card } from "components";
 
 describe("Card", () => {
   test("renders the Card component with default props", () => {
