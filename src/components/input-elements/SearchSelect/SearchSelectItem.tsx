@@ -1,13 +1,11 @@
 "use client";
 import React from "react";
 
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 
 import { ComboboxOption } from "@headlessui/react";
 
-const makeSearchSelectItemClassName = makeClassName("SearchSelectItem");
-
-export interface SearchSelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SearchSelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   icon?: React.ElementType;
 }
@@ -19,13 +17,7 @@ const SearchSelectItem = React.forwardRef<HTMLDivElement, SearchSelectItemProps>
   return (
     <ComboboxOption
       className={tremorTwMerge(
-        makeSearchSelectItemClassName("root"),
-        // common
-        "flex justify-start items-center cursor-default text-tremor-default p-2.5",
-        // light
-        "data-focus:bg-tremor-background-muted  data-focus:text-tremor-content-strong data-selected:text-tremor-content-strong data-selected:bg-tremor-background-muted text-tremor-content-emphasis",
-        // dark
-        "dark:data-focus:bg-dark-tremor-background-muted  dark:data-focus:text-dark-tremor-content-strong dark:data-selected:text-dark-tremor-content-strong dark:data-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "text-tremor-default data-focus:bg-tremor-background-muted data-focus:text-tremor-content-strong data-selected:text-tremor-content-strong data-selected:bg-tremor-background-muted text-tremor-content-emphasis flex cursor-default items-center justify-start p-2.5",
         className,
       )}
       ref={ref}
@@ -34,23 +26,13 @@ const SearchSelectItem = React.forwardRef<HTMLDivElement, SearchSelectItemProps>
       {...other}
     >
       {Icon && (
-        <Icon
-          className={tremorTwMerge(
-            makeSearchSelectItemClassName("icon"),
-            // common
-            "flex-none h-5 w-5 mr-3",
-            // light
-            "text-tremor-content-subtle",
-            // dark
-            "dark:text-dark-tremor-content-subtle",
-          )}
-        />
+        <Icon className={tremorTwMerge("text-tremor-content-subtle mr-3 h-5 w-5 flex-none")} />
       )}
-      <span className="whitespace-nowrap truncate">{children ?? value}</span>
+      <span className="truncate whitespace-nowrap">{children ?? value}</span>
     </ComboboxOption>
   );
 });
 
 SearchSelectItem.displayName = "SearchSelectItem";
 
-export default SearchSelectItem;
+export { SearchSelectItem, type SearchSelectItemProps };

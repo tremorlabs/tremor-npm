@@ -4,9 +4,9 @@ import { SearchSelect } from "components";
 import {
   SimpleSearchSelect,
   SimpleSearchSelectControlled,
-  SimpleSearchSelectWithStaticAndDynamicChildren,
   SimpleSearchSelectForm,
   SimpleSearchSelectServerSideRendering,
+  SimpleSearchSelectWithStaticAndDynamicChildren,
 } from "./helpers/SimpleSearchSelect";
 
 import { CalendarIcon } from "assets";

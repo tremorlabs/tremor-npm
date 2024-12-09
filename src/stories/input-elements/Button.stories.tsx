@@ -105,7 +105,7 @@ function LoadingState({ ...args }) {
   const [loading, setLoading] = useState(false);
   function RenderButtons(args: any, loading: any) {
     return (
-      <>
+      <div className="grid grid-cols-4 gap-4">
         <Button {...args} loading={loading}>
           Button
         </Button>
@@ -118,7 +118,7 @@ function LoadingState({ ...args }) {
         <Button {...args} variant="secondary" loading={loading}>
           Button
         </Button>
-      </>
+      </div>
     );
   }
 

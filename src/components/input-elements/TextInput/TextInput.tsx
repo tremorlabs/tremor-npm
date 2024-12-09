@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { makeClassName } from "lib";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
-export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassName"> & {
+type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassName"> & {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
@@ -13,13 +12,11 @@ export type TextInputProps = Omit<BaseInputProps, "stepper" | "makeInputClassNam
   disabled?: boolean;
 };
 
-const makeTextInputClassName = makeClassName("TextInput");
-
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const { type = "text", ...other } = props;
-  return <BaseInput ref={ref} type={type} makeInputClassName={makeTextInputClassName} {...other} />;
+  return <BaseInput ref={ref} type={type} {...other} />;
 });
 
 TextInput.displayName = "TextInput";
 
-export default TextInput;
+export { TextInput, type TextInputProps };

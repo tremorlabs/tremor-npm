@@ -1,16 +1,14 @@
 "use client";
 
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React, { Children, isValidElement, useMemo, useRef } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
 import { Listbox, ListboxButton, ListboxOptions, Transition } from "@headlessui/react";
 import { useInternalState } from "hooks";
 
-const makeSelectClassName = makeClassName("Select");
-
-export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
+interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   value?: string;
   name?: string;
   defaultValue?: string;
@@ -60,13 +58,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
   };
 
   return (
-    <div
-      className={tremorTwMerge(
-        // common
-        "text-tremor-default w-full min-w-[10rem]",
-        className,
-      )}
-    >
+    <div className={tremorTwMerge("text-tremor-default w-full min-w-[10rem]", className)}>
       <div className="relative">
         <select
           title="select-hidden"
@@ -117,12 +109,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
               <ListboxButton
                 ref={listboxButtonRef}
                 className={tremorTwMerge(
-                  // common
-                  "rounded-tremor-default w-full truncate border py-2 pr-8 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
-                  // light
-                  "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-                  // dark
-                  "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                  "rounded-tremor-default border-tremor-border-default shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted w-full truncate border py-2 pr-8 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
                   Icon ? "pl-10" : "pl-3",
                   getSelectButtonColors(hasValue(value), disabled, error),
                 )}
@@ -134,15 +121,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                     )}
                   >
                     <Icon
-                      className={tremorTwMerge(
-                        makeSelectClassName("Icon"),
-                        // common
-                        "h-5 w-5 flex-none",
-                        // light
-                        "text-tremor-content-subtle",
-                        // dark
-                        "dark:text-dark-tremor-content-subtle",
-                      )}
+                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
                     />
                   </span>
                 )}
@@ -153,15 +132,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   className={tremorTwMerge("absolute inset-y-0 right-0 mr-3 flex items-center")}
                 >
                   <ArrowDownHeadIcon
-                    className={tremorTwMerge(
-                      makeSelectClassName("arrowDownIcon"),
-                      // common
-                      "h-5 w-5 flex-none",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
                   />
                 </span>
               </ListboxButton>
@@ -175,15 +146,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   }}
                 >
                   <XCircleIcon
-                    className={tremorTwMerge(
-                      makeSelectClassName("clearIcon"),
-                      // common
-                      "h-4 w-4 flex-none",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 flex-none")}
                   />
                 </button>
               ) : null}
@@ -198,12 +161,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                 <ListboxOptions
                   anchor="bottom start"
                   className={tremorTwMerge(
-                    // common
-                    "rounded-tremor-default z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
-                    // light
-                    "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                    // dark
-                    "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                    "rounded-tremor-default bg-tremor-background-default border-tremor-border-default divide-tremor-border-default shadow-tremor-dropdown z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
                   )}
                 >
                   {children}
@@ -224,4 +182,4 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
 
 Select.displayName = "Select";
 
-export default Select;
+export { Select, type SelectProps };

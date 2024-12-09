@@ -1,10 +1,10 @@
 "use client";
 import { MinusIcon, PlusIcon } from "assets";
-import { makeClassName, mergeRefs, tremorTwMerge } from "lib";
+import { mergeRefs, tremorTwMerge } from "lib";
 import React, { useRef } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 
-export interface NumberInputProps
+interface NumberInputProps
   extends Omit<BaseInputProps, "type" | "stepper" | "onSubmit" | "makeInputClassName"> {
   step?: string | number;
   enableStepper?: boolean;
@@ -12,11 +12,9 @@ export interface NumberInputProps
   onValueChange?: (value: number) => void;
 }
 
-const baseArrowClasses =
-  "flex mx-auto text-tremor-content-subtle dark:text-dark-tremor-content-subtle";
+const baseArrowClasses = "flex mx-auto text-tremor-content-subtle";
 
-const enabledArrowClasses =
-  "cursor-pointer hover:text-tremor-content dark:hover:text-dark-tremor-content";
+const enabledArrowClasses = "cursor-pointer hover:text-tremor-content";
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
   const { onSubmit, enableStepper = true, disabled, onValueChange, onChange, ...other } = props;
@@ -44,7 +42,6 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
       type="number"
       ref={mergeRefs([inputRef, ref])}
       disabled={disabled}
-      makeInputClassName={makeClassName("NumberInput")}
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.ctrlKey && !e.altKey && !e.shiftKey) {
           const value = inputRef.current?.value;
@@ -91,14 +88,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
                 baseArrowClasses,
-                "group py-[10px] px-2.5 border-l border-tremor-border dark:border-dark-tremor-border",
+                "group border-tremor-border-default border-l px-2.5 py-[10px]",
               )}
             >
               <MinusIcon
                 data-testid="step-down"
                 className={`${
                   isArrowDownPressed ? "scale-95" : ""
-                } h-4 w-4 duration-75 transition group-active:scale-95`}
+                } h-4 w-4 transition duration-75 group-active:scale-95`}
               />
             </div>
             <div
@@ -118,14 +115,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
               className={tremorTwMerge(
                 !disabled && enabledArrowClasses,
                 baseArrowClasses,
-                "group py-[10px] px-2.5 border-l border-tremor-border dark:border-dark-tremor-border",
+                "group border-tremor-border-default border-l px-2.5 py-[10px]",
               )}
             >
               <PlusIcon
                 data-testid="step-up"
                 className={`${
                   isArrowUpPressed ? "scale-95" : ""
-                } h-4 w-4 duration-75 transition group-active:scale-95`}
+                } h-4 w-4 transition duration-75 group-active:scale-95`}
               />
             </div>
           </div>
@@ -138,4 +135,4 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
 
 NumberInput.displayName = "NumberInput";
 
-export default NumberInput;
+export { NumberInput, type NumberInputProps };

@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { SearchSelect, SearchSelectItem } from "components";
 import React from "react";
-
-import SearchSelect from "components/input-elements/SearchSelect/SearchSelect";
-import SearchSelectItem from "components/input-elements/SearchSelect/SearchSelectItem";
 
 describe("SearchSelect", () => {
   test("renders the SearchSelect component with default props", () => {

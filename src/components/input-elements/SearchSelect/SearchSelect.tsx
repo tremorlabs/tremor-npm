@@ -10,7 +10,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import {
   constructValueToNameMapping,
   getFilteredOptions,
@@ -18,9 +18,7 @@ import {
   hasValue,
 } from "../selectUtils";
 
-const makeSearchSelectClassName = makeClassName("SearchSelect");
-
-export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement> {
+interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
   name?: string;
   searchValue?: string;
@@ -37,8 +35,6 @@ export interface SearchSelectProps extends React.HTMLAttributes<HTMLInputElement
   children: React.ReactNode;
   autoComplete?: string;
 }
-
-const makeSelectClassName = makeClassName("SearchSelect");
 
 const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((props, ref) => {
   const {
@@ -87,13 +83,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
   };
 
   return (
-    <div
-      className={tremorTwMerge(
-        // common
-        "text-tremor-default w-full min-w-[10rem]",
-        className,
-      )}
-    >
+    <div className={tremorTwMerge("text-tremor-default w-full min-w-[10rem]", className)}>
       <div className="relative">
         <select
           title="search-select-hidden"
@@ -149,15 +139,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     )}
                   >
                     <Icon
-                      className={tremorTwMerge(
-                        makeSearchSelectClassName("Icon"),
-                        // common
-                        "h-5 w-5 flex-none",
-                        // light
-                        "text-tremor-content-subtle",
-                        // dark
-                        "dark:text-dark-tremor-content-subtle",
-                      )}
+                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
                     />
                   </span>
                 )}
@@ -165,16 +147,11 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                 <ComboboxInput
                   ref={comboboxInputRef}
                   className={tremorTwMerge(
-                    // common
-                    "rounded-tremor-default text-tremor-default w-full truncate border py-2 pr-14 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
-                    // light
-                    "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
-                    // dark
-                    "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+                    "rounded-tremor-default text-tremor-default border-tremor-border-default shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted w-full truncate border py-2 pr-14 text-left whitespace-nowrap transition duration-100 outline-none focus:ring-2",
                     Icon ? "pl-10" : "pl-3",
                     disabled
-                      ? "placeholder:text-tremor-content-subtle dark:placeholder:text-tremor-content-subtle"
-                      : "placeholder:text-tremor-content dark:placeholder:text-tremor-content",
+                      ? "placeholder:text-tremor-content-subtle"
+                      : "placeholder:text-tremor-content-default",
                     getSelectButtonColors(hasValue(value), disabled, error),
                   )}
                   placeholder={placeholder}
@@ -189,15 +166,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}
                 >
                   <ArrowDownHeadIcon
-                    className={tremorTwMerge(
-                      makeSearchSelectClassName("arrowDownIcon"),
-                      // common
-                      "h-5 w-5 flex-none",
-                      // light
-                      "text-tremor-content-subtle!",
-                      // dark
-                      "!dark:text-dark-tremor-content-subtle",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle! h-5 w-5 flex-none")}
                   />
                 </div>
               </ComboboxButton>
@@ -212,15 +181,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   }}
                 >
                   <XCircleIcon
-                    className={tremorTwMerge(
-                      makeSelectClassName("clearIcon"),
-                      // common
-                      "h-4 w-4 flex-none",
-                      // light
-                      "text-tremor-content-subtle",
-                      // dark
-                      "dark:text-dark-tremor-content-subtle",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 flex-none")}
                   />
                 </button>
               ) : null}
@@ -236,12 +197,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   <ComboboxOptions
                     anchor="bottom start"
                     className={tremorTwMerge(
-                      // common
-                      "rounded-tremor-default text-tremor-default z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
-                      // light
-                      "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
-                      // dark
-                      "dark:bg-dark-tremor-background dark:border-dark-tremor-border dark:divide-dark-tremor-border dark:shadow-dark-tremor-dropdown",
+                      "rounded-tremor-default text-tremor-default bg-tremor-background-default border-tremor-border-default divide-tremor-border-default shadow-tremor-dropdown z-10 max-h-[228px] divide-y overflow-y-auto border [--anchor-gap:4px] outline-none",
                     )}
                   >
                     {filteredOptions}
@@ -263,4 +219,4 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
 
 SearchSelect.displayName = "SearchSelect";
 
-export default SearchSelect;
+export { SearchSelect, type SearchSelectProps };
