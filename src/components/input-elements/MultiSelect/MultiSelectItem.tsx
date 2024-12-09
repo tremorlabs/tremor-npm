@@ -32,7 +32,7 @@ const MultiSelectItem = React.forwardRef<HTMLDivElement, MultiSelectItemProps>((
         type="checkbox"
         className={tremorTwMerge(
           makeMultiSelectItemClassName("checkbox"),
-          "focus:ring-none accent-tremor-brand-default mr-2.5 flex-none cursor-pointer focus:outline-none",
+          "focus:ring-none accent-tremor-brand-default mr-2.5 shrink-0 cursor-pointer focus:outline-none",
         )}
         checked={isSelected}
         readOnly={true}

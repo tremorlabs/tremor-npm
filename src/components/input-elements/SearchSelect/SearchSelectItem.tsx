@@ -26,7 +26,7 @@ const SearchSelectItem = React.forwardRef<HTMLDivElement, SearchSelectItemProps>
       {...other}
     >
       {Icon && (
-        <Icon className={tremorTwMerge("text-tremor-content-subtle mr-3 h-5 w-5 flex-none")} />
+        <Icon className={tremorTwMerge("text-tremor-content-subtle mr-3 h-5 w-5 shrink-0")} />
       )}
       <span className="truncate whitespace-nowrap">{children ?? value}</span>
     </ComboboxOption>

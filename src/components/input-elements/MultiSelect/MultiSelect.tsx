@@ -194,7 +194,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   <ArrowDownHeadIcon
                     className={tremorTwMerge(
                       makeMultiSelectClassName("arrowDownIcon"),
-                      "text-tremor-content-subtle h-5 w-5 flex-none",
+                      "text-tremor-content-subtle h-5 w-5 shrink-0",
                     )}
                   />
                 </span>
@@ -212,7 +212,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   <XCircleIcon
                     className={tremorTwMerge(
                       makeMultiSelectClassName("clearIconAllItems"),
-                      "text-tremor-content-subtle h-4 w-4 flex-none",
+                      "text-tremor-content-subtle h-4 w-4 shrink-0",
                     )}
                   />
                 </button>
@@ -239,7 +239,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                     <span>
                       <SearchIcon
                         className={tremorTwMerge(
-                          "text-tremor-content-subtle mr-2 h-4 w-4 flex-none",
+                          "text-tremor-content-subtle mr-2 h-4 w-4 shrink-0",
                         )}
                       />
                     </span>

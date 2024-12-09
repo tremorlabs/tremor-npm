@@ -70,7 +70,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>((props, ref) => {
         <Icon
           className={tremorTwMerge(
             makeTabClassName("icon"),
-            "h-5 w-5 flex-none",
+            "h-5 w-5 shrink-0",
             children ? "mr-2" : "",
           )}
         />

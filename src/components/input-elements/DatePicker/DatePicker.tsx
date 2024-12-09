@@ -100,10 +100,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         )}
       >
         <CalendarIcon
-          className={tremorTwMerge(
-            "mr-2 -ml-0.5 h-5 w-5 flex-none shrink-0",
-            "text-tremor-content-subtle",
-          )}
+          className={tremorTwMerge("mr-2 -ml-0.5 h-5 w-5 shrink-0", "text-tremor-content-subtle")}
           aria-hidden="true"
         />
         <p className="truncate">{formattedSelection}</p>
@@ -122,7 +119,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           <XCircleIcon
             className={tremorTwMerge(
               // common
-              "h-4 w-4 flex-none",
+              "h-4 w-4 shrink-0",
               "text-tremor-content-subtle",
             )}
           />

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   Color,
   defaultValueFormatter,
@@ -10,6 +9,7 @@ import {
   ValueFormatter,
 } from "lib";
 import { colorPalette } from "lib/theme";
+import React from "react";
 
 const makeBarListClassName = makeClassName("BarList");
 
@@ -87,7 +87,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
               className={tremorTwMerge(
                 makeBarListClassName("bar"),
                 // common
-                "group w-full flex items-center rounded-tremor-small",
+                "group rounded-tremor-small flex w-full items-center",
                 onValueChange
                   ? [
                       "cursor-pointer",
@@ -99,7 +99,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
             >
               <div
                 className={tremorTwMerge(
-                  "flex items-center rounded-sm transition-all bg-opacity-40",
+                  "bg-opacity-40 flex items-center rounded-sm transition-all",
                   rowHeight,
                   item.color || color
                     ? [
@@ -118,13 +118,13 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                 )}
                 style={{ width: `${widths[index]}%`, transition: showAnimation ? "all 1s" : "" }}
               >
-                <div className={tremorTwMerge("absolute left-2 pr-4 flex max-w-full")}>
+                <div className={tremorTwMerge("absolute left-2 flex max-w-full pr-4")}>
                   {Icon ? (
                     <Icon
                       className={tremorTwMerge(
                         makeBarListClassName("barIcon"),
                         // common
-                        "flex-none h-5 w-5 mr-2",
+                        "mr-2 h-5 w-5 shrink-0",
                         // light
                         "text-tremor-content",
                         // dark
@@ -140,7 +140,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                       className={tremorTwMerge(
                         makeBarListClassName("barLink"),
                         // common
-                        "whitespace-nowrap hover:underline truncate text-tremor-default",
+                        "text-tremor-default truncate whitespace-nowrap hover:underline",
                         onValueChange ? "cursor-pointer" : "",
                         // light
                         "text-tremor-content-emphasis",
@@ -156,7 +156,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
                       className={tremorTwMerge(
                         makeBarListClassName("barText"),
                         // common
-                        "whitespace-nowrap truncate text-tremor-default",
+                        "text-tremor-default truncate whitespace-nowrap",
                         // light
                         "text-tremor-content-emphasis",
                         // dark
@@ -178,7 +178,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
             key={item.key ?? index}
             className={tremorTwMerge(
               makeBarListClassName("labelWrapper"),
-              "flex justify-end items-center",
+              "flex items-center justify-end",
               rowHeight,
               index === sortedData.length - 1 ? "mb-0" : "mb-1.5",
             )}
@@ -187,7 +187,7 @@ function BarListInner<T>(props: BarListProps<T>, ref: React.ForwardedRef<HTMLDiv
               className={tremorTwMerge(
                 makeBarListClassName("labelText"),
                 // common
-                "whitespace-nowrap leading-none truncate text-tremor-default",
+                "text-tremor-default truncate leading-none whitespace-nowrap",
                 // light
                 "text-tremor-content-emphasis",
                 // dark

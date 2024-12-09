@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 
-import Callout from "components/text-elements/Callout/Callout";
+import { Callout } from "components";
 
 describe("Callout", () => {
   test("renders the Callout component with default props", () => {

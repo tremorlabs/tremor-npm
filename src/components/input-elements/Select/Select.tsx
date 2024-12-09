@@ -121,7 +121,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                     )}
                   >
                     <Icon
-                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
+                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 shrink-0")}
                     />
                   </span>
                 )}
@@ -132,7 +132,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   className={tremorTwMerge("absolute inset-y-0 right-0 mr-3 flex items-center")}
                 >
                   <ArrowDownHeadIcon
-                    className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
+                    className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 shrink-0")}
                   />
                 </span>
               </ListboxButton>
@@ -146,7 +146,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   }}
                 >
                   <XCircleIcon
-                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 flex-none")}
+                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 shrink-0")}
                   />
                 </button>
               ) : null}

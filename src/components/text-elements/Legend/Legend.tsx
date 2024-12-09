@@ -1,10 +1,8 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 
-import { getColorClassNames, makeClassName, themeColorRange, Color, tremorTwMerge } from "lib";
-import { colorPalette } from "lib/theme";
 import { ChevronLeftFill, ChevronRightFill } from "assets";
-
-const makeLegendClassName = makeClassName("Legend");
+import { Color, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
+import { colorPalette } from "lib/theme";
 
 export interface LegendItemProps {
   name: string;
@@ -18,9 +16,8 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
   return (
     <li
       className={tremorTwMerge(
-        makeLegendClassName("legendItem"),
         // common
-        "group inline-flex items-center px-2 py-0.5 rounded-tremor-small transition whitespace-nowrap",
+        "group rounded-tremor-small inline-flex items-center px-2 py-0.5 whitespace-nowrap transition",
         hasOnValueChange ? "cursor-pointer" : "cursor-default",
         // light
         "text-tremor-content",
@@ -36,7 +33,7 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
     >
       <svg
         className={tremorTwMerge(
-          "flex-none h-2 w-2 mr-1.5",
+          "mr-1.5 h-2 w-2 shrink-0",
           getColorClassNames(color, colorPalette.text).textColor,
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
@@ -48,7 +45,7 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
       <p
         className={tremorTwMerge(
           // common
-          "whitespace-nowrap truncate text-tremor-default",
+          "text-tremor-default truncate whitespace-nowrap",
           // light
           "text-tremor-content",
           hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
@@ -97,9 +94,8 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     <button
       type="button"
       className={tremorTwMerge(
-        makeLegendClassName("legendSliderButton"),
         // common
-        "w-5 group inline-flex items-center truncate rounded-tremor-small transition",
+        "group rounded-tremor-small inline-flex w-5 items-center truncate transition",
         disabled ? "cursor-not-allowed" : "cursor-pointer",
         // light
         disabled
@@ -241,20 +237,16 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   }, [checkScroll, enableLegendSlider]);
 
   return (
-    <ol
-      ref={ref}
-      className={tremorTwMerge(makeLegendClassName("root"), "relative overflow-hidden", className)}
-      {...other}
-    >
+    <ol ref={ref} className={tremorTwMerge("relative overflow-hidden", className)} {...other}>
       <div
         ref={scrollableRef}
         tabIndex={0}
         className={tremorTwMerge(
           //common
-          "h-full flex",
+          "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
-              ? "pl-4 pr-12  items-center overflow-auto snap-mandatory [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+              ? "snap-mandatory items-center overflow-auto pr-12 pl-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               : ""
             : "flex-wrap",
         )}
@@ -278,7 +270,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               // dark mode
               "dark:bg-dark-tremor-background",
               // common
-              "absolute flex top-0 pr-1 bottom-0 right-0 items-center justify-center h-full",
+              "absolute top-0 right-0 bottom-0 flex h-full items-center justify-center pr-1",
             )}
             ref={scrollButtonsRef}
           >

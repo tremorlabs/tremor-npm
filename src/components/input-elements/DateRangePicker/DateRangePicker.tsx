@@ -195,9 +195,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
             )}
           >
             <CalendarIcon
-              className={tremorTwMerge(
-                "text-tremor-content-subtle mr-2 -ml-0.5 h-5 w-5 flex-none shrink-0",
-              )}
+              className={tremorTwMerge("text-tremor-content-subtle mr-2 -ml-0.5 h-5 w-5 shrink-0")}
               aria-hidden="true"
             />
             <p className="truncate">{formattedSelection}</p>
@@ -214,7 +212,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               }}
             >
               <XCircleIcon
-                className={tremorTwMerge("h-4 w-4 flex-none", "text-tremor-content-subtle")}
+                className={tremorTwMerge("h-4 w-4 shrink-0", "text-tremor-content-subtle")}
               />
             </button>
           ) : null}

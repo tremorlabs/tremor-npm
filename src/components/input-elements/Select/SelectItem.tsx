@@ -25,7 +25,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>((props, ref
       {...other}
     >
       {Icon && (
-        <Icon className={tremorTwMerge("text-tremor-content-subtle mr-1.5 h-5 w-5 flex-none")} />
+        <Icon className={tremorTwMerge("text-tremor-content-subtle mr-1.5 h-5 w-5 shrink-0")} />
       )}
       <span className="truncate whitespace-nowrap">{children ?? value}</span>
     </ListboxOption>

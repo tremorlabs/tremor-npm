@@ -4,7 +4,7 @@ import React, { createContext } from "react";
 import { BaseColorContext } from "contexts";
 
 import { Tab } from "@headlessui/react";
-import { makeClassName, tremorTwMerge, Color } from "lib";
+import { Color, makeClassName, tremorTwMerge } from "lib";
 
 const makeTabListClassName = makeClassName("TabList");
 
@@ -15,7 +15,7 @@ export const TabVariantContext = createContext<TabVariant>("line");
 const variantStyles: { [key in TabVariant]: string } = {
   line: tremorTwMerge(
     // common
-    "flex border-b space-x-4",
+    "flex space-x-4 border-b",
     // light
     "border-tremor-border",
     // dark
@@ -23,7 +23,7 @@ const variantStyles: { [key in TabVariant]: string } = {
   ),
   solid: tremorTwMerge(
     // common
-    "inline-flex p-0.5 rounded-tremor-default space-x-1.5",
+    "rounded-tremor-default inline-flex space-x-1.5 p-0.5",
     // light
     "bg-tremor-background-subtle",
     // dark

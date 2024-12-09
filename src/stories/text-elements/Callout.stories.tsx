@@ -16,18 +16,13 @@ type Story = StoryObj<typeof Callout>;
 
 const CalloutTemplate: Story = {
   render: ({ ...args }) => (
-    <>
-      <div className="mb-5 max-w-lg">
-        <Callout {...args} className="mt-5" />
-      </div>
-      <div className="mb-5 max-w-lg">
-        {Object.values(BaseColors).map((color) => (
-          <div key={color} className="mb-5 max-w-lg">
-            <Callout {...args} color={color} className="h-24 mt-5" />
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="mb-5 max-w-lg">
+      {Object.values(BaseColors).map((color) => (
+        <div key={color} className="mb-5 max-w-lg">
+          <Callout {...args} color={color} />
+        </div>
+      ))}
+    </div>
   ),
 };
 

@@ -139,7 +139,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                     )}
                   >
                     <Icon
-                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 flex-none")}
+                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 shrink-0")}
                     />
                   </span>
                 )}
@@ -166,7 +166,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center pr-2.5")}
                 >
                   <ArrowDownHeadIcon
-                    className={tremorTwMerge("text-tremor-content-subtle! h-5 w-5 flex-none")}
+                    className={tremorTwMerge("text-tremor-content-subtle! h-5 w-5 shrink-0")}
                   />
                 </div>
               </ComboboxButton>
@@ -181,7 +181,7 @@ const SearchSelect = React.forwardRef<HTMLInputElement, SearchSelectProps>((prop
                   }}
                 >
                   <XCircleIcon
-                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 flex-none")}
+                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 shrink-0")}
                   />
                 </button>
               ) : null}

@@ -124,14 +124,14 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             {isPasswordVisible ? (
               <EyeOffIcon
                 className={tremorTwMerge(
-                  "text-tremor-content-subtle hover:text-tremor-content-default h-5 w-5 flex-none transition",
+                  "text-tremor-content-subtle hover:text-tremor-content-default h-5 w-5 shrink-0 transition",
                 )}
                 aria-hidden
               />
             ) : (
               <EyeIcon
                 className={tremorTwMerge(
-                  "text-tremor-content-subtle hover:text-tremor-content-default h-5 w-5 flex-none transition",
+                  "text-tremor-content-subtle hover:text-tremor-content-default h-5 w-5 shrink-0 transition",
                 )}
                 aria-hidden
               />
