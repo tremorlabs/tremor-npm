@@ -23,4 +23,4 @@ const DateRangePickerItem = React.forwardRef<HTMLDivElement, DateRangePickerItem
 
 DateRangePickerItem.displayName = "DateRangePickerItem";
 
-export default DateRangePickerItem;
+export { DateRangePickerItem };

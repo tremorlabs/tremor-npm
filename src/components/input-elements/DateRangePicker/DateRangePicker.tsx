@@ -36,11 +36,11 @@ import { Color } from "../../../lib/inputTypes";
 
 const TODAY = startOfToday();
 
-export type Locale = typeof enUS;
+type Locale = typeof enUS;
 
-export type DateRangePickerValue = { from?: Date; to?: Date; selectValue?: string };
+type DateRangePickerValue = { from?: Date; to?: Date; selectValue?: string };
 
-export interface DateRangePickerProps
+interface DateRangePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
   value?: DateRangePickerValue;
   defaultValue?: DateRangePickerValue;
@@ -319,4 +319,4 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
 
 DateRangePicker.displayName = "DateRangePicker";
 
-export default DateRangePicker;
+export { DateRangePicker, type DateRangePickerProps, type DateRangePickerValue, type Locale };

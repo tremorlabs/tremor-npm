@@ -6,7 +6,7 @@ interface NavButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   icon: React.ElementType;
 }
 
-export const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
+const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
   const Icon = icon;
   return (
     <button
@@ -21,3 +21,5 @@ export const NavButton = ({ onClick, icon, ...other }: NavButtonProps) => {
     </button>
   );
 };
+
+export { NavButton };

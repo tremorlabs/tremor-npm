@@ -189,7 +189,7 @@ const icon = tv({
 
 type TabVariants = VariantProps<typeof tab>;
 
-export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ElementType;
   color?: TabVariants["color"];
 }
@@ -221,4 +221,4 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
 
 Tab.displayName = "Tab";
 
-export default Tab;
+export { Tab, type TabProps };

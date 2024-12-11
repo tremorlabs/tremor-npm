@@ -3,7 +3,7 @@ import { TabGroup as HeadlessUiTabGroup } from "@headlessui/react";
 import { tremorTwMerge } from "lib";
 import React from "react";
 
-export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultIndex?: number;
   index?: number;
   onIndexChange?: (index: number) => void;
@@ -29,4 +29,4 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
 
 TabGroup.displayName = "TabGroup";
 
-export default TabGroup;
+export { TabGroup, type TabGroupProps };

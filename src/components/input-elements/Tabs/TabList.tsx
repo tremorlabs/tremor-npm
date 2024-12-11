@@ -6,9 +6,9 @@ import { BaseColorContext } from "contexts";
 import { TabList as HeadlessUiTabList } from "@headlessui/react";
 import { Color, tremorTwMerge } from "lib";
 
-export type TabVariant = "line" | "solid";
+type TabVariant = "line" | "solid";
 
-export const TabVariantContext = createContext<TabVariant>("line");
+const TabVariantContext = createContext<TabVariant>("line");
 
 const variantStyles: { [key in TabVariant]: string } = {
   line: tremorTwMerge(
@@ -21,7 +21,7 @@ const variantStyles: { [key in TabVariant]: string } = {
   ),
 };
 
-export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: Color;
   variant?: TabVariant;
   children: React.ReactElement[] | React.ReactElement;
@@ -49,4 +49,4 @@ const TabList = React.forwardRef<HTMLDivElement, TabListProps>(
 
 TabList.displayName = "TabList";
 
-export default TabList;
+export { TabList, TabVariantContext, type TabListProps, type TabVariant };

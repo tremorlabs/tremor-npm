@@ -16,11 +16,11 @@ import { getSelectButtonColors, hasValue } from "../selectUtils";
 
 const TODAY = startOfToday();
 
-export type Locale = typeof enUS;
+type Locale = typeof enUS;
 
-export type DatePickerValue = Date | undefined;
+type DatePickerValue = Date | undefined;
 
-export interface DatePickerProps
+interface DatePickerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "value" | "defaultValue"> {
   value?: Date;
   defaultValue?: Date;
@@ -166,4 +166,4 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
 
 DatePicker.displayName = "DatePicker";
 
-export default DatePicker;
+export { DatePicker, type DatePickerProps, type DatePickerValue, type Locale };

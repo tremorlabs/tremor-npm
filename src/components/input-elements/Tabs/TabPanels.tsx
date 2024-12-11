@@ -24,4 +24,4 @@ const TabPanels = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
 
 TabPanels.displayName = "TabPanels";
 
-export default TabPanels;
+export { TabPanels };

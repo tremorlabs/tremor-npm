@@ -6,7 +6,7 @@ import { Color, tremorTwMerge } from "lib";
 import React, { useState } from "react";
 import { tv } from "tailwind-variants";
 
-export interface SwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+interface SwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (value: boolean) => void;
@@ -135,4 +135,4 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
 
 Switch.displayName = "Switch";
 
-export default Switch;
+export { Switch, type SwitchProps };
