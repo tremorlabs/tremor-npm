@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react";
+import { DateRangePicker, DateRangePickerItem } from "components";
 import React from "react";
-
-import DateRangePicker from "components/input-elements/DateRangePicker/DateRangePicker";
-import DateRangePickerItem from "components/input-elements/DateRangePicker/DateRangePickerItem";
 
 describe("DateRangePicker", () => {
   test("renders the DateRangePicker component with default props", () => {

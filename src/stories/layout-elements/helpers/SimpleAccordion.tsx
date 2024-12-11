@@ -1,7 +1,9 @@
 import React from "react";
 
 import { ArrowRightIcon } from "assets";
-import { Accordion, AccordionBody, AccordionHeader, AccordionList, Callout } from "components";
+import { Accordion, AccordionList, Callout } from "components";
+import { AccordionBody } from "components/layout-elements/Accordion/AccordionBody";
+import { AccordionHeader } from "components/layout-elements/Accordion/AccordionHeader";
 
 export const SimpleAccordion = (args: any) => (
   <Accordion {...args}>

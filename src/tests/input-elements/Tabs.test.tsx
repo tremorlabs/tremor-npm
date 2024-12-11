@@ -1,11 +1,6 @@
 import { render } from "@testing-library/react";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "components";
 import React from "react";
-
-import Tab from "components/input-elements/Tabs/Tab";
-import TabGroup from "components/input-elements/Tabs/TabGroup";
-import TabList from "components/input-elements/Tabs/TabList";
-import TabPanel from "components/input-elements/Tabs/TabPanel";
-import TabPanels from "components/input-elements/Tabs/TabPanels";
 
 describe("SelectBox", () => {
   test("renders the SelectBox component with default props", () => {

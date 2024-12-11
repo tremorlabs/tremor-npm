@@ -1,34 +1,26 @@
 "use client";
+import { DisclosurePanel } from "@headlessui/react";
+import { tremorTwMerge } from "lib";
 import React from "react";
-import { Disclosure } from "@headlessui/react";
-import { makeClassName, tremorTwMerge } from "lib";
-
-const makeAccordionBodyClassName = makeClassName("AccordionBody");
 
 const AccordionBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
     const { children, className, ...other } = props;
     return (
-      <Disclosure.Panel
+      <DisclosurePanel
         ref={ref}
         className={tremorTwMerge(
-          makeAccordionBodyClassName("root"),
-          // common
-          "text-tremor-default w-full px-4 pb-3",
-          // light
-          "text-tremor-content",
-          // dark
-          "dark:text-dark-tremor-content",
+          "text-tremor-default text-tremor-content-default w-full px-4 pb-3",
           className,
         )}
         {...other}
       >
         {children}
-      </Disclosure.Panel>
+      </DisclosurePanel>
     );
   },
 );
 
 AccordionBody.displayName = "AccordionBody";
 
-export default AccordionBody;
+export { AccordionBody };
