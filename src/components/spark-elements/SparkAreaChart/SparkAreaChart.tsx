@@ -10,14 +10,14 @@ import { Color, CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
 import { strokeColors, textColors } from "../common/style";
 
-export interface SparkAreaChartProps extends BaseSparkChartProps {
+interface SparkAreaChartProps extends BaseSparkChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
   showGradient?: boolean;
 }
 
-const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, ref) => {
+const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, ref) => {
   const {
     data = [],
     categories = [],
@@ -114,6 +114,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
   );
 });
 
-AreaChart.displayName = "AreaChart";
+SparkAreaChart.displayName = "SparkAreaChart";
 
-export default AreaChart;
+export { SparkAreaChart, type SparkAreaChartProps };

@@ -11,7 +11,7 @@ import { AxisDomain } from "recharts/types/util/types";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
 import { fillColors } from "../common/style";
 
-export interface SparkBarChartProps extends BaseSparkChartProps {
+interface SparkBarChartProps extends BaseSparkChartProps {
   stack?: boolean;
   relative?: boolean;
 }
@@ -74,4 +74,4 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
 
 SparkBarChart.displayName = "SparkBarChart";
 
-export default SparkBarChart;
+export { SparkBarChart, type SparkBarChartProps };
