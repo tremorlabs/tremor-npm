@@ -2,13 +2,13 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { SparkLineChart } from "components/spark-elements";
 import {
   simpleBaseChartData as data,
   longBaseChartData,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
 } from "../chart-elements/helpers/testData";
-import { SparkLineChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 import { smallVariantionDatas } from "./helpers/testData";
 

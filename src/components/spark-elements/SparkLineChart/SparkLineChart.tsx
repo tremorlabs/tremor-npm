@@ -2,14 +2,15 @@
 import React from "react";
 import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
-import { CurveType } from "../../../lib/inputTypes";
-import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
+import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
+import { themeColorRange, tremorTwMerge } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { Color, CurveType } from "../../../lib/inputTypes";
+import BaseSparkChartProps from "../common/BaseSparkChartProps";
+import { strokeColors } from "../common/style";
 
-export interface SparkLineChartProps extends BaseSparkChartProps {
+interface SparkLineChartProps extends BaseSparkChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
 }
@@ -41,29 +42,26 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
           <ReChartsLineChart data={data} margin={{ top: 1, left: 1, right: 1, bottom: 1 }}>
             <YAxis hide domain={yAxisDomain as AxisDomain} />
             <XAxis hide dataKey={index} />
-            {categories.map((category) => (
-              <Line
-                className={tremorTwMerge(
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor,
-                )}
-                strokeOpacity={1}
-                dot={false}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                connectNulls={connectNulls}
-              />
-            ))}
+            {categories.map((category) => {
+              const color = categoryColors.get(category) as Color;
+              return (
+                <Line
+                  key={category}
+                  name={category}
+                  type={curveType}
+                  dataKey={category}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  dot={false}
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  connectNulls={connectNulls}
+                  className={color ? strokeColors[color] : "gray"}
+                />
+              );
+            })}
           </ReChartsLineChart>
         ) : (
           <NoData noDataText={noDataText} />
@@ -75,4 +73,4 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
 
 SparkLineChart.displayName = "SparkLineChart";
 
-export default SparkLineChart;
+export { SparkLineChart, type SparkLineChartProps };

@@ -1,6 +1,6 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import AreaChart from "components/spark-elements/SparkAreaChart/SparkAreaChart";
+import React from "react";
 
 describe("AreaChart", () => {
   beforeAll(() => {

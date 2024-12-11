@@ -2,12 +2,13 @@
 import React from "react";
 import { Area, AreaChart as ReChartsAreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
-import { CurveType } from "../../../lib/inputTypes";
-import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
 import NoData from "components/chart-elements/common/NoData";
+import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
+import { BaseColors, colorPalette, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
+import { Color, CurveType } from "../../../lib/inputTypes";
+import BaseSparkChartProps from "../common/BaseSparkChartProps";
+import { strokeColors, textColors } from "../common/style";
 
 export interface SparkAreaChartProps extends BaseSparkChartProps {
   stack?: boolean;
@@ -24,7 +25,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
     stack = false,
     colors = themeColorRange,
     showAnimation = false,
-    animationDuration = 900,
+    animationDuration = 600,
     showGradient = true,
     curveType = "linear",
     connectNulls = false,
@@ -46,16 +47,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
             <YAxis hide domain={yAxisDomain as AxisDomain} />
             <XAxis hide dataKey={index} />
             {categories.map((category) => {
+              const color = categoryColors.get(category) as Color;
               return (
                 <defs key={category}>
                   {showGradient ? (
                     <linearGradient
-                      className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
-                      }
+                      className={color ? textColors[color] : "gray"}
                       id={categoryColors.get(category)}
                       x1="0"
                       y1="0"
@@ -85,31 +82,29 @@ const AreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>((props, 
                 </defs>
               );
             })}
-            {categories.map((category) => (
-              <Area
-                className={
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor
-                }
-                strokeOpacity={1}
-                dot={false}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                fill={`url(#${categoryColors.get(category)})`}
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                stackId={stack ? "a" : undefined}
-                connectNulls={connectNulls}
-              />
-            ))}
+            {categories.map((category) => {
+              const color = categoryColors.get(category) as Color;
+              return (
+                <Area
+                  strokeOpacity={1}
+                  dot={false}
+                  key={category}
+                  name={category}
+                  type={curveType}
+                  dataKey={category}
+                  stroke=""
+                  fill={`url(#${categoryColors.get(category)})`}
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  stackId={stack ? "a" : undefined}
+                  connectNulls={connectNulls}
+                  className={color ? strokeColors[color] : "gray"}
+                />
+              );
+            })}
           </ReChartsAreaChart>
         ) : (
           <NoData noDataText={noDataText} />
