@@ -40,7 +40,7 @@ type Bar<T> = T & {
   color?: Color;
 };
 
-export interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivElement> {
+interface BarListProps<T = any> extends React.HTMLAttributes<HTMLDivElement> {
   data: Bar<T>[];
   valueFormatter?: ValueFormatter;
   color?: Color;
@@ -179,4 +179,4 @@ const BarList = React.forwardRef(BarListInner) as <T>(
   p: BarListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
 ) => ReturnType<typeof BarListInner>;
 
-export default BarList;
+export { BarList, type BarListProps };

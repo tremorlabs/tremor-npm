@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 import { render } from "@testing-library/react";
+import { ProgressBar } from "components";
 import React from "react";
-
-import ProgressBar from "components/vis-elements/ProgressBar/ProgressBar";
 
 describe("ProgressBar", () => {
   test("renders the ProgressBar component with default props", () => {

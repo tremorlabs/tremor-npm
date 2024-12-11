@@ -1,8 +1,6 @@
-/* eslint-disable no-undef */
 import { render } from "@testing-library/react";
+import { BarList } from "components";
 import React from "react";
-
-import BarList from "components/vis-elements/BarList/BarList";
 
 describe("BarList", () => {
   test("renders the BarList component with default props", () => {
