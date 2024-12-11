@@ -3,10 +3,8 @@ import React, { createContext } from "react";
 
 import { BaseColorContext } from "contexts";
 
-import { Tab } from "@headlessui/react";
-import { Color, makeClassName, tremorTwMerge } from "lib";
-
-const makeTabListClassName = makeClassName("TabList");
+import { TabList as HeadlessUiTabList } from "@headlessui/react";
+import { Color, tremorTwMerge } from "lib";
 
 export type TabVariant = "line" | "solid";
 
@@ -15,19 +13,11 @@ export const TabVariantContext = createContext<TabVariant>("line");
 const variantStyles: { [key in TabVariant]: string } = {
   line: tremorTwMerge(
     // common
-    "flex space-x-4 border-b",
-    // light
-    "border-tremor-border",
-    // dark
-    "dark:border-dark-tremor-border",
+    "border-tremor-border-default flex space-x-4 border-b",
   ),
   solid: tremorTwMerge(
     // common
-    "rounded-tremor-default inline-flex space-x-1.5 p-0.5",
-    // light
-    "bg-tremor-background-subtle",
-    // dark
-    "dark:bg-dark-tremor-background-subtle",
+    "rounded-tremor-default bg-tremor-background-subtle inline-flex space-x-1.5 p-0.5",
   ),
 };
 
@@ -37,26 +27,25 @@ export interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const TabList = React.forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const { color, variant = "line", children, className, ...other } = props;
-
-  return (
-    <Tab.List
-      ref={ref}
-      className={tremorTwMerge(
-        makeTabListClassName("root"),
-        "justify-start overflow-x-clip",
-        variantStyles[variant],
-        className,
-      )}
-      {...other}
-    >
-      <TabVariantContext.Provider value={variant}>
-        <BaseColorContext.Provider value={color}>{children}</BaseColorContext.Provider>
-      </TabVariantContext.Provider>
-    </Tab.List>
-  );
-});
+const TabList = React.forwardRef<HTMLDivElement, TabListProps>(
+  ({ color, variant = "line", children, className, ...other }, ref) => {
+    return (
+      <HeadlessUiTabList
+        ref={ref}
+        className={tremorTwMerge(
+          "justify-start overflow-x-clip",
+          variantStyles[variant],
+          className,
+        )}
+        {...other}
+      >
+        <TabVariantContext.Provider value={variant}>
+          <BaseColorContext.Provider value={color}>{children}</BaseColorContext.Provider>
+        </TabVariantContext.Provider>
+      </HeadlessUiTabList>
+    );
+  },
+);
 
 TabList.displayName = "TabList";
 
