@@ -11,12 +11,8 @@ type TabVariant = "line" | "solid";
 const TabVariantContext = createContext<TabVariant>("line");
 
 const variantStyles: { [key in TabVariant]: string } = {
-  line: tremorTwMerge(
-    // common
-    "border-tremor-border-default flex space-x-4 border-b",
-  ),
+  line: tremorTwMerge("border-tremor-border-default flex space-x-4 border-b"),
   solid: tremorTwMerge(
-    // common
     "rounded-tremor-default bg-tremor-background-subtle inline-flex space-x-1.5 p-0.5",
   ),
 };

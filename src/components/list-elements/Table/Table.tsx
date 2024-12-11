@@ -1,25 +1,13 @@
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React from "react";
 
-const makeTableClassName = makeClassName("Table");
-
 const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
-  (props, ref) => {
-    const { children, className, ...other } = props;
-
+  ({ children, className, ...other }, ref) => {
     return (
-      <div className={tremorTwMerge(makeTableClassName("root"), "overflow-auto", className)}>
+      <div className={tremorTwMerge("overflow-auto", className)}>
         <table
           ref={ref}
-          className={tremorTwMerge(
-            makeTableClassName("table"),
-            // common
-            "text-tremor-default w-full",
-            // light
-            "text-tremor-content",
-            // dark
-            "dark:text-dark-tremor-content",
-          )}
+          className={tremorTwMerge("text-tremor-default text-tremor-content-default w-full")}
           {...other}
         >
           {children}
@@ -31,4 +19,4 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
 
 Table.displayName = "Table";
 
-export default Table;
+export { Table };

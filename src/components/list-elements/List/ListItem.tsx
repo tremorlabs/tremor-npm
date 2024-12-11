@@ -1,18 +1,13 @@
+import { tremorTwMerge } from "lib";
 import React from "react";
-import { makeClassName, tremorTwMerge } from "lib";
-
-const makeListItemClassName = makeClassName("ListItem");
 
 const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElement>>(
-  (props, ref) => {
-    const { children, className, ...other } = props;
+  ({ children, className, ...other }, ref) => {
     return (
       <>
         <li
           ref={ref}
           className={tremorTwMerge(
-            makeListItemClassName("root"),
-            // common
             "text-tremor-default flex w-full items-center justify-between py-2",
             className,
           )}
@@ -27,4 +22,4 @@ const ListItem = React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElem
 
 ListItem.displayName = "ListItem";
 
-export default ListItem;
+export { ListItem };

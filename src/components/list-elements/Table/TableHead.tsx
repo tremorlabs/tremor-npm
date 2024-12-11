@@ -1,27 +1,15 @@
+import { tremorTwMerge } from "lib";
 import React from "react";
-import { makeClassName, tremorTwMerge } from "lib";
-
-const makeTableHeadClassName = makeClassName("TableHead");
 
 const TableHead = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->((props, ref) => {
-  const { children, className, ...other } = props;
+>(({ children, className, ...other }, ref) => {
   return (
     <>
       <thead
         ref={ref}
-        className={tremorTwMerge(
-          makeTableHeadClassName("root"),
-          // common
-          "text-left",
-          // light
-          "text-tremor-content",
-          // dark
-          "dark:text-dark-tremor-content",
-          className,
-        )}
+        className={tremorTwMerge("text-tremor-content-default text-left", className)}
         {...other}
       >
         {children}
@@ -32,4 +20,4 @@ const TableHead = React.forwardRef<
 
 TableHead.displayName = "TableHead";
 
-export default TableHead;
+export { TableHead };

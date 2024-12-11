@@ -6,10 +6,8 @@ import React, { useContext } from "react";
 const TabPanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
     const { children, className, ...other } = props;
-
     const { selectedValue: selectedIndex } = useContext(SelectedValueContext);
     const index = useContext(IndexContext);
-
     const isSelected = selectedIndex === index;
 
     return (

@@ -1,21 +1,16 @@
+import { tremorTwMerge } from "lib";
 import React from "react";
-import { makeClassName, tremorTwMerge } from "lib";
-
-const makeRowClassName = makeClassName("TableRow");
 
 const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
-  (props, ref) => {
-    const { children, className, ...other } = props;
+  ({ children, className, ...other }, ref) => {
     return (
-      <>
-        <tr ref={ref} className={tremorTwMerge(makeRowClassName("row"), className)} {...other}>
-          {children}
-        </tr>
-      </>
+      <tr ref={ref} className={tremorTwMerge(className)} {...other}>
+        {children}
+      </tr>
     );
   },
 );
 
 TableRow.displayName = "TableRow";
 
-export default TableRow;
+export { TableRow };

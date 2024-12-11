@@ -1,24 +1,13 @@
 import { tremorTwMerge } from "lib";
 import React from "react";
 
-import { makeClassName } from "lib";
-
-const makeListClassName = makeClassName("List");
-
 const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
-  (props, ref) => {
-    const { children, className, ...other } = props;
+  ({ children, className, ...other }, ref) => {
     return (
       <ul
         ref={ref}
         className={tremorTwMerge(
-          makeListClassName("root"),
-          // common
-          "w-full divide-y",
-          // light
-          "divide-tremor-border text-tremor-content",
-          // dark
-          "dark:divide-dark-tremor-border dark:text-dark-tremor-content",
+          "divide-tremor-border-default text-tremor-content-default w-full divide-y",
           className,
         )}
         {...other}
@@ -31,4 +20,4 @@ const List = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListEl
 
 List.displayName = "List";
 
-export default List;
+export { List };
