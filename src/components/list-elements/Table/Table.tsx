@@ -1,5 +1,5 @@
-import React from "react";
 import { makeClassName, tremorTwMerge } from "lib";
+import React from "react";
 
 const makeTableClassName = makeClassName("Table");
 
@@ -14,7 +14,7 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
           className={tremorTwMerge(
             makeTableClassName("table"),
             // common
-            "w-full text-tremor-default",
+            "text-tremor-default w-full",
             // light
             "text-tremor-content",
             // dark

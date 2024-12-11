@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Badge>;
 const BadgeTemplateColors: Story = {
   render: () => {
     return (
-      <div>
+      <div className="flex flex-col gap-2">
         {Object.values(BaseColors).map((color) => (
           <Badge key={color} icon={ArrowUpIcon} color={color}>
             {color}

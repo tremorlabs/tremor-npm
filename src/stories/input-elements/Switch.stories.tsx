@@ -1,10 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Switch } from "components";
-import { SimpleSwitch, SimpleIdSwitch } from "./helpers/SimpleSwitch";
+import { BaseColors } from "lib";
+import React from "react";
+import { SimpleIdSwitch, SimpleSwitch } from "./helpers/SimpleSwitch";
 
 const meta: Meta<typeof Switch> = {
   title: "UI/Input/Switch",
   component: Switch,
+};
+
+const SwitchTemplateColors: Story = {
+  render: () => {
+    return (
+      <div className="flex flex-col gap-2">
+        {Object.values(BaseColors).map((color) => (
+          <Switch checked key={color} color={color} />
+        ))}
+      </div>
+    );
+  },
 };
 
 export default meta;
@@ -32,19 +46,6 @@ export const CustomColor: Story = {
   },
 };
 
-export const Tooltip: Story = {
-  args: {
-    tooltip: "Action disabled",
-  },
-};
-
-export const TooltipDisabled: Story = {
-  args: {
-    tooltip: "Action disabled",
-    disabled: true,
-  },
-};
-
 export const Controlled: Story = {
   render: SimpleSwitch,
 };
@@ -68,4 +69,8 @@ export const Id: Story = {
   args: {
     required: true,
   },
+};
+
+export const Colors: Story = {
+  ...SwitchTemplateColors,
 };
