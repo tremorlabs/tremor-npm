@@ -1,22 +1,11 @@
+import { bgColors } from "components/spark-elements/common/style";
+import { Color, ValueFormatter, tremorTwMerge } from "lib";
 import React from "react";
-import {
-  BaseColors,
-  getColorClassNames,
-  tremorTwMerge,
-  Color,
-  ValueFormatter,
-  colorPalette,
-} from "lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div
     className={tremorTwMerge(
-      // common
-      "rounded-tremor-default text-tremor-default border",
-      // light
-      "bg-tremor-background shadow-tremor-dropdown border-tremor-border",
-      // dark
-      "dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown dark:border-dark-tremor-border",
+      "rounded-tremor-default text-tremor-default bg-tremor-background-default shadow-tremor-dropdown border-tremor-border-default border",
     )}
   >
     {children}
@@ -34,36 +23,17 @@ export const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) =>
     <div className="flex items-center space-x-2">
       <span
         className={tremorTwMerge(
-          // common
-          "rounded-tremor-full h-3 w-3 shrink-0 border-2",
-          // light
-          "border-tremor-background shadow-tremor-card",
-          // dark
-          "dark:border-dark-tremor-background dark:shadow-dark-tremor-card",
-          getColorClassNames(color, colorPalette.background).bgColor,
+          "rounded-tremor-full border-tremor-background-default shadow-tremor-card h-3 w-3 shrink-0 border-2",
+          bgColors[color as Color],
         )}
       />
-      <p
-        className={tremorTwMerge(
-          // commmon
-          "text-right whitespace-nowrap",
-          // light
-          "text-tremor-content",
-          // dark
-          "dark:text-dark-tremor-content",
-        )}
-      >
+      <p className={tremorTwMerge("text-tremor-content-default text-right whitespace-nowrap")}>
         {name}
       </p>
     </div>
     <p
       className={tremorTwMerge(
-        // common
-        "text-right font-medium whitespace-nowrap tabular-nums",
-        // light
-        "text-tremor-content-emphasis",
-        // dark
-        "dark:text-dark-tremor-content-emphasis",
+        "text-tremor-content-emphasis text-right font-medium whitespace-nowrap tabular-nums",
       )}
     >
       {value}
@@ -91,26 +61,8 @@ const ChartTooltip = ({
 
     return (
       <ChartTooltipFrame>
-        <div
-          className={tremorTwMerge(
-            // light
-            "border-tremor-border border-b px-4 py-2",
-            // dark
-            "dark:border-dark-tremor-border",
-          )}
-        >
-          <p
-            className={tremorTwMerge(
-              // common
-              "font-medium",
-              // light
-              "text-tremor-content-emphasis",
-              // dark
-              "dark:text-dark-tremor-content-emphasis",
-            )}
-          >
-            {label}
-          </p>
+        <div className={tremorTwMerge("border-tremor-border-default border-b px-4 py-2")}>
+          <p className={tremorTwMerge("text-tremor-content-emphasis font-medium")}>{label}</p>
         </div>
 
         <div className={tremorTwMerge("space-y-1 px-4 py-2")}>
@@ -119,7 +71,7 @@ const ChartTooltip = ({
               key={`id-${idx}`}
               value={valueFormatter(value)}
               name={name}
-              color={categoryColors.get(name) ?? BaseColors.Blue}
+              color={categoryColors.get(name) ?? "brand"}
             />
           ))}
         </div>

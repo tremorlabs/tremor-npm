@@ -1,17 +1,10 @@
-import React from "react";
-import { ChartTooltipFrame, ChartTooltipRow } from "../common/ChartTooltip";
-import {
-  BaseColors,
-  Color,
-  FunnelVariantType,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  tremorTwMerge,
-} from "lib";
-import { CustomTooltipProps, EventProps } from "../common";
-import NoData from "../common/NoData";
 import { ArrowRightIcon } from "assets";
+import { textColors } from "components/spark-elements/common/style";
+import { Color, FunnelVariantType, defaultValueFormatter, tremorTwMerge } from "lib";
+import React from "react";
+import { CustomTooltipProps, EventProps } from "../common";
+import { ChartTooltipFrame, ChartTooltipRow } from "../common/ChartTooltip";
+import NoData from "../common/NoData";
 
 type FormattedDataT = DataT & {
   normalizedValue: number;
@@ -50,7 +43,7 @@ const GLOBAL_PADDING = 10;
 const HALF_PADDING = GLOBAL_PADDING / 2;
 const Y_AXIS_LABELS = ["100%", "75%", "50%", "25%", "0%"];
 
-export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
+interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: DataT[];
   evolutionGradient?: boolean;
   gradient?: boolean;
@@ -88,7 +81,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       valueFormatter = defaultValueFormatter,
       className,
       calculateFrom = "first",
-      color,
+      color = "brand",
       variant = "base",
       showGridLines = true,
       showYAxis = calculateFrom === "previous" ? false : true,
@@ -105,6 +98,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       barGap = "20%",
       ...other
     } = props;
+    const funnelId = React.useId();
     const DEFAULT_X_AXIS_HEIGHT = showXAxis && xAxisLabel ? 25 : 15;
 
     const CustomTooltip = customTooltip;
@@ -282,9 +276,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
           dataKey: closestBar.name,
           name: closestBar.name,
           value: closestBar.value,
-          color: color ?? BaseColors.Blue,
+          color: color ?? "brand",
           className: tremorTwMerge(
-            getColorClassNames(color ?? BaseColors.Blue, colorPalette.text).textColor,
+            textColors[color as Color],
             hasOnValueChange ? "cursor-pointer" : "cursor-default",
           ),
           fill: "",
@@ -295,11 +289,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     };
 
     return (
-      <div
-        ref={ref}
-        className={tremorTwMerge("tremor-wrapper relative h-80 w-full", className)}
-        {...other}
-      >
+      <div ref={ref} className={tremorTwMerge("relative h-80 w-full", className)} {...other}>
         {data?.length ? (
           <>
             <svg
@@ -332,14 +322,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       x2={width - HALF_PADDING}
                       y2={(index * realHeight) / 4 + HALF_PADDING}
                       stroke="currentColor"
-                      className={tremorTwMerge(
-                        // common
-                        "stroke-1",
-                        // light
-                        "stroke-tremor-border",
-                        // dark
-                        "dark:stroke-dark-tremor-border",
-                      )}
+                      className={tremorTwMerge("stroke-tremor-border-default stroke-1")}
                     />
                   ) : null}
                   <text
@@ -348,14 +331,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     textAnchor="end"
                     fill=""
                     stroke=""
-                    className={tremorTwMerge(
-                      // base
-                      "text-tremor-label",
-                      // light
-                      "fill-tremor-content",
-                      // dark
-                      "dark:fill-dark-tremor-content",
-                    )}
+                    className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
                   >
                     {label}
                   </text>
@@ -374,6 +350,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       "z-0",
                       tooltip.index === index ? "text-[#d1d5db]/15" : "text-transparent",
                     )}
+                    id={`${funnelId}-${item.name.replace(/[^a-zA-Z0-9]/g, "")}`}
                   />
 
                   {/* Draw gradient bar to fill space */}
@@ -396,10 +373,11 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                             : 0)) /
                         (isVariantCenter ? 2 : 1)
                       }
-                      fill={`url(#base-gradient)`}
+                      fill={`url(#${funnelId}-gradient)`}
                       className={tremorTwMerge(
                         !activeBar || activeBar.index === index ? "" : "opacity-30",
                       )}
+                      id={`${funnelId}-${item.name.replace(/[^a-zA-Z0-9]/g, "")}`}
                     />
                   ) : null}
 
@@ -414,7 +392,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     height={item.barHeight}
                     fill="currentColor"
                     className={tremorTwMerge(
-                      getColorClassNames(color ?? BaseColors.Blue, colorPalette.text).textColor,
+                      textColors[color as Color],
                       !activeBar || activeBar.index === index ? "" : "opacity-30",
                       hasOnValueChange ? "cursor-pointer" : "cursor-default",
                     )}
@@ -428,10 +406,11 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       y={realHeight / 2 + item.barHeight / 2 + HALF_PADDING}
                       width={barWidth}
                       height={(realHeight - item.barHeight) / 2}
-                      fill={`url(#base-gradient-revert)`}
+                      fill={`url(#${funnelId}-gradient-revert)`}
                       className={tremorTwMerge(
                         !activeBar || activeBar.index === index ? "" : "opacity-30",
                       )}
+                      id={`${funnelId}-${item.name.replace(/[^a-zA-Z0-9]/g, "")}`}
                     />
                   ) : null}
 
@@ -457,12 +436,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                     >
                       <div
                         className={tremorTwMerge(
-                          //common
-                          "text-tremor-label! truncate text-center",
-                          // light
-                          "text-tremor-content",
-                          // dark
-                          "dark:text-dark-tremor-content",
+                          "!text-tremor-label text-tremor-content-default truncate text-center",
                         )}
                         title={item.name}
                       >
@@ -494,7 +468,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                                       realHeight / 2 - item.barHeight / 2 + HALF_PADDING
                                     }
                                   `}
-                            fill={`url(#base-gradient)`}
+                            fill={`url(#${funnelId}-gradient)`}
                             className={tremorTwMerge(
                               "z-10",
                               !activeBar || activeBar.index === index ? "" : "opacity-30",
@@ -515,7 +489,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                                       realHeight / 2 - item.nextBarHeight / 4 + HALF_PADDING
                                     }
                                   `}
-                            fill={`url(#base-gradient-revert)`}
+                            fill={`url(#${funnelId}-gradient-revert)`}
                             className={tremorTwMerge(
                               "z-10",
                               !activeBar || activeBar.index === index ? "" : "opacity-30",
@@ -538,7 +512,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                                     realHeight + HALF_PADDING
                                   }
                                 `}
-                          fill={`url(#base-gradient)`}
+                          fill={`url(#${funnelId}-gradient)`}
                           className={tremorTwMerge(
                             "z-10",
                             !activeBar || activeBar.index === index ? "" : "opacity-30",
@@ -583,14 +557,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       width={12}
                       height={rotateLabelX?.xAxisHeight || DEFAULT_X_AXIS_HEIGHT}
                     >
-                      <div
-                        className={tremorTwMerge(
-                          // light
-                          "text-tremor-content",
-                          // dark
-                          "dark:text-dark-tremor-content",
-                        )}
-                      >
+                      <div className={tremorTwMerge("text-tremor-content-default")}>
                         <ArrowRightIcon className="size-3.5 shrink-0" />
                       </div>
                     </foreignObject>
@@ -598,27 +565,23 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 </React.Fragment>
               ))}
               <linearGradient
-                id={"base-gradient"}
+                id={`${funnelId}-gradient`}
                 x1="0%"
                 y1="0%"
                 x2="0%"
                 y2="100%"
-                className={tremorTwMerge(
-                  getColorClassNames(color ?? BaseColors.Blue, colorPalette.text).textColor,
-                )}
+                className={tremorTwMerge(textColors[color as Color])}
               >
                 <stop offset="5%" stopColor="currentColor" stopOpacity={0.4} />
                 <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
               </linearGradient>
               <linearGradient
-                id={"base-gradient-revert"}
+                id={`${funnelId}-gradient-revert`}
                 x1="0%"
                 y1="0%"
                 x2="0%"
                 y2="100%"
-                className={tremorTwMerge(
-                  getColorClassNames(color ?? BaseColors.Blue, colorPalette.text).textColor,
-                )}
+                className={tremorTwMerge(textColors[color as Color])}
               >
                 <stop offset="5%" stopColor="currentColor" stopOpacity={0} />
                 <stop offset="95%" stopColor="currentColor" stopOpacity={0.4} />
@@ -631,12 +594,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                   fill=""
                   stroke=""
                   className={tremorTwMerge(
-                    // base
-                    "text-tremor-default cursor-default font-medium",
-                    // light
-                    "fill-tremor-content-emphasis",
-                    // dark
-                    "dark:fill-dark-tremor-content-emphasis",
+                    "text-tremor-default fill-tremor-content-emphasis cursor-default font-medium",
                   )}
                 >
                   {xAxisLabel}
@@ -652,12 +610,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                   fill=""
                   stroke=""
                   className={tremorTwMerge(
-                    // base
-                    "text-tremor-default cursor-default font-medium",
-                    // light
-                    "fill-tremor-content-emphasis",
-                    // dark
-                    "dark:fill-dark-tremor-content-emphasis",
+                    "text-tremor-default fill-tremor-content-emphasis cursor-default font-medium",
                   )}
                 >
                   {yAxisLabel}
@@ -686,23 +639,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 ) : (
                   <ChartTooltipFrame>
                     <div
-                      className={tremorTwMerge(
-                        // light
-                        "border-tremor-border border-b px-4 py-2",
-                        // dark
-                        "dark:border-dark-tremor-border",
-                      )}
+                      className={tremorTwMerge("border-tremor-border-default border-b px-4 py-2")}
                     >
-                      <p
-                        className={tremorTwMerge(
-                          // common
-                          "font-medium",
-                          // light
-                          "text-tremor-content-emphasis",
-                          // dark
-                          "dark:text-dark-tremor-content-emphasis",
-                        )}
-                      >
+                      <p className={tremorTwMerge("text-tremor-content-emphasis font-medium")}>
                         {tooltip?.data?.name}
                       </p>
                     </div>
@@ -712,7 +651,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                         <ChartTooltipRow
                           value={valueFormatter(tooltip.data.value)}
                           name={`${(tooltip.data.payload.normalizedValue * 100).toFixed(2)}%`}
-                          color={color ?? BaseColors.Blue}
+                          color={color ?? "brand"}
                         />
                       ) : null}
                     </div>
@@ -759,4 +698,4 @@ const FunnelChart = ({ data, ...props }: FunnelChartProps) => {
   );
 };
 
-export default FunnelChart;
+export { FunnelChart, type FunnelChartProps };

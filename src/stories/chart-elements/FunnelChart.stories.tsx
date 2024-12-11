@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { FunnelChart } from "components";
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
-import { currencyValueFormatter } from "lib";
+import { BaseColors, currencyValueFormatter } from "lib";
 
 const data = [
   { name: "opens", value: 351 },
@@ -20,6 +20,18 @@ const meta: Meta<typeof FunnelChart> = {
   title: "Visualizations/Chart/FunnelChart",
   component: FunnelChart,
   args: { data, className: "h-72" },
+};
+
+const FunnelChartTemplateColors: Story = {
+  render: () => {
+    return (
+      <div className="flex flex-col gap-2">
+        {Object.values(BaseColors).map((color) => (
+          <FunnelChart key={color} data={data} color={color} />
+        ))}
+      </div>
+    );
+  },
 };
 
 export default meta;
@@ -234,4 +246,8 @@ export const AxisLabels: Story = {
     xAxisLabel: "Flow",
     yAxisLabel: "Amount (USD)",
   },
+};
+
+export const Colors: Story = {
+  ...FunnelChartTemplateColors,
 };
