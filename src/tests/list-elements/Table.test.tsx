@@ -1,12 +1,6 @@
 import { render } from "@testing-library/react";
+import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "components";
 import React from "react";
-
-import Table from "components/list-elements/Table/Table";
-import TableBody from "components/list-elements/Table/TableBody";
-import TableCell from "components/list-elements/Table/TableCell";
-import TableHead from "components/list-elements/Table/TableHead";
-import TableHeaderCell from "components/list-elements/Table/TableHeaderCell";
-import TableRow from "components/list-elements/Table/TableRow";
 
 describe("List", () => {
   test("renders the List component with default props", () => {

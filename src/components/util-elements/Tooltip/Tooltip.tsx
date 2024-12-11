@@ -82,8 +82,7 @@ const Tooltip = ({ text, open, x, y, refs, strategy, getFloatingProps }: Tooltip
   return open && text ? (
     <div
       className={tremorTwMerge(
-        "rounded-tremor-default z-20 max-w-xs px-2.5 py-1 text-sm opacity-100",
-        "bg-background-tremor-emphasis text-content-tremor-emphasis dark:bg-white",
+        "rounded-tremor-default text-tremor-content-inverted z-20 max-w-sm bg-gray-900 px-2.5 py-1 text-sm opacity-100 dark:bg-white",
       )}
       ref={refs.setFloating}
       style={{

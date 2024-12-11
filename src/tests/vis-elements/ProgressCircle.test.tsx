@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 
-import ProgressCircle from "components/vis-elements/ProgressCircle/ProgressCircle";
+import { ProgressCircle } from "components";
 
 describe("ProgressCircle", () => {
   test("renders the ProgressCircle component with default props", () => {

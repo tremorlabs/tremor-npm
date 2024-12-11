@@ -1,12 +1,9 @@
-import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { Color, colorPalette, getColorClassNames, makeClassName, tremorTwMerge } from "lib";
+import { Color, tremorTwMerge } from "lib";
 import React from "react";
-
-const makeProgressCircleClassName = makeClassName("ProgressBar");
 
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
   size?: Size;
   color?: Color;
@@ -17,7 +14,7 @@ export interface ProgressCircleProps extends React.HTMLAttributes<HTMLDivElement
   children?: React.ReactNode;
 }
 
-const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
+const sizeConfig: Record<Size, { strokeWidth: number; radius: number }> = {
   xs: {
     radius: 15,
     strokeWidth: 3,
@@ -40,6 +37,58 @@ const size2config: Record<Size, { strokeWidth: number; radius: number }> = {
   },
 };
 
+const trackColors: { [color in Color]: string } = {
+  brand: "stroke-tremor-brand-muted",
+  slate: "stroke-slate-200 dark:stroke-slate-500/20",
+  gray: "stroke-gray-200 dark:stroke-gray-500/20",
+  zinc: "stroke-zinc-200 dark:stroke-zinc-500/20",
+  neutral: "stroke-neutral-200 dark:stroke-neutral-500/20",
+  stone: "stroke-stone-200 dark:stroke-stone-500/20",
+  red: "stroke-red-200 dark:stroke-red-500/20",
+  orange: "stroke-orange-200 dark:stroke-orange-500/20",
+  amber: "stroke-amber-200 dark:stroke-amber-500/20",
+  yellow: "stroke-yellow-200 dark:stroke-yellow-500/20",
+  lime: "stroke-lime-200 dark:stroke-lime-500/20",
+  green: "stroke-green-200 dark:stroke-green-500/20",
+  emerald: "stroke-emerald-200 dark:stroke-emerald-500/20",
+  teal: "stroke-teal-200 dark:stroke-teal-500/20",
+  cyan: "stroke-cyan-200 dark:stroke-cyan-500/20",
+  sky: "stroke-sky-200 dark:stroke-sky-500/20",
+  blue: "stroke-blue-200 dark:stroke-blue-500/20",
+  indigo: "stroke-indigo-200 dark:stroke-indigo-500/20",
+  violet: "stroke-violet-200 dark:stroke-violet-500/20",
+  purple: "stroke-purple-200 dark:stroke-purple-500/20",
+  fuchsia: "stroke-fuchsia-200 dark:stroke-fuchsia-500/20",
+  pink: "stroke-pink-200 dark:stroke-pink-500/20",
+  rose: "stroke-rose-200 dark:stroke-rose-500/20",
+};
+
+const strokeColors: { [color in Color]: string } = {
+  brand: "stroke-tremor-brand-default",
+  slate: "stroke-slate-500",
+  gray: "stroke-gray-500",
+  zinc: "stroke-zinc-500",
+  neutral: "stroke-neutral-500",
+  stone: "stroke-stone-500",
+  red: "stroke-red-500",
+  orange: "stroke-orange-500",
+  amber: "stroke-amber-500",
+  yellow: "stroke-yellow-500",
+  lime: "stroke-lime-500",
+  green: "stroke-green-500",
+  emerald: "stroke-emerald-500",
+  teal: "stroke-teal-500",
+  cyan: "stroke-cyan-500",
+  sky: "stroke-sky-500",
+  blue: "stroke-blue-500",
+  indigo: "stroke-indigo-500",
+  violet: "stroke-violet-500",
+  purple: "stroke-purple-500",
+  fuchsia: "stroke-fuchsia-500",
+  pink: "stroke-pink-500",
+  rose: "stroke-rose-500",
+};
+
 function getLimitedValue(input: number | undefined) {
   if (input === undefined) {
     return 0;
@@ -50,50 +99,41 @@ function getLimitedValue(input: number | undefined) {
   }
 }
 
-const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((props, ref) => {
-  const {
-    value: inputValue,
-    size = "md",
-    className,
-    showAnimation = true,
-    color,
-    tooltip,
-    radius: inputRadius,
-    strokeWidth: inputStrokeWidth,
-    children,
-    ...other
-  } = props;
+const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>(
+  (
+    {
+      value: inputValue,
+      size = "md",
+      className,
+      showAnimation = true,
+      color = "brand",
+      radius: inputRadius,
+      strokeWidth: inputStrokeWidth,
+      children,
+      ...other
+    },
+    ref,
+  ) => {
+    // sanitize input
+    const value = getLimitedValue(inputValue);
+    const radius = inputRadius ?? sizeConfig[size].radius;
+    const strokeWidth = inputStrokeWidth ?? sizeConfig[size].strokeWidth;
+    const normalizedRadius = radius - strokeWidth / 2;
+    const circumference = normalizedRadius * 2 * Math.PI;
+    const strokeDashoffset = (value / 100) * circumference;
+    const offset = circumference - strokeDashoffset;
 
-  // sanitize input
-  const value = getLimitedValue(inputValue);
-  const radius = inputRadius ?? size2config[size].radius;
-  const strokeWidth = inputStrokeWidth ?? size2config[size].strokeWidth;
-  const normalizedRadius = radius - strokeWidth / 2;
-  const circumference = normalizedRadius * 2 * Math.PI;
-  const strokeDashoffset = (value / 100) * circumference;
-  const offset = circumference - strokeDashoffset;
-
-  const { tooltipProps, getReferenceProps } = useTooltip();
-
-  return (
-    <>
-      <Tooltip text={tooltip} {...tooltipProps} />
+    return (
       <div
         ref={ref}
-        className={tremorTwMerge(
-          makeProgressCircleClassName("root"),
-          "flex flex-col items-center justify-center",
-          className,
-        )}
+        className={tremorTwMerge("flex flex-col items-center justify-center", className)}
         {...other}
       >
         <svg
-          ref={tooltipProps.refs.setReference}
           width={radius * 2}
           height={radius * 2}
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}
           className="-rotate-90 transform"
-          {...getReferenceProps}
         >
           <circle
             r={normalizedRadius}
@@ -103,14 +143,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
             fill="transparent"
             stroke=""
             strokeLinecap="round"
-            className={tremorTwMerge(
-              "transition-colors ease-linear",
-              color
-                ? `${
-                    getColorClassNames(color, colorPalette.background).strokeColor
-                  } opacity-20 dark:opacity-25`
-                : "stroke-tremor-brand-muted/50 dark:stroke-dark-tremor-brand-muted",
-            )}
+            className={tremorTwMerge("transition-colors ease-linear", trackColors[color as Color])}
           />
           {value >= 0 ? (
             <circle
@@ -125,9 +158,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
               strokeLinecap="round"
               className={tremorTwMerge(
                 "transition-colors ease-linear",
-                color
-                  ? getColorClassNames(color, colorPalette.background).strokeColor
-                  : "stroke-tremor-brand dark:stroke-dark-tremor-brand",
+                strokeColors[color as Color],
                 showAnimation ? "transition-all duration-300 ease-in-out" : "",
               )}
             />
@@ -135,10 +166,10 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
         </svg>
         <div className={tremorTwMerge("absolute flex")}>{children}</div>
       </div>
-    </>
-  );
-});
+    );
+  },
+);
 
 ProgressCircle.displayName = "ProgressCircle";
 
-export default ProgressCircle;
+export { ProgressCircle, type ProgressCircleProps };
