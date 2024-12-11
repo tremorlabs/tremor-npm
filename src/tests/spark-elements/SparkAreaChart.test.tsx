@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
-import AreaChart from "components/spark-elements/SparkAreaChart/SparkAreaChart";
+
+import { SparkAreaChart } from "components";
 import React from "react";
 
 describe("AreaChart", () => {
@@ -27,7 +28,7 @@ describe("AreaChart", () => {
     ];
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { container } = render(
-      <AreaChart
+      <SparkAreaChart
         data={data}
         className="test"
         categories={["A", "B", "C"]}
@@ -46,7 +47,7 @@ describe("AreaChart", () => {
     ];
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { container } = render(
-      <AreaChart
+      <SparkAreaChart
         data={data}
         categories={["A", "B", "C"]}
         index="name"
@@ -66,7 +67,7 @@ describe("AreaChart", () => {
     ];
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { container } = render(
-      <AreaChart
+      <SparkAreaChart
         data={data}
         categories={["A", "B", "C"]}
         index="name"
@@ -86,7 +87,7 @@ describe("AreaChart", () => {
     ];
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { container } = render(
-      <AreaChart
+      <SparkAreaChart
         data={data}
         categories={["A", "B", "C"]}
         index="name"
@@ -106,7 +107,7 @@ describe("AreaChart", () => {
     ];
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { container } = render(
-      <AreaChart
+      <SparkAreaChart
         data={data}
         categories={["A", "B", "C"]}
         index="name"
@@ -120,7 +121,9 @@ describe("AreaChart", () => {
 
   it("renders the chart with no data", () => {
     const ref = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
-    const { getByText } = render(<AreaChart data={[]} categories={[]} index="name" ref={ref} />);
+    const { getByText } = render(
+      <SparkAreaChart data={[]} categories={[]} index="name" ref={ref} />,
+    );
     expect(getByText("No data")).toBeDefined();
   });
 });
