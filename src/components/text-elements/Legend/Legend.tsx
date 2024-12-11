@@ -1,8 +1,34 @@
+"use";
 import React, { useCallback, useEffect } from "react";
 
 import { ChevronLeftFill, ChevronRightFill } from "assets";
-import { Color, getColorClassNames, themeColorRange, tremorTwMerge } from "lib";
-import { colorPalette } from "lib/theme";
+import { Color, themeColorRange, tremorTwMerge } from "lib";
+
+const textColors: { [color in Color]: string } = {
+  brand: "text-tremor-brand-default",
+  slate: "text-slate-500",
+  gray: "text-gray-500",
+  zinc: "text-zinc-500",
+  neutral: "text-neutral-500",
+  stone: "text-stone-500",
+  red: "text-red-500",
+  orange: "text-orange-500",
+  amber: "text-amber-500",
+  yellow: "text-yellow-500",
+  lime: "text-lime-500",
+  green: "text-green-500",
+  emerald: "text-emerald-500",
+  teal: "text-teal-500",
+  cyan: "text-cyan-500",
+  sky: "text-sky-500",
+  blue: "text-blue-500",
+  indigo: "text-indigo-500",
+  violet: "text-violet-500",
+  purple: "text-purple-500",
+  fuchsia: "text-fuchsia-500",
+  pink: "text-pink-500",
+  rose: "text-rose-500",
+};
 
 export interface LegendItemProps {
   name: string;
@@ -16,15 +42,8 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
   return (
     <li
       className={tremorTwMerge(
-        // common
-        "group rounded-tremor-small inline-flex items-center px-2 py-0.5 whitespace-nowrap transition",
-        hasOnValueChange ? "cursor-pointer" : "cursor-default",
-        // light
-        "text-tremor-content",
-        hasOnValueChange ? "hover:bg-tremor-background-subtle" : "",
-        // dark
-        "dark:text-dark-tremor-content",
-        hasOnValueChange ? "dark:hover:bg-dark-tremor-background-subtle" : "",
+        "group rounded-tremor-small text-tremor-content-default inline-flex items-center px-2 py-0.5 whitespace-nowrap transition",
+        hasOnValueChange ? "hover:bg-tremor-background-subtle cursor-pointer" : "cursor-default",
       )}
       onClick={(e) => {
         e.stopPropagation();
@@ -34,7 +53,7 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
       <svg
         className={tremorTwMerge(
           "mr-1.5 h-2 w-2 shrink-0",
-          getColorClassNames(color, colorPalette.text).textColor,
+          textColors[color as Color],
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
         fill="currentColor"
@@ -44,15 +63,9 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
       </svg>
       <p
         className={tremorTwMerge(
-          // common
-          "text-tremor-default truncate whitespace-nowrap",
-          // light
-          "text-tremor-content",
+          "text-tremor-default text-tremor-content-default truncate whitespace-nowrap",
           hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
-          // dark
-          "dark:text-dark-tremor-content",
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
-          hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
         )}
       >
         {name}
@@ -94,17 +107,10 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     <button
       type="button"
       className={tremorTwMerge(
-        // common
         "group rounded-tremor-small inline-flex w-5 items-center truncate transition",
-        disabled ? "cursor-not-allowed" : "cursor-pointer",
-        // light
         disabled
-          ? "text-tremor-content-subtle"
-          : "text-tremor-content hover:text-tremor-content-emphasis hover:bg-tremor-background-subtle",
-        // dark
-        disabled
-          ? "dark:text-dark-tremor-subtle"
-          : "dark:text-dark-tremor dark:hover:text-tremor-content-emphasis dark:hover:bg-dark-tremor-background-subtle",
+          ? "text-tremor-content-subtle cursor-not-allowed"
+          : "text-tremor-content-default hover:text-tremor-content-emphasis hover:bg-tremor-background-subtle cursor-pointer",
       )}
       disabled={disabled}
       onClick={(e) => {
@@ -163,7 +169,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     const hasRightScroll = scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft;
 
     setHasScroll({ left: hasLeftScroll, right: hasRightScroll });
-  }, [setHasScroll]); // dependencies are listed here in the array
+  }, [setHasScroll]);
 
   const scrollToTest = useCallback(
     (direction: "left" | "right") => {
@@ -229,8 +235,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     }
 
     return () => {
-      //   document.removeEventListener("keydown", keyDown);
-      //   document.removeEventListener("keyup", keyUp);
       scrollable?.removeEventListener("keydown", keyDown);
       scrollable?.removeEventListener("keyup", keyUp);
     };
@@ -242,7 +246,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         ref={scrollableRef}
         tabIndex={0}
         className={tremorTwMerge(
-          //common
           "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
@@ -265,12 +268,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         <>
           <div
             className={tremorTwMerge(
-              // light mode
-              "bg-tremor-background",
-              // dark mode
-              "dark:bg-dark-tremor-background",
-              // common
-              "absolute top-0 right-0 bottom-0 flex h-full items-center justify-center pr-1",
+              "bg-tremor-background-default absolute top-0 right-0 bottom-0 flex h-full items-center justify-center pr-1",
             )}
             ref={scrollButtonsRef}
           >
@@ -299,4 +297,4 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
 
 Legend.displayName = "Legend";
 
-export default Legend;
+export { Legend };

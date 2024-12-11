@@ -20,9 +20,6 @@ export default meta;
 type Story = StoryObj<typeof Legend>;
 
 function LegendComponent(args: any) {
-  // if (args.onClickLegendItem?.length === 0) {
-  //   args.onClickLegendItem = undefined;
-  // }
   return <Legend {...args} />;
 }
 
