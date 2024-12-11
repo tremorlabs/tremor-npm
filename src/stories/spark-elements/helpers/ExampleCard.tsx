@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "components";
 
 const ExampleCard = ({ children }: { children: React.ReactNode }) => (
-  <Card className="w-96 flex items-center justify-between">
+  <Card className="flex w-96 items-center justify-between">
     <div>
       <p>AAPL</p>
       <span className="text-sm text-gray-500">Apple Inc.</span>

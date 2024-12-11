@@ -22,7 +22,7 @@ const AccordionHeader = React.forwardRef<
       className={tremorTwMerge(
         makeAccordionHeaderClassName("root"),
         // common
-        "w-full flex items-center justify-between px-4 py-3",
+        "flex w-full items-center justify-between px-4 py-3",
         // light
         "text-tremor-content-emphasis",
         // dark
@@ -34,7 +34,7 @@ const AccordionHeader = React.forwardRef<
       <div
         className={tremorTwMerge(
           makeAccordionHeaderClassName("children"),
-          "flex flex-1 text-inherit mr-4",
+          "mr-4 flex flex-1 text-inherit",
         )}
       >
         {children}
@@ -44,12 +44,12 @@ const AccordionHeader = React.forwardRef<
           className={tremorTwMerge(
             makeAccordionHeaderClassName("arrowIcon"),
             //common
-            "h-5 w-5 -mr-1",
+            "-mr-1 h-5 w-5",
             // light
             "text-tremor-content-subtle",
             // dark
             "dark:text-dark-tremor-content-subtle",
-            isOpen ? "transition-all" : "transition-all -rotate-180",
+            isOpen ? "transition-all" : "-rotate-180 transition-all",
           )}
         />
       </div>

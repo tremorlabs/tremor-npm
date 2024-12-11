@@ -92,7 +92,7 @@ const ProgressCircle = React.forwardRef<HTMLDivElement, ProgressCircleProps>((pr
           width={radius * 2}
           height={radius * 2}
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-          className="transform -rotate-90"
+          className="-rotate-90 transform"
           {...getReferenceProps}
         >
           <circle

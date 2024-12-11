@@ -297,7 +297,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
     return (
       <div
         ref={ref}
-        className={tremorTwMerge("tremor-wrapper relative w-full h-80", className)}
+        className={tremorTwMerge("tremor-wrapper relative h-80 w-full", className)}
         {...other}
       >
         {data?.length ? (
@@ -305,7 +305,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
             <svg
               ref={svgRef}
               xmlns="http://www.w3.org/2000/svg"
-              className={tremorTwMerge("w-full h-full")}
+              className={tremorTwMerge("h-full w-full")}
               onMouseMove={(e) => {
                 const fakeTouch = {
                   clientX: e.clientX,
@@ -458,7 +458,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       <div
                         className={tremorTwMerge(
                           //common
-                          "truncate text-center text-tremor-label!",
+                          "text-tremor-label! truncate text-center",
                           // light
                           "text-tremor-content",
                           // dark
@@ -668,7 +668,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
               <div
                 ref={tooltipRef}
                 className={tremorTwMerge(
-                  "absolute top-0 pointer-events-none",
+                  "pointer-events-none absolute top-0",
                   tooltip.data ? "visible" : "hidden",
                 )}
                 tabIndex={-1}
@@ -707,7 +707,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                       </p>
                     </div>
 
-                    <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+                    <div className={tremorTwMerge("space-y-1 px-4 py-2")}>
                       {tooltip.data ? (
                         <ChartTooltipRow
                           value={valueFormatter(tooltip.data.value)}

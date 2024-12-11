@@ -44,7 +44,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
       className={tremorTwMerge(
         makeCategoryBarClassName("labels"),
         // common
-        "relative flex w-full text-tremor-default h-5 mb-2",
+        "text-tremor-default relative mb-2 flex h-5 w-full",
         // light
         "text-tremor-content",
         // dark
@@ -77,8 +77,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
           </div>
         );
       })}
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center left-0")}>0</div>
-      <div className={tremorTwMerge("absolute bottom-0 flex items-center right-0")}>
+      <div className={tremorTwMerge("absolute bottom-0 left-0 flex items-center")}>0</div>
+      <div className={tremorTwMerge("absolute right-0 bottom-0 flex items-center")}>
         {sumValues}
       </div>
     </div>
@@ -132,13 +132,13 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
         <div
           className={tremorTwMerge(
             makeCategoryBarClassName("barWrapper"),
-            "relative w-full flex items-center h-2",
+            "relative flex h-2 w-full items-center",
           )}
         >
           <div
             className={tremorTwMerge(
               // common
-              "flex-1 flex items-center h-full overflow-hidden rounded-tremor-full",
+              "rounded-tremor-full flex h-full flex-1 items-center overflow-hidden",
             )}
           >
             {values.map((value, idx) => {
@@ -162,7 +162,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               ref={tooltipProps.refs.setReference}
               className={tremorTwMerge(
                 makeCategoryBarClassName("markerWrapper"),
-                "absolute right-1/2 -translate-x-1/2 w-5",
+                "absolute right-1/2 w-5 -translate-x-1/2",
               )}
               style={{
                 left: `${markerPositionLeft}%`,
@@ -174,7 +174,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
                 className={tremorTwMerge(
                   makeCategoryBarClassName("marker"),
                   // common
-                  "ring-2 mx-auto rounded-tremor-full h-4 w-1",
+                  "rounded-tremor-full mx-auto h-4 w-1 ring-2",
                   // light
                   "ring-tremor-brand-inverted",
                   // dark

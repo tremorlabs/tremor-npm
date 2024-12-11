@@ -25,7 +25,7 @@ export const SimpleMultiSelectWithStaticAndDynamicChildren = (args: any) => {
 export const SimpleMultiSelectForm = (args: any) => {
   return (
     <form
-      className="flex flex-col gap-3 items-start max-w-md"
+      className="flex max-w-md flex-col items-start gap-3"
       method="GET"
       action="http://localhost:6006/"
     >

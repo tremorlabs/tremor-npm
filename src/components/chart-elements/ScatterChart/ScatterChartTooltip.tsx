@@ -49,7 +49,7 @@ export const ChartTooltipRow = ({ value, name }: ChartTooltipRowProps) => (
     <p
       className={tremorTwMerge(
         // common
-        "font-medium tabular-nums text-right whitespace-nowrap",
+        "text-right font-medium whitespace-nowrap tabular-nums",
         // light
         "text-tremor-content-emphasis",
         // dark
@@ -96,7 +96,7 @@ const ScatterChartTooltip = ({
           <span
             className={tremorTwMerge(
               // common
-              "shrink-0 rounded-tremor-full border-2 h-3 w-3",
+              "rounded-tremor-full h-3 w-3 shrink-0 border-2",
               // light
               "border-tremor-background shadow-tremor-card",
               // dark
@@ -123,7 +123,7 @@ const ScatterChartTooltip = ({
           </p>
         </div>
 
-        <div className={tremorTwMerge("px-4 py-2 space-y-1")}>
+        <div className={tremorTwMerge("space-y-1 px-4 py-2")}>
           {payload.map(({ value, name }: { value: number; name: string }, idx: number) => {
             const valueFormatterKey = Object.keys(axis).find((key) => axis[key] === name) ?? "";
             const valueFormatterFn =

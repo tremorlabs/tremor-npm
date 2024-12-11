@@ -125,7 +125,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   }, [activeIndex]);
 
   return (
-    <div ref={ref} className={tremorTwMerge("w-full h-40", className)} {...other}>
+    <div ref={ref} className={tremorTwMerge("h-40 w-full", className)} {...other}>
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsDonutChart

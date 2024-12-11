@@ -36,7 +36,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         className={tremorTwMerge(
           makeDeltaBarClassName("root"),
           // common
-          "relative flex items-center w-full rounded-tremor-full h-2",
+          "rounded-tremor-full relative flex h-2 w-full items-center",
           // light
           "bg-tremor-background-subtle",
           // dark
@@ -47,7 +47,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
       >
         <div
           className={
-            (makeDeltaBarClassName("negativeDeltaBarWrapper"), "flex justify-end h-full w-1/2")
+            (makeDeltaBarClassName("negativeDeltaBarWrapper"), "flex h-full w-1/2 justify-end")
           }
         >
           {value < 0 ? (
@@ -71,7 +71,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
           className={tremorTwMerge(
             makeDeltaBarClassName("separator"),
             // common
-            "ring-2 z-10 rounded-tremor-full h-4 w-1",
+            "rounded-tremor-full z-10 h-4 w-1 ring-2",
             // light
             "ring-tremor-brand-inverted bg-tremor-background-emphasis",
             // dark
@@ -81,7 +81,7 @@ const DeltaBar = React.forwardRef<HTMLDivElement, DeltaBarProps>((props, ref) =>
         <div
           className={tremorTwMerge(
             makeDeltaBarClassName("positiveDeltaBarWrapper"),
-            "flex justify-start h-full w-1/2",
+            "flex h-full w-1/2 justify-start",
           )}
         >
           {value >= 0 ? (

@@ -42,7 +42,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
       className={tremorTwMerge(
         makeMarkerBarClassName("root"),
         // common
-        "relative flex items-center w-full rounded-tremor-full h-2",
+        "rounded-tremor-full relative flex h-2 w-full items-center",
         // light
         "bg-tremor-background-subtle",
         // dark
@@ -59,7 +59,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
             className={tremorTwMerge(
               makeMarkerBarClassName("rangeBar"),
               // common
-              "absolute h-full rounded-tremor-full",
+              "rounded-tremor-full absolute h-full",
               // light
               "bg-tremor-content-subtle",
               // dark
@@ -79,7 +79,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         ref={markerTooltipProps.refs.setReference}
         className={tremorTwMerge(
           makeMarkerBarClassName("markerWrapper"),
-          "absolute right-1/2 -translate-x-1/2 w-5",
+          "absolute right-1/2 w-5 -translate-x-1/2",
         )}
         style={{
           left: `${value}%`,
@@ -90,7 +90,7 @@ const MarkerBar = React.forwardRef<HTMLDivElement, MarkerBarProps>((props, ref) 
         <div
           className={tremorTwMerge(
             makeMarkerBarClassName("marker"),
-            "ring-2 mx-auto rounded-tremor-full h-4 w-1",
+            "rounded-tremor-full mx-auto h-4 w-1 ring-2",
             "ring-tremor-brand-inverted",
             "dark:ring-dark-tremor-brand-inverted",
             color

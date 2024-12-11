@@ -14,7 +14,7 @@ const TableFoot = React.forwardRef<
       className={tremorTwMerge(
         makeTableFootClassName("root"),
         // common
-        "text-left font-medium border-t-[1px] ",
+        "border-t-[1px] text-left font-medium",
         // light
         "text-tremor-content border-tremor-border",
         // dark

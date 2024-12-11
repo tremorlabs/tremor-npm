@@ -41,14 +41,14 @@ const AccordionList = React.forwardRef<HTMLDivElement, AccordionListProps>((prop
         if (idx === numChildren - 1) {
           return (
             <RootStylesContext.Provider
-              value={tremorTwMerge("rounded-b-tremor-default border-l border-r border-b")}
+              value={tremorTwMerge("rounded-b-tremor-default border-r border-b border-l")}
             >
               {React.cloneElement(child)}
             </RootStylesContext.Provider>
           );
         }
         return (
-          <RootStylesContext.Provider value={tremorTwMerge("border-l border-r border-b")}>
+          <RootStylesContext.Provider value={tremorTwMerge("border-r border-b border-l")}>
             {React.cloneElement(child)}
           </RootStylesContext.Provider>
         );

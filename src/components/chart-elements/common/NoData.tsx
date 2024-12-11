@@ -10,7 +10,7 @@ const NoData = ({ className, noDataText = "No data" }: NoDataProps) => {
     <div
       className={tremorTwMerge(
         // common
-        "flex items-center justify-center w-full h-full border border-dashed rounded-tremor-default",
+        "rounded-tremor-default flex h-full w-full items-center justify-center border border-dashed",
         // light
         "border-tremor-border",
         // dark

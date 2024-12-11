@@ -69,7 +69,7 @@ export const withChildrenSpan: Story = {
   args: {
     value: 56,
     showAnimation: false,
-    children: <span className="dark:text-white font-medium font-mono text-sm">56.3</span>,
+    children: <span className="font-mono text-sm font-medium dark:text-white">56.3</span>,
   },
 };
 
@@ -77,7 +77,7 @@ export const withChildrenAvatar: Story = {
   args: {
     value: 76,
     children: (
-      <div className="rounded-full flex items-center justify-center h-12 w-12 bg-gray-100">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
         <span className="text-sm font-medium text-gray-500">JD</span>
       </div>
     ),

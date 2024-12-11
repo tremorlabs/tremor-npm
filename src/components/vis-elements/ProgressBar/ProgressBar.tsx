@@ -25,7 +25,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
         ref={ref}
         className={tremorTwMerge(
           makeProgressBarClassName("root"),
-          "flex items-center w-full",
+          "flex w-full items-center",
           className,
         )}
         {...other}
@@ -34,7 +34,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           ref={tooltipProps.refs.setReference}
           className={tremorTwMerge(
             makeProgressBarClassName("progressBarWrapper"),
-            "relative flex items-center w-full rounded-tremor-full bg-opacity-20 h-2",
+            "rounded-tremor-full bg-opacity-20 relative flex h-2 w-full items-center",
             color
               ? getColorClassNames(color, colorPalette.background).bgColor
               : "bg-tremor-brand-muted/50 dark:bg-dark-tremor-brand-muted",
@@ -44,7 +44,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("progressBar"),
-              "flex-col h-full rounded-tremor-full",
+              "rounded-tremor-full h-full flex-col",
               color
                 ? getColorClassNames(color, colorPalette.background).bgColor
                 : "bg-tremor-brand dark:bg-dark-tremor-brand",
@@ -59,7 +59,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
           <div
             className={tremorTwMerge(
               makeProgressBarClassName("labelWrapper"),
-              "w-16 truncate text-right ml-2",
+              "ml-2 w-16 truncate text-right",
               "text-tremor-content-emphasis",
               "dark:text-dark-tremor-content-emphasis",
             )}
@@ -67,7 +67,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>((props, r
             <p
               className={tremorTwMerge(
                 makeProgressBarClassName("label"),
-                "shrink-0 whitespace-nowrap truncate text-tremor-default",
+                "text-tremor-default shrink-0 truncate whitespace-nowrap",
               )}
             >
               {label}
