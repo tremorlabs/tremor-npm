@@ -1,5 +1,5 @@
 "use client";
-import { BaseColors, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import React, { useEffect } from "react";
 import {
   Pie,
@@ -21,7 +21,7 @@ import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";
 
-export interface DonutChartProps extends BaseAnimationTimingProps {
+interface DonutChartProps extends BaseAnimationTimingProps {
   data: any[];
   category?: string;
   index?: string;
@@ -141,12 +141,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
           >
             {showLabel && isDonut ? (
               <text
-                className={tremorTwMerge(
-                  // light
-                  "fill-tremor-content-emphasis",
-                  // dark
-                  "dark:fill-dark-tremor-content-emphasis",
-                )}
+                className={tremorTwMerge("fill-tremor-content-emphasis")}
                 x="50%"
                 y="50%"
                 textAnchor="middle"
@@ -157,7 +152,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
             ) : null}
             <Pie
               className={tremorTwMerge(
-                "stroke-tremor-background dark:stroke-dark-tremor-background",
+                "stroke-tremor-background-default",
                 onValueChange ? "cursor-pointer" : "cursor-default",
               )}
               data={parseData(data, colors)}
@@ -201,7 +196,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color: payload?.[0]?.payload?.color ?? BaseColors.Gray,
+                          color: payload?.[0]?.payload?.color ?? ("brand" as Color),
                         }))}
                         active={active}
                         label={payload?.[0]?.name}
@@ -229,4 +224,4 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
 DonutChart.displayName = "DonutChart";
 
-export default DonutChart;
+export { DonutChart, type DonutChartProps };

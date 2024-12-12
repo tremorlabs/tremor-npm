@@ -1,15 +1,14 @@
-import { BaseColors, colorPalette, getColorClassNames, sumNumericArray } from "lib";
+import { fillColors } from "components/spark-elements/common/style";
+import { sumNumericArray } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
 export const parseData = (data: any[], colors: (Color | string)[]) =>
   data.map((dataPoint: any, idx: number) => {
-    const baseColor = idx < colors.length ? colors[idx] : BaseColors.Gray;
+    const baseColor = idx < colors.length ? colors[idx] : "gray";
     return {
       ...dataPoint,
-      // explicitly adding color key if not present for tooltip coloring
       color: baseColor,
-      className: getColorClassNames(baseColor ?? BaseColors.Gray, colorPalette.background)
-        .fillColor,
+      className: fillColors[baseColor as Color] ?? ("gray" as Color),
       fill: "",
     };
   });
