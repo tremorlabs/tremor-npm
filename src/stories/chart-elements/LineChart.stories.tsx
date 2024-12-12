@@ -7,11 +7,11 @@ import { CustomTooltipProps } from "components/chart-elements/common/CustomToolt
 import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
-  simpleBaseChartDataWithNulls,
-  singleAndMultipleData,
   longBaseChartData,
   longIndexBaseChartData,
+  simpleBaseChartDataWithNulls,
   simpleBaseChartWithNegativeValues,
+  singleAndMultipleData,
 } from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
@@ -48,12 +48,6 @@ export const MinValueAndMaxValue: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
-};
-
-export const CustomColors: Story = {
-  args: {
-    colors: ["#32a852", "orange-600"],
-  },
 };
 
 export const ChangedCategoriesOrder: Story = {
