@@ -28,7 +28,7 @@ import { fillColors, strokeColors } from "components/spark-elements/common/style
 import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import { Color, CurveType } from "../../../lib/inputTypes";
 
-export interface LineChartProps extends BaseChartProps {
+interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
 }
@@ -373,4 +373,4 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
 LineChart.displayName = "LineChart";
 
-export default LineChart;
+export { LineChart, type LineChartProps };

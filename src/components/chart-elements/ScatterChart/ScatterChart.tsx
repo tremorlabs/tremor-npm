@@ -28,14 +28,8 @@ import {
 } from "../common/utils";
 
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
-import {
-  BaseColors,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  themeColorRange,
-  tremorTwMerge,
-} from "lib";
+import { fillColors, strokeColors } from "components/spark-elements/common/style";
+import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import { Color, IntervalType, ValueFormatter } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {
@@ -44,9 +38,7 @@ export type ScatterChartValueFormatter = {
   size?: ValueFormatter;
 };
 
-export interface ScatterChartProps
-  extends BaseAnimationTimingProps,
-    React.HTMLAttributes<HTMLDivElement> {
+interface ScatterChartProps extends BaseAnimationTimingProps, React.HTMLAttributes<HTMLDivElement> {
   data: any[];
   x: string;
   y: string;
@@ -216,14 +208,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
           >
             {showGridLines ? (
               <CartesianGrid
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-border",
-                  // dark
-                  "dark:stroke-dark-tremor-border",
-                )}
+                className={tremorTwMerge("stroke-tremor-border-default stroke-1")}
                 horizontal={true}
                 vertical={true}
               />
@@ -239,14 +224,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 name={x}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
                 axisLine={false}
@@ -261,7 +239,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   <Label
                     position="insideBottom"
                     offset={-20}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium"
                   >
                     {xAxisLabel}
                   </Label>
@@ -282,14 +260,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 tickFormatter={valueFormatter.y}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}
               >
@@ -299,7 +270,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     style={{ textAnchor: "middle" }}
                     angle={-90}
                     offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium"
                   >
                     {yAxisLabel}
                   </Label>
@@ -318,7 +289,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                       <CustomTooltip
                         payload={payload?.map((payloadItem) => ({
                           ...payloadItem,
-                          color: categoryColors.get(color) ?? BaseColors.Gray,
+                          color: categoryColors.get(color) ?? "gray",
                         }))}
                         active={active}
                         label={color}
@@ -345,15 +316,9 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               return (
                 <Scatter
                   className={tremorTwMerge(
-                    getColorClassNames(
-                      categoryColors.get(cat) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).fillColor,
+                    fillColors[(categoryColors.get(cat) as Color) ?? ("gray" as Color)],
                     showOpacity
-                      ? getColorClassNames(
-                          categoryColors.get(cat) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).strokeColor
+                      ? strokeColors[(categoryColors.get(cat) as Color) ?? ("gray" as Color)]
                       : "",
                     onValueChange ? "cursor-pointer" : "",
                   )}
@@ -398,4 +363,4 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
 ScatterChart.displayName = "ScatterChart";
 
-export default ScatterChart;
+export { ScatterChart, type ScatterChartProps };
