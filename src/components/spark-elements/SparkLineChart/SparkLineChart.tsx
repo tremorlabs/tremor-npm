@@ -4,11 +4,10 @@ import { Line, LineChart as ReChartsLineChart, ResponsiveContainer, XAxis, YAxis
 
 import NoData from "components/chart-elements/common/NoData";
 import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
-import { themeColorRange, tremorTwMerge } from "lib";
+import { strokeColors, themeColorRange, tremorTwMerge } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 import { Color, CurveType } from "../../../lib/inputTypes";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { strokeColors } from "../common/style";
 
 interface SparkLineChartProps extends BaseSparkChartProps {
   curveType?: CurveType;

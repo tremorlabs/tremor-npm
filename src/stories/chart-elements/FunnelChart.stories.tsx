@@ -48,12 +48,6 @@ export const Variant: Story = {
   },
 };
 
-export const CustomColor: Story = {
-  args: {
-    color: "#32a852",
-  },
-};
-
 export const ShowArrowFalse: Story = {
   args: {
     showArrow: false,

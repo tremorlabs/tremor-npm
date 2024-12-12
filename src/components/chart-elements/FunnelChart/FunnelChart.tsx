@@ -1,10 +1,12 @@
 import { ArrowRightIcon } from "assets";
 import { textColors } from "components/spark-elements/common/style";
-import { Color, FunnelVariantType, defaultValueFormatter, tremorTwMerge } from "lib";
+import { Color, defaultValueFormatter, tremorTwMerge } from "lib";
 import React from "react";
 import { CustomTooltipProps, EventProps } from "../common";
 import { ChartTooltipFrame, ChartTooltipRow } from "../common/ChartTooltip";
 import NoData from "../common/NoData";
+
+type FunnelVariantType = "base" | "center";
 
 type FormattedDataT = DataT & {
   normalizedValue: number;

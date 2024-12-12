@@ -25,9 +25,9 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import { fillColors, strokeColors, textColors } from "components/spark-elements/common/style";
 import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import { Color, CurveType } from "../../../lib/inputTypes";
+import { fillColors, strokeColors, textColors } from "../common";
 
 interface AreaChartProps extends BaseChartProps {
   stack?: boolean;

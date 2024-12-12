@@ -15,9 +15,9 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import type { EventProps } from "components/chart-elements/common";
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
+import type { EventProps } from "lib";
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import NoData from "../common/NoData";
 import {
@@ -28,8 +28,14 @@ import {
 } from "../common/utils";
 
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
-import { fillColors, strokeColors } from "components/spark-elements/common/style";
-import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+
+import {
+  defaultValueFormatter,
+  fillColors,
+  strokeColors,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { Color, IntervalType, ValueFormatter } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {

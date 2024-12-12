@@ -41,12 +41,6 @@ export const OtherColors: Story = {
   },
 };
 
-export const CustomColors: Story = {
-  args: {
-    colors: ["#32a852", "#fcba03", "orange-600", "blue-400"],
-  },
-};
-
 export const WithCustomValueFormatters: Story = {
   args: {
     valueFormatter: {

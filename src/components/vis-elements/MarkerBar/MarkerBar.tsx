@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 
-import { bgColors } from "components/spark-elements/common/style";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { tremorTwMerge } from "lib";
+import { bgColors, tremorTwMerge } from "lib";
 import { Color } from "../../../lib";
 
 interface MarkerBarProps extends React.HTMLAttributes<HTMLDivElement> {

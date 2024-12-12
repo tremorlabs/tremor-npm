@@ -1,8 +1,8 @@
 import React from "react";
 
 import { ScatterChartValueFormatter } from "components/chart-elements/ScatterChart/ScatterChart";
-import { bgColors } from "components/spark-elements/common/style";
-import { Color, defaultValueFormatter, tremorTwMerge } from "lib";
+
+import { bgColors, Color, defaultValueFormatter, tremorTwMerge } from "lib";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
   <div

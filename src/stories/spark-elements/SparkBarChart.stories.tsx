@@ -2,13 +2,13 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { SparkBarChart } from "components/spark-elements";
 import {
   simpleBaseChartData as data,
   longBaseChartData,
   simpleBaseChartWithNegativeValues,
   singleAndMultipleData,
 } from "../chart-elements/helpers/testData";
-import { SparkBarChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 import { smallVariantionDatas } from "./helpers/testData";
 
@@ -46,10 +46,6 @@ export const Relative: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
-};
-
-export const CustomColors: Story = {
-  args: { colors: ["#32a852", "orange-600"] },
 };
 
 export const ChangedCategoriesOrder: Story = {

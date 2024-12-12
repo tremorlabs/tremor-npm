@@ -126,18 +126,3 @@ export const MaxWidthXs: Story = {
     </Card>
   ),
 };
-
-export const CustomColors: Story = {
-  args: {
-    data: [
-      { color: "#32a852", tooltip: "Tracker Info" },
-      { color: "#fcba03", tooltip: "Tracker Info" },
-      { color: "orange-500", tooltip: "Tracker Info" },
-      { color: "purple-100", tooltip: "Tracker Info" },
-      { color: "purple-300", tooltip: "Tracker Info" },
-      { color: "purple-500", tooltip: "Tracker Info" },
-      { color: "purple-700", tooltip: "Tracker Info" },
-      { color: "purple-900", tooltip: "Tracker Info" },
-    ],
-  },
-};

@@ -2,13 +2,13 @@ import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { SparkAreaChart } from "components/spark-elements";
 import {
   simpleBaseChartData as data,
   longBaseChartData,
   simpleBaseChartDataWithNulls,
   singleAndMultipleData,
 } from "../chart-elements/helpers/testData";
-import { SparkAreaChart } from "components/spark-elements";
 import ExampleCard from "./helpers/ExampleCard";
 import { smallVariantionDatas } from "./helpers/testData";
 
@@ -36,12 +36,6 @@ export const Stacked: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["rose", "purple"] },
-};
-
-export const CustomColors: Story = {
-  args: {
-    colors: ["#32a852", "orange-600"],
-  },
 };
 
 export const NoGradient: Story = {

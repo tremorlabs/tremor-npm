@@ -7,10 +7,10 @@ import { CustomTooltipProps } from "components/chart-elements/common/CustomToolt
 import { Color, currencyValueFormatter } from "lib";
 import {
   simpleBaseChartData as data,
-  singleAndMultipleData,
   longBaseChartData,
   longIndexBaseChartData,
   simpleBaseChartWithNegativeValues,
+  singleAndMultipleData,
 } from "./helpers/testData";
 
 const meta: Meta<typeof BarChart> = {
@@ -84,12 +84,6 @@ export const ValueFormatter: Story = {
 
 export const OtherColors: Story = {
   args: { colors: ["blue", "green"] },
-};
-
-export const CustomColors: Story = {
-  args: {
-    colors: ["#32a852", "orange-600"],
-  },
 };
 
 export const ChangedCategoriesOrder: Story = {

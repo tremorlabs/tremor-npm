@@ -1,7 +1,7 @@
 "use client";
-import { bgColors } from "components/spark-elements/common/style";
+
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { Color, sumNumericArray, themeColorRange, tremorTwMerge } from "lib";
+import { bgColors, Color, sumNumericArray, themeColorRange, tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
 
 const getMarkerBgColor = (

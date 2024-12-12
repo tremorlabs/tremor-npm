@@ -15,8 +15,8 @@ import NoData from "../common/NoData";
 import { DonutChartTooltip } from "./DonutChartTooltip";
 import { parseData, parseLabelInput } from "./inputParser";
 
-import type { EventProps } from "components/chart-elements/common";
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
+import type { EventProps } from "lib";
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 
 type DonutChartVariant = "donut" | "pie";

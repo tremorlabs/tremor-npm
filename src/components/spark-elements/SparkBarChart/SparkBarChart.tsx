@@ -6,10 +6,9 @@ import { Bar, BarChart as ReChartsBarChart, ResponsiveContainer, XAxis, YAxis } 
 
 import NoData from "components/chart-elements/common/NoData";
 import { constructCategoryColors, getYAxisDomain } from "components/chart-elements/common/utils";
-import { themeColorRange } from "lib";
+import { fillColors, themeColorRange } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 import BaseSparkChartProps from "../common/BaseSparkChartProps";
-import { fillColors } from "../common/style";
 
 interface SparkBarChartProps extends BaseSparkChartProps {
   stack?: boolean;
