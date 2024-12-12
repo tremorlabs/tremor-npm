@@ -14,7 +14,7 @@ interface NumberInputProps
 
 const baseArrowClasses = "flex mx-auto text-tremor-content-subtle";
 
-const enabledArrowClasses = "cursor-pointer hover:text-tremor-content";
+const enabledArrowClasses = "cursor-pointer hover:text-tremor-content-default";
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
   const { onSubmit, enableStepper = true, disabled, onValueChange, onChange, ...other } = props;

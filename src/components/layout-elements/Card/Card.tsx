@@ -61,9 +61,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={tremorTwMerge(
-          // common
-          "rounded-tremor-default relative w-full p-6 text-left ring-1",
-          "bg-tremor-background-default shadow-tremor-card ring-tremor-ring-default",
+          "rounded-tremor-default bg-tremor-background-default shadow-tremor-card ring-tremor-ring-default relative w-full p-6 text-left ring-1",
           borderColors[decorationColor],
           parseDecorationAlignment(decoration),
           className,

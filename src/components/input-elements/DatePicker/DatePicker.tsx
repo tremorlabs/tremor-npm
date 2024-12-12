@@ -116,13 +116,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
             handleReset();
           }}
         >
-          <XCircleIcon
-            className={tremorTwMerge(
-              // common
-              "h-4 w-4 shrink-0",
-              "text-tremor-content-subtle",
-            )}
-          />
+          <XCircleIcon className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 shrink-0")} />
         </button>
       ) : null}
       <Transition
