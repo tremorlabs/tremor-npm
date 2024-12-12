@@ -4,11 +4,9 @@ import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
 import XIcon from "assets/XIcon";
 import { SelectedValueContext } from "contexts";
 import { useInternalState } from "hooks";
-import { makeClassName, tremorTwMerge } from "lib";
+import { tremorTwMerge } from "lib";
 import React, { isValidElement, useMemo, useRef, useState } from "react";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
-
-const makeMultiSelectClassName = makeClassName("MultiSelect");
 
 interface MultiSelectProps extends React.HTMLAttributes<HTMLInputElement> {
   defaultValue?: string[];
@@ -142,10 +140,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                     )}
                   >
                     <Icon
-                      className={tremorTwMerge(
-                        makeMultiSelectClassName("Icon"),
-                        "text-tremor-content-subtle h-5 w-5 shrink-0",
-                      )}
+                      className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 shrink-0")}
                     />
                   </span>
                 )}
@@ -175,7 +170,6 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                               >
                                 <XIcon
                                   className={tremorTwMerge(
-                                    makeMultiSelectClassName("clearIconItem"),
                                     "rounded-tremor-full text-tremor-content-subtle hover:text-tremor-content ml-2 h-3.5 w-3.5 cursor-pointer",
                                   )}
                                 />
@@ -192,10 +186,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   className={tremorTwMerge("absolute inset-y-0 right-0 mr-2.5 flex items-center")}
                 >
                   <ArrowDownHeadIcon
-                    className={tremorTwMerge(
-                      makeMultiSelectClassName("arrowDownIcon"),
-                      "text-tremor-content-subtle h-5 w-5 shrink-0",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle h-5 w-5 shrink-0")}
                   />
                 </span>
               </ListboxButton>
@@ -210,10 +201,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   }}
                 >
                   <XCircleIcon
-                    className={tremorTwMerge(
-                      makeMultiSelectClassName("clearIconAllItems"),
-                      "text-tremor-content-subtle h-4 w-4 shrink-0",
-                    )}
+                    className={tremorTwMerge("text-tremor-content-subtle h-4 w-4 shrink-0")}
                   />
                 </button>
               ) : null}

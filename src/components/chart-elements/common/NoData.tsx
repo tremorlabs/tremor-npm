@@ -9,23 +9,11 @@ const NoData = ({ className, noDataText = "No data" }: NoDataProps) => {
   return (
     <div
       className={tremorTwMerge(
-        // common
-        "rounded-tremor-default flex h-full w-full items-center justify-center border border-dashed",
-        // light
-        "border-tremor-border",
-        // dark
-        "dark:border-dark-tremor-border",
+        "rounded-tremor-default border-tremor-border-default flex h-full w-full items-center justify-center border border-dashed",
         className,
       )}
     >
-      <p
-        className={tremorTwMerge(
-          // light
-          "text-tremor-content text-tremor-default",
-          // dark
-          "dark:text-dark-tremor-content",
-        )}
-      >
+      <p className={tremorTwMerge("text-tremor-content-default text-tremor-default")}>
         {noDataText}
       </p>
     </div>

@@ -1,12 +1,4 @@
-import { Color, DeltaType, Size } from "./inputTypes";
-
-export const DeltaTypes: { [key: string]: DeltaType } = {
-  Increase: "increase",
-  ModerateIncrease: "moderateIncrease",
-  Decrease: "decrease",
-  ModerateDecrease: "moderateDecrease",
-  Unchanged: "unchanged",
-};
+import { Color, Size } from "./inputTypes";
 
 export const BaseColors: { [key: string]: Color } = {
   Brand: "brand",
