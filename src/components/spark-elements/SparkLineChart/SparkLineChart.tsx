@@ -21,7 +21,7 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>((pr
     categories = [],
     index,
     colors = themeColorRange,
-    animationDuration = 900,
+    animationDuration = 600,
     showAnimation = false,
     curveType = "linear",
     connectNulls = false,

@@ -24,15 +24,9 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import {
-  BaseColors,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  themeColorRange,
-  tremorTwMerge,
-} from "lib";
-import { CurveType } from "../../../lib/inputTypes";
+import { fillColors, strokeColors } from "components/spark-elements/common/style";
+import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import { Color, CurveType } from "../../../lib/inputTypes";
 
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
@@ -56,7 +50,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     showYAxis = true,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
-    animationDuration = 900,
+    animationDuration = 600,
     showAnimation = false,
     showTooltip = true,
     showLegend = true,
@@ -157,14 +151,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
           >
             {showGridLines ? (
               <CartesianGrid
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-border",
-                  // dark
-                  "dark:stroke-dark-tremor-border",
-                )}
+                className={tremorTwMerge("stroke-tremor-border-default stroke-1")}
                 horizontal={true}
                 vertical={false}
               />
@@ -178,14 +165,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
+              className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
@@ -197,7 +177,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 <Label
                   position="insideBottom"
                   offset={-20}
-                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium"
                 >
                   {xAxisLabel}
                 </Label>
@@ -213,14 +193,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               tick={{ transform: "translate(-3, 0)" }}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
+              className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             >
@@ -230,7 +203,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                   style={{ textAnchor: "middle" }}
                   angle={-90}
                   offset={-15}
-                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium"
                 >
                   {yAxisLabel}
                 </Label>
@@ -247,7 +220,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                          color: categoryColors.get(payloadItem.dataKey) ?? "gray",
                         }))}
                         active={active}
                         label={label}
@@ -286,94 +259,86 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 }
               />
             ) : null}
-            {categories.map((category) => (
-              <Line
-                className={tremorTwMerge(
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.text,
-                  ).strokeColor,
-                )}
-                strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
-                activeDot={(props: any) => {
-                  const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
-                    props;
-                  return (
-                    <Dot
-                      className={tremorTwMerge(
-                        "stroke-tremor-background dark:stroke-dark-tremor-background",
-                        onValueChange ? "cursor-pointer" : "",
-                        getColorClassNames(
-                          categoryColors.get(dataKey) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).fillColor,
-                      )}
-                      cx={cx}
-                      cy={cy}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
-                      onClick={(dotProps: any, event) => onDotClick(props, event)}
-                    />
-                  );
-                }}
-                dot={(props: any) => {
-                  const {
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    cx,
-                    cy,
-                    dataKey,
-                    index,
-                  } = props;
-
-                  if (
-                    (hasOnlyOneValueForThisKey(data, category) &&
-                      !(activeDot || (activeLegend && activeLegend !== category))) ||
-                    (activeDot?.index === index && activeDot?.dataKey === category)
-                  ) {
+            {categories.map((category) => {
+              const color = categoryColors.get(category) as Color;
+              return (
+                <Line
+                  className={color ? strokeColors[color as Color] : "gray"}
+                  strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
+                  activeDot={(props: any) => {
+                    const { cx, cy, stroke, strokeLinecap, strokeLinejoin, strokeWidth, dataKey } =
+                      props;
                     return (
                       <Dot
-                        key={index}
+                        className={tremorTwMerge(
+                          "stroke-tremor-background-default",
+                          onValueChange ? "cursor-pointer" : "",
+                          color ? fillColors[categoryColors.get(dataKey) as Color] : "gray",
+                        )}
                         cx={cx}
                         cy={cy}
                         r={5}
-                        stroke={stroke}
                         fill=""
+                        stroke={stroke}
                         strokeLinecap={strokeLinecap}
                         strokeLinejoin={strokeLinejoin}
                         strokeWidth={strokeWidth}
-                        className={tremorTwMerge(
-                          "stroke-tremor-background dark:stroke-dark-tremor-background",
-                          onValueChange ? "cursor-pointer" : "",
-                          getColorClassNames(
-                            categoryColors.get(dataKey) ?? BaseColors.Gray,
-                            colorPalette.text,
-                          ).fillColor,
-                        )}
+                        onClick={(dotProps: any, event) => onDotClick(props, event)}
                       />
                     );
-                  }
-                  return <Fragment key={index}></Fragment>;
-                }}
-                key={category}
-                name={category}
-                type={curveType}
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                connectNulls={connectNulls}
-              />
-            ))}
+                  }}
+                  dot={(props: any) => {
+                    const {
+                      stroke,
+                      strokeLinecap,
+                      strokeLinejoin,
+                      strokeWidth,
+                      cx,
+                      cy,
+                      dataKey,
+                      index,
+                    } = props;
+
+                    if (
+                      (hasOnlyOneValueForThisKey(data, category) &&
+                        !(activeDot || (activeLegend && activeLegend !== category))) ||
+                      (activeDot?.index === index && activeDot?.dataKey === category)
+                    ) {
+                      return (
+                        <Dot
+                          key={index}
+                          cx={cx}
+                          cy={cy}
+                          r={5}
+                          stroke={stroke}
+                          fill=""
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
+                          className={tremorTwMerge(
+                            "stroke-tremor-background",
+                            onValueChange ? "cursor-pointer" : "",
+                            color ? fillColors[categoryColors.get(dataKey) as Color] : "gray",
+                          )}
+                        />
+                      );
+                    }
+                    return <Fragment key={index}></Fragment>;
+                  }}
+                  key={category}
+                  name={category}
+                  type={curveType}
+                  dataKey={category}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  connectNulls={connectNulls}
+                />
+              );
+            })}
             {onValueChange
               ? categories.map((category) => (
                   <Line

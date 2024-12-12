@@ -24,7 +24,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, SparkBarChartProps>((prop
     colors = themeColorRange,
     stack = false,
     relative = false,
-    animationDuration = 900,
+    animationDuration = 600,
     showAnimation = false,
     noDataText,
     autoMinValue = false,

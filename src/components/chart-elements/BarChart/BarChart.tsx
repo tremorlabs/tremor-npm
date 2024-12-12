@@ -4,14 +4,14 @@ import React, { useState } from "react";
 
 import {
   Bar,
-  BarChart as ReChartsBarChart,
   CartesianGrid,
+  Label,
   Legend,
+  BarChart as ReChartsBarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  Label,
 } from "recharts";
 
 import BaseChartProps from "../common/BaseChartProps";
@@ -75,7 +75,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     stack = false,
     relative = false,
     startEndOnly = false,
-    animationDuration = 900,
+    animationDuration = 600,
     showAnimation = false,
     showXAxis = true,
     showYAxis = true,

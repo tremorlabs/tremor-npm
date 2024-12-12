@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import {
   CartesianGrid,
   Dot,
+  Label,
   Legend,
+  ScatterChart as ReChartsScatterChart,
   ResponsiveContainer,
   Scatter,
-  ScatterChart as ReChartsScatterChart,
   Tooltip,
   XAxis,
   YAxis,
   ZAxis,
-  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
@@ -36,7 +36,7 @@ import {
   themeColorRange,
   tremorTwMerge,
 } from "lib";
-import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
+import { Color, IntervalType, ValueFormatter } from "../../../lib/inputTypes";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -124,7 +124,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showYAxis = true,
     yAxisWidth = 56,
     intervalType = "equidistantPreserveStart",
-    animationDuration = 900,
+    animationDuration = 600,
     showAnimation = false,
     showTooltip = true,
     showLegend = true,
