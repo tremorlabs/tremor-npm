@@ -1,6 +1,7 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import AreaChart from "components/chart-elements/AreaChart/AreaChart";
+import { AreaChart } from "components";
+
+import React from "react";
 
 describe("AreaChart", () => {
   beforeAll(() => {

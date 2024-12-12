@@ -25,17 +25,11 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import {
-  BaseColors,
-  colorPalette,
-  defaultValueFormatter,
-  getColorClassNames,
-  themeColorRange,
-  tremorTwMerge,
-} from "lib";
-import { CurveType } from "../../../lib/inputTypes";
+import { fillColors, strokeColors, textColors } from "components/spark-elements/common/style";
+import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import { Color, CurveType } from "../../../lib/inputTypes";
 
-export interface AreaChartProps extends BaseChartProps {
+interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
   curveType?: CurveType;
   connectNulls?: boolean;
@@ -163,14 +157,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
           >
             {showGridLines ? (
               <CartesianGrid
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-border",
-                  // dark
-                  "dark:stroke-dark-tremor-border",
-                )}
+                className={tremorTwMerge("stroke-tremor-border-default stroke-1")}
                 horizontal={true}
                 vertical={false}
               />
@@ -183,14 +170,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
+              className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
               interval={startEndOnly ? "preserveStartEnd" : intervalType}
               tickLine={false}
               axisLine={false}
@@ -203,7 +183,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 <Label
                   position="insideBottom"
                   offset={-20}
-                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium"
                 >
                   {xAxisLabel}
                 </Label>
@@ -219,14 +199,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               tick={{ transform: "translate(-3, 0)" }}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
+              className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             >
@@ -236,7 +209,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   style={{ textAnchor: "middle" }}
                   angle={-90}
                   offset={-15}
-                  className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                  className="fill-tremor-content-emphasis text-tremor-default font-medium"
                 >
                   {yAxisLabel}
                 </Label>
@@ -253,7 +226,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                       <CustomTooltip
                         payload={payload?.map((payloadItem: any) => ({
                           ...payloadItem,
-                          color: categoryColors.get(payloadItem.dataKey) ?? BaseColors.Gray,
+                          color: categoryColors.get(payloadItem.dataKey) ?? "gray",
                         }))}
                         active={active}
                         label={label}
@@ -292,16 +265,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               />
             ) : null}
             {categories.map((category) => {
-              const gradientId = (categoryColors.get(category) ?? BaseColors.Gray).replace("#", "");
+              const gradientId = (categoryColors.get(category) ?? "gray").replace("#", "");
               return (
                 <defs key={category}>
                   {showGradient ? (
                     <linearGradient
                       className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
+                        textColors[(categoryColors.get(category) as Color) ?? ("gray" as Color)]
                       }
                       id={gradientId}
                       x1="0"
@@ -321,10 +291,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                   ) : (
                     <linearGradient
                       className={
-                        getColorClassNames(
-                          categoryColors.get(category) ?? BaseColors.Gray,
-                          colorPalette.text,
-                        ).textColor
+                        textColors[(categoryColors.get(category) as Color) ?? ("gray" as Color)]
                       }
                       id={gradientId}
                       x1="0"
@@ -344,14 +311,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               );
             })}
             {categories.map((category) => {
-              const gradientId = (categoryColors.get(category) ?? BaseColors.Gray).replace("#", "");
+              const gradientId = (categoryColors.get(category) ?? "gray").replace("#", "");
+              const color = categoryColors.get(category) as Color;
               return (
                 <Area
                   className={
-                    getColorClassNames(
-                      categoryColors.get(category) ?? BaseColors.Gray,
-                      colorPalette.text,
-                    ).strokeColor
+                    strokeColors[(categoryColors.get(category) as Color) ?? ("gray" as Color)]
                   }
                   strokeOpacity={activeDot || (activeLegend && activeLegend !== category) ? 0.3 : 1}
                   activeDot={(props: any) => {
@@ -360,12 +325,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     return (
                       <Dot
                         className={tremorTwMerge(
-                          "stroke-tremor-background dark:stroke-dark-tremor-background",
+                          "stroke-tremor-background-default",
                           onValueChange ? "cursor-pointer" : "",
-                          getColorClassNames(
-                            categoryColors.get(dataKey) ?? BaseColors.Gray,
-                            colorPalette.text,
-                          ).fillColor,
+                          color ? fillColors[categoryColors.get(dataKey) as Color] : "gray",
                         )}
                         cx={cx}
                         cy={cy}
@@ -408,12 +370,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                           strokeLinejoin={strokeLinejoin}
                           strokeWidth={strokeWidth}
                           className={tremorTwMerge(
-                            "stroke-tremor-background dark:stroke-dark-tremor-background",
+                            "stroke-tremor-background-default",
                             onValueChange ? "cursor-pointer" : "",
-                            getColorClassNames(
-                              categoryColors.get(dataKey) ?? BaseColors.Gray,
-                              colorPalette.text,
-                            ).fillColor,
+                            color ? fillColors[categoryColors.get(dataKey) as Color] : "gray",
                           )}
                         />
                       );
@@ -470,4 +429,4 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
 
 AreaChart.displayName = "AreaChart";
 
-export default AreaChart;
+export { AreaChart, type AreaChartProps };

@@ -1,6 +1,6 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import BarChart from "components/chart-elements/BarChart/BarChart";
+import { BarChart } from "components";
+import React from "react";
 
 describe("BarChart", () => {
   beforeAll(() => {
