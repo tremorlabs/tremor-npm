@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import {
   CartesianGrid,
   Dot,
+  Label,
   Legend,
   Line,
   LineChart as ReChartsLineChart,
@@ -10,7 +11,6 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  Label,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 

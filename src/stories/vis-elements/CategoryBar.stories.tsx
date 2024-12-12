@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import CategoryBar from "components/vis-elements/CategoryBar/CategoryBar";
+import { CategoryBar } from "components";
 
 const meta: Meta<typeof CategoryBar> = {
   title: "Visualizations/Vis/CategoryBar",

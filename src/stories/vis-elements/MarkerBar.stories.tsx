@@ -1,7 +1,8 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import MarkerBar from "components/vis-elements/MarkerBar/MarkerBar";
+
+import { MarkerBar } from "components";
 import { BaseColors } from "lib/constants";
 
 const meta: Meta<typeof MarkerBar> = {

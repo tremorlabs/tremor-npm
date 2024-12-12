@@ -26,7 +26,6 @@ const data = [
     sales: "1.000.000",
     region: "Region A",
     status: "overperforming",
-    deltaType: "moderateIncrease",
     hours: 100,
   },
   {
@@ -35,7 +34,6 @@ const data = [
     sales: "2.202.000",
     region: "Region B",
     status: "overperforming",
-    deltaType: "moderateIncrease",
     hours: 110,
   },
   {
@@ -44,7 +42,6 @@ const data = [
     sales: "1.505.000",
     region: "Region C",
     status: "underperforming",
-    deltaType: "moderateDecrease",
     hours: 90,
   },
   {
@@ -53,7 +50,6 @@ const data = [
     sales: "500000",
     region: "Region D",
     status: "overperforming",
-    deltaType: "moderateDecrease",
     hours: 92,
   },
   {
@@ -62,7 +58,6 @@ const data = [
     sales: "600000",
     region: "Region E",
     status: "underperforming",
-    deltaType: "moderateDecrease",
     hours: 95,
   },
   {
@@ -71,7 +66,6 @@ const data = [
     sales: "700000",
     region: "Region F",
     status: "overperforming",
-    deltaType: "moderateIncrease",
     hours: 98,
   },
   {
@@ -80,7 +74,6 @@ const data = [
     sales: "800000",
     region: "Region G",
     status: "average",
-    deltaType: "unchanged",
     hours: 101,
   },
   {
@@ -89,7 +82,6 @@ const data = [
     sales: "900000",
     region: "Region H",
     status: "overperforming",
-    deltaType: "moderateDecrease",
     hours: 104,
   },
   {
@@ -98,7 +90,6 @@ const data = [
     sales: "1000000",
     region: "Region I",
     status: "underperforming",
-    deltaType: "moderateIncrease",
     hours: 107,
   },
   {
@@ -107,7 +98,6 @@ const data = [
     sales: "1100000",
     region: "Region J",
     status: "average",
-    deltaType: "unchanged",
     hours: 110,
   },
   {
@@ -116,7 +106,6 @@ const data = [
     sales: "1200000",
     region: "Region K",
     status: "underperforming",
-    deltaType: "moderateDecrease",
     hours: 113,
   },
   {
@@ -125,7 +114,6 @@ const data = [
     sales: "1300000",
     region: "Region L",
     status: "overperforming",
-    deltaType: "moderateIncrease",
     hours: 116,
   },
   {
@@ -134,7 +122,6 @@ const data = [
     sales: "1400000",
     region: "Region M",
     status: "underperforming",
-    deltaType: "moderateDecrease",
     hours: 119,
   },
 ];

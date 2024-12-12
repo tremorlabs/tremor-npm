@@ -1,17 +1,8 @@
 "use client";
-import React, { useMemo } from "react";
+import { bgColors } from "components/spark-elements/common/style";
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import {
-  getColorClassNames,
-  makeClassName,
-  sumNumericArray,
-  themeColorRange,
-  tremorTwMerge,
-} from "lib";
-import { colorPalette } from "lib/theme";
-import { Color } from "../../../lib";
-
-const makeCategoryBarClassName = makeClassName("CategoryBar");
+import { Color, sumNumericArray, themeColorRange, tremorTwMerge } from "lib";
+import React, { useMemo } from "react";
 
 const getMarkerBgColor = (
   markerValue: number | undefined,
@@ -23,7 +14,7 @@ const getMarkerBgColor = (
   let prefixSum = 0;
   for (let i = 0; i < values.length; i++) {
     const currentWidthPercentage = values[i];
-    const currentBgColor = getColorClassNames(colors[i], colorPalette.background).bgColor;
+    const currentBgColor = bgColors[colors[i] as Color];
 
     prefixSum += currentWidthPercentage;
     if (prefixSum >= markerValue) return currentBgColor;
@@ -42,13 +33,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
   return (
     <div
       className={tremorTwMerge(
-        makeCategoryBarClassName("labels"),
-        // common
-        "text-tremor-default relative mb-2 flex h-5 w-full",
-        // light
-        "text-tremor-content",
-        // dark
-        "dark:text-dark-tremor-content",
+        "text-tremor-default text-tremor-content-default relative mb-2 flex h-5 w-full",
       )}
     >
       {values.slice(0, values.length).map((widthPercentage, idx) => {
@@ -85,7 +70,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
   );
 };
 
-export interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
   values: number[];
   colors?: Color[];
   markerValue?: number;
@@ -123,21 +108,11 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
   return (
     <>
       <Tooltip text={tooltip} {...tooltipProps} />
-      <div
-        ref={ref}
-        className={tremorTwMerge(makeCategoryBarClassName("root"), className)}
-        {...other}
-      >
+      <div ref={ref} className={tremorTwMerge(className)} {...other}>
         {showLabels ? <BarLabels values={values} /> : null}
-        <div
-          className={tremorTwMerge(
-            makeCategoryBarClassName("barWrapper"),
-            "relative flex h-2 w-full items-center",
-          )}
-        >
+        <div className={tremorTwMerge("relative flex h-2 w-full items-center")}>
           <div
             className={tremorTwMerge(
-              // common
               "rounded-tremor-full flex h-full flex-1 items-center overflow-hidden",
             )}
           >
@@ -147,11 +122,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
               return (
                 <div
                   key={`item-${idx}`}
-                  className={tremorTwMerge(
-                    makeCategoryBarClassName("categoryBar"),
-                    "h-full",
-                    getColorClassNames(baseColor, colorPalette.background).bgColor,
-                  )}
+                  className={tremorTwMerge("h-full", bgColors[baseColor as Color])}
                   style={{ width: `${percentage}%` }}
                 />
               );
@@ -160,10 +131,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
           {markerValue !== undefined ? (
             <div
               ref={tooltipProps.refs.setReference}
-              className={tremorTwMerge(
-                makeCategoryBarClassName("markerWrapper"),
-                "absolute right-1/2 w-5 -translate-x-1/2",
-              )}
+              className={tremorTwMerge("absolute right-1/2 w-5 -translate-x-1/2")}
               style={{
                 left: `${markerPositionLeft}%`,
                 transition: showAnimation ? "all 1s" : "",
@@ -172,13 +140,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
             >
               <div
                 className={tremorTwMerge(
-                  makeCategoryBarClassName("marker"),
-                  // common
-                  "rounded-tremor-full mx-auto h-4 w-1 ring-2",
-                  // light
-                  "ring-tremor-brand-inverted",
-                  // dark
-                  "dark:ring-dark-tremor-brand-inverted",
+                  "rounded-tremor-full ring-tremor-brand-inverted mx-auto h-4 w-1 ring-2",
                   markerBgColor,
                 )}
               />
@@ -192,4 +154,4 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>((props, r
 
 CategoryBar.displayName = "CategoryBar";
 
-export default CategoryBar;
+export { CategoryBar, type CategoryBarProps };
