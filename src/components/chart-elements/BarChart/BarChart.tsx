@@ -1,5 +1,4 @@
 "use client";
-import { colorPalette, getColorClassNames, tremorTwMerge } from "lib";
 import React, { useState } from "react";
 
 import {
@@ -20,7 +19,8 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
-import { BaseColors, defaultValueFormatter, themeColorRange } from "lib";
+import { fillColors } from "components/spark-elements/common/style";
+import { BaseColors, Color, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 const renderShape = (
@@ -57,7 +57,7 @@ const renderShape = (
   );
 };
 
-export interface BarChartProps extends BaseChartProps {
+interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
@@ -171,14 +171,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
           >
             {showGridLines ? (
               <CartesianGrid
-                className={tremorTwMerge(
-                  // common
-                  "stroke-1",
-                  // light
-                  "stroke-tremor-border",
-                  // dark
-                  "dark:stroke-dark-tremor-border",
-                )}
+                className={tremorTwMerge("stroke-tremor-border-default stroke-1")}
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
               />
@@ -194,14 +187,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label mt-4",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default mt-4")}
                 tickLine={false}
                 axisLine={false}
                 angle={rotateLabelX?.angle}
@@ -213,7 +199,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   <Label
                     position="insideBottom"
                     offset={-20}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium"
                   >
                     {xAxisLabel}
                   </Label>
@@ -227,14 +213,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 domain={yAxisDomain as AxisDomain}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={valueFormatter}
@@ -248,7 +227,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                   <Label
                     position="insideBottom"
                     offset={-20}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default emphasis font-medium"
                   >
                     {xAxisLabel}
                   </Label>
@@ -266,14 +245,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(-3, 0)" }}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
                 tickFormatter={
                   relative ? (value: number) => `${(value * 100).toString()} %` : valueFormatter
                 }
@@ -285,7 +257,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     style={{ textAnchor: "middle" }}
                     angle={-90}
                     offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium"
                   >
                     {yAxisLabel}
                   </Label>
@@ -304,14 +276,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 tick={{ transform: "translate(0, 6)" }}
                 fill=""
                 stroke=""
-                className={tremorTwMerge(
-                  // common
-                  "text-tremor-label",
-                  // light
-                  "fill-tremor-content",
-                  // dark
-                  "dark:fill-dark-tremor-content",
-                )}
+                className={tremorTwMerge("text-tremor-label fill-tremor-content-default")}
               >
                 {yAxisLabel && (
                   <Label
@@ -319,7 +284,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                     style={{ textAnchor: "middle" }}
                     angle={-90}
                     offset={-15}
-                    className="fill-tremor-content-emphasis text-tremor-default dark:fill-dark-tremor-content-emphasis font-medium"
+                    className="fill-tremor-content-emphasis text-tremor-default font-medium"
                   >
                     {yAxisLabel}
                   </Label>
@@ -375,27 +340,27 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 }
               />
             ) : null}
-            {categories.map((category) => (
-              <Bar
-                className={tremorTwMerge(
-                  getColorClassNames(
-                    categoryColors.get(category) ?? BaseColors.Gray,
-                    colorPalette.background,
-                  ).fillColor,
-                  onValueChange ? "cursor-pointer" : "",
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                stackId={stack || relative ? "a" : undefined}
-                dataKey={category}
-                fill=""
-                isAnimationActive={showAnimation}
-                animationDuration={animationDuration}
-                shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
-                onClick={onBarClick}
-              />
-            ))}
+            {categories.map((category) => {
+              const color = categoryColors.get(category) as Color;
+              return (
+                <Bar
+                  className={tremorTwMerge(
+                    color ? fillColors[color] : "gray",
+                    onValueChange ? "cursor-pointer" : "",
+                  )}
+                  key={category}
+                  name={category}
+                  type="linear"
+                  stackId={stack || relative ? "a" : undefined}
+                  dataKey={category}
+                  fill=""
+                  isAnimationActive={showAnimation}
+                  animationDuration={animationDuration}
+                  shape={(props: any) => renderShape(props, activeBar, activeLegend, layout)}
+                  onClick={onBarClick}
+                />
+              );
+            })}
           </ReChartsBarChart>
         ) : (
           <NoData noDataText={noDataText} />
@@ -407,4 +372,4 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
 
 BarChart.displayName = "BarChart";
 
-export default BarChart;
+export { BarChart, type BarChartProps };
