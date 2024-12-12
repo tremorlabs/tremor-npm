@@ -57,8 +57,6 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     if (node) {
       node.addEventListener("focus", handleFocus);
       node.addEventListener("blur-sm", handleBlur);
-
-      // Autofocus logic
       if (autoFocus) {
         node.focus();
       }
