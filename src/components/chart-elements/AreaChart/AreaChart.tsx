@@ -25,9 +25,15 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import {
+  defaultValueFormatter,
+  fillColors,
+  strokeColors,
+  textColors,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { Color, CurveType } from "../../../lib/inputTypes";
-import { fillColors, strokeColors, textColors } from "../common";
 
 interface AreaChartProps extends BaseChartProps {
   stack?: boolean;

@@ -24,8 +24,13 @@ import {
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
-import { fillColors, strokeColors } from "components/spark-elements/common/style";
-import { defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import {
+  defaultValueFormatter,
+  fillColors,
+  strokeColors,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { Color, CurveType } from "../../../lib/inputTypes";
 
 interface LineChartProps extends BaseChartProps {

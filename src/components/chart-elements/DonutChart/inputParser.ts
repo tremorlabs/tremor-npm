@@ -1,5 +1,4 @@
-import { fillColors } from "components/spark-elements/common/style";
-import { sumNumericArray } from "lib";
+import { fillColors, sumNumericArray } from "lib";
 import { Color, ValueFormatter } from "../../../lib/inputTypes";
 
 export const parseData = (data: any[], colors: (Color | string)[]) =>

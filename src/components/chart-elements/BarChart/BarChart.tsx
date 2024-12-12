@@ -19,8 +19,14 @@ import ChartTooltip from "../common/ChartTooltip";
 import NoData from "../common/NoData";
 import { constructCategoryColors, deepEqual, getYAxisDomain } from "../common/utils";
 
-import { fillColors } from "components/spark-elements/common/style";
-import { BaseColors, Color, defaultValueFormatter, themeColorRange, tremorTwMerge } from "lib";
+import {
+  BaseColors,
+  Color,
+  defaultValueFormatter,
+  fillColors,
+  themeColorRange,
+  tremorTwMerge,
+} from "lib";
 import { AxisDomain } from "recharts/types/util/types";
 
 const renderShape = (

@@ -17,7 +17,7 @@ import { AxisDomain } from "recharts/types/util/types";
 
 import ChartLegend from "components/chart-elements/common/ChartLegend";
 import ScatterChartTooltip from "components/chart-elements/ScatterChart/ScatterChartTooltip";
-import type { EventProps } from "lib";
+
 import BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
 import NoData from "../common/NoData";
 import {
@@ -37,6 +37,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, IntervalType, ValueFormatter } from "../../../lib/inputTypes";
+import { EventProps } from "../common";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;

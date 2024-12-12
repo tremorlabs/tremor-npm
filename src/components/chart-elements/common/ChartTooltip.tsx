@@ -1,5 +1,4 @@
-import { bgColors } from "components/spark-elements/common/style";
-import { Color, ValueFormatter, tremorTwMerge } from "lib";
+import { Color, ValueFormatter, bgColors, tremorTwMerge } from "lib";
 import React from "react";
 
 export const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
