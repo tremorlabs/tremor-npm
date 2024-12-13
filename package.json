@@ -28,7 +28,7 @@
     "@headlessui/react": "2.2.0",
     "date-fns": "^3.6.0",
     "react-day-picker": "^8.10.1",
-    "recharts": "^2.14.1",
+    "recharts": "^2.15.0",
     "tailwind-merge": "^2.5.5",
     "tailwind-variants": "^0.3.0"
   },
