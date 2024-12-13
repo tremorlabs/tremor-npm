@@ -1,40 +1,65 @@
 import { tremorTwMerge } from "lib";
 import React from "react";
 
-export interface SelectItemProps {
+import { isValidElement, JSXElementConstructor } from "react";
+
+interface SelectItemProps {
   value: string;
   children?: React.ReactNode;
 }
 
-export const getNodeText = (node: React.ReactElement): string | React.ReactElement | undefined => {
-  if (["string", "number"].includes(typeof node)) return node;
-  if (node instanceof Array) return node.map(getNodeText).join("");
-  if (typeof node === "object" && node) return getNodeText(node.props.children);
+type ValidElement = React.ReactElement<SelectItemProps, string | JSXElementConstructor<any>>;
+
+function isSelectItemElement(node: unknown): node is ValidElement {
+  if (!isValidElement(node)) return false;
+  const props = node.props as Partial<SelectItemProps>;
+  return typeof props.value === "string";
+}
+
+const getNodeText = (node: unknown): string | undefined => {
+  if (typeof node === "string" || typeof node === "number") {
+    return String(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(getNodeText).join("");
+  }
+
+  if (isValidElement<{ children?: React.ReactNode }>(node)) {
+    return getNodeText(node.props.children);
+  }
+
+  return undefined;
 };
 
-export function constructValueToNameMapping(children: React.ReactElement[] | React.ReactElement) {
+function constructValueToNameMapping(children: React.ReactNode): Map<string, string> {
   const valueToNameMapping = new Map<string, string>();
-  React.Children.map(children, (child: React.ReactElement<SelectItemProps>) => {
-    valueToNameMapping.set(child.props.value, (getNodeText(child) ?? child.props.value) as string);
+
+  const validChildren = React.Children.toArray(children).filter((child): child is ValidElement =>
+    isSelectItemElement(child),
+  );
+
+  validChildren.forEach((child) => {
+    const value = child.props.value;
+    const displayText = getNodeText(child) ?? value;
+    valueToNameMapping.set(value, String(displayText));
   });
+
   return valueToNameMapping;
 }
 
-export function getFilteredOptions(
-  searchQuery: string,
-  children: React.ReactElement[],
-): React.ReactElement[] {
-  return React.Children.map(children, (child) => {
-    const optionText = (getNodeText(child) ?? child.props.value) as string;
-    if (optionText.toLowerCase().includes(searchQuery.toLowerCase())) return child;
+function getFilteredOptions(searchQuery: string, children: React.ReactNode): ValidElement[] {
+  return React.Children.toArray(children).filter((child): child is ValidElement => {
+    if (!isSelectItemElement(child)) {
+      return false;
+    }
+
+    const optionText = String(getNodeText(child) ?? child.props.value);
+    return optionText.toLowerCase().includes(searchQuery.toLowerCase());
   });
 }
 
-export const getSelectButtonColors = (
-  hasSelection: boolean,
-  isDisabled: boolean,
-  hasError = false,
-) => {
+const getSelectButtonColors = (hasSelection: boolean, isDisabled: boolean, hasError = false) => {
   return tremorTwMerge(
     isDisabled ? "bg-tremor-background-subtle" : "bg-tremor-background-default",
     !isDisabled && "hover:bg-tremor-background-muted",
@@ -45,6 +70,14 @@ export const getSelectButtonColors = (
   );
 };
 
-export function hasValue<T>(value: T | null | undefined) {
+function hasValue<T>(value: T | null | undefined) {
   return value !== null && value !== undefined && value !== "";
 }
+
+export {
+  constructValueToNameMapping,
+  getFilteredOptions,
+  getNodeText,
+  getSelectButtonColors,
+  hasValue,
+};

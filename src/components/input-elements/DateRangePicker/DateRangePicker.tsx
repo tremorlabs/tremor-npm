@@ -3,7 +3,7 @@
 import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { tremorTwMerge } from "lib";
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DateRange, DayPickerRangeProps } from "react-day-picker";
 import {
   constructValueToNameMapping,
@@ -101,16 +101,15 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
     >();
 
     if (children) {
-      React.Children.forEach(
-        children as ReactElement[],
-        (child: React.ReactElement<DateRangePickerItemProps>) => {
+      React.Children.forEach(children, (child) => {
+        if (React.isValidElement<DateRangePickerItemProps>(child)) {
           selectValues.set(child.props.value, {
             text: (getNodeText(child) ?? child.props.value) as string,
             from: child.props.from,
             to: child.props.to,
           });
-        },
-      );
+        }
+      });
     } else {
       defaultOptions.forEach((option) => {
         selectValues.set(option.value, {

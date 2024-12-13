@@ -176,7 +176,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               minTickGap={tickGap}
               angle={rotateLabelX?.angle}
               dy={rotateLabelX?.verticalShift}
-              height={rotateLabelX?.xAxisHeight}
+              height={rotateLabelX?.xAxisHeight || 30}
             >
               {xAxisLabel && (
                 <Label

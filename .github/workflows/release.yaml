@@ -20,9 +20,9 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
       - name: install react
-        run: npm i react
+        run: npm i react --legacy-peer-deps
       - name: install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: build
         run: npm run build
       - name: release
