@@ -240,7 +240,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                 allowDataOverflow={true}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
-                height={rotateLabelX?.xAxisHeight}
+                height={rotateLabelX?.xAxisHeight || 30}
               >
                 {xAxisLabel && (
                   <Label

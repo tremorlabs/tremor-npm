@@ -198,7 +198,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 axisLine={false}
                 angle={rotateLabelX?.angle}
                 dy={rotateLabelX?.verticalShift}
-                height={rotateLabelX?.xAxisHeight}
+                height={rotateLabelX?.xAxisHeight || 30}
                 minTickGap={tickGap}
               >
                 {xAxisLabel && (
