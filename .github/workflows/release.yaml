@@ -22,7 +22,7 @@ jobs:
       - name: install react
         run: npm i react
       - name: install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: build
         run: npm run build
       - name: release

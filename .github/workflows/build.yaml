@@ -26,7 +26,7 @@ jobs:
       - name: install react
         run: npm i react
       - name: install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: lint checks
         run: npm run lint
       - name: unit tests
