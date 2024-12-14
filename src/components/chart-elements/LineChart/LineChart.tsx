@@ -321,7 +321,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                           strokeLinejoin={strokeLinejoin}
                           strokeWidth={strokeWidth}
                           className={tremorTwMerge(
-                            "stroke-tremor-background",
+                            "stroke-tremor-background-default",
                             onValueChange ? "cursor-pointer" : "",
                             color ? fillColors[categoryColors.get(dataKey) as Color] : "gray",
                           )}
