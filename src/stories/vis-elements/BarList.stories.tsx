@@ -10,10 +10,6 @@ import { BaseColors } from "lib";
 const meta: Meta<typeof BarList> = {
   title: "Visualizations/Vis/BarList",
   component: BarList,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/BarList",
-  },
 };
 
 export default meta;
@@ -57,7 +53,7 @@ export const Icon: Story = {
 
 export const Links: Story = {
   args: {
-    data: getData(Array(4).fill({ href: "https://www.tremor.so/" })),
+    data: getData(Array(4).fill({ href: "https://npm.tremor.so/" })),
     valueFormatter: (value) => `${value} USD`,
   },
 };
@@ -71,7 +67,7 @@ export const Colors: Story = {
     </div>
   ),
   args: {
-    data: getData(Array(3).fill({ href: "https://www.tremor.so/" })),
+    data: getData(Array(3).fill({ href: "https://npm.tremor.so/" })),
     valueFormatter: (value) => `${value} USD`,
     onValueChange: (data) => alert(JSON.stringify(data)),
   },

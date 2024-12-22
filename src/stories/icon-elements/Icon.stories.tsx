@@ -16,9 +16,6 @@ const meta: Meta<typeof Icon> = {
   args: {
     icon: ArrowUpIcon,
   },
-  parameters: {
-    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/icon-elements/Icon",
-  },
 };
 
 export default meta;

@@ -19,10 +19,6 @@ const meta: Meta<typeof AreaChart> = {
   title: "Visualizations/Chart/AreaChart",
   component: AreaChart,
   args: { categories: ["Sales", "Successful Payments"], index: "month", data, className: "h-72" },
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/chart-elements/AreaChart",
-  },
 };
 
 export default meta;
@@ -308,7 +304,7 @@ export const CustomTooltipPreviousDay: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const color = getBadgeColor(percentage);
 
       return (
@@ -352,7 +348,7 @@ export const CustomTooltipComplex: Story = {
       const previousIndex = data.findIndex((e) => e[customTooltipIndex] === label);
       const previousValues: any = previousIndex > 0 ? data[previousIndex - 1] : {};
       const prev = previousValues ? previousValues[dataKey] : undefined;
-      const percentage = ((value - prev) / prev) * 100 ?? undefined;
+      const percentage = ((value - prev) / prev) * 100;
       const badgeColor = getBadgeColor(percentage);
 
       return (
@@ -387,6 +383,46 @@ export const CustomTooltipComplex: Story = {
     },
   },
 };
+
+export const Padding: Story = {
+  args: {
+    padding: { left: 0, right: 0 },
+  },
+};
+
+// keep because of if statement
+// const ResponsiveTemplate: ComponentStory<typeof AreaChart> = (args) => {
+//   if (args.onValueChange?.length === 0) {
+//     args.onValueChange = undefined;
+//   }
+
+//   return (
+//     <>
+//       <Title>Desktop</Title>
+//       <Card>
+//         <AreaChart {...args} yAxisWidth={60} />
+//       </Card>
+//       <Title className="mt-5">Mobile</Title>
+//       <div className="w-64">
+//         <Card>
+//           <AreaChart {...args} yAxisWidth={60} />
+//         </Card>
+//       </div>
+//     </>
+//   );
+// };
+
+// const DefaultTemplate: ComponentStory<typeof AreaChart> = ({ ...args }) => {
+//   if (args.onValueChange?.length === 0) {
+//     args.onValueChange = undefined;
+//   }
+
+//   return (
+//     <Card>
+//       <AreaChart {...args} yAxisWidth={60} />
+//     </Card>
+//   );
+//
 
 export const tickGap: Story = {
   args: {

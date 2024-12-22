@@ -1,11 +1,11 @@
 "use client";
 
-import React, { isValidElement, useMemo, Children, useRef } from "react";
 import { ArrowDownHeadIcon, XCircleIcon } from "assets";
 import { makeClassName, tremorTwMerge } from "lib";
+import React, { Children, isValidElement, useMemo, useRef } from "react";
 import { constructValueToNameMapping, getSelectButtonColors, hasValue } from "../selectUtils";
 
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOptions, Transition } from "@headlessui/react";
 import { useInternalState } from "hooks";
 
 const makeSelectClassName = makeClassName("Select");
@@ -114,7 +114,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
         >
           {({ value }) => (
             <>
-              <Listbox.Button
+              <ListboxButton
                 ref={listboxButtonRef}
                 className={tremorTwMerge(
                   // common
@@ -147,7 +147,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   </span>
                 )}
                 <span className="w-[90%] block truncate">
-                  {value ? valueToNameMapping.get(value) ?? placeholder : placeholder}
+                  {value ? (valueToNameMapping.get(value) ?? placeholder) : placeholder}
                 </span>
                 <span
                   className={tremorTwMerge("absolute inset-y-0 right-0 flex items-center mr-3")}
@@ -164,7 +164,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                     )}
                   />
                 </span>
-              </Listbox.Button>
+              </ListboxButton>
               {enableClear && selectedValue ? (
                 <button
                   type="button"
@@ -188,7 +188,6 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                 </button>
               ) : null}
               <Transition
-                className="absolute z-10 w-full"
                 enter="transition ease duration-100 transform"
                 enterFrom="opacity-0 -translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -196,10 +195,11 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 -translate-y-4"
               >
-                <Listbox.Options
+                <ListboxOptions
+                  anchor="bottom start"
                   className={tremorTwMerge(
                     // common
-                    "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
+                    "z-10 w-[var(--button-width)] divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
                     // light
                     "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                     // dark
@@ -207,7 +207,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>((props, ref) => {
                   )}
                 >
                   {children}
-                </Listbox.Options>
+                </ListboxOptions>
               </Transition>
             </>
           )}

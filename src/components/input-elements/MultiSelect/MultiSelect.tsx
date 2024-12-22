@@ -3,10 +3,10 @@ import React, { isValidElement, useMemo, useRef, useState } from "react";
 import { SelectedValueContext } from "contexts";
 import { useInternalState } from "hooks";
 import { ArrowDownHeadIcon, SearchIcon, XCircleIcon } from "assets";
-import { Listbox, Transition } from "@headlessui/react";
 import XIcon from "assets/XIcon";
 import { makeClassName, tremorTwMerge } from "lib";
 import { getFilteredOptions, getSelectButtonColors } from "../selectUtils";
+import { Listbox, ListboxButton, ListboxOptions, Transition } from "@headlessui/react";
 
 const makeMultiSelectClassName = makeClassName("MultiSelect");
 
@@ -133,7 +133,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
         >
           {({ value }) => (
             <>
-              <Listbox.Button
+              <ListboxButton
                 className={tremorTwMerge(
                   // common
                   "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100 border pr-8 py-1.5",
@@ -229,7 +229,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                     )}
                   />
                 </span>
-              </Listbox.Button>
+              </ListboxButton>
 
               {hasSelection && !disabled ? (
                 <button
@@ -254,7 +254,6 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 </button>
               ) : null}
               <Transition
-                className="absolute z-10 w-full"
                 enter="transition ease duration-100 transform"
                 enterFrom="opacity-0 -translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -262,10 +261,11 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 -translate-y-4"
               >
-                <Listbox.Options
+                <ListboxOptions
+                  anchor="bottom start"
                   className={tremorTwMerge(
                     // common
-                    "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0 border my-1",
+                    "z-10 divide-y w-[var(--button-width)] overflow-y-auto outline-none rounded-tremor-default max-h-[228px]  border [--anchor-gap:4px]",
                     // light
                     "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                     // dark
@@ -322,7 +322,7 @@ const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>((props,
                   >
                     {filteredOptions}
                   </SelectedValueContext.Provider>
-                </Listbox.Options>
+                </ListboxOptions>
               </Transition>
             </>
           )}

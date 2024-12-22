@@ -7,10 +7,6 @@ import { SimpleNumberInput, SimpleNumberInputControlled } from "./helpers/Simple
 const meta: Meta<typeof NumberInput> = {
   title: "UI/Input/NumberInput",
   component: NumberInput,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/input-elements/NumberInput",
-  },
 };
 
 export default meta;

@@ -7,9 +7,6 @@ import { Title } from "components";
 const meta: Meta<typeof Title> = {
   title: "UI/Text/Title",
   component: Title,
-  parameters: {
-    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/text-elements/Title",
-  },
 };
 
 export default meta;

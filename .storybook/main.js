@@ -10,7 +10,6 @@ module.exports = {
     "@storybook/addon-styling-webpack",
     "@storybook/addon-themes",
     "@storybook/addon-a11y",
-    "storybook-source-link",
     {
       name: "@storybook/addon-styling-webpack",
       options: {

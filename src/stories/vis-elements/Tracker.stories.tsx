@@ -104,10 +104,6 @@ const meta: Meta<typeof Tracker> = {
     data: data,
   },
   render: (args) => <Tracker {...args} />,
-  parameters: {
-    sourceLink:
-      "https://github.com/tremorlabs/tremor/tree/main/src/components/vis-elements/Tracker",
-  },
 };
 
 export default meta;

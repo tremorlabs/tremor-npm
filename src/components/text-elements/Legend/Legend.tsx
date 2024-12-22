@@ -288,7 +288,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
                 setIsKeyDowned(null);
                 scrollToTest("left");
               }}
-              disabled={!hasScroll?.left ?? true}
+              disabled={!hasScroll?.left}
             />
             <ScrollButton
               icon={ChevronRightFill}
@@ -296,7 +296,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
                 setIsKeyDowned(null);
                 scrollToTest("right");
               }}
-              disabled={!hasScroll?.right ?? true}
+              disabled={!hasScroll?.right}
             />
           </div>
         </>

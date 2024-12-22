@@ -1,12 +1,12 @@
 "use client";
-import React, { useMemo } from "react";
 import { tremorTwMerge } from "lib";
+import React, { useMemo } from "react";
 import { DayPickerSingleProps } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-import { Popover, Transition } from "@headlessui/react";
+import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
 import { Calendar } from "components/input-elements/Calendar";
 import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
@@ -91,7 +91,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
       )}
       {...other}
     >
-      <Popover.Button
+      <PopoverButton
         disabled={disabled}
         className={tremorTwMerge(
           // common
@@ -116,7 +116,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
           aria-hidden="true"
         />
         <p className="truncate">{formattedSelection}</p>
-      </Popover.Button>
+      </PopoverButton>
       {isClearEnabled && selectedValue ? (
         <button
           type="button"
@@ -141,7 +141,6 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         </button>
       ) : null}
       <Transition
-        className="absolute z-10 min-w-min left-0"
         enter="transition ease duration-100 transform"
         enterFrom="opacity-0 -translate-y-4"
         enterTo="opacity-100 translate-y-0"
@@ -149,10 +148,11 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 -translate-y-4"
       >
-        <Popover.Panel
+        <PopoverPanel
+          anchor="bottom start"
           className={tremorTwMerge(
             // common
-            "divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border my-1",
+            "z-10 min-w-min divide-y overflow-y-auto outline-none rounded-tremor-default p-3 border [--anchor-gap:4px]",
             // light
             "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
             // dark
@@ -178,7 +178,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, ref
               enableYearNavigation={enableYearNavigation}
             />
           )}
-        </Popover.Panel>
+        </PopoverPanel>
       </Transition>
     </Popover>
   );

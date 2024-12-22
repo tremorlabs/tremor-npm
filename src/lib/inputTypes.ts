@@ -8,6 +8,7 @@ export type Interval = "preserveStartEnd" | "equidistantPreserveStart";
 
 export type IntervalType = "preserveStartEnd" | Interval;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const iconVariantValues = ["simple", "light", "shadow", "solid", "outlined"] as const;
 
 export type IconVariant = (typeof iconVariantValues)[number];
@@ -18,6 +19,7 @@ export type VerticalPosition = "top" | "bottom";
 
 export type ButtonVariant = "primary" | "secondary" | "light";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const deltaTypeValues = [
   "increase",
   "moderateIncrease",
@@ -28,6 +30,7 @@ const deltaTypeValues = [
 
 export type DeltaType = (typeof deltaTypeValues)[number];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export type Size = (typeof sizeValues)[number];
@@ -61,9 +64,11 @@ export type Color = (typeof colorValues)[number];
 export type CustomColor = Color | string;
 export const getIsBaseColor = (color: Color | string) => colorValues.includes(color as Color);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const justifyContentValues = ["start", "end", "center", "between", "around", "evenly"] as const;
 export type JustifyContent = (typeof justifyContentValues)[number];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const alignItemsValues = ["start", "end", "center", "baseline", "stretch"] as const;
 export type AlignItems = (typeof alignItemsValues)[number];
 

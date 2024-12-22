@@ -210,9 +210,9 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
       return data.reduce((acc: FormattedDataT[], item, index) => {
         const prev = acc[index - 1];
         const value = item.value;
-        const valueToCompareWith = isPreviousCalculation ? prev?.value ?? maxValue : maxValue;
+        const valueToCompareWith = isPreviousCalculation ? (prev?.value ?? maxValue) : maxValue;
         const calculationHeight = isPreviousCalculation
-          ? prev?.barHeight ?? realHeight
+          ? (prev?.barHeight ?? realHeight)
           : realHeight;
 
         const normalizedValue = value / valueToCompareWith;

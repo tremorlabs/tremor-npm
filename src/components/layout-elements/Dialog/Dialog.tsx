@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog as HeadlessuiDialog, Transition } from "@headlessui/react";
+import { Dialog as HeadlessUiDialog, DialogBackdrop, Transition } from "@headlessui/react";
 import { makeClassName, tremorTwMerge } from "lib";
 
 const makeDisplayClassName = makeClassName("dialog");
@@ -16,32 +16,20 @@ export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
 const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
   const { children, className, ...other } = props;
   return (
-    <Transition as={React.Fragment} appear show={props.open}>
-      <HeadlessuiDialog
-        as="div"
+    <Transition appear show={props.open}>
+      <HeadlessUiDialog
         ref={ref}
         {...other}
         className={tremorTwMerge(makeDisplayClassName("root"), "relative z-50", className)}
       >
-        <Transition.Child
-          as={React.Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div
-            className={tremorTwMerge(
-              "fixed inset-0 bg-slate-950/30  dark:bg-slate-950/50 transition-opacity",
-            )}
-          ></div>
-        </Transition.Child>
+        <DialogBackdrop
+          transition
+          className="fixed bg-slate-950/30  dark:bg-slate-950/50  inset-0  transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        />
         <div className="fixed inset-0 overflow-y-auto w-screen">
           <div className="flex min-h-full items-center justify-center p-4">{children}</div>
         </div>
-      </HeadlessuiDialog>
+      </HeadlessUiDialog>
     </Transition>
   );
 });

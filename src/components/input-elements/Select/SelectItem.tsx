@@ -1,30 +1,30 @@
 "use client";
 import React from "react";
-import { Listbox } from "@headlessui/react";
+import { ListboxOption } from "@headlessui/react";
 import { makeClassName, tremorTwMerge } from "lib";
 
 const makeSelectItemClassName = makeClassName("SelectItem");
 
-export interface SelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   icon?: React.ElementType;
 }
 
-const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref) => {
+const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>((props, ref) => {
   const { value, icon, className, children, ...other } = props;
 
   const Icon = icon;
 
   return (
-    <Listbox.Option
+    <ListboxOption
       className={tremorTwMerge(
         makeSelectItemClassName("root"),
         // common
         "flex justify-start items-center cursor-default text-tremor-default px-2.5 py-2.5",
         // light
-        "ui-active:bg-tremor-background-muted  ui-active:text-tremor-content-strong ui-selected:text-tremor-content-strong ui-selected:bg-tremor-background-muted text-tremor-content-emphasis",
+        "data-[focus]:bg-tremor-background-muted  data-[focus]:text-tremor-content-strong data-[selected]:text-tremor-content-strong data-[selected]:bg-tremor-background-muted text-tremor-content-emphasis",
         // dark
-        "dark:ui-active:bg-dark-tremor-background-muted  dark:ui-active:text-dark-tremor-content-strong dark:ui-selected:text-dark-tremor-content-strong dark:ui-selected:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
+        "dark:data-[focus]:bg-dark-tremor-background-muted  dark:data-[focus]:text-dark-tremor-content-strong dark:data-[selected]:text-dark-tremor-content-strong dark:data-[selected]:bg-dark-tremor-background-muted dark:text-dark-tremor-content-emphasis",
         className,
       )}
       ref={ref}
@@ -46,7 +46,7 @@ const SelectItem = React.forwardRef<HTMLLIElement, SelectItemProps>((props, ref)
         />
       )}
       <span className="whitespace-nowrap truncate">{children ?? value}</span>
-    </Listbox.Option>
+    </ListboxOption>
   );
 });
 

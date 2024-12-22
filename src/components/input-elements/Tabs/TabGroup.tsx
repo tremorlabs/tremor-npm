@@ -14,7 +14,6 @@ export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>((props, ref) => {
   const { defaultIndex, index, onIndexChange, children, className, ...other } = props;
-
   return (
     <Tab.Group
       as="div"

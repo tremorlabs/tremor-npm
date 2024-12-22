@@ -6,9 +6,6 @@ import { List, ListItem } from "components";
 const meta: Meta<typeof List> = {
   title: "UI/List/List",
   component: List,
-  parameters: {
-    sourceLink: "https://github.com/tremorlabs/tremor/tree/main/src/components/list-elements/List",
-  },
 };
 
 export default meta;

@@ -5,7 +5,7 @@ import { getSelectButtonColors, hasValue } from "components/input-elements/selec
 import { mergeRefs, tremorTwMerge } from "lib";
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: "text" | "password" | "email" | "url" | "number" | "search";
+  type?: "text" | "password" | "email" | "url" | "number" | "search" | "tel";
   defaultValue?: string | number;
   value?: string | number;
   icon?: React.ElementType | React.JSXElementConstructor<any>;
@@ -15,6 +15,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   stepper?: ReactNode;
   onValueChange?: (value: any) => void;
   makeInputClassName: (className: string) => string;
+  pattern?: string;
 }
 
 const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
@@ -33,6 +34,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
     onChange,
     onValueChange,
     autoFocus,
+    pattern,
     ...other
   } = props;
   const [isFocused, setIsFocused] = useState(autoFocus || false);
@@ -136,6 +138,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
             onChange?.(e);
             onValueChange?.(e.target.value);
           }}
+          pattern={pattern}
           {...other}
         />
         {type === "password" && !disabled ? (
