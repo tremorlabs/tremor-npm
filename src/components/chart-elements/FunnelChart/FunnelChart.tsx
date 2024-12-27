@@ -670,6 +670,7 @@ const FunnelChartPrimitive = React.forwardRef<HTMLDivElement, FunnelChartProps>(
                 className={tremorTwMerge(
                   "absolute top-0 pointer-events-none",
                   tooltip.data ? "visible" : "hidden",
+                  "z-50",
                 )}
                 tabIndex={-1}
                 role="dialog"

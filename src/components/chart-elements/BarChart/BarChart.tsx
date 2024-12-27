@@ -327,7 +327,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
               </YAxis>
             )}
             <Tooltip
-              wrapperStyle={{ outline: "none" }}
+              wrapperStyle={{ outline: "none", zIndex: 100 }}
               isAnimationActive={false}
               cursor={{ fill: "#d1d5db", opacity: "0.15" }}
               content={
