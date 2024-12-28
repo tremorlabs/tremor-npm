@@ -20,7 +20,7 @@
   <a href="https://npm.tremor.so/docs/getting-started/installation">
     <img alt="Read the documentation" src="https://img.shields.io/badge/Docs-blue?style=flat&logo=readthedocs&color=3b82f6&labelColor=334155&logoColor=f5f5f5" height="20" width="auto">
   </a>
-  <a href="https://github.com/tremorlabs/tremor/blob/main/License">
+  <a href="https://github.com/tremorlabs/tremor-npm/blob/main/License">
     <img alt="License Apache 2.0" src="https://img.shields.io/badge/license-Apache 2.0-blue.svg?style=flat&color=3b82f6&labelColor=334155 " height="20" width="auto">
   </a>
   <a href="https://join.slack.com/t/tremor-community/shared_invite/zt-21ug6czv6-RckDPEAR6GdYOqfMGKOWpQ">
@@ -108,6 +108,6 @@ We are always looking for new ideas or other ways to improve Tremor NPM. If you 
 
 ## License
 
-[Apache License 2.0](https://github.com/tremorlabs/tremor/blob/main/License)
+[Apache License 2.0](https://github.com/tremorlabs/tremor-npm/blob/main/License)
 
 Copyright &copy; 2024 Tremor Labs, Inc. All rights reserved.
