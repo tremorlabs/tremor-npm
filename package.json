@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tremorlabs/tremor.git"
+    "url": "git+https://github.com/tremorlabs/tremor-npm.git"
   },
   "author": "tremor",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/tremorlabs/tremor/issues"
+    "url": "https://github.com/tremorlabs/tremor-npm/issues"
   },
-  "homepage": "https://github.com/tremorlabs/tremor#readme",
+  "homepage": "https://github.com/tremorlabs/tremor-npm-npm#readme",
   "dependencies": {
     "@floating-ui/react": "^0.19.2",
     "@headlessui/react": "2.2.0",
