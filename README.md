@@ -110,4 +110,4 @@ We are always looking for new ideas or other ways to improve Tremor NPM. If you 
 
 [Apache License 2.0](https://github.com/tremorlabs/tremor-npm/blob/main/License)
 
-Copyright &copy; 2024 Tremor Labs, Inc. All rights reserved.
+Copyright &copy; 2025 Tremor Labs, Inc. All rights reserved.
