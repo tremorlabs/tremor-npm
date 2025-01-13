@@ -2,8 +2,7 @@
 import React from "react";
 
 import Tooltip, { useTooltip } from "components/util-elements/Tooltip/Tooltip";
-import { makeClassName, mergeRefs, Sizes, tremorTwMerge } from "lib";
-import { Color, IconVariant, Size } from "../../../lib";
+import { makeClassName, mergeRefs, Sizes, tremorTwMerge, Color, IconVariant, Size } from "lib";
 import { getIconColors, iconSizes, shape, wrapperProportions } from "./styles";
 
 const makeIconClassName = makeClassName("Icon");
