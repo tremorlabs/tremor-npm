@@ -18,6 +18,7 @@ import { parseData, parseLabelInput } from "./inputParser";
 import type { EventProps } from "components/chart-elements/common";
 import { CustomTooltipProps } from "components/chart-elements/common/CustomTooltipProps";
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import { Legend } from "components/text-elements";
 
 type DonutChartVariant = "donut" | "pie";
 
@@ -36,6 +37,7 @@ export interface DonutChartProps extends BaseAnimationTimingProps {
   className?: string;
   onValueChange?: (value: EventProps) => void;
   customTooltip?: React.ComponentType<CustomTooltipProps>;
+  activeSector?: string | null | undefined;
 }
 
 const renderInactiveShape = (props: any) => {
@@ -90,6 +92,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
     onValueChange,
     customTooltip,
     className,
+    activeSector = undefined,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -98,6 +101,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
   const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined);
   const hasOnValueChange = !!onValueChange;
+  const legendLabels = data.map((v) => v[index]);
 
   function onShapeClick(data: any, index: number, event: React.MouseEvent) {
     event.stopPropagation();
@@ -116,6 +120,15 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
   }
 
   useEffect(() => {
+    if (!activeSector) {
+      return setActiveIndex(undefined);
+    }
+
+    const idx = data.findIndex((v) => v[index] === activeSector) ?? undefined;
+    setActiveIndex(idx);
+  }, [activeSector, data]);
+
+  useEffect(() => {
     const pieSectors = document.querySelectorAll(".recharts-pie-sector");
     if (pieSectors) {
       pieSectors.forEach((sector) => {
@@ -126,6 +139,28 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-40", className)} {...other}>
+      {activeSector !== undefined ? (
+        <>
+          <div className="flex justify-center">
+            <Legend
+              className="my-3"
+              categories={legendLabels}
+              colors={colors}
+              onClickLegendItem={(category) => {
+                const idx = data.findIndex((v) => v[index] === category) ?? undefined;
+
+                if (idx === activeIndex) {
+                  setActiveIndex(undefined);
+                  return;
+                }
+
+                setActiveIndex(idx);
+              }}
+            />
+          </div>
+          <div className="my-4" />
+        </>
+      ) : null}
       <ResponsiveContainer className="h-full w-full">
         {data?.length ? (
           <ReChartsDonutChart
