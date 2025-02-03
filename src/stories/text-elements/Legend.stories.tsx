@@ -128,3 +128,20 @@ export const CustomColorsConClick: Story = {
     },
   },
 };
+
+export const CustomItem: Story = {
+  ...LegendTemplate,
+  args: {
+    categories: ["Category A", "Category B", "Category C"],
+    renderItem: ({ name, index, Circle }) => {
+      return (
+        <>
+          <Circle />
+          <p>
+            {index} - {name}
+          </p>
+        </>
+      );
+    },
+  },
+};

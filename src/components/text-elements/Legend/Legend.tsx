@@ -6,15 +6,53 @@ import { ChevronLeftFill, ChevronRightFill } from "assets";
 
 const makeLegendClassName = makeClassName("Legend");
 
+export interface ColorCircleProps {
+  name: string;
+  color: string;
+  activeLegend?: string;
+}
+
+const ColorCircle = ({ name, color, activeLegend }: ColorCircleProps) => {
+  return (
+    <svg
+      className={tremorTwMerge(
+        "flex-none h-2 w-2 mr-1.5",
+        getColorClassNames(color, colorPalette.text).textColor,
+        activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+      )}
+      fill="currentColor"
+      viewBox="0 0 8 8"
+    >
+      <circle cx={4} cy={4} r={4} />
+    </svg>
+  );
+};
+
 export interface LegendItemProps {
   name: string;
   color: Color | string;
   onClick?: (name: string, color: Color | string) => void;
   activeLegend?: string;
+  index: number;
+  customRender:
+    | ((params: {
+        name: string;
+        index: number;
+        Circle: () => React.JSX.Element;
+      }) => React.ReactNode | undefined)
+    | undefined;
 }
 
-const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => {
+const LegendItem = ({
+  name,
+  color,
+  onClick,
+  activeLegend,
+  customRender,
+  index,
+}: LegendItemProps) => {
   const hasOnValueChange = !!onClick;
+
   return (
     <li
       className={tremorTwMerge(
@@ -34,32 +72,32 @@ const LegendItem = ({ name, color, onClick, activeLegend }: LegendItemProps) => 
         onClick?.(name, color);
       }}
     >
-      <svg
-        className={tremorTwMerge(
-          "flex-none h-2 w-2 mr-1.5",
-          getColorClassNames(color, colorPalette.text).textColor,
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
-        )}
-        fill="currentColor"
-        viewBox="0 0 8 8"
-      >
-        <circle cx={4} cy={4} r={4} />
-      </svg>
-      <p
-        className={tremorTwMerge(
-          // common
-          "whitespace-nowrap truncate text-tremor-default",
-          // light
-          "text-tremor-content",
-          hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
-          // dark
-          "dark:text-dark-tremor-content",
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
-          hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
-        )}
-      >
-        {name}
-      </p>
+      {customRender ? (
+        customRender({
+          name,
+          index,
+          Circle: () => <ColorCircle name={name} activeLegend={activeLegend} color={color} />,
+        })
+      ) : (
+        <>
+          <ColorCircle name={name} activeLegend={activeLegend} color={color} />
+          <p
+            className={tremorTwMerge(
+              // common
+              "whitespace-nowrap truncate text-tremor-default",
+              // light
+              "text-tremor-content",
+              hasOnValueChange ? "group-hover:text-tremor-content-emphasis" : "",
+              // dark
+              "dark:text-dark-tremor-content",
+              activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+              hasOnValueChange ? "dark:group-hover:text-dark-tremor-content-emphasis" : "",
+            )}
+          >
+            {name}
+          </p>
+        </>
+      )}
     </li>
   );
 };
@@ -135,6 +173,11 @@ export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   onClickLegendItem?: (category: string, color: Color | string) => void;
   activeLegend?: string;
   enableLegendSlider?: boolean;
+  renderItem?: (params: {
+    name: string;
+    index: number;
+    Circle: () => React.JSX.Element;
+  }) => React.ReactNode | undefined;
 }
 
 type HasScrollProps = {
@@ -150,6 +193,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     onClickLegendItem,
     activeLegend,
     enableLegendSlider = false,
+    renderItem = undefined,
     ...other
   } = props;
   const scrollableRef = React.useRef<HTMLInputElement>(null);
@@ -266,6 +310,8 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             color={colors[idx % colors.length]}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
+            customRender={renderItem}
+            index={idx}
           />
         ))}
       </div>
