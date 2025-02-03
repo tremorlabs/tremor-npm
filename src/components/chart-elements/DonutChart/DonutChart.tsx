@@ -192,7 +192,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>((props, ref
               />
             ) : null} */}
             <Tooltip
-              wrapperStyle={{ outline: "none" }}
+              wrapperStyle={{ outline: "none", zIndex: 100 }}
               isAnimationActive={false}
               content={
                 showTooltip ? (

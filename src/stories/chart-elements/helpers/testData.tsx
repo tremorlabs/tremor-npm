@@ -1751,3 +1751,12 @@ export const singleAndMultipleData = [
     Sales: 3612,
   },
 ];
+
+export const longDataName = [
+  {
+    name: 'Very very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Topic 1',
+    'Group A': 890,
+    'Group B': 338,
+    'Group C': 538,
+  },
+];
