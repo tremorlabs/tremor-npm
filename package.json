@@ -27,7 +27,7 @@
     "@floating-ui/react": "^0.19.2",
     "@headlessui/react": "2.2.0",
     "date-fns": "^3.6.0",
-    "react-day-picker": "^8.10.1",
+    "react-day-picker": "^9.5.1",
     "react-transition-state": "^2.1.2",
     "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.2"

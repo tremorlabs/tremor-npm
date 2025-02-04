@@ -1,14 +1,13 @@
 "use client";
 import { tremorTwMerge } from "lib";
 import React, { useMemo } from "react";
-import { DayPickerSingleProps } from "react-day-picker";
 
 import { startOfMonth, startOfToday } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
 import { CalendarIcon, XCircleIcon } from "assets";
-import { Calendar } from "components/input-elements/Calendar";
+import { Calendar, DayPickerSingleProps } from "components/input-elements/Calendar";
 import { makeDatePickerClassName } from "components/input-elements/DatePicker/datePickerUtils";
 import { useInternalState } from "hooks";
 import { Color } from "../../../lib/inputTypes";
