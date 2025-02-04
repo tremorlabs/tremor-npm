@@ -4,7 +4,7 @@ import { CalendarIcon, XCircleIcon } from "assets";
 import { startOfMonth, startOfToday } from "date-fns";
 import { tremorTwMerge } from "lib";
 import React, { ReactElement, useMemo, useState } from "react";
-import { DateRange, DayPickerRangeProps } from "react-day-picker";
+import { DateRange } from "react-day-picker";
 import {
   constructValueToNameMapping,
   getNodeText,
@@ -19,7 +19,7 @@ import {
   parseStartDate,
 } from "./dateRangePickerUtils";
 
-import { Calendar } from "components/input-elements/Calendar";
+import { Calendar, DayPickerRangeProps } from "components/input-elements/Calendar";
 import { DateRangePickerItemProps } from "components/input-elements/DateRangePicker/DateRangePickerItem";
 import { SelectItem } from "components/input-elements/Select";
 import { enUS } from "date-fns/locale";
@@ -277,16 +277,17 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>((
               disabled={disabledDays}
               enableYearNavigation={enableYearNavigation}
               classNames={{
-                day_range_middle: tremorTwMerge(
+                range_middle: tremorTwMerge(
                   "!rounded-none aria-selected:!bg-tremor-background-subtle aria-selected:dark:!bg-dark-tremor-background-subtle aria-selected:!text-tremor-content aria-selected:dark:!bg-dark-tremor-background-subtle",
                 ),
-                day_range_start:
+                range_start:
                   "rounded-r-none rounded-l-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
-                day_range_end:
+                range_end:
                   "rounded-l-none rounded-r-tremor-small aria-selected:text-tremor-brand-inverted dark:aria-selected:text-dark-tremor-brand-inverted",
               }}
               weekStartsOn={weekStartsOn}
               {...props}
+              role={"dialog"}
             />
           </PopoverPanel>
         </Transition>
